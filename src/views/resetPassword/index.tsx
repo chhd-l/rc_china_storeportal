@@ -3,6 +3,54 @@ import { Input, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import { CheckCircleOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 
+//自定义reset password page的 button
+const ResetBtnGroup = ({ back, loading, disabled, next }: any) => {
+  return (
+    <div className="flex flex-row justify-between my-10">
+      <Button
+        className="w-5/12"
+        danger
+        onClick={() => {
+          back && back();
+        }}
+      >
+        Back
+      </Button>
+      <Button
+        className="w-5/12"
+        type="primary"
+        loading={loading}
+        danger
+        disabled={disabled}
+        onClick={(e) => {
+          next && next();
+        }}
+      >
+        Next
+      </Button>
+    </div>
+  );
+};
+
+//自定义panel title
+const CustomPanelTitle = ({ showBackArrow = false, backArrow }: any) => {
+  return (
+    <>
+      {showBackArrow ? (
+        <p className="text-left mb-0">
+          <ArrowLeftOutlined
+            style={{ color: "rgba(239, 68, 68,1)", fontSize: "24px" }}
+            onClick={() => {
+              backArrow && backArrow();
+            }}
+          />
+        </p>
+      ) : null}
+      <p className="text-xl font-medium -mt-4">Reset Password</p>
+    </>
+  );
+};
+
 const ResetPassword = () => {
   const [loading, setLoading] = useState(false);
   const [phone, setPhone] = useState("");
@@ -42,7 +90,7 @@ const ResetPassword = () => {
       <div className="flex flex-row  justify-center pt-20">
         {currentStep === "inputPhone" ? (
           <div className="bg-white w-80 h-80 border p-6">
-            <p className="text-xl font-medium">Reset Password</p>
+            <CustomPanelTitle />
             <div className="mt-10">
               <Input
                 value={phone}
@@ -53,41 +101,25 @@ const ResetPassword = () => {
               {loginError ? (
                 <p className="my-0 text-left text-red-500">{loginError}</p>
               ) : null}
-              <div className="flex flex-row justify-between my-10">
-                <Button
-                  className="w-5/12"
-                  danger
-                  onClick={(e) => {
-                    navigate("/home");
-                  }}
-                >
-                  Back
-                </Button>
-                <Button
-                  className="w-5/12"
-                  type="primary"
-                  loading={loading}
-                  danger
-                  disabled={phone === ""}
-                  onClick={(e) => phoneToNext()}
-                >
-                  Next
-                </Button>
-              </div>
+              <ResetBtnGroup
+                back={() => {
+                  navigate("/login");
+                }}
+                next={() => phoneToNext()}
+                loading={loading}
+                disabled={phone === ""}
+              />
             </div>
           </div>
         ) : null}
         {currentStep === "inputVerifyCode" ? (
           <div className="bg-white w-80 h-80 border p-6">
-            <p className="text-left mb-0">
-              <ArrowLeftOutlined
-                style={{ color: "rgba(239, 68, 68,1)", fontSize: "24px" }}
-                onClick={() => {
-                  setCurrentStep("inputPhone");
-                }}
-              />
-            </p>
-            <p className="text-xl font-medium -mt-4">Reset Password</p>
+            <CustomPanelTitle
+              showBackArrow={true}
+              backArrow={() => {
+                setCurrentStep("inputPhone");
+              }}
+            />
             <p className="mb-0">Your verification code is sent to</p>
             <p className="mb-0">(+86) {phone}</p>
             <div className="mt-8">
@@ -106,41 +138,25 @@ const ResetPassword = () => {
                   Resend
                 </span>
               </p>
-              <div className="flex flex-row justify-between my-8">
-                <Button
-                  className="w-5/12"
-                  danger
-                  onClick={(e) => {
-                    setCurrentStep("inputPhone");
-                  }}
-                >
-                  Back
-                </Button>
-                <Button
-                  className="w-5/12"
-                  type="primary"
-                  loading={loading}
-                  danger
-                  disabled={verifyCode === ""}
-                  onClick={(e) => verifyCodeToNext()}
-                >
-                  Next
-                </Button>
-              </div>
+              <ResetBtnGroup
+                back={() => {
+                  setCurrentStep("inputPhone");
+                }}
+                next={() => verifyCodeToNext()}
+                loading={loading}
+                disabled={verifyCode === ""}
+              />
             </div>
           </div>
         ) : null}
         {currentStep === "inputNewPassword" ? (
           <div className="bg-white w-80 h-80 border p-6">
-            <p className="text-left mb-0">
-              <ArrowLeftOutlined
-                  style={{ color: "rgba(239, 68, 68,1)", fontSize: "24px" }}
-                  onClick={() => {
-                    setCurrentStep("inputPhone");
-                  }}
-              />
-            </p>
-            <p className="text-xl font-medium -mt-4">Reset Password</p>
+            <CustomPanelTitle
+              showBackArrow={true}
+              backArrow={() => {
+                setCurrentStep("inputVerifyCode");
+              }}
+            />
             <p className="mb-0">Your verification code is sent to</p>
             <p className="mb-0">(+86) {phone}</p>
             <div className="mt-6">
@@ -160,27 +176,14 @@ const ResetPassword = () => {
               {loginError ? (
                 <p className="my-0 text-left text-red-500">{loginError}</p>
               ) : null}
-              <div className="flex flex-row justify-between my-10">
-                <Button
-                  className="w-5/12"
-                  danger
-                  onClick={(e) => {
-                    setCurrentStep("inputVerifyCode");
-                  }}
-                >
-                  Back
-                </Button>
-                <Button
-                  className="w-5/12"
-                  type="primary"
-                  loading={loading}
-                  danger
-                  disabled={oldPassword === "" || newPassword === ""}
-                  onClick={(e) => newPasswordToNext()}
-                >
-                  Next
-                </Button>
-              </div>
+              <ResetBtnGroup
+                back={() => {
+                  setCurrentStep("inputVerifyCode");
+                }}
+                next={() => newPasswordToNext()}
+                loading={loading}
+                disabled={oldPassword === "" || newPassword === ""}
+              />
             </div>
           </div>
         ) : null}
