@@ -1,28 +1,21 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
-import { DatePicker } from 'antd'
-
+import { Suspense } from "react";
+import { Routes, Route, BrowserRouter, Navigate, useRoutes } from "react-router-dom";
+import Router from "./routers";
+import { Spin } from "antd";
+import Header from './components/Header'
+import './App.css'
 function App() {
+  let Routers = useRoutes(Router);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <DatePicker/>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Suspense fallback={<Spin />}>
+        <Header/>
+        {Routers}
+      </Suspense>
     </div>
   );
 }
 
-export default App;
+export default App
