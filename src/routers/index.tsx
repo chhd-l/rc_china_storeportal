@@ -1,39 +1,13 @@
 import { lazy } from "react"; // 路由懒加载
 import type { RouteObject } from "react-router-dom";
-import {useRoutes} from 'react-router-dom'
-const AppLayout = lazy(() => import("../layout/applayout"));
+const AppLayout = lazy(() => import("../layout/layout"));
 const Home = lazy(() => import("../views/index"));
 const Login = lazy(() => import("../views/login"));
-
-// export type RouterType = {
-//   path: string;
-//   component: React.LazyExoticComponent<any>;
-//   root?: string[];
-//   children?:any;
-//   notExect?: boolean;
-//   redirectTo?: string;
-// }[];
-
-// const Routers: RouterType  = [
-//   {
-//     path: "/app",
-//     component: AppLayout,
-//     children:[
-//       {
-//         path: "/home",
-//         component: Home,
-//       }
-//     ]
-//   },
-//   {
-//     path: "/login",
-//     component: Login,
-//   }
-// ];
+const ProductList = lazy(() => import('../views/products/productList'))
 
 let routes: RouteObject[] = [
   {
-    path: "/app",
+    path: "/",
     element: <AppLayout />,
     children: [
       // { index: true, element: <Home /> },
@@ -45,11 +19,12 @@ let routes: RouteObject[] = [
         //   { path: "/courses/:id", element: <Course /> },
         // ],
       },
+      { path: "/product-list", element: <ProductList /> },
     ],
-    
+
   },
   { path: "/login", element: <Login /> },
-    { path: "*", element: <Home /> },
+  { path: "*", element: <Home /> },
 ];
 
 // The useRoutes() hook allows you to define your routes as JavaScript objects

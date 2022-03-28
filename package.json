@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/pro-table": "^2.70.0",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.4.1",
+    "@types/lodash": "^4.14.180",
     "@types/node": "^16.11.26",
     "@types/react": "^17.0.41",
     "@types/react-dom": "^17.0.14",
