@@ -83,7 +83,15 @@ const Register = () => {
                   <Input
                     value={registerInfo[item]}
                     size="large"
-                    placeholder="Enter user name"
+                    placeholder={
+                      item === "userName"
+                        ? "Enter user name"
+                        : item === "phoneNumber"
+                        ? "Enter phone number"
+                        : item === "password"
+                        ? "Enter password"
+                        : "Confirm password"
+                    }
                     onChange={(e) => updateRegisterInfo(e.target.value, item)}
                     style={{ marginBottom: "10px" }}
                   />
@@ -98,7 +106,10 @@ const Register = () => {
                 type="primary"
                 loading={loading}
                 danger
-                disabled={Object.values(errMsgObj).includes("")}
+                disabled={
+                  Object.values(registerInfo).includes("") ||
+                  !Object.values(errMsgObj).every((item) => item === "")
+                }
                 onClick={() => registerToNext()}
                 className="w-full"
               >
