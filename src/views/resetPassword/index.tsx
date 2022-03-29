@@ -5,6 +5,8 @@ import {
   SuccessPanel,
   CustomPanelTitle,
 } from "@/components/registerAndResetPass";
+import validForm from "@/lib/valid-form";
+import { RESETPASSWORD_RULE } from "./module/resetRule";
 
 //自定义reset password page的 button
 const ResetBtnGroup = ({ back, loading, disabled, next }: any) => {
@@ -38,7 +40,7 @@ const ResetBtnGroup = ({ back, loading, disabled, next }: any) => {
 const ResetPassword = () => {
   const [loading, setLoading] = useState(false);
   const [phone, setPhone] = useState("");
-  const [loginError, setLoginError] = useState("");
+  const [errText, setErrText] = useState("");
   const [currentStep, setCurrentStep] = useState("inputPhone");
   const [verifyCode, setVerifyCode] = useState("");
   const [oldPassword, setOldPassword] = useState("");
@@ -52,6 +54,15 @@ const ResetPassword = () => {
       getVerifyCode();
       setCurrentStep("inputVerifyCode");
     } catch (err) {}
+  };
+
+  // 表单验证
+  const verifyForm = (name: string, value: any) => {
+    const errMsg = validForm({
+      RULE: RESETPASSWORD_RULE,
+      data: { [name]: value },
+    });
+    setErrText(errMsg);
   };
 
   const verifyCodeToNext = () => {
@@ -77,10 +88,13 @@ const ResetPassword = () => {
                 value={phone}
                 size="large"
                 placeholder="Phone number"
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => {
+                  setPhone(e.target.value);
+                  verifyForm("phoneNumber", e.target.value);
+                }}
               />
-              {loginError ? (
-                <p className="my-0 text-left text-red-500">{loginError}</p>
+              {errText ? (
+                <p className="my-0 text-left text-red-500">{errText}</p>
               ) : null}
               <ResetBtnGroup
                 back={() => {
@@ -88,7 +102,7 @@ const ResetPassword = () => {
                 }}
                 next={() => phoneToNext()}
                 loading={loading}
-                disabled={phone === ""}
+                disabled={phone === "" || errText !== ""}
               />
             </div>
           </div>
@@ -98,6 +112,7 @@ const ResetPassword = () => {
             <CustomPanelTitle
               showBackArrow={true}
               backArrow={() => {
+                setErrText("");
                 setCurrentStep("inputPhone");
               }}
             />
@@ -110,8 +125,8 @@ const ResetPassword = () => {
                 placeholder="Enter verification code"
                 onChange={(e) => setVerifyCode(e.target.value)}
               />
-              {loginError ? (
-                <p className="my-0 text-left text-red-500">{loginError}</p>
+              {errText ? (
+                <p className="my-0 text-left text-red-500">{errText}</p>
               ) : null}
               <p className="text-left mt-2">
                 Did not receive the code? &nbsp;
@@ -121,6 +136,7 @@ const ResetPassword = () => {
               </p>
               <ResetBtnGroup
                 back={() => {
+                  setErrText("");
                   setCurrentStep("inputPhone");
                 }}
                 next={() => verifyCodeToNext()}
@@ -135,6 +151,7 @@ const ResetPassword = () => {
             <CustomPanelTitle
               showBackArrow={true}
               backArrow={() => {
+                setErrText("");
                 setCurrentStep("inputVerifyCode");
               }}
             />
@@ -154,11 +171,12 @@ const ResetPassword = () => {
                 placeholder="Enter password again"
                 onChange={(e) => setNewPassword(e.target.value)}
               />
-              {loginError ? (
-                <p className="my-0 text-left text-red-500">{loginError}</p>
+              {errText ? (
+                <p className="my-0 text-left text-red-500">{errText}</p>
               ) : null}
               <ResetBtnGroup
                 back={() => {
+                  setErrText("");
                   setCurrentStep("inputVerifyCode");
                 }}
                 next={() => newPasswordToNext()}

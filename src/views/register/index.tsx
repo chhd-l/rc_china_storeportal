@@ -33,6 +33,7 @@ const Register = () => {
   const [verifyCode, setVerifyCode] = useState("");
   const [errVerifyCode, setErrVerifyCode] = useState(false);
   const navigate = useNavigate();
+  const [getVerifyCodeErr, setGetVerifyCodeErr] = useState("");
 
   const updateRegisterInfo = (value: string, name: string) => {
     setRegisterInfo({ ...registerInfo, [name]: value });
@@ -55,6 +56,7 @@ const Register = () => {
     try {
       getVerifyCode();
       setCurrentStep("inputVerifyCode");
+      setGetVerifyCodeErr("");
     } catch (err) {}
   };
 
@@ -102,6 +104,11 @@ const Register = () => {
                   ) : null}
                 </>
               ))}
+              {getVerifyCodeErr ? (
+                <p className="mb-2 text-left text-red-500">
+                  {getVerifyCodeErr}
+                </p>
+              ) : null}
               <Button
                 type="primary"
                 loading={loading}
@@ -157,6 +164,11 @@ const Register = () => {
                   </span>
                 </p>
               )}
+              {getVerifyCodeErr ? (
+                <p className="mb-2 text-left text-red-500">
+                  {getVerifyCodeErr}
+                </p>
+              ) : null}
               <Button
                 type="primary"
                 loading={loading}
