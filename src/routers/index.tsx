@@ -5,6 +5,7 @@ const AppLayout = lazy(() => import("../layout/applayout"));
 const Home = lazy(() => import("../views/index"));
 const Login = lazy(() => import("../views/login"));
 const ResetPassword = lazy(() => import("../views/resetPassword"));
+const Register = lazy(() => import("../views/register"));
 
 // export type RouterType = {
 //   path: string;
@@ -51,6 +52,7 @@ let routes: RouteObject[] = [
   },
   { path: "/login", element: <Login /> },
   { path: "/resetPassword", element: <ResetPassword /> },
+  { path: "/register", element: <Register /> },
     { path: "*", element: <Home /> },
 ];
 
