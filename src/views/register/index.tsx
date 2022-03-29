@@ -6,14 +6,25 @@ import {
   SuccessPanel,
   CustomPanelTitle,
 } from "@/components/registerAndResetPass";
+import validForm from "@/lib/valid-form";
+import { REGISTER_RULE } from "./module/registerRule";
 
 const title = "Sign up";
+
+interface KeyRules {
+  [key: string]: string;
+}
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState("inputInfo");
-  const [loginError, setLoginError] = useState("");
-  const [registerInfo, setRegisterInfo] = useState({
+  const [registerInfo, setRegisterInfo] = useState<KeyRules>({
+    userName: "",
+    phoneNumber: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [errMsgObj, setErrMsgObj] = useState<KeyRules>({
     userName: "",
     phoneNumber: "",
     password: "",
@@ -25,8 +36,19 @@ const Register = () => {
 
   const updateRegisterInfo = (value: string, name: string) => {
     setRegisterInfo({ ...registerInfo, [name]: value });
+    verifyForm(name, value);
   };
 
+  // 表单验证
+  const verifyForm = (name: string, value: any) => {
+    const errMsg = validForm({
+      RULE: REGISTER_RULE,
+      data: { [name]: value },
+    });
+    setErrMsgObj({ ...errMsgObj, [name]: errMsg });
+  };
+
+  //获取验证码
   const getVerifyCode = () => {};
 
   const registerToNext = () => {
@@ -36,7 +58,7 @@ const Register = () => {
     } catch (err) {}
   };
 
-  const verifyCodeToRegister = () => {
+  const verifyCodeToConfirm = () => {
     try {
       setCurrentStep("success");
     } catch (err) {}
@@ -56,60 +78,27 @@ const Register = () => {
               title={title}
             />
             <div className="">
-              <Input
-                value={registerInfo["userName"]}
-                size="large"
-                placeholder="Enter user name"
-                onChange={(e) => updateRegisterInfo(e.target.value, "userName")}
-                style={{ marginBottom: "10px" }}
-              />
-              {loginError ? (
-                <p className="my-0 text-left text-red-500">{loginError}</p>
-              ) : null}
-              <Input
-                value={registerInfo.phoneNumber}
-                size="large"
-                placeholder="Enter phone number"
-                onChange={(e) =>
-                  updateRegisterInfo(e.target.value, "phoneNumber")
-                }
-                style={{ marginBottom: "10px" }}
-              />
-              {loginError ? (
-                <p className="my-0 text-left text-red-500">{loginError}</p>
-              ) : null}
-              <Input
-                value={registerInfo.password}
-                size="large"
-                placeholder="Enter password"
-                onChange={(e) => updateRegisterInfo(e.target.value, "password")}
-                style={{ marginBottom: "10px" }}
-              />
-              {loginError ? (
-                <p className="my-0 text-left text-red-500">{loginError}</p>
-              ) : null}
-              <Input
-                value={registerInfo.confirmPassword}
-                size="large"
-                placeholder="Confirm password"
-                onChange={(e) =>
-                  updateRegisterInfo(e.target.value, "confirmPassword")
-                }
-                style={{ marginBottom: "10px" }}
-              />
-              {loginError ? (
-                <p className="my-0 text-left text-red-500">{loginError}</p>
-              ) : null}
+              {Object.keys(registerInfo).map((item: string) => (
+                <>
+                  <Input
+                    value={registerInfo[item]}
+                    size="large"
+                    placeholder="Enter user name"
+                    onChange={(e) => updateRegisterInfo(e.target.value, item)}
+                    style={{ marginBottom: "10px" }}
+                  />
+                  {errMsgObj[item] ? (
+                    <p className="mb-2 text-left text-red-500">
+                      {errMsgObj[item]}
+                    </p>
+                  ) : null}
+                </>
+              ))}
               <Button
                 type="primary"
                 loading={loading}
                 danger
-                disabled={
-                  registerInfo.userName === "" ||
-                  registerInfo.phoneNumber === "" ||
-                  registerInfo.password === "" ||
-                  registerInfo.confirmPassword === ""
-                }
+                disabled={Object.values(errMsgObj).includes("")}
                 onClick={() => registerToNext()}
                 className="w-full"
               >
@@ -146,19 +135,23 @@ const Register = () => {
                     Resend code
                   </span>
                 </p>
-              ) : null}
-              <p className="text-left mt-2">
-                Did not receive the code? &nbsp;
-                <span className="text-red-500" onClick={() => getVerifyCode()}>
-                  Resend
-                </span>
-              </p>
+              ) : (
+                <p className="text-left mt-2">
+                  Did not receive the code? &nbsp;
+                  <span
+                    className="text-red-500"
+                    onClick={() => getVerifyCode()}
+                  >
+                    Resend
+                  </span>
+                </p>
+              )}
               <Button
                 type="primary"
                 loading={loading}
                 danger
                 disabled={verifyCode === ""}
-                onClick={() => verifyCodeToRegister()}
+                onClick={() => verifyCodeToConfirm()}
                 className="w-full"
               >
                 Confirm
