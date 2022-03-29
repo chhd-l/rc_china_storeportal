@@ -1,4 +1,3 @@
-//自定义panel title
 import { CheckCircleOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import React from "react";

@@ -67,10 +67,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div
-      className="h-screen"
-      style={{ backgroundColor: "rgba(248,248,248,1)" }}
-    >
+    <div className="h-screen bg-gray1">
       <div className="flex flex-row  justify-center pt-20">
         {currentStep === "inputPhone" ? (
           <div className="bg-white w-80 h-80 border p-6">

@@ -21,10 +21,7 @@ const Login = () => {
   };
 
   return (
-    <div
-      className="h-screen"
-      style={{ backgroundColor: "rgba(248,248,248,1)" }}
-    >
+    <div className="h-screen bg-gray1">
       <div className="flex flex-row  justify-center pt-20">
         <SellerLogoPanel />
         <div className="bg-white w-80 border p-6">
@@ -54,8 +51,7 @@ const Login = () => {
               Remember password
             </Checkbox>
             <a
-              className="text-red-500 font-medium"
-              style={{ fontSize: "12px" }}
+              className="text-red-500 font-medium text-12"
               href={"/resetPassword"}
             >
               Forget password?
@@ -73,13 +69,9 @@ const Login = () => {
           >
             Login
           </Button>
-          <p style={{ fontSize: "12px" }}>
+          <p className="text-12">
             Don't have an account?{" "}
-            <a
-              className="text-red-500 font-medium"
-              style={{ fontSize: "12px" }}
-              href={"/register"}
-            >
+            <a className="text-red-500 font-medium text-12" href={"/register"}>
               Register
             </a>
           </p>

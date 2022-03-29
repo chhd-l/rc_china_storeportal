@@ -43,10 +43,7 @@ const Register = () => {
   };
 
   return (
-    <div
-      className="h-screen"
-      style={{ backgroundColor: "rgba(248,248,248,1)" }}
-    >
+    <div className="h-screen bg-gray1">
       <div className="flex flex-row  justify-center pt-20">
         <SellerLogoPanel />
         {currentStep === "inputInfo" ? (
