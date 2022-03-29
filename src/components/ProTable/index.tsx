@@ -1,9 +1,8 @@
-import React from 'react';
-import type { ProColumns } from '@ant-design/pro-table';
 import ProTable, { ProTableProps } from '@ant-design/pro-table';
-export * from '@ant-design/pro-table';
-import './index.less';
+import './index.css';
+// import './index.css';
 import { defaultsDeep } from 'lodash';
+export * from '@ant-design/pro-table';
 
 export default (props: ProTableProps<any, any>) => {
   const { ...moreProps } = props;
@@ -12,6 +11,7 @@ export default (props: ProTableProps<any, any>) => {
     rowKey: 'id',
     options: false,
     pagination: {
+      showSizeChanger:true,
       pageSize: 10,
       size: 'default',
       showQuickJumper: true,
