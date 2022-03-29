@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {
   SuccessPanel,
   CustomPanelTitle,
-} from "../../components/registerAndResetPass";
+} from "@/components/registerAndResetPass";
 
 //自定义reset password page的 button
 const ResetBtnGroup = ({ back, loading, disabled, next }: any) => {

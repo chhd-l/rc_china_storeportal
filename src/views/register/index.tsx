@@ -5,7 +5,7 @@ import {
   SellerLogoPanel,
   SuccessPanel,
   CustomPanelTitle,
-} from "../../components/registerAndResetPass";
+} from "@/components/registerAndResetPass";
 
 const title = "Sign up";
 

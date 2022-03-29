@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Input, Button, Checkbox } from "antd";
 import { useNavigate } from "react-router-dom";
-import { SellerLogoPanel } from "../../components/registerAndResetPass";
+import { SellerLogoPanel } from "@/components/registerAndResetPass";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -19,6 +19,7 @@ const Login = () => {
       setLoginError("error");
     }
   };
+
   return (
     <div
       className="h-screen"
