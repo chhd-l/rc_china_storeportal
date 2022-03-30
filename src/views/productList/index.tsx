@@ -2,7 +2,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Link } from 'react-router-dom'
 import { Button, Badge, Select } from 'antd';
 import type { ProColumns } from "@ant-design/pro-table";
-import ProTable, { ProTableProps } from "../../components/ProTable";
+import ProTable, { ProTableProps } from "../../components/common/ProTable";
 import {  useState } from 'react'
 import {  DeleteOutlined, EyeOutlined, EditOutlined, DownloadOutlined } from '@ant-design/icons';
 import SearchHeader from './components/SearchHeader'
