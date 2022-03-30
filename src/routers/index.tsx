@@ -6,6 +6,9 @@ const Home = lazy(() => import("../views/index"));
 const Login = lazy(() => import("../views/login"));
 const ResetPassword = lazy(() => import("../views/resetPassword"));
 const Register = lazy(() => import("../views/register"));
+const PetOwnerList=lazy(()=>import('@/views/petOwnerList'))
+const PetOwnerDetail=lazy(()=>import('@/views/petOwnerDetail'))
+const PetDetail=lazy(()=>import('@/views/petDetail'))
 
 // export type RouterType = {
 //   path: string;
@@ -35,7 +38,7 @@ const Register = lazy(() => import("../views/register"));
 
 let routes: RouteObject[] = [
   {
-    path: "/app",
+    path: "/",
     element: <AppLayout />,
     children: [
       // { index: true, element: <Home /> },
@@ -47,6 +50,9 @@ let routes: RouteObject[] = [
         //   { path: "/courses/:id", element: <Course /> },
         // ],
       },
+      { path: "/pet-owner-list", element: <PetOwnerList /> },
+      { path: "/pet-owner-detail", element: <PetOwnerDetail /> },
+      { path: "/pet-detail", element: <PetDetail /> },
     ],
 
   },
