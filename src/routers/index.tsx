@@ -3,8 +3,8 @@ import type { RouteObject } from "react-router-dom";
 const AppLayout = lazy(() => import("../layout/layout"));
 const Home = lazy(() => import("../views/index"));
 const Login = lazy(() => import("../views/login"));
-const ProductList = lazy(() => import('../views/products/productList/index'))
-
+const ProductList = lazy(() => import('../views/productList'))
+const AddProduct = lazy(()=>import ('../views/product'))
 let routes: RouteObject[] = [
   {
     path: "/",
@@ -20,6 +20,8 @@ let routes: RouteObject[] = [
         // ],
       },
       { path: "/product-list", element: <ProductList /> },
+      { path: "/product/:id", element: <AddProduct /> },
+      { path: "/product/add", element: <AddProduct /> },
     ],
 
   },

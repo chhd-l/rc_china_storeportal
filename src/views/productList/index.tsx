@@ -1,19 +1,18 @@
 import { PlusOutlined } from "@ant-design/icons";
-
-import { Button, Badge, Tooltip, Select } from 'antd';
-import { LightFilter, ProFormDatePicker } from '@ant-design/pro-form';
+import { Link } from 'react-router-dom'
+import { Button, Badge, Select } from 'antd';
 import type { ProColumns } from "@ant-design/pro-table";
-import ProTable, { ProTableProps } from "../../../components/ProTable";
-import { SetStateAction, useState } from 'react'
-import { EllipsisOutlined, DeleteOutlined, QuestionCircleOutlined, EyeOutlined, EditOutlined, DownloadOutlined } from '@ant-design/icons';
+import ProTable, { ProTableProps } from "../../components/ProTable";
+import {  useState } from 'react'
+import {  DeleteOutlined, EyeOutlined, EditOutlined, DownloadOutlined } from '@ant-design/icons';
 import SearchHeader from './components/SearchHeader'
 export type TableListItem = {
   key: number;
   name: string;
-  containers: number;
+  price: number;
   status: string;
   creator: string;
-  createdAt: number;
+  stock: number;
 };
 
 const valueEnum = {
@@ -31,10 +30,10 @@ const creators = ['付小小', '曲丽丽', '林东东', '陈帅帅', '兼某某
 for (let i = 0; i < 50; i += 1) {
   tableListDataSource.push({
     key: i,
-    name: 'AppName',
-    containers: Math.floor(Math.random() * 20),
+    name: 'prodcut name',
+    price: Math.floor(Math.random() * 20),
     status: valueEnum[0],
-    createdAt: Date.now() - Math.floor(Math.random() * 2000),
+    stock: Math.floor(Math.random() * 10),
     creator: creators[Math.floor(Math.random() * creators.length)],
   });
 }
@@ -73,51 +72,33 @@ export default () => {
     {
       title: 'SKU',
       dataIndex: 'creator',
-      valueEnum: {
-        all: { text: '全部' },
-        付小小: { text: '付小小' },
-        曲丽丽: { text: '曲丽丽' },
-        林东东: { text: '林东东' },
-        陈帅帅: { text: '陈帅帅' },
-        兼某某: { text: '兼某某' },
-      },
     },
     {
       title: 'Varitions',
       dataIndex: 'status',
-      //   initialValue: 'all',
-      //   filters: true,
-      //   onFilter: true,
-      //   valueEnum: {
-      //     all: { text: '全部', status: 'Default' },
-      //     close: { text: '待发布', status: 'Default' },
-      //     running: { text: '发布中', status: 'Processing' },
-      //     online: { text: '发布成功', status: 'Success' },
-      //     error: { text: '发布失败', status: 'Error' },
-      //   },
     },
     {
       title: 'Price',
-      dataIndex: 'containers',
+      dataIndex: 'price',
       align: 'left',
-      sorter: (a, b) => a.containers - b.containers,
+      sorter: (a, b) => a.price - b.price,
     },
     {
-      title:'Stock',
+      title: 'Stock',
       width: 140,
       key: 'since',
-      dataIndex: 'createdAt',
+      dataIndex: 'stock',
       valueType: 'date',
-      sorter: (a, b) => a.createdAt - b.createdAt,
+      sorter: (a, b) => a.stock - b.stock,
     },
     {
       title: '操作',
       key: 'option',
-      width: 120,
+      width: 180,
       valueType: 'option',
       render: (_, record) => [
         <a ><EyeOutlined /></a>,
-        <a ><EditOutlined /></a>,
+        <Link to={`/product/${record.key}`}><EditOutlined /></Link>,
         <a ><DownloadOutlined /></a>,
         <a
           style={
@@ -134,8 +115,8 @@ export default () => {
       ],
     },
   ];
-  const getFormData = (data:any)=>{
-console.info(data,'data')
+  const getFormData = (data: any) => {
+    console.info(data, 'data')
   }
   return (
     <div className="bg-gray-50 py-14 px-6 text-left">
@@ -178,15 +159,16 @@ console.info(data,'data')
             },
           },
           actions: [
-            <Button type="primary">
+            <Link to="/product/add"><Button type="primary">
               Add a New Product
-            </Button>, <Button  >
+            </Button></Link>
+            , <Button  >
               Export
             </Button>,
           ],
         }}
         tableAlertRender={() => false}
-        rowKey={(record)=>record.key}
+        rowKey={(record) => record.key}
         pagination={{
           showQuickJumper: true,
         }}
@@ -206,14 +188,14 @@ console.info(data,'data')
         <div>
           <span className="mr-4">4 products selected</span>
           <Button className="mr-4">
-              Delete
-            </Button>
-            <Button className="mr-4">
-              Delist
-            </Button>
-            <Button  className="mr-4"  type="primary">
-              Publish
-            </Button>
+            Delete
+          </Button>
+          <Button className="mr-4">
+            Delist
+          </Button>
+          <Button className="mr-4" type="primary">
+            Publish
+          </Button>
         </div>
       </div>
     </div>

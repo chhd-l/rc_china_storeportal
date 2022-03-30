@@ -38,23 +38,34 @@ const MenuLists = [
         url: "/product-list",
         key: "my_products",
       },
-      { name: "Add New Product", value: "add_new_product", url: "/home", key: "add_new_product" },
+      { name: "Add New Product", value: "add_new_product", url: "/product/add", key: "add_new_product" },
     ],
   },
 ];
 const Menus = () => {
   const { SubMenu } = Menu;
   const {pathname} = useLocation()
+  const loactions = useLocation()
   console.info('pathname', pathname)
+
   const [selectedKeys,setSelectedKeys] = useState([''])
   const [openKeys,setOpenKeys] = useState([''])
   const [menuList, setMenuList] = useState(MenuLists);
   const handleClick = (e: any) => {
     console.log("click ", e);
+    };
+  const onOpenChange = (e: any) => {
+    console.log("onOpenChange ", e);
+    let openedKey = e.length>1?[e[1]]:e
+    setOpenKeys(openedKey)
   };
   useEffect(()=>{
+    console.info('loactionsloactions', loactions)
     initActive()
   },[pathname])
+  useEffect(()=>{
+    initActive()
+  },[])
   const initActive = ()=>{
     menuList.forEach(menu=>{
         menu.children.forEach(subMenu=>{
@@ -68,6 +79,7 @@ const Menus = () => {
   return (
     <Menu
       onClick={handleClick}
+      onOpenChange={onOpenChange}
       style={{ width: 256 }}
       selectedKeys={selectedKeys}
       openKeys={openKeys}
