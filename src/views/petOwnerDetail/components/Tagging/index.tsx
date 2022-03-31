@@ -15,7 +15,7 @@ const Tagging = ({ tagList, id }: TagInfoProps) => {
         <div>Tag name</div>
         <div className="border flex flex-row flex-wrap p-2 mt-2">
           {tagList.map((item: Tag) => (
-            <div className="bg-gray1 p-1 font-normal flex items-center">
+            <div className="bg-gray1 p-1 font-normal flex items-center" key={item.id}>
               <div className="mr-2">{item.name}</div>{" "}
               <CloseOutlined onClick={() => deleteTag()} />
             </div>

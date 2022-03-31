@@ -75,6 +75,7 @@ const CouponInformation = ({ couponCodeList, id }: CouponInfoProps) => {
           dataSource={couponCodeList}
           columns={columns}
           pagination={false}
+          rowKey='id'
         />
       </div>
     </div>

@@ -66,7 +66,7 @@ const MyAddress = ({ addressList,id }: AddressInfoProps) => {
     <div id={id}>
       <div className="py-4 px-2 border-b text-xl font-medium">My Address</div>
       <div className="py-4">
-        <Table dataSource={addressList} columns={columns} pagination={false} />
+        <Table dataSource={addressList} columns={columns} pagination={false} rowKey='id'/>
       </div>
     </div>
   );

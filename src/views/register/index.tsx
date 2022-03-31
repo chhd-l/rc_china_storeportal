@@ -28,16 +28,22 @@ const Register = () => {
 
   const registerToNext = () => {
     try {
+      setLoading(true);
       getVerifyCode();
       setCurrentStep("inputVerifyCode");
       setGetVerifyCodeErr("");
-    } catch (err) {}
+    } catch (err) {
+    } finally {
+      setLoading(false);
+    }
   };
 
   const verifyCodeToConfirm = () => {
     try {
       setCurrentStep("success");
-    } catch (err) {}
+    } catch (err) {
+      setErrVerifyCode(true);
+    }
   };
 
   return (
@@ -64,7 +70,7 @@ const Register = () => {
               autoComplete="off"
             >
               {formItems.map((item: FormItemProps) => (
-                <Form.Item colon={false} name={item.name} rules={item.rules}>
+                <Form.Item colon={false} name={item.name} rules={item.rules} key={item.name}>
                   <Input placeholder={item.placeholder} />
                 </Form.Item>
               ))}

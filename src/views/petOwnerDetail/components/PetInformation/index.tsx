@@ -18,7 +18,7 @@ const PetInformation = ({ petList,id }: PetInfoProps) => {
       </div>
       <div className="px-2 py-4 flex flex-row flex-wrap">
         {petList.map((item: Pet) => (
-          <div className="flex items-center border p-4 mr-4">
+          <div className="flex items-center border p-4 mr-4" key={item.id}>
             <Avatar shape="square" size="large" icon={<UserOutlined />} />
             <div className="ml-4">
               <div>{item.name}</div>

@@ -1,5 +1,5 @@
 import React from "react";
-import loginImage from "../../../assets/images/img-login.png";
+import loginImage from "@/assets/images/img-login.png";
 
 const SellerLogoPanel = () => {
   return (
@@ -9,7 +9,7 @@ const SellerLogoPanel = () => {
           Seller Center
         </p>
         <p className="text-left">Efficient store management tools</p>
-        <img src={loginImage} className="mt-2" />
+        <img src={loginImage} className="mt-2" alt="" />
       </div>
     </>
   );

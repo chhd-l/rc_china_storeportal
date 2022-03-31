@@ -48,6 +48,7 @@ const SmartDevices = ({ smartDeviceList,id }: SmartDeviceInfoProps) => {
           dataSource={smartDeviceList}
           columns={columns}
           pagination={false}
+          rowKey='id'
         />
       </div>
     </div>

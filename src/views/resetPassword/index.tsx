@@ -47,9 +47,13 @@ const ResetPassword = () => {
 
   const phoneToNext = () => {
     try {
+      setLoading(true);
       getVerifyCode();
       setCurrentStep("inputVerifyCode");
-    } catch (err) {}
+    } catch (err) {
+    } finally {
+      setLoading(false);
+    }
   };
 
   const verifyCodeToNext = () => {
@@ -168,7 +172,7 @@ const ResetPassword = () => {
                 autoComplete="off"
               >
                 {passwordFormItems.map((item: FormItemProps) => (
-                  <Form.Item name={item.name} rules={item.rules}>
+                  <Form.Item name={item.name} rules={item.rules} key={item.name}>
                     <Input placeholder={item.placeholder} />
                   </Form.Item>
                 ))}

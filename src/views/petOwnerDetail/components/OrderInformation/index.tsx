@@ -44,7 +44,7 @@ const OrderInformation = ({ orderList,id }: OrderInfoProps) => {
         </Col>
       </Row>
       {orderList.map((item: Order) => (
-        <div className="border mt-2">
+        <div className="border mt-2" key={item.id}>
           <Row className="bg-gray1 border-b p-2">
             <Col span={12} className="flex items-center">
               <Avatar icon={<UserOutlined />} />
@@ -57,7 +57,7 @@ const OrderInformation = ({ orderList,id }: OrderInfoProps) => {
           <Row className="p-2 flex items-center">
             <Col span={8} className="flex flex-row items-center">
               {item.products.map((product: OrderTradeItem) => (
-                <Row className="items-center">
+                <Row className="items-center" key={product.id}>
                   <Col span={8}>
                     <Avatar shape="square" size={64} icon={<UserOutlined />} />
                   </Col>

@@ -50,6 +50,7 @@ const TencentAccounts = ({ tencentAccountList, id }: TencentAccountProps) => {
         dataSource={tencentAccountList}
         columns={columns}
         pagination={false}
+        rowKey='unionId'
       />
     </div>
   );

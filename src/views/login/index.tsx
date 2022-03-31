@@ -59,7 +59,7 @@ const Login = () => {
             autoComplete="off"
           >
             {formItems.map((item: FormItemProps) => (
-              <Form.Item name={item.name} rules={item.rules}>
+              <Form.Item name={item.name} rules={item.rules} key={item.name}>
                 <Input placeholder={item.placeholder} />
               </Form.Item>
             ))}
