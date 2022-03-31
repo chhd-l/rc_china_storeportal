@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Upload from '../../../../components/common/Upload'
+import Wangeditor from '../../../../components/common/Wangeditor'
 import {
   Form,
   Space,
@@ -47,7 +48,7 @@ export default(props:any) => {
       </Form.Item>
       
       <Form.Item label="Product Description" name={[props.field.name,'description']}  rules={[{ required: true, message: 'Missing Product Description' }]}>
-        <Input />
+        <Wangeditor />
       </Form.Item>
       <Form.Item label="Category" name={[props.field.name,'category']} >
         <Input />

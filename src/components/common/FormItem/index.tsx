@@ -1,4 +1,11 @@
 import { Form, Input, Select } from 'antd'
+// interface InputProps {
+//   className?:string
+//   parentName?:string
+//   field?:string
+//   layout?:string
+//   options:OptionProps
+// }
 export default (props: any) => {
   return <>
     {props.list.map((el: any) => {

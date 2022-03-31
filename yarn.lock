@@ -1142,7 +1142,7 @@
     "@babel/helper-validator-option" "^7.16.7"
     "@babel/plugin-transform-typescript" "^7.16.7"
 
-"@babel/runtime-corejs3@^7.10.2":
+"@babel/runtime-corejs3@^7.10.2", "@babel/runtime-corejs3@^7.11.2":
   "integrity" "sha512-ZbYSUvoSF6dXZmMl/CYTMOvzIFnbGfv4W3SEHYgMvNsFTeLaF2gkGAF4K2ddmtSK4Emej+0aYcnSC6N5dPCXUQ=="
   "resolved" "https://registry.npmmirror.com/@babel/runtime-corejs3/-/runtime-corejs3-7.17.8.tgz"
   "version" "7.17.8"
@@ -8973,7 +8973,7 @@
   "resolved" "https://registry.npmmirror.com/tslib/-/tslib-1.14.1.tgz"
   "version" "1.14.1"
 
-"tslib@^2.0.3":
+"tslib@^2.0.3", "tslib@^2.1.0":
   "integrity" "sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw=="
   "resolved" "https://registry.npmmirror.com/tslib/-/tslib-2.3.1.tgz"
   "version" "2.3.1"
@@ -9195,6 +9195,22 @@
   "version" "1.0.8"
   dependencies:
     "makeerror" "1.0.12"
+
+"wangeditor-for-react@^1.5.6":
+  "integrity" "sha512-FLxU4K6PXc9AS3SFfU7vZhUR+EpUEWUVraFPRUiSH9VSzt9jLO9fp4IyReT7ebbp/YaMKXHhN5JLu2v2/zvNrA=="
+  "resolved" "https://registry.npmmirror.com/wangeditor-for-react/-/wangeditor-for-react-1.5.6.tgz"
+  "version" "1.5.6"
+  dependencies:
+    "wangeditor" "^4.7.12"
+
+"wangeditor@^4.7.12":
+  "integrity" "sha512-5KOIpQ0+idKvDTkjZOp7RHYXA97FyJ9mjwy+zQUdMUCqZItlEXzvVOYtOlHkJr/HcbwgIz/7f/trGFggZK5X4g=="
+  "resolved" "https://registry.npmmirror.com/wangeditor/-/wangeditor-4.7.12.tgz"
+  "version" "4.7.12"
+  dependencies:
+    "@babel/runtime" "^7.11.2"
+    "@babel/runtime-corejs3" "^7.11.2"
+    "tslib" "^2.1.0"
 
 "watchpack@^2.3.1":
   "integrity" "sha512-x0t0JuydIo8qCNctdDrn1OzH/qDzk2+rdCOC3YzumZ42fiMqmQ7T3xQurykYMhYfHaPHTp4ZxAx2NfUo1K6QaA=="

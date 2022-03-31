@@ -5,6 +5,7 @@ const Home = lazy(() => import("../views/index"));
 const Login = lazy(() => import("../views/login"));
 const ProductList = lazy(() => import('../views/productList'))
 const AddProduct = lazy(()=>import ('../views/product'))
+const Catechoose = lazy(()=>import ('../views/catechoose'))
 let routes: RouteObject[] = [
   {
     path: "/",
@@ -22,6 +23,7 @@ let routes: RouteObject[] = [
       { path: "/product-list", element: <ProductList /> },
       { path: "/product/:id", element: <AddProduct /> },
       { path: "/product/add", element: <AddProduct /> },
+      { path: "/product/category", element: <Catechoose /> },
     ],
 
   },
