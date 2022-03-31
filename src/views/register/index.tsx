@@ -12,9 +12,17 @@ import { FormItemProps } from "@/framework/types/common";
 const title = "Sign up";
 const formItems: FormItemProps[] = REGISTER_FORM;
 
+enum REGISTERSTEPENUM {
+  REGISTERINFOR = "registerInfo",
+  VERIFYCODE = "verifyCode",
+  SUCCESS = "success",
+}
+
 const Register = () => {
   const [loading, setLoading] = useState(false);
-  const [currentStep, setCurrentStep] = useState("inputInfo");
+  const [currentStep, setCurrentStep] = useState(
+    REGISTERSTEPENUM["REGISTERINFOR"]
+  );
   const [phoneNumber, setPhoneNumber] = useState("");
   const [verifyCode, setVerifyCode] = useState("");
   const [errVerifyCode, setErrVerifyCode] = useState(false);
@@ -30,7 +38,7 @@ const Register = () => {
     try {
       setLoading(true);
       getVerifyCode();
-      setCurrentStep("inputVerifyCode");
+      setCurrentStep(REGISTERSTEPENUM["VERIFYCODE"]);
       setGetVerifyCodeErr("");
     } catch (err) {
     } finally {
@@ -40,7 +48,7 @@ const Register = () => {
 
   const verifyCodeToConfirm = () => {
     try {
-      setCurrentStep("success");
+      setCurrentStep(REGISTERSTEPENUM["SUCCESS"]);
     } catch (err) {
       setErrVerifyCode(true);
     }
@@ -50,7 +58,7 @@ const Register = () => {
     <div className="h-screen bg-gray1">
       <div className="flex flex-row  justify-center pt-20">
         <SellerLogoPanel />
-        {currentStep === "inputInfo" ? (
+        {currentStep === REGISTERSTEPENUM["REGISTERINFOR"] ? (
           <div className="bg-white w-80 border p-6">
             <CustomPanelTitle
               backArrow={() => {
@@ -70,7 +78,12 @@ const Register = () => {
               autoComplete="off"
             >
               {formItems.map((item: FormItemProps) => (
-                <Form.Item colon={false} name={item.name} rules={item.rules} key={item.name}>
+                <Form.Item
+                  colon={false}
+                  name={item.name}
+                  rules={item.rules}
+                  key={item.name}
+                >
                   <Input placeholder={item.placeholder} />
                 </Form.Item>
               ))}
@@ -87,12 +100,12 @@ const Register = () => {
             </Form>
           </div>
         ) : null}
-        {currentStep === "inputVerifyCode" ? (
+        {currentStep === REGISTERSTEPENUM["VERIFYCODE"] ? (
           <div className="bg-white w-80 h-80 border p-6">
             <CustomPanelTitle
               showBackArrow={true}
               backArrow={() => {
-                setCurrentStep("inputInfo");
+                setCurrentStep(REGISTERSTEPENUM["REGISTERINFOR"]);
               }}
               title={title}
             />
@@ -132,7 +145,7 @@ const Register = () => {
             </div>
           </div>
         ) : null}
-        {currentStep === "success" ? <SuccessPanel /> : null}
+        {currentStep === REGISTERSTEPENUM["SUCCESS"] ? <SuccessPanel /> : null}
       </div>
     </div>
   );

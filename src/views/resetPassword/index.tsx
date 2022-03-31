@@ -32,11 +32,18 @@ const passwordFormItems: FormItemProps[] = [
   },
 ];
 
+enum RESETPASSWORDENUM {
+  PHONE = "phone",
+  VERIFYCODE = "verifyCode",
+  PASSWORD = "password",
+  SUCCESS = "success",
+}
+
 const ResetPassword = () => {
   const [loading, setLoading] = useState(false);
   const [phone, setPhone] = useState("");
   const [errText, setErrText] = useState("");
-  const [currentStep, setCurrentStep] = useState("inputPhone");
+  const [currentStep, setCurrentStep] = useState(RESETPASSWORDENUM["PHONE"]);
   const [verifyCode, setVerifyCode] = useState("");
 
   const navigate = useNavigate();
@@ -49,7 +56,7 @@ const ResetPassword = () => {
     try {
       setLoading(true);
       getVerifyCode();
-      setCurrentStep("inputVerifyCode");
+      setCurrentStep(RESETPASSWORDENUM["VERIFYCODE"]);
     } catch (err) {
     } finally {
       setLoading(false);
@@ -58,20 +65,20 @@ const ResetPassword = () => {
 
   const verifyCodeToNext = () => {
     try {
-      setCurrentStep("inputNewPassword");
+      setCurrentStep(RESETPASSWORDENUM["PASSWORD"]);
     } catch (err) {}
   };
 
   const newPasswordToNext = () => {
     try {
-      setCurrentStep("success");
+      setCurrentStep(RESETPASSWORDENUM["SUCCESS"]);
     } catch (err) {}
   };
 
   return (
     <div className="h-screen bg-gray1">
       <div className="flex flex-row  justify-center pt-20">
-        {currentStep === "inputPhone" ? (
+        {currentStep === RESETPASSWORDENUM["PHONE"] ? (
           <div className="bg-white w-80 h-80 border p-6">
             <CustomPanelTitle />
             <div className="mt-10">
@@ -112,13 +119,13 @@ const ResetPassword = () => {
             </div>
           </div>
         ) : null}
-        {currentStep === "inputVerifyCode" ? (
+        {currentStep === RESETPASSWORDENUM["VERIFYCODE"] ? (
           <div className="bg-white w-80 h-80 border p-6">
             <CustomPanelTitle
               showBackArrow={true}
               backArrow={() => {
                 setErrText("");
-                setCurrentStep("inputPhone");
+                setCurrentStep(RESETPASSWORDENUM["PHONE"]);
               }}
             />
             <p className="mb-0">Your verification code is sent to</p>
@@ -142,7 +149,7 @@ const ResetPassword = () => {
               <ResetBtnGroup
                 back={() => {
                   setErrText("");
-                  setCurrentStep("inputPhone");
+                  setCurrentStep(RESETPASSWORDENUM["PHONE"]);
                 }}
                 next={() => verifyCodeToNext()}
                 loading={loading}
@@ -151,13 +158,13 @@ const ResetPassword = () => {
             </div>
           </div>
         ) : null}
-        {currentStep === "inputNewPassword" ? (
+        {currentStep === RESETPASSWORDENUM["PASSWORD"] ? (
           <div className="bg-white w-80 h-80 border p-6">
             <CustomPanelTitle
               showBackArrow={true}
               backArrow={() => {
                 setErrText("");
-                setCurrentStep("inputVerifyCode");
+                setCurrentStep(RESETPASSWORDENUM["VERIFYCODE"]);
               }}
             />
             <p className="mb-0">Your verification code is sent to</p>
@@ -172,7 +179,11 @@ const ResetPassword = () => {
                 autoComplete="off"
               >
                 {passwordFormItems.map((item: FormItemProps) => (
-                  <Form.Item name={item.name} rules={item.rules} key={item.name}>
+                  <Form.Item
+                    name={item.name}
+                    rules={item.rules}
+                    key={item.name}
+                  >
                     <Input placeholder={item.placeholder} />
                   </Form.Item>
                 ))}
@@ -183,7 +194,7 @@ const ResetPassword = () => {
                   <ResetBtnGroup
                     back={() => {
                       setErrText("");
-                      setCurrentStep("inputVerifyCode");
+                      setCurrentStep(RESETPASSWORDENUM["VERIFYCODE"]);
                     }}
                     loading={loading}
                     disabled={false}
@@ -194,7 +205,7 @@ const ResetPassword = () => {
             </div>
           </div>
         ) : null}
-        {currentStep === "success" ? <SuccessPanel /> : null}
+        {currentStep === RESETPASSWORDENUM["SUCCESS"] ? <SuccessPanel /> : null}
       </div>
     </div>
   );
