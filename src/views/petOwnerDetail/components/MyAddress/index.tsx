@@ -1,8 +1,14 @@
 import { Table } from "antd";
 import { StarFilled } from "@ant-design/icons";
 import React from "react";
+import { Address } from "@/framework/types/customer";
 
-const MyAddress = ({ addressList,id }: any) => {
+interface AddressInfoProps {
+  addressList: Address[];
+  id: string;
+}
+
+const MyAddress = ({ addressList,id }: AddressInfoProps) => {
   const columns = [
     {
       title: "No.",
@@ -60,7 +66,7 @@ const MyAddress = ({ addressList,id }: any) => {
     <div id={id}>
       <div className="py-4 px-2 border-b text-xl font-medium">My Address</div>
       <div className="py-4">
-        <Table dataSource={addressList} columns={columns} pagination={false} />
+        <Table dataSource={addressList} columns={columns} pagination={false} rowKey='id'/>
       </div>
     </div>
   );

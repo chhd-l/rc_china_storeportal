@@ -1,8 +1,14 @@
 import { Table, Tooltip } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import React from "react";
+import { CouponCode } from "@/framework/types/customer";
 
-const CouponInformation = ({couponCodeList,id}:any) => {
+interface CouponInfoProps {
+  couponCodeList: CouponCode[];
+  id: string;
+}
+
+const CouponInformation = ({ couponCodeList, id }: CouponInfoProps) => {
   const columns = [
     {
       title: "Coupon Code",
@@ -65,7 +71,12 @@ const CouponInformation = ({couponCodeList,id}:any) => {
         Coupon Information
       </div>
       <div className="py-4">
-        <Table dataSource={couponCodeList} columns={columns} pagination={false} />
+        <Table
+          dataSource={couponCodeList}
+          columns={columns}
+          pagination={false}
+          rowKey='id'
+        />
       </div>
     </div>
   );

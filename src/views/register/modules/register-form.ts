@@ -3,7 +3,7 @@ import { FormItemProps } from "@/framework/types/common";
 
 export const REGISTER_FORM: FormItemProps[] = [
   {
-    name: "userName",
+    name: "username",
     placeholder: "Enter user name",
     rules: [
       {
@@ -13,7 +13,7 @@ export const REGISTER_FORM: FormItemProps[] = [
     ],
   },
   {
-    name: "phoneNumber",
+    name: "phone",
     placeholder: "Enter phone number",
     rules: [
       {

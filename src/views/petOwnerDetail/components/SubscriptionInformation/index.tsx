@@ -34,7 +34,7 @@ const SubscriptionInformation = ({ subscriptionList, id }: any) => {
         </Col>
       </Row>
       {subscriptionList.map((item: any) => (
-        <div className="border mt-2">
+        <div className="border mt-2" key={item.subscriptionId}>
           <Row className="bg-gray1 border-b p-2">
             <Col span={12} className="flex items-center">
               <Avatar icon={<UserOutlined />} />
@@ -47,7 +47,7 @@ const SubscriptionInformation = ({ subscriptionList, id }: any) => {
           <Row className="p-2 flex items-center">
             <Col span={6} className="flex flex-row items-center">
               {item.products.map((product: any) => (
-                <Row className="items-center">
+                <Row className="items-center" key={product.id}>
                   <Col span={8}>
                     <Avatar shape="square" size={64} icon={<UserOutlined />} />
                   </Col>

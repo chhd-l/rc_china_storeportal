@@ -1,11 +1,11 @@
 import { Button } from "antd";
 import React from "react";
 
-interface resetBtnGroupProps {
-  back: any;
+interface ResetBtnGroupProps {
+  back: Function;
   loading: boolean;
   disabled: boolean;
-  next?: any;
+  next?: Function;
   classes?: string;
 }
 
@@ -16,7 +16,7 @@ const ResetBtnGroup = ({
   disabled,
   next,
   classes,
-}: resetBtnGroupProps) => {
+}: ResetBtnGroupProps) => {
   return (
     <div className={`${classes} flex flex-row justify-between my-10`}>
       <Button

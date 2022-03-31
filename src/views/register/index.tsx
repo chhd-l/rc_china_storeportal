@@ -12,9 +12,17 @@ import { FormItemProps } from "@/framework/types/common";
 const title = "Sign up";
 const formItems: FormItemProps[] = REGISTER_FORM;
 
+enum REGISTERSTEPENUM {
+  REGISTERINFOR = "registerInfo",
+  VERIFYCODE = "verifyCode",
+  SUCCESS = "success",
+}
+
 const Register = () => {
   const [loading, setLoading] = useState(false);
-  const [currentStep, setCurrentStep] = useState("inputInfo");
+  const [currentStep, setCurrentStep] = useState(
+    REGISTERSTEPENUM["REGISTERINFOR"]
+  );
   const [phoneNumber, setPhoneNumber] = useState("");
   const [verifyCode, setVerifyCode] = useState("");
   const [errVerifyCode, setErrVerifyCode] = useState(false);
@@ -28,23 +36,29 @@ const Register = () => {
 
   const registerToNext = () => {
     try {
+      setLoading(true);
       getVerifyCode();
-      setCurrentStep("inputVerifyCode");
+      setCurrentStep(REGISTERSTEPENUM["VERIFYCODE"]);
       setGetVerifyCodeErr("");
-    } catch (err) {}
+    } catch (err) {
+    } finally {
+      setLoading(false);
+    }
   };
 
   const verifyCodeToConfirm = () => {
     try {
-      setCurrentStep("success");
-    } catch (err) {}
+      setCurrentStep(REGISTERSTEPENUM["SUCCESS"]);
+    } catch (err) {
+      setErrVerifyCode(true);
+    }
   };
 
   return (
     <div className="h-screen bg-gray1">
       <div className="flex flex-row  justify-center pt-20">
         <SellerLogoPanel />
-        {currentStep === "inputInfo" ? (
+        {currentStep === REGISTERSTEPENUM["REGISTERINFOR"] ? (
           <div className="bg-white w-80 border p-6">
             <CustomPanelTitle
               backArrow={() => {
@@ -58,13 +72,18 @@ const Register = () => {
               wrapperCol={{ span: 24 }}
               onFinish={(values) => {
                 console.log("----form1-----", values);
-                setPhoneNumber(values.phoneNumber);
+                setPhoneNumber(values.phone);
                 registerToNext();
               }}
               autoComplete="off"
             >
               {formItems.map((item: FormItemProps) => (
-                <Form.Item colon={false} name={item.name} rules={item.rules}>
+                <Form.Item
+                  colon={false}
+                  name={item.name}
+                  rules={item.rules}
+                  key={item.name}
+                >
                   <Input placeholder={item.placeholder} />
                 </Form.Item>
               ))}
@@ -81,12 +100,12 @@ const Register = () => {
             </Form>
           </div>
         ) : null}
-        {currentStep === "inputVerifyCode" ? (
+        {currentStep === REGISTERSTEPENUM["VERIFYCODE"] ? (
           <div className="bg-white w-80 h-80 border p-6">
             <CustomPanelTitle
               showBackArrow={true}
               backArrow={() => {
-                setCurrentStep("inputInfo");
+                setCurrentStep(REGISTERSTEPENUM["REGISTERINFOR"]);
               }}
               title={title}
             />
@@ -99,27 +118,15 @@ const Register = () => {
                 placeholder="Enter verification code"
                 onChange={(e) => setVerifyCode(e.target.value)}
               />
-              {errVerifyCode ? (
-                <p className="text-left mt-2">
-                  Incorrect code! &nbsp;
-                  <span
-                    className="text-red-500"
-                    onClick={() => getVerifyCode()}
-                  >
-                    Resend code
-                  </span>
-                </p>
-              ) : (
-                <p className="text-left mt-2">
-                  Did not receive the code? &nbsp;
-                  <span
-                    className="text-red-500"
-                    onClick={() => getVerifyCode()}
-                  >
-                    Resend
-                  </span>
-                </p>
-              )}
+              <p className="text-left mt-2">
+                {errVerifyCode
+                  ? "Incorrect code!"
+                  : "Did not receive the code?"}
+                &nbsp;
+                <span className="text-red-500" onClick={() => getVerifyCode()}>
+                  {errVerifyCode ? "Resend code" : "Resend"}
+                </span>
+              </p>
               {getVerifyCodeErr ? (
                 <p className="mb-2 text-left text-red-500">
                   {getVerifyCodeErr}
@@ -138,7 +145,7 @@ const Register = () => {
             </div>
           </div>
         ) : null}
-        {currentStep === "success" ? <SuccessPanel /> : null}
+        {currentStep === REGISTERSTEPENUM["SUCCESS"] ? <SuccessPanel /> : null}
       </div>
     </div>
   );

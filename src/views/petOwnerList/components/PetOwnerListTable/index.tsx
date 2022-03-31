@@ -2,8 +2,13 @@ import { Avatar, Table, Tooltip } from "antd";
 import { UserOutlined, EyeOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import React from "react";
+import { BasicInfor } from "@/framework/types/customer";
 
-const Index = ({ petOwnerList }: any) => {
+interface PetOwnerTableProps {
+  petOwnerList: BasicInfor[];
+}
+
+const Index = ({ petOwnerList }: PetOwnerTableProps) => {
   const navigator = useNavigate();
   const columns = [
     {
@@ -43,7 +48,7 @@ const Index = ({ petOwnerList }: any) => {
       ),
     },
   ];
-  return <Table dataSource={petOwnerList} columns={columns} />;
+  return <Table dataSource={petOwnerList} columns={columns} rowKey='id'/>;
 };
 
 export default Index;
