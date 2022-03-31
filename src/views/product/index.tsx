@@ -2,12 +2,15 @@ import { Anchor } from 'antd';
 import BasicInfomation from './components/BasicInfomation'
 import Specification from './components/Specification'
 import SalesInfo from './components/SalesInfo'
+import Demo from './components/Demo'
+import Shipping from './components/Shipping'
 import {
   Form,
   Space,
   Button,
 } from 'antd';
 import {EyeOutlined} from '@ant-design/icons'
+import { Field } from 'rc-field-form';
 const { Link } = Anchor;
 
 const steps = [
@@ -21,6 +24,34 @@ export default () => {
   const onFinish = (values: any) => {
     console.log(values);
   };
+  // return<>
+  //  <Form
+  //       form={form}
+  //       onFinish={onFinish}
+  //       labelCol={{
+  //         span: 5,
+  //       }}
+  //       wrapperCol={{
+  //         span: 14,
+  //       }}
+  //       layout="horizontal"
+  //       initialValues={{
+  //         "product": [{
+  //           fieldKey: 0,
+  //           isListField: true,
+  //           key: 0,
+  //           name: 0,
+  //         }]
+  //       }}
+  //     >
+  //       <SalesInfo field={{name:'product'}}/>
+  //       <Form.Item>
+  //         <Button type="primary" htmlType="submit">
+  //           Submit
+  //         </Button>
+  //       </Form.Item>
+  //     </Form>
+  //  </>
   return <div id={steps[0].anchor} className='flex bg-gray-50 px-14 py-6 text-left'>
    
     <div className='flex-1' style={{marginRight:'130px'}}>
@@ -76,6 +107,8 @@ export default () => {
                     {idx === 0 && <BasicInfomation field={field} />}
                     {idx === 1 && <Specification field={field} />}
                     {idx === 2 && <SalesInfo field={field} />}
+                    {idx === 3 && <Shipping field={field} />}
+                    {/* {idx === 2 && <Demo  />} */}
                   </div>
                   {/* {idx === 0 && <div id={steps[idx].anchor}><BasicInfomation field={field} /></div>} */}
                 </Space>
