@@ -80,7 +80,7 @@ const Menus = () => {
     <Menu
       onClick={handleClick}
       onOpenChange={onOpenChange}
-      style={{ width: 256 }}
+      style={{ width: 200 }}
       selectedKeys={selectedKeys}
       openKeys={openKeys}
       mode="inline"

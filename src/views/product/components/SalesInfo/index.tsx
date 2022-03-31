@@ -133,7 +133,7 @@ export default (props: any) => {
               </Row>
             </Space>
           ))}
-          <Form.Item label="Variations"  {...layout}>
+          <Form.Item  className="mt-4" label="Variations"  {...layout}>
             <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
               Enable variations
             </Button>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Upload from '../../../../components/Upload';
+import Upload from '../../../../components/common/Upload'
 import {
   Form,
   Space,

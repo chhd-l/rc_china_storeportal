@@ -21,9 +21,9 @@ export default () => {
   const onFinish = (values: any) => {
     console.log(values);
   };
-  return <div className='flex bg-gray-50 px-14 py-6 text-left'>
+  return <div id={steps[0].anchor} className='flex bg-gray-50 px-14 py-6 text-left'>
    
-    <div className='flex-1'>
+    <div className='flex-1' style={{marginRight:'130px'}}>
       <Form
         form={form}
         onFinish={onFinish}
@@ -65,7 +65,7 @@ export default () => {
             <>
               {fields.map((field, idx) => (
                 <Space key={field.key} direction="vertical" className='flex mb-10'>
-                  <div id={steps[idx].anchor} className="bg-white py-6 px-8">
+                  <div id={idx>0?steps[idx].anchor:'anchor-1'} className="bg-white py-6 px-8">
                     <div className=' pb-2'>
                       <div className='flex justify-between  pb-1'>
                         <div className='font-bold text-lg'>{steps[idx].title}</div>
@@ -90,7 +90,7 @@ export default () => {
         </Form.Item>
       </Form>
     </div>
-    <Anchor affix={false} className='w-40'>
+    <Anchor affix={false} targetOffset={64} className='w-40 fixed right-0 bottom-0' style={{top:'64px'}}>
       {steps.map(step => <Link href={`#${step.anchor}`} title={step.title} />)}
     </Anchor>
   </div>
