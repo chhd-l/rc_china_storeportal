@@ -1,7 +1,8 @@
-import { Form, Select } from 'antd'
-import FormItem from '../../../../components/common/FormItem'
-export default (props: any) => {
-  const selectList = [
+import FormItem from '@/components/common/FormItem'
+import type { InputSelectProps, InputTextProps } from '@/framework/types/common'
+import type { FormProps } from '@/framework/types/product'
+ const Specification = (props: FormProps) => {
+  const selectList: (InputTextProps | InputSelectProps)[] = [
     {
       options: [{ name: 'zone', value: 'zone' }],
       name: 'zone',
@@ -52,7 +53,7 @@ export default (props: any) => {
       type: 'select'
     },
   ]
-  console.info('dsdsdsds',props.field)
+  console.info('dsdsdsds', props.field)
   return <div className='flex flex-wrap'>
     <FormItem {...props} list={selectList} parentName={[props.field.name]} />
     {/* {selectList.map(el => <Form.Item className='w-1/2'  {...props.field} label={el.label} name={[props.field.name, el.key]} >
@@ -61,3 +62,4 @@ export default (props: any) => {
   </div>
 
 }
+export default Specification

@@ -1,7 +1,11 @@
 import ReactWEditor from 'wangeditor-for-react';
-
-export default () => <ReactWEditor
-  defaultValue={'<h1>标题</h1>'}
+import type { ReactWEProps } from 'wangeditor-for-react/lib/type';
+interface EditorProps {
+  onChange?:Function
+  defaultValue?:string
+}
+const Editor = (props:EditorProps) => <ReactWEditor
+  defaultValue={props.defaultValue}
   linkImgCallback={(src, alt, href) => {
     // 插入网络图片的回调事件
     console.log('图片 src ', src)
@@ -14,6 +18,7 @@ export default () => <ReactWEditor
   }}
   onChange={(html) => {
     console.log('onChange html:', html)
+    props.onChange?.(html)
   }}
   onBlur={(html) => {
     console.log('onBlur html:', html)
@@ -22,3 +27,4 @@ export default () => <ReactWEditor
     console.log('onFocus html:', html)
   }}
 />
+export default  Editor

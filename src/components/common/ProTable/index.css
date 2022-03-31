@@ -13,7 +13,7 @@
 .pro-table-diy .ant-pro-card,.pro-table-diy .ant-table-cell{
   background-color: white;
 }
-.pro-table-diy .ant-tabs-tab-active .ant-badge-not-a-wrapper .ant-scroll-number{
+/* .pro-table-diy .ant-tabs-tab-active .ant-badge-not-a-wrapper .ant-scroll-number{
   background-color: var(--ant-primary-1)!important; 
   color: var(--ant-primary-color)!important;
-}
+} */

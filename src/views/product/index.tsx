@@ -2,7 +2,7 @@ import { Anchor } from 'antd';
 import BasicInfomation from './components/BasicInfomation'
 import Specification from './components/Specification'
 import SalesInfo from './components/SalesInfo'
-import Demo from './components/Demo'
+// import Demo from './components/Demo'
 import Shipping from './components/Shipping'
 import {
   Form,
@@ -10,7 +10,6 @@ import {
   Button,
 } from 'antd';
 import {EyeOutlined} from '@ant-design/icons'
-import { Field } from 'rc-field-form';
 const { Link } = Anchor;
 
 const steps = [
@@ -19,7 +18,7 @@ const steps = [
   { title: 'Sales Infomation', anchor: 'product_sales_infomation', subTitle: '', rightSlot: null },
   { title: 'Shipping', anchor: 'product_shipping' , subTitle: '', rightSlot: null}
 ];
-export default () => {
+const Product = () => {
   const [form] = Form.useForm();
   const onFinish = (values: any) => {
     console.log(values);
@@ -128,3 +127,5 @@ export default () => {
     </Anchor>
   </div>
 }
+
+export default  Product

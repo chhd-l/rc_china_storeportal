@@ -1,28 +1,13 @@
-import React, { useState, useRef } from "react";
-import { Form, Input, Button, Radio, Row, Col, Select } from "antd";
-import { any } from "prop-types";
+
+import { Form, Input, Button, Row, Col, Select } from "antd";
+import type {OptionsProps} from '@/framework/types/common'
 const { Option } = Select;
-const SelectKey = ({ list, defaultValue }: any) => {
-  const onChange = (el: any) => {
-    console.info("onGenderChange", el);
-  };
-
-  return (
-    <Select
-      style={{ width: 140 }}
-      placeholder="Select a option and change input text above"
-      onChange={onChange}
-      allowClear
-      defaultValue={defaultValue || list[0].value}
-    >
-      {list.map((el: any) => <Option key={el.value} value={el.value}>{el.name}</Option>)}
-    </Select>
-  );
-
-};
-const SearchHeader = ({ getFormData }: any) => {
+interface SearchProps {
+  getFormData:Function
+}
+const SearchHeader = ({ getFormData }: SearchProps) => {
   const [form] = Form.useForm();
-  const nameForKey = [
+  const nameForKey:OptionsProps[] = [
     { name: 'Product Name', value: 'ProductName' },
     { name: 'SKU', value: 'SKU' },
     { name: 'SPU', value: 'SPU' }

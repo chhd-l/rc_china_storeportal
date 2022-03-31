@@ -1,8 +1,7 @@
-import { PlusOutlined } from "@ant-design/icons";
 import { Link } from 'react-router-dom'
-import { Button, Badge, Select } from 'antd';
+import { Button, Badge } from 'antd';
 import type { ProColumns } from "@ant-design/pro-table";
-import ProTable, { ProTableProps } from "../../components/common/ProTable";
+import ProTable from "@/components/common/ProTable";
 import {  useState } from 'react'
 import {  DeleteOutlined, EyeOutlined, EditOutlined, DownloadOutlined } from '@ant-design/icons';
 import SearchHeader from './components/SearchHeader'
@@ -11,7 +10,7 @@ export type TableListItem = {
   name: string;
   price: number;
   status: string;
-  creator: string;
+  skuId: string;
   stock: number;
 };
 
@@ -23,7 +22,6 @@ const valueEnum = {
 };
 
 const tableListDataSource: TableListItem[] = [];
-const { Option } = Select
 
 const creators = ['付小小', '曲丽丽', '林东东', '陈帅帅', '兼某某'];
 
@@ -34,11 +32,9 @@ for (let i = 0; i < 50; i += 1) {
     price: Math.floor(Math.random() * 20),
     status: valueEnum[0],
     stock: Math.floor(Math.random() * 10),
-    creator: creators[Math.floor(Math.random() * creators.length)],
+    skuId: creators[Math.floor(Math.random() * creators.length)],
   });
 }
-
-
 
 const renderBadge = (count: number, active = false) => {
   return (
@@ -53,16 +49,16 @@ const renderBadge = (count: number, active = false) => {
     />
   );
 };
-export default () => {
+const ProductList =  () => {
   const [activeKey, setActiveKey] = useState<React.Key>('tab1');
   const [selectedRowKeys, setSelectedRowKeys] = useState([''])
   const onSelectChange = (selectedRowKeys: any) => {
     console.log('selectedRowKeys changed: ', selectedRowKeys);
     setSelectedRowKeys(selectedRowKeys)
   }
-  const handleChange = (value: any) => {
-    console.log('vale', value)
-  }
+  // const handleChange = (value: any) => {
+  //   console.log('vale', value)
+  // }
   const columns: ProColumns<TableListItem>[] = [
     {
       title: 'Product Name',
@@ -71,7 +67,7 @@ export default () => {
     },
     {
       title: 'SKU',
-      dataIndex: 'creator',
+      dataIndex: 'skuId',
     },
     {
       title: 'Varitions',
@@ -173,6 +169,7 @@ export default () => {
           showQuickJumper: true,
         }}
         search={false}
+        className="pt-4 bg-white"
         dateFormatter="string"
         options={{
           setting: {
@@ -202,3 +199,5 @@ export default () => {
   );
 
 }
+
+export default ProductList

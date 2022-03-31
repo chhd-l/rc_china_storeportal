@@ -1,7 +1,12 @@
 import { Upload, message } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { useState } from 'react';
-
+// import type { UploadProps } from 'antd';
+import { UploadChangeParam, UploadFile } from 'antd/lib/upload/interface';
+interface UploadWrapProps{
+  showUploadList?:boolean
+  handleImgUrl:Function
+}
 function getBase64(img:any, callback:Function) {
   const reader = new FileReader();
   reader.addEventListener('load', () => callback(reader.result));
@@ -19,7 +24,7 @@ function beforeUpload(file:any) {
   }
   return isJpgOrPng && isLt2M;
 }
-export default () => {
+const UploadWrap =  (props:UploadWrapProps) => {
   const [loading, setLoading] = useState(false)
   const [imageUrl, setImageUrl] = useState('')
   const uploadButton = (
@@ -28,7 +33,7 @@ export default () => {
       <div style={{ marginTop: 8 }}>Upload</div>
     </div>
   );
-  const handleChange = (info:any) => {
+  const handleChange = (info:UploadChangeParam<UploadFile<any>>) => {
     if (info.file.status === 'uploading') {
       setLoading(true)
       return;
@@ -38,6 +43,7 @@ export default () => {
       getBase64(info.file.originFileObj, (imageUrl:any) => {
         setImageUrl(imageUrl)
         setLoading(false)
+        props.handleImgUrl(imageUrl)
       }
       );
     }
@@ -46,7 +52,7 @@ export default () => {
     name="avatar"
     listType="picture-card"
     className="avatar-uploader"
-    showUploadList={false}
+    showUploadList={props.showUploadList}
     action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
     beforeUpload={beforeUpload}
     onChange={handleChange}
@@ -54,3 +60,4 @@ export default () => {
     {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
   </Upload>
 }
+export default UploadWrap

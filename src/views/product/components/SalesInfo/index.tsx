@@ -1,7 +1,9 @@
-import FormItem from "../../../../components/common/FormItem";
+import FormItem from "@/components/common/FormItem";
 import { Form, Input, Button, Space, Col, Row } from "antd";
+import type { FormProps } from '@/framework/types/product'
+import type {InputTextProps,InputSelectProps} from '@/framework/types/common'
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
-const noSkuForm = [
+const noSkuForm:(InputTextProps|InputSelectProps)[] = [
   {
     options: [{ name: "size", value: "size" }],
     name: "subscription",
@@ -49,7 +51,7 @@ const noSkuForm = [
     rules: [{ required: true }],
   },
 ];
-export default (props: any) => {
+const SalesInfo = (props: FormProps) => {
   const layout = {
     labelCol: { span: 4 },
     wrapperCol: { span: 14 },
@@ -130,8 +132,8 @@ export default (props: any) => {
                                         wrapperCol={{ span: 16 }}
                                         labelCol={{ span: 7 }}
                                         {...specification}
-                                        rules={[{ required: specificationIdx==0, message: 'Missing name' }]}
-                                        name={[specification.name, specificationIdx==0?"name":'option']}
+                                        rules={[{ required: specificationIdx===0, message: 'Missing name' }]}
+                                        name={[specification.name, specificationIdx===0?"name":'option']}
                                         label="options"
                                       >
                                         <Input placeholder="options" />
@@ -193,7 +195,9 @@ export default (props: any) => {
           </>
         )}
       </Form.List>
-      {/* <FormItem {...props} parentName={[props.field.name]} list={noSkuForm} layout={layout} /> */}
+      <FormItem {...props} parentName={[props.field.name]} list={noSkuForm} layout={layout} />
     </div>
   );
 };
+
+export default  SalesInfo

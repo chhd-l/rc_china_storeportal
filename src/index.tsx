@@ -12,9 +12,9 @@ ConfigProvider.config({
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-    <ConfigProvider>
-      <App />
-    </ConfigProvider>
+      <ConfigProvider>
+        <App />
+      </ConfigProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
