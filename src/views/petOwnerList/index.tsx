@@ -2,20 +2,8 @@ import { Input, DatePicker, Button } from "antd";
 import PetOwnerListTable from "./components/PetOwnerListTable";
 import Mock from "mockjs";
 import React, { useEffect, useState } from "react";
-import { PHONEREGCONST } from "@/lib/constants";
 import { BasicInfor } from "@/framework/types/customer";
-
-const dataSource = {
-  "array|6": [
-    {
-      id: "@id",
-      profileImg: Mock.Random.image(),
-      name: "@cname",
-      phone: PHONEREGCONST,
-      loginTime:'@datetime'
-    },
-  ],
-};
+import { dataSource } from "./modules/mockdata";
 
 interface SearchParamsProps {
   name: string;
