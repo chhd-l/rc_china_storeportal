@@ -3,33 +3,43 @@ import PetOwnerListTable from "./components/PetOwnerListTable";
 import Mock from "mockjs";
 import React, { useEffect, useState } from "react";
 import { PHONEREGCONST } from "@/lib/constants";
+import { BasicInfor } from "@/framework/types/customer";
 
 const dataSource = {
   "array|6": [
     {
       id: "@id",
-      img: Mock.Random.image(),
+      profileImg: Mock.Random.image(),
       name: "@cname",
       phone: PHONEREGCONST,
+      loginTime:'@datetime'
     },
   ],
 };
 
+interface SearchParamsProps {
+  name: string;
+  phone: string;
+  loginStartTime: string;
+  loginEndTime: string;
+}
+
 const PetOwnerList = () => {
-  const initSearchParams = {
+  const initSearchParams: SearchParamsProps = {
     name: "",
     phone: "",
     loginStartTime: "",
     loginEndTime: "",
   };
-  const [petOwnerList, setPetOwnerList] = useState([]);
-  const [searchParams, setSearchParams] = useState(initSearchParams);
+  const [petOwnerList, setPetOwnerList] = useState<BasicInfor[]>([]);
+  const [searchParams, setSearchParams] =
+    useState<SearchParamsProps>(initSearchParams);
 
   useEffect(() => {
     setPetOwnerList(Mock.mock(dataSource).array);
   }, []);
 
-  const updateSearchParams = (value: any, name: any) => {
+  const updateSearchParams = (value: any, name: string) => {
     setSearchParams({
       ...searchParams,
       [name]: value,

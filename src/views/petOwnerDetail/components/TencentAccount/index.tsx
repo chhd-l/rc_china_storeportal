@@ -1,7 +1,13 @@
 import { Table } from "antd";
 import React from "react";
+import { TencentAccount } from "@/framework/types/customer";
 
-const TencentAccount = ({ tencentAccountList,id }: any) => {
+interface TencentAccountProps {
+  tencentAccountList: TencentAccount[];
+  id: string;
+}
+
+const TencentAccounts = ({ tencentAccountList, id }: TencentAccountProps) => {
   const columns = [
     {
       title: "UnionId",
@@ -49,4 +55,4 @@ const TencentAccount = ({ tencentAccountList,id }: any) => {
   );
 };
 
-export default TencentAccount;
+export default TencentAccounts;

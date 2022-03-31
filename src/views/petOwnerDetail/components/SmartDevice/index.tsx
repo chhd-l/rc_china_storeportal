@@ -1,7 +1,13 @@
 import { Table } from "antd";
 import React from "react";
+import { SmartDevice } from "@/framework/types/customer";
 
-const SmartDevice = ({ smartDeviceList,id }: any) => {
+interface SmartDeviceInfoProps {
+  smartDeviceList: SmartDevice[];
+  id: string;
+}
+
+const SmartDevices = ({ smartDeviceList,id }: SmartDeviceInfoProps) => {
   const columns = [
     {
       title: "Smart Device Name",
@@ -47,4 +53,4 @@ const SmartDevice = ({ smartDeviceList,id }: any) => {
     </div>
   );
 };
-export default SmartDevice;
+export default SmartDevices;

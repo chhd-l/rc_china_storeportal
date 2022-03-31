@@ -1,8 +1,14 @@
 import { Table } from "antd";
 import { StarFilled } from "@ant-design/icons";
 import React from "react";
+import { Address } from "@/framework/types/customer";
 
-const MyAddress = ({ addressList,id }: any) => {
+interface AddressInfoProps {
+  addressList: Address[];
+  id: string;
+}
+
+const MyAddress = ({ addressList,id }: AddressInfoProps) => {
   const columns = [
     {
       title: "No.",

@@ -1,6 +1,12 @@
 import { CloseOutlined } from "@ant-design/icons";
+import { Tag } from "@/framework/types/customer";
 
-const Tagging = ({ tagList, id }: any) => {
+interface TagInfoProps {
+    tagList: Tag[];
+    id: string;
+}
+
+const Tagging = ({ tagList, id }: TagInfoProps) => {
   const deleteTag = () => {};
   return (
     <div id={id}>
@@ -8,7 +14,7 @@ const Tagging = ({ tagList, id }: any) => {
       <div className="px-2 py-4 flex flex-col">
         <div>Tag name</div>
         <div className="border flex flex-row flex-wrap p-2 mt-2">
-          {tagList.map((item: any) => (
+          {tagList.map((item: Tag) => (
             <div className="bg-gray1 p-1 font-normal flex items-center">
               <div className="mr-2">{item.name}</div>{" "}
               <CloseOutlined onClick={() => deleteTag()} />

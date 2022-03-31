@@ -58,7 +58,7 @@ const Register = () => {
               wrapperCol={{ span: 24 }}
               onFinish={(values) => {
                 console.log("----form1-----", values);
-                setPhoneNumber(values.phoneNumber);
+                setPhoneNumber(values.phone);
                 registerToNext();
               }}
               autoComplete="off"
@@ -99,27 +99,15 @@ const Register = () => {
                 placeholder="Enter verification code"
                 onChange={(e) => setVerifyCode(e.target.value)}
               />
-              {errVerifyCode ? (
-                <p className="text-left mt-2">
-                  Incorrect code! &nbsp;
-                  <span
-                    className="text-red-500"
-                    onClick={() => getVerifyCode()}
-                  >
-                    Resend code
-                  </span>
-                </p>
-              ) : (
-                <p className="text-left mt-2">
-                  Did not receive the code? &nbsp;
-                  <span
-                    className="text-red-500"
-                    onClick={() => getVerifyCode()}
-                  >
-                    Resend
-                  </span>
-                </p>
-              )}
+              <p className="text-left mt-2">
+                {errVerifyCode
+                  ? "Incorrect code!"
+                  : "Did not receive the code?"}
+                &nbsp;
+                <span className="text-red-500" onClick={() => getVerifyCode()}>
+                  {errVerifyCode ? "Resend code" : "Resend"}
+                </span>
+              </p>
               {getVerifyCodeErr ? (
                 <p className="mb-2 text-left text-red-500">
                   {getVerifyCodeErr}

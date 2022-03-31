@@ -2,10 +2,10 @@ import { Button } from "antd";
 import React from "react";
 
 interface resetBtnGroupProps {
-  back: any;
+  back: Function;
   loading: boolean;
   disabled: boolean;
-  next?: any;
+  next?: Function;
   classes?: string;
 }
 

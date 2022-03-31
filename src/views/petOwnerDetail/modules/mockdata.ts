@@ -2,6 +2,7 @@ import { PHONEREGCONST } from "@/lib/constants";
 
 export const dataSource = {
   basicInformation: {
+    id: "@id",
     profileImg: "",
     name: "@cname",
     phone: PHONEREGCONST,
@@ -60,6 +61,7 @@ export const dataSource = {
   ],
   "smartDeviceList|2": [
     {
+      id: "@id",
       deviceName: "Smart test 11",
       deviceSku: "121212",
       status: "Locked",
@@ -68,37 +70,43 @@ export const dataSource = {
       subscriptionTime: '@datetime("yyyy-MM-dd HH:mm")',
     },
   ],
-  'subscriptionList|2':[{
-    customerImg:'',
-    customerName:'@cname',
-    subscriptionId:'@id',
-    products:[
-      { id:'@id',
-        productImg:'',
-        productName:'@title',
-        size:'small',
-        color:'red',
-        quantity:1,
-      }
-    ],
-    subscriptionStatus:'completed',
-    subscriptionType:'Autoship',
-  }],
-  'orderList|2':[{
-    customerImg:'',
-    customerName:'@cname',
-    orderId:'@id',
-    products:[
-      { id:'@id',
-        productImg:'',
-        productName:'@title',
-        size:'small',
-        color:'red',
-        quantity:1,
-      }
-    ],
-    orderStatus:'completed',
-    carrierType:'Autoship',
-    orderTotal:34.6
-  }]
+  "subscriptionList|2": [
+    {
+      customerImg: "",
+      customerName: "@cname",
+      subscriptionId: "@id",
+      products: [
+        {
+          id: "@id",
+          productImg: "",
+          productName: "@title",
+          size: "small",
+          color: "red",
+          quantity: 1,
+        },
+      ],
+      subscriptionStatus: "completed",
+      subscriptionType: "Autoship",
+    },
+  ],
+  "orderList|2": [
+    {
+      id: "@id",
+      customerImg: "",
+      customerName: "@cname",
+      products: [
+        {
+          id: "@id",
+          productImg: "",
+          productName: "@title",
+          size: "small",
+          color: "red",
+          quantity: 1,
+        },
+      ],
+      orderStatus: "completed",
+      carrierType: "Autoship",
+      orderTotal: 34.6,
+    },
+  ],
 };

@@ -1,8 +1,14 @@
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Button } from "antd";
 import { useNavigate } from "react-router-dom";
+import { Pet } from "@/framework/types/customer";
 
-const PetInformation = ({ petList,id }: any) => {
+interface PetInfoProps {
+    petList: Pet[];
+    id: string;
+}
+
+const PetInformation = ({ petList,id }: PetInfoProps) => {
   const navigator = useNavigate();
 
   return (
@@ -11,7 +17,7 @@ const PetInformation = ({ petList,id }: any) => {
         Pet Information
       </div>
       <div className="px-2 py-4 flex flex-row flex-wrap">
-        {petList.map((item: any) => (
+        {petList.map((item: Pet) => (
           <div className="flex items-center border p-4 mr-4">
             <Avatar shape="square" size="large" icon={<UserOutlined />} />
             <div className="ml-4">

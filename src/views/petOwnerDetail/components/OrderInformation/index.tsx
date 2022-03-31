@@ -2,8 +2,15 @@ import { Avatar, Col, DatePicker, Row, Tooltip } from "antd";
 import { EyeOutlined, UserOutlined } from "@ant-design/icons";
 import React from "react";
 import { useNavigate } from "react-router";
+import { Order } from "@/framework/types/order";
+import {OrderTradeItem} from "@/framework/types/order";
 
-const OrderInformation = ({ orderList,id }: any) => {
+interface OrderInfoProps {
+  orderList: Order[];
+  id: string;
+}
+
+const OrderInformation = ({ orderList,id }: OrderInfoProps) => {
   const navigator = useNavigate();
 
   return (
@@ -36,7 +43,7 @@ const OrderInformation = ({ orderList,id }: any) => {
           Actions
         </Col>
       </Row>
-      {orderList.map((item: any) => (
+      {orderList.map((item: Order) => (
         <div className="border mt-2">
           <Row className="bg-gray1 border-b p-2">
             <Col span={12} className="flex items-center">
@@ -44,12 +51,12 @@ const OrderInformation = ({ orderList,id }: any) => {
               <span className="ml-2">{item.customerName}</span>
             </Col>
             <Col span={12} className="text-right">
-              <div>subscription ID:{item.orderId}</div>
+              <div>order ID:{item.id}</div>
             </Col>
           </Row>
           <Row className="p-2 flex items-center">
             <Col span={8} className="flex flex-row items-center">
-              {item.products.map((product: any) => (
+              {item.products.map((product: OrderTradeItem) => (
                 <Row className="items-center">
                   <Col span={8}>
                     <Avatar shape="square" size={64} icon={<UserOutlined />} />
@@ -78,7 +85,7 @@ const OrderInformation = ({ orderList,id }: any) => {
                   className="cursor-pointer"
                   onClick={() => {
                     navigator("/order-detail", {
-                      state: { id: item.orderId },
+                      state: { id: item.id },
                     });
                   }}
                 >
