@@ -71,6 +71,8 @@ const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
+const lessRegex = /\.(less)$/;
+const lessModuleRegex = /\.module\.(less)$/;
 
 const hasJsxRuntime = (() => {
   if (process.env.DISABLE_NEW_JSX_TRANSFORM === 'true') {
@@ -461,6 +463,26 @@ module.exports = function (webpackEnv) {
                 inputSourceMap: shouldUseSourceMap,
               },
             },
+            //加入less
+            {
+              test: lessRegex,
+              exclude: lessModuleRegex,
+              use: getStyleLoaders({ importLoaders: 3 }, 'less-loader')
+            },
+            {
+              test: lessModuleRegex,
+              use: getStyleLoaders(
+                  {
+                    importLoaders: 1,
+                    sourceMap: isEnvProduction && shouldUseSourceMap,
+                    modules: {
+                      getLocalIdent: getCSSModuleLocalIdent
+                    }
+                  },
+                  'less-loader'
+              )
+            },
+
             // "postcss" loader applies autoprefixer to our CSS.
             // "css" loader resolves paths in CSS and adds assets as dependencies.
             // "style" loader turns CSS into JS modules that inject <style> tags.

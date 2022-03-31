@@ -77,7 +77,7 @@ const OrderInformation = ({ orderList,id }: any) => {
                 <span
                   className="cursor-pointer"
                   onClick={() => {
-                    navigator("/subscription-detail", {
+                    navigator("/order-detail", {
                       state: { id: item.orderId },
                     });
                   }}

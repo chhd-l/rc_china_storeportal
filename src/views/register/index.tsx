@@ -1,53 +1,27 @@
 import React, { useState } from "react";
-import { Input, Button } from "antd";
+import { Input, Button, Form } from "antd";
 import { useNavigate } from "react-router-dom";
 import {
   SellerLogoPanel,
   SuccessPanel,
   CustomPanelTitle,
-} from "@/components/registerAndResetPass";
-import validForm from "@/lib/valid-form";
-import { REGISTER_RULE } from "./module/registerRule";
+} from "@/components/auth";
+import { REGISTER_FORM } from "./modules/register-form";
+import { FormItemProps } from "@/framework/types/common";
 
 const title = "Sign up";
-
-interface KeyRules {
-  [key: string]: string;
-}
+const formItems: FormItemProps[] = REGISTER_FORM;
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState("inputInfo");
-  const [registerInfo, setRegisterInfo] = useState<KeyRules>({
-    userName: "",
-    phoneNumber: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const [errMsgObj, setErrMsgObj] = useState<KeyRules>({
-    userName: "",
-    phoneNumber: "",
-    password: "",
-    confirmPassword: "",
-  });
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [verifyCode, setVerifyCode] = useState("");
   const [errVerifyCode, setErrVerifyCode] = useState(false);
-  const navigate = useNavigate();
   const [getVerifyCodeErr, setGetVerifyCodeErr] = useState("");
 
-  const updateRegisterInfo = (value: string, name: string) => {
-    setRegisterInfo({ ...registerInfo, [name]: value });
-    verifyForm(name, value);
-  };
-
-  // 表单验证
-  const verifyForm = (name: string, value: any) => {
-    const errMsg = validForm({
-      RULE: REGISTER_RULE,
-      data: { [name]: value },
-    });
-    setErrMsgObj({ ...errMsgObj, [name]: errMsg });
-  };
+  const navigate = useNavigate();
+  const [form] = Form.useForm();
 
   //获取验证码
   const getVerifyCode = () => {};
@@ -79,50 +53,32 @@ const Register = () => {
               showBackArrow={true}
               title={title}
             />
-            <div className="">
-              {Object.keys(registerInfo).map((item: string) => (
-                <>
-                  <Input
-                    value={registerInfo[item]}
-                    size="large"
-                    placeholder={
-                      item === "userName"
-                        ? "Enter user name"
-                        : item === "phoneNumber"
-                        ? "Enter phone number"
-                        : item === "password"
-                        ? "Enter password"
-                        : "Confirm password"
-                    }
-                    onChange={(e) => updateRegisterInfo(e.target.value, item)}
-                    style={{ marginBottom: "10px" }}
-                  />
-                  {errMsgObj[item] ? (
-                    <p className="mb-2 text-left text-red-500">
-                      {errMsgObj[item]}
-                    </p>
-                  ) : null}
-                </>
+            <Form
+              form={form}
+              wrapperCol={{ span: 24 }}
+              onFinish={(values) => {
+                console.log("----form1-----", values);
+                setPhoneNumber(values.phoneNumber);
+                registerToNext();
+              }}
+              autoComplete="off"
+            >
+              {formItems.map((item: FormItemProps) => (
+                <Form.Item colon={false} name={item.name} rules={item.rules}>
+                  <Input placeholder={item.placeholder} />
+                </Form.Item>
               ))}
-              {getVerifyCodeErr ? (
-                <p className="mb-2 text-left text-red-500">
-                  {getVerifyCodeErr}
-                </p>
-              ) : null}
-              <Button
-                type="primary"
-                loading={loading}
-                danger
-                disabled={
-                  Object.values(registerInfo).includes("") ||
-                  !Object.values(errMsgObj).every((item) => item === "")
-                }
-                onClick={() => registerToNext()}
-                className="w-full"
-              >
-                Next
-              </Button>
-            </div>
+              <Form.Item wrapperCol={{ span: 24 }}>
+                <Button
+                  className="w-full"
+                  type="primary"
+                  danger
+                  htmlType="submit"
+                >
+                  Next
+                </Button>
+              </Form.Item>
+            </Form>
           </div>
         ) : null}
         {currentStep === "inputVerifyCode" ? (
@@ -135,7 +91,7 @@ const Register = () => {
               title={title}
             />
             <p className="mb-0">Your verification code is sent to</p>
-            <p className="mb-0">(+86) {registerInfo.phoneNumber}</p>
+            <p className="mb-0">(+86) {phoneNumber}</p>
             <div className="mt-8">
               <Input
                 value={verifyCode}

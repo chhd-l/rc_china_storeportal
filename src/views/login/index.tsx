@@ -1,15 +1,39 @@
 import React, { useState } from "react";
-import { Input, Button, Checkbox } from "antd";
+import { Input, Button, Checkbox, Form } from "antd";
 import { useNavigate } from "react-router-dom";
-import { SellerLogoPanel } from "@/components/registerAndResetPass";
+import { SellerLogoPanel } from "@/components/auth";
+import { FormItemProps } from "@/framework/types/common";
+import "./index.less";
+
+const formItems: FormItemProps[] = [
+  {
+    name: "account",
+    placeholder: "Account number",
+    rules: [
+      {
+        required: true,
+        message: "Please input your account number!",
+      },
+    ],
+  },
+  {
+    name: "password",
+    placeholder: "Password",
+    rules: [
+      {
+        required: true,
+        message: "Please input your password!",
+      },
+    ],
+  },
+];
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
-  const [account, setAccount] = useState("");
-  const [password, setPassword] = useState("");
-  const [isRemPass, setIsRemPass] = useState(false); //是否记住密码
   const [loginError, setLoginError] = useState("");
+
   const navigate = useNavigate();
+  const [form] = Form.useForm();
 
   const handleLogin = (e: any) => {
     try {
@@ -26,55 +50,54 @@ const Login = () => {
         <SellerLogoPanel />
         <div className="bg-white w-80 border p-6">
           <p className="text-xl font-medium">Seller Center</p>
-          <Input
-            value={account}
-            size="large"
-            placeholder="Account number"
-            onChange={(e) => setAccount(e.target.value)}
-            style={{ marginBottom: "10px" }}
-          />
-          <Input
-            value={password}
-            size="large"
-            type="password"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {loginError ? (
-            <p className="my-0 text-left text-red-500">{loginError}</p>
-          ) : null}
-          <div className="flex flex-row justify-between items-center mt-2 mb-2">
-            <Checkbox
-              onChange={() => setIsRemPass(!isRemPass)}
-              style={{ fontSize: "12px" }}
-            >
-              Remember password
-            </Checkbox>
-            <a
-              className="text-red-500 font-medium text-12"
-              href={"/resetPassword"}
-            >
-              Forget password?
-            </a>
-          </div>
-          <Button
-            type="primary"
-            size="large"
-            htmlType="submit"
-            loading={loading}
-            danger
-            className="w-full bg-red-500 mb-2"
-            disabled={account === "" || password === ""}
-            onClick={(e) => handleLogin(e)}
+          <Form
+            form={form}
+            onFinish={(values) => {
+              console.log("----form login-----", values);
+              handleLogin(values);
+            }}
+            autoComplete="off"
           >
-            Login
-          </Button>
-          <p className="text-12">
-            Don't have an account?{" "}
-            <a className="text-red-500 font-medium text-12" href={"/register"}>
-              Register
-            </a>
-          </p>
+            {formItems.map((item: FormItemProps) => (
+              <Form.Item name={item.name} rules={item.rules}>
+                <Input placeholder={item.placeholder} />
+              </Form.Item>
+            ))}
+            <Form.Item className="login-remember">
+              <Form.Item name="remember" valuePropName="checked" noStyle>
+                <Checkbox>Remember me</Checkbox>
+              </Form.Item>
+              <a
+                className="text-red-500 font-medium text-12"
+                href={"/resetPassword"}
+              >
+                Forget password?
+              </a>
+            </Form.Item>
+            <Form.Item wrapperCol={{ span: 24 }} className="login-btn">
+              {loginError ? (
+                <p className="p-2 text-red-500 text-12">{loginError}</p>
+              ) : null}
+              <Button
+                className="w-full"
+                type="primary"
+                danger
+                htmlType="submit"
+                loading={loading}
+              >
+                Next
+              </Button>
+              <p className="text-12 mt-2 text-left">
+                Don't have an account?{" "}
+                <a
+                  className="text-red-500 font-medium text-12"
+                  href={"/register"}
+                >
+                  Register
+                </a>
+              </p>
+            </Form.Item>
+          </Form>
         </div>
       </div>
     </div>

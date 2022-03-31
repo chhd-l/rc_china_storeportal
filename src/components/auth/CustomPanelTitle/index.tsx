@@ -1,12 +1,18 @@
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import React from "react";
 
+interface CustomPanelTitleProps {
+  showBackArrow?: boolean;
+  backArrow?: Function;
+  title?: string;
+}
+
 //自定义panel title
 const CustomPanelTitle = ({
   showBackArrow = false,
   backArrow,
   title = "Reset Password",
-}: any) => {
+}: CustomPanelTitleProps) => {
   return (
     <>
       {showBackArrow ? (

@@ -1,41 +1,36 @@
 import React, { useState } from "react";
-import { Input, Button } from "antd";
+import { Input, Form } from "antd";
 import { useNavigate } from "react-router-dom";
 import {
   SuccessPanel,
   CustomPanelTitle,
-} from "@/components/registerAndResetPass";
-import validForm from "@/lib/valid-form";
-import { RESETPASSWORD_RULE } from "./module/resetRule";
+  ResetBtnGroup,
+} from "@/components/auth";
+import { PHONEREGCONST } from "@/lib/constants";
+import { FormItemProps } from "@/framework/types/common";
 
-//自定义reset password page的 button
-const ResetBtnGroup = ({ back, loading, disabled, next }: any) => {
-  return (
-    <div className="flex flex-row justify-between my-10">
-      <Button
-        className="w-5/12"
-        danger
-        onClick={() => {
-          back && back();
-        }}
-      >
-        Back
-      </Button>
-      <Button
-        className="w-5/12"
-        type="primary"
-        loading={loading}
-        danger
-        disabled={disabled}
-        onClick={(e) => {
-          next && next();
-        }}
-      >
-        Next
-      </Button>
-    </div>
-  );
-};
+const passwordFormItems: FormItemProps[] = [
+  {
+    name: "password",
+    placeholder: "Enter new password",
+    rules: [
+      {
+        required: true,
+        message: "Please input your password!",
+      },
+    ],
+  },
+  {
+    name: "confirmPassword",
+    placeholder: "Enter password again",
+    rules: [
+      {
+        required: true,
+        message: "Please input your password again!",
+      },
+    ],
+  },
+];
 
 const ResetPassword = () => {
   const [loading, setLoading] = useState(false);
@@ -43,9 +38,10 @@ const ResetPassword = () => {
   const [errText, setErrText] = useState("");
   const [currentStep, setCurrentStep] = useState("inputPhone");
   const [verifyCode, setVerifyCode] = useState("");
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+
   const navigate = useNavigate();
+  const [phoneForm] = Form.useForm();
+  const [passwordForm] = Form.useForm();
 
   const getVerifyCode = () => {};
 
@@ -54,15 +50,6 @@ const ResetPassword = () => {
       getVerifyCode();
       setCurrentStep("inputVerifyCode");
     } catch (err) {}
-  };
-
-  // 表单验证
-  const verifyForm = (name: string, value: any) => {
-    const errMsg = validForm({
-      RULE: RESETPASSWORD_RULE,
-      data: { [name]: value },
-    });
-    setErrText(errMsg);
   };
 
   const verifyCodeToNext = () => {
@@ -84,26 +71,40 @@ const ResetPassword = () => {
           <div className="bg-white w-80 h-80 border p-6">
             <CustomPanelTitle />
             <div className="mt-10">
-              <Input
-                value={phone}
-                size="large"
-                placeholder="Phone number"
-                onChange={(e) => {
-                  setPhone(e.target.value);
-                  verifyForm("phoneNumber", e.target.value);
+              <Form
+                form={phoneForm}
+                onFinish={(values) => {
+                  console.log("----form login-----", values);
+                  setPhone(values.phone);
+                  phoneToNext();
                 }}
-              />
-              {errText ? (
-                <p className="my-0 text-left text-red-500">{errText}</p>
-              ) : null}
-              <ResetBtnGroup
-                back={() => {
-                  navigate("/login");
-                }}
-                next={() => phoneToNext()}
-                loading={loading}
-                disabled={phone === "" || errText !== ""}
-              />
+                autoComplete="off"
+              >
+                <Form.Item
+                  name="phone"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Phone number is required.",
+                    },
+                    {
+                      pattern: PHONEREGCONST,
+                      message: "Enter a valid Phone. example: 13101227768",
+                    },
+                  ]}
+                >
+                  <Input placeholder="Phone number" />
+                </Form.Item>
+                <Form.Item wrapperCol={{ span: 24 }} className="login-btn">
+                  <ResetBtnGroup
+                    back={() => {
+                      navigate("/login");
+                    }}
+                    loading={loading}
+                    disabled={false}
+                  />
+                </Form.Item>
+              </Form>
             </div>
           </div>
         ) : null}
@@ -158,31 +159,34 @@ const ResetPassword = () => {
             <p className="mb-0">Your verification code is sent to</p>
             <p className="mb-0">(+86) {phone}</p>
             <div className="mt-6">
-              <Input
-                value={oldPassword}
-                size="large"
-                placeholder="Enter new password"
-                onChange={(e) => setOldPassword(e.target.value)}
-                style={{ marginBottom: "10px" }}
-              />
-              <Input
-                value={newPassword}
-                size="large"
-                placeholder="Enter password again"
-                onChange={(e) => setNewPassword(e.target.value)}
-              />
-              {errText ? (
-                <p className="my-0 text-left text-red-500">{errText}</p>
-              ) : null}
-              <ResetBtnGroup
-                back={() => {
-                  setErrText("");
-                  setCurrentStep("inputVerifyCode");
+              <Form
+                form={passwordForm}
+                onFinish={(values) => {
+                  console.log("----form reset password-----", values);
+                  newPasswordToNext();
                 }}
-                next={() => newPasswordToNext()}
-                loading={loading}
-                disabled={oldPassword === "" || newPassword === ""}
-              />
+                autoComplete="off"
+              >
+                {passwordFormItems.map((item: FormItemProps) => (
+                  <Form.Item name={item.name} rules={item.rules}>
+                    <Input placeholder={item.placeholder} />
+                  </Form.Item>
+                ))}
+                <Form.Item wrapperCol={{ span: 24 }} className="login-btn">
+                  {errText ? (
+                    <p className="my-0 text-left text-red-500">{errText}</p>
+                  ) : null}
+                  <ResetBtnGroup
+                    back={() => {
+                      setErrText("");
+                      setCurrentStep("inputVerifyCode");
+                    }}
+                    loading={loading}
+                    disabled={false}
+                    classes={"my-0"}
+                  />
+                </Form.Item>
+              </Form>
             </div>
           </div>
         ) : null}
