@@ -6,6 +6,38 @@ const Login = lazy(() => import("../views/login"));
 const ProductList = lazy(() => import('../views/productList'))
 const AddProduct = lazy(()=>import ('../views/product'))
 const Catechoose = lazy(()=>import ('../views/catechoose'))
+const ResetPassword = lazy(() => import("../views/resetPassword"));
+const Register = lazy(() => import("../views/register"));
+const PetOwnerList=lazy(()=>import('@/views/petOwnerList'))
+const PetOwnerDetail=lazy(()=>import('@/views/petOwnerDetail'))
+const PetDetail=lazy(()=>import('@/views/petDetail'))
+
+// export type RouterType = {
+//   path: string;
+//   component: React.LazyExoticComponent<any>;
+//   root?: string[];
+//   children?:any;
+//   notExect?: boolean;
+//   redirectTo?: string;
+// }[];
+
+// const Routers: RouterType  = [
+//   {
+//     path: "/app",
+//     component: AppLayout,
+//     children:[
+//       {
+//         path: "/home",
+//         component: Home,
+//       }
+//     ]
+//   },
+//   {
+//     path: "/login",
+//     component: Login,
+//   }
+// ];
+
 let routes: RouteObject[] = [
   {
     path: "/",
@@ -24,11 +56,17 @@ let routes: RouteObject[] = [
       { path: "/product/:id", element: <AddProduct /> },
       { path: "/product/add", element: <AddProduct /> },
       { path: "/product/category", element: <Catechoose /> },
+      { path: "/pet-owner-list", element: <PetOwnerList /> },
+      { path: "/pet-owner-detail", element: <PetOwnerDetail /> },
+      { path: "/pet-detail", element: <PetDetail /> },
     ],
 
   },
   { path: "/login", element: <Login /> },
   { path: "*", element: <Home /> },
+  { path: "/resetPassword", element: <ResetPassword /> },
+  { path: "/register", element: <Register /> },
+    { path: "*", element: <Home /> },
 ];
 
 // The useRoutes() hook allows you to define your routes as JavaScript objects

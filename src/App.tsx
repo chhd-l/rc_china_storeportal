@@ -5,6 +5,8 @@ import { Routes, Route, BrowserRouter, Navigate, useRoutes } from "react-router-
 import Router from "./routers";
 import { Spin } from "antd";
 import './App.css'
+import '@/assets/css/global.css'
+
 function App() {
   let Routers = useRoutes(Router);
   return (
