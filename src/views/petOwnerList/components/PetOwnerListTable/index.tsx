@@ -2,10 +2,10 @@ import { Avatar, Table, Tooltip } from "antd";
 import { UserOutlined, EyeOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import React from "react";
-import { BasicInfor } from "@/framework/types/customer";
+import { Customer } from "@/framework/types/customer";
 
 interface PetOwnerTableProps {
-  petOwnerList: BasicInfor[];
+  petOwnerList: Customer[];
 }
 
 const Index = ({ petOwnerList }: PetOwnerTableProps) => {
