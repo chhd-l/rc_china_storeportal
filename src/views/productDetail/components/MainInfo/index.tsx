@@ -3,26 +3,36 @@ import { Anchor } from "antd";
 import BasicInfomation from "../BasicInfomation";
 import Specification from "../Specification";
 import SalesInfo from "../SalesInfo";
-import Demo from "../Demo";
 import Shipping from "../Shipping";
 import { Form, Space, Button } from "antd";
 import { EyeOutlined } from "@ant-design/icons";
-export type MainInfoProps = {
+import { ReactNode, useRef, useState } from "react";
+interface MainInfoProps {
   cateInfo: {
     cateId: string[];
   };
-};
+}
+interface StepsProps {
+  title: string;
+  anchor: string;
+  subTitle?: string;
+  tips: string;
+  rightSlot?: ReactNode | null;
+}
+
 const { Link } = Anchor;
-const steps = [
+const steps: StepsProps[] = [
   {
     title: "Basic Infomation",
     anchor: "product_basic_infomation",
     subTitle: "",
+    tips: "Basic Infomation",
     rightSlot: <EyeOutlined />,
   },
   {
     title: "Specification",
     anchor: "product_specification",
+    tips: "Specification",
     subTitle:
       "Complete: 1 / 7 Fill in more attributes to boost the exposure of your product.",
     rightSlot: null,
@@ -31,10 +41,12 @@ const steps = [
     title: "Sales Infomation",
     anchor: "product_sales_infomation",
     subTitle: "",
+    tips: "Sales Infomation",
     rightSlot: null,
   },
   {
     title: "Shipping",
+    tips: "Shipping",
     anchor: "product_shipping",
     subTitle: "",
     rightSlot: null,
@@ -42,6 +54,10 @@ const steps = [
 ];
 const MainInfo = ({ cateInfo }: MainInfoProps) => {
   const [form] = Form.useForm();
+  const [tipsIdx, setTipsIdx] = useState(0);
+  const hanldeTips = (idx: number) => {
+    setTipsIdx(idx);
+  };
   const onFinish = (values: any) => {
     console.log(values);
   };
@@ -92,6 +108,9 @@ const MainInfo = ({ cateInfo }: MainInfoProps) => {
               <>
                 {fields.map((field, idx) => (
                   <Space
+                    onClick={() => {
+                      hanldeTips(idx);
+                    }}
                     key={field.key}
                     direction="vertical"
                     className="flex mb-10"
@@ -127,16 +146,17 @@ const MainInfo = ({ cateInfo }: MainInfoProps) => {
           </Form.Item>
         </Form>
       </div>
-      <Anchor
-        affix={false}
-        targetOffset={64}
-        className="w-40 fixed right-0 bottom-0"
-        style={{ top: "64px" }}
-      >
-        {steps.map((step) => (
-          <Link href={`#${step.anchor}`} title={step.title} />
-        ))}
-      </Anchor>
+      <div className="w-40 fixed right-0" style={{ top: "64px" }}>
+        <Anchor affix={false} targetOffset={64} style={{ top: "64px" }}>
+          {steps.map((step) => (
+            <Link href={`#${step.anchor}`} title={step.title} />
+          ))}
+        </Anchor>
+        <div className="mt-4 bg-yellow-100 text-yellow-700 px-2 py-4">
+          <div className="font-bold ">Tips</div>
+          <div>{steps[tipsIdx].tips}</div>
+        </div>
+      </div>
     </div>
   );
 };

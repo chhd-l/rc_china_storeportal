@@ -4,38 +4,13 @@ const AppLayout = lazy(() => import("../layout/layout"));
 const Home = lazy(() => import("../views/index"));
 const Login = lazy(() => import("../views/login"));
 const ProductList = lazy(() => import("../views/productList"));
-const AddProduct = lazy(() => import("../views/product"));
+const AddProduct = lazy(() => import("../views/productDetail"));
 const ResetPassword = lazy(() => import("../views/resetPassword"));
 const Register = lazy(() => import("../views/register"));
 const PetOwnerList = lazy(() => import("@/views/petOwnerList"));
 const PetOwnerDetail = lazy(() => import("@/views/petOwnerDetail"));
 const PetDetail = lazy(() => import("@/views/petDetail"));
-
-// export type RouterType = {
-//   path: string;
-//   component: React.LazyExoticComponent<any>;
-//   root?: string[];
-//   children?:any;
-//   notExect?: boolean;
-//   redirectTo?: string;
-// }[];
-
-// const Routers: RouterType  = [
-//   {
-//     path: "/app",
-//     component: AppLayout,
-//     children:[
-//       {
-//         path: "/home",
-//         component: Home,
-//       }
-//     ]
-//   },
-//   {
-//     path: "/login",
-//     component: Login,
-//   }
-// ];
+const ShopCategories = lazy(() => import("@/views/shopCategories"));
 
 let routes: RouteObject[] = [
   {
@@ -58,6 +33,7 @@ let routes: RouteObject[] = [
       { path: "/pet-owner-list", element: <PetOwnerList /> },
       { path: "/pet-owner-detail", element: <PetOwnerDetail /> },
       { path: "/pet-detail", element: <PetDetail /> },
+      { path: "/shop/categories", element: <ShopCategories /> },
     ],
   },
   { path: "/login", element: <Login /> },

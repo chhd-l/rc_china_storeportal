@@ -39,7 +39,6 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
               <Select
                 style={{ width: 140 }}
                 placeholder="Select a option and change input text above"
-                allowClear
                 defaultValue={nameForKey[0].value}
               >
                 {nameForKey.map((el: any) => (
@@ -72,7 +71,6 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
               <Select
                 style={{ width: 140 }}
                 placeholder="Select a option and change input text above"
-                allowClear
                 defaultValue={typeForKey[0].value}
               >
                 {typeForKey.map((el: any) => (

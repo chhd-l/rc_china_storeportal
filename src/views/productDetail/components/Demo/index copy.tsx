@@ -47,7 +47,12 @@ const BasicForm: FC<Record<string, any>> = () => {
             );
           }}
         >
-          <ProFormText name="name" label="name" width="sm" />
+          <ProFormText
+            name="name"
+            rules={[{ required: true, message: "这是必填项" }]}
+            label="name"
+            width="sm"
+          />
           <ProFormList
             name="options"
             label="options"
