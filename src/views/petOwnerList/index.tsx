@@ -2,7 +2,7 @@ import { Input, DatePicker, Button } from "antd";
 import PetOwnerListTable from "./components/PetOwnerListTable";
 import Mock from "mockjs";
 import React, { useEffect, useState } from "react";
-import { BasicInfor } from "@/framework/types/customer";
+import { Customer } from "@/framework/types/customer";
 import { dataSource } from "./modules/mockdata";
 
 interface SearchParamsProps {
@@ -19,7 +19,7 @@ const PetOwnerList = () => {
     loginStartTime: "",
     loginEndTime: "",
   };
-  const [petOwnerList, setPetOwnerList] = useState<BasicInfor[]>([]);
+  const [petOwnerList, setPetOwnerList] = useState<Customer[]>([]);
   const [searchParams, setSearchParams] =
     useState<SearchParamsProps>(initSearchParams);
 

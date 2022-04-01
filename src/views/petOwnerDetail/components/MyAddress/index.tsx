@@ -22,8 +22,8 @@ const MyAddress = ({ addressList,id }: AddressInfoProps) => {
     },
     {
       title: "Phone Number",
-      dataIndex: "phoneNumber",
-      key: "phoneNumber",
+      dataIndex: "phone",
+      key: "phone",
     },
     {
       title: "Province",
@@ -47,8 +47,8 @@ const MyAddress = ({ addressList,id }: AddressInfoProps) => {
     },
     {
       title: "Postal Code",
-      dataIndex: "postalCode",
-      key: "postalCode",
+      dataIndex: "postCode",
+      key: "postCode",
     },
     {
       title: "Default",

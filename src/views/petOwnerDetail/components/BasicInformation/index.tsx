@@ -1,9 +1,9 @@
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { BasicInfor } from "@/framework/types/customer";
+import { Customer } from "@/framework/types/customer";
 
 interface BasicInfoProps{
-  basicInformation:BasicInfor|any
+  basicInformation:Customer
   id:string
 }
 

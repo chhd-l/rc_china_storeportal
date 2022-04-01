@@ -1,7 +1,7 @@
 import { Order } from "./order";
 
 export interface PetOwner {
-  basicInformation: BasicInfor;
+  basicInformation: Customer;
   tagList: Tag[];
   petList: Pet[];
   tencentAccountList: TencentAccount[];
@@ -12,7 +12,7 @@ export interface PetOwner {
   orderList: Order[];
 }
 
-export interface BasicInfor {
+export interface Customer {
   id: string;
   image: string;
   name: string;
@@ -63,15 +63,14 @@ export interface TencentAccount {
 export interface Address {
   id: string;
   receiverName: string;
-  phoneNumber: string;
+  phone: string;
   province: string;
   city: string;
-  district: string; //不知道是不是对应后端region
+  district: string; //对应后端region
   address: string; //对应后端detail
-  postalCode: string;
+  postCode: string;
   isDefault: number;
   country?: string;
-  region?: string;
 }
 
 export interface CouponCode {
