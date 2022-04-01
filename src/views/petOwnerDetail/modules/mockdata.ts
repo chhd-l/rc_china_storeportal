@@ -94,19 +94,24 @@ export const dataSource = {
       id: "@id",
       customerImg: "",
       customerName: "@cname",
-      products: [
+      tradeItem: [
         {
-          id: "@id",
-          productImg: "",
-          productName: "@title",
+          skuId: "@id",
+          pic: "",
+          skuName: "@title",
           size: "small",
           color: "red",
-          quantity: 1,
+          num: 1,
         },
       ],
-      orderStatus: "completed",
+      tradeState: { orderState: "completed" },
       carrierType: "Autoship",
-      orderTotal: 34.6,
+      tradePrice: {
+        totalPrice: 34.6,
+      },
+      payInfo:{
+        payTypeName:"Wechat Pay"
+      }
     },
   ],
 };

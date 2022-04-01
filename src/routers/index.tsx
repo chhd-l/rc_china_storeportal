@@ -9,6 +9,7 @@ const Register = lazy(() => import("../views/register"));
 const PetOwnerList=lazy(()=>import('@/views/petOwnerList'))
 const PetOwnerDetail=lazy(()=>import('@/views/petOwnerDetail'))
 const PetDetail=lazy(()=>import('@/views/petDetail'))
+const OrderList=lazy(()=>import('@/views/orderList'))
 
 // export type RouterType = {
 //   path: string;
@@ -53,6 +54,8 @@ let routes: RouteObject[] = [
       { path: "/pet-owner-list", element: <PetOwnerList /> },
       { path: "/pet-owner-detail", element: <PetOwnerDetail /> },
       { path: "/pet-detail", element: <PetDetail /> },
+      { path: "/order-list", element: <OrderList /> },
+      { path: "/shipment-list", element: <OrderList /> },
     ],
 
   },

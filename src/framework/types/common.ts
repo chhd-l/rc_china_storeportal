@@ -7,3 +7,8 @@ export interface FormItemProps {
 export interface KeyRules {
   [key: string]: string;
 }
+
+export interface orderStatusTabProps{
+  label:string
+  key:string
+}
