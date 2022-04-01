@@ -66,8 +66,8 @@ export interface Address {
   phone: string;
   province: string;
   city: string;
-  district: string; //对应后端region
-  address: string; //对应后端detail
+  region: string;
+  detail: string;
   postCode: string;
   isDefault: number;
   country?: string;

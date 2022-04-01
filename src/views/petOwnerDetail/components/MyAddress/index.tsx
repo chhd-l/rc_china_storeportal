@@ -37,13 +37,13 @@ const MyAddress = ({ addressList,id }: AddressInfoProps) => {
     },
     {
       title: "District",
-      dataIndex: "district",
-      key: "district",
+      dataIndex: "region",
+      key: "region",
     },
     {
       title: "Address",
-      dataIndex: "address",
-      key: "address",
+      dataIndex: "detail",
+      key: "detail",
     },
     {
       title: "Postal Code",
