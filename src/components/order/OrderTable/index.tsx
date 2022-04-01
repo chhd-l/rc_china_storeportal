@@ -1,15 +1,12 @@
-import { Avatar, Col, Row, Tooltip, Modal } from "antd";
-import { EyeOutlined, UserOutlined, BorderOutlined } from "@ant-design/icons";
+import { Avatar, Col, Row, Select, Tooltip } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 import { Order } from "@/framework/types/order";
 import { OrderTradeItem } from "@/framework/types/order";
-import { useNavigate } from "react-router";
-import ShipmentModal from "../ShipmentModal";
+import { carrierTypeList } from "../OrderContants";
+import OrderActions from "../OrderActions";
 
 const OrderTable = ({ orderList }: { orderList: Order[] }) => {
-  const [shipModalVisible, setShipModalVisible] = useState(false);
-  const navigator = useNavigate();
-
   return (
     <div>
       <Row className="bg-gray1 border p-2">
@@ -20,8 +17,16 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
         <Col span={4} className="text-right">
           Order status
         </Col>
-        <Col span={6} className="text-right">
-          Carrier
+        <Col span={6} className="text-center">
+          <Select
+            onChange={(val, a) => {}}
+            getPopupContainer={(trigger: any) => trigger.parentNode}
+            value="Carrier"
+          >
+            {carrierTypeList.map((item) => (
+              <Select.Option value={item.key}>{item.label}</Select.Option>
+            ))}
+          </Select>
         </Col>
         <Col span={2} className="text-right">
           Actions
@@ -74,39 +79,15 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
             <Col span={4} className="text-right">
               <div>{item.tradeState.orderState}</div>
             </Col>
-            <Col span={6} className="text-right" />
+            <Col span={6} className="text-center">
+              {item.carrierType}
+            </Col>
             <Col span={2} className="text-right">
-              <Tooltip title="View Details">
-                <span
-                  className="cursor-pointer"
-                  onClick={() => {
-                    navigator("/order-detail", {
-                      state: { id: item.id },
-                    });
-                  }}
-                >
-                  <EyeOutlined
-                    style={{ color: "rgba(239, 68, 68,1)", fontSize: "24px" }}
-                  />
-                </span>
-              </Tooltip>
-              <Tooltip title="Arrange shipment">
-                <span
-                  className="cursor-pointer ml-2"
-                  onClick={() => {
-                    setShipModalVisible(true);
-                  }}
-                >
-                  <BorderOutlined
-                    style={{ color: "rgba(239, 68, 68,1)", fontSize: "24px" }}
-                  />
-                </span>
-              </Tooltip>
+              <OrderActions orderId={item.id} />
             </Col>
           </Row>
         </div>
       ))}
-      <ShipmentModal shipModalVisible={shipModalVisible} />
     </div>
   );
 };

@@ -15,7 +15,7 @@ export const dataSource = {
         },
       ],
       tradeState: { orderState: "completed" },
-      carrierType: "Autoship",
+      carrierType: "111",
       tradePrice: {
         totalPrice: 34.6,
       },

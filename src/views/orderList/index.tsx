@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import OrderTable from "@/components/order/OrderTable";
 import { Order } from "@/framework/types/order";
 import { dataSource } from "./modules/mockdata";
-import { orderStatusList } from "./modules/order-status-list";
+import { orderStatusList, searchTypeList } from "@/components/order/OrderContants";
 
 interface SearchParamsProps {
   name: string;
@@ -27,9 +27,9 @@ const PetOwnerList = () => {
 
   useEffect(() => {
     setOrderList(Mock.mock(dataSource).array);
-    if(window.location.pathname.includes('shipment-list')){
-      setActiveKey('toShip')
-      console.log(activeKey)
+    if (window.location.pathname.includes("shipment-list")) {
+      setActiveKey("toShip");
+      console.log(activeKey);
     }
   }, [window.location.pathname]);
 
@@ -46,7 +46,7 @@ const PetOwnerList = () => {
     <>
       <div className="bg-gray1 py-4 pl-4">
         <div className="bg-white">
-          <Tabs defaultActiveKey={activeKey} onChange={() => {}} >
+          <Tabs defaultActiveKey={activeKey} onChange={() => {}}>
             {orderStatusList.map((item) => (
               <Tabs.TabPane tab={item.label} key={item.key} />
             ))}
@@ -71,7 +71,9 @@ const PetOwnerList = () => {
                   value="orderId"
                   style={{ width: "20%" }}
                 >
-                  <Select.Option>Order ID</Select.Option>
+                  {searchTypeList.map((item) => (
+                    <Select.Option value={item.key}>{item.label}</Select.Option>
+                  ))}
                 </Select>
                 <Input style={{ width: "80%" }} onChange={(e) => {}} />
               </Input.Group>
