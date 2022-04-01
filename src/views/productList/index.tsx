@@ -5,6 +5,7 @@ import ProTable from "@/components/common/ProTable";
 import { useEffect, useState } from "react";
 import { dataSource } from "./modules/mockdata";
 import Mock from "mockjs";
+import { LISTTAB } from "@/framework/enum/product";
 import type { productBase } from "@/framework/types/product";
 import {
   DeleteOutlined,
@@ -28,7 +29,7 @@ const renderBadge = (count: number, active = false) => {
   );
 };
 const ProductList = () => {
-  const [activeKey, setActiveKey] = useState<React.Key>("tab1");
+  const [activeKey, setActiveKey] = useState<React.Key>(LISTTAB["ALL"]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([""]);
   const onSelectChange = (selectedRowKeys: any) => {
     console.log("selectedRowKeys changed: ", selectedRowKeys);
@@ -97,7 +98,7 @@ const ProductList = () => {
         rowSelection={{ selectedRowKeys, onChange: onSelectChange }}
         request={(params, sorter, filter) => {
           // 表单搜索项会从 params 传入，传递给后端接口。
-          console.log(params, sorter, filter);
+          console.log("test sort", params, sorter, filter);
           return Promise.resolve({
             data: Mock.mock(dataSource).array,
             success: true,
@@ -109,23 +110,35 @@ const ProductList = () => {
             activeKey: activeKey,
             items: [
               {
-                key: "tab1",
-                label: <span>All{renderBadge(99, activeKey === "tab1")}</span>,
-              },
-              {
-                key: "tab2",
-                label: <span>Live{renderBadge(30, activeKey === "tab2")}</span>,
-              },
-              {
-                key: "tab3",
+                key: LISTTAB["ALL"],
                 label: (
-                  <span>Sold out{renderBadge(30, activeKey === "tab3")}</span>
+                  <span>
+                    All{renderBadge(99, activeKey === LISTTAB["ALL"])}
+                  </span>
                 ),
               },
               {
-                key: "tab4",
+                key: LISTTAB["LIVE"],
                 label: (
-                  <span>Disabled{renderBadge(30, activeKey === "tab4")}</span>
+                  <span>
+                    Live{renderBadge(30, activeKey === LISTTAB["LIVE"])}
+                  </span>
+                ),
+              },
+              {
+                key: LISTTAB["SOLDOUT"],
+                label: (
+                  <span>
+                    Sold out{renderBadge(30, activeKey === LISTTAB["SOLDOUT"])}
+                  </span>
+                ),
+              },
+              {
+                key: LISTTAB["DISABLED"],
+                label: (
+                  <span>
+                    Disabled{renderBadge(30, activeKey === LISTTAB["DISABLED"])}
+                  </span>
                 ),
               },
             ],

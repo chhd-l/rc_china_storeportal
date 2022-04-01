@@ -1,6 +1,7 @@
 import { Divider } from "antd";
 import ProForm, { ProFormText, ProFormSelect } from "@ant-design/pro-form";
 import Cascader from "../Cascader";
+import { PRODUCTYPE } from "@/framework/enum/product";
 interface ChooseCateProps {
   handleCate: Function;
 }
@@ -67,7 +68,7 @@ const ChooseCate = (props: ChooseCateProps) => {
             }}
           >
             <ProFormText
-              fieldProps={{ showCount: true }}
+              fieldProps={{ maxLength: 120, showCount: true }}
               name="name"
               label="Product Name"
             />
@@ -75,11 +76,8 @@ const ChooseCate = (props: ChooseCateProps) => {
               width={200}
               name="select"
               label="Product Type"
-              valueEnum={{
-                china: "China",
-                usa: "U.S.A",
-              }}
-              placeholder="Please select Product Type"
+              valueEnum={PRODUCTYPE}
+              placeholder="Please select"
             />
             <div>
               <Cascader />

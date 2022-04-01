@@ -1,4 +1,5 @@
-import type {Rule} from 'antd/lib/form'
+import type { Rule } from "antd/lib/form";
+import { ReactNode } from "react";
 export interface FormItemProps {
   name: string;
   placeholder: string;
@@ -9,24 +10,27 @@ export interface KeyRules {
   [key: string]: string;
 }
 
-
 export interface OptionsProps {
   name: string;
-  value:string;
+  value: string;
+}
+
+export interface LabelOptionProps {
+  label: ReactNode | string;
+  value: string;
 }
 
 export interface InputBaseProps {
-  name: string,
-  label?: string,
-  className?: string,
-  type: 'select'|'input'
-  layout?: any
-  rules?: Rule[]
+  name: string;
+  label?: string;
+  className?: string;
+  type: "select" | "input";
+  layout?: any;
+  rules?: Rule[];
 }
 export interface InputSelectProps extends InputBaseProps {
-  options: OptionsProps[],
- 
+  options: OptionsProps[];
 }
-export interface InputTextProps  extends InputBaseProps  {
-  addonBefore?: string
+export interface InputTextProps extends InputBaseProps {
+  addonBefore?: string;
 }
