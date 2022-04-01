@@ -2,12 +2,12 @@ import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { Customer } from "@/framework/types/customer";
 
-interface BasicInfoProps{
-  basicInformation:Customer
-  id:string
+interface BasicInfoProps {
+  basicInformation: Customer | any;
+  id: string;
 }
 
-const BasicInformation = ({ basicInformation,id }: BasicInfoProps) => {
+const BasicInformation = ({ basicInformation, id }: BasicInfoProps) => {
   return (
     <div id={id}>
       <div className="py-4 px-2 border-b text-xl font-medium">
