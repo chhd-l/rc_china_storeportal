@@ -3,7 +3,7 @@ import { PHONEREGCONST } from "@/lib/constants";
 export const dataSource = {
   basicInformation: {
     id: "@id",
-    profileImg: "",
+    image: "",
     name: "@cname",
     phone: PHONEREGCONST,
     loginTime: "@datetime",
@@ -37,12 +37,12 @@ export const dataSource = {
     {
       id: "@id",
       receiverName: "@cname",
-      phoneNumber: PHONEREGCONST,
+      phone: PHONEREGCONST,
       province: "@province",
       city: "@city",
-      district: "@county",
-      address: "@county(true)",
-      postalCode: "@zip",
+      region: "@county",
+      detail: "@county(true)",
+      postCode: "@zip",
       isDefault: 1,
     },
   ],
