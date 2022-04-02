@@ -11,6 +11,7 @@ import {
   SettingOutlined,
   InfoCircleTwoTone,
   DeleteOutlined,
+  FileTextOutlined,
 } from "@ant-design/icons";
 import ProTable from "@/components/common/ProTable";
 import type { ProColumns } from "@ant-design/pro-table";
@@ -38,7 +39,11 @@ const ShopCategories = () => {
       title: "Display On/Off",
       dataIndex: "isDispaly",
       render: (_, record) => (
-        <Switch checked={record.isDispaly} onChange={onChange} />
+        <Switch
+          defaultChecked={record.isDispaly}
+          disabled={record.productNum < 1}
+          onChange={onChange}
+        />
       ),
     },
     {
@@ -47,13 +52,18 @@ const ShopCategories = () => {
       width: 180,
       valueType: "option",
       render: (_, record) => [
-        <a className="text-xl mr-4">+</a>,
+        <Link to={`/category/:add`} className="text-xl mr-4">
+          +
+        </Link>,
         <a className=" mr-4">
           <SettingOutlined />
         </a>,
         <a className=" mr-4">
           <DeleteOutlined />
         </a>,
+        <Link to={`/category/:${record.id}`} className="text-xl mr-4">
+          <FileTextOutlined />
+        </Link>,
       ],
     },
   ];

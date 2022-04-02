@@ -7,7 +7,7 @@ export const dataSource = {
       displayName: "@cname",
       type: "@cname",
       createdUser: "@cname",
-      "productNum|1-1000": 1,
+      "productNum|-100-1000": 1,
       "id|1-1000": 1,
       isDispaly: "@boolean",
     },

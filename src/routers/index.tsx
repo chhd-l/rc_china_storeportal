@@ -10,7 +10,8 @@ const Register = lazy(() => import("../views/register"));
 const PetOwnerList = lazy(() => import("@/views/petOwnerList"));
 const PetOwnerDetail = lazy(() => import("@/views/petOwnerDetail"));
 const PetDetail = lazy(() => import("@/views/petDetail"));
-const ShopCategories = lazy(() => import("@/views/shopCategories"));
+const CategoryList = lazy(() => import("@/views/categoryList"));
+const CategoryDetail = lazy(() => import("@/views/categoryDetail"));
 
 let routes: RouteObject[] = [
   {
@@ -33,7 +34,9 @@ let routes: RouteObject[] = [
       { path: "/pet-owner-list", element: <PetOwnerList /> },
       { path: "/pet-owner-detail", element: <PetOwnerDetail /> },
       { path: "/pet-detail", element: <PetDetail /> },
-      { path: "/shop/categories", element: <ShopCategories /> },
+      { path: "/category-list", element: <CategoryList /> },
+      { path: "/category/:id", element: <CategoryDetail /> },
+      { path: "/category/add", element: <CategoryDetail /> },
     ],
   },
   { path: "/login", element: <Login /> },

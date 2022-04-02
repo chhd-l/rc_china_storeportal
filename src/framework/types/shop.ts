@@ -1,3 +1,5 @@
+import { OptionsProps } from "./common";
+
 // categories
 export interface CategoryBaseProps {
   displayName: string;
@@ -6,4 +8,13 @@ export interface CategoryBaseProps {
   productNum: number;
   isDispaly: boolean;
   id: string;
+}
+export interface productItem {
+  productName: string;
+  marketingPrice: number;
+  stock: number;
+}
+export interface CategoryProductProps extends CategoryBaseProps {
+  rules: OptionsProps[];
+  productList: productItem[] | [];
 }
