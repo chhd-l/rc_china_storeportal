@@ -1,7 +1,7 @@
 import { Divider } from "antd";
 import ProForm, { ProFormText, ProFormSelect } from "@ant-design/pro-form";
 import Cascader from "../Cascader";
-import { PRODUCTYPE } from "@/framework/enum/product";
+import { ProductType } from "@/framework/types/product";
 interface ChooseCateProps {
   handleCate: Function;
 }
@@ -21,29 +21,6 @@ const ChooseCate = (props: ChooseCateProps) => {
           <div className="font-bold text-lg">Add a New Product</div>
           <div>Please choose the right category for your product</div>
           <Divider />
-          {/* <Form {...layout} name="control-ref" onFinish={onFinish}>
-        <Form.Item name="note" label="Note" rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
-          <Select
-            placeholder="Select a option and change input text above"
-            allowClear
-          >
-            <Option value="male">male</Option>
-            <Option value="female">female</Option>
-            <Option value="other">other</Option>
-          </Select>
-        </Form.Item>
-        <Form.Item>
-        <Search placeholder="input search text" onSearch={onSearch} style={{ width: 200 }} />
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form> */}
           <ProForm
             submitter={{
               // 配置按钮文本
@@ -76,7 +53,7 @@ const ChooseCate = (props: ChooseCateProps) => {
               width={200}
               name="select"
               label="Product Type"
-              valueEnum={PRODUCTYPE}
+              valueEnum={ProductType}
               placeholder="Please select"
             />
             <div>

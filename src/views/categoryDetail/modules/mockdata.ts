@@ -1,10 +1,11 @@
 import Mock from "mockjs";
+import { number } from "yargs";
 
 let arr = ["a", "b", "c", "d", "e"];
 export const dataSource = {
   cateInfos: {
     displayName: "@name",
-    type: "@name",
+    "type|0-1": 1,
     createdUser: "@name",
     "productNum|-100-1000": 1,
     "id|1-1000": 1,

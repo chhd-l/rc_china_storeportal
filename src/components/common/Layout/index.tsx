@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Menus from "../Menu";
+import Menus from "../Menus";
 import TopHeader from "../Header";
 import { Layout } from "antd";
 const { Header, Content, Sider } = Layout;

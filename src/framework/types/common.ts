@@ -1,11 +1,19 @@
 import type { Rule } from "antd/lib/form";
 import { ReactNode } from "react";
+import type { FormListFieldData } from "antd/lib/form/FormList";
+
 export interface FormItemProps {
   name: string;
   placeholder: string;
   rules?: any[];
 }
 
+export interface FormProps {
+  field: FormListFieldData;
+  parentName?: Array<any>;
+  name?: string;
+  layout?: any;
+}
 export interface KeyRules {
   [key: string]: string;
 }

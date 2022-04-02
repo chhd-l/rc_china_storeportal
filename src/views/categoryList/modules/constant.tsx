@@ -1,5 +1,5 @@
 import { ProColumns } from "@/components/common/ProTable";
-import { CategoryBaseProps } from "@/framework/types/shop";
+import { CategoryBaseProps } from "@/framework/types/product";
 import {
   SettingOutlined,
   DeleteOutlined,
@@ -52,5 +52,20 @@ export const columns: ProColumns<CategoryBaseProps>[] = [
         <FileTextOutlined />
       </Link>,
     ],
+  },
+];
+
+export const columnsAdjustSequence: ProColumns<any>[] = [
+  {
+    title: "product Name",
+    dataIndex: "productName",
+  },
+  {
+    title: "MarketingPrice",
+    dataIndex: "marketingPrice",
+  },
+  {
+    title: "Stock",
+    dataIndex: "stock",
   },
 ];

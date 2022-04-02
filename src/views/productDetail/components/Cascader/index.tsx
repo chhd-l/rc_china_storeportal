@@ -2,11 +2,35 @@ import "./index.less";
 import { ProFormCascader } from "@ant-design/pro-form";
 import { useState } from "react";
 interface CascaderProps {}
+interface OptionProps {
+  value: string;
+  label: string;
+  children?: OptionProps[];
+}
+const options: OptionProps[] = [
+  {
+    value: "zhejiang",
+    label: "Zhejiang",
+    children: [
+      {
+        value: "hangzhou",
+        label: "Hangzhou",
+        children: [
+          {
+            value: "xihu",
+            label: "West Lake",
+          },
+        ],
+      },
+    ],
+  },
+];
 const Cascader = (props: CascaderProps) => {
   const [categories, setCategories] = useState<any>([]);
   function onChange(value: any, selectedOptions: any) {
     setCategories(value);
   }
+
   return (
     <div className="cate-cascader">
       <div className="p-6 bg-gray-50">
@@ -20,24 +44,7 @@ const Cascader = (props: CascaderProps) => {
             open: true,
             placement: "bottomLeft",
             placeholder: "Categores Name",
-            options: [
-              {
-                value: "zhejiang",
-                label: "Zhejiang",
-                children: [
-                  {
-                    value: "hangzhou",
-                    label: "Hangzhou",
-                    children: [
-                      {
-                        value: "xihu",
-                        label: "West Lake",
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
+            options,
           }}
         />
         <div className="ant-select"></div>

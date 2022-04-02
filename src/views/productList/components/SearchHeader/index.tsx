@@ -4,17 +4,18 @@ const { Option } = Select;
 interface SearchProps {
   getFormData: Function;
 }
+const nameForKey: OptionsProps[] = [
+  { name: "Product Name", value: "ProductName" },
+  { name: "SKU", value: "SKU" },
+  { name: "SPU", value: "SPU" },
+];
+const typeForKey: OptionsProps[] = [
+  { name: "Product Type", value: "ProductType" },
+  { name: "Subscription Status", value: "SubscriptionStatus" },
+];
+
 const SearchHeader = ({ getFormData }: SearchProps) => {
   const [form] = Form.useForm();
-  const nameForKey: OptionsProps[] = [
-    { name: "Product Name", value: "ProductName" },
-    { name: "SKU", value: "SKU" },
-    { name: "SPU", value: "SPU" },
-  ];
-  const typeForKey: OptionsProps[] = [
-    { name: "Product Type", value: "ProductType" },
-    { name: "Subscription Status", value: "SubscriptionStatus" },
-  ];
   const onFinish = (values: any) => {
     console.log("Finish:", values);
     getFormData(values);

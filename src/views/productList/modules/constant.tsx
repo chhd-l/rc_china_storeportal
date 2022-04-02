@@ -1,13 +1,17 @@
 import { ProColumns } from "@/components/common/ProTable";
-import { productBase } from "@/framework/types/product";
+import { OptionsProps } from "@/framework/types/common";
+import { ProductBaseProps } from "@/framework/types/product";
 import {
   DeleteOutlined,
   EyeOutlined,
   EditOutlined,
   DownloadOutlined,
 } from "@ant-design/icons";
+import { Button } from "antd";
+import { useState } from "react";
+
 import { Link } from "react-router-dom";
-export const columns: ProColumns<productBase>[] = [
+export const columns: ProColumns<ProductBaseProps>[] = [
   {
     title: "Product Name",
     dataIndex: "name",
@@ -56,3 +60,40 @@ export const columns: ProColumns<productBase>[] = [
     ],
   },
 ];
+
+export enum Tab {
+  All = "ALL",
+  Live = "LIVE",
+  Soldout = "SOLDOUT",
+  Disabled = "DISABLED",
+}
+export const toolbarInit: OptionsProps[] = [
+  {
+    name: Tab.All,
+    value: "",
+  },
+  {
+    name: Tab.Live,
+    value: "",
+  },
+  {
+    name: Tab.Soldout,
+    value: "",
+  },
+  {
+    name: Tab.Disabled,
+    value: "",
+  },
+];
+
+export const handleTabValue = (tabData: OptionsProps[], data: any) => {
+  return tabData.map((el: { name: string; value: any }) => {
+    for (let k in data) {
+      if (el.name == k.toUpperCase()) {
+        el.value = data[k];
+      }
+    }
+    console.info(el);
+    return el;
+  });
+};

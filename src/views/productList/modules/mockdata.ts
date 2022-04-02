@@ -2,7 +2,7 @@ import { PHONEREGCONST } from "@/lib/constants";
 import Mock from "mockjs";
 
 export const dataSource = {
-  "array|6": [
+  "prodcuts|6": [
     {
       id: "@id",
       "price|1-1000": 1,
@@ -12,4 +12,8 @@ export const dataSource = {
       "skuId|1-8": "",
     },
   ],
+  "all|1-2000": 1,
+  "live|1-2000": 1,
+  "soldOut|1-2000": 1,
+  "disabled|1-2000": 1,
 };

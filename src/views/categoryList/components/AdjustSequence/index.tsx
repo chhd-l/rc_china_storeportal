@@ -1,29 +1,15 @@
 import "./index.less";
-import { productItem } from "@/framework/types/shop";
-import { dataSource } from "../../modules/mockdata";
+import { ProductItem } from "@/framework/types/product";
+import { columnsAdjustSequence } from "../../modules/constant";
 import Mock from "mockjs";
 import { DragSortTable, ProColumns } from "@/components/common/ProTable";
 
 import { message } from "antd";
 import { useState } from "react";
 interface AdjustSequenceProps {
-  productList: productItem[];
+  productList: ProductItem[];
 }
 
-const columns: ProColumns<any>[] = [
-  {
-    title: "product Name",
-    dataIndex: "productName",
-  },
-  {
-    title: "MarketingPrice",
-    dataIndex: "marketingPrice",
-  },
-  {
-    title: "Stock",
-    dataIndex: "stock",
-  },
-];
 const AdjustSequence = ({ productList }: AdjustSequenceProps) => {
   const [dataSource, setDatasource] = useState(productList);
   const handleDragSortEnd = (newDataSource: any) => {
@@ -35,7 +21,7 @@ const AdjustSequence = ({ productList }: AdjustSequenceProps) => {
     <div className="adjust-sequence">
       <DragSortTable
         headerTitle="拖拽排序(默认把手)"
-        columns={columns}
+        columns={columnsAdjustSequence}
         rowKey="key"
         pagination={false}
         dataSource={dataSource}

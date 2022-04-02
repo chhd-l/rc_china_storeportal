@@ -1,28 +1,14 @@
 import "./index.less";
 import { Button, Switch, Tag } from "antd";
 import { EditOutlined } from "@ant-design/icons";
-import { ProColumns } from "@/components/common/ProTable";
 import { dataSource } from "./modules/mockdata";
 import Mock from "mockjs";
 import ProTable from "@/components/common/ProTable";
 import { useState } from "react";
-import { CategoryProductProps } from "@/framework/types/shop";
+import { columns } from "./modules/constant";
+import { CategoryProductProps } from "@/framework/types/product";
 const detailData = Mock.mock(dataSource);
 
-const columns: ProColumns<any>[] = [
-  {
-    title: "product Name",
-    dataIndex: "productName",
-  },
-  {
-    title: "MarketingPrice",
-    dataIndex: "marketingPrice",
-  },
-  {
-    title: "Stock",
-    dataIndex: "stock",
-  },
-];
 const CategoryDetail = () => {
   const hanleChangeVisble = (visible: boolean) => {
     console.info(visible);
@@ -49,8 +35,10 @@ const CategoryDetail = () => {
         </div>
         <div className="text-gray-400 mt-4">
           Created By:{" "}
-          <span className="text-black mx-2">Seller | Rule-based Filtering</span>{" "}
-          Product(s):3
+          <span className="text-black mx-2">
+            {cateInfos.createdUser} | {cateInfos.type}
+          </span>{" "}
+          Product(s):{cateInfos.productNum}
         </div>
       </div>
       <div className="bg-white px-6 py-4">

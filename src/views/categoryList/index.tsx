@@ -5,7 +5,7 @@ import "./index.less";
 import AddCate from "./components/AddCate";
 import { EyeOutlined, SyncOutlined } from "@ant-design/icons";
 import ProTable from "@/components/common/ProTable";
-import { columns } from "./modules/tablecolums";
+import { columns } from "./modules/constant";
 import { useState } from "react";
 const ShopCategories = () => {
   const [addVisible, setAddvisible] = useState(false);

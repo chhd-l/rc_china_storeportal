@@ -2,8 +2,15 @@ import Upload from "@/components/common/Upload";
 import Wangeditor from "@/components/common/Wangeditor";
 import { Form, Input, Select } from "antd";
 import { useState } from "react";
-import type { FormProps } from "@/framework/types/product";
-
+import type { FormProps } from "@/framework/types/common";
+const breedList = [
+  { name: "breed1", value: "breed1" },
+  { name: "breed2", value: "breed2" },
+];
+const salesStatusList = [
+  { name: "status1", value: "status1" },
+  { name: "status2", value: "status2" },
+];
 const BasicInfomation = (props: FormProps) => {
   // const [form] = Form.useForm();
   console.info("propsprops", props);
@@ -20,14 +27,7 @@ const BasicInfomation = (props: FormProps) => {
     setvideoUrl(url);
     console.info("videoUrl", videoUrl);
   };
-  const breedList = [
-    { name: "breed1", value: "breed1" },
-    { name: "breed2", value: "breed2" },
-  ];
-  const salesStatusList = [
-    { name: "status1", value: "status1" },
-    { name: "status2", value: "status2" },
-  ];
+
   return (
     <>
       <Form.Item
@@ -65,7 +65,6 @@ const BasicInfomation = (props: FormProps) => {
       >
         <Input showCount maxLength={120} />
       </Form.Item>
-
       <Form.Item
         label="Product Description"
         name={[props.field.name, "description"]}

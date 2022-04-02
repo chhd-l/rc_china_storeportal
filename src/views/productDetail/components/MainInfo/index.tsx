@@ -5,53 +5,16 @@ import Specification from "../Specification";
 import SalesInfo from "../SalesInfo";
 import Shipping from "../Shipping";
 import { Form, Space, Button } from "antd";
-import { EyeOutlined } from "@ant-design/icons";
 import { ReactNode, useRef, useState } from "react";
+import { steps, formInitialValues } from "../../modules/constant";
 interface MainInfoProps {
   cateInfo: {
     cateId: string[];
   };
 }
-interface StepsProps {
-  title: string;
-  anchor: string;
-  subTitle?: string;
-  tips: string;
-  rightSlot?: ReactNode | null;
-}
 
 const { Link } = Anchor;
-const steps: StepsProps[] = [
-  {
-    title: "Basic Infomation",
-    anchor: "product_basic_infomation",
-    subTitle: "",
-    tips: "Basic Infomation",
-    rightSlot: <EyeOutlined />,
-  },
-  {
-    title: "Specification",
-    anchor: "product_specification",
-    tips: "Specification",
-    subTitle:
-      "Complete: 1 / 7 Fill in more attributes to boost the exposure of your product.",
-    rightSlot: null,
-  },
-  {
-    title: "Sales Infomation",
-    anchor: "product_sales_infomation",
-    subTitle: "",
-    tips: "Sales Infomation",
-    rightSlot: null,
-  },
-  {
-    title: "Shipping",
-    tips: "Shipping",
-    anchor: "product_shipping",
-    subTitle: "",
-    rightSlot: null,
-  },
-];
+
 const MainInfo = ({ cateInfo }: MainInfoProps) => {
   const [form] = Form.useForm();
   const [tipsIdx, setTipsIdx] = useState(0);
@@ -74,34 +37,7 @@ const MainInfo = ({ cateInfo }: MainInfoProps) => {
             span: 14,
           }}
           layout="horizontal"
-          initialValues={{
-            product: [
-              {
-                fieldKey: 0,
-                isListField: true,
-                key: 0,
-                name: 0,
-              },
-              {
-                fieldKey: 1,
-                isListField: true,
-                key: 1,
-                name: 1,
-              },
-              {
-                fieldKey: 2,
-                isListField: true,
-                key: 2,
-                name: 2,
-              },
-              {
-                fieldKey: 3,
-                isListField: true,
-                key: 3,
-                name: 3,
-              },
-            ],
-          }}
+          initialValues={formInitialValues}
         >
           <Form.List name="product">
             {(fields) => (

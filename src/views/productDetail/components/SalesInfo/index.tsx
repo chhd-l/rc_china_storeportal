@@ -1,56 +1,12 @@
 import FormItem from "@/components/common/FormItem";
 import { Form, Input, Button, Space, Col, Row } from "antd";
-import type { FormProps } from '@/framework/types/product'
-import type {InputTextProps,InputSelectProps} from '@/framework/types/common'
+import type { FormProps } from "@/framework/types/common";
+import type {
+  InputTextProps,
+  InputSelectProps,
+} from "@/framework/types/common";
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
-const noSkuForm:(InputTextProps|InputSelectProps)[] = [
-  {
-    options: [{ name: "size", value: "size" }],
-    name: "subscription",
-    label: "Subscription",
-    type: "select",
-    rules: [{ required: true }],
-  },
-  {
-    type: "input",
-    addonBefore: "¥",
-    label: "List Price",
-    name: "listPrice",
-    rules: [{ required: true }],
-  },
-  {
-    type: "input",
-    addonBefore: "¥",
-    label: "Marketing Price",
-    name: "marketingPrice",
-    rules: [{ required: true }],
-  },
-  {
-    type: "input",
-    addonBefore: "¥",
-    label: "Subscription Price",
-    name: "subscriptionPrice",
-    rules: [{ required: true }],
-  },
-  {
-    type: "input",
-    label: "Stock",
-    name: "stock",
-    rules: [{ required: true }],
-  },
-  {
-    type: "input",
-    label: "Feeding Days",
-    name: "feedingDays",
-    rules: [{ required: true }],
-  },
-  {
-    type: "input",
-    label: "Support 100",
-    name: "support100",
-    rules: [{ required: true }],
-  },
-];
+import { noSkuForm } from "../../modules/constant";
 const SalesInfo = (props: FormProps) => {
   const layout = {
     labelCol: { span: 4 },
@@ -58,9 +14,7 @@ const SalesInfo = (props: FormProps) => {
   };
   return (
     <div>
-      <Form.List
-        name={"variationList"}
-      >
+      <Form.List name={"variationList"}>
         {(variations, { add: addVariations, remove: removeVariations }) => (
           <>
             {variations.map((variation, idx) => (
@@ -72,9 +26,12 @@ const SalesInfo = (props: FormProps) => {
                 {/* <div className="flex"> */}
                 <Form.List
                   {...variation}
-                  initialValue={[{
-                    option: '',name:''
-                 }]}
+                  initialValue={[
+                    {
+                      option: "",
+                      name: "",
+                    },
+                  ]}
                   name={[variation.name, "specificationList"]}
                 >
                   {(
@@ -124,7 +81,6 @@ const SalesInfo = (props: FormProps) => {
                                   style={{ display: "flex", marginBottom: 8 }}
                                   direction="vertical"
                                 >
-
                                   <Row>
                                     <Col span="2"></Col>
                                     <Col span="19">
@@ -132,21 +88,33 @@ const SalesInfo = (props: FormProps) => {
                                         wrapperCol={{ span: 16 }}
                                         labelCol={{ span: 7 }}
                                         {...specification}
-                                        rules={[{ required: specificationIdx===0, message: 'Missing name' }]}
-                                        name={[specification.name, specificationIdx===0?"name":'option']}
+                                        rules={[
+                                          {
+                                            required: specificationIdx === 0,
+                                            message: "Missing name",
+                                          },
+                                        ]}
+                                        name={[
+                                          specification.name,
+                                          specificationIdx === 0
+                                            ? "name"
+                                            : "option",
+                                        ]}
                                         label="options"
                                       >
                                         <Input placeholder="options" />
                                       </Form.Item>
                                     </Col>
                                     <Col span="3">
-                                      {specificationIdx > 0 && <MinusCircleOutlined
-                                        onClick={() =>
-                                          removeSpecification(
-                                            specification.name
-                                          )
-                                        }
-                                      />}
+                                      {specificationIdx > 0 && (
+                                        <MinusCircleOutlined
+                                          onClick={() =>
+                                            removeSpecification(
+                                              specification.name
+                                            )
+                                          }
+                                        />
+                                      )}
                                     </Col>
                                   </Row>
                                 </Space>
@@ -162,9 +130,7 @@ const SalesInfo = (props: FormProps) => {
                                   <Form.Item wrapperCol={{ span: 24 }}>
                                     <Button
                                       type="dashed"
-                                      onClick={() =>
-                                        addSpecification()
-                                      }
+                                      onClick={() => addSpecification()}
                                       block
                                       icon={<PlusOutlined />}
                                     >
@@ -195,9 +161,14 @@ const SalesInfo = (props: FormProps) => {
           </>
         )}
       </Form.List>
-      <FormItem {...props} parentName={[props.field.name]} list={noSkuForm} layout={layout} />
+      <FormItem
+        {...props}
+        parentName={[props.field.name]}
+        list={noSkuForm}
+        layout={layout}
+      />
     </div>
   );
 };
 
-export default  SalesInfo
+export default SalesInfo;

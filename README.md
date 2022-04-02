@@ -62,27 +62,38 @@ project
     |   ├── hooks      // 放置本页面拆分的一些可复用逻辑
     |   ├── index.tsx  // 页面组件的代码
     |   └── index.less // 页面样式
-  
+
   ```
+
 - 命名约定
   - 文件夹,脚本：小写
-  - 组件：大驼峰  // 包括components和page 下面的components
+  - 组件：大驼峰 // 包括 components 和 page 下面的 components
   - interface：xxProps
+  - 数据层面需要小写，多个用-隔开
   - 接口:
     ```
       api query-product
       function get-product.ts
       getProduct = () =>{queryProduct}
     ```
+  - 枚举,放在 types 里处理
+    ```
+      enum Direction {
+        Up = "UP",
+        Down = "DOWN",
+        Left = "LEFT",
+        Right = "RIGHT",
+      }
+    ```
 - 组件使用约定
-  
-  - 优先使用components下的组件进行开发
+
+  - 优先使用 components 下的组件进行开发
   - 组件文件夹分类: common / 业务组件
-  
+
 - router 约定
-  
+
   - 应用通过 `/routers/index.tsx` 统一管理。
-  
+
 - 项目健壮性约定
 
   - 子路由 components 通过 `React.lazy` 做处理动态引入组件。
@@ -91,7 +102,6 @@ project
 
   - 应用逻辑开发的公共资源在 `project/src/public` 下，而非 `project/public` 下。
   - 公共 components 开发目录在 `project/src/components`。
-
 
 标准例子：
 
@@ -110,7 +120,6 @@ git commit -m 'feat: 修复 xxx 功能'
 - refactor：重构（即不是新增功能，也不是修改 bug 的代码变动）
 - test：增加测试
 - chore：构建过程或辅助工具的变动
-
 
 ### 库和版本（基于 create-react-app 和 Ant Design）
 

@@ -1,15 +1,32 @@
-import type { FormListFieldData } from "antd/lib/form/FormList";
+import { OptionsProps } from "./common";
 
-export interface FormProps {
-  field: FormListFieldData;
-  parentName?: Array<any>;
-  name?: string;
-  layout?: any;
+// categories
+export interface CategoryBaseProps {
+  displayName: string;
+  type: number;
+  createdUser: string;
+  productNum: number;
+  isDispaly: boolean;
+  id: string;
 }
-export interface productBase {
+export interface ProductItem {
+  productName: string;
+  marketingPrice: number;
+  stock: number;
+}
+export interface CategoryProductProps extends CategoryBaseProps {
+  rules: OptionsProps[];
+  productList: ProductItem[] | [];
+}
+export interface ProductBaseProps {
   id: number;
   price: number;
   status: number;
   stock: number;
   skuId: string;
+}
+
+export enum ProductType {
+  Regular = "REGULAR",
+  Bundle = "BUNDLE",
 }

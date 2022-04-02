@@ -4,38 +4,22 @@ import ProTable from "@/components/common/ProTable";
 import { useState } from "react";
 import { dataSource } from "./modules/mockdata";
 import Mock from "mockjs";
-import { LISTTAB } from "@/framework/enum/product";
-import type { productBase } from "@/framework/types/product";
+import type { ProductBaseProps } from "@/framework/types/product";
 import SearchHeader from "./components/SearchHeader";
 import RenderBadge from "./components/RenderBadge";
 import { OptionsProps } from "@/framework/types/common";
-import { columns } from "./modules/tablecolums";
+import { columns, Tab, toolbarInit, handleTabValue } from "./modules/constant";
+const listData = Mock.mock(dataSource);
+console.info("listData", listData);
 const ProductList = () => {
-  const [activeKey, setActiveKey] = useState<React.Key>(LISTTAB["ALL"]);
+  const [activeKey, setActiveKey] = useState<React.Key>(Tab.All);
   const [selectedRowKeys, setSelectedRowKeys] = useState([""]);
   const onSelectChange = (selectedRowKeys: any) => {
     console.log("selectedRowKeys changed: ", selectedRowKeys);
     setSelectedRowKeys(selectedRowKeys);
   };
 
-  const toolbarList: OptionsProps[] = [
-    {
-      name: "ALL",
-      value: "11",
-    },
-    {
-      name: "LIVE",
-      value: "1",
-    },
-    {
-      name: "SOLDOUT",
-      value: "3",
-    },
-    {
-      name: "DISABLED",
-      value: "8",
-    },
-  ];
+  const toolbarList: OptionsProps[] = handleTabValue(toolbarInit, listData);
   const getFormData = (data: any) => {
     console.info(data, "data");
   };
@@ -49,7 +33,7 @@ const ProductList = () => {
           // 表单搜索项会从 params 传入，传递给后端接口。
           console.log("test sort", params, sorter, filter);
           return Promise.resolve({
-            data: Mock.mock(dataSource).array,
+            data: listData.products,
             success: true,
           });
         }}
@@ -62,7 +46,7 @@ const ProductList = () => {
                 key: el.name,
                 label: (
                   <span>
-                    {el.name}
+                    {el.name.toLowerCase()}
                     <RenderBadge
                       count={el.value}
                       active={activeKey === el.name}
