@@ -22,10 +22,10 @@ export const columns: ProColumns<CategoryBaseProps>[] = [
   },
   {
     title: "Display On/Off",
-    dataIndex: "isDispaly",
+    dataIndex: "isDisplay",
     render: (_, record) => (
       <Switch
-        defaultChecked={record.isDispaly}
+        defaultChecked={record.isDisplay}
         disabled={record.productNum < 1}
         onChange={(checked: boolean) => {
           console.log(`switch to ${checked}`);

@@ -6,7 +6,7 @@ export interface CategoryBaseProps {
   type: number;
   createdUser: string;
   productNum: number;
-  isDispaly: boolean;
+  isDisplay: boolean;
   id: string;
 }
 export interface ProductItem {

@@ -60,9 +60,21 @@ export const menus = [
       {
         name: "Shop Categories",
         value: "shop_categories",
-        url: "/shop/categories",
+        url: "/category-list",
         key: "shop_categories",
       },
     ],
   },
 ];
+
+export const initActive = (pathname: string) => {
+  let selectedKeys: string[] = [];
+  menus.forEach((menu) => {
+    menu.children.forEach((subMenu) => {
+      if (subMenu.url === pathname) {
+        selectedKeys = [menu.key, subMenu.key];
+      }
+    });
+  });
+  return selectedKeys;
+};
