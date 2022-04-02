@@ -1,9 +1,9 @@
-import { Avatar, Col, Row, Select, Tooltip } from "antd";
+import { Avatar, Col, Row, Select } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import React, { useState } from "react";
+import React from "react";
 import { Order } from "@/framework/types/order";
 import { OrderTradeItem } from "@/framework/types/order";
-import { carrierTypeList } from "../OrderContants";
+import { carrierTypeList } from "../OrderConstants";
 import OrderActions from "../OrderActions";
 
 const OrderTable = ({ orderList }: { orderList: Order[] }) => {
@@ -82,8 +82,8 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
             <Col span={6} className="text-center">
               {item.carrierType}
             </Col>
-            <Col span={2} className="text-right">
-              <OrderActions orderId={item.id} />
+            <Col span={2} className="text-right items-center">
+              <OrderActions orderDetail={item} />
             </Col>
           </Row>
         </div>

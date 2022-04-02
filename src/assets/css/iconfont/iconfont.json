@@ -1,0 +1,58 @@
+{
+  "id": "3298206",
+  "name": "爱宠有卡",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "28700277",
+      "name": "Vector",
+      "font_class": "Vector1",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "28700278",
+      "name": "Frame",
+      "font_class": "Frame1",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "28700224",
+      "name": "Vector",
+      "font_class": "Vector",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "28700225",
+      "name": "Frame",
+      "font_class": "Frame",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "28699679",
+      "name": "打包待发货",
+      "font_class": "dabaodaifahuo",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "28699456",
+      "name": "日历",
+      "font_class": "rili",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "28699357",
+      "name": "收货",
+      "font_class": "Order",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    }
+  ]
+}

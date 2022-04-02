@@ -7,6 +7,7 @@ import { Spin } from "antd";
 import Header from './components/Header'
 import './App.css'
 import '@/assets/css/global.css'
+import '@/assets/css/iconfont/iconfont.css'
 
 function App() {
   let Routers = useRoutes(Router);

@@ -1,10 +1,25 @@
 import { Modal, Form, Input, Button, Select, DatePicker } from "antd";
 import React from "react";
 
-const ShipmentModal = ({ shipModalVisible }: any) => {
+const ShipmentModal = ({
+  shipModalVisible,
+  orderId,
+  onCancel,
+}: {
+  shipModalVisible: boolean;
+  orderId: string;
+  onCancel: Function;
+}) => {
   const [form] = Form.useForm();
   return (
-    <Modal title="Arrange shipment" visible={shipModalVisible} footer={null}>
+    <Modal
+      title="Arrange shipment"
+      visible={shipModalVisible}
+      footer={null}
+      onCancel={() => {
+        onCancel && onCancel();
+      }}
+    >
       <Form
         form={form}
         labelCol={{ span: 9, offset: 0 }}
@@ -12,7 +27,7 @@ const ShipmentModal = ({ shipModalVisible }: any) => {
         onValuesChange={() => {}}
       >
         <Form.Item label="Order ID:">
-          <Input value="22031529222" disabled />
+          <Input value={orderId} disabled />
         </Form.Item>
         <Form.Item label="Carrier company:">
           <Select placeholder="Please select" />

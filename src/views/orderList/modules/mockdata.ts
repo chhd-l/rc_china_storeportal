@@ -1,10 +1,10 @@
 export const dataSource = {
-  "array|6":[
+  "array|6": [
     {
       id: "@id",
       customerImg: "",
       customerName: "@cname",
-      tradeItem: [
+      "tradeItem|1-2": [
         {
           skuId: "@id",
           pic: "",
@@ -14,14 +14,22 @@ export const dataSource = {
           num: 1,
         },
       ],
-      tradeState: { orderState: "completed" },
+      tradeState: {
+        "orderState|1": [
+          "unpaid",
+          "toShip",
+          "shipped",
+          "completed",
+          "cancellation",
+        ],
+      },
       carrierType: "111",
       tradePrice: {
         totalPrice: 34.6,
       },
-      payInfo:{
-        payTypeName:"Wechat Pay"
-      }
+      payInfo: {
+        payTypeName: "Wechat Pay",
+      },
     },
   ],
 };
