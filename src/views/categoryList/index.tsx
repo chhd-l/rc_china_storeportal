@@ -1,72 +1,15 @@
 import { Button, Alert } from "antd";
-import { Link } from "react-router-dom";
 import { dataSource } from "./modules/mockdata";
 import Mock from "mockjs";
 import "./index.less";
-import { Switch } from "antd";
 import AddCate from "./components/AddCate";
-import {
-  EyeOutlined,
-  SyncOutlined,
-  SettingOutlined,
-  InfoCircleTwoTone,
-  DeleteOutlined,
-  FileTextOutlined,
-} from "@ant-design/icons";
+import { EyeOutlined, SyncOutlined } from "@ant-design/icons";
 import ProTable from "@/components/common/ProTable";
-import type { ProColumns } from "@ant-design/pro-table";
-import { CategoryBaseProps } from "@/framework/types/shop";
+import { columns } from "./modules/tablecolums";
 import { useState } from "react";
 const ShopCategories = () => {
-  const onChange = (checked: boolean) => {
-    console.log(`switch to ${checked}`);
-  };
   const [addVisible, setAddvisible] = useState(false);
-  const columns: ProColumns<CategoryBaseProps>[] = [
-    {
-      title: "Category Display Name",
-      dataIndex: "displayName",
-    },
-    {
-      title: "Created By",
-      dataIndex: "createdUser",
-    },
-    {
-      title: "Product(s)",
-      dataIndex: "productNum",
-    },
-    {
-      title: "Display On/Off",
-      dataIndex: "isDispaly",
-      render: (_, record) => (
-        <Switch
-          defaultChecked={record.isDispaly}
-          disabled={record.productNum < 1}
-          onChange={onChange}
-        />
-      ),
-    },
-    {
-      title: "操作",
-      key: "option",
-      width: 180,
-      valueType: "option",
-      render: (_, record) => [
-        <Link to={`/category/:add`} className="text-xl mr-4">
-          +
-        </Link>,
-        <a className=" mr-4">
-          <SettingOutlined />
-        </a>,
-        <a className=" mr-4">
-          <DeleteOutlined />
-        </a>,
-        <Link to={`/category/:${record.id}`} className="text-xl mr-4">
-          <FileTextOutlined />
-        </Link>,
-      ],
-    },
-  ];
+
   const handleAddCate = (visible: boolean) => {
     setAddvisible(visible);
   };
