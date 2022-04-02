@@ -1,33 +1,15 @@
 import { Link } from "react-router-dom";
-import { Button, Badge } from "antd";
-import type { ProColumns } from "@ant-design/pro-table";
+import { Button } from "antd";
 import ProTable from "@/components/common/ProTable";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { dataSource } from "./modules/mockdata";
 import Mock from "mockjs";
 import { LISTTAB } from "@/framework/enum/product";
 import type { productBase } from "@/framework/types/product";
-import {
-  DeleteOutlined,
-  EyeOutlined,
-  EditOutlined,
-  DownloadOutlined,
-} from "@ant-design/icons";
 import SearchHeader from "./components/SearchHeader";
-
-const renderBadge = (count: number, active = false) => {
-  return (
-    <Badge
-      count={count}
-      style={{
-        marginTop: -2,
-        marginLeft: 4,
-        color: active ? "#1890FF" : "#999",
-        backgroundColor: active ? "#E6F7FF" : "#eee",
-      }}
-    />
-  );
-};
+import RenderBadge from "./components/RenderBadge";
+import { OptionsProps } from "@/framework/types/common";
+import { columns } from "./modules/tablecolums";
 const ProductList = () => {
   const [activeKey, setActiveKey] = useState<React.Key>(LISTTAB["ALL"]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([""]);
@@ -35,56 +17,23 @@ const ProductList = () => {
     console.log("selectedRowKeys changed: ", selectedRowKeys);
     setSelectedRowKeys(selectedRowKeys);
   };
-  // const handleChange = (value: any) => {
-  //   console.log('vale', value)
-  // }
-  const columns: ProColumns<productBase>[] = [
+
+  const toolbarList: OptionsProps[] = [
     {
-      title: "Product Name",
-      dataIndex: "name",
-      // render: (_) => {_},
+      name: "ALL",
+      value: "11",
     },
     {
-      title: "SKU",
-      dataIndex: "skuId",
+      name: "LIVE",
+      value: "1",
     },
     {
-      title: "Varitions",
-      dataIndex: "status",
+      name: "SOLDOUT",
+      value: "3",
     },
     {
-      title: "Price",
-      dataIndex: "price",
-      align: "left",
-      sorter: (a, b) => a.price - b.price,
-    },
-    {
-      title: "Stock",
-      width: 140,
-      key: "since",
-      dataIndex: "stock",
-      valueType: "date",
-      sorter: (a, b) => a.stock - b.stock,
-    },
-    {
-      title: "操作",
-      key: "option",
-      width: 180,
-      valueType: "option",
-      render: (_, record) => [
-        <a>
-          <EyeOutlined />
-        </a>,
-        <Link to={`/product/${record.id}`}>
-          <EditOutlined />
-        </Link>,
-        <a>
-          <DownloadOutlined />
-        </a>,
-        <a>
-          <DeleteOutlined />
-        </a>,
-      ],
+      name: "DISABLED",
+      value: "8",
     },
   ];
   const getFormData = (data: any) => {
@@ -108,40 +57,21 @@ const ProductList = () => {
           menu: {
             type: "tab",
             activeKey: activeKey,
-            items: [
-              {
-                key: LISTTAB["ALL"],
+            items: toolbarList.map((el: any) => {
+              let toolbar = {
+                key: el.name,
                 label: (
                   <span>
-                    All{renderBadge(99, activeKey === LISTTAB["ALL"])}
+                    {el.name}
+                    <RenderBadge
+                      count={el.value}
+                      active={activeKey === el.name}
+                    />
                   </span>
                 ),
-              },
-              {
-                key: LISTTAB["LIVE"],
-                label: (
-                  <span>
-                    Live{renderBadge(30, activeKey === LISTTAB["LIVE"])}
-                  </span>
-                ),
-              },
-              {
-                key: LISTTAB["SOLDOUT"],
-                label: (
-                  <span>
-                    Sold out{renderBadge(30, activeKey === LISTTAB["SOLDOUT"])}
-                  </span>
-                ),
-              },
-              {
-                key: LISTTAB["DISABLED"],
-                label: (
-                  <span>
-                    Disabled{renderBadge(30, activeKey === LISTTAB["DISABLED"])}
-                  </span>
-                ),
-              },
-            ],
+              };
+              return toolbar;
+            }),
             onChange: (key) => {
               setActiveKey(key as string);
             },

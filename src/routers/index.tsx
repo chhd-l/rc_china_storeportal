@@ -1,6 +1,6 @@
 import { lazy } from "react"; // 路由懒加载
 import type { RouteObject } from "react-router-dom";
-const AppLayout = lazy(() => import("../components/common/layout/layout"));
+const AppLayout = lazy(() => import("../components/common/Layout/layout"));
 const Home = lazy(() => import("../views/index"));
 const Login = lazy(() => import("../views/login"));
 const ProductList = lazy(() => import("../views/productList"));

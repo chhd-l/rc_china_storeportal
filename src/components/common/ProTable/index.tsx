@@ -1,5 +1,5 @@
 import ProTable, { ProTableProps } from "@ant-design/pro-table";
-import "./index.css";
+import "./index.less";
 import { defaultsDeep } from "lodash";
 import cn from "classnames";
 export * from "@ant-design/pro-table";
