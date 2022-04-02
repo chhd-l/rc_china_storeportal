@@ -1,45 +1,22 @@
 import { lazy } from "react"; // 路由懒加载
 import type { RouteObject } from "react-router-dom";
-import {useRoutes} from 'react-router-dom'
-const AppLayout = lazy(() => import("../layout/applayout"));
+const Layout = lazy(() => import("../components/common/Layout"));
 const Home = lazy(() => import("../views/index"));
 const Login = lazy(() => import("../views/login"));
+const ProductList = lazy(() => import("../views/productList"));
+const AddProduct = lazy(() => import("../views/productDetail"));
 const ResetPassword = lazy(() => import("../views/resetPassword"));
 const Register = lazy(() => import("../views/register"));
-const PetOwnerList=lazy(()=>import('@/views/petOwnerList'))
-const PetOwnerDetail=lazy(()=>import('@/views/petOwnerDetail'))
-const PetDetail=lazy(()=>import('@/views/petDetail'))
-
-// export type RouterType = {
-//   path: string;
-//   component: React.LazyExoticComponent<any>;
-//   root?: string[];
-//   children?:any;
-//   notExect?: boolean;
-//   redirectTo?: string;
-// }[];
-
-// const Routers: RouterType  = [
-//   {
-//     path: "/app",
-//     component: AppLayout,
-//     children:[
-//       {
-//         path: "/home",
-//         component: Home,
-//       }
-//     ]
-//   },
-//   {
-//     path: "/login",
-//     component: Login,
-//   }
-// ];
+const PetOwnerList = lazy(() => import("@/views/petOwnerList"));
+const PetOwnerDetail = lazy(() => import("@/views/petOwnerDetail"));
+const PetDetail = lazy(() => import("@/views/petDetail"));
+const CategoryList = lazy(() => import("@/views/categoryList"));
+const CategoryDetail = lazy(() => import("@/views/categoryDetail"));
 
 let routes: RouteObject[] = [
   {
     path: "/",
-    element: <AppLayout />,
+    element: <Layout />,
     children: [
       // { index: true, element: <Home /> },
       {
@@ -50,16 +27,23 @@ let routes: RouteObject[] = [
         //   { path: "/courses/:id", element: <Course /> },
         // ],
       },
+      { path: "/product-list", element: <ProductList /> },
+      { path: "/product/:id", element: <AddProduct /> },
+      { path: "/product/add", element: <AddProduct /> },
+      // { path: "/product/category", element: <Catechoose /> },
       { path: "/pet-owner-list", element: <PetOwnerList /> },
       { path: "/pet-owner-detail", element: <PetOwnerDetail /> },
       { path: "/pet-detail", element: <PetDetail /> },
+      { path: "/category-list", element: <CategoryList /> },
+      { path: "/category/:id", element: <CategoryDetail /> },
+      { path: "/category/add", element: <CategoryDetail /> },
     ],
-
   },
   { path: "/login", element: <Login /> },
+  { path: "*", element: <Home /> },
   { path: "/resetPassword", element: <ResetPassword /> },
   { path: "/register", element: <Register /> },
-    { path: "*", element: <Home /> },
+  { path: "*", element: <Home /> },
 ];
 
 // The useRoutes() hook allows you to define your routes as JavaScript objects

@@ -3,12 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import 'antd/dist/antd.min.css'
+// import 'antd/dist/antd.min.css'
 import { BrowserRouter } from "react-router-dom"
+import { ConfigProvider } from 'antd'; 
+ConfigProvider.config({
+    theme: { primaryColor: '#E2001A', },
+});
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <ConfigProvider>
+        <App />
+      </ConfigProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
