@@ -30,3 +30,8 @@ export enum ProductType {
   Regular = "REGULAR",
   Bundle = "BUNDLE",
 }
+
+export enum AddCateType {
+  ManualSelection = "0",
+  RuleBasedFiltering = "1",
+}

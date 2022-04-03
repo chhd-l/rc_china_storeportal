@@ -93,7 +93,6 @@ export const handleTabValue = (tabData: OptionsProps[], data: any) => {
         el.value = data[k];
       }
     }
-    console.info(el);
     return el;
   });
 };

@@ -26,6 +26,7 @@ export interface OptionsProps {
 export interface LabelOptionProps {
   label: ReactNode | string;
   value: string;
+  children?: LabelOptionProps;
 }
 
 export interface InputBaseProps {

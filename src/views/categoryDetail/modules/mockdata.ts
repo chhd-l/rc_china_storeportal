@@ -21,3 +21,33 @@ export const dataSource = {
     ],
   },
 };
+export const productLists = {
+  "list|2-4": [
+    {
+      img: "@image('200x200')",
+      "id|1-200": "2",
+      name: "@name",
+    },
+  ],
+};
+
+export const mockOption = {
+  "options|6": [
+    {
+      name: "@name",
+      value: "@name",
+    },
+  ],
+};
+
+export const manualTable = {
+  "table|6": [
+    {
+      name: "@name",
+      brand: "@name",
+      "lowestPrice|1-200": 1,
+      "highestPrice|300-3500": 1,
+      "stock|1-100": 1,
+    },
+  ],
+};
