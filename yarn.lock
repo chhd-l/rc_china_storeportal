@@ -1569,6 +1569,26 @@
   "resolved" "https://registry.npmmirror.com/@qixian.cs/path-to-regexp/-/path-to-regexp-6.1.0.tgz"
   "version" "6.1.0"
 
+"@react-dnd/asap@^4.0.0", "@react-dnd/asap@4.0.1":
+  "integrity" "sha512-kLy0PJDDwvwwTXxqTFNAAllPHD73AycE9ypWeln/IguoGBEbvFcPDbCV03G52bEcC5E+YgupBE0VzHGdC8SIXg=="
+  "resolved" "https://registry.npmmirror.com/@react-dnd/asap/-/asap-4.0.1.tgz"
+  "version" "4.0.1"
+
+"@react-dnd/invariant@^2.0.0":
+  "integrity" "sha512-xL4RCQBCBDJ+GRwKTFhGUW8GXa4yoDfJrPbLblc3U09ciS+9ZJXJ3Qrcs/x2IODOdIE5kQxvMmE2UKyqUictUw=="
+  "resolved" "https://registry.npmmirror.com/@react-dnd/invariant/-/invariant-2.0.0.tgz"
+  "version" "2.0.0"
+
+"@react-dnd/invariant@3.0.1":
+  "integrity" "sha512-blqduwV86oiKw2Gr44wbe3pj3Z/OsXirc7ybCv9F/pLAR+Aih8F3rjeJzK0ANgtYKv5lCpkGVoZAeKitKDaD/g=="
+  "resolved" "https://registry.npmmirror.com/@react-dnd/invariant/-/invariant-3.0.1.tgz"
+  "version" "3.0.1"
+
+"@react-dnd/shallowequal@^2.0.0":
+  "integrity" "sha512-Pc/AFTdwZwEKJxFJvlxrSmGe/di+aAOBn60sremrpLo6VI/6cmiUYNNwlI5KNYttg7uypzA3ILPMPgxB2GYZEg=="
+  "resolved" "https://registry.npmmirror.com/@react-dnd/shallowequal/-/shallowequal-2.0.0.tgz"
+  "version" "2.0.0"
+
 "@rollup/plugin-babel@^5.2.0":
   "integrity" "sha512-WFfdLWU/xVWKeRQnKmIAQULUI7Il0gZnBIH/ZFO069wYIfPu+8zrfp/KMW0atmELoRDq8FbiP3VCss9MhCut7Q=="
   "resolved" "https://registry.npmmirror.com/@rollup/plugin-babel/-/plugin-babel-5.3.1.tgz"
@@ -1798,6 +1818,13 @@
   "resolved" "https://registry.npmmirror.com/@types/aria-query/-/aria-query-4.2.2.tgz"
   "version" "4.2.2"
 
+"@types/array-move@^2.0.0":
+  "integrity" "sha512-M1Sb7db3XP65S2j5CWvzce2z0ORRfT/Bhd6mYu++nP6ZhRsntMixavFyxgf9NkQa37bveuIfpb0RKYRA8XVcGQ=="
+  "resolved" "https://registry.npmmirror.com/@types/array-move/-/array-move-2.0.0.tgz"
+  "version" "2.0.0"
+  dependencies:
+    "array-move" "*"
+
 "@types/babel__core@^7.0.0", "@types/babel__core@^7.1.14", "@types/babel__core@^7.1.9":
   "integrity" "sha512-WEOTgRsbYkvA/KCsDwVEGkd7WAr1e3g31VHQ8zy5gul/V1qKullU/BU5I68X5v7V3GnB9eotmom4v5a5gjxorw=="
   "resolved" "https://registry.npmmirror.com/@types/babel__core/-/babel__core-7.1.19.tgz"
@@ -1977,7 +2004,7 @@
   "resolved" "https://registry.npmmirror.com/@types/mockjs/-/mockjs-1.0.6.tgz"
   "version" "1.0.6"
 
-"@types/node@*", "@types/node@^16.11.26":
+"@types/node@*", "@types/node@^16.11.26", "@types/node@>= 12":
   "integrity" "sha512-GZ7bu5A6+4DtG7q9GsoHXy3ALcgeIHP4NnL0Vv2wu0uUB/yQex26v0tf6/na1mm0+bS9Uw+0DFex7aaKr2qawQ=="
   "resolved" "https://registry.npmmirror.com/@types/node/-/node-16.11.26.tgz"
   "version" "16.11.26"
@@ -2019,7 +2046,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^17.0.41":
+"@types/react@*", "@types/react@^17.0.41", "@types/react@>= 16":
   "integrity" "sha512-chYZ9ogWUodyC7VUTRBfblysKLjnohhFY9bGLwvnUFFy48+vB9DikmB3lW0qTFmBcKSzmdglcvkHK71IioOlDA=="
   "resolved" "https://registry.npmmirror.com/@types/react/-/react-17.0.41.tgz"
   "version" "17.0.41"
@@ -2643,6 +2670,11 @@
     "es-abstract" "^1.19.1"
     "get-intrinsic" "^1.1.1"
     "is-string" "^1.0.7"
+
+"array-move@*", "array-move@^4.0.0":
+  "integrity" "sha512-+RY54S8OuVvg94THpneQvFRmqWdAHeqtMzgMW6JNurHxe8rsS07cHQdfGkXnTUXiBcyZ0j3SiDIxxj0RPiqCkQ=="
+  "resolved" "https://registry.npmmirror.com/array-move/-/array-move-4.0.0.tgz"
+  "version" "4.0.0"
 
 "array-tree-filter@^2.1.0":
   "integrity" "sha512-4ROwICNlNw/Hqa9v+rk5h22KjmzB1JGTMVKP2AKJBOCgb0yL0ASf0+YvCcLNNwquOHNX48jkeZIJ3a+oOQqKcw=="
@@ -3849,6 +3881,24 @@
   "resolved" "https://registry.npmmirror.com/dlv/-/dlv-1.1.3.tgz"
   "version" "1.1.3"
 
+"dnd-core@14.0.0":
+  "integrity" "sha512-wTDYKyjSqWuYw3ZG0GJ7k+UIfzxTNoZLjDrut37PbcPGNfwhlKYlPUqjAKUjOOv80izshUiqusaKgJPItXSevA=="
+  "resolved" "https://registry.npmmirror.com/dnd-core/-/dnd-core-14.0.0.tgz"
+  "version" "14.0.0"
+  dependencies:
+    "@react-dnd/asap" "^4.0.0"
+    "@react-dnd/invariant" "^2.0.0"
+    "redux" "^4.0.5"
+
+"dnd-core@15.1.2":
+  "integrity" "sha512-EOec1LyJUuGRFg0LDa55rSRAUe97uNVKVkUo8iyvzQlcECYTuPblVQfRWXWj1OyPseFIeebWpNmKFy0h6BcF1A=="
+  "resolved" "https://registry.npmmirror.com/dnd-core/-/dnd-core-15.1.2.tgz"
+  "version" "15.1.2"
+  dependencies:
+    "@react-dnd/asap" "4.0.1"
+    "@react-dnd/invariant" "3.0.1"
+    "redux" "^4.1.2"
+
 "dns-equal@^1.0.0":
   "integrity" "sha512-z+paD6YUQsk+AbGCEM4PrOXSss5gd66QfcVBFTKR/HpFL9jCqikS94HYwKww6fQyO7IxrIIyUu+g0Ka9tUS2Cg=="
   "resolved" "https://registry.npmmirror.com/dns-equal/-/dns-equal-1.0.0.tgz"
@@ -4926,6 +4976,13 @@
   "version" "5.3.0"
   dependencies:
     "@babel/runtime" "^7.7.6"
+
+"hoist-non-react-statics@^3.3.2":
+  "integrity" "sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw=="
+  "resolved" "https://registry.npmmirror.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz"
+  "version" "3.3.2"
+  dependencies:
+    "react-is" "^16.7.0"
 
 "hoopy@^0.1.4":
   "integrity" "sha512-HRcs+2mr52W0K+x8RzcLzuPPmVIKMSv97RGHy0Ea9y/mpcaK+xTrjICA04KAHi4GRzxliNqNJEFYWHghy3rSfQ=="
@@ -7945,6 +8002,24 @@
     "strip-ansi" "^6.0.1"
     "text-table" "^0.2.0"
 
+"react-dnd-html5-backend@^15.1.3":
+  "integrity" "sha512-HH/8nOEmrrcRGHMqJR91FOwhnLlx5SRLXmsQwZT3IPcBjx88WT+0pWC5A4tDOYDdoooh9k+KMPvWfxooR5TcOA=="
+  "resolved" "https://registry.npmmirror.com/react-dnd-html5-backend/-/react-dnd-html5-backend-15.1.3.tgz"
+  "version" "15.1.3"
+  dependencies:
+    "dnd-core" "15.1.2"
+
+"react-dnd@^14.0.2":
+  "integrity" "sha512-JoEL78sBCg8SzjOKMlkR70GWaPORudhWuTNqJ56lb2P8Vq0eM2+er3ZrMGiSDhOmzaRPuA9SNBz46nHCrjn11A=="
+  "resolved" "https://registry.npmmirror.com/react-dnd/-/react-dnd-14.0.2.tgz"
+  "version" "14.0.2"
+  dependencies:
+    "@react-dnd/invariant" "^2.0.0"
+    "@react-dnd/shallowequal" "^2.0.0"
+    "dnd-core" "14.0.0"
+    "fast-deep-equal" "^3.1.3"
+    "hoist-non-react-statics" "^3.3.2"
+
 "react-dom@*", "react-dom@^16.3.0 || ^17.0.0", "react-dom@^17.0.2", "react-dom@>=16.0.0", "react-dom@>=16.11.0", "react-dom@>=16.8", "react-dom@>=16.9.0":
   "integrity" "sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA=="
   "resolved" "https://registry.npmmirror.com/react-dom/-/react-dom-17.0.2.tgz"
@@ -7965,6 +8040,11 @@
   "version" "16.13.1"
 
 "react-is@^16.13.1":
+  "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="
+  "resolved" "https://registry.npmmirror.com/react-is/-/react-is-16.13.1.tgz"
+  "version" "16.13.1"
+
+"react-is@^16.7.0":
   "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="
   "resolved" "https://registry.npmmirror.com/react-is/-/react-is-16.13.1.tgz"
   "version" "16.13.1"
@@ -8003,7 +8083,7 @@
     "invariant" "^2.2.4"
     "prop-types" "^15.5.7"
 
-"react@*", "react@^16.11.0 || ^17.0.0 || ^18.0.0", "react@^16.3.0 || ^17.0.0", "react@^17.0.2", "react@>=16.0.0", "react@>=16.11.0", "react@>=16.12.0", "react@>=16.8", "react@>=16.9.0", "react@17.0.2":
+"react@*", "react@^16.11.0 || ^17.0.0 || ^18.0.0", "react@^16.3.0 || ^17.0.0", "react@^17.0.2", "react@>= 16.14", "react@>=16.0.0", "react@>=16.11.0", "react@>=16.12.0", "react@>=16.8", "react@>=16.9.0", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmmirror.com/react/-/react-17.0.2.tgz"
   "version" "17.0.2"
@@ -8061,6 +8141,13 @@
   dependencies:
     "indent-string" "^4.0.0"
     "strip-indent" "^3.0.0"
+
+"redux@^4.0.5", "redux@^4.1.2":
+  "integrity" "sha512-SH8PglcebESbd/shgf6mii6EIoRM0zrQyjcuQ+ojmfxjTtE0z9Y8pa62iA/OJ58qjP6j27uyW4kUF4jl/jd6sw=="
+  "resolved" "https://registry.npmmirror.com/redux/-/redux-4.1.2.tgz"
+  "version" "4.1.2"
+  dependencies:
+    "@babel/runtime" "^7.9.2"
 
 "regenerate-unicode-properties@^10.0.1":
   "integrity" "sha512-vn5DU6yg6h8hP/2OkQo3K7uVILvY4iu0oI4t3HFa81UPkhGJwkRwM10JEc3upjdhHjs/k8GJY1sRBhk5sr69Bw=="
@@ -9228,6 +9315,11 @@
   "version" "4.4.1"
   dependencies:
     "punycode" "^2.1.0"
+
+"use-force-update@^1.0.7":
+  "integrity" "sha512-k5dppYhO+I5X/cd7ildbrzeMZJkWwdAh5adaIk0qKN2euh7J0h2GBGBcB4QZ385eyHHnp7LIygvebdRx3XKdwA=="
+  "resolved" "https://registry.npmmirror.com/use-force-update/-/use-force-update-1.0.7.tgz"
+  "version" "1.0.7"
 
 "use-json-comparison@^1.0.3":
   "integrity" "sha512-xPadt5yMRbEmVfOSGFSMqjjICrq7nLbfSH3rYIXsrtcuFX7PmbYDN/ku8ObBn3v8o/yZelO1OxUS5+5TI3+fUw=="

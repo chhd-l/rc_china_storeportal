@@ -35,3 +35,13 @@ export enum AddCateType {
   ManualSelection = "0",
   RuleBasedFiltering = "1",
 }
+export interface SpecificationListProps {
+  option: string;
+}
+export interface VarationProps {
+  name: string;
+  specificationList: SpecificationListProps[];
+}
+export interface VarationsFormProps {
+  variationList: VarationProps[];
+}
