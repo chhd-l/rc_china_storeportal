@@ -3,7 +3,7 @@ import { UserOutlined } from "@ant-design/icons";
 import React from "react";
 import { Order } from "@/framework/types/order";
 import { OrderTradeItem } from "@/framework/types/order";
-import { carrierTypeList } from "../OrderConstants";
+import { carrierTypeList } from "@/lib/order-constants";
 import OrderActions from "../OrderActions";
 
 const OrderTable = ({ orderList }: { orderList: Order[] }) => {

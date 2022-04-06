@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { Order } from "@/framework/types/order";
 import { useLocation } from "react-router-dom";
 
-enum ORDERSTATUS {
-  TOSHIP = "toShip",
-  SHIPPED = "shipped",
+enum OrderStatus {
+  Toship = "TOSHIP",
+  Shipped = "SHIPPED",
 }
 
 const OrderActions = ({ orderDetail }: { orderDetail: Order }) => {
@@ -31,7 +31,7 @@ const OrderActions = ({ orderDetail }: { orderDetail: Order }) => {
         </Tooltip>
       )}
       {/*发货*/}
-      {orderDetail?.tradeState?.orderState === ORDERSTATUS["TOSHIP"] && (
+      {orderDetail?.tradeState?.orderState === OrderStatus["Toship"] && (
         <Tooltip title="Arrange shipment">
           <span
             className="cursor-pointer ml-2 iconfont icon-dabaodaifahuo text-red-500"
@@ -43,7 +43,7 @@ const OrderActions = ({ orderDetail }: { orderDetail: Order }) => {
         </Tooltip>
       )}
       {/*收货*/}
-      {orderDetail?.tradeState?.orderState === ORDERSTATUS["SHIPPED"] && (
+      {orderDetail?.tradeState?.orderState === OrderStatus["Shipped"] && (
         <Tooltip title="Completed">
           <span
             className="cursor-pointer ml-2 iconfont icon-Order text-red-500 text-red-500"
