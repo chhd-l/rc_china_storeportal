@@ -1,0 +1,99 @@
+import { ProColumns } from "@/components/common/ProTable";
+import { OptionsProps } from "@/framework/types/common";
+import { ProductBaseProps } from "@/framework/types/product";
+import {
+  DeleteOutlined,
+  EyeOutlined,
+  EditOutlined,
+  DownloadOutlined,
+} from "@ant-design/icons";
+import { Button } from "antd";
+import { useState } from "react";
+
+import { Link } from "react-router-dom";
+export const columns: ProColumns<ProductBaseProps>[] = [
+  {
+    title: "Product Name",
+    dataIndex: "name",
+    // render: (_) => {_},
+  },
+  {
+    title: "SKU",
+    dataIndex: "skuId",
+  },
+  {
+    title: "Varitions",
+    dataIndex: "status",
+  },
+  {
+    title: "Price",
+    dataIndex: "price",
+    align: "left",
+    sorter: (a, b) => a.price - b.price,
+  },
+  {
+    title: "Stock",
+    width: 140,
+    key: "since",
+    dataIndex: "stock",
+    valueType: "date",
+    sorter: (a, b) => a.stock - b.stock,
+  },
+  {
+    title: "操作",
+    key: "option",
+    width: 180,
+    valueType: "option",
+    render: (_, record) => [
+      <a>
+        <EyeOutlined />
+      </a>,
+      <Link to={`/product/${record.id}`}>
+        <EditOutlined />
+      </Link>,
+      <a>
+        <DownloadOutlined />
+      </a>,
+      <a>
+        <DeleteOutlined />
+      </a>,
+    ],
+  },
+];
+
+export enum Tab {
+  All = "ALL",
+  Live = "LIVE",
+  Soldout = "SOLDOUT",
+  Disabled = "DISABLED",
+}
+export const toolbarInit: OptionsProps[] = [
+  {
+    name: Tab.All,
+    value: "",
+  },
+  {
+    name: Tab.Live,
+    value: "",
+  },
+  {
+    name: Tab.Soldout,
+    value: "",
+  },
+  {
+    name: Tab.Disabled,
+    value: "",
+  },
+];
+
+export const handleTabValue = (tabData: OptionsProps[], data: any) => {
+  return tabData.map((el: { name: string; value: any }) => {
+    for (let k in data) {
+      if (el.name == k.toUpperCase()) {
+        el.value = data[k];
+      }
+    }
+    console.info(el);
+    return el;
+  });
+};
