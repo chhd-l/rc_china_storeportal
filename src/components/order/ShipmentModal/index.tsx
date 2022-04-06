@@ -7,7 +7,7 @@ const ShipmentModal = ({
   onCancel,
 }: {
   shipModalVisible: boolean;
-  orderId: string;
+  orderId?: string;
   onCancel: Function;
 }) => {
   const [form] = Form.useForm();

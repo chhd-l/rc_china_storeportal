@@ -18,7 +18,7 @@ interface SearchParamsProps {
 const PetOwnerList = () => {
   const initSearchParams: SearchParamsProps = {
     orderCreateDate: "",
-    searchType: "",
+    searchType: "orderId",
     searchTypeValue: "",
   };
   const [orderList, setOrderList] = useState<Order[]>([]);

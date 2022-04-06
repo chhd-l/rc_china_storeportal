@@ -1,6 +1,8 @@
+import {Address} from "./customer";
+
 export interface Order {
   id: string;
-  order_number: string;
+  orderNumber: string;
   customerImg: string;
   customerName: string;
   tradeItem: OrderTradeItem[]; //对应后端lineItem
@@ -9,6 +11,7 @@ export interface Order {
   tradePrice: TradePrice;
   payInfo: PayInfo;
   subscriptionId?: string;
+  shippingAddress?:Address
 }
 
 export interface PayInfo {
@@ -20,7 +23,10 @@ export interface TradeState {
 }
 
 export interface TradePrice {
+  goodsPrice:number
+  deliveryPrice:number
   totalPrice: number;
+  discountsPrice:number
 }
 
 export interface OrderTradeItem {
@@ -31,4 +37,5 @@ export interface OrderTradeItem {
   color?: string; //为符合原型展示定义的字段
   num: number;
   description?: string; //不知道是不是规格
+  price:number
 }
