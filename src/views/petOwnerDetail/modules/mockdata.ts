@@ -1,4 +1,5 @@
 import { PHONEREGCONST } from "@/lib/constants";
+import { orderDataSource } from "@/views/orderDetail/modules/mockdata";
 
 export const dataSource = {
   basicInformation: {
@@ -89,29 +90,5 @@ export const dataSource = {
       subscriptionType: "Autoship",
     },
   ],
-  "orderList|2": [
-    {
-      id: "@id",
-      customerImg: "",
-      customerName: "@cname",
-      tradeItem: [
-        {
-          skuId: "@id",
-          pic: "",
-          skuName: "@title",
-          size: "small",
-          color: "red",
-          num: 1,
-        },
-      ],
-      tradeState: { orderState: "completed" },
-      carrierType: "Autoship",
-      tradePrice: {
-        totalPrice: 34.6,
-      },
-      payInfo:{
-        payTypeName:"Wechat Pay"
-      }
-    },
-  ],
+  "orderList|2": [orderDataSource],
 };

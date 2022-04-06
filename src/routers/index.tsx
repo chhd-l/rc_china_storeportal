@@ -12,6 +12,8 @@ const PetOwnerDetail=lazy(()=>import('@/views/petOwnerDetail'))
 const PetDetail=lazy(()=>import('@/views/petDetail'))
 const OrderList=lazy(()=>import('@/views/orderList'))
 const OrderDetail=lazy(()=>import('@/views/orderDetail'))
+const CategoryList = lazy(() => import("@/views/categoryList"));
+const CategoryDetail = lazy(() => import("@/views/categoryDetail"));
 
 // export type RouterType = {
 //   path: string;
@@ -38,11 +40,8 @@ const OrderDetail=lazy(()=>import('@/views/orderDetail'))
 //     component: Login,
 //   }
 // ];
-const PetOwnerList = lazy(() => import("@/views/petOwnerList"));
-const PetOwnerDetail = lazy(() => import("@/views/petOwnerDetail"));
-const PetDetail = lazy(() => import("@/views/petDetail"));
-const CategoryList = lazy(() => import("@/views/categoryList"));
-const CategoryDetail = lazy(() => import("@/views/categoryDetail"));
+
+
 
 let routes: RouteObject[] = [
   {
@@ -78,7 +77,6 @@ let routes: RouteObject[] = [
   { path: "*", element: <Home /> },
   { path: "/resetPassword", element: <ResetPassword /> },
   { path: "/register", element: <Register /> },
-  { path: "*", element: <Home /> },
 ];
 
 // The useRoutes() hook allows you to define your routes as JavaScript objects

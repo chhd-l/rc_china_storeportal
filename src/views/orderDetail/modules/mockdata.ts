@@ -1,9 +1,13 @@
 import { PHONEREGCONST } from "@/lib/constants";
-export const dataSource = {
+export const orderDataSource = {
   id: "@id",
-  customerImg: "",
-  customerName: "@cname",
   subscriptionId: "@id",
+  buyer: {
+    id: "@id",
+    image: "",
+    name: "@cname",
+    phone: PHONEREGCONST,
+  },
   shippingAddress: {
     id: "@id",
     receiverName: "@cname",
@@ -23,6 +27,7 @@ export const dataSource = {
       size: "small",
       color: "red",
       num: 1,
+      price: 198,
     },
   ],
   tradeState: {
@@ -36,7 +41,10 @@ export const dataSource = {
   },
   carrierType: "111",
   tradePrice: {
-    totalPrice: 34.6,
+    goodsPrice: 198,
+    discountsPrice: 8,
+    deliveryPrice: 0,
+    totalPrice: 190,
   },
   payInfo: {
     payTypeName: "Wechat Pay",

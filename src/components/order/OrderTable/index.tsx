@@ -24,7 +24,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
             value="Carrier"
           >
             {carrierTypeList.map((item) => (
-              <Select.Option value={item.key}>{item.label}</Select.Option>
+              <Select.Option value={item.key} key={item.key}>{item.label}</Select.Option>
             ))}
           </Select>
         </Col>
@@ -37,7 +37,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
           <Row className="bg-gray1 border-b p-2">
             <Col span={12} className="flex items-center">
               <Avatar icon={<UserOutlined />} />
-              <span className="ml-2">{item.customerName}</span>
+              <span className="ml-2">{item.buyer.name}</span>
             </Col>
             <Col span={12} className="text-right">
               <div>
@@ -50,7 +50,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
             </Col>
           </Row>
           <Row className="p-2 flex items-center">
-            <Col span={8} className="flex flex-row items-center">
+            <Col span={8} className="flex flex-col justify-start">
               {item.tradeItem.map((product: OrderTradeItem) => (
                 <Row className="items-center" key={product.skuId}>
                   <Col span={8}>

@@ -36,6 +36,7 @@ const PetOwnerList = () => {
     const state: any = location.state;
     console.log("111", state.id);
     setPetOwnerId(state.id);
+    console.log(petOwnerId)
     setPetOwnerDetail(Mock.mock(dataSource));
   }, []);
 

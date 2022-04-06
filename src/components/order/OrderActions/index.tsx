@@ -1,5 +1,5 @@
 import { Tooltip, Modal } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ShipmentModal from "../ShipmentModal";
 import { useNavigate } from "react-router-dom";
 import { Order } from "@/framework/types/order";

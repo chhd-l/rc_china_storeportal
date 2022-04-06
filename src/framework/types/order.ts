@@ -1,10 +1,8 @@
-import {Address} from "./customer";
+import {Address,Customer} from "./customer";
 
 export interface Order {
   id: string;
   orderNumber: string;
-  customerImg: string;
-  customerName: string;
   tradeItem: OrderTradeItem[]; //对应后端lineItem
   tradeState: TradeState;
   carrierType: string; //后端未定义这个字段
@@ -12,6 +10,7 @@ export interface Order {
   payInfo: PayInfo;
   subscriptionId?: string;
   shippingAddress?:Address
+  buyer:Customer
 }
 
 export interface PayInfo {

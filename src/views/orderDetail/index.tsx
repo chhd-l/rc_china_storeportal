@@ -10,7 +10,7 @@ import {
   CustomerInformation,
   PaymentInformation,
 } from "./components";
-import { dataSource } from "./modules/mockdata";
+import { orderDataSource } from "./modules/mockdata";
 import { useLocation } from "react-router-dom";
 import { Order } from "@/framework/types/order";
 
@@ -22,8 +22,9 @@ const OrderDetail = () => {
   useEffect(() => {
     const state: any = location.state;
     console.log("111", state.id);
+    console.log(orderId)
     setOrderId(state.id);
-    setOrderDetail(Mock.mock(dataSource));
+    setOrderDetail(Mock.mock(orderDataSource));
   }, []);
 
   return (
@@ -36,8 +37,8 @@ const OrderDetail = () => {
               <OrderAddress orderAddress={orderDetail?.shippingAddress} />
               <OrderCarrier />
             </div>
-            <CustomerInformation />
-            <OrderInformation />
+            <CustomerInformation buyer={orderDetail.buyer}/>
+            <OrderInformation orderDetail={orderDetail}/>
             <PaymentInformation />
           </div>
           <div className="w-1/4">
