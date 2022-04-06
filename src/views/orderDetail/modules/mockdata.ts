@@ -22,7 +22,7 @@ export const orderDataSource = {
   "tradeItem|1-2": [
     {
       skuId: "@id",
-      pic: "",
+      pic: "https://d2cstgstorage.z13.web.core.windows.net/fr/fr-229732-master.jpg",
       skuName: "@title",
       size: "small",
       color: "red",

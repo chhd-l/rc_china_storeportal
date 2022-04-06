@@ -36,7 +36,7 @@ const PetOwnerList = () => {
     const state: any = location.state;
     console.log("111", state.id);
     setPetOwnerId(state.id);
-    console.log(petOwnerId)
+    console.log(petOwnerId);
     setPetOwnerDetail(Mock.mock(dataSource));
   }, []);
 
@@ -75,8 +75,8 @@ const PetOwnerList = () => {
             smartDeviceList={petOwnerDetail.smartDeviceList}
           />
         </div>
-        <div className="w-40 ml-10">
-          <Anchor showInkInFixed={true}>
+        <div className="w-40 ml-10 fixed right-0.5">
+          <Anchor showInkInFixed={true} affix={true} offsetTop={100}>
             <Link href="#basic-information" title="Basic Information" />
             <Link href="#tagging" title="Tagging" />
             <Link href="#pet-information" title="Pet Information" />

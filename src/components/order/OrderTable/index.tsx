@@ -54,7 +54,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
               {item.tradeItem.map((product: OrderTradeItem) => (
                 <Row className="items-center" key={product.skuId}>
                   <Col span={8}>
-                    <Avatar shape="square" size={64} icon={<UserOutlined />} />
+                    <img src={product.pic} className="w-20 h-20"/>
                   </Col>
                   <Col span={14}>
                     <span>{product.skuName}</span>

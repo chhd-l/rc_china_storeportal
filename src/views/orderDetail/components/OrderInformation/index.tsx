@@ -9,14 +9,15 @@ const column = [
   {
     title: "No",
     key: "no",
+    render: (text: any, record: any, index: number) => `${index + 1}`,
   },
   {
     title: "Product",
-    dataIndex: "img",
-    key: "img",
+    dataIndex: "pic",
+    key: "pic",
     render: (text: any, record: any) => (
-      <div>
-        <img src={text} />
+      <div className="flex flex-row items-center">
+        <img src={text} className="w-10 h-10 mr-2" />
         <span>
           {record.skuName}
           <br />
