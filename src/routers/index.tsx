@@ -14,6 +14,8 @@ const OrderList=lazy(()=>import('@/views/orderList'))
 const OrderDetail=lazy(()=>import('@/views/orderDetail'))
 const CategoryList = lazy(() => import("@/views/categoryList"));
 const CategoryDetail = lazy(() => import("@/views/categoryDetail"));
+const ShippingSetting = lazy(() => import("@/views/shippingSetting"));
+const OrderSetting = lazy(() => import("@/views/orderSetting"));
 
 // export type RouterType = {
 //   path: string;
@@ -70,6 +72,8 @@ let routes: RouteObject[] = [
       { path: "/order-list", element: <OrderList /> },
       { path: "/shipment-list", element: <OrderList /> },
       { path: "/order-detail", element: <OrderDetail /> },
+      { path: "/shipping-setting", element: <ShippingSetting /> },
+      { path: "/order-setting", element: <OrderSetting /> },
     ],
 
   },

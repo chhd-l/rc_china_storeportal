@@ -14,6 +14,12 @@ export const menus = [
         url: "/shipment-list",
         key: "my_shipment",
       },
+      {
+        name: "Shipping Setting",
+        value: "shipping_setting",
+        url: "/shipping-setting",
+        key: "shipping_setting",
+      },
     ],
   },
   {
@@ -28,6 +34,12 @@ export const menus = [
         value: "my_orders",
         url: "/order-list",
         key: "my_orders",
+      },
+      {
+        name: "Order Setting",
+        value: "order_setting",
+        url: "/order-setting",
+        key: "order_setting",
       },
     ],
   },
