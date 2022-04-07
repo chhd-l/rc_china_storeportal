@@ -91,7 +91,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
                 {item.tradePrice.totalPrice}
                 <br />
                 <span className="text-gray-400">
-                  {item.payInfo.payTypeName}
+                  {item?.payInfo?.payTypeName}
                 </span>
               </div>
             </Col>
@@ -102,7 +102,10 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
               {item.carrierType}
             </Col>
             <Col span={2} className="text-right items-center">
-              <OrderActions orderDetail={item} />
+              <OrderActions
+                orderState={item.tradeState.orderState}
+                orderId={item.id}
+              />
             </Col>
           </Row>
         </div>

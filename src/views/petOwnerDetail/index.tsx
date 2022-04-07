@@ -31,6 +31,17 @@ const PetOwnerList = () => {
     subscriptionList: [],
     orderList: [],
   });
+  const {
+    basicInformation,
+    tagList,
+    petList,
+    tencentAccountList,
+    addressList,
+    couponCodeList,
+    smartDeviceList,
+    subscriptionList,
+    orderList,
+  } = petOwnerDetail;
   const location = useLocation();
 
   useEffect(() => {
@@ -47,31 +58,22 @@ const PetOwnerList = () => {
         <div className="bg-white w-5/6 p-2 text-left">
           <BasicInfo
             id="basic-information"
-            basicInformation={petOwnerDetail.basicInformation}
+            basicInformation={basicInformation}
           />
-          <Tagging id="tagging" tagList={petOwnerDetail.tagList} />
-          <PetInfo id="pet-information" petList={petOwnerDetail.petList} />
+          <Tagging id="tagging" tagList={tagList} />
+          <PetInfo id="pet-information" petList={petList} />
           <TencentAccount
             id="tencent-account"
-            tencentAccountList={petOwnerDetail.tencentAccountList}
+            tencentAccountList={tencentAccountList}
           />
-          <OrderInfo
-            id="order-information"
-            orderList={petOwnerDetail.orderList}
-          />
+          <OrderInfo id="order-information" orderList={orderList} />
           <SubscriptionInfo
             id="subscription-information"
-            subscriptionList={petOwnerDetail.subscriptionList}
+            subscriptionList={subscriptionList}
           />
-          <MyAddress id="my-address" addressList={petOwnerDetail.addressList} />
-          <CouponInfo
-            id="coupon-information"
-            couponCodeList={petOwnerDetail.couponCodeList}
-          />
-          <SmartDevice
-            id="smart-device"
-            smartDeviceList={petOwnerDetail.smartDeviceList}
-          />
+          <MyAddress id="my-address" addressList={addressList} />
+          <CouponInfo id="coupon-information" couponCodeList={couponCodeList} />
+          <SmartDevice id="smart-device" smartDeviceList={smartDeviceList} />
         </div>
         <div className="w-40 ml-10 fixed right-0.5">
           <Anchor affix={true} offsetTop={100} className="petowner-anchor-link">

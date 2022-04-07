@@ -1,9 +1,14 @@
 import { Divider, Table } from "antd";
 import React, { useState } from "react";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
-import { Order } from "@/framework/types/order";
+import { OrderTradeItem, TradePrice } from "@/framework/types/order";
+import { getCurrencyCode } from "@/utils/utils";
 
 const priceCode = "￥";
+
+const handlePrice = (price: number) => {
+  return getCurrencyCode() + price.toFixed(2);
+};
 
 const column = [
   {
@@ -40,15 +45,18 @@ const column = [
     title: "Subtotal",
     key: "Subtotal",
     render: (text: any, record: any) => (
-      <div>
-        {priceCode}
-        {(record.price * record.num).toFixed(2)}
-      </div>
+      <div>{handlePrice(record.price * record.num)}</div>
     ),
   },
 ];
 
-const OrderInformation = ({ orderDetail }: { orderDetail: Order }) => {
+const OrderInformation = ({
+  tradeItem,
+  tradePrice,
+}: {
+  tradeItem: OrderTradeItem[];
+  tradePrice: TradePrice;
+}) => {
   const [showMore, setShowMore] = useState(true);
 
   return (
@@ -59,7 +67,7 @@ const OrderInformation = ({ orderDetail }: { orderDetail: Order }) => {
         <div className="mt-2">
           <Table
             columns={column}
-            dataSource={orderDetail.tradeItem}
+            dataSource={tradeItem}
             pagination={false}
             rowKey="skuId"
           />
@@ -91,21 +99,11 @@ const OrderInformation = ({ orderDetail }: { orderDetail: Order }) => {
               <span>Order amount</span>
             </div>
             <div className="flex flex-col text-right w-1/4">
-              <span>
-                {priceCode}
-                {orderDetail.tradePrice.goodsPrice}
-              </span>
-              <span>
-                {priceCode}
-                {orderDetail.tradePrice.discountsPrice}
-              </span>
-              <span>
-                {priceCode}
-                {orderDetail.tradePrice.deliveryPrice}
-              </span>
+              <span>{handlePrice(tradePrice.goodsPrice)}</span>
+              <span>{handlePrice(tradePrice.discountsPrice)}</span>
+              <span>{handlePrice(tradePrice.deliveryPrice)}</span>
               <span className="text-red-500">
-                {priceCode}
-                {orderDetail.tradePrice.totalPrice}
+                {handlePrice(tradePrice.totalPrice)}
               </span>
             </div>
           </div>

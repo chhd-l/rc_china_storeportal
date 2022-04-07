@@ -1,20 +1,44 @@
 import { Steps } from "antd";
 import OrderActions from "@/components/order/OrderActions";
-import { Order } from "@/framework/types/order";
-import { useEffect, useState } from "react";
-import { OrderStatus } from "@/framework/types/order";
+import React, { useEffect, useState } from "react";
+import { OrderStatusValue } from "@/framework/types/order";
+import { stepList } from "../../modules/constants";
 
-const OrderStepList=[OrderStatus.Unpaid];
-
-const OrderProgress = ({ orderDetail }: { orderDetail: Order }) => {
+const OrderProgress = ({
+  orderState,
+  orderId,
+  subscriptionId,
+}: {
+  orderState: string;
+  orderId: string;
+  subscriptionId: string|undefined;
+}) => {
   const [currentStep, setCurrentStep] = useState(0);
+  const [filterSteps, setFilterSteps] = useState(stepList);
 
   useEffect(() => {
-    if (orderDetail?.tradeState?.orderState) {
-      const index=OrderStepList.findIndex((item)=>item===orderDetail.tradeState.orderState)
-      setCurrentStep(index);
+    if (orderState === OrderStatusValue.Cancellation) {
+      setFilterSteps(
+        stepList.filter(
+          (el) =>
+            el.key === OrderStatusValue.Unpaid ||
+            el.key === OrderStatusValue.Cancellation
+        )
+      );
+    } else {
+      setFilterSteps(
+        stepList.filter((el) => el.key !== OrderStatusValue.Cancellation)
+      );
     }
-  }, [orderDetail?.tradeState?.orderState]);
+  }, [orderState]);
+
+  useEffect(() => {
+    filterSteps.map((el, i) => {
+      if (orderState === el.key) {
+        setCurrentStep(i);
+      }
+    });
+  }, [filterSteps, orderState]);
 
   return (
     <div className="bg-white py-2 px-4 ">
@@ -22,29 +46,24 @@ const OrderProgress = ({ orderDetail }: { orderDetail: Order }) => {
         <div className="text-left flex flex-row">
           <span className="icon-Frame1 iconfont text-red-500" />
           <span className="ml-4">
-            Order ID:{orderDetail?.id}
+            Order ID:{orderId}
             <br />
-            <span>Subscription ID:{orderDetail?.subscriptionId}</span>
+            <span>Subscription ID:{subscriptionId}</span>
           </span>
         </div>
-        {orderDetail ? (
-          <div className="justify-items-end">
-            <OrderActions orderDetail={orderDetail} />
-          </div>
-        ) : null}
+        <div className="justify-items-end">
+          <OrderActions orderState={orderState} orderId={orderId} />
+        </div>
       </div>
       <div className="mt-4">
-        <Steps progressDot current={Number(currentStep)}>
-          <Steps.Step title="Unpaid" description="2021/05/23 13:23" />
-          {orderDetail?.tradeState?.orderState === "cancellation" ? (
-            <Steps.Step title="Cancellation" description="" />
-          ) : (
-            <>
-              <Steps.Step title="To ship" description="" />
-              <Steps.Step title="Shipped" description="" />
-              <Steps.Step title="Completed" description="" />
-            </>
-          )}
+        <Steps progressDot current={currentStep}>
+          {filterSteps.map((el) => (
+            <Steps.Step
+              title={el.label}
+              description={el.updateTime}
+              key={el.key}
+            />
+          ))}
         </Steps>
       </div>
     </div>

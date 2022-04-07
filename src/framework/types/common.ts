@@ -1,6 +1,7 @@
 import type { Rule } from "antd/lib/form";
 import { ReactNode } from "react";
 import type { FormListFieldData } from "antd/lib/form/FormList";
+import { OrderStatusLabel, OrderStatusValue } from "./order";
 
 export interface FormItemProps {
   name: string;
@@ -16,11 +17,6 @@ export interface FormProps {
 }
 export interface KeyRules {
   [key: string]: string;
-}
-
-export interface orderStatusTabProps{
-  label:string
-  key:string
 }
 
 export interface OptionsProps {
@@ -46,4 +42,11 @@ export interface InputSelectProps extends InputBaseProps {
 }
 export interface InputTextProps extends InputBaseProps {
   addonBefore?: string;
+}
+
+export interface BaseListProps {
+  label: string | OrderStatusLabel;
+  key?: string | OrderStatusValue;
+  value?: string | OrderStatusValue;
+  children?: any[];
 }

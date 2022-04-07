@@ -1,6 +1,6 @@
 import { Address } from "@/framework/types/customer";
 
-const OrderAddress = ({ orderAddress }: { orderAddress: Address }) => {
+const OrderAddress = ({ orderAddress }: { orderAddress: Address|any }) => {
   return (
     <div className="flex justify-start">
       <span className="iconfont icon-a-xingzhuangjiehe2 text-red-500" />

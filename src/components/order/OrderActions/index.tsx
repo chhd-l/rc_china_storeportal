@@ -2,10 +2,16 @@ import { Tooltip, Modal } from "antd";
 import React, { useState } from "react";
 import ShipmentModal from "../ShipmentModal";
 import { useNavigate } from "react-router-dom";
-import { Order,OrderStatus } from "@/framework/types/order";
+import { OrderStatusValue } from "@/framework/types/order";
 import { useLocation } from "react-router-dom";
 
-const OrderActions = ({ orderDetail }: { orderDetail: Order }) => {
+const OrderActions = ({
+  orderState,
+  orderId,
+}: {
+  orderState: string;
+  orderId: string;
+}) => {
   const [shipModalVisible, setShipModalVisible] = useState(false);
   const [completeModalVisible, setCompleteModalVisible] = useState(false);
   const navigator = useNavigate();
@@ -19,14 +25,14 @@ const OrderActions = ({ orderDetail }: { orderDetail: Order }) => {
             className="cursor-pointer iconfont icon-Vector1 text-red-500"
             onClick={() => {
               navigator("/order-detail", {
-                state: { id: orderDetail?.id },
+                state: { id: orderId },
               });
             }}
           />
         </Tooltip>
       )}
       {/*发货*/}
-      {orderDetail?.tradeState?.orderState === OrderStatus["Toship"] && (
+      {orderState === OrderStatusValue["Toship"] && (
         <Tooltip title="Arrange shipment">
           <span
             className="cursor-pointer ml-2 iconfont icon-dabaodaifahuo text-red-500"
@@ -38,7 +44,7 @@ const OrderActions = ({ orderDetail }: { orderDetail: Order }) => {
         </Tooltip>
       )}
       {/*收货*/}
-      {orderDetail?.tradeState?.orderState === OrderStatus["Shipped"] && (
+      {orderState === OrderStatusValue["Shipped"] && (
         <Tooltip title="Completed">
           <span
             className="cursor-pointer ml-2 iconfont icon-Order text-red-500 text-red-500"
@@ -49,7 +55,7 @@ const OrderActions = ({ orderDetail }: { orderDetail: Order }) => {
       )}
       <ShipmentModal
         shipModalVisible={shipModalVisible}
-        orderId={orderDetail?.id}
+        orderId={orderId}
         onCancel={() => setShipModalVisible(false)}
       />
       <Modal

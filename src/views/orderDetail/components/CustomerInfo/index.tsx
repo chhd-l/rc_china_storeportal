@@ -4,7 +4,7 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { Customer } from "@/framework/types/customer";
 
-const CustomerInformation = ({ buyer }: { buyer: Customer }) => {
+const CustomerInformation = ({ buyer }: { buyer: Customer|any }) => {
   const navigation = useNavigate();
   return (
     <div className="bg-white mt-4 px-4 py-2 flex flex-row justify-between items-center">

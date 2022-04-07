@@ -5,12 +5,12 @@ export interface Order {
   orderNumber: string;
   tradeItem: OrderTradeItem[]; //对应后端lineItem
   tradeState: TradeState;
-  carrierType: string; //后端未定义这个字段
+  carrierType?: string; //后端未定义这个字段
   tradePrice: TradePrice;
-  payInfo: PayInfo;
+  payInfo?: PayInfo;
   subscriptionId?: string;
-  shippingAddress?: Address;
-  buyer: Customer;
+  shippingAddress?: Address|any;
+  buyer?: Customer|any;
 }
 
 export interface PayInfo {
@@ -39,7 +39,15 @@ export interface OrderTradeItem {
   price: number;
 }
 
-export enum OrderStatus {
+export enum OrderStatusLabel {
+  Unpaid = "Unpaid",
+  Toship = "To ship",
+  Shipped = "Shipped",
+  Completed = "Completed",
+  Cancellation = "Cancellation",
+}
+
+export enum OrderStatusValue {
   Unpaid = "UNPAID",
   Toship = "TOSHIP",
   Shipped = "SHIPPED",
