@@ -4,9 +4,9 @@ interface EditorProps {
   onChange?: Function;
   defaultValue?: string;
 }
-const Editor = (props: EditorProps) => (
+const Editor = ({ defaultValue, onChange }: EditorProps) => (
   <ReactWEditor
-    defaultValue={props.defaultValue}
+    defaultValue={defaultValue}
     linkImgCallback={(src, alt, href) => {
       // 插入网络图片的回调事件
       console.log("图片 src ", src);
@@ -19,7 +19,7 @@ const Editor = (props: EditorProps) => (
     }}
     onChange={(html) => {
       console.log("onChange html:", html);
-      props.onChange?.(html);
+      onChange?.(html);
     }}
     onBlur={(html) => {
       console.log("onBlur html:", html);

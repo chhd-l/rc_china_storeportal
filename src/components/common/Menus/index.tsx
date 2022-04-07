@@ -14,9 +14,9 @@ const Menus = () => {
       defaultOpenKeys={openKeys}
       mode="inline"
     >
-      {menus.map((menu) => (
-        <SubMenu key={menu.key} icon={menu.icon} title={menu.name}>
-          {menu.children?.map((subMenu) => (
+      {menus.map(({ key, icon, name, children }) => (
+        <SubMenu key={key} icon={icon} title={name}>
+          {children?.map((subMenu) => (
             <Menu.Item key={subMenu.key}>
               <Link key={subMenu.key} to={subMenu.url}>
                 {subMenu.name}

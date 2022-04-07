@@ -9,14 +9,14 @@ export interface CategoryBaseProps {
   isDisplay: boolean;
   id: string;
 }
-export interface ProductItem {
+export interface ProductForCateProps {
   productName: string;
   marketingPrice: number;
   stock: number;
 }
 export interface CategoryProductProps extends CategoryBaseProps {
   rules: OptionsProps[];
-  productList: ProductItem[] | [];
+  productList: ProductForCateProps[] | [];
 }
 export interface ProductBaseProps {
   id: number;

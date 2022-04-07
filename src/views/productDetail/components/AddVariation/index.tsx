@@ -2,7 +2,7 @@ import "./index.less";
 import { Form, Input, Button, Space, Col, Row, FormInstance } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import useForceUpdate from "use-force-update";
-import _, { cloneDeep } from "lodash";
+import { cloneDeep } from "lodash";
 import { useContext, useRef } from "react";
 import { arrayMoveImmutable } from "array-move";
 import { VariationosContext } from "../SalesInfo";
@@ -32,16 +32,16 @@ const AddVariation = ({}: AddVariationProps) => {
     oldIndex: number;
     newIndex: number;
   }) => {
-    const data = _.cloneDeep(formRef?.current?.getFieldsValue());
-    data.variationList[0].specificationList = arrayMoveImmutable(
-      data.variationList[0].specificationList,
+    const { variationList } = cloneDeep(formRef?.current?.getFieldsValue());
+    variationList[0].specificationList = arrayMoveImmutable(
+      variationList[0].specificationList,
       oldIndex,
       newIndex
     );
-    console.info("data", data);
+    console.info("data", variationList);
     debugger;
     // formRef?.current?.setFieldsValue(data);
-    form.setFieldsValue(data);
+    form.setFieldsValue({ variationList });
     forceUpdate();
   };
   return (

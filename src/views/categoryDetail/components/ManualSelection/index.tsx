@@ -1,10 +1,6 @@
 import "./index.less";
 import { message } from "antd";
-import ProForm, {
-  ModalForm,
-  ProFormText,
-  ProFormSelect,
-} from "@ant-design/pro-form";
+import { ModalForm } from "@ant-design/pro-form";
 import { useState } from "react";
 import SearchHeader from "../SearchHeader";
 import ProTable from "@/components/common/ProTable";
@@ -17,15 +13,15 @@ export type ManualSelectionProps = {
 };
 
 const ManualSelection = ({ visible, handleVisible }: ManualSelectionProps) => {
-  const getFormData = (data: any) => {
-    console.info(data, "data");
-  };
-
   const [selectedRowKeys, setSelectedRowKeys] = useState([""]);
   const onSelectChange = (selectedRowKeys: any) => {
     console.log("selectedRowKeys changed: ", selectedRowKeys);
     setSelectedRowKeys(selectedRowKeys);
   };
+  const getFormData = (data: any) => {
+    console.info(data, "data");
+  };
+
   return (
     <ModalForm
       className="manual-selection"
@@ -52,10 +48,7 @@ const ManualSelection = ({ visible, handleVisible }: ManualSelectionProps) => {
           });
         }}
         tableAlertRender={() => false}
-        rowKey={(record: { key: any }) => record.key}
-        pagination={{
-          showQuickJumper: true,
-        }}
+        rowKey={({ key }) => key}
         search={false}
         className="pt-4 bg-white"
         dateFormatter="string"

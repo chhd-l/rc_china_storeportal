@@ -50,7 +50,6 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
               </Select>
               {/* <SelectKey list={nameForKey} /> */}
             </Form.Item>
-
             <Form.Item name="username" className="flex-1">
               <Input placeholder={`please Input `} />
             </Form.Item>

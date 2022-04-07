@@ -1,5 +1,4 @@
 import "./index.less";
-import { message } from "antd";
 import ProForm, {
   ModalForm,
   ProFormRadio,

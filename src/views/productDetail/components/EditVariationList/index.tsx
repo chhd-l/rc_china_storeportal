@@ -63,8 +63,9 @@ const EditVariationList = (props: FormProps) => {
   // };
   useEffect(() => {
     const variationForm = cloneDeep(cloneVariationForm);
+    const { variationList } = variationForm;
     console.info("variationForm", variationForm);
-    variationForm.variationList?.forEach((variation: any, idx: number) => {
+    variationList?.forEach((variation: any, idx: number) => {
       variation.name = variation.name || `Variation${idx}`;
       variation.specificationList.forEach((specification: any) => {
         specification.option = specification.option || "option";
@@ -72,14 +73,14 @@ const EditVariationList = (props: FormProps) => {
     });
     // variationForms
     setVariationForm(variationForm);
-    if (variationForm.variationList[0]) {
+    if (variationList[0]) {
       getRows(variationForm);
       initHeader(variationForm);
     }
   }, [cloneVariationForm]);
 
-  const initHeader = (data: VarationsFormProps) => {
-    let variationHeaders = data.variationList.map(
+  const initHeader = ({ variationList }: VarationsFormProps) => {
+    let variationHeaders = variationList.map(
       (el, idx) => el.name || `Varations[${idx}]`
     );
     const cloneHeaderOrigition = [...headerOrigition];
@@ -103,7 +104,7 @@ const EditVariationList = (props: FormProps) => {
     }
     return result;
   };
-  const initData = (data: any, formData: VarationsFormProps) => {
+  const initData = (data: any, { variationList }: VarationsFormProps) => {
     let list = data.map((el: any) => {
       let newEl: VarviationProps = {
         spec: el,
@@ -117,7 +118,7 @@ const EditVariationList = (props: FormProps) => {
         SubscriptionPrice: "",
       };
       el.split(",").forEach((spec: string, idx: number) => {
-        let name = formData.variationList[idx].name || `Varations[${idx}]`;
+        let name = variationList[idx].name || `Varations[${idx}]`;
         newEl[name] = spec;
       });
 

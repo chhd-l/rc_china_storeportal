@@ -1,5 +1,4 @@
 import FormItem from "@/components/common/FormItem";
-import { Form, FormInstance } from "antd";
 import type { FormProps } from "@/framework/types/common";
 import { noSkuForm } from "../../modules/constant";
 import { createContext, useState } from "react";

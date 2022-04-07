@@ -1,8 +1,7 @@
 import "./index.less";
-import { Button, Col, message, Row, Space, Tag } from "antd";
+import { message, Tag } from "antd";
 import ProForm, {
   ModalForm,
-  ProFormText,
   ProFormSelect,
   ProFormMoney,
   ProFormInstance,
@@ -11,10 +10,15 @@ import { mockOption, productLists } from "../../modules/mockdata";
 import Mock from "mockjs";
 import { useRef, useState } from "react";
 import { restSearchButtons, restWrapButtons } from "../../modules/constant";
-export type RuleBasedFilteringProps = {
+interface ProductItemProps {
+  name: string;
+  img: string;
+  id: string;
+}
+export interface RuleBasedFilteringProps {
   visible: boolean;
   handleVisible: (visible: boolean) => void;
-};
+}
 const mockOptions = Mock.mock(mockOption).options;
 console.info("mockOptions", mockOptions);
 const RuleBasedFiltering = ({
@@ -23,7 +27,7 @@ const RuleBasedFiltering = ({
 }: RuleBasedFilteringProps) => {
   const formRef = useRef<ProFormInstance>();
   const [filterTags, setFilterTags] = useState<string[]>([]);
-  const [productList, setProductList] = useState<any[]>([]);
+  const [productList, setProductList] = useState<ProductItemProps[]>([]);
   return (
     <ModalForm
       className="rule-based-filtering"
@@ -41,9 +45,6 @@ const RuleBasedFiltering = ({
 
       submitter={{
         render: (props) => {
-          console.info(
-            restWrapButtons(props, productList?.length, handleVisible)
-          );
           return restWrapButtons(props, productList?.length, handleVisible);
         },
       }}

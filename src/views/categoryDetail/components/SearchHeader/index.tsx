@@ -67,7 +67,6 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                 ))}
               </Select>
             </Form.Item>
-
             <Form.Item name="username" className="flex-1">
               <Input placeholder={`please Input `} />
             </Form.Item>
@@ -82,21 +81,13 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
         <Col span={14}>
           <div className="flex">
             <ProFormMoney
-              // labelCol={{ span: 12 }}
-              // wrapperCol={{ span: 12 }}
               width={135}
               label="Markting Price"
               name="lowestPrice"
               customSymbol="￥"
             />
             <span style={{ marginRight: 16 }}>-</span>
-            <ProFormMoney
-              width={135}
-              // labelCol={{ span: 4 }}
-              // wrapperCol={{ span: 18 }}
-              name="highestPrice"
-              customSymbol="￥"
-            />
+            <ProFormMoney width={135} name="highestPrice" customSymbol="￥" />
           </div>
         </Col>
         <Col span={14}>
