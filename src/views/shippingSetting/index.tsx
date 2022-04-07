@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Divider, Switch } from "antd";
-import ShippingSettingModal from "./components/ShippingSettingModal";
+import Modal from "./components/Modal";
 
 const ShippingSetting = () => {
   const [enableExpress, setEnableExpress] = useState(false);
@@ -31,7 +31,7 @@ const ShippingSetting = () => {
           </div>
         </div>
       </div>
-      <ShippingSettingModal
+      <Modal
         shipModalVisible={shipModalVisible}
         onCancel={() => {
           setShipModalVisible(false);

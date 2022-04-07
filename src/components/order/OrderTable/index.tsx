@@ -1,10 +1,10 @@
 import { Avatar, Col, Row, Select } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import React from "react";
-import { Order } from "@/framework/types/order";
-import { OrderTradeItem } from "@/framework/types/order";
-import { carrierTypeList } from "@/lib/order-constants";
+import { Order, OrderTradeItem } from "@/framework/types/order";
+import { carrierTypeList } from "@/views/orderList/modules/constants";
 import OrderActions from "../OrderActions";
+import "./index.less";
 
 const OrderTable = ({ orderList }: { orderList: Order[] }) => {
   return (
@@ -22,9 +22,12 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
             onChange={(val, a) => {}}
             getPopupContainer={(trigger: any) => trigger.parentNode}
             value="Carrier"
+            className="order-table-select"
           >
             {carrierTypeList.map((item) => (
-              <Select.Option value={item.key} key={item.key}>{item.label}</Select.Option>
+              <Select.Option value={item.key} key={item.key}>
+                {item.label}
+              </Select.Option>
             ))}
           </Select>
         </Col>
@@ -44,26 +47,42 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
                 order ID:{item.id}
                 <br />
                 {item.subscriptionId ? (
-                  <span>Subscription ID:{item.id}</span>
+                  <span>
+                    <span className="iconfont icon-Frame1 text-red-500 mr-2" />
+                    Subscription ID:{item.id}
+                  </span>
                 ) : null}
               </div>
             </Col>
           </Row>
-          <Row className="p-2 flex items-center">
+          <Row className="p-2 flex items-start">
             <Col span={8} className="flex flex-col justify-start">
-              {item.tradeItem.map((product: OrderTradeItem) => (
+              {item.tradeItem.map((product: OrderTradeItem, index: number) => (
                 <Row className="items-center" key={product.skuId}>
                   <Col span={8}>
-                    <img src={product.pic} className="w-20 h-20"/>
+                    <img src={product.pic} className="w-20 h-20" />
                   </Col>
-                  <Col span={14}>
-                    <span>{product.skuName}</span>
-                    <br />
-                    <span>
-                      Variation:{product.size},{product.color}
-                    </span>
+                  <Col span={16}>
+                    <Row
+                      className={`${
+                        item.tradeItem.length > 1 &&
+                        index !== item.tradeItem.length - 1
+                          ? "border-b pb-2"
+                          : ""
+                      }`}
+                    >
+                      <Col span={20}>
+                        <span>{product.skuName}</span>
+                        <br />
+                        <span className="text-gray-400 text-sm">
+                          Variation:{product.size},{product.color}
+                        </span>
+                      </Col>
+                      <Col span={4} className="items-start text-right">
+                        x{product.num}
+                      </Col>
+                    </Row>
                   </Col>
-                  <Col span={2}>x{product.num}</Col>
                 </Row>
               ))}
             </Col>

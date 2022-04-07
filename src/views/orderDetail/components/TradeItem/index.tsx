@@ -17,7 +17,7 @@ const column = [
     key: "pic",
     render: (text: any, record: any) => (
       <div className="flex flex-row items-center">
-        <img src={text} className="w-10 h-10 mr-2" />
+        <img src={text} className="w-10 h-10 mr-2" alt="" />
         <span>
           {record.skuName}
           <br />
@@ -61,6 +61,7 @@ const OrderInformation = ({ orderDetail }: { orderDetail: Order }) => {
             columns={column}
             dataSource={orderDetail.tradeItem}
             pagination={false}
+            rowKey="skuId"
           />
         </div>
         <div className="flex flex-col mt-4 ">

@@ -2,22 +2,17 @@ import { Steps } from "antd";
 import OrderActions from "@/components/order/OrderActions";
 import { Order } from "@/framework/types/order";
 import { useEffect, useState } from "react";
-import { KeyRules } from "@/framework/types/common";
+import { OrderStatus } from "@/framework/types/order";
 
-const OrderStep: KeyRules = {
-  unpaid: "0",
-  toShip: "1",
-  shipped: "2",
-  completed: "3",
-  cancellation: "4",
-};
+const OrderStepList=[OrderStatus.Unpaid];
 
 const OrderProgress = ({ orderDetail }: { orderDetail: Order }) => {
-  const [currentStep, setCurrentStep] = useState(OrderStep["unpaid"]);
+  const [currentStep, setCurrentStep] = useState(0);
 
   useEffect(() => {
     if (orderDetail?.tradeState?.orderState) {
-      setCurrentStep(OrderStep[orderDetail.tradeState.orderState]);
+      const index=OrderStepList.findIndex((item)=>item===orderDetail.tradeState.orderState)
+      setCurrentStep(index);
     }
   }, [orderDetail?.tradeState?.orderState]);
 

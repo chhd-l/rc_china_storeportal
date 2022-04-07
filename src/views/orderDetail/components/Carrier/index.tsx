@@ -34,7 +34,7 @@ const OrderCarrier = ({}) => {
           <span className="ml-8">Carrier company:SF Express</span>
         </div>
         <div className="flex flex-row items-center">
-          <img src={""} />
+          <img src={""} alt=''/>
           <span>Skill shirt</span>
         </div>
       </div>

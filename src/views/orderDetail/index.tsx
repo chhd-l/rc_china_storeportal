@@ -1,14 +1,14 @@
 import Mock from "mockjs";
 import React, { useEffect, useState } from "react";
 import {
-  OrderInformation,
-  OrderProgress,
-  OrderAddress,
-  OrderCarrier,
+  TradeItem,
+  Progress,
+  Address,
+  Carrier,
   OperationLog,
-  OrderComment,
-  CustomerInformation,
-  PaymentInformation,
+  Comment,
+  CustomerInfo,
+  Payment,
 } from "./components";
 import { orderDataSource } from "./modules/mockdata";
 import { useLocation } from "react-router-dom";
@@ -22,7 +22,7 @@ const OrderDetail = () => {
   useEffect(() => {
     const state: any = location.state;
     console.log("111", state.id);
-    console.log(orderId)
+    console.log(orderId);
     setOrderId(state.id);
     setOrderDetail(Mock.mock(orderDataSource));
   }, []);
@@ -32,17 +32,17 @@ const OrderDetail = () => {
       {orderDetail ? (
         <div className="bg-gray1 p-2 flex flex-row">
           <div className="mr-2 w-3/4">
-            <OrderProgress orderDetail={orderDetail} />
+            <Progress orderDetail={orderDetail} />
             <div className="bg-white py-2 px-4 mt-4">
-              <OrderAddress orderAddress={orderDetail?.shippingAddress} />
-              <OrderCarrier />
+              <Address orderAddress={orderDetail?.shippingAddress} />
+              <Carrier />
             </div>
-            <CustomerInformation buyer={orderDetail.buyer}/>
-            <OrderInformation orderDetail={orderDetail}/>
-            <PaymentInformation />
+            <CustomerInfo buyer={orderDetail.buyer} />
+            <TradeItem orderDetail={orderDetail} />
+            <Payment />
           </div>
           <div className="w-1/4">
-            <OrderComment />
+            <Comment />
             <OperationLog />
           </div>
         </div>

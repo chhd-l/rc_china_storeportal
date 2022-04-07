@@ -1,9 +1,9 @@
-export { default as BasicInformation } from "./BasicInformation";
+export { default as BasicInfo } from "./BasicInfo";
 export { default as Tagging } from "./Tagging";
-export { default as PetInformation } from "./PetInformation";
+export { default as PetInfo } from "./PetInfo";
 export { default as TencentAccount } from "./TencentAccount";
-export { default as OrderInformation } from "./OrderInformation";
-export { default as SubscriptionInformation } from "./SubscriptionInformation";
+export { default as OrderInfo } from "./OrderInfo";
+export { default as SubscriptionInfo } from "./SubscriptionInfo";
 export { default as MyAddress } from "./MyAddress";
-export { default as CouponInformation } from "./CouponInformation";
+export { default as CouponInfo } from "./CouponInfo";
 export { default as SmartDevice } from "./SmartDevice";

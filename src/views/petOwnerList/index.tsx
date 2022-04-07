@@ -1,5 +1,5 @@
 import { Input, DatePicker, Button } from "antd";
-import PetOwnerListTable from "./components/PetOwnerListTable";
+import Table from "./components/Table";
 import Mock from "mockjs";
 import React, { useEffect, useState } from "react";
 import { Customer } from "@/framework/types/customer";
@@ -108,7 +108,7 @@ const PetOwnerList = () => {
             </div>
           </div>
           <div className="p-8">
-            <PetOwnerListTable petOwnerList={petOwnerList} />
+            <Table petOwnerList={petOwnerList} />
           </div>
         </div>
       </div>

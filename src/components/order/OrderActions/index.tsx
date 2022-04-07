@@ -2,13 +2,8 @@ import { Tooltip, Modal } from "antd";
 import React, { useState } from "react";
 import ShipmentModal from "../ShipmentModal";
 import { useNavigate } from "react-router-dom";
-import { Order } from "@/framework/types/order";
+import { Order,OrderStatus } from "@/framework/types/order";
 import { useLocation } from "react-router-dom";
-
-enum OrderStatus {
-  Toship = "TOSHIP",
-  Shipped = "SHIPPED",
-}
 
 const OrderActions = ({ orderDetail }: { orderDetail: Order }) => {
   const [shipModalVisible, setShipModalVisible] = useState(false);

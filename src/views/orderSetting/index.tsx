@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Divider, Input, Switch } from "antd";
+import { Input, Switch } from "antd";
 
 const OrderSetting = () => {
   const [autoCancel, setAutoCancel] = useState(false);

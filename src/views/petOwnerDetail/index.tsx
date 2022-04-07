@@ -2,18 +2,19 @@ import Mock from "mockjs";
 import React, { useEffect, useState } from "react";
 import { Anchor } from "antd";
 import {
-  BasicInformation,
+  BasicInfo,
   Tagging,
-  PetInformation,
+  PetInfo,
   TencentAccount,
-  OrderInformation,
-  SubscriptionInformation,
+  OrderInfo,
+  SubscriptionInfo,
   MyAddress,
-  CouponInformation,
+  CouponInfo,
   SmartDevice,
 } from "./components";
 import { dataSource } from "./modules/mockdata";
 import { useLocation } from "react-router-dom";
+import "./index.less";
 
 const { Link } = Anchor;
 
@@ -44,29 +45,26 @@ const PetOwnerList = () => {
     <>
       <div className="bg-gray1 py-4 pl-4 flex flex-row">
         <div className="bg-white w-5/6 p-2 text-left">
-          <BasicInformation
+          <BasicInfo
             id="basic-information"
             basicInformation={petOwnerDetail.basicInformation}
           />
           <Tagging id="tagging" tagList={petOwnerDetail.tagList} />
-          <PetInformation
-            id="pet-information"
-            petList={petOwnerDetail.petList}
-          />
+          <PetInfo id="pet-information" petList={petOwnerDetail.petList} />
           <TencentAccount
             id="tencent-account"
             tencentAccountList={petOwnerDetail.tencentAccountList}
           />
-          <OrderInformation
+          <OrderInfo
             id="order-information"
             orderList={petOwnerDetail.orderList}
           />
-          <SubscriptionInformation
+          <SubscriptionInfo
             id="subscription-information"
             subscriptionList={petOwnerDetail.subscriptionList}
           />
           <MyAddress id="my-address" addressList={petOwnerDetail.addressList} />
-          <CouponInformation
+          <CouponInfo
             id="coupon-information"
             couponCodeList={petOwnerDetail.couponCodeList}
           />
@@ -76,7 +74,7 @@ const PetOwnerList = () => {
           />
         </div>
         <div className="w-40 ml-10 fixed right-0.5">
-          <Anchor showInkInFixed={true} affix={true} offsetTop={100}>
+          <Anchor affix={true} offsetTop={100} className="petowner-anchor-link">
             <Link href="#basic-information" title="Basic Information" />
             <Link href="#tagging" title="Tagging" />
             <Link href="#pet-information" title="Pet Information" />

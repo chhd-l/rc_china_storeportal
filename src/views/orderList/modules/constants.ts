@@ -1,6 +1,6 @@
 import { orderStatusTabProps } from "@/framework/types/common";
 
-export const orderStatusList: orderStatusTabProps[] = [
+export const tabList: orderStatusTabProps[] = [
     {
         label: "All",
         key: "",

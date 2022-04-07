@@ -4,9 +4,9 @@ import React, { useEffect, useState } from "react";
 import OrderTable from "@/components/order/OrderTable";
 import { Order } from "@/framework/types/order";
 import { dataSource } from "./modules/mockdata";
-import { orderStatusList } from "@/lib/order-constants";
+import { tabList } from "./modules/constants";
 import { useLocation } from "react-router-dom";
-import { OrderSearch } from "./components";
+import Search from "./components/Search";
 
 const PetOwnerList = () => {
   const [orderList, setOrderList] = useState<Order[]>([]);
@@ -36,12 +36,12 @@ const PetOwnerList = () => {
               setActiveKey(key);
             }}
           >
-            {orderStatusList.map((item) => (
+            {tabList.map((item) => (
               <Tabs.TabPane tab={item.label} key={item.key} />
             ))}
           </Tabs>
           {/*search*/}
-          <OrderSearch getOrderList={getOrderList} />
+          <Search getOrderList={getOrderList} />
           <div className="mt-4 text-left text-xl font-bold">
             {orderTotal} Orders
           </div>

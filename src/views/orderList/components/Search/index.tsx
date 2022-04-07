@@ -1,6 +1,6 @@
 import { Button, DatePicker, Input, Select } from "antd";
 import React, { useState } from "react";
-import { searchTypeList } from "@/lib/order-constants";
+import { searchTypeList } from "../../modules/constants";
 
 interface SearchParamsProps {
   orderCreateDate: string;
