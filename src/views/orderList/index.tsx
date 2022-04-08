@@ -7,6 +7,7 @@ import { dataSource } from "./modules/mockdata";
 import { tabList } from "./modules/constants";
 import { useLocation } from "react-router-dom";
 import Search from "./components/Search";
+import { OrderStatus } from "@/framework/types/order";
 
 const PetOwnerList = () => {
   const [orderList, setOrderList] = useState<Order[]>([]);
@@ -18,7 +19,7 @@ const PetOwnerList = () => {
     setOrderList(Mock.mock(dataSource).array);
     console.log(location);
     if (location.pathname === "/shipment-list") {
-      setActiveKey("toShip");
+      setActiveKey(OrderStatus.Toship);
     } else {
       setActiveKey("");
     }
