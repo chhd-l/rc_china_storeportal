@@ -42,7 +42,7 @@ const PetOwnerList = () => {
             ))}
           </Tabs>
           {/*search*/}
-          <Search getOrderList={getOrderList} />
+          <Search query={getOrderList} />
           <div className="mt-4 text-left text-xl font-bold">
             {orderTotal} Orders
           </div>

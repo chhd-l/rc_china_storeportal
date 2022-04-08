@@ -8,7 +8,7 @@ interface SearchParamsProps {
   searchTypeValue: string;
 }
 
-const OrderSearch = ({ getOrderList }: { getOrderList: Function }) => {
+const OrderSearch = ({ query }: { query: Function }) => {
   const initSearchParams: SearchParamsProps = {
     orderCreateDate: "",
     searchType: "orderId",
@@ -65,7 +65,7 @@ const OrderSearch = ({ getOrderList }: { getOrderList: Function }) => {
           className="w-32 mx-3"
           type="primary"
           danger
-          onClick={() => getOrderList()}
+          onClick={() => query()}
         >
           Search
         </Button>
