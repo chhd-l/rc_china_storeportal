@@ -1,6 +1,3 @@
-import { PHONEREGCONST } from "@/lib/constants";
-import Mock from "mockjs";
-
 export const dataSource = {
   "array|6": [
     {
@@ -9,7 +6,7 @@ export const dataSource = {
       createdUser: "@cname",
       "productNum|-100-1000": 1,
       "id|1-1000": 1,
-      isDispaly: "@boolean",
+      isDisplay: "@boolean",
     },
   ],
 };

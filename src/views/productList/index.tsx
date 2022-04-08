@@ -68,7 +68,7 @@ const ProductList = () => {
           ],
         }}
         tableAlertRender={() => false}
-        rowKey={(record) => record.key}
+        rowKey={({ key }) => key}
         pagination={{
           showQuickJumper: true,
         }}

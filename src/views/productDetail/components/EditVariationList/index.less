@@ -1,0 +1,31 @@
+.wrap {
+  overflow: auto;
+  height: 500px; /* 设置固定高度 */
+}
+.edit-variation-list {
+  overflow: auto;
+  height: 208px; /* 设置固定高度 */
+  width: 900px;
+  .table-warp {
+    width: 800px;
+    table-layout: fixed;
+  }
+  .list-header {
+    position: sticky;
+    top: 0; /* 列首永远固定在头部  */
+    div {
+      display: table-cell;
+    }
+  }
+  .list-content {
+    & > div:first-child {
+      position: sticky;
+      left: 0; /* 首行永远固定在左侧 */
+      z-index: 1;
+    }
+  }
+
+  .ant-form-item {
+    margin-bottom: 0;
+  }
+}

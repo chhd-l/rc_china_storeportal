@@ -1,13 +1,11 @@
 import "./index.less";
-import { ProductItem } from "@/framework/types/product";
+import { ProductForCateProps } from "@/framework/types/product";
 import { columnsAdjustSequence } from "../../modules/constant";
-import Mock from "mockjs";
-import { DragSortTable, ProColumns } from "@/components/common/ProTable";
-
+import { DragSortTable } from "@/components/common/ProTable";
 import { message } from "antd";
 import { useState } from "react";
 interface AdjustSequenceProps {
-  productList: ProductItem[];
+  productList: ProductForCateProps[];
 }
 
 const AdjustSequence = ({ productList }: AdjustSequenceProps) => {

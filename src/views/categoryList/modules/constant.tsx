@@ -1,5 +1,6 @@
 import { ProColumns } from "@/components/common/ProTable";
-import { CategoryBaseProps } from "@/framework/types/product";
+import { LabelOptionProps } from "@/framework/types/common";
+import { AddCateType, CategoryBaseProps } from "@/framework/types/product";
 import {
   SettingOutlined,
   DeleteOutlined,
@@ -22,10 +23,10 @@ export const columns: ProColumns<CategoryBaseProps>[] = [
   },
   {
     title: "Display On/Off",
-    dataIndex: "isDispaly",
+    dataIndex: "isDisplay",
     render: (_, record) => (
       <Switch
-        defaultChecked={record.isDispaly}
+        defaultChecked={record.isDisplay}
         disabled={record.productNum < 1}
         onChange={(checked: boolean) => {
           console.log(`switch to ${checked}`);
@@ -67,5 +68,32 @@ export const columnsAdjustSequence: ProColumns<any>[] = [
   {
     title: "Stock",
     dataIndex: "stock",
+  },
+];
+
+export const AddCateOptions: LabelOptionProps[] | string[] = [
+  {
+    value: AddCateType.ManualSelection,
+    label: (
+      <>
+        <div>Manual Selection</div>
+        <div className="text-gray-400">
+          Manually select the products you would like to include in your shop
+          category
+        </div>
+      </>
+    ),
+  },
+  {
+    value: AddCateType.RuleBasedFiltering,
+    label: (
+      <>
+        <div>Rule-based Filtering</div>
+        <div className="text-gray-400">
+          Products will be automatically selected based on the filters you have
+          set up
+        </div>
+      </>
+    ),
   },
 ];

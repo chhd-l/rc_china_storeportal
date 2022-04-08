@@ -1,11 +1,11 @@
 import "./index.less";
 import { Anchor } from "antd";
-import BasicInfomation from "../BasicInfomation";
+import BasicInfo from "../BasicInfo";
 import Specification from "../Specification";
 import SalesInfo from "../SalesInfo";
 import Shipping from "../Shipping";
 import { Form, Space, Button } from "antd";
-import { ReactNode, useRef, useState } from "react";
+import { useState } from "react";
 import { steps, formInitialValues } from "../../modules/constant";
 interface MainInfoProps {
   cateInfo: {
@@ -22,7 +22,7 @@ const MainInfo = ({ cateInfo }: MainInfoProps) => {
     setTipsIdx(idx);
   };
   const onFinish = (values: any) => {
-    console.log(values);
+    console.log(values, cateInfo);
   };
   return (
     <div id={steps[0].anchor} className="flex bg-gray-50 px-14 py-6 text-left">
@@ -64,12 +64,12 @@ const MainInfo = ({ cateInfo }: MainInfoProps) => {
                         </div>
                         <div>{steps[idx].subTitle}</div>
                       </div>
-                      {idx === 0 && <BasicInfomation field={field} />}
+                      {idx === 0 && <BasicInfo field={field} />}
                       {idx === 1 && <Specification field={field} />}
                       {idx === 2 && <SalesInfo field={field} />}
                       {idx === 3 && <Shipping field={field} />}
                     </div>
-                    {/* {idx === 0 && <div id={steps[idx].anchor}><BasicInfomation field={field} /></div>} */}
+                    {/* {idx === 0 && <div id={steps[idx].anchor}><BasicInfo field={field} /></div>} */}
                   </Space>
                 ))}
               </>
