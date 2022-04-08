@@ -1,4 +1,5 @@
 import { PHONEREGCONST } from "@/lib/constants";
+import { orderDataSource } from "@/views/orderDetail/modules/mockdata";
 
 export const dataSource = {
   basicInformation: {
@@ -89,24 +90,5 @@ export const dataSource = {
       subscriptionType: "Autoship",
     },
   ],
-  "orderList|2": [
-    {
-      id: "@id",
-      customerImg: "",
-      customerName: "@cname",
-      products: [
-        {
-          id: "@id",
-          productImg: "",
-          productName: "@title",
-          size: "small",
-          color: "red",
-          quantity: 1,
-        },
-      ],
-      orderStatus: "completed",
-      carrierType: "Autoship",
-      orderTotal: 34.6,
-    },
-  ],
+  "orderList|2": [orderDataSource],
 };

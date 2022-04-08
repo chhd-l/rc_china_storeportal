@@ -7,11 +7,16 @@ const ProductList = lazy(() => import("../views/productList"));
 const AddProduct = lazy(() => import("../views/productDetail"));
 const ResetPassword = lazy(() => import("../views/resetPassword"));
 const Register = lazy(() => import("../views/register"));
-const PetOwnerList = lazy(() => import("@/views/petOwnerList"));
-const PetOwnerDetail = lazy(() => import("@/views/petOwnerDetail"));
-const PetDetail = lazy(() => import("@/views/petDetail"));
+const PetOwnerList=lazy(()=>import('@/views/petOwnerList'))
+const PetOwnerDetail=lazy(()=>import('@/views/petOwnerDetail'))
+const PetDetail=lazy(()=>import('@/views/petDetail'))
+const OrderList=lazy(()=>import('@/views/orderList'))
+const OrderDetail=lazy(()=>import('@/views/orderDetail'))
 const CategoryList = lazy(() => import("@/views/categoryList"));
 const CategoryDetail = lazy(() => import("@/views/categoryDetail"));
+const ShippingSetting = lazy(() => import("@/views/shippingSetting"));
+const OrderSetting = lazy(() => import("@/views/orderSetting"));
+
 
 let routes: RouteObject[] = [
   {
@@ -35,13 +40,17 @@ let routes: RouteObject[] = [
       { path: "/pet-detail", element: <PetDetail /> },
       { path: "/category-list", element: <CategoryList /> },
       { path: "/category/:id", element: <CategoryDetail /> },
+      { path: "/order-list", element: <OrderList /> },
+      { path: "/shipment-list", element: <OrderList /> },
+      { path: "/order-detail", element: <OrderDetail /> },
+      { path: "/shipping-setting", element: <ShippingSetting /> },
+      { path: "/order-setting", element: <OrderSetting /> },
     ],
   },
   { path: "/login", element: <Login /> },
   { path: "*", element: <Home /> },
   { path: "/resetPassword", element: <ResetPassword /> },
   { path: "/register", element: <Register /> },
-  { path: "*", element: <Home /> },
 ];
 
 // The useRoutes() hook allows you to define your routes as JavaScript objects

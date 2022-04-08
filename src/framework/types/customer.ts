@@ -17,7 +17,7 @@ export interface Customer {
   image: string;
   name: string;
   phone: string;
-  loginTime: string;
+  loginTime?: string;
   nickname?: string; //昵称
   level?: string; //?
   points?: number; //积分情况，小程序会显示

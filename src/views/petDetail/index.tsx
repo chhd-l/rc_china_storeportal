@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Mock from "mockjs";
 import { useLocation } from "react-router-dom";
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
@@ -11,6 +10,7 @@ const PetDetail = () => {
   useEffect(() => {
     const state: any = location.state;
     console.log("222", state.id);
+    console.log(petId)
     setPetId(state.id);
   }, []);
 

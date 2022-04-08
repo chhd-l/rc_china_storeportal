@@ -12,8 +12,8 @@ const MyAddress = ({ addressList,id }: AddressInfoProps) => {
   const columns = [
     {
       title: "No.",
-      dataIndex: "unionId",
-      key: "unionId",
+      key: "no",
+      render: (text: any, record: any, index: number) => `${index + 1}`,
     },
     {
       title: "Receiver Name",
