@@ -17,33 +17,6 @@ const CategoryDetail = lazy(() => import("@/views/categoryDetail"));
 const ShippingSetting = lazy(() => import("@/views/shippingSetting"));
 const OrderSetting = lazy(() => import("@/views/orderSetting"));
 
-// export type RouterType = {
-//   path: string;
-//   component: React.LazyExoticComponent<any>;
-//   root?: string[];
-//   children?:any;
-//   notExect?: boolean;
-//   redirectTo?: string;
-// }[];
-
-// const Routers: RouterType  = [
-//   {
-//     path: "/app",
-//     component: AppLayout,
-//     children:[
-//       {
-//         path: "/home",
-//         component: Home,
-//       }
-//     ]
-//   },
-//   {
-//     path: "/login",
-//     component: Login,
-//   }
-// ];
-
-
 
 let routes: RouteObject[] = [
   {
@@ -61,21 +34,18 @@ let routes: RouteObject[] = [
       },
       { path: "/product-list", element: <ProductList /> },
       { path: "/product/:id", element: <AddProduct /> },
-      { path: "/product/add", element: <AddProduct /> },
       // { path: "/product/category", element: <Catechoose /> },
       { path: "/pet-owner-list", element: <PetOwnerList /> },
       { path: "/pet-owner-detail", element: <PetOwnerDetail /> },
       { path: "/pet-detail", element: <PetDetail /> },
       { path: "/category-list", element: <CategoryList /> },
       { path: "/category/:id", element: <CategoryDetail /> },
-      { path: "/category/add", element: <CategoryDetail /> },
       { path: "/order-list", element: <OrderList /> },
       { path: "/shipment-list", element: <OrderList /> },
       { path: "/order-detail", element: <OrderDetail /> },
       { path: "/shipping-setting", element: <ShippingSetting /> },
       { path: "/order-setting", element: <OrderSetting /> },
     ],
-
   },
   { path: "/login", element: <Login /> },
   { path: "*", element: <Home /> },

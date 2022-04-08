@@ -6,17 +6,17 @@ export interface CategoryBaseProps {
   type: number;
   createdUser: string;
   productNum: number;
-  isDispaly: boolean;
+  isDisplay: boolean;
   id: string;
 }
-export interface ProductItem {
+export interface ProductForCateProps {
   productName: string;
   marketingPrice: number;
   stock: number;
 }
 export interface CategoryProductProps extends CategoryBaseProps {
   rules: OptionsProps[];
-  productList: ProductItem[] | [];
+  productList: ProductForCateProps[] | [];
 }
 export interface ProductBaseProps {
   id: number;
@@ -29,4 +29,19 @@ export interface ProductBaseProps {
 export enum ProductType {
   Regular = "REGULAR",
   Bundle = "BUNDLE",
+}
+
+export enum AddCateType {
+  ManualSelection = "0",
+  RuleBasedFiltering = "1",
+}
+export interface SpecificationListProps {
+  option: string;
+}
+export interface VarationProps {
+  name: string;
+  specificationList: SpecificationListProps[];
+}
+export interface VarationsFormProps {
+  variationList: VarationProps[];
 }

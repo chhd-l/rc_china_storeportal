@@ -11,9 +11,9 @@ const salesStatusList = [
   { name: "status1", value: "status1" },
   { name: "status2", value: "status2" },
 ];
-const BasicInfomation = (props: FormProps) => {
+const BasicInfo = ({ field }: FormProps) => {
   // const [form] = Form.useForm();
-  console.info("propsprops", props);
+  console.info("propsprops", field);
   // const onFinish = (values: any) => {
   //   console.log(values);
   // };
@@ -30,55 +30,48 @@ const BasicInfomation = (props: FormProps) => {
 
   return (
     <>
-      <Form.Item
-        {...props.field}
-        label="Product Image"
-        name={[props.field.name, "img1"]}
-      >
+      <Form.Item {...field} label="Product Image" name={[field.name, "img1"]}>
         <div className="text-left">
           <Upload handleImgUrl={handleImgUrl} showUploadList={false} />
         </div>
       </Form.Item>
-      <Form.Item label="Product Video" name={[props.field.name, "video"]}>
+      <Form.Item label="Product Video" name={[field.name, "video"]}>
         <div className="text-left">
           <Upload handleImgUrl={handleImgUrl} showUploadList={false} />
         </div>
       </Form.Item>
       <Form.Item
         label="SPU"
-        name={[props.field.name, "spu"]}
+        name={[field.name, "spu"]}
         rules={[{ required: true, message: "Missing SPU" }]}
       >
         <Input />
       </Form.Item>
       <Form.Item
         label="Product Name"
-        name={[props.field.name, "name"]}
+        name={[field.name, "name"]}
         rules={[{ required: true, message: "Missing Product Name" }]}
       >
         <Input showCount maxLength={120} />
       </Form.Item>
 
-      <Form.Item
-        label="Product Card Name"
-        name={[props.field.name, "cardName"]}
-      >
+      <Form.Item label="Product Card Name" name={[field.name, "cardName"]}>
         <Input showCount maxLength={120} />
       </Form.Item>
       <Form.Item
         label="Product Description"
-        name={[props.field.name, "description"]}
+        name={[field.name, "description"]}
         rules={[{ required: true, message: "Missing Product Description" }]}
       >
         <Wangeditor onChange={handleEditorChange} />
       </Form.Item>
-      <Form.Item label="Category" name={[props.field.name, "category"]}>
+      <Form.Item label="Category" name={[field.name, "category"]}>
         <Input />
       </Form.Item>
-      <Form.Item label="Brand" name={[props.field.name, "brand"]}>
+      <Form.Item label="Brand" name={[field.name, "brand"]}>
         <Select placeholder="please select Brand" options={breedList} />
       </Form.Item>
-      <Form.Item label="Sales Status" name={[props.field.name, "salesStatus"]}>
+      <Form.Item label="Sales Status" name={[field.name, "salesStatus"]}>
         <Select
           placeholder="please select Sales Status"
           options={salesStatusList}
@@ -88,4 +81,4 @@ const BasicInfomation = (props: FormProps) => {
   );
 };
 
-export default BasicInfomation;
+export default BasicInfo;

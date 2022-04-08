@@ -9,7 +9,6 @@ import { columns } from "./modules/constant";
 import { useState } from "react";
 const ShopCategories = () => {
   const [addVisible, setAddvisible] = useState(false);
-
   const handleAddCate = (visible: boolean) => {
     setAddvisible(visible);
   };

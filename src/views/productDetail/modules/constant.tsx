@@ -4,6 +4,8 @@ import type {
 } from "@/framework/types/common";
 import { EyeOutlined } from "@ant-design/icons";
 import { ReactNode, useRef, useState } from "react";
+import { SortableContainer } from "react-sortable-hoc";
+
 export const selectList: (InputTextProps | InputSelectProps)[] = [
   {
     options: [{ name: "zone", value: "zone" }],
@@ -152,30 +154,30 @@ export enum FormKey {
 }
 
 export const formInitialValues = {
-  product: [
-    {
-      fieldKey: 0,
-      isListField: true,
-      key: 0,
-      name: 0,
-    },
-    {
-      fieldKey: 1,
-      isListField: true,
-      key: 1,
-      name: 1,
-    },
-    {
-      fieldKey: 2,
-      isListField: true,
-      key: 2,
-      name: 2,
-    },
-    {
-      fieldKey: 3,
-      isListField: true,
-      key: 3,
-      name: 3,
-    },
-  ],
+  product: Array(4)
+    .fill(1)
+    .map((el, idx) => {
+      let newEl = {
+        fieldKey: idx,
+        isListField: true,
+        key: idx,
+        name: idx,
+      };
+      return newEl;
+    }),
 };
+export const headerOrigition = [
+  "Image",
+  "SKU",
+  "Sub-SKU",
+  "EAN",
+  "List Price",
+  "Subscription Price",
+  "Subscription",
+];
+
+export const SortContainer = SortableContainer(
+  ({ children }: { children: any }) => {
+    return <ul>{children}</ul>;
+  }
+);

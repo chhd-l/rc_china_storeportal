@@ -4,12 +4,34 @@ import { EditOutlined } from "@ant-design/icons";
 import { dataSource } from "./modules/mockdata";
 import Mock from "mockjs";
 import ProTable from "@/components/common/ProTable";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { columns } from "./modules/constant";
 import { CategoryProductProps } from "@/framework/types/product";
+import { useLocation, useParams } from "react-router-dom";
+import { AddCateType } from "@/framework/types/product";
+import RuleBasedFilteringProps from "./components/RuleBasedFiltering";
+import ManualSelection from "./components/ManualSelection";
 const detailData = Mock.mock(dataSource);
-
 const CategoryDetail = () => {
+  const location = useLocation();
+  const params = useParams();
+  const [addCateType, setAddCateType] = useState(AddCateType.ManualSelection);
+  const [ruleBasedVisible, setRuleBasedVisible] = useState(false);
+  const [manualSelectionVisible, setManualSelectionVisible] =
+    useState<boolean>(true);
+  useEffect(() => {
+    const { id } = params;
+    if (id === "add") {
+      let type = (location.state as any)?.addCateType;
+      setAddCateType(type);
+    }
+  }, []);
+  const handleRuleBaseVisible = (visible: boolean) => {
+    setRuleBasedVisible(visible);
+  };
+  const handleManualVisible = (visible: boolean) => {
+    setManualSelectionVisible(visible);
+  };
   const hanleChangeVisble = (visible: boolean) => {
     console.info(visible);
   };
@@ -56,9 +78,28 @@ const CategoryDetail = () => {
               ))}
             </div>
           </div>
-          <Button type="primary" icon={<EditOutlined />}>
-            Edit Filtering Rules
-          </Button>
+          {addCateType === AddCateType.RuleBasedFiltering && (
+            <Button
+              type="primary"
+              onClick={() => {
+                handleRuleBaseVisible(true);
+              }}
+              icon={<EditOutlined />}
+            >
+              Edit Filtering Rules
+            </Button>
+          )}
+          {addCateType === AddCateType.ManualSelection && (
+            <Button
+              type="primary"
+              onClick={() => {
+                setManualSelectionVisible(true);
+              }}
+              icon={<EditOutlined />}
+            >
+              Edit Manual Selection
+            </Button>
+          )}
         </div>
         <ProTable
           columns={columns}
@@ -74,6 +115,14 @@ const CategoryDetail = () => {
           }}
         />
       </div>
+      <RuleBasedFilteringProps
+        visible={ruleBasedVisible}
+        handleVisible={handleRuleBaseVisible}
+      />
+      <ManualSelection
+        visible={manualSelectionVisible}
+        handleVisible={handleManualVisible}
+      />
     </div>
   );
 };

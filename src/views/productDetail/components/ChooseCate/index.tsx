@@ -5,7 +5,7 @@ import { ProductType } from "@/framework/types/product";
 interface ChooseCateProps {
   handleCate: Function;
 }
-const ChooseCate = (props: ChooseCateProps) => {
+const ChooseCate = ({ handleCate }: ChooseCateProps) => {
   // const onFinish = (values: any) => {
   //   console.log(values);
   // };
@@ -41,7 +41,7 @@ const ChooseCate = (props: ChooseCateProps) => {
               console.log(values);
             }}
             onFinish={async (value) => {
-              props.handleCate(value);
+              handleCate(value);
             }}
           >
             <ProFormText

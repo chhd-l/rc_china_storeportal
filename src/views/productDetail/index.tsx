@@ -12,7 +12,7 @@ const Product = () => {
   };
   return (
     <div>
-      {/* <Demo /> */}
+      {/* <Demo />*/}
       {!cateInfo && <ChooseCate handleCate={handleCate} />}
       {cateInfo && <MainInfo cateInfo={cateInfo} />}
     </div>
