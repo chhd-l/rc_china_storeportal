@@ -7,7 +7,7 @@ import {
   Carrier,
   OperationLog,
   Comment,
-  CustomerInfo,
+  Customer,
   Payment,
 } from "./components";
 import { orderDataSource } from "./modules/mockdata";
@@ -29,8 +29,12 @@ const OrderDetail = () => {
       discountsPrice: 0,
     },
     subscriptionId: "",
-    shippingAddress:{},
-    buyer:{}
+    shippingAddress: {},
+    buyer: {},
+    carrier: [],
+    payInfo: {},
+    logs: [],
+    comments: [],
   });
   const location = useLocation();
   const {
@@ -40,6 +44,10 @@ const OrderDetail = () => {
     buyer,
     tradeItem,
     tradePrice,
+    carrier,
+    payInfo,
+    logs,
+    comments,
   } = orderDetail;
 
   useEffect(() => {
@@ -59,16 +67,16 @@ const OrderDetail = () => {
               subscriptionId={subscriptionId}
             />
             <div className="bg-white py-2 px-4 mt-4">
-              <Address orderAddress={shippingAddress} />
-              <Carrier />
+              <Address address={shippingAddress} />
+              <Carrier carrier={carrier} />
             </div>
-            <CustomerInfo buyer={buyer} />
+            <Customer buyer={buyer} />
             <TradeItem tradeItem={tradeItem} tradePrice={tradePrice} />
-            <Payment />
+            <Payment payInfo={payInfo} />
           </div>
           <div className="w-1/4">
-            <Comment />
-            <OperationLog />
+            <Comment comments={comments} />
+            <OperationLog logs={logs} />
           </div>
         </div>
       ) : null}

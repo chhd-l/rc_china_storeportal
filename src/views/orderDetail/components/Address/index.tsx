@@ -1,18 +1,19 @@
 import { Address } from "@/framework/types/customer";
 
-const OrderAddress = ({ orderAddress }: { orderAddress: Address|any }) => {
+const OrderAddress = ({ address }: { address: Address | any }) => {
+  const { receiverName, phone, postCode, province, city, region, detail } =
+    address;
+
   return (
     <div className="flex justify-start">
       <span className="iconfont icon-a-xingzhuangjiehe2 text-red-500" />
       <div className="flex flex-col justify-start items-start ml-4">
         <span>Delivery Address</span>
         <span>
-          {orderAddress.receiverName} {orderAddress.phone}{" "}
-          {orderAddress.postCode}
+          {receiverName} {phone} {postCode}
         </span>
         <span>
-          {orderAddress.province} {orderAddress.city} {orderAddress.region}{" "}
-          {orderAddress.detail}
+          {province} {city} {region} {detail}
         </span>
       </div>
     </div>

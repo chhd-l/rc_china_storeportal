@@ -1,21 +1,26 @@
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Button, Form, Input } from "antd";
 import React from "react";
+import { Comment } from "@/framework/types/order";
 
-const OrderComment = ({}) => {
+const OrderComment = ({ comments }: { comments: Comment[] }) => {
   const [form] = Form.useForm();
 
   return (
     <div className="bg-white p-2">
       <div className="h-80 border-b-2">
-        <div className="flex justify-between">
-          <span className="flex items-center">
-            <Avatar size="small" icon={<UserOutlined />} />
-            <span className="ml-2">user name</span>
-          </span>
-          <span>22/3/15 16:35</span>
-        </div>
-        <div className="text-left pl-8">Need delivered...</div>
+        {comments.map((item) => (
+          <div>
+            <div className="flex justify-between">
+              <span className="flex items-center">
+                <Avatar size="small" icon={<UserOutlined />} />
+                <span className="ml-2">{item.createdBy}</span>
+              </span>
+              <span>{item.createdAt}</span>
+            </div>
+            <div className="text-left pl-8">{item.content}</div>
+          </div>
+        ))}
       </div>
       <div>
         <Form
@@ -40,7 +45,10 @@ const OrderComment = ({}) => {
               placeholder="Input Enter,quickly save comment"
             />
           </Form.Item>
-          <Form.Item style={{ marginBottom: 0 }} wrapperCol={{span:24,offset:18}}>
+          <Form.Item
+            style={{ marginBottom: 0 }}
+            wrapperCol={{ span: 24, offset: 18 }}
+          >
             <Button type="text" danger htmlType="submit">
               Save
             </Button>

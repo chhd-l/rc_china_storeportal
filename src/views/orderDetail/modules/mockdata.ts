@@ -1,4 +1,5 @@
 import { PHONEREGCONST } from "@/lib/constants";
+
 export const orderDataSource = {
   id: "@id",
   subscriptionId: "@id",
@@ -39,6 +40,21 @@ export const orderDataSource = {
       "cancellation",
     ],
   },
+  carrier: [
+    {
+      packId: "@id",
+      company: "SF",
+      tradeItem: [
+        {
+          skuId: "@id",
+          pic: "https://d2cstgstorage.z13.web.core.windows.net/fr/fr-229732-master.jpg",
+          skuName: "@title",
+          num: 1,
+          price: 198,
+        },
+      ],
+    },
+  ],
   carrierType: "111",
   tradePrice: {
     goodsPrice: 198,
@@ -48,5 +64,24 @@ export const orderDataSource = {
   },
   payInfo: {
     payTypeName: "Wechat Pay",
+    appId: "@id",
+    payTime: "@datetime",
+    outTradeNo: "@id",
   },
+  logs: [
+    {
+      createdAt: "@datetime",
+      createdBy: "@cname",
+      status: "New Order",
+      id: "@id",
+    },
+  ],
+  comments: [
+    {
+      createdAt: "@datetime",
+      createdBy: "@cname",
+      content: "Need delivered...",
+      id: "@id",
+    },
+  ],
 };

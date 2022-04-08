@@ -11,10 +11,36 @@ export interface Order {
   subscriptionId?: string;
   shippingAddress?: Address|any;
   buyer?: Customer|any;
+  carrier?:Carrier[];
+  logs:Log[]
+  comments:Comment[]
+}
+
+export interface Comment{
+  createdAt:string,
+  createdBy:string,
+  content:string,
+  id:string
+}
+
+export interface Log{
+  createdAt:string,
+  createdBy:string,
+  status:string,
+  id:string
+}
+
+export interface Carrier{
+  packId:string
+  company:string
+  tradeItem:OrderTradeItem[]
 }
 
 export interface PayInfo {
   payTypeName: string;
+  appId:string;
+  payTime:string;
+  outTradeNo:string
 }
 
 export interface TradeState {

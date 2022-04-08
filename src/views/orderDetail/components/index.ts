@@ -1,4 +1,4 @@
-export { default as CustomerInfo } from "./CustomerInfo";
+export { default as Customer } from "./Customer";
 export { default as Address } from "./Address";
 export { default as Carrier } from "./Carrier";
 export { default as TradeItem } from "./TradeItem";

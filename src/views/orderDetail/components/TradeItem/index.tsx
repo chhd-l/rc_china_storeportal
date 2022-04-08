@@ -52,6 +52,7 @@ const OrderInformation = ({
   tradePrice: TradePrice;
 }) => {
   const [showMore, setShowMore] = useState(true);
+  const { goodsPrice, discountsPrice, deliveryPrice, totalPrice } = tradePrice;
 
   return (
     <div className="flex justify-start mt-4 bg-white px-4 py-2">
@@ -93,12 +94,10 @@ const OrderInformation = ({
               <span>Order amount</span>
             </div>
             <div className="flex flex-col text-right w-1/4">
-              <span>{formatMoney(tradePrice.goodsPrice)}</span>
-              <span>{formatMoney(tradePrice.discountsPrice)}</span>
-              <span>{formatMoney(tradePrice.deliveryPrice)}</span>
-              <span className="text-red-500">
-                {formatMoney(tradePrice.totalPrice)}
-              </span>
+              <span>{formatMoney(goodsPrice)}</span>
+              <span>{formatMoney(discountsPrice)}</span>
+              <span>{formatMoney(deliveryPrice)}</span>
+              <span className="text-red-500">{formatMoney(totalPrice)}</span>
             </div>
           </div>
         </div>
