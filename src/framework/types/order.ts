@@ -39,15 +39,7 @@ export interface OrderTradeItem {
   price: number;
 }
 
-export enum OrderStatusLabel {
-  Unpaid = "Unpaid",
-  Toship = "To ship",
-  Shipped = "Shipped",
-  Completed = "Completed",
-  Cancellation = "Cancellation",
-}
-
-export enum OrderStatusValue {
+export enum OrderStatus {
   Unpaid = "UNPAID",
   Toship = "TOSHIP",
   Shipped = "SHIPPED",

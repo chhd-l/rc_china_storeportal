@@ -2,7 +2,7 @@ import { Tooltip, Modal } from "antd";
 import React, { useState } from "react";
 import ShipmentModal from "../ShipmentModal";
 import { useNavigate } from "react-router-dom";
-import { OrderStatusValue } from "@/framework/types/order";
+import { OrderStatus } from "@/framework/types/order";
 import { useLocation } from "react-router-dom";
 
 const OrderActions = ({
@@ -32,7 +32,7 @@ const OrderActions = ({
         </Tooltip>
       )}
       {/*发货*/}
-      {orderState === OrderStatusValue["Toship"] && (
+      {orderState === OrderStatus["Toship"] && (
         <Tooltip title="Arrange shipment">
           <span
             className="cursor-pointer ml-2 iconfont icon-dabaodaifahuo text-red-500"
@@ -44,7 +44,7 @@ const OrderActions = ({
         </Tooltip>
       )}
       {/*收货*/}
-      {orderState === OrderStatusValue["Shipped"] && (
+      {orderState === OrderStatus["Shipped"] && (
         <Tooltip title="Completed">
           <span
             className="cursor-pointer ml-2 iconfont icon-Order text-red-500 text-red-500"

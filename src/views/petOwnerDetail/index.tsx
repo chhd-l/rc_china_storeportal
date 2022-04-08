@@ -4,12 +4,12 @@ import { Anchor } from "antd";
 import {
   BasicInfo,
   Tagging,
-  PetInfo,
+  Pets,
   TencentAccount,
-  OrderInfo,
-  SubscriptionInfo,
-  MyAddress,
-  CouponInfo,
+  Orders,
+  Subscriptions,
+  Address,
+  Coupons,
   SmartDevice,
 } from "./components";
 import { dataSource } from "./modules/mockdata";
@@ -61,18 +61,18 @@ const PetOwnerList = () => {
             basicInformation={basicInformation}
           />
           <Tagging id="tagging" tagList={tagList} />
-          <PetInfo id="pet-information" petList={petList} />
+          <Pets id="pet-information" petList={petList} />
           <TencentAccount
             id="tencent-account"
             tencentAccountList={tencentAccountList}
           />
-          <OrderInfo id="order-information" orderList={orderList} />
-          <SubscriptionInfo
+          <Orders id="order-information" orderList={orderList} />
+          <Subscriptions
             id="subscription-information"
             subscriptionList={subscriptionList}
           />
-          <MyAddress id="my-address" addressList={addressList} />
-          <CouponInfo id="coupon-information" couponCodeList={couponCodeList} />
+          <Address id="my-address" addressList={addressList} />
+          <Coupons id="coupon-information" couponCodeList={couponCodeList} />
           <SmartDevice id="smart-device" smartDeviceList={smartDeviceList} />
         </div>
         <div className="w-40 ml-10 fixed right-0.5">

@@ -2,13 +2,7 @@ import { Divider, Table } from "antd";
 import React, { useState } from "react";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import { OrderTradeItem, TradePrice } from "@/framework/types/order";
-import { getCurrencyCode } from "@/utils/utils";
-
-const priceCode = "￥";
-
-const handlePrice = (price: number) => {
-  return getCurrencyCode() + price.toFixed(2);
-};
+import { formatMoney } from "@/utils/utils";
 
 const column = [
   {
@@ -45,7 +39,7 @@ const column = [
     title: "Subtotal",
     key: "Subtotal",
     render: (text: any, record: any) => (
-      <div>{handlePrice(record.price * record.num)}</div>
+      <div>{formatMoney(record.price * record.num)}</div>
     ),
   },
 ];
@@ -99,11 +93,11 @@ const OrderInformation = ({
               <span>Order amount</span>
             </div>
             <div className="flex flex-col text-right w-1/4">
-              <span>{handlePrice(tradePrice.goodsPrice)}</span>
-              <span>{handlePrice(tradePrice.discountsPrice)}</span>
-              <span>{handlePrice(tradePrice.deliveryPrice)}</span>
+              <span>{formatMoney(tradePrice.goodsPrice)}</span>
+              <span>{formatMoney(tradePrice.discountsPrice)}</span>
+              <span>{formatMoney(tradePrice.deliveryPrice)}</span>
               <span className="text-red-500">
-                {handlePrice(tradePrice.totalPrice)}
+                {formatMoney(tradePrice.totalPrice)}
               </span>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import { BaseListProps } from "@/framework/types/common";
-import { OrderStatusLabel, OrderStatusValue } from "@/framework/types/order";
+import { OrderStatus } from "@/framework/types/order";
 
 export const tabList: BaseListProps[] = [
   {
@@ -7,24 +7,24 @@ export const tabList: BaseListProps[] = [
     key: "",
   },
   {
-    label: OrderStatusLabel.Unpaid,
-    key: OrderStatusValue.Unpaid,
+    label: 'Unpaid',
+    key: OrderStatus.Unpaid,
   },
   {
-    label: OrderStatusLabel.Toship,
-    key: OrderStatusValue.Toship,
+    label: 'To ship',
+    key: OrderStatus.Toship,
   },
   {
-    label: OrderStatusLabel.Shipped,
-    key: OrderStatusValue.Shipped,
+    label: 'Shipped',
+    key: OrderStatus.Shipped,
   },
   {
-    label: OrderStatusLabel.Completed,
-    key: OrderStatusValue.Completed,
+    label: 'Completed',
+    key: OrderStatus.Completed,
   },
   {
-    label: OrderStatusLabel.Cancellation,
-    key: OrderStatusValue.Cancellation,
+    label:'Cancellation',
+    key: OrderStatus.Cancellation,
   },
 ];
 

@@ -1,7 +1,7 @@
 import { Steps } from "antd";
 import OrderActions from "@/components/order/OrderActions";
 import React, { useEffect, useState } from "react";
-import { OrderStatusValue } from "@/framework/types/order";
+import { OrderStatus } from "@/framework/types/order";
 import { stepList } from "../../modules/constants";
 
 const OrderProgress = ({
@@ -17,17 +17,17 @@ const OrderProgress = ({
   const [filterSteps, setFilterSteps] = useState(stepList);
 
   useEffect(() => {
-    if (orderState === OrderStatusValue.Cancellation) {
+    if (orderState === OrderStatus.Cancellation) {
       setFilterSteps(
         stepList.filter(
           (el) =>
-            el.key === OrderStatusValue.Unpaid ||
-            el.key === OrderStatusValue.Cancellation
+            el.key === OrderStatus.Unpaid ||
+            el.key === OrderStatus.Cancellation
         )
       );
     } else {
       setFilterSteps(
-        stepList.filter((el) => el.key !== OrderStatusValue.Cancellation)
+        stepList.filter((el) => el.key !== OrderStatus.Cancellation)
       );
     }
   }, [orderState]);
