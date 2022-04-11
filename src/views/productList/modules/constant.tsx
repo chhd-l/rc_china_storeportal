@@ -93,3 +93,50 @@ export const handleTabValue = (tabData: OptionsProps[], data: any) => {
     return el;
   });
 };
+
+export const tableHeaders = [
+  {
+    title: "Product Name",
+    dataIndex: "name",
+  },
+  {
+    title: "SKU",
+    dataIndex: "no",
+  },
+  {
+    title: "Varitions",
+    dataIndex: "specs",
+  },
+  {
+    title: "Price",
+    dataIndex: "price",
+    sortble: true,
+    sortDirection: "",
+  },
+  {
+    title: "Stock",
+    dataIndex: "stock",
+    sortble: true,
+    sortDirection: "",
+  },
+  {
+    title: "Options",
+    dataIndex: "actions",
+    render: (record: any, index: number) => (
+      <div>
+        <a className="mr-4">
+          <EyeOutlined />
+        </a>
+        <Link className="mr-4" to={`/product/${record.id}`}>
+          <EditOutlined />
+        </Link>
+        <a className="mr-4">
+          <DownloadOutlined />
+        </a>
+        <a>
+          <DeleteOutlined />
+        </a>
+      </div>
+    ),
+  },
+];
