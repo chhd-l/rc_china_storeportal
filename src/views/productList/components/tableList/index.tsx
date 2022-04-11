@@ -1,6 +1,5 @@
-import { dataSource } from "../../modules/mockdata";
-import Mock from "mockjs";
-import { useState } from "react";
+import ShowMoreButton from "../ShowMoreButton";
+import { useEffect, useState } from "react";
 import { cloneDeep } from "lodash";
 import {
   CaretDownFilled,
@@ -11,28 +10,39 @@ import {
 import { Button, Checkbox, Pagination } from "antd";
 import "./index.less";
 import { tableHeaders } from "../../modules/constant";
-import { ProductListItemProps } from "@/framework/types/product";
-const listData = Mock.mock(dataSource).prodcuts;
-const ListTable = () => {
-  const [list, setList] = useState<ProductListItemProps[]>(listData);
+import {
+  ProductListItemProps,
+  ProductListProps,
+} from "@/framework/types/product";
+interface ListTableProps {
+  listData: ProductListProps;
+}
+const ListTable = ({ listData }: ListTableProps) => {
+  const [list, setList] = useState<ProductListItemProps[]>(
+    cloneDeep(listData.products)
+  );
   const [indeterminate, setIndeterminate] = useState(false);
   const [checkedAll, setCheckedAll] = useState(false);
   const [tableHeader, setTableHeader] = useState(tableHeaders);
-  const hanldeshowAll = (spu: ProductListItemProps, idx: number) => {
-    list[idx].showAll = !list[idx].showAll;
-    setList(cloneDeep(list));
-  };
+  useEffect(() => {
+    let newList = cloneDeep(listData.products).map((item) => {
+      let newItem = item;
+      if (item.skus.length > 3) {
+        newItem.skus = item.skus.slice(0, 3);
+        newItem.showAll = false;
+      }
+      return newItem;
+    });
+    setList(newList);
+  }, [listData]);
   const onChange = (idx: number) => {
     list[idx].checked = !list[idx].checked;
     let checkedArr = list.filter((el) => el.checked);
     let notCheckedArr = list.filter((el) => !el.checked);
     let isNotCheckedAll = !!checkedArr.length && !!notCheckedArr.length;
     setIndeterminate(isNotCheckedAll);
-    if (notCheckedArr.length == list.length) {
-      setCheckedAll(false);
-    } else if (checkedArr.length == list.length) {
-      setCheckedAll(true);
-    }
+    notCheckedArr.length == list.length && setCheckedAll(false);
+    checkedArr.length == list.length && setCheckedAll(true);
     setList(cloneDeep(list));
   };
   const handleCheckedAll = () => {
@@ -54,11 +64,8 @@ const ListTable = () => {
     tableHeader.forEach((el) => {
       el.sortDirection = "";
     });
-    if (sortDirection == "ascend") {
-      tableHeader[index].sortDirection = "descend"; //降序
-    } else {
-      tableHeader[index].sortDirection = "ascend";
-    }
+    tableHeader[index].sortDirection =
+      sortDirection == "ascend" ? "descend" : "ascend";
     setTableHeader(cloneDeep(tableHeader));
     // 接口请求
     console.info("key", key);
@@ -123,63 +130,45 @@ const ListTable = () => {
               </div>
             </div>
             <div>
-              {spu.skus
-                .filter((el, idx) => idx < 3)
-                .map((sku: any) => (
-                  <div className="flex py-1">
-                    {tableHeader.map((item, itemIdx) => (
-                      <>
-                        {itemIdx > 0 ? (
-                          <div className="w-40">
-                            {item.dataIndex == "actions"
-                              ? item?.render?.(spu, spuIdx)
-                              : sku[item.dataIndex]}
-                          </div>
-                        ) : null}
-                      </>
-                    ))}
-                  </div>
-                ))}
-              {spu.skus.length > 3 && spu.showAll ? (
-                spu.skus
-                  .filter((el, idx) => idx > 3)
-                  .map((sku: any, index: number) => (
+              {spu.skus.map((sku: any) => (
+                <div className="flex py-1">
+                  {tableHeader.map((item, itemIdx) => (
                     <>
-                      <div className="flex py-1">
-                        {tableHeader.map((item, itemIdx) => (
-                          <>
-                            {itemIdx > 0 ? (
-                              <div className="w-40">{sku[item.dataIndex]}</div>
-                            ) : null}
-                          </>
-                        ))}
-                      </div>
-                      {spu.skus.length - 5 === index ? (
-                        <div
-                          className="cursor-pointer"
-                          onClick={() => hanldeshowAll(spu, spuIdx)}
-                        >
-                          <div className="border-b border-solid mt-4 boder-gary-400 relative mb-8">
-                            <div className="flex items-center absolute bg-white px-4 py-2 left-2/4 -translate-x-2/4 -translate-y-2/4">
-                              hide <UpOutlined />
-                            </div>
-                          </div>
+                      {itemIdx > 0 ? (
+                        <div className="w-40">
+                          {item.dataIndex == "actions"
+                            ? item?.render?.(spu, spuIdx)
+                            : sku[item.dataIndex]}
                         </div>
                       ) : null}
                     </>
-                  ))
-              ) : (
-                <div
-                  className="cursor-pointer"
-                  onClick={() => hanldeshowAll(spu, spuIdx)}
-                >
-                  <div className="border-b border-solid mt-4 boder-gary-400 relative mb-8">
-                    <div className="flex items-center absolute bg-white px-4 py-2 left-2/4 -translate-x-2/4 -translate-y-2/4">
-                      More({spu.skus.length - 3} Products SKUs) <DownOutlined />
-                    </div>
-                  </div>
+                  ))}
                 </div>
-              )}
+              ))}
+              {spu.showAll === false ? (
+                <ShowMoreButton
+                  listData={listData.products}
+                  spuIdx={spuIdx}
+                  list={list}
+                  setList={setList}
+                >
+                  <div className="flex items-center">
+                    More({spu.skus.length - 3} Products SKUs) <DownOutlined />
+                  </div>
+                </ShowMoreButton>
+              ) : null}
+              {spu.showAll === true ? (
+                <ShowMoreButton
+                  listData={listData.products}
+                  spuIdx={spuIdx}
+                  list={list}
+                  setList={setList}
+                >
+                  <div className="flex items-center">
+                    hide <UpOutlined />
+                  </div>
+                </ShowMoreButton>
+              ) : null}
             </div>
           </div>
         ))}

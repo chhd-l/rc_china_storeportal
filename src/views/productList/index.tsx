@@ -18,6 +18,7 @@ const ProductList = () => {
     console.info(data, "data");
   };
   const handleTab = (activeKey: any) => {
+    setActiveKey(activeKey);
     console.info(activeKey);
   };
   return (
@@ -49,7 +50,7 @@ const ProductList = () => {
             <Button>Export</Button>
           </div>
         </div>
-        <TableList />
+        <TableList listData={listData} />
       </div>
     </div>
   );

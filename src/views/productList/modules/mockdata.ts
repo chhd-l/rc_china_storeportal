@@ -1,5 +1,5 @@
 export const dataSource = {
-  "prodcuts|6": [
+  "products|6": [
     {
       "skus|6": [
         {
