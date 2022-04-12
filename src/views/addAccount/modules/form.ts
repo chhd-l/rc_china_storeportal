@@ -1,5 +1,6 @@
 import { FormItemProps, BaseListProps } from "@/framework/types/common";
-import { accountTypeList } from "./constants";
+import { accountTypeList, manageModeList } from "./constants";
+import { officialTypeList } from "@/views/accountList/modules/constants";
 
 interface AccountFormItemProps extends FormItemProps {
   type?: string;
@@ -97,7 +98,7 @@ export const ACCOUNT_FORM: AccountFormItemProps[] = [
         message: "Please select Management Mode!",
       },
     ],
-    selectList:[]
+    selectList: manageModeList,
   },
   {
     name: "pushServer",
@@ -115,7 +116,7 @@ export const ACCOUNT_FORM: AccountFormItemProps[] = [
         message: "Please select Official Account Type!",
       },
     ],
-    selectList: [],
+    selectList: officialTypeList,
   },
   {
     name: "magEncrypt",
@@ -143,11 +144,13 @@ export const ACCOUNT_FORM: AccountFormItemProps[] = [
     name: "pertifyPath",
     label: "Pertificate Path",
     placeholder: "Input",
+    type: "upload",
   },
   {
     name: "qrCodePath",
     label: "QR Code Path",
     placeholder: "Input",
+    type: "upload",
   },
   {
     name: "description",

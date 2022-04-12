@@ -10,3 +10,10 @@ export const accountTypeList: BaseListProps[] = [
     key: "miniProgram",
   },
 ];
+
+export const manageModeList: BaseListProps[] = [
+  {
+    label: "Developer Mode",
+    key: "developer",
+  },
+];

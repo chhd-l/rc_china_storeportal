@@ -113,6 +113,12 @@ export const menus = [
         url: "/account-list",
         key: "account_management",
       },
+      {
+        name: "Fans Management",
+        value: "fans_management",
+        url: "/fans-list",
+        key: "fans_management",
+      },
     ],
   },
 ];

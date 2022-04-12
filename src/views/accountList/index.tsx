@@ -2,8 +2,9 @@ import Table from "./components/Table";
 import Mock from "mockjs";
 import React, { useEffect, useState } from "react";
 import { dataSource } from "./modules/mockdata";
-import Search from "./components/Search";
+import Search from "@/components/common/Search";
 import { Account } from "@/framework/types/wechat";
+import { formItems } from "./modules/form";
 
 const AccountList = () => {
   const [accountList, setAccountList] = useState<Account[]>([]);
@@ -17,12 +18,9 @@ const AccountList = () => {
   return (
     <>
       <div className="bg-gray1 py-4 pl-4">
-        <Search query={getAccountList} />
-        <div className="bg-white">
-          {/*search*/}
-          <div className="p-8">
-            <Table accountList={accountList} />
-          </div>
+        <Search query={getAccountList} formItems={formItems} />
+        <div className="bg-white p-8">
+          <Table accountList={accountList} />
         </div>
       </div>
     </>

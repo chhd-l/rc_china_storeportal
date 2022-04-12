@@ -1,4 +1,4 @@
-import { Button, Form, Input, Select } from "antd";
+import { Button, Form, Input, Select, Upload } from "antd";
 import { ACCOUNT_FORM } from "@/views/addAccount/modules/form";
 import { useState } from "react";
 import { useNavigate } from "react-router";
@@ -50,6 +50,13 @@ const AddAccount = () => {
                   placeholder={item.placeholder}
                   autoSize={{ minRows: 3, maxRows: 5 }}
                 />
+              ) : item.type === "upload" ? (
+                <Input.Group>
+                  <Input placeholder={item.placeholder} style={{ width: '82%' }}/>
+                  <Upload name="logo" action="/upload.do" listType="picture">
+                    <Button>Select</Button>
+                  </Upload>
+                </Input.Group>
               ) : (
                 <Input placeholder={item.placeholder} />
               )}
