@@ -1,10 +1,18 @@
-import { PHONEREGCONST } from "@/lib/constants";
-import Mock from "mockjs";
-
 export const dataSource = {
-  "prodcuts|6": [
+  "products|6": [
     {
+      "skus|6": [
+        {
+          id: "@id",
+          no: "@id",
+          specs: "@cname",
+          "price|1-1000": 1,
+          "stock|1-100": 1,
+        },
+      ],
+      img: "@image('100x100')",
       id: "@id",
+      no: "@id",
       "price|1-1000": 1,
       "status|1-4": 1,
       "stock|1-100": 1,

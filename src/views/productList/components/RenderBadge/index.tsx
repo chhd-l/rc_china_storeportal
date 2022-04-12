@@ -1,7 +1,7 @@
 import { Badge } from "antd";
 import "./index.less";
 export type RenderBadgeProps = {
-  count: number;
+  count: string;
   active: boolean;
 };
 const RenderBadge = ({ count, active }: RenderBadgeProps) => {

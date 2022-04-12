@@ -1,12 +1,16 @@
 import { ProColumns } from "@/components/common/ProTable";
 import { OptionsProps } from "@/framework/types/common";
-import { ProductBaseProps } from "@/framework/types/product";
+import {
+  ProductBaseProps,
+  TableHeadersItemProps,
+} from "@/framework/types/product";
 import {
   DeleteOutlined,
   EyeOutlined,
   EditOutlined,
   DownloadOutlined,
 } from "@ant-design/icons";
+import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 export const columns: ProColumns<ProductBaseProps>[] = [
   {
@@ -93,3 +97,48 @@ export const handleTabValue = (tabData: OptionsProps[], data: any) => {
     return el;
   });
 };
+
+export const tableHeaders: TableHeadersItemProps[] = [
+  {
+    title: "Product Name",
+    dataIndex: "name",
+  },
+  {
+    title: "SKU",
+    dataIndex: "no",
+  },
+  {
+    title: "Varitions",
+    dataIndex: "specs",
+  },
+  {
+    title: "Price",
+    dataIndex: "price",
+    sortDirection: "",
+  },
+  {
+    title: "Stock",
+    dataIndex: "stock",
+    sortDirection: "",
+  },
+  {
+    title: "Options",
+    dataIndex: "actions",
+    render: (record: any, index: number) => (
+      <div>
+        <a className="mr-4">
+          <EyeOutlined />
+        </a>
+        <Link className="mr-4" to={`/product/${record.id}`}>
+          <EditOutlined />
+        </Link>
+        <a className="mr-4">
+          <DownloadOutlined />
+        </a>
+        <a>
+          <DeleteOutlined />
+        </a>
+      </div>
+    ),
+  },
+];

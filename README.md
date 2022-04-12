@@ -103,6 +103,13 @@ project
   - 应用逻辑开发的公共资源在 `project/src/public` 下，而非 `project/public` 下。
   - 公共 components 开发目录在 `project/src/components`。
 
+
+- 习惯约定
+
+  - 组件中对象超过3个引用，或者该对象名字长度超过10个字符，均需要解构赋值
+  
+
+
 标准例子：
 
 ```
