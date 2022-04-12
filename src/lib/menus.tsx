@@ -1,4 +1,4 @@
-import { MailOutlined, ShoppingOutlined } from "@ant-design/icons";
+import {MailOutlined, ShoppingOutlined, WechatOutlined} from "@ant-design/icons";
 
 export const menus = [
   {
@@ -97,6 +97,21 @@ export const menus = [
         value: "shop_categories",
         url: "/category-list",
         key: "shop_categories",
+      },
+    ],
+  },
+  {
+    name: "Wechat Management",
+    value: "wechat_management",
+    url: "",
+    key: "wechat_management",
+    icon: <WechatOutlined />,
+    children: [
+      {
+        name: "Account Management",
+        value: "account_management",
+        url: "/account-list",
+        key: "account_management",
       },
     ],
   },

@@ -16,7 +16,8 @@ const CategoryList = lazy(() => import("@/views/categoryList"));
 const CategoryDetail = lazy(() => import("@/views/categoryDetail"));
 const ShippingSetting = lazy(() => import("@/views/shippingSetting"));
 const OrderSetting = lazy(() => import("@/views/orderSetting"));
-
+const AccountList=lazy(()=>import('@/views/accountList'))
+const AddAccount=lazy(()=>import('@/views/addAccount'))
 
 let routes: RouteObject[] = [
   {
@@ -45,6 +46,8 @@ let routes: RouteObject[] = [
       { path: "/order-detail", element: <OrderDetail /> },
       { path: "/shipping-setting", element: <ShippingSetting /> },
       { path: "/order-setting", element: <OrderSetting /> },
+      { path: "/account-list", element: <AccountList /> },
+      { path: "/add-account", element: <AddAccount /> },
     ],
   },
   { path: "/login", element: <Login /> },

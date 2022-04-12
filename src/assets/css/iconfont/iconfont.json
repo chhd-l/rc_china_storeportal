@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "28903322",
+      "name": "Frame",
+      "font_class": "Frame3",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "28903323",
+      "name": "Frame-1",
+      "font_class": "Frame-1",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
       "icon_id": "28721032",
       "name": "形状结合 2",
       "font_class": "a-xingzhuangjiehe2",
