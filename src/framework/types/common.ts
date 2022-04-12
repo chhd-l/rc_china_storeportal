@@ -1,7 +1,7 @@
 import type { Rule } from "antd/lib/form";
 import { ReactNode } from "react";
 import type { FormListFieldData } from "antd/lib/form/FormList";
-import {  OrderStatus } from "./order";
+import { OrderStatus } from "./order";
 
 export interface FormItemProps {
   name: string;
@@ -46,7 +46,7 @@ export interface InputTextProps extends InputBaseProps {
 }
 
 export interface BaseListProps {
-  label: string ;
+  label: string;
   key?: string | OrderStatus;
   value?: string | OrderStatus;
   children?: any[];

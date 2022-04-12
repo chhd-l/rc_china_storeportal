@@ -1,4 +1,8 @@
-import { MailOutlined, ShoppingOutlined } from "@ant-design/icons";
+import {
+  MailOutlined,
+  ShoppingOutlined,
+  WechatOutlined,
+} from "@ant-design/icons";
 
 export const menus = [
   {
@@ -97,6 +101,45 @@ export const menus = [
         value: "shop_categories",
         url: "/category-list",
         key: "shop_categories",
+      },
+    ],
+  },
+  {
+    name: "Wechat Management",
+    value: "wechat_management",
+    url: "",
+    key: "wechat_management",
+    icon: <WechatOutlined />,
+    children: [
+      {
+        name: "Menu Management",
+        value: "menu_management",
+        url: "/menu-manage-list",
+        key: "menu_management",
+      },
+      {
+        name: "QR Code Management",
+        value: "qr_code_management",
+        url: "/qrcode-manage-list",
+        key: "qr_code_management",
+      },
+      {
+        name: "Template Message",
+        value: "template_message",
+        url: "/template-message-list",
+        key: "template_message",
+      },
+      {
+        name: "Mini Program QR Code",
+        value: "mini_program_qr_code",
+        url: "/mpqr-list",
+        key: "mini_program_qr_code",
+      },
+      {
+        name: "Mini Program Banner",
+        value: "mini_program_banner",
+        url: "/mpbanner-list",
+        key: "mini_program_banner",
       },
     ],
   },
