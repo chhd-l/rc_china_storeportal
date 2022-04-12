@@ -71,12 +71,17 @@ const Index = ({ fanList }: { fanList: Fans[] }) => {
     <div className="bg-white p-8">
       <div className="flex flex-row mb-4">
         <Button className="mr-4" onClick={() => {}}>
+          <span className="iconfont icon-bianzu2 mr-2" />
           Synchronize All Openid
         </Button>
         <Button className="mr-4" onClick={() => {}}>
+          <span className="iconfont icon-bianzu2 mr-2" />
           Synchronize All Fan Information
         </Button>
-        <Button onClick={() => {}}>Partial sync</Button>
+        <Button onClick={() => {}}>
+          <span className="iconfont icon-bianzu2 mr-2" />
+          Partial sync
+        </Button>
       </div>
       <Table
         rowSelection={{ onChange: changeSelect }}
