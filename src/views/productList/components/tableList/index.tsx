@@ -1,12 +1,7 @@
 import ShowMoreButton from "../ShowMoreButton";
 import { useEffect, useState } from "react";
 import { cloneDeep } from "lodash";
-import {
-  CaretDownFilled,
-  CaretUpFilled,
-  DownOutlined,
-  UpOutlined,
-} from "@ant-design/icons";
+import { CaretDownFilled, CaretUpFilled } from "@ant-design/icons";
 import { Button, Checkbox, Pagination } from "antd";
 import "./index.less";
 import { tableHeaders } from "../../modules/constant";
@@ -14,6 +9,7 @@ import {
   ProductListItemProps,
   ProductListProps,
 } from "@/framework/types/product";
+import TableRow from "../TableRow";
 interface ListTableProps {
   listData: ProductListProps;
 }
@@ -60,9 +56,11 @@ const ListTable = ({ listData }: ListTableProps) => {
   const handlePagination = (page: number, pageSize: number) => {
     console.info(page, pageSize);
   };
-  const handleSort = (key: string, sortDirection: string, index: number) => {
+  const handleSort = (key: string, index: number, sortDirection?: string) => {
     tableHeader.forEach((el) => {
-      el.sortDirection = "";
+      if (el.sortDirection !== undefined) {
+        el.sortDirection = "";
+      }
     });
     tableHeader[index].sortDirection =
       sortDirection == "ascend" ? "descend" : "ascend";
@@ -84,10 +82,10 @@ const ListTable = ({ listData }: ListTableProps) => {
           {tableHeader.map((item, idx) => (
             <div className={`flex items-center ${idx == 0 ? "w-52" : "w-40"} `}>
               <div> {item.title}</div>
-              {item.sortble ? (
+              {item.sortDirection !== undefined ? (
                 <div
                   onClick={() => {
-                    handleSort(item.dataIndex, item.sortDirection, idx);
+                    handleSort(item.dataIndex, idx, item.sortDirection);
                   }}
                   style={{ fontSize: "0.6rem" }}
                   className="pl-1 cursor-pointer"
@@ -111,66 +109,15 @@ const ListTable = ({ listData }: ListTableProps) => {
           ))}
         </div>
         {list.map((spu, spuIdx) => (
-          <div className="flex bg-white border-b border-solid border-gray-400">
-            <div className="px-2 py-1">
-              <Checkbox
-                checked={spu.checked}
-                onChange={() => {
-                  onChange(spuIdx);
-                }}
-              />
-            </div>
-            <div className="w-52 flex py-1">
-              <div>
-                <img src={spu.img} />
-              </div>
-              <div className="pl-1">
-                <div>{spu.name}</div>
-                <div className="text-gray-400">{spu.no}</div>
-              </div>
-            </div>
-            <div>
-              {spu.skus.map((sku: any) => (
-                <div className="flex py-1">
-                  {tableHeader.map((item, itemIdx) => (
-                    <>
-                      {itemIdx > 0 ? (
-                        <div className="w-40">
-                          {item.dataIndex == "actions"
-                            ? item?.render?.(spu, spuIdx)
-                            : sku[item.dataIndex]}
-                        </div>
-                      ) : null}
-                    </>
-                  ))}
-                </div>
-              ))}
-              {spu.showAll === false ? (
-                <ShowMoreButton
-                  listData={listData.products}
-                  spuIdx={spuIdx}
-                  list={list}
-                  setList={setList}
-                >
-                  <div className="flex items-center">
-                    More({spu.skus.length - 3} Products SKUs) <DownOutlined />
-                  </div>
-                </ShowMoreButton>
-              ) : null}
-              {spu.showAll === true ? (
-                <ShowMoreButton
-                  listData={listData.products}
-                  spuIdx={spuIdx}
-                  list={list}
-                  setList={setList}
-                >
-                  <div className="flex items-center">
-                    hide <UpOutlined />
-                  </div>
-                </ShowMoreButton>
-              ) : null}
-            </div>
-          </div>
+          <TableRow
+            spu={spu}
+            onChange={onChange}
+            spuIdx={spuIdx}
+            tableHeader={tableHeader}
+            listData={listData}
+            list={list}
+            setList={setList}
+          />
         ))}
       </div>
       <div className="bg-white">

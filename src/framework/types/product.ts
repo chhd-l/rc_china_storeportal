@@ -1,5 +1,13 @@
+import { ReactNode } from "react";
 import { productLists } from "./../../views/categoryDetail/modules/mockdata";
 import { OptionsProps } from "./common";
+
+export interface TableHeadersItemProps {
+  title: string;
+  dataIndex: string;
+  sortDirection?: string;
+  render?: (spu: ProductListItemProps, spuIdx: number) => ReactNode;
+}
 
 // categories
 export interface CategoryBaseProps {

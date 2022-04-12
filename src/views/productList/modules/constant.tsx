@@ -1,12 +1,16 @@
 import { ProColumns } from "@/components/common/ProTable";
 import { OptionsProps } from "@/framework/types/common";
-import { ProductBaseProps } from "@/framework/types/product";
+import {
+  ProductBaseProps,
+  TableHeadersItemProps,
+} from "@/framework/types/product";
 import {
   DeleteOutlined,
   EyeOutlined,
   EditOutlined,
   DownloadOutlined,
 } from "@ant-design/icons";
+import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 export const columns: ProColumns<ProductBaseProps>[] = [
   {
@@ -94,7 +98,7 @@ export const handleTabValue = (tabData: OptionsProps[], data: any) => {
   });
 };
 
-export const tableHeaders = [
+export const tableHeaders: TableHeadersItemProps[] = [
   {
     title: "Product Name",
     dataIndex: "name",
@@ -110,13 +114,11 @@ export const tableHeaders = [
   {
     title: "Price",
     dataIndex: "price",
-    sortble: true,
     sortDirection: "",
   },
   {
     title: "Stock",
     dataIndex: "stock",
-    sortble: true,
     sortDirection: "",
   },
   {
