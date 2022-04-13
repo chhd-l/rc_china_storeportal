@@ -1,5 +1,4 @@
 import { Table, Tooltip } from "antd";
-import { DeleteOutlined } from "@ant-design/icons";
 import React from "react";
 import { CouponCode } from "@/framework/types/customer";
 
@@ -56,11 +55,10 @@ const CouponInformation = ({ couponCodeList, id }: CouponInfoProps) => {
       key: "Options",
       render: (text: any, record: any) => (
         <Tooltip title="Deletes">
-          <span className="cursor-pointer" onClick={() => {}}>
-            <DeleteOutlined
-              style={{ color: "rgba(239, 68, 68,1)", fontSize: "24px" }}
-            />
-          </span>
+          <span
+            className="cursor-pointer iconfont icon-Frame3 text-red-500 text-xl"
+            onClick={() => {}}
+          />
         </Tooltip>
       ),
     },
@@ -75,7 +73,7 @@ const CouponInformation = ({ couponCodeList, id }: CouponInfoProps) => {
           dataSource={couponCodeList}
           columns={columns}
           pagination={false}
-          rowKey='id'
+          rowKey="id"
         />
       </div>
     </div>

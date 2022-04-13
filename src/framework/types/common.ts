@@ -5,7 +5,7 @@ import {  OrderStatus } from "./order";
 
 export interface FormItemProps {
   name: string;
-  placeholder: string;
+  placeholder?: string;
   rules?: any[];
 }
 
@@ -50,4 +50,10 @@ export interface BaseListProps {
   key?: string | OrderStatus;
   value?: string | OrderStatus;
   children?: any[];
+}
+
+export interface SearchFormItemProps extends FormItemProps {
+  type?: string;
+  label?: string;
+  selectList?: BaseListProps[];
 }
