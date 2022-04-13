@@ -1,4 +1,13 @@
+import { ReactNode } from "react";
+import { productLists } from "./../../views/categoryDetail/modules/mockdata";
 import { OptionsProps } from "./common";
+
+export interface TableHeadersItemProps {
+  title: string;
+  dataIndex: string;
+  sortDirection?: string;
+  render?: (spu: ProductListItemProps, spuIdx: number) => ReactNode;
+}
 
 // categories
 export interface CategoryBaseProps {
@@ -25,7 +34,32 @@ export interface ProductBaseProps {
   stock: number;
   skuId: string;
 }
-
+export interface ProductListSkuItem {
+  id: string;
+  no: string;
+  specs: string;
+  price: number;
+  stock: number;
+}
+export interface ProductListItemProps {
+  skus: ProductListSkuItem[];
+  img: string;
+  id: string;
+  no: string;
+  showAll?: boolean;
+  checked?: boolean;
+  specs: string;
+  price: number;
+  stock: number;
+  name: string;
+}
+export interface ProductListProps {
+  products: ProductListItemProps[];
+  all: string;
+  live: string;
+  soldOut: string;
+  disabled: string;
+}
 export enum ProductType {
   Regular = "REGULAR",
   Bundle = "BUNDLE",
