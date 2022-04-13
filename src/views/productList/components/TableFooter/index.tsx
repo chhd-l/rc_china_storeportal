@@ -1,12 +1,12 @@
 import { ProductListItemProps } from "@/framework/types/product"
 import { Button } from "antd"
-import { ReactElement } from "react"
+import { FC, ReactElement } from "react"
 import "./index.less"
-export type TableFooterProps = {
+export type Props = {
   children: ReactElement
   list: ProductListItemProps[]
 }
-const TableFooter = ({ children, list }: TableFooterProps) => {
+const TableFooter: FC<Props> = ({ children, list }) => {
   return (
     <div className="table-footer bg-white flex justify-between py-4">
       <div>{children}</div>
