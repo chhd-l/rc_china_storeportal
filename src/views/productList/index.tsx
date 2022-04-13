@@ -8,8 +8,11 @@ import RenderBadge from "./components/RenderBadge"
 import TableList from "./components/TableList"
 import { OptionsProps } from "@/framework/types/common"
 import { Tab, toolbarInit, handleTabValue } from "./modules/constant"
-import TabPane from "@ant-design/pro-card/lib/components/TabPane"
+import { ContentContainer, TableContainer, DivideArea } from "@/components/ui"
 import { MenuOutlined } from "@ant-design/icons"
+
+const { TabPane } = Tabs
+
 const listData = Mock.mock(dataSource)
 console.info("listData", listData)
 const ProductList = () => {
@@ -23,9 +26,10 @@ const ProductList = () => {
     console.info(activeKey)
   }
   return (
-    <div className="product-list bg-gray-50 py-14 px-6 text-left">
+    <ContentContainer className="product-list">
       <SearchHeader getFormData={getFormData} />
-      <div className="bg-white px-6">
+      <DivideArea />
+      <TableContainer>
         <Tabs defaultActiveKey={Tab.All} onChange={handleTab}>
           {toolbarList.map((el) => (
             <TabPane
@@ -39,24 +43,26 @@ const ProductList = () => {
                 </div>
               }
               key={el.name}
-            ></TabPane>
+            >
+              <div className="flex justify-between items-center py-4">
+                <div>
+                  {toolbarList.find((el) => activeKey === el.name)?.value}{" "}
+                  Products
+                </div>
+                <div className="flex items-center">
+                  <Link to="/product/add" className="mr-4">
+                    <Button type="primary">Add a New Product</Button>
+                  </Link>
+                  <Button className="mr-4">Export</Button>
+                  <MenuOutlined className=" border border-solid border-gray-300" />
+                </div>
+              </div>
+            </TabPane>
           ))}
         </Tabs>
-        <div className="flex justify-between items-center py-4">
-          <div>
-            {toolbarList.find((el) => activeKey === el.name)?.value} Products
-          </div>
-          <div className="flex items-center">
-            <Link to="/product/add" className="mr-4">
-              <Button type="primary">Add a New Product</Button>
-            </Link>
-            <Button className="mr-4">Export</Button>
-            <MenuOutlined className=" border border-solid border-gray-300" />
-          </div>
-        </div>
         <TableList listData={listData} />
-      </div>
-    </div>
+      </TableContainer>
+    </ContentContainer>
   )
 }
 
