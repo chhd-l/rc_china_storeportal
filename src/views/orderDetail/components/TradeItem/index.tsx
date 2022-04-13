@@ -55,7 +55,7 @@ const OrderInformation = ({
   const { goodsPrice, discountsPrice, deliveryPrice, totalPrice } = tradePrice;
 
   return (
-    <div className="flex justify-start mt-4 bg-white p-4">
+    <div className="flex justify-start">
       <span className="iconfont icon-bianzu-1 text-red-500" />
       <div className="ml-4 w-full">
         <div className="text-left text-base">Order Information</div>

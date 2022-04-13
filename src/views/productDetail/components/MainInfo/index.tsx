@@ -7,6 +7,7 @@ import Shipping from "../Shipping";
 import { Form, Space, Button } from "antd";
 import { useState } from "react";
 import { steps, formInitialValues } from "../../modules/constant";
+import { InfoContainer, DivideArea } from "@/components/ui";
 interface MainInfoProps {
   cateInfo: {
     cateId: string[];
@@ -25,8 +26,11 @@ const MainInfo = ({ cateInfo }: MainInfoProps) => {
     console.log(values, cateInfo);
   };
   return (
-    <div id={steps[0].anchor} className="flex bg-gray-50 px-14 py-6 text-left">
-      <div className="flex-1" style={{ marginRight: "130px" }}>
+    <div
+      id={steps[0].anchor}
+      // className="flex bg-gray-50 px-14 py-6 text-left"
+    >
+      <div className="flex-1 mr-48">
         <Form
           form={form}
           onFinish={onFinish}
@@ -49,40 +53,36 @@ const MainInfo = ({ cateInfo }: MainInfoProps) => {
                     }}
                     key={field.key}
                     direction="vertical"
-                    className="flex mb-10"
+                    className="flex"
                   >
-                    <div
-                      id={idx > 0 ? steps[idx].anchor : "anchor-1"}
-                      className="bg-white py-6 px-8"
-                    >
-                      <div className=" pb-2">
-                        <div className="flex justify-between  pb-1">
-                          <div className="font-bold text-lg">
-                            {steps[idx].title}
+                    <InfoContainer>
+                      <div id={idx > 0 ? steps[idx].anchor : "anchor-1"}>
+                        <div className="pb-2">
+                          <div className="flex justify-between  pb-1">
+                            <div className="font-bold text-lg">
+                              {steps[idx].title}
+                            </div>
+                            <div>{steps[idx].rightSlot}</div>
                           </div>
-                          <div>{steps[idx].rightSlot}</div>
+                          <div>{steps[idx].subTitle}</div>
                         </div>
-                        <div>{steps[idx].subTitle}</div>
+                        {steps[idx].render(field)}
                       </div>
-                      {idx === 0 && <BasicInfo field={field} />}
-                      {idx === 1 && <Specification field={field} />}
-                      {idx === 2 && <SalesInfo field={field} />}
-                      {idx === 3 && <Shipping field={field} />}
-                    </div>
-                    {/* {idx === 0 && <div id={steps[idx].anchor}><BasicInfo field={field} /></div>} */}
+                    </InfoContainer>
+                    <DivideArea />
                   </Space>
                 ))}
               </>
             )}
           </Form.List>
-          <Form.Item>
+          <Form.Item className="text-right">
             <Button type="primary" htmlType="submit">
               Submit
             </Button>
           </Form.Item>
         </Form>
       </div>
-      <div className="w-40 fixed right-0" style={{ top: "64px" }}>
+      <div className="w-40 fixed right-10" style={{ top: "100px" }}>
         <Anchor affix={false} targetOffset={64} style={{ top: "64px" }}>
           {steps.map((step) => (
             <Link href={`#${step.anchor}`} title={step.title} />

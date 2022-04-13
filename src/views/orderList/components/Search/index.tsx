@@ -25,7 +25,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
   };
 
   return (
-    <div className="mt-4">
+    <div>
       <div className="flex flex-row items-center justify-end">
         <div className="w-auto mr-3">Order Creation Date</div>
         <DatePicker

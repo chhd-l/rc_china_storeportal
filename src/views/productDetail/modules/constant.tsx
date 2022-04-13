@@ -5,6 +5,11 @@ import type {
 import { EyeOutlined } from "@ant-design/icons";
 import { ReactNode, useRef, useState } from "react";
 import { SortableContainer } from "react-sortable-hoc";
+import BasicInfo from "../components/BasicInfo";
+import Specification from "../components/Specification";
+import SalesInfo from "../components/SalesInfo";
+import Shipping from "../components/Shipping";
+import { FormListFieldData } from "antd/lib/form/FormList";
 
 export const selectList: (InputTextProps | InputSelectProps)[] = [
   {
@@ -113,6 +118,7 @@ interface StepsProps {
   subTitle?: string;
   tips: string;
   rightSlot?: ReactNode | null;
+  render: Function;
 }
 
 export const steps: StepsProps[] = [
@@ -122,6 +128,7 @@ export const steps: StepsProps[] = [
     subTitle: "",
     tips: "Basic Infomation",
     rightSlot: <EyeOutlined />,
+    render: (field: FormListFieldData) => <BasicInfo field={field} />,
   },
   {
     title: "Specification",
@@ -130,6 +137,7 @@ export const steps: StepsProps[] = [
     subTitle:
       "Complete: 1 / 7 Fill in more attributes to boost the exposure of your product.",
     rightSlot: null,
+    render: (field: FormListFieldData) => <Specification field={field} />,
   },
   {
     title: "Sales Infomation",
@@ -137,6 +145,7 @@ export const steps: StepsProps[] = [
     subTitle: "",
     tips: "Sales Infomation",
     rightSlot: null,
+    render: (field: FormListFieldData) => <SalesInfo field={field} />,
   },
   {
     title: "Shipping",
@@ -144,6 +153,7 @@ export const steps: StepsProps[] = [
     anchor: "product_shipping",
     subTitle: "",
     rightSlot: null,
+    render: (field: FormListFieldData) => <Shipping field={field} />,
   },
 ];
 export enum FormKey {
