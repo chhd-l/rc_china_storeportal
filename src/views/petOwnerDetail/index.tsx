@@ -12,7 +12,7 @@ import {
   Coupons,
   SmartDevice,
 } from "./components";
-import { dataSource } from "./modules/mockdata";
+import { petOwnerDetailSource } from "./modules/mockdata";
 import { useLocation } from "react-router-dom";
 import "./index.less";
 
@@ -49,7 +49,7 @@ const PetOwnerList = () => {
     console.log("111", state.id);
     setPetOwnerId(state.id);
     console.log(petOwnerId);
-    setPetOwnerDetail(Mock.mock(dataSource));
+    setPetOwnerDetail(Mock.mock(petOwnerDetailSource));
   }, []);
 
   return (

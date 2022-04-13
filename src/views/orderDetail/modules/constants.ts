@@ -27,3 +27,25 @@ export const stepList: StepProps[] = [
     key: OrderStatus.Cancellation,
   },
 ];
+
+export const initOrderDetail={
+  id: "",
+  tradeItem: [],
+  tradeState: {
+    orderState: "",
+  },
+  carrierType: "",
+  tradePrice: {
+    goodsPrice: 0,
+    deliveryPrice: 0,
+    totalPrice: 0,
+    discountsPrice: 0,
+  },
+  subscriptionId: "",
+  shippingAddress: {},
+  buyer: {},
+  carrier: [],
+  payInfo: {},
+  logs: [],
+  comments: [],
+}

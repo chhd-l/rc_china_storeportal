@@ -126,10 +126,10 @@ export const menus = [
         key: "automatic_replies",
       },
       {
-        name: "Reply Content",
-        value: "reply_content",
+        name: "Response Content",
+        value: "response_content",
         url: "/reply-contents",
-        key: "reply_content",
+        key: "response_content",
       },
     ],
   },

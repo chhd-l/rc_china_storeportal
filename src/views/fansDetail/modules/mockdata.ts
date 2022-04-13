@@ -1,4 +1,4 @@
-export const dataSource = {
+export const fansDetailSource = {
   id: "@id",
   account: "Royal Canin",
   avatar: "",
@@ -15,4 +15,8 @@ export const dataSource = {
   unionId: "@id",
   comment: "",
   qrCode: "",
+};
+
+export const fansDetailListSource = {
+  "array|6": [fansDetailSource],
 };

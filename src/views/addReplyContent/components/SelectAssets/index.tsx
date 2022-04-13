@@ -18,6 +18,9 @@ const column = [
     title: "Create Time",
     dataIndex: "createTime",
     key: "createTime",
+    render: (text: any, record: any) =>
+      record.status === "synchronized" ? record.syncTime : text,
+    //Status = Synchronized时,显示素材同步时间；Status = Not Synchronized时，显示素材添加时间
   },
   {
     title: "Status",
@@ -36,6 +39,11 @@ const voiceColumn = {
   title: "Voice",
   dataIndex: "voice",
   key: "voice",
+  render: (text: any) => (
+    <audio controls style={{height:'40px'}}>
+      <source src={text} type="video/mp4" />
+    </audio>
+  ),
 };
 
 const videoColumn = {
@@ -117,7 +125,7 @@ const SelectContentModal = ({
       closable={false}
       cancelText={"Cancel"}
       okText={"Confirm"}
-      width={700}
+      width={900}
       onCancel={() => {
         onCancel && onCancel();
       }}

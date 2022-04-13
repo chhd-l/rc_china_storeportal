@@ -1,6 +1,6 @@
 import { PHONEREGCONST } from "@/lib/constants";
 
-export const orderDataSource = {
+export const orderDetailSource = {
   id: "@id",
   subscriptionId: "@id",
   buyer: {
@@ -84,4 +84,8 @@ export const orderDataSource = {
       id: "@id",
     },
   ],
+};
+
+export const orderListSource = {
+  "array|6": [orderDetailSource],
 };

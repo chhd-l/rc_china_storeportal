@@ -1,4 +1,4 @@
-export const dataListSource = {
+export const replyContentsSource = {
   "array|6": [
     {
         id: '@id',

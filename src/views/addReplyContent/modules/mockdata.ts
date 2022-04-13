@@ -6,6 +6,11 @@ export const dataListSource = {
       assetId: "@id",
       createTime: "@datetime",
       status: "synchronized",
+      video: "",
+      voice: "",
+      assetTitle: "",
+      graphic: "",
+      syncTime: "",
     },
   ],
 };

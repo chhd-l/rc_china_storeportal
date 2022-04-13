@@ -1,13 +1,7 @@
-import { FormItemProps, BaseListProps } from "@/framework/types/common";
+import { FormItemProps } from "@/framework/types/common";
 import { replyTypeList } from "@/views/replyContents/modules/constants";
 
-interface AccountFormItemProps extends FormItemProps {
-  type?: string;
-  label?: string;
-  selectList?: BaseListProps[];
-}
-
-export const ADD_REPLY_CONTENT_FORM: AccountFormItemProps[] = [
+export const ADD_REPLY_CONTENT_FORM: FormItemProps[] = [
   {
     label: "Reply Type",
     name: "type",
@@ -34,7 +28,7 @@ export const ADD_REPLY_CONTENT_FORM: AccountFormItemProps[] = [
   },
 ];
 
-export const BASE_FORM: AccountFormItemProps[] = [
+export const BASE_FORM: FormItemProps[] = [
   {
     label: "Assets ID",
     name: "assetId",
@@ -49,7 +43,7 @@ export const BASE_FORM: AccountFormItemProps[] = [
   },
 ];
 
-export const TEXT_FORM: AccountFormItemProps[] = [
+export const TEXT_FORM: FormItemProps[] = [
   {
     label: "Message content",
     name: "message",
@@ -64,7 +58,7 @@ export const TEXT_FORM: AccountFormItemProps[] = [
   },
 ];
 
-export const VIDEO_FORM: AccountFormItemProps[] = [
+export const VIDEO_FORM: FormItemProps[] = [
   {
     label: "Assets Title",
     name: "assetTitle",

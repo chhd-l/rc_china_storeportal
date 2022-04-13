@@ -10,32 +10,13 @@ import {
   Customer,
   Payment,
 } from "./components";
-import { orderDataSource } from "./modules/mockdata";
+import { orderDetailSource } from "./modules/mockdata";
 import { useLocation } from "react-router-dom";
+import { initOrderDetail } from "./modules/constants";
 
 const OrderDetail = () => {
   const [orderId, setOrderId] = useState("");
-  const [orderDetail, setOrderDetail] = useState({
-    id: "",
-    tradeItem: [],
-    tradeState: {
-      orderState: "",
-    },
-    carrierType: "",
-    tradePrice: {
-      goodsPrice: 0,
-      deliveryPrice: 0,
-      totalPrice: 0,
-      discountsPrice: 0,
-    },
-    subscriptionId: "",
-    shippingAddress: {},
-    buyer: {},
-    carrier: [],
-    payInfo: {},
-    logs: [],
-    comments: [],
-  });
+  const [orderDetail, setOrderDetail] = useState(initOrderDetail);
   const location = useLocation();
   const {
     subscriptionId,
@@ -53,7 +34,7 @@ const OrderDetail = () => {
   useEffect(() => {
     const state: any = location.state;
     setOrderId(state.id);
-    setOrderDetail(Mock.mock(orderDataSource));
+    setOrderDetail(Mock.mock(orderDetailSource));
   }, []);
 
   return (

@@ -1,14 +1,8 @@
-import { FormItemProps, BaseListProps } from "@/framework/types/common";
+import { FormItemProps } from "@/framework/types/common";
 import { accountTypeList, manageModeList } from "./constants";
 import { officialTypeList } from "@/views/accountList/modules/constants";
 
-interface AccountFormItemProps extends FormItemProps {
-  type?: string;
-  label?: string;
-  selectList?: BaseListProps[];
-}
-
-export const ACCOUNT_FORM: AccountFormItemProps[] = [
+export const ACCOUNT_FORM: FormItemProps[] = [
   {
     label: "Account Principal",
     name: "principal",

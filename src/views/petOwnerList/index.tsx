@@ -2,14 +2,14 @@ import Table from "./components/Table";
 import Mock from "mockjs";
 import React, { useEffect, useState } from "react";
 import { Customer } from "@/framework/types/customer";
-import { dataSource } from "./modules/mockdata";
 import Search from "./components/Search";
+import { petOwnerListSource } from "@/views/petOwnerDetail/modules/mockdata";
 
 const PetOwnerList = () => {
   const [petOwnerList, setPetOwnerList] = useState<Customer[]>([]);
 
   useEffect(() => {
-    setPetOwnerList(Mock.mock(dataSource).array);
+    setPetOwnerList(Mock.mock(petOwnerListSource).array);
   }, []);
 
   const getPetOwnerList = () => {};

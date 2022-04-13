@@ -1,16 +1,16 @@
 import Table from "./components/Table";
 import Mock from "mockjs";
 import React, { useEffect, useState } from "react";
-import { dataListSource } from "./modules/mockdata";
 import { formItems } from "./modules/form";
 import Search from "@/components/common/Search";
 import { Fans } from "@/framework/types/wechat";
+import { fansDetailListSource } from "@/views/fansDetail/modules/mockdata";
 
 const FanList = () => {
   const [fanList, setFanList] = useState<Fans[]>([]);
 
   useEffect(() => {
-    setFanList(Mock.mock(dataListSource).array);
+    setFanList(Mock.mock(fansDetailListSource).array);
   }, []);
 
   const getFanList = () => {};
