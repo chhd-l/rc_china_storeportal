@@ -12,6 +12,7 @@ import {
 } from "./components";
 import { orderDataSource } from "./modules/mockdata";
 import { useLocation } from "react-router-dom";
+import { ContentContainer, InfoContainer, DivideArea } from "@/components/ui";
 
 const OrderDetail = () => {
   const [orderId, setOrderId] = useState("");
@@ -59,26 +60,40 @@ const OrderDetail = () => {
   return (
     <>
       {orderDetail ? (
-        <div className="bg-gray1 p-2 flex flex-row">
-          <div className="mr-2 w-3/4">
-            <Progress
-              orderState={tradeState.orderState}
-              orderId={orderId}
-              subscriptionId={subscriptionId}
-            />
-            <div className="bg-white py-2 px-4 mt-4">
-              <Address address={shippingAddress} />
-              <Carrier carrier={carrier} />
+        <ContentContainer>
+          <div className="flex flex-row">
+            <div className="mr-2 w-3/4">
+              <InfoContainer>
+                <Progress
+                  orderState={tradeState.orderState}
+                  orderId={orderId}
+                  subscriptionId={subscriptionId}
+                />
+              </InfoContainer>
+              <DivideArea />
+              <InfoContainer>
+                <Address address={shippingAddress} />
+                <Carrier carrier={carrier} />
+              </InfoContainer>
+              <DivideArea />
+              <InfoContainer>
+                <Customer buyer={buyer} />
+              </InfoContainer>
+              <DivideArea />
+              <InfoContainer>
+                <TradeItem tradeItem={tradeItem} tradePrice={tradePrice} />
+              </InfoContainer>
+              <DivideArea />
+              <InfoContainer>
+                <Payment payInfo={payInfo} />
+              </InfoContainer>
             </div>
-            <Customer buyer={buyer} />
-            <TradeItem tradeItem={tradeItem} tradePrice={tradePrice} />
-            <Payment payInfo={payInfo} />
+            <div className="w-1/4">
+              <Comment comments={comments} />
+              <OperationLog logs={logs} />
+            </div>
           </div>
-          <div className="w-1/4">
-            <Comment comments={comments} />
-            <OperationLog logs={logs} />
-          </div>
-        </div>
+        </ContentContainer>
       ) : null}
     </>
   );

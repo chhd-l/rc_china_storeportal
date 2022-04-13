@@ -8,7 +8,10 @@ import RenderBadge from "./components/RenderBadge";
 import TableList from "./components/tableList";
 import { OptionsProps } from "@/framework/types/common";
 import { Tab, toolbarInit, handleTabValue } from "./modules/constant";
-import TabPane from "@ant-design/pro-card/lib/components/TabPane";
+import { ContentContainer, TableContainer, DivideArea } from "@/components/ui";
+
+const { TabPane } = Tabs;
+
 const listData = Mock.mock(dataSource);
 console.info("listData", listData);
 const ProductList = () => {
@@ -22,9 +25,10 @@ const ProductList = () => {
     console.info(activeKey);
   };
   return (
-    <div className="product-list bg-gray-50 py-14 px-6 text-left">
+    <ContentContainer className="product-list">
       <SearchHeader getFormData={getFormData} />
-      <div className="bg-white px-6">
+      <DivideArea />
+      <TableContainer>
         <Tabs defaultActiveKey={Tab.All} onChange={handleTab}>
           {toolbarList.map((el) => (
             <TabPane
@@ -38,21 +42,22 @@ const ProductList = () => {
                 </div>
               }
               key={el.name}
-            ></TabPane>
+            >
+              <div className="flex justify-between items-center pb-4">
+                <div>4 Products</div>
+                <div>
+                  <Link to="/product/add" className="mr-4">
+                    <Button type="primary">Add a New Product</Button>
+                  </Link>
+                  <Button>Export</Button>
+                </div>
+              </div>
+              <TableList listData={listData} />
+            </TabPane>
           ))}
         </Tabs>
-        <div className="flex justify-between items-center py-4">
-          <div>4 Products</div>
-          <div>
-            <Link to="/product/add" className="mr-4">
-              <Button type="primary">Add a New Product</Button>
-            </Link>
-            <Button>Export</Button>
-          </div>
-        </div>
-        <TableList listData={listData} />
-      </div>
-    </div>
+      </TableContainer>
+    </ContentContainer>
   );
 };
 
