@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { cloneDeep } from "lodash"
-import { CaretDownFilled, CaretUpFilled } from "@ant-design/icons"
-import { Button, Checkbox, Pagination } from "antd"
+import { Checkbox, Pagination } from "antd"
 import "./index.less"
 import { tableHeaders } from "../../modules/constant"
 import {
   ProductListItemProps,
-  ProductListProps
+  ProductListProps,
 } from "@/framework/types/product"
 import TableRow from "../TableRow"
+import TableHeader from "../TableHeader"
+import TableFooter from "../TableFooter"
 interface ListTableProps {
   listData: ProductListProps
 }
@@ -16,7 +17,6 @@ const ListTable = ({ listData }: ListTableProps) => {
   const [list, setList] = useState<ProductListItemProps[]>(
     cloneDeep(listData.products)
   )
-  const [indeterminate, setIndeterminate] = useState(false)
   const [checkedAll, setCheckedAll] = useState(false)
   const [tableHeader, setTableHeader] = useState(tableHeaders)
   useEffect(() => {
@@ -32,41 +32,24 @@ const ListTable = ({ listData }: ListTableProps) => {
   }, [listData])
   const onChange = (idx: number) => {
     list[idx].checked = !list[idx].checked
-    let checkedArr = list.filter((el) => el.checked)
-    let notCheckedArr = list.filter((el) => !el.checked)
-    let isNotCheckedAll = !!checkedArr.length && !!notCheckedArr.length
-    setIndeterminate(isNotCheckedAll)
-    notCheckedArr.length == list.length && setCheckedAll(false)
-    checkedArr.length == list.length && setCheckedAll(true)
+    setCheckedAll(list.every((el) => el.checked))
     setList(cloneDeep(list))
   }
   const handleCheckedAll = () => {
-    let isChecked = false
-    if (indeterminate || !checkedAll) {
-      isChecked = true
-    }
     list.forEach((el) => {
-      el.checked = isChecked
+      el.checked = !checkedAll
     })
     setCheckedAll(!checkedAll)
-    setIndeterminate(false)
     setList(cloneDeep(list))
   }
   const handlePagination = (page: number, pageSize: number) => {
     console.info(page, pageSize)
   }
-  const handleSort = (key: string, index: number, sortDirection?: string) => {
-    tableHeader.forEach((el) => {
-      if (el.sortDirection !== undefined) {
-        el.sortDirection = ""
-      }
-    })
-    tableHeader[index].sortDirection =
-      sortDirection == "ascend" ? "descend" : "ascend"
-    setTableHeader(cloneDeep(tableHeader))
-    // 接口请求
-    console.info("key", key)
-  }
+  const indeterminate = useMemo(
+    () => !checkedAll && list.some((el) => el.checked),
+    [checkedAll, list]
+  )
+
   return (
     <div>
       <div className="border-l border-r border-solid border-gray-400">
@@ -78,34 +61,10 @@ const ListTable = ({ listData }: ListTableProps) => {
               onChange={handleCheckedAll}
             />
           </div>
-          {tableHeader.map((item, idx) => (
-            <div className={`flex items-center ${idx == 0 ? "w-52" : "w-40"} `}>
-              <div> {item.title}</div>
-              {item.sortDirection !== undefined ? (
-                <div
-                  onClick={() => {
-                    handleSort(item.dataIndex, idx, item.sortDirection)
-                  }}
-                  style={{ fontSize: "0.6rem" }}
-                  className="pl-1 cursor-pointer"
-                >
-                  <div className="relative top-1">
-                    <CaretUpFilled
-                      className={item.sortDirection == "ascend" ? "active" : ""}
-                    />
-                  </div>
-                  <div className="relative -top-2">
-                    {item.sortDirection == "descend"}
-                    <CaretDownFilled
-                      className={
-                        item.sortDirection == "descend" ? "active" : ""
-                      }
-                    />
-                  </div>
-                </div>
-              ) : null}
-            </div>
-          ))}
+          <TableHeader
+            tableHeader={tableHeader}
+            setTableHeader={setTableHeader}
+          />
         </div>
         {list.map((spu, spuIdx) => (
           <TableRow
@@ -113,7 +72,7 @@ const ListTable = ({ listData }: ListTableProps) => {
             onChange={onChange}
             spuIdx={spuIdx}
             tableHeader={tableHeader}
-            listData={listData}
+            listData={listData.products}
             list={list}
             setList={setList}
           />
@@ -127,25 +86,13 @@ const ListTable = ({ listData }: ListTableProps) => {
           total={500}
         />
       </div>
-      <div className="bg-white flex justify-between py-4">
-        <div>
-          <Checkbox
-            indeterminate={indeterminate}
-            checked={checkedAll}
-            onChange={handleCheckedAll}
-          />
-        </div>
-        <div>
-          <span className="mr-4">
-            {list.filter((el) => el.checked)?.length || 0} products selected
-          </span>
-          <Button className="mr-4">Delete</Button>
-          <Button className="mr-4">Delist</Button>
-          <Button className="mr-4" type="primary">
-            Publish
-          </Button>
-        </div>
-      </div>
+      <TableFooter list={list}>
+        <Checkbox
+          indeterminate={indeterminate}
+          checked={checkedAll}
+          onChange={handleCheckedAll}
+        />
+      </TableFooter>
     </div>
   )
 }
