@@ -1,5 +1,6 @@
 import { ProColumns } from "@/components/common/ProTable";
 import { DeleteOutlined, EyeOutlined, QrcodeOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 interface TableColumnsProps {
   handleDelete: (e: string) => void;
 }
@@ -44,9 +45,9 @@ export const tableColumns = ({ handleDelete }: TableColumnsProps) => {
       title: "Action",
       hideInSearch: true,
       render: (_, record) => [
-        <a>
+        <Link to={`/mpqr/${record.id}`}>
           <EyeOutlined className="mr-4" />
-        </a>,
+        </Link>,
         <a>
           <DeleteOutlined
             className="mr-4"

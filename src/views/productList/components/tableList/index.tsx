@@ -1,73 +1,72 @@
-import ShowMoreButton from "../ShowMoreButton";
-import { useEffect, useState } from "react";
-import { cloneDeep } from "lodash";
-import { CaretDownFilled, CaretUpFilled } from "@ant-design/icons";
-import { Button, Checkbox, Pagination } from "antd";
-import "./index.less";
-import { tableHeaders } from "../../modules/constant";
+import { useEffect, useState } from "react"
+import { cloneDeep } from "lodash"
+import { CaretDownFilled, CaretUpFilled } from "@ant-design/icons"
+import { Button, Checkbox, Pagination } from "antd"
+import "./index.less"
+import { tableHeaders } from "../../modules/constant"
 import {
   ProductListItemProps,
-  ProductListProps,
-} from "@/framework/types/product";
-import TableRow from "../TableRow";
+  ProductListProps
+} from "@/framework/types/product"
+import TableRow from "../TableRow"
 interface ListTableProps {
-  listData: ProductListProps;
+  listData: ProductListProps
 }
 const ListTable = ({ listData }: ListTableProps) => {
   const [list, setList] = useState<ProductListItemProps[]>(
     cloneDeep(listData.products)
-  );
-  const [indeterminate, setIndeterminate] = useState(false);
-  const [checkedAll, setCheckedAll] = useState(false);
-  const [tableHeader, setTableHeader] = useState(tableHeaders);
+  )
+  const [indeterminate, setIndeterminate] = useState(false)
+  const [checkedAll, setCheckedAll] = useState(false)
+  const [tableHeader, setTableHeader] = useState(tableHeaders)
   useEffect(() => {
     let newList = cloneDeep(listData.products).map((item) => {
-      let newItem = item;
+      let newItem = item
       if (item.skus.length > 3) {
-        newItem.skus = item.skus.slice(0, 3);
-        newItem.showAll = false;
+        newItem.skus = item.skus.slice(0, 3)
+        newItem.showAll = false
       }
-      return newItem;
-    });
-    setList(newList);
-  }, [listData]);
+      return newItem
+    })
+    setList(newList)
+  }, [listData])
   const onChange = (idx: number) => {
-    list[idx].checked = !list[idx].checked;
-    let checkedArr = list.filter((el) => el.checked);
-    let notCheckedArr = list.filter((el) => !el.checked);
-    let isNotCheckedAll = !!checkedArr.length && !!notCheckedArr.length;
-    setIndeterminate(isNotCheckedAll);
-    notCheckedArr.length == list.length && setCheckedAll(false);
-    checkedArr.length == list.length && setCheckedAll(true);
-    setList(cloneDeep(list));
-  };
+    list[idx].checked = !list[idx].checked
+    let checkedArr = list.filter((el) => el.checked)
+    let notCheckedArr = list.filter((el) => !el.checked)
+    let isNotCheckedAll = !!checkedArr.length && !!notCheckedArr.length
+    setIndeterminate(isNotCheckedAll)
+    notCheckedArr.length == list.length && setCheckedAll(false)
+    checkedArr.length == list.length && setCheckedAll(true)
+    setList(cloneDeep(list))
+  }
   const handleCheckedAll = () => {
-    let isChecked = false;
+    let isChecked = false
     if (indeterminate || !checkedAll) {
-      isChecked = true;
+      isChecked = true
     }
     list.forEach((el) => {
-      el.checked = isChecked;
-    });
-    setCheckedAll(!checkedAll);
-    setIndeterminate(false);
-    setList(cloneDeep(list));
-  };
+      el.checked = isChecked
+    })
+    setCheckedAll(!checkedAll)
+    setIndeterminate(false)
+    setList(cloneDeep(list))
+  }
   const handlePagination = (page: number, pageSize: number) => {
-    console.info(page, pageSize);
-  };
+    console.info(page, pageSize)
+  }
   const handleSort = (key: string, index: number, sortDirection?: string) => {
     tableHeader.forEach((el) => {
       if (el.sortDirection !== undefined) {
-        el.sortDirection = "";
+        el.sortDirection = ""
       }
-    });
+    })
     tableHeader[index].sortDirection =
-      sortDirection == "ascend" ? "descend" : "ascend";
-    setTableHeader(cloneDeep(tableHeader));
+      sortDirection == "ascend" ? "descend" : "ascend"
+    setTableHeader(cloneDeep(tableHeader))
     // 接口请求
-    console.info("key", key);
-  };
+    console.info("key", key)
+  }
   return (
     <div>
       <div className="border-l border-r border-solid border-gray-400">
@@ -85,7 +84,7 @@ const ListTable = ({ listData }: ListTableProps) => {
               {item.sortDirection !== undefined ? (
                 <div
                   onClick={() => {
-                    handleSort(item.dataIndex, idx, item.sortDirection);
+                    handleSort(item.dataIndex, idx, item.sortDirection)
                   }}
                   style={{ fontSize: "0.6rem" }}
                   className="pl-1 cursor-pointer"
@@ -148,6 +147,6 @@ const ListTable = ({ listData }: ListTableProps) => {
         </div>
       </div>
     </div>
-  );
-};
-export default ListTable;
+  )
+}
+export default ListTable

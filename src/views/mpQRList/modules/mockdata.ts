@@ -5,6 +5,8 @@ export const mockList = {
       scenario: "@name",
       id: "@id",
       path: "@url",
+      qrCodeTyep: "@name",
+      "qrCodeSize|10-1000": 10,
     },
   ],
-};
+}

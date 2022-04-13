@@ -8,10 +8,10 @@ export const mockList = {
       img: Random.image("200x100"),
       clickType: "@cname",
       path: "@url",
-      default: "@boolean",
+      "default|0-1": 1,
       "sort|1-10": 1,
       id: "@id",
-      status: "@boolean",
+      "status|0-1": 1,
     },
   ],
 };

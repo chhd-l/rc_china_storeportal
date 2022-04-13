@@ -1,4 +1,4 @@
-import { LabelOptionProps } from "@/framework/types/common";
+import { IsDefault, LabelOptionProps } from "@/framework/types/common";
 import { handleValueEnum } from "@/utils/utils";
 import {
   DeleteOutlined,
@@ -25,7 +25,7 @@ interface ColumnsProps {
   img: string;
   clickType: string;
   path: string;
-  default: string;
+  default: number;
   sort: number;
   id: string;
   status: boolean;
@@ -75,6 +75,7 @@ export const tableColumns = ({
       title: "Default",
       dataIndex: "default",
       hideInSearch: true,
+      render: (_, record) => <div>{IsDefault[record.default]}</div>,
     },
     {
       title: "Sort",
