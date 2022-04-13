@@ -125,6 +125,12 @@ export const menus = [
         url: "/automatic-replies",
         key: "automatic_replies",
       },
+      {
+        name: "Reply Content",
+        value: "reply_content",
+        url: "/reply-contents",
+        key: "reply_content",
+      },
     ],
   },
 ];

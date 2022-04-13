@@ -22,6 +22,8 @@ const FansList = lazy(() => import("@/views/fansList"));
 const FansDetail = lazy(() => import("@/views/fansDetail"));
 const AutoReplyList = lazy(() => import("@/views/autoReplyList"));
 const AddAutoReply = lazy(() => import("@/views/addAutoReply"));
+const ReplyContents = lazy(() => import("@/views/replyContents"));
+const AddReplyContent = lazy(() => import("@/views/addReplyContent"));
 
 let routes: RouteObject[] = [
   {
@@ -50,6 +52,8 @@ let routes: RouteObject[] = [
       { path: "/fans-detail", element: <FansDetail /> },
       { path: "/automatic-replies", element: <AutoReplyList /> },
       { path: "/add-auto-reply", element: <AddAutoReply /> },
+      { path: "/reply-contents", element: <ReplyContents /> },
+      { path: "/add-reply-content", element: <AddReplyContent /> },
     ],
   },
   { path: "/login", element: <Login /> },
