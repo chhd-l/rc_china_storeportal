@@ -5,9 +5,11 @@ import { SearchFormItemProps } from "@/framework/types/common";
 const Search = ({
   query,
   formItems,
+  classes,
 }: {
   query: Function;
   formItems: SearchFormItemProps[];
+  classes?: string;
 }) => {
   const [form] = Form.useForm();
 
@@ -27,7 +29,7 @@ const Search = ({
         onValuesChange={formValuesChange}
         onFinish={search}
         autoComplete="off"
-        className="flex flex-row flex-wrap justify-start pr-8"
+        className={`${classes} flex flex-row flex-wrap justify-start pr-8`}
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
       >
@@ -41,7 +43,9 @@ const Search = ({
             {item.type === "select" ? (
               <Select placeholder={item.placeholder}>
                 {(item.selectList || []).map((el) => (
-                  <Select.Option value={el.key} key={el.key}>{el.label}</Select.Option>
+                  <Select.Option value={el.key} key={el.key}>
+                    {el.label}
+                  </Select.Option>
                 ))}
               </Select>
             ) : item.type === "textarea" ? (

@@ -119,6 +119,12 @@ export const menus = [
         url: "/fans-list",
         key: "fans_management",
       },
+      {
+        name: "Automatic Replies",
+        value: "automatic_replies",
+        url: "/automatic-replies",
+        key: "automatic_replies",
+      },
     ],
   },
 ];

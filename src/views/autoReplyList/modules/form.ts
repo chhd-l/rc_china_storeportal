@@ -1,18 +1,26 @@
 import { SearchFormItemProps } from "@/framework/types/common";
-import { officialTypeList, statusList } from "./constants";
+import { statusList } from "@/views/accountList/modules/constants";
+import { matchTypeList } from "./constants";
 
 export const formItems: SearchFormItemProps[] = [
   {
     label: "Account Name",
     name: "name",
-    placeholder: "Input",
-  },
-  {
-    label: "Official Account Type",
-    name: "officialType",
     placeholder: "select",
     type: "select",
-    selectList: officialTypeList,
+    selectList: [],
+  },
+  {
+    label: "Match Type",
+    name: "type",
+    placeholder: "select",
+    type: "select",
+    selectList: matchTypeList,
+  },
+  {
+    label: "Keywords",
+    name: "keywords",
+    placeholder: "keywords",
   },
   {
     label: "Status",

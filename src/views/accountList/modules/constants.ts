@@ -1,6 +1,6 @@
-import {BaseListProps} from "@/framework/types/common";
+import { BaseListProps } from "@/framework/types/common";
 
-export const officialTypeList:BaseListProps[] = [
+export const officialTypeList: BaseListProps[] = [
   {
     label: "Regular Subscription Account",
     key: "subscription",
@@ -12,5 +12,16 @@ export const officialTypeList:BaseListProps[] = [
   {
     label: "Authentication Subscription Account",
     key: "authSubscription",
+  },
+];
+
+export const statusList: BaseListProps[] = [
+  {
+    label: "Enable",
+    key: "enable",
+  },
+  {
+    label: "Disable",
+    key: "disable",
   },
 ];

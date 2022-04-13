@@ -16,12 +16,29 @@ export interface Fans {
   isMember: boolean;
   followTime: string;
   status: string;
-  language:string
-  country:string
-  province:string
-  city:string
-  openId:string
-  unionId:string
-  comment:string
-  qrCode:string
+  language: string;
+  country: string;
+  province: string;
+  city: string;
+  openId: string;
+  unionId: string;
+  comment: string;
+  qrCode: string;
+}
+
+export interface AutoReplies {
+  id: string;
+  principal: string;
+  matchType: string;
+  keywords: string;
+  responseType: string;
+  responseDes: string;
+  status: boolean;
+}
+
+export interface ReplyContent {
+  id: string;
+  type: string;
+  description: string;
+  status: boolean;
 }
