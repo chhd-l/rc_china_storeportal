@@ -96,5 +96,5 @@ export const petOwnerDetailSource = {
       subscriptionType: "Autoship",
     },
   ],
-  "orderList|2": [orderDetailSource],
+  "orderList|2": [orderDetailSource('')],
 };

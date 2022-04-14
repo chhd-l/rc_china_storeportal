@@ -44,7 +44,14 @@ const Index = ({ petOwnerList }: PetOwnerTableProps) => {
       ),
     },
   ];
-  return <Table dataSource={petOwnerList} columns={columns} rowKey="id" />;
+  return (
+    <Table
+      dataSource={petOwnerList}
+      columns={columns}
+      rowKey="id"
+      className="rc-table"
+    />
+  );
 };
 
 export default Index;

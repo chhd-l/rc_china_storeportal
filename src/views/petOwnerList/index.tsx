@@ -16,9 +16,9 @@ const PetOwnerList = () => {
 
   return (
     <>
-      <div className="bg-gray1 py-4 pl-4">
+      <div className="bg-gray1 p-4">
         <div className="bg-white">
-          <div className="p-2 pb-4 text-xl font-medium text-left border-b">
+          <div className="p-4 text-xl font-medium text-left border-b">
             <span className="pl-4">My Pet Owner</span>
           </div>
           {/*search*/}
