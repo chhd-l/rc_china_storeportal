@@ -4,6 +4,12 @@ import React, { useEffect, useState } from "react";
 import { Customer } from "@/framework/types/customer";
 import Search from "./components/Search";
 import { petOwnerListSource } from "@/views/petOwnerDetail/modules/mockdata";
+import {
+  ContentContainer,
+  SearchContainer,
+  TableContainer,
+} from "@/components/ui";
+import { Divider } from "antd";
 
 const PetOwnerList = () => {
   const [petOwnerList, setPetOwnerList] = useState<Customer[]>([]);
@@ -15,20 +21,16 @@ const PetOwnerList = () => {
   const getPetOwnerList = () => {};
 
   return (
-    <>
-      <div className="bg-gray1 p-4">
-        <div className="bg-white">
-          <div className="p-4 text-xl font-medium text-left border-b">
-            <span className="pl-4">My Pet Owner</span>
-          </div>
-          {/*search*/}
-          <Search query={getPetOwnerList} />
-          <div className="p-8">
-            <Table petOwnerList={petOwnerList} />
-          </div>
-        </div>
-      </div>
-    </>
+    <ContentContainer>
+      <SearchContainer>
+        <div className="text-xl font-medium">My Pet Owner</div>
+        <Divider />
+        <Search query={getPetOwnerList} />
+      </SearchContainer>
+      <TableContainer>
+        <Table petOwnerList={petOwnerList} />
+      </TableContainer>
+    </ContentContainer>
   );
 };
 export default PetOwnerList;

@@ -4,7 +4,13 @@ import React, { useEffect, useState } from "react";
 import { dataListSource } from "./modules/mockdata";
 import { formItems } from "./modules/form";
 import Search from "@/components/common/Search";
-import {AutoReplies} from "@/framework/types/wechat";
+import { AutoReplies } from "@/framework/types/wechat";
+import {
+  ContentContainer,
+  DivideArea,
+  SearchContainer,
+  TableContainer,
+} from "@/components/ui";
 
 const FanList = () => {
   const [autoReplies, setAutoReplies] = useState<AutoReplies[]>([]);
@@ -16,10 +22,15 @@ const FanList = () => {
   const getFanList = () => {};
 
   return (
-    <div className="bg-gray1 py-4 pl-4">
-      <Search query={getFanList} formItems={formItems} />
-      <Table autoReplies={autoReplies} />
-    </div>
+    <ContentContainer>
+      <SearchContainer>
+        <Search query={getFanList} formItems={formItems} />
+      </SearchContainer>
+      <DivideArea />
+      <TableContainer>
+        <Table autoReplies={autoReplies} />
+      </TableContainer>
+    </ContentContainer>
   );
 };
 export default FanList;

@@ -2,6 +2,7 @@ import { Button, Form, Input, Select, Upload } from "antd";
 import { ACCOUNT_FORM } from "@/views/addAccount/modules/form";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { ContentContainer, InfoContainer } from "@/components/ui";
 
 const AddAccount = () => {
   const [fromItems, setFormItems] = useState(ACCOUNT_FORM);
@@ -20,8 +21,8 @@ const AddAccount = () => {
   };
 
   return (
-    <div className="p-4 text-left">
-      <div className="bg-white p-4">
+    <ContentContainer>
+      <InfoContainer>
         <div className="text-2xl text-medium mb-4">add Account</div>
         <Form
           initialValues={{ type: "serviceAccount" }}
@@ -52,7 +53,10 @@ const AddAccount = () => {
                 />
               ) : item.type === "upload" ? (
                 <Input.Group>
-                  <Input placeholder={item.placeholder} style={{ width: '82%' }}/>
+                  <Input
+                    placeholder={item.placeholder}
+                    style={{ width: "82%" }}
+                  />
                   <Upload name="logo" action="/upload.do" listType="picture">
                     <Button>Select</Button>
                   </Upload>
@@ -80,8 +84,8 @@ const AddAccount = () => {
             </Button>
           </Form.Item>
         </Form>
-      </div>
-    </div>
+      </InfoContainer>
+    </ContentContainer>
   );
 };
 export default AddAccount;

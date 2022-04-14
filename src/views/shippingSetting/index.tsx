@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { Divider, Switch } from "antd";
 import Modal from "./components/Modal";
+import { ContentContainer, InfoContainer } from "@/components/ui";
 
 const ShippingSetting = () => {
   const [enableExpress, setEnableExpress] = useState(false);
   const [shipModalVisible, setShipModalVisible] = useState(false);
 
   return (
-    <div className="bg-gray1 p-4 h-full">
-      <div className="bg-white h-full p-4">
-        <div className="text-left text-xl font-medium">Shipping Setting</div>
+    <ContentContainer>
+      <InfoContainer>
+        <div className="text-xl font-medium">Shipping Setting</div>
         <Divider />
         <div className="border p-4 flex justify-between items-center">
           <span>Express 100</span>
@@ -30,14 +31,14 @@ const ShippingSetting = () => {
             )}
           </div>
         </div>
-      </div>
+      </InfoContainer>
       <Modal
         shipModalVisible={shipModalVisible}
         onCancel={() => {
           setShipModalVisible(false);
         }}
       />
-    </div>
+    </ContentContainer>
   );
 };
 export default ShippingSetting;

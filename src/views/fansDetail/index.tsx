@@ -5,6 +5,13 @@ import { fansDetailForm } from "./modules/form";
 import { fansDetailSource } from "./modules/mockdata";
 import { initFansDetail } from "./modules/constants";
 import Mock from "mockjs";
+import {
+  ContentContainer,
+  DivideArea,
+  InfoContainer,
+  SearchContainer,
+  TableContainer,
+} from "@/components/ui";
 
 const FansDetail = () => {
   const [fansId, setFansId] = useState("");
@@ -20,36 +27,34 @@ const FansDetail = () => {
   }, []);
 
   return (
-    <>
-      <div className="bg-gray1 p-4">
-        <div className="bg-white p-4 flex flex-col text-left">
-          <div className="text-2xl text-bold mb-2">Fans Detail</div>
-          {fansDetail.account ? (
-            <Form
-              autoComplete="off"
-              className="flex flex-row flex-wrap justify-start pr-8"
-              labelCol={{ span: 8 }}
-              wrapperCol={{ span: 16 }}
-              initialValues={fansDetail}
-            >
-              {fansDetailForm.map((item) => (
-                <Form.Item
-                  label={item.label}
-                  name={item.name}
-                  className="w-1/2"
-                  key={item.name}
-                >
-                  <Input disabled className="bg-white text-black" />
-                </Form.Item>
-              ))}
-            </Form>
-          ) : null}
-        </div>
-        <div className="flex justify-end mt-4">
+    <ContentContainer>
+      <InfoContainer>
+        <div className="text-2xl text-bold mb-2">Fans Detail</div>
+        {fansDetail.account ? (
+          <Form
+            autoComplete="off"
+            className="flex flex-row flex-wrap justify-start pr-8"
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
+            initialValues={fansDetail}
+          >
+            {fansDetailForm.map((item) => (
+              <Form.Item
+                label={item.label}
+                name={item.name}
+                className="w-1/2"
+                key={item.name}
+              >
+                <Input disabled className="bg-white text-black" />
+              </Form.Item>
+            ))}
+          </Form>
+        ) : null}
+        <div className="flex justify-end">
           <Button>Cancel</Button>
         </div>
-      </div>
-    </>
+      </InfoContainer>
+    </ContentContainer>
   );
 };
 export default FansDetail;

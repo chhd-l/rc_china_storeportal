@@ -26,7 +26,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
   };
 
   return (
-    <div className="mt-8 px-8">
+    <div>
       <div className="flex flex-row justify-start">
         <div className="flex flex-row items-center">
           <div className="w-auto mr-2">WeChat Name:</div>

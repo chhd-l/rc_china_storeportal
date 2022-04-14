@@ -46,7 +46,7 @@ const column = [
 const Index = ({ replyContents }: { replyContents: ReplyContent[] }) => {
   const navigator = useNavigate();
   return (
-    <div className="bg-white p-4 mt-2">
+    <div>
       <div className="flex flex-row justify-end mb-4">
         <Button
           danger

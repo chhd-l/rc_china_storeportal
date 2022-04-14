@@ -15,6 +15,12 @@ import {
 import { petOwnerDetailSource } from "./modules/mockdata";
 import { useLocation } from "react-router-dom";
 import "./index.less";
+import {
+  ContentContainer,
+  InfoContainer,
+  SearchContainer,
+  TableContainer,
+} from "@/components/ui";
 
 const { Link } = Anchor;
 
@@ -53,30 +59,32 @@ const PetOwnerList = () => {
   }, []);
 
   return (
-    <>
-      <div className="bg-gray1 p-4 flex flex-row">
-        <div className="bg-white w-5/6 p-4 text-left">
-          <BasicInfo
-            id="basic-information"
-            basicInformation={basicInformation}
-          />
-          <Tagging id="tagging" tagList={tagList} />
-          <Pets id="pet-information" petList={petList} />
-          <TencentAccount
-            id="tencent-account"
-            tencentAccountList={tencentAccountList}
-          />
-          <Orders id="order-information" orderList={orderList} />
-          <Subscriptions
-            id="subscription-information"
-            subscriptionList={subscriptionList}
-          />
-          <Address id="my-address" addressList={addressList} />
-          <Coupons id="coupon-information" couponCodeList={couponCodeList} />
-          <SmartDevice id="smart-device" smartDeviceList={smartDeviceList} />
+    <ContentContainer>
+      <div className="flex flex-row">
+        <div className="w-5/6">
+          <InfoContainer>
+            <BasicInfo
+              id="basic-information"
+              basicInformation={basicInformation}
+            />
+            <Tagging id="tagging" tagList={tagList} />
+            <Pets id="pet-information" petList={petList} />
+            <TencentAccount
+              id="tencent-account"
+              tencentAccountList={tencentAccountList}
+            />
+            <Orders id="order-information" orderList={orderList} />
+            <Subscriptions
+              id="subscription-information"
+              subscriptionList={subscriptionList}
+            />
+            <Address id="my-address" addressList={addressList} />
+            <Coupons id="coupon-information" couponCodeList={couponCodeList} />
+            <SmartDevice id="smart-device" smartDeviceList={smartDeviceList} />
+          </InfoContainer>
         </div>
-        <div className="w-42 ml-4 fixed right-6 rc-anchor">
-          <Anchor affix={true} offsetTop={100} className="petowner-anchor-link">
+        <div className="fixed right-0 rc-anchor">
+          <Anchor affix={true} offsetTop={120} className="petowner-anchor-link">
             <Link href="#basic-information" title="Basic Information" />
             <Link href="#tagging" title="Tagging" />
             <Link href="#pet-information" title="Pet Information" />
@@ -92,7 +100,7 @@ const PetOwnerList = () => {
           </Anchor>
         </div>
       </div>
-    </>
+    </ContentContainer>
   );
 };
 export default PetOwnerList;

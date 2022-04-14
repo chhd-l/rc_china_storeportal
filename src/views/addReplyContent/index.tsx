@@ -9,6 +9,7 @@ import { useNavigate } from "react-router";
 import { useState } from "react";
 import SelectContext from "./components/SelectAssets";
 import { Asset } from "@/framework/types/wechat";
+import { Container, ContentContainer, InfoContainer } from "@/components/ui";
 
 const AddAccount = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -54,8 +55,8 @@ const AddAccount = () => {
   };
 
   return (
-    <div className="p-4 text-left">
-      <div className="bg-white p-4">
+    <ContentContainer>
+      <InfoContainer>
         <div className="text-2xl text-medium mb-4">add Reply Content</div>
         <Form
           onValuesChange={formValuesChange}
@@ -116,7 +117,7 @@ const AddAccount = () => {
             </Button>
           </Form.Item>
         </Form>
-      </div>
+      </InfoContainer>
       <SelectContext
         modalVisible={modalVisible}
         onCancel={() => {
@@ -125,7 +126,7 @@ const AddAccount = () => {
         onConfirm={setAssetId}
         type={form.getFieldValue("type")}
       />
-    </div>
+    </ContentContainer>
   );
 };
 export default AddAccount;

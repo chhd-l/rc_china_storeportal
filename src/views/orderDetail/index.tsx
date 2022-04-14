@@ -43,7 +43,7 @@ const OrderDetail = () => {
       {orderDetail ? (
         <ContentContainer>
           <div className="flex flex-row">
-            <div className="mr-2 w-3/4">
+            <div className="mr-4 w-3/4">
               <InfoContainer>
                 <Progress
                   orderState={tradeState.orderState}

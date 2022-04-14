@@ -139,7 +139,7 @@ const SelectContentModal = ({
         <Search
           query={getAssets}
           formItems={formItems}
-          classes={"select-content-search"}
+          classes={"select-content-search mb-4"}
         />
       ) : null}
       <Table

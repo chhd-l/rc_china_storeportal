@@ -5,6 +5,12 @@ import { dataSource } from "./modules/mockdata";
 import Search from "@/components/common/Search";
 import { Account } from "@/framework/types/wechat";
 import { formItems } from "./modules/form";
+import {
+  ContentContainer,
+  DivideArea,
+  SearchContainer,
+  TableContainer,
+} from "@/components/ui";
 
 const AccountList = () => {
   const [accountList, setAccountList] = useState<Account[]>([]);
@@ -16,14 +22,15 @@ const AccountList = () => {
   const getAccountList = () => {};
 
   return (
-    <>
-      <div className="bg-gray1 p-4">
+    <ContentContainer>
+      <SearchContainer>
         <Search query={getAccountList} formItems={formItems} />
-        <div className="bg-white p-4">
-          <Table accountList={accountList} />
-        </div>
-      </div>
-    </>
+      </SearchContainer>
+      <DivideArea />
+      <TableContainer>
+        <Table accountList={accountList} />
+      </TableContainer>
+    </ContentContainer>
   );
 };
 export default AccountList;

@@ -6,6 +6,12 @@ import { replyContentsSource } from "@/views/replyContents/modules/mockdata";
 import { ReplyContent } from "@/framework/types/wechat";
 import { formItems } from "./modules/form";
 import Table from "./components/Table";
+import {
+  ContentContainer,
+  DivideArea,
+  SearchContainer,
+  TableContainer,
+} from "@/components/ui";
 
 const SelectContentModal = () => {
   const [replyContents, setReplyContents] = useState<ReplyContent[]>([]);
@@ -17,10 +23,15 @@ const SelectContentModal = () => {
   const getReplyContents = () => {};
 
   return (
-    <div className="bg-gray-50 p-4">
-      <Search query={getReplyContents} formItems={formItems} />
-      <Table replyContents={replyContents} />
-    </div>
+    <ContentContainer>
+      <SearchContainer>
+        <Search query={getReplyContents} formItems={formItems} />
+      </SearchContainer>
+      <DivideArea />
+      <TableContainer>
+        <Table replyContents={replyContents} />
+      </TableContainer>
+    </ContentContainer>
   );
 };
 export default SelectContentModal;
