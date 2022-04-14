@@ -42,3 +42,17 @@ export interface ReplyContent {
   description: string;
   status: boolean;
 }
+
+export interface Asset {
+  id: string;
+  picture?: string;
+  assetId: string;
+  assetLink: string;
+  createTime: string;
+  status: string;
+  video?: string;
+  voice?: string;
+  assetTitle?: string;
+  graphic?: string;
+  syncTime: string;
+}

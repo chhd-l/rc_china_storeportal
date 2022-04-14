@@ -10,7 +10,7 @@ interface OrderInfoProps {
 
 const OrderInformation = ({ orderList, id }: OrderInfoProps) => {
   return (
-    <div id={id}>
+    <div id={id} className="mt-4">
       <div className="py-4 px-2 border-b text-xl font-medium">
         Order Information
       </div>

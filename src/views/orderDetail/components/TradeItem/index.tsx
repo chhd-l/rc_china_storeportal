@@ -55,16 +55,17 @@ const OrderInformation = ({
   const { goodsPrice, discountsPrice, deliveryPrice, totalPrice } = tradePrice;
 
   return (
-    <div className="flex justify-start mt-4 bg-white px-4 py-2">
+    <div className="flex justify-start">
       <span className="iconfont icon-bianzu-1 text-red-500" />
       <div className="ml-4 w-full">
-        <div className="text-left">Order Information</div>
-        <div className="mt-2">
+        <div className="text-left text-base">Order Information</div>
+        <div className="mt-4">
           <Table
             columns={column}
             dataSource={tradeItem}
             pagination={false}
             rowKey="skuId"
+            className='rc-table'
           />
         </div>
         <div className="flex flex-col mt-4 ">
@@ -86,20 +87,22 @@ const OrderInformation = ({
               )}
             </span>
           </Divider>
-          <div className="flex flex-row border-b mt-0">
-            <div className="flex flex-col text-right w-3/4 border-r pr-2">
-              <span>Products amount</span>
-              <span>Promotion amount</span>
-              <span>Shipping fee</span>
-              <span>Order amount</span>
+          {showMore ? (
+            <div className="flex flex-row border-b -mt-3 pb-2">
+              <div className="flex flex-col text-right w-3/4 border-r pr-2">
+                <span>Products amount</span>
+                <span>Promotion amount</span>
+                <span>Shipping fee</span>
+                <span>Order amount</span>
+              </div>
+              <div className="flex flex-col text-right w-1/4">
+                <span>{formatMoney(goodsPrice)}</span>
+                <span>{formatMoney(discountsPrice)}</span>
+                <span>{formatMoney(deliveryPrice)}</span>
+                <span className="text-red-500">{formatMoney(totalPrice)}</span>
+              </div>
             </div>
-            <div className="flex flex-col text-right w-1/4">
-              <span>{formatMoney(goodsPrice)}</span>
-              <span>{formatMoney(discountsPrice)}</span>
-              <span>{formatMoney(deliveryPrice)}</span>
-              <span className="text-red-500">{formatMoney(totalPrice)}</span>
-            </div>
-          </div>
+          ) : null}
         </div>
       </div>
     </div>

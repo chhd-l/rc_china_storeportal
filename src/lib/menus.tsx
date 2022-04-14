@@ -125,6 +125,18 @@ export const menus = [
         url: "/automatic-replies",
         key: "automatic_replies",
       },
+      {
+        name: "Response Content",
+        value: "response_content",
+        url: "/reply-contents",
+        key: "response_content",
+      },
+      {
+        name: "Assets Management",
+        value: "assets_management",
+        url: "/assets-management",
+        key: "assets_management",
+      },
     ],
   },
 ];

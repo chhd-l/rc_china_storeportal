@@ -1,5 +1,5 @@
 import { Button, Form, Input, Select } from "antd";
-import { ADD_AUTOREPLY_FORM } from "./modules/form";
+import { ADD_AUTO_REPLY_FORM } from "./modules/form";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import SelectContext from "./components/SelectContent";
@@ -38,7 +38,7 @@ const AddAccount = () => {
           className="w-3/4"
           form={form}
         >
-          {ADD_AUTOREPLY_FORM.map((item) => (
+          {ADD_AUTO_REPLY_FORM.map((item) => (
             <Form.Item
               label={item.label}
               name={item.name}

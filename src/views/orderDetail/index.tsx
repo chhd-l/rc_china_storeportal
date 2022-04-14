@@ -10,32 +10,14 @@ import {
   Customer,
   Payment,
 } from "./components";
-import { orderDataSource } from "./modules/mockdata";
+import { orderDetailSource } from "./modules/mockdata";
 import { useLocation } from "react-router-dom";
+import { initOrderDetail } from "./modules/constants";
+import { ContentContainer, InfoContainer, DivideArea } from "@/components/ui";
 
 const OrderDetail = () => {
   const [orderId, setOrderId] = useState("");
-  const [orderDetail, setOrderDetail] = useState({
-    id: "",
-    tradeItem: [],
-    tradeState: {
-      orderState: "",
-    },
-    carrierType: "",
-    tradePrice: {
-      goodsPrice: 0,
-      deliveryPrice: 0,
-      totalPrice: 0,
-      discountsPrice: 0,
-    },
-    subscriptionId: "",
-    shippingAddress: {},
-    buyer: {},
-    carrier: [],
-    payInfo: {},
-    logs: [],
-    comments: [],
-  });
+  const [orderDetail, setOrderDetail] = useState(initOrderDetail);
   const location = useLocation();
   const {
     subscriptionId,
@@ -53,32 +35,46 @@ const OrderDetail = () => {
   useEffect(() => {
     const state: any = location.state;
     setOrderId(state.id);
-    setOrderDetail(Mock.mock(orderDataSource));
+    setOrderDetail(Mock.mock(orderDetailSource(state.status)));
   }, []);
 
   return (
     <>
       {orderDetail ? (
-        <div className="bg-gray1 p-2 flex flex-row">
-          <div className="mr-2 w-3/4">
-            <Progress
-              orderState={tradeState.orderState}
-              orderId={orderId}
-              subscriptionId={subscriptionId}
-            />
-            <div className="bg-white py-2 px-4 mt-4">
-              <Address address={shippingAddress} />
-              <Carrier carrier={carrier} />
+        <ContentContainer>
+          <div className="flex flex-row">
+            <div className="mr-2 w-3/4">
+              <InfoContainer>
+                <Progress
+                  orderState={tradeState.orderState}
+                  orderId={orderId}
+                  subscriptionId={subscriptionId}
+                />
+              </InfoContainer>
+              <DivideArea />
+              <InfoContainer>
+                <Address address={shippingAddress} />
+                <Carrier carrier={carrier} />
+              </InfoContainer>
+              <DivideArea />
+              <InfoContainer>
+                <Customer buyer={buyer} />
+              </InfoContainer>
+              <DivideArea />
+              <InfoContainer>
+                <TradeItem tradeItem={tradeItem} tradePrice={tradePrice} />
+              </InfoContainer>
+              <DivideArea />
+              <InfoContainer>
+                <Payment payInfo={payInfo} />
+              </InfoContainer>
             </div>
-            <Customer buyer={buyer} />
-            <TradeItem tradeItem={tradeItem} tradePrice={tradePrice} />
-            <Payment payInfo={payInfo} />
+            <div className="w-1/4">
+              <Comment comments={comments} />
+              <OperationLog logs={logs} />
+            </div>
           </div>
-          <div className="w-1/4">
-            <Comment comments={comments} />
-            <OperationLog logs={logs} />
-          </div>
-        </div>
+        </ContentContainer>
       ) : null}
     </>
   );

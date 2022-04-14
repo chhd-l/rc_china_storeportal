@@ -11,7 +11,7 @@ const OrderProgress = ({
 }: {
   orderState: string;
   orderId: string;
-  subscriptionId: string|undefined;
+  subscriptionId: string | undefined;
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [filterSteps, setFilterSteps] = useState(stepList);
@@ -21,8 +21,7 @@ const OrderProgress = ({
       setFilterSteps(
         stepList.filter(
           (el) =>
-            el.key === OrderStatus.Unpaid ||
-            el.key === OrderStatus.Cancellation
+            el.key === OrderStatus.Unpaid || el.key === OrderStatus.Cancellation
         )
       );
     } else {
@@ -41,9 +40,9 @@ const OrderProgress = ({
   }, [filterSteps, orderState]);
 
   return (
-    <div className="bg-white py-2 px-4 ">
+    <div>
       <div className="flex flex-row justify-between">
-        <div className="text-left flex flex-row">
+        <div className="text-left flex flex-row text-black">
           <span className="icon-Frame1 iconfont text-red-500" />
           <span className="ml-4">
             Order ID:{orderId}

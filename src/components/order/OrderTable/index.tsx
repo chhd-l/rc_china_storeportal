@@ -5,11 +5,20 @@ import { Order, OrderTradeItem } from "@/framework/types/order";
 import { carrierTypeList } from "@/views/orderList/modules/constants";
 import OrderActions from "../OrderActions";
 import "./index.less";
+import { KeyRules } from "@/framework/types/common";
+
+const orderStatusType: KeyRules = {
+  UNPAID: "Unpaid",
+  TOSHIP: "To ship",
+  SHIPPED: "Shipped",
+  COMPLETED: "Completed",
+  CANCELLATION: "Cancellation",
+};
 
 const OrderTable = ({ orderList }: { orderList: Order[] }) => {
   return (
     <div>
-      <Row className="bg-gray1 border p-2">
+      <Row className="bg-gray1 border py-2 px-4">
         <Col span={8}>Product(s)</Col>
         <Col span={4} className="text-right">
           Order Total
@@ -31,13 +40,13 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
             ))}
           </Select>
         </Col>
-        <Col span={2} className="text-right">
+        <Col span={2} className="text-center">
           Actions
         </Col>
       </Row>
       {orderList.map((item: Order) => (
         <div className="border mt-2" key={item.id}>
-          <Row className="bg-gray1 border-b p-2">
+          <Row className="bg-gray1 border-b py-2 px-4">
             <Col span={12} className="flex items-center">
               <Avatar icon={<UserOutlined />} />
               <span className="ml-2">{item.buyer.name}</span>
@@ -96,12 +105,12 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
               </div>
             </Col>
             <Col span={4} className="text-right">
-              <div>{item.tradeState.orderState}</div>
+              <div>{orderStatusType[item.tradeState.orderState]}</div>
             </Col>
             <Col span={6} className="text-center">
-              {item.carrierType}
+              {item.carrierType?item.carrierType+'.Express':''}
             </Col>
-            <Col span={2} className="text-right items-center">
+            <Col span={2} className="text-center">
               <OrderActions
                 orderState={item.tradeState.orderState}
                 orderId={item.id}

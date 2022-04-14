@@ -1,13 +1,8 @@
-import { FormItemProps, BaseListProps } from "@/framework/types/common";
+import { FormItemProps } from "@/framework/types/common";
 import { matchTypeList } from "@/views/autoReplyList/modules/constants";
+import { replyTypeList } from "@/views/replyContents/modules/constants";
 
-interface AccountFormItemProps extends FormItemProps {
-  type?: string;
-  label?: string;
-  selectList?: BaseListProps[];
-}
-
-export const ADD_AUTOREPLY_FORM: AccountFormItemProps[] = [
+export const ADD_AUTO_REPLY_FORM: FormItemProps[] = [
   {
     label: "Match Type",
     name: "type",
@@ -43,5 +38,14 @@ export const ADD_AUTOREPLY_FORM: AccountFormItemProps[] = [
         message: "Please input Reply Description!",
       },
     ],
+  },
+];
+
+export const MODAL_FORM_ITEM = [
+  { label: "Content description", name: "description" },
+  {
+    label: "Reply Type",
+    name: "type",
+    searchList: replyTypeList,
   },
 ];

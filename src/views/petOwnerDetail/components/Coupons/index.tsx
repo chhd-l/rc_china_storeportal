@@ -53,6 +53,7 @@ const CouponInformation = ({ couponCodeList, id }: CouponInfoProps) => {
       title: "Options",
       dataIndex: "Options",
       key: "Options",
+      className: "text-center",
       render: (text: any, record: any) => (
         <Tooltip title="Deletes">
           <span
@@ -74,6 +75,7 @@ const CouponInformation = ({ couponCodeList, id }: CouponInfoProps) => {
           columns={columns}
           pagination={false}
           rowKey="id"
+          className="rc-table"
         />
       </div>
     </div>

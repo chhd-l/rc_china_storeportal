@@ -17,9 +17,9 @@ const AccountList = () => {
 
   return (
     <>
-      <div className="bg-gray1 py-4 pl-4">
+      <div className="bg-gray1 p-4">
         <Search query={getAccountList} formItems={formItems} />
-        <div className="bg-white p-8">
+        <div className="bg-white p-4">
           <Table accountList={accountList} />
         </div>
       </div>

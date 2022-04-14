@@ -7,7 +7,7 @@ const SubscriptionInformation = ({ subscriptionList, id }: any) => {
   const navigator = useNavigate();
 
   return (
-    <div id={id}>
+    <div id={id} className="mt-4">
       <div className="py-4 px-2 border-b text-xl font-medium">
         Subscription Information
       </div>
@@ -21,7 +21,7 @@ const SubscriptionInformation = ({ subscriptionList, id }: any) => {
           <DatePicker />
         </div>
       </div>
-      <Row className="bg-gray1 border p-2">
+      <Row className="bg-gray1 border p-4">
         <Col span={6}>Product(s)</Col>
         <Col span={6} className="text-right">
           Subscription Status
@@ -35,7 +35,7 @@ const SubscriptionInformation = ({ subscriptionList, id }: any) => {
       </Row>
       {subscriptionList.map((item: any) => (
         <div className="border mt-2" key={item.subscriptionId}>
-          <Row className="bg-gray1 border-b p-2">
+          <Row className="bg-gray1 border-b p-4">
             <Col span={12} className="flex items-center">
               <Avatar icon={<UserOutlined />} />
               <span className="ml-2">{item.customerName}</span>
@@ -44,7 +44,7 @@ const SubscriptionInformation = ({ subscriptionList, id }: any) => {
               <div>subscription ID:{item.subscriptionId}</div>
             </Col>
           </Row>
-          <Row className="p-2 flex items-center">
+          <Row className="p-4 flex items-center">
             <Col span={6} className="flex flex-row items-center">
               {item.products.map((product: any) => (
                 <Row className="items-center" key={product.id}>

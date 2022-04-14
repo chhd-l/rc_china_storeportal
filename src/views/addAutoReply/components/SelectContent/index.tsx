@@ -3,23 +3,9 @@ import React, { useEffect, useState } from "react";
 import Search from "@/components/common/Search";
 import "./index.less";
 import Mock from "mockjs";
-import { dataListSource } from "@/views/addAutoReply/modules/mockdata";
+import { replyContentsSource } from "@/views/replyContents/modules/mockdata";
 import { ReplyContent } from "@/framework/types/wechat";
-
-const formItems = [
-  { label: "Content description", name: "description" },
-  {
-    label: "Reply Type",
-    name: "type",
-    searchList: [
-      { label: "Text message", key: "text" },
-      { label: "Picture message", key: "picture" },
-      { label: "Voice message", key: "voice" },
-      { label: "Video message", key: "video" },
-      { label: "Graphic message", key: "graphic" },
-    ],
-  },
-];
+import { MODAL_FORM_ITEM } from "@/views/addAutoReply/modules/form";
 
 const column = [
   {
@@ -58,7 +44,7 @@ const SelectContentModal = ({
   });
 
   useEffect(() => {
-    setReplyContents(Mock.mock(dataListSource).array);
+    setReplyContents(Mock.mock(replyContentsSource).array);
   }, []);
 
   const getReplyContents = () => {};
@@ -87,8 +73,9 @@ const SelectContentModal = ({
     >
       <Search
         query={getReplyContents}
-        formItems={formItems}
-        classes={"select-content-search"}
+        formItems={MODAL_FORM_ITEM}
+        style={{ width: "290px" }}
+        classes={'-mt-2'}
       />
       <Table
         columns={column}
@@ -99,6 +86,7 @@ const SelectContentModal = ({
           type: "radio",
         }}
         rowKey={"id"}
+        className="rc-table"
       />
     </Modal>
   );

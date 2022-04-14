@@ -88,6 +88,7 @@ const Index = ({ fanList }: { fanList: Fans[] }) => {
         dataSource={fanList}
         columns={columns}
         rowKey="id"
+        className="rc-table"
       />
     </div>
   );

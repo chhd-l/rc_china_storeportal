@@ -49,6 +49,7 @@ const SmartDevices = ({ smartDeviceList,id }: SmartDeviceInfoProps) => {
           columns={columns}
           pagination={false}
           rowKey='id'
+          className='rc-table'
         />
       </div>
     </div>

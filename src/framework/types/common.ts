@@ -7,6 +7,9 @@ export interface FormItemProps {
   name: string;
   placeholder?: string;
   rules?: any[];
+  type?: string;
+  label?: string;
+  selectList?: BaseListProps[];
 }
 
 export interface FormProps {

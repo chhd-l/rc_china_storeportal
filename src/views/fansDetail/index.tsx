@@ -2,29 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Button, Form, Input } from "antd";
 import { fansDetailForm } from "./modules/form";
-import { dataSource } from "./modules/mockdata";
+import { fansDetailSource } from "./modules/mockdata";
+import { initFansDetail } from "./modules/constants";
 import Mock from "mockjs";
 
 const FansDetail = () => {
   const [fansId, setFansId] = useState("");
-  const [fansDetail, setFansDetail] = useState({
-    id: "",
-    account: "",
-    avatar: "",
-    name: "",
-    sex: "",
-    isMember: "",
-    followTime: "",
-    status: "",
-    language: "",
-    country: "",
-    province: "",
-    city: "",
-    openId: "",
-    unionId: "",
-    comment: "",
-    qrCode: "",
-  });
+  const [fansDetail, setFansDetail] = useState(initFansDetail);
   const location = useLocation();
 
   useEffect(() => {
@@ -32,8 +16,7 @@ const FansDetail = () => {
     console.log("333", state.id);
     setFansId(state.id);
     console.log(fansId);
-    setFansDetail(Mock.mock(dataSource));
-    console.log(Mock.mock(dataSource))
+    setFansDetail(Mock.mock(fansDetailSource));
   }, []);
 
   return (
@@ -56,7 +39,7 @@ const FansDetail = () => {
                   className="w-1/2"
                   key={item.name}
                 >
-                  <Input disabled className="bg-white text-black"/>
+                  <Input disabled className="bg-white text-black" />
                 </Form.Item>
               ))}
             </Form>

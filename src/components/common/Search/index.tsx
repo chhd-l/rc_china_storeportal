@@ -5,11 +5,13 @@ import { SearchFormItemProps } from "@/framework/types/common";
 const Search = ({
   query,
   formItems,
-  classes,
+  classes = "",
+  style = { width: "320px" },
 }: {
   query: Function;
   formItems: SearchFormItemProps[];
   classes?: string;
+  style?: any;
 }) => {
   const [form] = Form.useForm();
 
@@ -23,22 +25,24 @@ const Search = ({
   };
 
   return (
-    <div className="p-4 mb-2 bg-white text-left">
+    <div className="px-4 pb-4 mb-4 bg-white text-left">
       <Form
         form={form}
         onValuesChange={formValuesChange}
         onFinish={search}
         autoComplete="off"
-        className={`${classes} flex flex-row flex-wrap justify-start pr-8`}
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
+        className={`${classes} flex flex-row flex-wrap justify-start`}
+        layout={"inline"}
+        labelCol={{ span: 10 }}
+        wrapperCol={{ span: 14 }}
       >
         {formItems.map((item) => (
           <Form.Item
             label={item.label}
             name={item.name}
-            className="w-1/3"
             key={item.name}
+            style={style}
+            className="mt-4"
           >
             {item.type === "select" ? (
               <Select placeholder={item.placeholder}>
@@ -58,7 +62,7 @@ const Search = ({
             )}
           </Form.Item>
         ))}
-        <Form.Item className="w-full flex flex-row pl-8">
+        <Form.Item className="w-full flex flex-row mt-4">
           <Button type="primary" htmlType="submit" danger>
             Search
           </Button>

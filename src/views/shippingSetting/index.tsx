@@ -8,10 +8,10 @@ const ShippingSetting = () => {
 
   return (
     <div className="bg-gray1 p-4 h-full">
-      <div className="bg-white h-full p-2">
+      <div className="bg-white h-full p-4">
         <div className="text-left text-xl font-medium">Shipping Setting</div>
         <Divider />
-        <div className="border p-2 flex justify-between items-center">
+        <div className="border p-4 flex justify-between items-center">
           <span>Express 100</span>
           <div className="flex items-center">
             <Switch

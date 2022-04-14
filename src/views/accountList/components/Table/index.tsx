@@ -75,7 +75,12 @@ const Index = ({ accountList }: { accountList: Account[] }) => {
           + Add Account
         </Button>
       </div>
-      <Table dataSource={accountList} columns={columns} rowKey="id" />
+      <Table
+        dataSource={accountList}
+        columns={columns}
+        rowKey="id"
+        className="rc-table"
+      />
     </>
   );
 };
