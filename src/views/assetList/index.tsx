@@ -2,11 +2,7 @@ import { Tabs } from "antd";
 import React, { useState } from "react";
 import { tabList } from "./modules/constants";
 import { Picture, Graphic, Video, Voice } from "./components";
-import {
-  ContentContainer,
-  SearchContainer,
-  TableContainer,
-} from "@/components/ui";
+import { ContentContainer, SearchContainer } from "@/components/ui";
 
 const PetOwnerList = () => {
   const [activeKey, setActiveKey] = useState("picture");
