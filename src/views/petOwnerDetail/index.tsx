@@ -54,7 +54,6 @@ const PetOwnerList = () => {
     const state: any = location.state;
     console.log("111", state.id);
     setPetOwnerId(state.id);
-    console.log(petOwnerId);
     setPetOwnerDetail(Mock.mock(petOwnerDetailSource));
   }, []);
 
@@ -68,7 +67,7 @@ const PetOwnerList = () => {
               basicInformation={basicInformation}
             />
             <Tagging id="tagging" tagList={tagList} />
-            <Pets id="pet-information" petList={petList} />
+            <Pets id="pet-information" customerId={petOwnerId} />
             <TencentAccount
               id="tencent-account"
               tencentAccountList={tencentAccountList}

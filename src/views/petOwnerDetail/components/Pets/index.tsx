@@ -2,14 +2,28 @@ import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import { Pet } from "@/framework/types/customer";
+import { useEffect, useState } from "react";
+import { getPetList } from "@/framework/api/get-pet";
 
 interface PetInfoProps {
-    petList: Pet[];
-    id: string;
+  customerId: string;
+  id: string;
 }
 
-const PetInformation = ({ petList,id }: PetInfoProps) => {
+const PetInformation = ({ id, customerId }: PetInfoProps) => {
   const navigator = useNavigate();
+  const [pets, setPets] = useState([]);
+
+  const queryPetList = async () => {
+    const res = await getPetList({ customerId: "02121021" });
+    setPets(res);
+  };
+
+  useEffect(() => {
+    if (customerId) {
+      queryPetList();
+    }
+  }, [customerId]);
 
   return (
     <div id={id}>
@@ -17,7 +31,7 @@ const PetInformation = ({ petList,id }: PetInfoProps) => {
         Pet Information
       </div>
       <div className="px-2 py-4 flex flex-row flex-wrap">
-        {petList.map((item: Pet) => (
+        {pets.map((item: Pet) => (
           <div className="flex items-center border p-4 mr-4" key={item.id}>
             <Avatar shape="square" size="large" icon={<UserOutlined />} />
             <div className="ml-4">
