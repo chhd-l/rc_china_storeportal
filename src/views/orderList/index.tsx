@@ -16,7 +16,6 @@ const PetOwnerList = () => {
   const location = useLocation();
 
   useEffect(() => {
-    setOrderList(Mock.mock(orderListSource).array);
     console.log(location);
     if (location.pathname === "/shipment-list") {
       setActiveKey(OrderStatus.Toship);
@@ -25,11 +24,15 @@ const PetOwnerList = () => {
     }
   }, [location.pathname]);
 
+  useEffect(() => {
+    setOrderList(Mock.mock(orderListSource(activeKey)).array);
+  }, [activeKey]);
+
   const getOrderList = () => {};
 
   return (
     <>
-      <div className="bg-gray1 py-4 pl-4">
+      <div className="bg-gray1 p-4">
         <div className="bg-white pb-4 px-8">
           <Tabs
             activeKey={activeKey}

@@ -47,6 +47,7 @@ export interface Asset {
   id: string;
   picture?: string;
   assetId: string;
+  assetLink: string;
   createTime: string;
   status: string;
   video?: string;

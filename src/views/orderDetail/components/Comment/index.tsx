@@ -7,7 +7,7 @@ const OrderComment = ({ comments }: { comments: Comment[] }) => {
   const [form] = Form.useForm();
 
   return (
-    <div className="bg-white p-2">
+    <div className="bg-white p-4">
       <div className="h-80 border-b-2">
         {comments.map((item) => (
           <div>

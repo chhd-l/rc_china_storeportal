@@ -8,7 +8,7 @@ const OperationLog = ({ logs }: { logs: Log[] }) => {
         <span>Operation log</span>
       </Divider>
       {logs.map((item) => (
-        <div className="flex items-center justify-start">
+        <div className="flex items-center justify-start px-2">
           <span className="icon-Frame1 iconfont text-red-500" />
           <div className="flex flex-col justify-start items-start ml-2 w-full">
             <div>{item.status}</div>

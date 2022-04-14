@@ -1,7 +1,7 @@
 import { Modal, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import Mock from "mockjs";
-import { dataListSource } from "../../modules/mockdata";
+import { assetListSource } from "@/views/assetList/modules/mockdata";
 import { Asset } from "@/framework/types/wechat";
 import { cloneDeep } from "lodash";
 import Search from "@/components/common/Search";
@@ -40,7 +40,7 @@ const voiceColumn = {
   dataIndex: "voice",
   key: "voice",
   render: (text: any) => (
-    <audio controls style={{height:'40px'}}>
+    <audio controls style={{ height: "40px" }}>
       <source src={text} type="video/mp4" />
     </audio>
   ),
@@ -110,7 +110,7 @@ const SelectContentModal = ({
   const getAssets = () => {};
 
   useEffect(() => {
-    setAssets(Mock.mock(dataListSource).array);
+    setAssets(Mock.mock(assetListSource).array);
   }, []);
 
   useEffect(() => {

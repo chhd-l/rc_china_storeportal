@@ -41,9 +41,9 @@ const OrderProgress = ({
   }, [filterSteps, orderState]);
 
   return (
-    <div className="bg-white py-2 px-4 ">
+    <div className="bg-white p-4 ">
       <div className="flex flex-row justify-between">
-        <div className="text-left flex flex-row">
+        <div className="text-left flex flex-row text-black">
           <span className="icon-Frame1 iconfont text-red-500" />
           <span className="ml-4">
             Order ID:{orderId}

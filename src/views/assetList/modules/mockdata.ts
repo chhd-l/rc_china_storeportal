@@ -1,4 +1,4 @@
-export const dataListSource = {
+export const assetListSource = {
   "array|6": [
     {
       id: "@id",
@@ -10,7 +10,8 @@ export const dataListSource = {
       voice: "",
       assetTitle: "",
       graphic: "",
-      syncTime: "",
+      syncTime: "@datetime",
+      assetLink: "",
     },
   ],
 };

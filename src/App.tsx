@@ -3,7 +3,7 @@ import { useRoutes } from "react-router-dom";
 import Router from "./routers";
 import { Spin } from "antd";
 import './App.css'
-import '@/assets/css/global.css'
+import '@/assets/css/global.less'
 import '@/assets/css/iconfont/iconfont.css'
 
 function App() {

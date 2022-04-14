@@ -25,7 +25,7 @@ const OrderActions = ({
             className="cursor-pointer iconfont icon-Vector1 text-red-500"
             onClick={() => {
               navigator("/order-detail", {
-                state: { id: orderId },
+                state: { id: orderId,status:orderState },
               });
             }}
           />
