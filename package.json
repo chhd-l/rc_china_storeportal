@@ -9,6 +9,7 @@
     "@ant-design/pro-layout": "^6.34.8",
     "@ant-design/pro-table": "^2.70.0",
     "@babel/core": "^7.16.0",
+    "@commercetools/platform-sdk": "^2.6.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^5.5.0",
     "@testing-library/jest-dom": "^5.16.2",
