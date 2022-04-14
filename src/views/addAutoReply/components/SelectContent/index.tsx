@@ -74,7 +74,8 @@ const SelectContentModal = ({
       <Search
         query={getReplyContents}
         formItems={MODAL_FORM_ITEM}
-        classes={"select-content-search"}
+        style={{ width: "290px" }}
+        classes={'-mt-2'}
       />
       <Table
         columns={column}
@@ -85,6 +86,7 @@ const SelectContentModal = ({
           type: "radio",
         }}
         rowKey={"id"}
+        className="rc-table"
       />
     </Modal>
   );

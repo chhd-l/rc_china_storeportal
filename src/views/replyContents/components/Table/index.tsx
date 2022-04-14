@@ -58,7 +58,12 @@ const Index = ({ replyContents }: { replyContents: ReplyContent[] }) => {
           + Add
         </Button>
       </div>
-      <Table columns={column} dataSource={replyContents} rowKey={"id"} />
+      <Table
+        columns={column}
+        dataSource={replyContents}
+        rowKey={"id"}
+        className="rc-table"
+      />
     </div>
   );
 };

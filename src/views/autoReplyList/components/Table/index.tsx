@@ -72,7 +72,12 @@ const Index = ({ autoReplies }: { autoReplies: AutoReplies[] }) => {
           + Add
         </Button>
       </div>
-      <Table dataSource={autoReplies} columns={columns} rowKey="id" />
+      <Table
+        dataSource={autoReplies}
+        columns={columns}
+        rowKey="id"
+        className="rc-table"
+      />
     </div>
   );
 };

@@ -85,7 +85,7 @@ const Picture = () => {
           Synchronous WeChat Assets
         </Button>
       </div>
-      <Table columns={column} dataSource={pictureList} />
+      <Table columns={column} dataSource={pictureList} className="rc-table" />
     </div>
   );
 };

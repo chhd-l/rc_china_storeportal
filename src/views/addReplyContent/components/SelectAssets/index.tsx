@@ -151,6 +151,7 @@ const SelectContentModal = ({
           type: "radio",
         }}
         rowKey={"id"}
+        className="rc-table"
       />
     </Modal>
   );
