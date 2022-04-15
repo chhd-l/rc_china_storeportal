@@ -1,8 +1,4 @@
-@import 'antd/dist/antd.variable.min.css';
-
-.App {
-  text-align: center;
-}
+@import "antd/dist/antd.variable.min.css";
 
 .App-logo {
   height: 40vmin;

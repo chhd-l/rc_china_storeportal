@@ -1,19 +1,19 @@
 import {
   ProductListItemProps,
   TableHeadersItemProps,
-} from "@/framework/types/product";
-import { DownOutlined, UpOutlined } from "@ant-design/icons";
-import { Checkbox } from "antd";
-import ShowMoreButton from "../ShowMoreButton";
+} from "@/framework/types/product"
+import { DownOutlined, UpOutlined } from "@ant-design/icons"
+import { Checkbox } from "antd"
+import ShowMoreButton from "../ShowMoreButton"
 
 interface TableRowProps {
-  spu: ProductListItemProps;
-  onChange: (idx: number) => void;
-  spuIdx: number;
-  tableHeader: TableHeadersItemProps[];
-  listData: { products: ProductListItemProps[] };
-  list: ProductListItemProps[];
-  setList: (list: ProductListItemProps[]) => void;
+  spu: ProductListItemProps
+  onChange: (idx: number) => void
+  spuIdx: number
+  tableHeader: TableHeadersItemProps[]
+  listData: ProductListItemProps[]
+  list: ProductListItemProps[]
+  setList: (list: ProductListItemProps[]) => void
 }
 const TableRow = ({
   spu,
@@ -30,13 +30,13 @@ const TableRow = ({
         <Checkbox
           checked={spu.checked}
           onChange={() => {
-            onChange(spuIdx);
+            onChange(spuIdx)
           }}
         />
       </div>
       <div className="w-52 flex py-1">
         <div>
-          <img src={spu.img} />
+          <img src={spu.img} alt={spu.name} />
         </div>
         <div className="pl-1">
           <div>{spu.name}</div>
@@ -44,15 +44,16 @@ const TableRow = ({
         </div>
       </div>
       <div>
-        {spu.skus.map((sku: any) => (
+        {spu.skus.map((sku: any, index: number) => (
           <div className="flex py-1">
             {tableHeader.map((item, itemIdx) => (
               <>
                 {itemIdx > 0 ? (
                   <div className="w-40">
-                    {item.dataIndex == "actions"
+                    {item.dataIndex !== "actions" && sku[item.dataIndex]}
+                    {item.dataIndex === "actions" && index === 0
                       ? item?.render?.(spu, spuIdx)
-                      : sku[item.dataIndex]}
+                      : null}
                   </div>
                 ) : null}
               </>
@@ -61,19 +62,20 @@ const TableRow = ({
         ))}
         {spu.showAll === false ? (
           <ShowMoreButton
-            listData={listData.products}
+            listData={listData}
             spuIdx={spuIdx}
             list={list}
             setList={setList}
           >
             <div className="flex items-center">
-              More({spu.skus.length - 3} Products SKUs) <DownOutlined />
+              More({listData[spuIdx].skus.length - 3} Products SKUs){" "}
+              <DownOutlined />
             </div>
           </ShowMoreButton>
         ) : null}
         {spu.showAll === true ? (
           <ShowMoreButton
-            listData={listData.products}
+            listData={listData}
             spuIdx={spuIdx}
             list={list}
             setList={setList}
@@ -85,6 +87,6 @@ const TableRow = ({
         ) : null}
       </div>
     </div>
-  );
-};
-export default TableRow;
+  )
+}
+export default TableRow

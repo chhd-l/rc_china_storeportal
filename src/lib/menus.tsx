@@ -1,4 +1,8 @@
-import {MailOutlined, ShoppingOutlined, WechatOutlined} from "@ant-design/icons";
+import {
+  MailOutlined,
+  ShoppingOutlined,
+  WechatOutlined,
+} from "@ant-design/icons"
 
 export const menus = [
   {
@@ -137,18 +141,48 @@ export const menus = [
         url: "/assets-management",
         key: "assets_management",
       },
+      {
+        name: "Menu Management",
+        value: "menu_management",
+        url: "/menu-manage-list",
+        key: "menu_management",
+      },
+      {
+        name: "QR Code Management",
+        value: "qr_code_management",
+        url: "/qrcode-manage-list",
+        key: "qr_code_management",
+      },
+      {
+        name: "Template Message",
+        value: "template_message",
+        url: "/template-message-list",
+        key: "template_message",
+      },
+      {
+        name: "Mini Program QR Code",
+        value: "mini_program_qr_code",
+        url: "/mpqr-list",
+        key: "mini_program_qr_code",
+      },
+      {
+        name: "Mini Program Banner",
+        value: "mini_program_banner",
+        url: "/mpbanner-list",
+        key: "mini_program_banner",
+      },
     ],
   },
-];
+]
 
 export const initActive = (pathname: string) => {
-  let selectedKeys: string[] = [];
+  let selectedKeys: string[] = []
   menus.forEach((menu) => {
     menu.children.forEach((subMenu) => {
       if (subMenu.url === pathname) {
-        selectedKeys = [menu.key, subMenu.key];
+        selectedKeys = [menu.key, subMenu.key]
       }
-    });
-  });
-  return selectedKeys;
-};
+    })
+  })
+  return selectedKeys
+}
