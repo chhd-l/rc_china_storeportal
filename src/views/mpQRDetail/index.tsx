@@ -4,16 +4,17 @@ import ProFormItem from "@/components/common/ProFormItem"
 import { useFormItems } from "./modules/constant"
 import { mockList } from "../mpQRList/modules/mockdata"
 import Mock from "mockjs"
+import { ContentContainer, InfoContainer } from "@/components/ui"
 const mockData = Mock.mock(mockList).list[0]
 const MpQrDetail = () => {
   const layout = {
     labelCol: { span: 8 },
-    wrapperCol: { span: 16 }
+    wrapperCol: { span: 16 },
   }
   const formItemList = useFormItems()
   return (
-    <div className="mp-qr-detail bg-gray-50 py-14 px-6 text-left">
-      <div className="bg-white p-4">
+    <ContentContainer className="mp-qr-detail">
+      <InfoContainer title="Add New QR Code">
         <ProForm
           {...layout}
           className="w-1/2 "
@@ -29,8 +30,8 @@ const MpQrDetail = () => {
           })}
           {/* <input type="color" name="bgColor" /> */}
         </ProForm>
-      </div>
-    </div>
+      </InfoContainer>
+    </ContentContainer>
   )
 }
 
