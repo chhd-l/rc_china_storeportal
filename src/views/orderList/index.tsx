@@ -3,7 +3,7 @@ import Mock from "mockjs";
 import React, { useEffect, useState } from "react";
 import OrderTable from "@/components/order/OrderTable";
 import { Order } from "@/framework/types/order";
-import { dataSource } from "./modules/mockdata";
+import { orderListSource } from "@/views/orderDetail/modules/mockdata";
 import { tabList } from "./modules/constants";
 import { useLocation } from "react-router-dom";
 import Search from "./components/Search";
@@ -23,7 +23,6 @@ const PetOwnerList = () => {
   const location = useLocation();
 
   useEffect(() => {
-    setOrderList(Mock.mock(dataSource).array);
     console.log(location);
     if (location.pathname === "/shipment-list") {
       setActiveKey(OrderStatus.Toship);
@@ -31,6 +30,10 @@ const PetOwnerList = () => {
       setActiveKey("");
     }
   }, [location.pathname]);
+
+  useEffect(() => {
+    setOrderList(Mock.mock(orderListSource(activeKey)).array);
+  }, [activeKey]);
 
   const getOrderList = () => {};
 

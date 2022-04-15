@@ -16,6 +16,15 @@ const CategoryList = lazy(() => import("@/views/categoryList"))
 const CategoryDetail = lazy(() => import("@/views/categoryDetail"))
 const ShippingSetting = lazy(() => import("@/views/shippingSetting"))
 const OrderSetting = lazy(() => import("@/views/orderSetting"))
+const AccountList = lazy(() => import("@/views/accountList"))
+const AddAccount = lazy(() => import("@/views/addAccount"))
+const FansList = lazy(() => import("@/views/fansList"))
+const FansDetail = lazy(() => import("@/views/fansDetail"))
+const AutoReplyList = lazy(() => import("@/views/autoReplyList"))
+const AddAutoReply = lazy(() => import("@/views/addAutoReply"))
+const ReplyContents = lazy(() => import("@/views/replyContents"))
+const AddReplyContent = lazy(() => import("@/views/addReplyContent"))
+const AssetList = lazy(() => import("@/views/assetList"))
 const MpBannerList = lazy(() => import("@/views/mpBannerList"))
 const MpQRList = lazy(() => import("@/views/mpQRList"))
 const QrCodeManage = lazy(() => import("@/views/qrCodeManageList"))
@@ -33,18 +42,12 @@ let routes: RouteObject[] = [
     path: "/",
     element: <Layout />,
     children: [
-      // { index: true, element: <Home /> },
       {
         path: "home",
         element: <Home />,
-        // children: [
-        //   { index: true, element: <CoursesIndex /> },
-        //   { path: "/courses/:id", element: <Course /> },
-        // ],
       },
       { path: "/product-list", element: <ProductList /> },
       { path: "/product/:id", element: <AddProduct /> },
-      // { path: "/product/category", element: <Catechoose /> },
       { path: "/pet-owner-list", element: <PetOwnerList /> },
       { path: "/pet-owner-detail", element: <PetOwnerDetail /> },
       { path: "/pet-detail", element: <PetDetail /> },
@@ -55,6 +58,15 @@ let routes: RouteObject[] = [
       { path: "/order-detail", element: <OrderDetail /> },
       { path: "/shipping-setting", element: <ShippingSetting /> },
       { path: "/order-setting", element: <OrderSetting /> },
+      { path: "/account-list", element: <AccountList /> },
+      { path: "/add-account", element: <AddAccount /> },
+      { path: "/fans-list", element: <FansList /> },
+      { path: "/fans-detail", element: <FansDetail /> },
+      { path: "/automatic-replies", element: <AutoReplyList /> },
+      { path: "/add-auto-reply", element: <AddAutoReply /> },
+      { path: "/reply-contents", element: <ReplyContents /> },
+      { path: "/add-reply-content", element: <AddReplyContent /> },
+      { path: "/assets-management", element: <AssetList /> },
       { path: "/mpbanner-list", element: <MpBannerList /> },
       { path: "/mpqr-list", element: <MpQRList /> },
       { path: "/menu-manage-list", element: <MenuManage /> },

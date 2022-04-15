@@ -8,7 +8,7 @@ interface AddressInfoProps {
   id: string;
 }
 
-const MyAddress = ({ addressList,id }: AddressInfoProps) => {
+const MyAddress = ({ addressList, id }: AddressInfoProps) => {
   const columns = [
     {
       title: "No.",
@@ -54,6 +54,7 @@ const MyAddress = ({ addressList,id }: AddressInfoProps) => {
       title: "Default",
       dataIndex: "isDefault",
       key: "isDefault",
+      className: "text-center",
       render: (text: any, record: any) =>
         text === 1 ? (
           <StarFilled
@@ -63,10 +64,16 @@ const MyAddress = ({ addressList,id }: AddressInfoProps) => {
     },
   ];
   return (
-    <div id={id}>
+    <div id={id} className="mt-4">
       <div className="py-4 px-2 border-b text-xl font-medium">My Address</div>
       <div className="py-4">
-        <Table dataSource={addressList} columns={columns} pagination={false} rowKey='id'/>
+        <Table
+          dataSource={addressList}
+          columns={columns}
+          pagination={false}
+          rowKey="id"
+          className="rc-table"
+        />
       </div>
     </div>
   );

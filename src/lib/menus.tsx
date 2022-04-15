@@ -2,7 +2,7 @@ import {
   MailOutlined,
   ShoppingOutlined,
   WechatOutlined,
-} from "@ant-design/icons";
+} from "@ant-design/icons"
 
 export const menus = [
   {
@@ -112,6 +112,36 @@ export const menus = [
     icon: <WechatOutlined />,
     children: [
       {
+        name: "Account Management",
+        value: "account_management",
+        url: "/account-list",
+        key: "account_management",
+      },
+      {
+        name: "Fans Management",
+        value: "fans_management",
+        url: "/fans-list",
+        key: "fans_management",
+      },
+      {
+        name: "Automatic Replies",
+        value: "automatic_replies",
+        url: "/automatic-replies",
+        key: "automatic_replies",
+      },
+      {
+        name: "Response Content",
+        value: "response_content",
+        url: "/reply-contents",
+        key: "response_content",
+      },
+      {
+        name: "Assets Management",
+        value: "assets_management",
+        url: "/assets-management",
+        key: "assets_management",
+      },
+      {
         name: "Menu Management",
         value: "menu_management",
         url: "/menu-manage-list",
@@ -143,16 +173,16 @@ export const menus = [
       },
     ],
   },
-];
+]
 
 export const initActive = (pathname: string) => {
-  let selectedKeys: string[] = [];
+  let selectedKeys: string[] = []
   menus.forEach((menu) => {
     menu.children.forEach((subMenu) => {
       if (subMenu.url === pathname) {
-        selectedKeys = [menu.key, subMenu.key];
+        selectedKeys = [menu.key, subMenu.key]
       }
-    });
-  });
-  return selectedKeys;
-};
+    })
+  })
+  return selectedKeys
+}

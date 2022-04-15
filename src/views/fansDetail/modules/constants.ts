@@ -1,0 +1,18 @@
+export const initFansDetail={
+    id: "",
+    account: "",
+    avatar: "",
+    name: "",
+    sex: "",
+    isMember: "",
+    followTime: "",
+    status: "",
+    language: "",
+    country: "",
+    province: "",
+    city: "",
+    openId: "",
+    unionId: "",
+    comment: "",
+    qrCode: "",
+}

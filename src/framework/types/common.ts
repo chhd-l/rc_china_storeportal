@@ -4,22 +4,25 @@ import type { FormListFieldData } from "antd/lib/form/FormList"
 import { OrderStatus } from "./order"
 export enum IsDefault {
   Yes,
-  No
+  No,
 }
 export enum IsTransparent {
   Yes = "Yes",
-  No = "No"
+  No = "No",
 }
 export enum FormItemType {
   Input,
   Select,
   Upload,
-  Digit
+  Digit,
 }
 export interface FormItemProps {
   name: string
-  placeholder: string
+  placeholder?: string
   rules?: any[]
+  type?: string
+  label?: string
+  selectList?: BaseListProps[]
 }
 
 export interface FormProps {
@@ -63,4 +66,10 @@ export interface BaseListProps {
   key?: string | OrderStatus
   value?: string | OrderStatus
   children?: any[]
+}
+
+export interface SearchFormItemProps extends FormItemProps {
+  type?: string
+  label?: string
+  selectList?: BaseListProps[]
 }

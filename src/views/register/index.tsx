@@ -6,7 +6,7 @@ import {
   SuccessPanel,
   CustomPanelTitle,
 } from "@/components/auth";
-import { REGISTER_FORM } from "./modules/register-form";
+import { REGISTER_FORM } from "./modules/form";
 import { FormItemProps } from "@/framework/types/common";
 
 const title = "Sign up";

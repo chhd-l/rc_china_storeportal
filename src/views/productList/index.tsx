@@ -5,12 +5,11 @@ import { dataSource } from "./modules/mockdata"
 import Mock from "mockjs"
 import SearchHeader from "./components/SearchHeader"
 import RenderBadge from "./components/RenderBadge"
-import TableList from "./components/TableList"
+import TableList from "./components/tableList"
 import { OptionsProps } from "@/framework/types/common"
 import { Tab, toolbarInit, handleTabValue } from "./modules/constant"
 import { ContentContainer, TableContainer, DivideArea } from "@/components/ui"
 import { MenuOutlined } from "@ant-design/icons"
-
 const { TabPane } = Tabs
 
 const listData = Mock.mock(dataSource)

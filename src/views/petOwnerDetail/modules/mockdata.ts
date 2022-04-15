@@ -1,14 +1,20 @@
 import { PHONEREGCONST } from "@/lib/constants";
-import { orderDataSource } from "@/views/orderDetail/modules/mockdata";
+import { orderDetailSource } from "@/views/orderDetail/modules/mockdata";
 
-export const dataSource = {
-  basicInformation: {
-    id: "@id",
-    image: "",
-    name: "@cname",
-    phone: PHONEREGCONST,
-    loginTime: "@datetime",
-  },
+export const basicInfoSource = {
+  id: "@id",
+  image: "",
+  name: "@cname",
+  phone: PHONEREGCONST,
+  loginTime: "@datetime",
+};
+
+export const petOwnerListSource = {
+  "array|6": [basicInfoSource],
+};
+
+export const petOwnerDetailSource = {
+  basicInformation: basicInfoSource,
   tagList: [
     {
       id: "@id",
@@ -90,5 +96,5 @@ export const dataSource = {
       subscriptionType: "Autoship",
     },
   ],
-  "orderList|2": [orderDataSource],
+  "orderList|2": [orderDetailSource('')],
 };

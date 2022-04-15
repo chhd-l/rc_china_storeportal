@@ -1,5 +1,5 @@
 import { Avatar, Table, Tooltip } from "antd";
-import { UserOutlined, EyeOutlined } from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import { Customer } from "@/framework/types/customer";
@@ -35,20 +35,23 @@ const Index = ({ petOwnerList }: PetOwnerTableProps) => {
       render: (text: any, record: any) => (
         <Tooltip title="View Details">
           <span
-            className="cursor-pointer"
+            className="cursor-pointer iconfont icon-Vector1 text-red-500"
             onClick={() => {
               navigator("/pet-owner-detail", { state: { id: record.id } });
             }}
-          >
-            <EyeOutlined
-              style={{ color: "rgba(239, 68, 68,1)", fontSize: "24px" }}
-            />
-          </span>
+          />
         </Tooltip>
       ),
     },
   ];
-  return <Table dataSource={petOwnerList} columns={columns} rowKey='id'/>;
+  return (
+    <Table
+      dataSource={petOwnerList}
+      columns={columns}
+      rowKey="id"
+      className="rc-table"
+    />
+  );
 };
 
 export default Index;

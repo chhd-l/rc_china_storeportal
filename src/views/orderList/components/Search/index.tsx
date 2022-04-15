@@ -36,7 +36,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
         />
         <Button className="ml-3">Export</Button>
       </div>
-      <div className="flex flex-row items-center mt-3">
+      <div className="flex flex-row items-center mt-3 text-left">
         <Input.Group compact>
           <Select
             onChange={(value, a) => {
@@ -47,7 +47,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
             style={{ width: "20%" }}
           >
             {searchTypeList.map((item) => (
-              <Select.Option value={item.key}>{item.label}</Select.Option>
+              <Select.Option value={item.key} key={item.key}>{item.label}</Select.Option>
             ))}
           </Select>
           <Input
@@ -59,6 +59,12 @@ const OrderSearch = ({ query }: { query: Function }) => {
                 searchTypeValue: e.target.value,
               });
             }}
+            placeholder={
+              "Input " +
+              searchTypeList.filter(
+                (item) => item.key === searchParams.searchType
+              )[0].label
+            }
           />
         </Input.Group>
         <Button
