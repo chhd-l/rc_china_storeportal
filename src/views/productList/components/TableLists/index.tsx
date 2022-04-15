@@ -83,7 +83,7 @@ const ListTable = ({ listData }: ListTableProps) => {
           className="text-right my-8"
           onChange={handlePagination}
           defaultCurrent={1}
-          total={500}
+          total={50}
         />
       </div>
       <TableFooter list={list}>
