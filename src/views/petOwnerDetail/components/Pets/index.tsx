@@ -1,38 +1,31 @@
-import { UserOutlined } from "@ant-design/icons";
-import { Avatar, Button } from "antd";
-import { useNavigate } from "react-router-dom";
-import { Pet } from "@/framework/types/customer";
-import { useEffect, useState } from "react";
-import { getPetList } from "@/framework/api/get-pet";
+import { UserOutlined } from '@ant-design/icons'
+import { Avatar, Button } from 'antd'
+import { useNavigate } from 'react-router-dom'
+import { Pet } from '@/framework/types/customer'
+import { useEffect, useState } from 'react'
+import { getPetList } from '@/framework/api/get-pet'
 
-interface PetInfoProps {
-  customerId: string;
-  id: string;
-}
-
-const PetInformation = ({ id, customerId }: PetInfoProps) => {
-  const navigator = useNavigate();
-  const [pets, setPets] = useState([]);
+const PetInformation = ({ id, customerId }: { customerId: string; id: string }) => {
+  const navigator = useNavigate()
+  const [pets, setPets] = useState([])
 
   const queryPetList = async () => {
-    const res = await getPetList({ customerId: "02121021" });
-    setPets(res);
-  };
+    const res = await getPetList({ customerId: '02121021' })
+    setPets(res)
+  }
 
   useEffect(() => {
     if (customerId) {
-      queryPetList();
+      queryPetList()
     }
-  }, [customerId]);
+  }, [customerId])
 
   return (
     <div id={id}>
-      <div className="py-4 px-2 border-b text-xl font-medium">
-        Pet Information
-      </div>
+      <div className="py-4 px-2 border-b text-xl font-medium">Pet Information</div>
       <div className="px-2 py-4 flex flex-row flex-wrap">
         {pets.map((item: Pet) => (
-          <div className="flex items-center border p-4 mr-4" key={item.id}>
+          <div className="flex items-center border p-4 mr-4 mt-4" key={item.id}>
             <Avatar shape="square" size="large" icon={<UserOutlined />} />
             <div className="ml-4">
               <div>{item.name}</div>
@@ -52,7 +45,7 @@ const PetInformation = ({ id, customerId }: PetInfoProps) => {
               danger
               className="ml-8 self-end"
               onClick={() => {
-                navigator("/pet-detail", { state: { id: item.id } });
+                navigator('/pet-detail', { state: { pet: item } })
               }}
             >
               Details
@@ -61,6 +54,6 @@ const PetInformation = ({ id, customerId }: PetInfoProps) => {
         ))}
       </div>
     </div>
-  );
-};
-export default PetInformation;
+  )
+}
+export default PetInformation

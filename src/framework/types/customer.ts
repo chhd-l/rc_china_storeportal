@@ -61,16 +61,18 @@ export interface TencentAccount {
 }
 
 export interface Address {
-  id: string;
+  id?: string;
   receiverName: string;
   phone: string;
   province: string;
   city: string;
   region: string;
   detail: string;
-  postCode: string;
-  isDefault: number;
+  isDefault: boolean;
   country?: string;
+  customerId?: string;
+  postcode: string;
+  storeId?: string;
 }
 
 export interface CouponCode {

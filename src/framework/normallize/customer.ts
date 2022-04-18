@@ -12,6 +12,7 @@ export const normalisePet = (pet: any) => {
     type: pet.type,
     isSterilized: pet.isSterilized,
     age: 1,
+    birthday:pet.birthday
   };
 };
 
