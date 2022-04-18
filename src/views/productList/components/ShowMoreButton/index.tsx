@@ -1,30 +1,29 @@
-import { ProductListItemProps } from "@/framework/types/product";
-import { cloneDeep } from "lodash";
-import { ReactElement } from "react";
-interface ShowMoreButtonProps {
-  spuIdx: number;
-  list: ProductListItemProps[];
-  setList: (list: ProductListItemProps[]) => void;
-  children: ReactElement;
-  listData: ProductListItemProps[];
+import { ProductListItemProps } from "@/framework/types/product"
+import { cloneDeep } from "lodash"
+import { FC } from "react"
+interface Props {
+  spuIdx: number
+  list: ProductListItemProps[]
+  setList: (list: ProductListItemProps[]) => void
+  listData: ProductListItemProps[]
 }
-const ShowMoreButton = ({
+const ShowMoreButton: FC<Props> = ({
   spuIdx,
   list,
   children,
   setList,
   listData,
-}: ShowMoreButtonProps) => {
+}) => {
   const hanldeshowAll = (idx: number) => {
-    let originalList = cloneDeep(listData);
+    let originalList = cloneDeep(listData)
     if (list[idx].showAll) {
-      list[idx].skus = list[idx].skus.slice(0, 3);
+      list[idx].skus = list[idx].skus.slice(0, 3)
     } else {
-      list[idx].skus = originalList[idx].skus;
+      list[idx].skus = originalList[idx].skus
     }
-    list[idx].showAll = !list[idx].showAll;
-    setList(cloneDeep(list));
-  };
+    list[idx].showAll = !list[idx].showAll
+    setList(cloneDeep(list))
+  }
   return (
     <div className="cursor-pointer" onClick={() => hanldeshowAll(spuIdx)}>
       <div className="border-b border-solid mt-4 boder-gary-400 relative mb-8">
@@ -33,6 +32,6 @@ const ShowMoreButton = ({
         </div>
       </div>
     </div>
-  );
-};
-export default ShowMoreButton;
+  )
+}
+export default ShowMoreButton

@@ -1,5 +1,5 @@
-import Mock from "mockjs";
-import React, { useEffect, useState } from "react";
+import Mock from "mockjs"
+import React, { useEffect, useState } from "react"
 import {
   TradeItem,
   Progress,
@@ -9,16 +9,16 @@ import {
   Comment,
   Customer,
   Payment,
-} from "./components";
-import { orderDetailSource } from "./modules/mockdata";
-import { useLocation } from "react-router-dom";
-import { initOrderDetail } from "./modules/constants";
-import { ContentContainer, InfoContainer, DivideArea } from "@/components/ui";
+} from "./components"
+import { orderDetailSource } from "./modules/mockdata"
+import { useLocation } from "react-router-dom"
+import { initOrderDetail } from "./modules/constants"
+import { ContentContainer, InfoContainer, DivideArea } from "@/components/ui"
 
 const OrderDetail = () => {
-  const [orderId, setOrderId] = useState("");
-  const [orderDetail, setOrderDetail] = useState(initOrderDetail);
-  const location = useLocation();
+  const [orderId, setOrderId] = useState("")
+  const [orderDetail, setOrderDetail] = useState(initOrderDetail)
+  const location = useLocation()
   const {
     subscriptionId,
     tradeState,
@@ -30,13 +30,13 @@ const OrderDetail = () => {
     payInfo,
     logs,
     comments,
-  } = orderDetail;
+  } = orderDetail
 
   useEffect(() => {
-    const state: any = location.state;
-    setOrderId(state.id);
-    setOrderDetail(Mock.mock(orderDetailSource(state.status)));
-  }, []);
+    const state: any = location.state
+    setOrderId(state.id)
+    setOrderDetail(Mock.mock(orderDetailSource(state.status)))
+  }, [])
 
   return (
     <>
@@ -77,6 +77,6 @@ const OrderDetail = () => {
         </ContentContainer>
       ) : null}
     </>
-  );
-};
-export default OrderDetail;
+  )
+}
+export default OrderDetail

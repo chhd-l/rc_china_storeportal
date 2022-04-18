@@ -1,7 +1,8 @@
-import './index.less';
-export type __templateNameToPascalCase__Props = {};
-const __templateNameToPascalCase__ = ({}: __templateNameToPascalCase__Props) => {
-  return <div className="__templateNameToParamCase__"></div>;
-};
+import { FC } from "react"
+import "./index.less"
+export type Props = {}
+const __templateNameToPascalCase__: FC<Props> = ({}) => {
+  return <div className="__templateNameToParamCase__"></div>
+}
 
-export default __templateNameToPascalCase__;
+export default __templateNameToPascalCase__

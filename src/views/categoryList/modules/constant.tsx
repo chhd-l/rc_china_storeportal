@@ -40,7 +40,7 @@ export const columns: ProColumns<CategoryBaseProps>[] = [
     width: 180,
     valueType: "option",
     render: (_, record) => [
-      <Link to={`/category/:add`} className="text-xl mr-4">
+      <Link to={`/category/${record.id}`} className="mr-4">
         +
       </Link>,
       <a className=" mr-4">
@@ -49,7 +49,7 @@ export const columns: ProColumns<CategoryBaseProps>[] = [
       <a className=" mr-4">
         <DeleteOutlined />
       </a>,
-      <Link to={`/category/:${record.id}`} className="text-xl mr-4">
+      <Link to={`/category/${record.id}`} className="mr-4">
         <FileTextOutlined />
       </Link>,
     ],
