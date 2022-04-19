@@ -14,7 +14,7 @@ export interface PetOwner {
 
 export interface Customer {
   id: string;
-  image: string;
+  image?: string;
   name: string;
   phone: string;
   loginTime?: string;
@@ -105,4 +105,11 @@ export enum Gender {
 export enum PetType {
   dog = "DOG",
   cat = "CAT",
+}
+
+export interface SearchParamsProps {
+  name: string;
+  phone: string;
+  loginStartTime: string;
+  loginEndTime: string;
 }

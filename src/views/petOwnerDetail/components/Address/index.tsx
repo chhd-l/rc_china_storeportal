@@ -4,12 +4,12 @@ import React, { useEffect, useState } from 'react'
 import { Address } from '@/framework/types/customer'
 import { getAddressList } from '@/framework/api/get-address'
 
-const MyAddress = ({ id }: { id: string }) => {
+const MyAddress = ({ id, customerId }: { id: string; customerId: string }) => {
   const [addressList, setAddressList] = useState<Address[]>([])
 
   const getAddresses = async () => {
     const res = await getAddressList({
-      customerId: 'e5edfa8c-ff05-cee0-45af-5c9e69d1b162',
+      customerId: customerId || 'e5edfa8c-ff05-cee0-45af-5c9e69d1b162',
     })
     console.log('addresses', res)
     setAddressList(res)

@@ -22,27 +22,13 @@ const { Link } = Anchor
 const PetOwnerList = () => {
   const [petOwnerId, setPetOwnerId] = useState('')
   const [petOwnerDetail, setPetOwnerDetail] = useState({
-    basicInformation: {},
     tagList: [],
-    petList: [],
-    tencentAccountList: [],
-    addressList: [],
     couponCodeList: [],
     smartDeviceList: [],
     subscriptionList: [],
     orderList: [],
   })
-  const {
-    basicInformation,
-    tagList,
-    petList,
-    tencentAccountList,
-    addressList,
-    couponCodeList,
-    smartDeviceList,
-    subscriptionList,
-    orderList,
-  } = petOwnerDetail
+  const { tagList, couponCodeList, smartDeviceList, subscriptionList, orderList } = petOwnerDetail
   const location = useLocation()
 
   useEffect(() => {
@@ -57,13 +43,13 @@ const PetOwnerList = () => {
       <div className="flex flex-row">
         <div className="w-5/6">
           <InfoContainer>
-            <BasicInfo id="basic-information" basicInformation={basicInformation} />
+            <BasicInfo id="basic-information" />
             <Tagging id="tagging" tagList={tagList} />
             <Pets id="pet-information" customerId={petOwnerId} />
-            <TencentAccount id="tencent-account" tencentAccountList={tencentAccountList} />
+            <TencentAccount id="tencent-account" customerId={petOwnerId} />
             <Orders id="order-information" orderList={orderList} />
             <Subscriptions id="subscription-information" subscriptionList={subscriptionList} />
-            <Address id="my-address" />
+            <Address id="my-address" customerId={petOwnerId} />
             <Coupons id="coupon-information" couponCodeList={couponCodeList} />
             <SmartDevice id="smart-device" smartDeviceList={smartDeviceList} />
           </InfoContainer>

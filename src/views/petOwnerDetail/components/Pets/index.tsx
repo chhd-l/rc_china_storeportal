@@ -10,7 +10,7 @@ const PetInformation = ({ id, customerId }: { customerId: string; id: string }) 
   const [pets, setPets] = useState([])
 
   const queryPetList = async () => {
-    const res = await getPetList({ customerId: '02121021' })
+    const res = await getPetList({ customerId: customerId || '02121021' })
     setPets(res)
   }
 
