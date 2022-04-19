@@ -1,204 +1,183 @@
-import "./index.less";
-import { Form, Input, Button, Space, Col, Row, FormInstance } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
-import useForceUpdate from "use-force-update";
-import { cloneDeep } from "lodash";
-import { useContext, useRef } from "react";
-import { arrayMoveImmutable } from "array-move";
-import { VariationosContext } from "../SalesInfo";
-import SortElement from "../SortElement";
-import { SortContainer } from "../../modules/constant";
-export type AddVariationProps = {};
+import "./index.less"
+import { Form, Input, Button, Col, Row } from "antd"
+import { CloseOutlined, DeleteOutlined, DragOutlined } from "@ant-design/icons"
+import { cloneDeep } from "lodash"
+import { useContext } from "react"
+import { arrayMoveImmutable } from "array-move"
+import { VariationosContext } from "../SalesInfo"
+import { SortContainer } from "../../modules/constant"
+import { SortableElement, SortableHandle } from "react-sortable-hoc"
+import SortElement from "../SortElement"
+import {
+  SpecificationListProps,
+  VarationProps,
+} from "@/framework/types/product"
 
+export type AddVariationProps = {}
+const initVaration = {
+  name: "",
+  specificationList: [{ option: "" }],
+}
+const initSpec = { option: "" }
 const AddVariation = ({}: AddVariationProps) => {
-  const { variationForm, setVariationForm } = useContext(VariationosContext);
-  const [form] = Form.useForm();
-  const formRef = useRef<FormInstance>(null);
-  const forceUpdate = useForceUpdate();
-  const layout = {
-    labelCol: { span: 4 },
-    wrapperCol: { span: 14 },
-  };
-  const onFinish = (values: any) => {
-    console.info("values", values);
-  };
+  const { variationForm, setVariationForm } = useContext(VariationosContext)
+  const [form] = Form.useForm()
+  const DragHandle = SortableHandle(() => <DragOutlined className="mx-2" />)
+  const SortElements = SortableElement(
+    ({
+      specification,
+      variationIdx,
+      specificationIdx,
+    }: {
+      specification: SpecificationListProps
+      variationIdx: number
+      specificationIdx: number
+    }) => {
+      const handleOption = (e: any) => {
+        variationForm.variationList[variationIdx].specificationList[
+          specificationIdx
+        ].option = e.target.value
+        console.info("option", e.target.value)
+        setVariationForm(cloneDeep(variationForm))
+      }
+      return (
+        <Row className="pt-3">
+          <Col span={4} className="text-right">
+            Option：
+          </Col>
+          <Col span={15}>
+            <Input
+              defaultValue={specification.option}
+              // value={specification.option}
+              onBlur={handleOption}
+              onChange={() => {
+                console.info("....", specification.option)
+              }}
+              placeholder="Option"
+              showCount
+              maxLength={20}
+            />
+          </Col>
+          <Col span={4} className="flex items-center">
+            <DragHandle />
+            <DeleteOutlined className="cursor-pointer" />
+          </Col>
+        </Row>
+      )
+    }
+  )
   const handleVariationUpdate = () => {
-    setVariationForm(form.getFieldsValue());
-  };
+    setVariationForm(form.getFieldsValue())
+  }
   const onSortEnd = ({
     oldIndex,
     newIndex,
+    collection,
   }: {
-    oldIndex: number;
-    newIndex: number;
+    oldIndex: number
+    newIndex: number
+    collection: any
   }) => {
-    const { variationList } = cloneDeep(formRef?.current?.getFieldsValue());
-    variationList[0].specificationList = arrayMoveImmutable(
-      variationList[0].specificationList,
+    const { variationList } = variationForm
+    variationList[collection].specificationList = arrayMoveImmutable(
+      variationList[collection].specificationList,
       oldIndex,
       newIndex
-    );
-    console.info("data", variationList);
-    debugger;
-    // formRef?.current?.setFieldsValue(data);
-    form.setFieldsValue({ variationList });
-    forceUpdate();
-  };
+    )
+    setVariationForm(cloneDeep(variationForm))
+  }
+  const handleAddVariation = () => {
+    variationForm.variationList = [...variationForm.variationList, initVaration]
+    setVariationForm(cloneDeep(variationForm))
+  }
+  const handleAddSpecification = (variationIdx: number) => {
+    variationForm.variationList[variationIdx].specificationList.push(initSpec)
+    setVariationForm(cloneDeep(variationForm))
+  }
+  const handleName = (e: any, variationIdx: number) => {
+    variationForm.variationList[variationIdx].name = e.target.value
+    console.info("option", e.target.value)
+    setVariationForm(cloneDeep(variationForm))
+  }
   return (
     <div className="add-variation">
-      <Form
-        form={form}
-        ref={formRef}
-        onFinish={onFinish}
-        onChange={() => {
-          handleVariationUpdate();
-        }}
-        name="variationform"
-        labelCol={{
-          span: 5,
-        }}
-        wrapperCol={{
-          span: 14,
-        }}
-        // initialValues={{
-        //   variationList: aa.map((el, index) => {
-        //     let item = {
-        //       fieldKey: index,
-        //       isListField: true,
-        //       key: index,
-        //       name: index,
-        //     };
-        //     return;
-        //   }),
-        // }}
-        layout="horizontal"
+      <SortContainer
+        useDragHandle={true}
+        // key={variationIdx}
+        onSortEnd={onSortEnd}
       >
-        <Form.List name={"variationList"}>
-          {(variations, { add: addVariations, remove: removeVariations }) => (
-            <>
-              {variations.map((variation, idx) => (
-                <SortContainer
-                  useDragHandle={true}
-                  key={variation.key + idx}
-                  onSortEnd={onSortEnd}
-                >
-                  <Space
-                    direction="vertical"
-                    style={{ display: "flex", marginBottom: 8 }}
-                  >
-                    <Row className="pt-4">
-                      <Col
-                        span={layout.labelCol.span.toString()}
-                        className="text-right"
-                      >
-                        <div className="ant-form-item-label">
-                          <label>{`Variations${idx}`}</label>
-                        </div>
-                      </Col>
-                      <Col span="19" className="bg-gray-100 pt-4">
-                        <Form.Item
-                          // wrapperCol={{ span: 16 }}
-                          // labelCol={{ span: 4 }}
-                          {...variation}
-                          name={[variation.name, "name"]}
-                          label="Name"
-                          // initialValue={aa[idx].variationList.name}
-                          // rules={[
-                          //   {
-                          //     required: true,
-                          //     message: "Missing first name",
-                          //   },
-                          // ]}
-                        >
-                          <Input placeholder="Name" />
-                        </Form.Item>
-                        {/* <div className="flex"> */}
-                        <Form.List
-                          {...variation}
-                          initialValue={[
-                            {
-                              option: "",
-                            },
-                          ]}
-                          name={[variation.name, "specificationList"]}
-                        >
-                          {(
-                            specifications,
-                            {
-                              add: addSpecification,
-                              remove: removeSpecification,
-                              move,
-                            }
-                          ) => (
-                            <>
-                              {specifications.map(
-                                (specification, specificationIdx) => (
-                                  <SortElement
-                                    index={specificationIdx}
-                                    key={specification.key}
-                                    specificationIdx={specificationIdx}
-                                    removeSpecification={removeSpecification}
-                                    specification={specification}
-                                  />
-                                )
-                              )}
+        {variationForm.variationList.map(
+          (variation: VarationProps, variationIdx: number) => (
+            <Row key={variationIdx} className="pt-6 relative">
+              <Col span={4} className="text-right">
+                variation{variationIdx}：
+              </Col>
+              <Col span={16} className="bg-gray-200 pt-6">
+                <Row>
+                  <Col span={4} className="text-right">
+                    Name：
+                  </Col>
+                  <Col span={15}>
+                    <Input
+                      defaultValue={variation.name}
+                      onChange={(e) => {
+                        handleName(e, variationIdx)
+                      }}
+                      placeholder="Name"
+                      showCount
+                      maxLength={14}
+                    />
+                  </Col>
+                  <Col span={4}></Col>
+                </Row>
+                {variation.specificationList.map(
+                  (
+                    specification: SpecificationListProps,
+                    specificationIdx: number
+                  ) => (
+                    <SortElements
+                      variationIdx={variationIdx}
+                      specificationIdx={specificationIdx}
+                      specification={specification}
+                      index={specificationIdx}
+                      collection={variationIdx}
+                      // variationForm={variationForm}
+                      // setVariationForm={setVariationForm}
+                    />
+                  )
+                )}
+                <Row className="py-3">
+                  <Col span={15} offset={4}>
+                    <Button
+                      className="w-full"
+                      onClick={() => {
+                        handleAddSpecification(variationIdx)
+                      }}
+                    >
+                      Add Specification
+                    </Button>
+                  </Col>
+                </Row>
+                <CloseOutlined className="absolute top-1 right-1 cursor-pointer" />
+              </Col>
+            </Row>
+          )
+        )}
+      </SortContainer>
 
-                              <Row>
-                                <Col span={5}></Col>
-                                <Col span={14}>
-                                  <Form.Item wrapperCol={{ span: 24 }}>
-                                    <Button
-                                      type="dashed"
-                                      onClick={() => {
-                                        addSpecification();
-                                        variationForm.variationList[
-                                          idx
-                                        ].specificationList.push({
-                                          option: "",
-                                        });
-                                        setVariationForm(
-                                          cloneDeep(variationForm)
-                                        );
-                                      }}
-                                      block
-                                      icon={<PlusOutlined />}
-                                    >
-                                      Add field
-                                    </Button>
-                                  </Form.Item>
-                                </Col>
-                              </Row>
-                            </>
-                          )}
-                        </Form.List>
-                      </Col>
-                    </Row>
-                  </Space>
-                </SortContainer>
-              ))}
-              <Form.Item className="mt-4" label="Variations" {...layout}>
-                <Button
-                  type="dashed"
-                  onClick={() => {
-                    addVariations();
-                    variationForm.variationList.push({
-                      name: "",
-                      specificationList: [{ option: "" }],
-                    });
-                    setVariationForm(cloneDeep(variationForm));
-                  }}
-                  block
-                  icon={<PlusOutlined />}
-                >
-                  Enable variations
-                </Button>
-              </Form.Item>
-            </>
-          )}
-        </Form.List>
-      </Form>
+      <Row className="py-3">
+        <Col span={16} offset={4}>
+          <Row>
+            <Col span={15} offset={4}>
+              <Button className="w-full" onClick={handleAddVariation}>
+                Add Variation
+              </Button>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
     </div>
-  );
-};
+  )
+}
 
-export default AddVariation;
+export default AddVariation

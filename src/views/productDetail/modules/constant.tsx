@@ -1,15 +1,12 @@
-import type {
-  InputSelectProps,
-  InputTextProps,
-} from "@/framework/types/common";
-import { EyeOutlined } from "@ant-design/icons";
-import { ReactNode, useRef, useState } from "react";
-import { SortableContainer } from "react-sortable-hoc";
-import BasicInfo from "../components/BasicInfo";
-import Specification from "../components/Specification";
-import SalesInfo from "../components/SalesInfo";
-import Shipping from "../components/Shipping";
-import { FormListFieldData } from "antd/lib/form/FormList";
+import type { InputSelectProps, InputTextProps } from "@/framework/types/common"
+import { EyeOutlined } from "@ant-design/icons"
+import { ReactNode, useRef, useState } from "react"
+import { SortableContainer } from "react-sortable-hoc"
+import BasicInfo from "../components/BasicInfo"
+import Specification from "../components/Specification"
+import SalesInfo from "../components/SalesInfo"
+import Shipping from "../components/Shipping"
+import { FormListFieldData } from "antd/lib/form/FormList"
 
 export const selectList: (InputTextProps | InputSelectProps)[] = [
   {
@@ -61,7 +58,7 @@ export const selectList: (InputTextProps | InputSelectProps)[] = [
     className: "w-1/2",
     type: "select",
   },
-];
+]
 
 export const noSkuForm: (InputTextProps | InputSelectProps)[] = [
   {
@@ -110,15 +107,15 @@ export const noSkuForm: (InputTextProps | InputSelectProps)[] = [
     name: "support100",
     rules: [{ required: true }],
   },
-];
+]
 
 interface StepsProps {
-  title: string;
-  anchor: string;
-  subTitle?: string;
-  tips: string;
-  rightSlot?: ReactNode | null;
-  render: Function;
+  title: string
+  anchor: string
+  subTitle?: string
+  tips: string
+  rightSlot?: ReactNode | null
+  render: Function
 }
 
 export const steps: StepsProps[] = [
@@ -155,7 +152,7 @@ export const steps: StepsProps[] = [
     rightSlot: null,
     render: (field: FormListFieldData) => <Shipping field={field} />,
   },
-];
+]
 export enum FormKey {
   BasicInfomation,
   Specification,
@@ -172,22 +169,22 @@ export const formInitialValues = {
         isListField: true,
         key: idx,
         name: idx,
-      };
-      return newEl;
+      }
+      return newEl
     }),
-};
+}
 export const headerOrigition = [
-  "Image",
-  "SKU",
-  "Sub-SKU",
-  "EAN",
-  "List Price",
-  "Subscription Price",
-  "Subscription",
-];
+  { label: "Image", type: "img" },
+  { label: "SKU", type: "input" },
+  { label: "Sub-SKU", type: "input" },
+  { label: "EAN", type: "input" },
+  { label: "List Price", type: "input" },
+  { label: "Subscription Price", type: "input" },
+  { label: "Subscription", type: "input" },
+]
 
 export const SortContainer = SortableContainer(
   ({ children }: { children: any }) => {
-    return <ul>{children}</ul>;
+    return <ul>{children}</ul>
   }
-);
+)
