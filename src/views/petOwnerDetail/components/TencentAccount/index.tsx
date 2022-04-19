@@ -40,7 +40,7 @@ const TencentAccounts = ({ id, customerId }: { id: string; customerId: string })
   const [tencentAccountList, setTencentAccountList] = useState<TencentAccount[]>([])
 
   const getTencentAccount = async () => {
-    const res = await getCustomAccount({ customerId: customerId || 'e5edfa8c-ff05-cee0-45af-5c9e69d1b162' })
+    const res = await getCustomAccount({ customerId })
     setTencentAccountList([res])
   }
 

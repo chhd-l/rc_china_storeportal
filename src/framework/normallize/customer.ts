@@ -23,7 +23,7 @@ export const normalisePets = (pets: Pet[]) => {
 }
 
 export const normaliseCustomer = (customer: any) => {
-  let reg = new RegExp('/', "g")
+  let reg = new RegExp('/', 'g')
   return {
     id: customer.id,
     image: customer.avatarUrl,
@@ -38,5 +38,19 @@ export const normaliseCustomer = (customer: any) => {
 export const normalisePetOwnerList = (customers: any[]) => {
   return customers.map((item) => {
     return normaliseCustomer(item)
+  })
+}
+
+export const normalisePetOwnerTag = (customerTag: any) => {
+  return {
+    id: customerTag.id,
+    name: customerTag.name,
+    isEnabled: customerTag.isEnabled,
+  }
+}
+
+export const normalisePetOwnerTagList = (customerTags: any[]) => {
+  return customerTags.map((item) => {
+    return normalisePetOwnerTag(item.tag)
   })
 }

@@ -20,21 +20,20 @@ import { ContentContainer, InfoContainer } from '@/components/ui'
 const { Link } = Anchor
 
 const PetOwnerList = () => {
-  const [petOwnerId, setPetOwnerId] = useState('')
+  const [petOwnerId, setPetOwnerId] = useState('e5edfa8c-ff05-cee0-45af-5c9e69d1b162')
   const [petOwnerDetail, setPetOwnerDetail] = useState({
-    tagList: [],
     couponCodeList: [],
     smartDeviceList: [],
     subscriptionList: [],
     orderList: [],
   })
-  const { tagList, couponCodeList, smartDeviceList, subscriptionList, orderList } = petOwnerDetail
+  const { couponCodeList, smartDeviceList, subscriptionList, orderList } = petOwnerDetail
   const location = useLocation()
 
   useEffect(() => {
     const state: any = location.state
     console.log('111', state.id)
-    setPetOwnerId(state.id)
+    // setPetOwnerId(state.id)
     setPetOwnerDetail(Mock.mock(petOwnerDetailSource))
   }, [])
 
@@ -44,7 +43,7 @@ const PetOwnerList = () => {
         <div className="w-5/6">
           <InfoContainer>
             <BasicInfo id="basic-information" />
-            <Tagging id="tagging" tagList={tagList} />
+            <Tagging id="tagging" customerId={petOwnerId} />
             <Pets id="pet-information" customerId={petOwnerId} />
             <TencentAccount id="tencent-account" customerId={petOwnerId} />
             <Orders id="order-information" orderList={orderList} />

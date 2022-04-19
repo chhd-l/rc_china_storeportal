@@ -1,13 +1,21 @@
-import { CloseOutlined } from "@ant-design/icons";
-import { Tag } from "@/framework/types/customer";
+import { CloseOutlined } from '@ant-design/icons'
+import { Tag } from '@/framework/types/customer'
+import { getCustomTags } from '@/framework/api/customer'
+import { useEffect, useState } from 'react'
 
-interface TagInfoProps {
-    tagList: Tag[];
-    id: string;
-}
+const Tagging = ({ id, customerId }: { id: string; customerId: string }) => {
+  const [tagList, setTagList] = useState<Tag[]>([])
 
-const Tagging = ({ tagList, id }: TagInfoProps) => {
-  const deleteTag = () => {};
+  const getTagList = async () => {
+    const res = await getCustomTags({ customerId })
+    setTagList(res)
+  }
+  const deleteTag = () => {}
+
+  useEffect(() => {
+    getTagList()
+  }, [])
+
   return (
     <div id={id}>
       <div className="py-4 px-2 border-b text-xl font-medium">Tagging</div>
@@ -15,14 +23,13 @@ const Tagging = ({ tagList, id }: TagInfoProps) => {
         <div>Tag name</div>
         <div className="border flex flex-row flex-wrap p-2 mt-2">
           {tagList.map((item: Tag) => (
-            <div className="bg-gray1 p-1 font-normal flex items-center" key={item.id}>
-              <div className="mr-2">{item.name}</div>{" "}
-              <CloseOutlined onClick={() => deleteTag()} />
+            <div className="bg-gray1 p-1 font-normal flex items-center mr-4" key={item.id}>
+              <div className="mr-2">{item.name}</div> <CloseOutlined onClick={() => deleteTag()} />
             </div>
           ))}
         </div>
       </div>
     </div>
-  );
-};
-export default Tagging;
+  )
+}
+export default Tagging

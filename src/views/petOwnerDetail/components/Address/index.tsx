@@ -9,9 +9,8 @@ const MyAddress = ({ id, customerId }: { id: string; customerId: string }) => {
 
   const getAddresses = async () => {
     const res = await getAddressList({
-      customerId: customerId || 'e5edfa8c-ff05-cee0-45af-5c9e69d1b162',
+      customerId,
     })
-    console.log('addresses', res)
     setAddressList(res)
   }
 
