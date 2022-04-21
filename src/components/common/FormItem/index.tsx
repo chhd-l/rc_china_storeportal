@@ -1,45 +1,36 @@
-import { Form, Input, Select } from "antd";
-import type {
-  InputSelectProps,
-  InputTextProps,
-} from "@/framework/types/common";
-import type { FormListFieldData } from "antd/lib/form/FormList";
+import { Form, Input, Select } from 'antd'
+import { InputSelectProps, InputTextProps } from '@/framework/types/common'
+import { FormListFieldData } from 'antd/lib/form/FormList'
+import { AttributeListProps } from '@/framework/types/product'
 
 interface FormProps {
-  list: (InputTextProps | InputSelectProps)[];
-  parentName?: Array<any>;
-  field: FormListFieldData;
-  layout?: any;
+  list: (InputTextProps | InputSelectProps | AttributeListProps)[]
+  parentName?: Array<any>
+  field?: FormListFieldData
+  layout?: any
 }
-export default ({ list, parentName, field, layout }: FormProps) => {
+const FormItem = ({ list, parentName, field, layout }: FormProps) => {
   return (
     <>
       {list.map((el: any) => {
-        let name = parentName ? [...parentName, el.name] : el.name; //兼容form.list
+        let name = parentName ? [...parentName, el.name] : el.name //兼容form.list
+        console.info('....test', el)
         return (
-          <Form.Item
-            className={el.className}
-            {...field}
-            {...layout}
-            label={el.label}
-            name={name}
-            rules={el.rules}
-          >
-            {el.type == "select" && (
-              <Select
-                placeholder={"please select " + el.label}
-                options={el.options}
-              />
-            )}
-            {el.type == "input" && (
-              <Input
-                placeholder={"please input " + el.label}
-                addonBefore={el.addonBefore}
-              />
-            )}
-          </Form.Item>
-        );
+          <>
+            {el.type === 'select' ? (
+              <Form.Item className={el.className} {...layout} {...field} label={el.label} name={name} rules={el.rules}>
+                <Select placeholder={'please select ' + el.label} options={el.options} />
+              </Form.Item>
+            ) : null}
+            {el.type === 'input' ? (
+              <Form.Item className={el.className} {...layout} {...field} label={el.label} name={name} rules={el.rules}>
+                <Input placeholder={'please input ' + el.label} addonBefore={el.addonBefore} />
+              </Form.Item>
+            ) : null}
+          </>
+        )
       })}
     </>
-  );
-};
+  )
+}
+export default FormItem

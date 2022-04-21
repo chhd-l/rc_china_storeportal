@@ -1,10 +1,10 @@
-import FormItem from "@/components/common/FormItem"
-import type { FormProps } from "@/framework/types/common"
-import { noSkuForm } from "../../modules/constant"
-import { createContext, useState } from "react"
-import AddVariation from "../AddVariation"
-import EditVariationList from "../EditVariationList"
-import { VarationsFormProps } from "@/framework/types/product"
+import FormItem from '@/components/common/FormItem'
+import { FormProps } from '@/framework/types/common'
+import { noSkuForm } from '../../modules/constant'
+import { createContext, useState } from 'react'
+import AddVariation from '../AddVariation'
+import EditVariationList from '../EditVariationList'
+import { VarationsFormProps } from '@/framework/types/product'
 interface ContextProps {
   variationForm: VarationsFormProps
   setVariationForm: () => void
@@ -20,15 +20,11 @@ const SalesInfo = (props: FormProps) => {
     wrapperCol: { span: 14 },
   }
   return (
+    // <div>test</div>
     <VariationosContext.Provider value={{ variationForm, setVariationForm }}>
       <AddVariation />
       <EditVariationList field={props.field} />
-      <FormItem
-        {...props}
-        parentName={[props.field.name]}
-        list={noSkuForm}
-        layout={layout}
-      />
+      {variationForm.variationList?.length ? null : <FormItem list={noSkuForm} {...props} layout={layout} />}
     </VariationosContext.Provider>
   )
 }

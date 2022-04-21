@@ -1,84 +1,81 @@
-import Upload from "@/components/common/Upload";
-import Wangeditor from "@/components/common/Wangeditor";
-import { Form, Input, Select } from "antd";
-import { useState } from "react";
-import type { FormProps } from "@/framework/types/common";
+import Upload from '@/components/common/Upload'
+import Wangeditor from '@/components/common/Wangeditor'
+import { Form, Input, Select } from 'antd'
+import { useContext, useEffect, useState } from 'react'
+import { DetailContext } from '../../index'
+import { FormProps } from '@/framework/types/common'
 const breedList = [
-  { name: "breed1", value: "breed1" },
-  { name: "breed2", value: "breed2" },
-];
+  { name: 'breed1', value: 'breed1' },
+  { name: 'breed2', value: 'breed2' },
+]
+
 const salesStatusList = [
-  { name: "status1", value: "status1" },
-  { name: "status2", value: "status2" },
-];
+  { value: 'Saleable', name: 1 },
+  { value: 'Not saleable', name: 0 },
+]
 const BasicInfo = ({ field }: FormProps) => {
   // const [form] = Form.useForm();
-  console.info("propsprops", field);
+  console.info('propsprops', field)
   // const onFinish = (values: any) => {
   //   console.log(values);
   // };
-  const [editorHtml, setEditorHtml] = useState("");
-  const [videoUrl, setvideoUrl] = useState("");
+  const { setShowCatePop, detail } = useContext(DetailContext)
+  const [editorHtml, setEditorHtml] = useState('')
+  const [videoUrl, setvideoUrl] = useState('')
   const handleEditorChange = (html: string) => {
-    setEditorHtml(html);
-    console.info("editorHtml", editorHtml);
-  };
+    setEditorHtml(html)
+    console.info('editorHtml', editorHtml)
+  }
   const handleImgUrl = (url: string) => {
-    setvideoUrl(url);
-    console.info("videoUrl", videoUrl);
-  };
+    setvideoUrl(url)
+    console.info('videoUrl', videoUrl)
+  }
 
   return (
     <>
-      <Form.Item {...field} label="Product Image" name={[field.name, "img1"]}>
-        <div className="text-left">
+      <Form.Item label='Product Image' name='assets'>
+        <div className='text-left'>
           <Upload handleImgUrl={handleImgUrl} showUploadList={false} />
         </div>
       </Form.Item>
-      <Form.Item label="Product Video" name={[field.name, "video"]}>
-        <div className="text-left">
+      <Form.Item label='Product Video' name='video'>
+        <div className='text-left'>
           <Upload handleImgUrl={handleImgUrl} showUploadList={false} />
         </div>
       </Form.Item>
-      <Form.Item
-        label="SPU"
-        name={[field.name, "spu"]}
-        rules={[{ required: true, message: "Missing SPU" }]}
-      >
+      <Form.Item label='SPU' name='spuNo' rules={[{ required: true, message: 'Missing SPU' }]}>
         <Input />
       </Form.Item>
-      <Form.Item
-        label="Product Name"
-        name={[field.name, "name"]}
-        rules={[{ required: true, message: "Missing Product Name" }]}
-      >
+      <Form.Item label='Product Name' name='name' rules={[{ required: true, message: 'Missing Product Name' }]}>
         <Input showCount maxLength={120} />
       </Form.Item>
 
-      <Form.Item label="Product Card Name" name={[field.name, "cardName"]}>
+      <Form.Item label='Product Card Name' name='cardName'>
         <Input showCount maxLength={120} />
       </Form.Item>
       <Form.Item
-        label="Product Description"
-        name={[field.name, "description"]}
-        rules={[{ required: true, message: "Missing Product Description" }]}
+        label='Product Description'
+        name='description'
+        // initialValue={detail.description}
+        rules={[{ required: true, message: 'Missing Product Description' }]}
       >
-        <Wangeditor onChange={handleEditorChange} />
+        <Wangeditor defaultValue={detail.description} onChange={handleEditorChange} />
       </Form.Item>
-      <Form.Item label="Category" name={[field.name, "category"]}>
-        <Input />
-      </Form.Item>
-      <Form.Item label="Brand" name={[field.name, "brand"]}>
-        <Select placeholder="please select Brand" options={breedList} />
-      </Form.Item>
-      <Form.Item label="Sales Status" name={[field.name, "salesStatus"]}>
-        <Select
-          placeholder="please select Sales Status"
-          options={salesStatusList}
+      <Form.Item label='Category' name='category'>
+        <Input
+          onClick={() => {
+            setShowCatePop(true)
+          }}
         />
       </Form.Item>
+      <Form.Item label='Brand' name='brand'>
+        <Select placeholder='please select Brand' options={breedList} />
+      </Form.Item>
+      <Form.Item label='Sales Status' name='salesStatus'>
+        <Select placeholder='please select Sales Status' options={salesStatusList} />
+      </Form.Item>
     </>
-  );
-};
+  )
+}
 
-export default BasicInfo;
+export default BasicInfo

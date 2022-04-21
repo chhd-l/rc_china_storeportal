@@ -1,16 +1,78 @@
-import FormItem from "@/components/common/FormItem";
+import FormItem from '@/components/common/FormItem'
 
-import type { FormProps } from "@/framework/types/common";
-import { selectList } from "../../modules/constant";
+import { FormProps } from '@/framework/types/common'
+import { Col, Form, Row, Select } from 'antd'
+import { useContext, useEffect, useState } from 'react'
+import { DetailContext } from '../..'
+import { getAttrs } from '@/framework/api/get-product'
+
+import { selectList } from '../../modules/constant'
+import { AttributeListProps } from '@/framework/types/product'
+import { GoodsAttributeAndValue } from '@/framework/schema/product.schema'
 const Specification = (props: FormProps) => {
-  console.info("dsdsdsds", props.field);
+  const { detail } = useContext(DetailContext)
+  const [specificationList, setSpecificationList] = useState<AttributeListProps[]>([])
+  useEffect(() => {
+    console.info('......................', detail.cateId)
+    getAttrList()
+  }, [detail.cateId])
+  // useEffect(() => {
+  //   console.info('.=====================...........', detail.cateId)
+
+  //   getAttrList()
+  // }, [])
+  const getAttrList = async () => {
+    let data = await getAttrs()
+    let list = data.map((item: any) => {
+      item.className = 'w-1/2'
+      item.type = 'select'
+      item.defaultVal = detail.goodsAttributeValueRel.find((el: GoodsAttributeAndValue) => {
+        console.info('el', el)
+        console.info('item', item)
+        return el.attributeValueId === item.id
+      })?.attributeValueName
+      return item
+    })
+
+    console.info('datagetAttrs', list)
+    setSpecificationList(list)
+  }
+  const handleChange = (value: any) => {
+    console.info(',,,,', value)
+  }
   return (
-    <div className="flex flex-wrap">
-      <FormItem {...props} list={selectList} parentName={[props.field.name]} />
-      {/* {selectList.map(el => <Form.Item className='w-1/2'  {...props.field} label={el.label} name={[props.field.name, el.key]} >
-      <Select options={el.options} />
-    </Form.Item>)} */}
+    <div className='overflow-hidden'>
+      {specificationList.map(specification => {
+        return (
+          <Row className='w-1/2 float-left ant-form-item'>
+            <Col span={5}>{specification.label}</Col>
+            <Col span={16}>
+              <Select
+                className='w-full'
+                labelInValue
+                defaultValue={{
+                  value: specification.defaultVal,
+                }}
+                style={{ width: 120 }}
+                options={specification.options}
+                onChange={handleChange}
+              ></Select>
+            </Col>
+          </Row>
+        )
+      })}
+      {/* {specificationList.length ? (
+        <Form.List name='specification'>
+          {fields =>
+            fields.map((field, idx) => (
+              <div className='flex flex-wrap'>
+                <FormItem {...field} parentName={[field.name]} list={specificationList} />
+              </div>
+            ))
+          }
+        </Form.List>
+      ) : null} */}
     </div>
-  );
-};
-export default Specification;
+  )
+}
+export default Specification
