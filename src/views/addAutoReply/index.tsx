@@ -3,12 +3,13 @@ import { ADD_AUTO_REPLY_FORM } from "./modules/form";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import SelectContext from "./components/SelectContent";
-import {ReplyContent} from "@/framework/types/wechat";
+import { ReplyContent } from "@/framework/types/wechat";
+import { ContentContainer, InfoContainer } from "@/components/ui";
 
 const AddAccount = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const navigator = useNavigate();
-  const [form]=Form.useForm()
+  const [form] = Form.useForm();
 
   const formValuesChange = (changedValues: any, allValues: any) => {
     console.log(changedValues, allValues);
@@ -22,14 +23,14 @@ const AddAccount = () => {
     console.log(values);
   };
 
-  const setReplyDes=(selectReplyContent:ReplyContent)=>{
-    form.setFieldsValue({description:selectReplyContent.description})
-    setModalVisible(false)
-  }
+  const setReplyDes = (selectReplyContent: ReplyContent) => {
+    form.setFieldsValue({ description: selectReplyContent.description });
+    setModalVisible(false);
+  };
 
   return (
-    <div className="p-4 text-left">
-      <div className="bg-white p-4">
+    <ContentContainer>
+      <InfoContainer>
         <div className="text-2xl text-medium mb-4">add Automatic Reply</div>
         <Form
           onValuesChange={formValuesChange}
@@ -81,7 +82,7 @@ const AddAccount = () => {
             </Button>
           </Form.Item>
         </Form>
-      </div>
+      </InfoContainer>
       <SelectContext
         modalVisible={modalVisible}
         onCancel={() => {
@@ -89,7 +90,7 @@ const AddAccount = () => {
         }}
         onConfirm={setReplyDes}
       />
-    </div>
+    </ContentContainer>
   );
 };
 export default AddAccount;

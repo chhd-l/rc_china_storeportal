@@ -6,7 +6,7 @@ const OrderAddress = ({ address }: { address: Address | any }) => {
 
   return (
     <div className="flex justify-start">
-      <span className="iconfont icon-a-xingzhuangjiehe2 text-red-500" />
+      <span className="iconfont icon-a-xingzhuangjiehe2 text-red-500 text-xl" />
       <div className="flex flex-col justify-start items-start ml-4 text-gray-400">
         <span className="text-black text-base">Delivery Address</span>
         <span>

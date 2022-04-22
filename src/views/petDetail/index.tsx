@@ -1,18 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { Avatar } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import { Avatar } from 'antd'
+import { UserOutlined } from '@ant-design/icons'
 
 const PetDetail = () => {
-  const [petId, setPetId] = useState("");
-  const location = useLocation();
+  const location = useLocation()
+  const [pet, setPet] = useState({
+    name:'',
+    type:'',
+    gender:'',
+    breed:'',
+    birthday:'',
+    age:'',
+    isSterilized:''
+  })
 
   useEffect(() => {
-    const state: any = location.state;
-    console.log("222", state.id);
-    console.log(petId)
-    setPetId(state.id);
-  }, []);
+    const state: any = location.state
+    console.log('222', state.pet)
+    setPet(state.pet)
+  }, [])
 
   return (
     <>
@@ -25,36 +32,36 @@ const PetDetail = () => {
           <div className="ml-4 flex flex-row flex-wrap">
             <div className="w-1/2 flex flex-row mb-4">
               <div className="w-1/2 text-right mr-2">Pet Name:</div>
-              <div className="text-gray-400">11</div>
+              <div className="text-gray-400">{pet.name}</div>
             </div>
             <div className="w-1/2 flex flex-row mb-4">
               <div className="w-1/2 text-right mr-2">Pet Category:</div>
-              <div className="text-gray-400">Dog</div>
+              <div className="text-gray-400">{pet.type}</div>
             </div>
             <div className="w-1/2 flex flex-row mb-4">
               <div className="w-1/2 text-right mr-2">Gender:</div>
-              <div className="text-gray-400">111</div>
+              <div className="text-gray-400">{pet.gender}</div>
             </div>
             <div className="w-1/2 flex flex-row mb-4">
               <div className="w-1/2 text-right mr-2">Breed:</div>
-              <div className="text-gray-400">Race Mixte</div>
+              <div className="text-gray-400">{pet.breed}</div>
             </div>
             <div className="w-1/2 flex flex-row mb-4">
               <div className="w-1/2 text-right mr-2">Birth Date:</div>
-              <div className="text-gray-400">111</div>
-            </div>{" "}
+              <div className="text-gray-400">{pet.birthday}</div>
+            </div>{' '}
             <div className="w-1/2 flex flex-row mb-4">
               <div className="w-1/2 text-right mr-2">Age:</div>
-              <div className="text-gray-400">1 months</div>
+              <div className="text-gray-400">{pet.age}</div>
             </div>
             <div className="w-1/2 flex flex-row mb-4">
               <div className="w-1/2 text-right mr-2">Sterillized Status:</div>
-              <div className="text-gray-400">Senior</div>
+              <div className="text-gray-400">{pet.isSterilized}</div>
             </div>
           </div>
         </div>
       </div>
     </>
-  );
-};
-export default PetDetail;
+  )
+}
+export default PetDetail

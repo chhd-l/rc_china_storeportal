@@ -68,7 +68,7 @@ const Index = ({ fanList }: { fanList: Fans[] }) => {
   };
 
   return (
-    <div className="bg-white p-8">
+    <div>
       <div className="flex flex-row mb-4">
         <Button className="mr-4" onClick={() => {}}>
           <span className="iconfont icon-bianzu2 mr-2" />

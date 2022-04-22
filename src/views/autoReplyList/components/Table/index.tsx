@@ -60,7 +60,7 @@ const Index = ({ autoReplies }: { autoReplies: AutoReplies[] }) => {
   ];
 
   return (
-    <div className="bg-white p-8">
+    <div>
       <div className="flex flex-row justify-end mb-4">
         <Button
           danger

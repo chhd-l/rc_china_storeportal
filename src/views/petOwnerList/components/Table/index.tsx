@@ -1,57 +1,49 @@
-import { Avatar, Table, Tooltip } from "antd";
-import { UserOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
-import React from "react";
-import { Customer } from "@/framework/types/customer";
+import { Avatar, Table, Tooltip } from 'antd'
+import { UserOutlined } from '@ant-design/icons'
+import { useNavigate } from 'react-router-dom'
+import React from 'react'
+import { Customer } from '@/framework/types/customer'
 
 interface PetOwnerTableProps {
-  petOwnerList: Customer[];
+  petOwnerList: Customer[]
 }
 
 const Index = ({ petOwnerList }: PetOwnerTableProps) => {
-  const navigator = useNavigate();
+  const navigator = useNavigate()
   const columns = [
     {
-      title: "Profile Photo",
-      dataIndex: "img",
-      key: "img",
-      render: (text: any, record: any) => (
-        <Avatar size="large" icon={<UserOutlined />} />
-      ),
+      title: 'Profile Photo',
+      dataIndex: 'img',
+      key: 'img',
+      render: (text: any, record: any) => <Avatar size="large" icon={<UserOutlined />} />,
     },
     {
-      title: "WeChat Name",
-      dataIndex: "name",
-      key: "name",
+      title: 'WeChat Name',
+      dataIndex: 'nickname',
+      key: 'nickname',
     },
     {
-      title: "Phone Number",
-      dataIndex: "phone",
-      key: "phone",
+      title: 'Phone Number',
+      dataIndex: 'phone',
+      key: 'phone',
     },
     {
-      title: "Options",
-      key: "Options",
+      title: 'Options',
+      key: 'Options',
       render: (text: any, record: any) => (
         <Tooltip title="View Details">
           <span
             className="cursor-pointer iconfont icon-Vector1 text-red-500"
             onClick={() => {
-              navigator("/pet-owner-detail", { state: { id: record.id } });
+              sessionStorage.setItem('cur-pet-owner',JSON.stringify(record))
+              navigator('/pet-owner-detail', { state: { id: record.id } })
             }}
           />
         </Tooltip>
       ),
     },
-  ];
-  return (
-    <Table
-      dataSource={petOwnerList}
-      columns={columns}
-      rowKey="id"
-      className="rc-table"
-    />
-  );
-};
+  ]
+  return <Table dataSource={petOwnerList} columns={columns} rowKey="id" className="rc-table" pagination={false} />
+}
 
-export default Index;
+export default Index

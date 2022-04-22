@@ -14,7 +14,7 @@ export interface PetOwner {
 
 export interface Customer {
   id: string;
-  image: string;
+  image?: string;
   name: string;
   phone: string;
   loginTime?: string;
@@ -33,14 +33,14 @@ export interface Tag {
 
 export interface Pet {
   id: string;
-  img: string;
+  image: string;
   name: string;
-  age?: number; //后端传的是birthday,需要计算出age
-  breed: PetBreed | string;//先兼容目前的页面数据不会报错
+  breed: string; //先兼容目前的页面数据不会报错
   gender?: string;
   type: string;
   isSterilized?: boolean;
-  birthday?: string;
+  age?: string;
+  customerId?: string;
 }
 
 export interface PetBreed {
@@ -61,16 +61,18 @@ export interface TencentAccount {
 }
 
 export interface Address {
-  id: string;
+  id?: string;
   receiverName: string;
   phone: string;
   province: string;
   city: string;
   region: string;
   detail: string;
-  postCode: string;
-  isDefault: number;
+  isDefault: boolean;
   country?: string;
+  customerId?: string;
+  postcode: string;
+  storeId?: string;
 }
 
 export interface CouponCode {
@@ -93,4 +95,21 @@ export interface SmartDevice {
   lockedTime: string;
   subscriptionNumber: string;
   subscriptionTime: string;
+}
+
+export enum Gender {
+  female = "FEMALE",
+  male = "MALE",
+}
+
+export enum PetType {
+  dog = "DOG",
+  cat = "CAT",
+}
+
+export interface SearchParamsProps {
+  name: string;
+  phone: string;
+  loginStartTime: string;
+  loginEndTime: string;
 }

@@ -1,6 +1,7 @@
 import { Button, DatePicker, Input, Select } from "antd";
 import React, { useState } from "react";
 import { searchTypeList } from "../../modules/constants";
+import { MenuOutlined } from "@ant-design/icons";
 
 interface SearchParamsProps {
   orderCreateDate: string;
@@ -35,6 +36,10 @@ const OrderSearch = ({ query }: { query: Function }) => {
           }}
         />
         <Button className="ml-3">Export</Button>
+        <Button
+          className="ml-3"
+          icon={<MenuOutlined style={{ color: "#979797" }} />}
+        />
       </div>
       <div className="flex flex-row items-center mt-3 text-left">
         <Input.Group compact>
@@ -47,7 +52,9 @@ const OrderSearch = ({ query }: { query: Function }) => {
             style={{ width: "20%" }}
           >
             {searchTypeList.map((item) => (
-              <Select.Option value={item.key} key={item.key}>{item.label}</Select.Option>
+              <Select.Option value={item.key} key={item.key}>
+                {item.label}
+              </Select.Option>
             ))}
           </Select>
           <Input

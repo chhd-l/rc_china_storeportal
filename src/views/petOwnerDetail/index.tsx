@@ -1,6 +1,6 @@
-import Mock from "mockjs";
-import React, { useEffect, useState } from "react";
-import { Anchor } from "antd";
+import Mock from 'mockjs'
+import React, { useEffect, useState } from 'react'
+import { Anchor } from 'antd'
 import {
   BasicInfo,
   Tagging,
@@ -11,88 +11,63 @@ import {
   Address,
   Coupons,
   SmartDevice,
-} from "./components";
-import { petOwnerDetailSource } from "./modules/mockdata";
-import { useLocation } from "react-router-dom";
-import "./index.less";
+} from './components'
+import { petOwnerDetailSource } from './modules/mockdata'
+import { useLocation } from 'react-router-dom'
+import './index.less'
+import { ContentContainer, InfoContainer } from '@/components/ui'
 
-const { Link } = Anchor;
+const { Link } = Anchor
 
 const PetOwnerList = () => {
-  const [petOwnerId, setPetOwnerId] = useState("");
+  const [petOwnerId, setPetOwnerId] = useState('e5edfa8c-ff05-cee0-45af-5c9e69d1b162')
   const [petOwnerDetail, setPetOwnerDetail] = useState({
-    basicInformation: {},
-    tagList: [],
-    petList: [],
-    tencentAccountList: [],
-    addressList: [],
     couponCodeList: [],
     smartDeviceList: [],
     subscriptionList: [],
     orderList: [],
-  });
-  const {
-    basicInformation,
-    tagList,
-    petList,
-    tencentAccountList,
-    addressList,
-    couponCodeList,
-    smartDeviceList,
-    subscriptionList,
-    orderList,
-  } = petOwnerDetail;
-  const location = useLocation();
+  })
+  const { couponCodeList, smartDeviceList, subscriptionList, orderList } = petOwnerDetail
+  const location = useLocation()
 
   useEffect(() => {
-    const state: any = location.state;
-    console.log("111", state.id);
-    setPetOwnerId(state.id);
-    console.log(petOwnerId);
-    setPetOwnerDetail(Mock.mock(petOwnerDetailSource));
-  }, []);
+    const state: any = location.state
+    console.log('111', state.id)
+    // setPetOwnerId(state.id)
+    setPetOwnerDetail(Mock.mock(petOwnerDetailSource))
+  }, [])
 
   return (
-    <>
-      <div className="bg-gray1 p-4 flex flex-row">
-        <div className="bg-white w-5/6 p-4 text-left">
-          <BasicInfo
-            id="basic-information"
-            basicInformation={basicInformation}
-          />
-          <Tagging id="tagging" tagList={tagList} />
-          <Pets id="pet-information" petList={petList} />
-          <TencentAccount
-            id="tencent-account"
-            tencentAccountList={tencentAccountList}
-          />
-          <Orders id="order-information" orderList={orderList} />
-          <Subscriptions
-            id="subscription-information"
-            subscriptionList={subscriptionList}
-          />
-          <Address id="my-address" addressList={addressList} />
-          <Coupons id="coupon-information" couponCodeList={couponCodeList} />
-          <SmartDevice id="smart-device" smartDeviceList={smartDeviceList} />
+    <ContentContainer>
+      <div className="flex flex-row">
+        <div className="w-5/6">
+          <InfoContainer>
+            <BasicInfo id="basic-information" />
+            <Tagging id="tagging" customerId={petOwnerId} />
+            <Pets id="pet-information" customerId={petOwnerId} />
+            <TencentAccount id="tencent-account" customerId={petOwnerId} />
+            <Orders id="order-information" orderList={orderList} />
+            <Subscriptions id="subscription-information" subscriptionList={subscriptionList} />
+            <Address id="my-address" customerId={petOwnerId} />
+            <Coupons id="coupon-information" couponCodeList={couponCodeList} />
+            <SmartDevice id="smart-device" smartDeviceList={smartDeviceList} />
+          </InfoContainer>
         </div>
-        <div className="w-42 ml-4 fixed right-6 rc-anchor">
-          <Anchor affix={true} offsetTop={100} className="petowner-anchor-link">
+        <div className="fixed right-0 rc-anchor">
+          <Anchor affix={true} offsetTop={120} className="petowner-anchor-link">
             <Link href="#basic-information" title="Basic Information" />
             <Link href="#tagging" title="Tagging" />
             <Link href="#pet-information" title="Pet Information" />
             <Link href="#tencent-account" title="Tencent Account" />
             <Link href="#order-information" title="Order Information" />
-            <Link
-              href="#subscription-information"
-              title="Subscription Information"
-            />
+            <Link href="#subscription-information" title="Subscription Information" />
             <Link href="#my-address" title="My Address" />
             <Link href="#coupon-information" title="Coupon Information" />
             <Link href="#smart-device" title="Smart Device" />
           </Anchor>
         </div>
       </div>
-    </>
-  );
-};
-export default PetOwnerList;
+    </ContentContainer>
+  )
+}
+export default PetOwnerList
