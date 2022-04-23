@@ -1,33 +1,37 @@
-import "./index.less";
-import { VariationosContext } from "../SalesInfo";
-import { useContext, useEffect, useState } from "react";
-import { cloneDeep } from "lodash";
-import { Form, Input } from "antd";
-import { FormProps } from "@/framework/types/common";
-import classNames from "classnames";
+import "./index.less"
+import { VariationosContext } from "../SalesInfo"
+import { useContext, useEffect, useState } from "react"
+import { cloneDeep } from "lodash"
+import { Form, Input } from "antd"
+import { FormProps } from "@/framework/types/common"
+import classNames from "classnames"
 import {
   SpecificationListProps,
   VarationProps,
   VarationsFormProps,
-} from "@/framework/types/product";
-import { headerOrigition } from "../../modules/constant";
+} from "@/framework/types/product"
+import { headerOrigition } from "../../modules/constant"
 interface VarviationProps {
-  img: string;
-  sku: string;
-  ean: string;
-  listPrice: string;
-  marketingPrice: string;
-  spec: string;
-  [key: string]: string;
+  img: string
+  sku: string
+  ean: string
+  listPrice: string
+  marketingPrice: string
+  spec: string
+  [key: string]: string
+}
+interface HeaderProps {
+  type: string
+  label: string
 }
 
 const commonClass =
-  "w-32 border-0 border-t border-r border-solid border-gray-200 text-center";
+  "w-32 border-0 border-t border-r border-solid border-gray-200 text-center"
 const EditVariationList = (props: FormProps) => {
-  const { variationForm: cloneVariationForm } = useContext(VariationosContext);
-  const [variationList, setVariationList] = useState<VarviationProps[]>([]);
-  const [headerList, setHeaderList] = useState<string[]>([]);
-  const [variationForm, setVariationForm] = useState({} as VarationsFormProps);
+  const { variationForm: cloneVariationForm } = useContext(VariationosContext)
+  const [variationList, setVariationList] = useState<VarviationProps[]>([])
+  const [headerList, setHeaderList] = useState<HeaderProps[]>([])
+  const [variationForm, setVariationForm] = useState({} as VarationsFormProps)
   // console.info("variationForm", variationForm);
   // const aa = {
   //   variationList: [
@@ -62,48 +66,49 @@ const EditVariationList = (props: FormProps) => {
   //   ],
   // };
   useEffect(() => {
-    const variationForm = cloneDeep(cloneVariationForm);
-    const { variationList } = variationForm;
-    console.info("variationForm", variationForm);
+    const variationForm = cloneDeep(cloneVariationForm)
+    const { variationList } = variationForm
+    console.info("variationForm", variationForm)
     variationList?.forEach((variation: any, idx: number) => {
-      variation.name = variation.name || `Variation${idx}`;
+      variation.name = variation.name || `Variation${idx}`
       variation.specificationList.forEach((specification: any) => {
-        specification.option = specification.option || "option";
-      });
-    });
+        specification.option = specification.option || "option"
+      })
+    })
     // variationForms
-    setVariationForm(variationForm);
+    setVariationForm(variationForm)
     if (variationList[0]) {
-      getRows(variationForm);
-      initHeader(variationForm);
+      getRows(variationForm)
+      initHeader(variationForm)
     }
-  }, [cloneVariationForm]);
+  }, [cloneVariationForm])
 
   const initHeader = ({ variationList }: VarationsFormProps) => {
-    let variationHeaders = variationList.map(
-      (el, idx) => el.name || `Varations[${idx}]`
-    );
-    const cloneHeaderOrigition = [...headerOrigition];
-    cloneHeaderOrigition.splice(1, 0, ...variationHeaders);
-    setHeaderList(cloneHeaderOrigition);
-  };
+    let variationHeaders = variationList.map((el, idx) => {
+      let header = { label: el.name || `Varations[${idx}]`, type: "text" }
+      return header
+    })
+    const cloneHeaderOrigition = [...headerOrigition]
+    cloneHeaderOrigition.splice(1, 0, ...variationHeaders)
+    setHeaderList(cloneHeaderOrigition)
+  }
   const combination = (vartion: any) => {
-    var heads = vartion[0];
+    var heads = vartion[0]
     for (var i = 1, len = vartion.length; i < len; i++) {
-      heads = addNewType(heads, vartion[i]);
+      heads = addNewType(heads, vartion[i])
     }
-    debugger;
-    return vartion.length > 1 ? heads : heads.map((el: any) => el.option); //only one variation
-  };
+    debugger
+    return vartion.length > 1 ? heads : heads.map((el: any) => el.option) //only one variation
+  }
   const addNewType = (heads: any, choices: any) => {
-    var result = [];
+    var result = []
     for (var i = 0, len = heads.length; i < len; i++) {
       for (var j = 0, lenj = choices.length; j < lenj; j++) {
-        result.push((heads[i]?.option || heads[i]) + "," + choices[j].option);
+        result.push((heads[i]?.option || heads[i]) + "," + choices[j].option)
       }
     }
-    return result;
-  };
+    return result
+  }
   const initData = (data: any, { variationList }: VarationsFormProps) => {
     let list = data.map((el: any) => {
       let newEl: VarviationProps = {
@@ -116,109 +121,181 @@ const EditVariationList = (props: FormProps) => {
         listPrice: "",
         marketingPrice: "",
         SubscriptionPrice: "",
-      };
+      }
       el.split(",").forEach((spec: string, idx: number) => {
-        let name = variationList[idx].name || `Varations[${idx}]`;
-        newEl[name] = spec;
-      });
+        let name = variationList[idx].name || `Varations[${idx}]`
+        newEl[name] = spec
+      })
 
-      return newEl;
-    });
-    setVariationList(list);
-  };
+      return newEl
+    })
+    setVariationList(list)
+  }
+  //   function calcDescartes (array) {
+  //     if (array.length < 2) return array[0] || [];
+
+  //     return [].reduce.call(array, function (col, set) {
+  //         var res = [];
+
+  //         col.forEach(function (c) {
+  //             set.forEach(function (s) {
+  //                 var t = [].concat(Array.isArray(c) ? c : [c]);
+  //                 t.push(s);
+  //                 res.push(t);
+  //             })
+  //         });
+
+  //         return res;
+  //     });
+  // }
+  const calcDescartes = (array: any) => {
+    if (array.length < 2) return array[0] || []
+    // @ts-ignore
+    return [].reduce.call(array, (col: any, set: any) => {
+      var res: any = []
+      col?.forEach(function (c: ConcatArray<never>) {
+        set?.forEach(function (s: ConcatArray<never>) {
+          // @ts-ignore
+          var t = [].concat(Array.isArray(c) ? c : [c])
+          // @ts-ignore
+          t.push(s)
+          res.push(t)
+        })
+      })
+
+      return res
+    })
+  }
 
   const getRows = (data: VarationsFormProps) => {
     let specList: any = data?.variationList?.map((el) => {
-      return el.specificationList;
-    });
+      return el.specificationList
+    })
     if (specList?.[0]) {
-      console.info("specList", specList);
-      let varations: string[] = combination(specList);
-      console.info("varations", varations);
-      initData(varations, data);
+      console.info("specList", specList)
+      let datas = calcDescartes(specList)
+      console.info("datasdatas", datas)
+      let varations: string[] = combination(specList)
+      console.info("varations", varations)
+      initData(varations, data)
     }
-  };
+  }
+  console.info("variationListvariationList", variationList)
   return (
-    <>
-      {variationForm.variationList?.length ? (
-        <div className="edit-variation-list bg-white">
-          <div className="border-l border-b border-solid border-gray-200 table table-warp">
-            <div
-              className={classNames(
-                "list-header table-caption  table-row  bg-gray-200 z-10 h-12"
-              )}
-            >
-              {headerList.map((el) => (
-                <div className={classNames(commonClass, "align-middle")}>
-                  {el}
-                </div>
-              ))}
-            </div>
-            {variationList.map((el) => (
-              <Form className="list-content table-row ">
-                <Form.Item name="img" className="table-cell">
-                  <Input
-                    value={el.img}
-                    className={commonClass}
-                    placeholder="input"
-                  />
-                </Form.Item>
-                {variationForm.variationList.map(
-                  (spec: VarationProps, idx: number) => (
-                    <div className={classNames(commonClass, "px-2 table-cell")}>
-                      {el[spec.name]}
-                    </div>
-                  )
-                )}
-                <Form.Item name="sku" className="table-cell">
-                  <Input
-                    value={el.sku}
-                    className={commonClass}
-                    placeholder="input"
-                  />
-                </Form.Item>
-                <Form.Item name="subSku" className="table-cell">
-                  <Input
-                    value={el.subSku}
-                    className={commonClass}
-                    placeholder="input"
-                  />
-                </Form.Item>
-                <Form.Item name="ean" className="table-cell">
-                  <Input
-                    value={el.ean}
-                    className={commonClass}
-                    placeholder="input"
-                  />
-                </Form.Item>
-                <Form.Item name="listPrice" className="table-cell">
-                  <Input
-                    value={el.listPrice}
-                    className={commonClass}
-                    placeholder="input"
-                  />
-                </Form.Item>
-                <Form.Item name="subscriptionPrice" className="table-cell">
-                  <Input
-                    value={el.subscriptionPrice}
-                    className={commonClass}
-                    placeholder="input"
-                  />
-                </Form.Item>
-                <Form.Item name="subscription" className="table-cell">
-                  <Input
-                    value={el.subscription}
-                    className={commonClass}
-                    placeholder="input"
-                  />
-                </Form.Item>
-              </Form>
+    <div>
+      <table className="table">
+        <thead>
+          <tr>
+            {headerList.map((th) => (
+              <th>{th.label}</th>
             ))}
-          </div>
-        </div>
-      ) : null}
-    </>
-  );
-};
+          </tr>
+        </thead>
+        <tbody>
+          {variationList.map((tr, index) => (
+            <tr>
+              {headerList.map((td, count) => (
+                <td>
+                  <span>
+                    {(() => {
+                      switch (td.type) {
+                        case "input":
+                          return <Input defaultValue={td.label} />
+                        case "text":
+                          return <span>{tr[td.label]}</span>
+                        default:
+                          return <span>ooo</span>
+                      }
+                    })()}
+                  </span>
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    // <>
+    //   {variationForm.variationList?.length ? (
+    //     <div className="edit-variation-list bg-white">
+    //       <div className="border-l border-b border-solid border-gray-200 table table-warp">
+    //         <div
+    //           className={classNames(
+    //             "list-header table-caption  table-row  bg-gray-200 z-10 h-12"
+    //           )}
+    //         >
+    //           {headerList.map((el) => (
+    //             <div className={classNames(commonClass, "align-middle")}>
+    //               {el}
+    //             </div>
+    //           ))}
+    //         </div>
+    //         {variationList.map((el) => (
+    //           <Form className="list-content table-row ">
+    //             <Form.Item name="img" className="table-cell">
+    //               <Input
+    //                 defaultValue={el.img}
+    //                 onChange={()=>{}}
+    //                 className={commonClass}
+    //                 placeholder="input"
+    //               />
+    //             </Form.Item>
+    //             {variationForm.variationList.map(
+    //               (spec: VarationProps, idx: number) => (
+    //                 <div className={classNames(commonClass, "px-2 table-cell")}>
+    //                   {el[spec.name]}
+    //                 </div>
+    //               )
+    //             )}
+    //             <Form.Item name="sku" className="table-cell">
+    //               <Input
+    //                 value={el.sku}
+    //                 className={commonClass}
+    //                 placeholder="input"
+    //               />
+    //             </Form.Item>
+    //             <Form.Item name="subSku" className="table-cell">
+    //               <Input
+    //                 value={el.subSku}
+    //                 className={commonClass}
+    //                 placeholder="input"
+    //               />
+    //             </Form.Item>
+    //             <Form.Item name="ean" className="table-cell">
+    //               <Input
+    //                 value={el.ean}
+    //                 className={commonClass}
+    //                 placeholder="input"
+    //               />
+    //             </Form.Item>
+    //             <Form.Item name="listPrice" className="table-cell">
+    //               <Input
+    //                 value={el.listPrice}
+    //                 className={commonClass}
+    //                 placeholder="input"
+    //               />
+    //             </Form.Item>
+    //             <Form.Item name="subscriptionPrice" className="table-cell">
+    //               <Input
+    //                 value={el.subscriptionPrice}
+    //                 className={commonClass}
+    //                 placeholder="input"
+    //               />
+    //             </Form.Item>
+    //             <Form.Item name="subscription" className="table-cell">
+    //               <Input
+    //                 value={el.subscription}
+    //                 className={commonClass}
+    //                 placeholder="input"
+    //               />
+    //             </Form.Item>
+    //           </Form>
+    //         ))}
+    //       </div>
+    //     </div>
+    //   ) : null}
+    // </>
+  )
+}
 
-export default EditVariationList;
+export default EditVariationList

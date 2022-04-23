@@ -7,7 +7,7 @@ import '@/assets/css/global.less'
 import '@/assets/css/iconfont/iconfont.css'
 import ApiRoot from './framework/api/fetcher'
 
-function App() {
+function App () {
   useEffect(() => {
     // ApiRoot.addresses().createAddress({
     //   body: {
@@ -28,8 +28,8 @@ function App() {
   }, [])
   let Routers = useRoutes(Router)
   return (
-    <div className="App">
-      <Suspense fallback={<Spin />}>{Routers}</Suspense>
+    <div className='App text-center'>
+      <Suspense fallback={<Spin className='magin-auto' />}>{Routers}</Suspense>
     </div>
   )
 }
