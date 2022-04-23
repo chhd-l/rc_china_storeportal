@@ -73,3 +73,9 @@ export interface SearchFormItemProps extends FormItemProps {
   label?: string
   selectList?: BaseListProps[]
 }
+
+//分页组件
+export interface PageParamsProps{
+  currentPage: number,
+  pageSize: number,
+}

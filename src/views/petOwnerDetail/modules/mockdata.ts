@@ -1,5 +1,6 @@
 import { PHONEREGCONST } from "@/lib/constants";
 import { orderDetailSource } from "@/views/orderDetail/modules/mockdata";
+import Mock from "mockjs";
 
 export const basicInfoSource = {
   id: "@id",
@@ -13,6 +14,22 @@ export const petOwnerListSource = {
   "array|6": [basicInfoSource],
 };
 
+export const petDetailSource={
+  id: "@id",
+  image: "",
+  name: "@cname",
+  breed: "",
+  'gender|1': ['FEMALE','MALE'],
+  'type|1':['DOG','CAT'],
+  'isSterilized|1': [true,false],
+  age: 1,
+  customerId: "@id"
+}
+
+export const petListSource={
+  "array|2":[petDetailSource]
+}
+
 export const petOwnerDetailSource = {
   basicInformation: basicInfoSource,
   tagList: [
@@ -21,15 +38,7 @@ export const petOwnerDetailSource = {
       name: "Dog Club Member",
     },
   ],
-  "petList|2": [
-    {
-      id: "@id",
-      img: "",
-      name: "@last",
-      age: 9,
-      breed: "Race Mixte",
-    },
-  ],
+  petList: Mock.mock(petListSource).array,
   tencentAccountList: [
     {
       unionId: "1111",
@@ -96,5 +105,5 @@ export const petOwnerDetailSource = {
       subscriptionType: "Autoship",
     },
   ],
-  "orderList|2": [orderDetailSource('')],
+  "orderList|2": [orderDetailSource("")],
 };

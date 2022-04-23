@@ -1,20 +1,24 @@
-import { Avatar } from "antd";
-import { UserOutlined } from "@ant-design/icons";
-import { Customer } from "@/framework/types/customer";
+import { Avatar } from 'antd'
+import { UserOutlined } from '@ant-design/icons'
+import { Customer } from '@/framework/types/customer'
+import { useEffect, useState } from 'react'
 
-interface BasicInfoProps {
-  basicInformation: Customer | any;
-  id: string;
-}
+const BasicInformation = ({ id }: { id: string }) => {
+  const [basicInformation, setBasicInformation] = useState<Customer>({
+    id: '',
+    name: '',
+    phone: '',
+    loginTime: '',
+  })
+  const { name, phone, loginTime } = basicInformation
 
-const BasicInformation = ({ basicInformation, id }: BasicInfoProps) => {
-  const { name, phone, loginTime } = basicInformation;
+  useEffect(() => {
+    setBasicInformation(JSON.parse(sessionStorage.getItem('cur-pet-owner') || ''))
+  }, [])
 
   return (
     <div id={id}>
-      <div className="py-4 px-2 border-b text-xl font-medium">
-        Basic Information
-      </div>
+      <div className="py-4 px-2 border-b text-xl font-medium">Basic Information</div>
       <div className="px-2 py-4 flex flex-row items-center">
         <div>
           <Avatar shape="square" size={64} icon={<UserOutlined />} />
@@ -34,6 +38,6 @@ const BasicInformation = ({ basicInformation, id }: BasicInfoProps) => {
         </div>
       </div>
     </div>
-  );
-};
-export default BasicInformation;
+  )
+}
+export default BasicInformation

@@ -6,6 +6,41 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "28993951",
+      "name": "编组 (2)",
+      "font_class": "a-bianzu2",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "28993568",
+      "name": "订单",
+      "font_class": "dingdan",
+      "unicode": "e619",
+      "unicode_decimal": 58905
+    },
+    {
+      "icon_id": "28974439",
+      "name": "编组 67备份",
+      "font_class": "a-bianzu67beifen",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "28974433",
+      "name": "编组",
+      "font_class": "bianzu3",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "28974435",
+      "name": "Frame (2)",
+      "font_class": "a-Frame2",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
       "icon_id": "28909829",
       "name": "编组",
       "font_class": "bianzu2",

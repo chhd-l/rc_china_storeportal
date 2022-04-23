@@ -8,7 +8,7 @@ import { tabList } from './modules/constants'
 import { useLocation } from 'react-router-dom'
 import Search from './components/Search'
 import { OrderStatus } from '@/framework/types/order'
-import { ContentContainer, InfoContainer, SearchContainer, TableContainer, DivideArea } from '@/components/ui'
+import { ContentContainer, SearchContainer, TableContainer } from '@/components/ui'
 import { getOrderList } from '@/framework/api/get-order'
 
 const PetOwnerList = () => {
@@ -37,11 +37,6 @@ const PetOwnerList = () => {
 
   return (
     <ContentContainer>
-      {/* <InfoContainer> */}
-      {/* <div className="bg-gray1 py-4 pl-4">*/}
-      {/* <div className="bg-white pb-4 px-8"> */}
-
-      {/*search*/}
       <SearchContainer>
         <Tabs
           activeKey={activeKey}
@@ -55,7 +50,6 @@ const PetOwnerList = () => {
         </Tabs>
         <Search query={getOrderList} />
       </SearchContainer>
-      {/* <DivideArea /> */}
       <TableContainer className='py-0 pb-7'>
         <div className='text-left text-xl font-bold'>{orderTotal} Orders</div>
         <div className='mt-4  text-left'>
@@ -65,9 +59,6 @@ const PetOwnerList = () => {
           <Pagination defaultCurrent={1} total={orderList.length} showSizeChanger={true} />
         </div>
       </TableContainer>
-      {/* </div>*/}
-      {/* </div> */}
-      {/* </InfoContainer> */}
     </ContentContainer>
   )
 }
