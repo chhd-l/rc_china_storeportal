@@ -1,3 +1,6 @@
+import { ProductService } from './../../rc-china-commerce/packages/common/lib/services/product.service'
+import { Product } from './../../api/models/Product'
+import { productLists } from './../../views/categoryDetail/modules/mockdata'
 import ApiRoot from './fetcher'
 import Mock from 'mockjs'
 import { detail } from '../mock/productdetail'
@@ -7,6 +10,7 @@ import { normaliseAttrProps, normaliseCateProps, normaliseDetailforFe } from '..
 import { brandList } from '../mock/brands'
 import { attributeList } from '../mock/attributelist'
 import { categoryList } from '../mock/categorylist'
+// import {ApiRoot} from '@/rc-china-commerce/packages/fetch/lib/index'
 export const getCategories = (): TreeDataProps[] => {
   const cateList: TreeDataProps[] = normaliseCateProps(categoryList)
   try {
@@ -50,3 +54,22 @@ export const getProduct = (): ProductDetailProps => {
   }
   return normalizedData
 }
+
+export const getProductBySpuId = async () => {
+  // console.info('ApiRoot')
+  const data = await ApiRoot.products().getAllProducts()
+  console.info('.......getAllProducts', data)
+  // const detailinfo = detail
+  // const normalizedData = normaliseDetailforFe(detailinfo)
+  try {
+    // return detailinfo
+    // const pets = await ApiRoot.products().getProduct({ customerId })
+    // return normalisePets(pets)
+  } catch (e) {
+    console.log(e)
+    // return
+  }
+  return data
+}
+
+

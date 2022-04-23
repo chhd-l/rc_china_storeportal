@@ -1,23 +1,16 @@
-import Mock from "mockjs"
-import React, { useEffect, useState } from "react"
-import {
-  TradeItem,
-  Progress,
-  Address,
-  Carrier,
-  OperationLog,
-  Comment,
-  Customer,
-  Payment,
-} from "./components"
-import { orderDetailSource } from "./modules/mockdata"
-import { useLocation } from "react-router-dom"
-import { initOrderDetail } from "./modules/constants"
-import { ContentContainer, InfoContainer, DivideArea } from "@/components/ui"
+import Mock from 'mockjs'
+import React, { useEffect, useState } from 'react'
+import { TradeItem, Progress, Address, Carrier, OperationLog, Comment, Customer, Payment } from './components'
+import { orderDetailSource } from './modules/mockdata'
+import { useLocation } from 'react-router-dom'
+import { initOrderDetail } from './modules/constants'
+import { ContentContainer, InfoContainer, DivideArea } from '@/components/ui'
+import { getOrderDetail } from '@/framework/api/get-order'
+import { Order, OrderTradeItem } from '@/framework/types/order'
 
 const OrderDetail = () => {
-  const [orderId, setOrderId] = useState("")
-  const [orderDetail, setOrderDetail] = useState(initOrderDetail)
+  const [orderId, setOrderId] = useState('')
+  const [orderDetail, setOrderDetail] = useState<any>(initOrderDetail)
   const location = useLocation()
   const {
     subscriptionId,
@@ -35,21 +28,19 @@ const OrderDetail = () => {
   useEffect(() => {
     const state: any = location.state
     setOrderId(state.id)
-    setOrderDetail(Mock.mock(orderDetailSource(state.status)))
   }, [])
-
+  const getDetail = async () => {
+    let data: any = await getOrderDetail()
+    setOrderDetail(data)
+  }
   return (
     <>
       {orderDetail ? (
         <ContentContainer>
-          <div className="flex flex-row">
-            <div className="mr-2 w-3/4">
+          <div className='flex flex-row'>
+            <div className='mr-2 w-3/4'>
               <InfoContainer>
-                <Progress
-                  orderState={tradeState.orderState}
-                  orderId={orderId}
-                  subscriptionId={subscriptionId}
-                />
+                <Progress orderState={tradeState.orderState} orderId={orderId} subscriptionId={subscriptionId} />
               </InfoContainer>
               <DivideArea />
               <InfoContainer>
@@ -69,7 +60,7 @@ const OrderDetail = () => {
                 <Payment payInfo={payInfo} />
               </InfoContainer>
             </div>
-            <div className="w-1/4">
+            <div className='w-1/4'>
               <Comment comments={comments} />
               <OperationLog logs={logs} />
             </div>
