@@ -8,14 +8,15 @@ import { VariationosContext } from '../SalesInfo'
 import { SortContainer } from '../../modules/constant'
 import { SortableElement, SortableHandle } from 'react-sortable-hoc'
 import SortElement from '../SortElement'
-import { SpecificationListProps, VarationProps } from '@/framework/types/product'
+import { ChangeType, SpecificationListProps, VarationProps } from '@/framework/types/product'
 
 export type AddVariationProps = {}
 const initVaration = {
   name: '',
-  specificationList: [{ option: '' }],
+  sortIdx: 0, //为了匹配
+  specificationList: [{ option: '', sortIdx: '0-0' }],
 }
-const initSpec = { option: '' }
+const initSpec = { option: '', sortIdx: '0-0' }
 const AddVariation = ({}: AddVariationProps) => {
   const { variationForm, setVariationForm } = useContext(VariationosContext)
   const [form] = Form.useForm()
@@ -55,12 +56,33 @@ const AddVariation = ({}: AddVariationProps) => {
           </Col>
           <Col span={4} className='flex items-center'>
             <DragHandle />
-            <DeleteOutlined className='cursor-pointer' />
+            <DeleteOutlined
+              onClick={() => {
+                handleDelSpecification(variationIdx, specificationIdx)
+              }}
+              className='cursor-pointer'
+            />
           </Col>
         </Row>
       )
     },
   )
+  const handleDelSpecification = (variationIdx: number, specificationIdx: number) => {
+    variationForm.variationList[variationIdx].specificationList.splice(specificationIdx, 1)
+    debugger
+    variationForm.changeType = ChangeType.handleSpec
+    console.info(variationForm, 'variationForm')
+    setVariationForm(cloneDeep(variationForm))
+  }
+  const handleDelVariation = (variationIdx: number) => {
+    variationForm.variationList.splice(variationIdx, 1)
+    variationForm.changeType = ChangeType.handleVariation
+
+    debugger
+    console.info(variationForm, 'variationForm')
+    setVariationForm(cloneDeep(variationForm))
+  }
+
   const handleVariationUpdate = () => {
     setVariationForm(form.getFieldsValue())
   }
@@ -71,13 +93,26 @@ const AddVariation = ({}: AddVariationProps) => {
       oldIndex,
       newIndex,
     )
+    variationForm.changeType = ChangeType.handleSpec
     setVariationForm(cloneDeep(variationForm))
   }
   const handleAddVariation = () => {
-    variationForm.variationList = [...variationForm.variationList, initVaration]
+    let initVarationData = cloneDeep(initVaration)
+    let { variationList } = variationForm
+    let variationIdx = variationList.length //varation  sortidx
+    initVaration.sortIdx = variationIdx
+    let specificationIdx = 0 // spec sortidx
+    initVarationData.sortIdx = variationIdx
+    initVarationData.specificationList[0].sortIdx = `${variationIdx}-${specificationIdx}`
+    variationForm.changeType = ChangeType.handleVariation
+    variationForm.variationList = [...variationList, initVarationData]
     setVariationForm(cloneDeep(variationForm))
   }
+
   const handleAddSpecification = (variationIdx: number) => {
+    let specificationSortIdx = variationForm.variationList[variationIdx].specificationList.length
+    initSpec.sortIdx = `${variationIdx}-${specificationSortIdx}`
+    variationForm.changeType = ChangeType.handleSpec
     variationForm.variationList[variationIdx].specificationList.push(initSpec)
     setVariationForm(cloneDeep(variationForm))
   }
@@ -139,7 +174,12 @@ const AddVariation = ({}: AddVariationProps) => {
                   </Button>
                 </Col>
               </Row>
-              <CloseOutlined className='absolute top-1 right-1 cursor-pointer' />
+              <CloseOutlined
+                onClick={() => {
+                  handleDelVariation(variationIdx)
+                }}
+                className='absolute top-1 right-1 cursor-pointer'
+              />
             </Col>
           </Row>
         ))}
@@ -149,9 +189,11 @@ const AddVariation = ({}: AddVariationProps) => {
         <Col span={16} offset={4}>
           <Row>
             <Col span={15} offset={4}>
-              <Button className='w-full' onClick={handleAddVariation}>
-                Add Variation
-              </Button>
+              {variationForm.variationList.length < 2 ? (
+                <Button className='w-full' onClick={handleAddVariation}>
+                  Add Variation
+                </Button>
+              ) : null}
             </Col>
           </Row>
         </Col>

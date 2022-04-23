@@ -16,13 +16,15 @@ export const getOrderList = async (): Promise<Order[]> => {
     return []
   }
 }
-export const getOrderDetail = () => {
-  let list: any = []
-  // const list = normaliseOrder(mockOrderList.list[0])
+export const getOrderDetail = async ({ orderNum }: { orderNum: string }) => {
+  let { getOrder } = await ApiRoot.orders().getOrder({ storeId: '12345678', orderNum })
+  console.info('res', getOrder)
+  const detail = normaliseOrder(getOrder)
   try {
-    console.info('list', list)
+    console.info('list', detail)
+    return detail
   } catch (e) {
     console.log(e)
+    return {}
   }
-  return list
 }
