@@ -1,6 +1,3 @@
-import { ProductService } from './../../rc-china-commerce/packages/common/lib/services/product.service'
-import { Product } from './../../api/models/Product'
-import { productLists } from './../../views/categoryDetail/modules/mockdata'
 import ApiRoot from './fetcher'
 import Mock from 'mockjs'
 import { detail } from '../mock/productdetail'
