@@ -1,21 +1,24 @@
-import {LabelOptionProps, PageParamsProps} from "@/framework/types/common";
-import { ReactNode } from "react";
+import { LabelOptionProps, PageParamsProps } from "@/framework/types/common"
+import { ReactNode } from "react"
 
 export const getCurrencyCode = () => {
-  return "￥";
-};
+  return "￥"
+}
 
 export const formatMoney = (price: number) => {
-  return getCurrencyCode() + price.toFixed(2);
-};
+  if (!price) {
+    return ''
+  }
+  return getCurrencyCode() + price.toFixed(2)
+}
 
 export const handleValueEnum = (list: LabelOptionProps[]) => {
-  let newEnum: { [x: string]: ReactNode } = {};
+  let newEnum: { [x: string]: ReactNode } = {}
   list.forEach((item: LabelOptionProps) => {
-    newEnum[item.value] = { text: item.label };
-  });
-  return newEnum;
-};
+    newEnum[item.value] = { text: item.label }
+  })
+  return newEnum
+}
 
 /**
  * 处理分页组件数据，达到前端分页的目的

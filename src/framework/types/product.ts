@@ -143,5 +143,13 @@ export interface VarationProps {
   specificationList: SpecificationListProps[]
 }
 export interface VarationsFormProps {
+  changeType?: ChangeType
   variationList: VarationProps[]
+}
+export enum ChangeType {
+  handleVariation,
+  // addVariation,
+  handleSpec,
+  // addSpec,
+  // drag
 }

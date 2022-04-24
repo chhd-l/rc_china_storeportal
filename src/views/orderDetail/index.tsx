@@ -28,9 +28,11 @@ const OrderDetail = () => {
   useEffect(() => {
     const state: any = location.state
     setOrderId(state.id)
+    console.info('state.id', state.id)
+    getDetail(state.id)
   }, [])
-  const getDetail = async () => {
-    let data: any = await getOrderDetail()
+  const getDetail = async (orderNum: string) => {
+    let data: any = await getOrderDetail({ orderNum })
     setOrderDetail(data)
   }
   return (
