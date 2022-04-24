@@ -1,5 +1,5 @@
 import { Suspense, useEffect } from 'react'
-import { useRoutes } from 'react-router-dom'
+import { useRoutes, useNavigate } from 'react-router-dom'
 import Router from './routers'
 import { Spin } from 'antd'
 import './App.css'
@@ -7,8 +7,11 @@ import '@/assets/css/global.less'
 import '@/assets/css/iconfont/iconfont.css'
 import ApiRoot from './framework/api/fetcher'
 
-function App () {
+function App() {
+  let Routers = useRoutes(Router)
+  const navigate = useNavigate()
   useEffect(() => {
+    navigate('/order-list')
     // ApiRoot.addresses().createAddress({
     //   body: {
     //     customerId: 'e5edfa8c-ff05-cee0-45af-5c9e69d1b162',
@@ -26,7 +29,7 @@ function App () {
     //   },
     // })
   }, [])
-  let Routers = useRoutes(Router)
+  
   return (
     <div className='App text-center'>
       <Suspense fallback={<Spin className='magin-auto' />}>{Routers}</Suspense>

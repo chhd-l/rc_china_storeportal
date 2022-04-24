@@ -37,6 +37,7 @@ export const menus = [
         name: "My Orders",
         value: "my_orders",
         url: "/order-list",
+        // url: "/",
         key: "my_orders",
       },
       {
@@ -93,7 +94,7 @@ export const menus = [
       {
         name: "Shop Rating",
         value: "shop_rating",
-        url: "/",
+        url: "/shop-rating",
         key: "shop_rating",
       },
       {
