@@ -23,7 +23,7 @@ export const tabList: BaseListProps[] = [
     key: OrderStatus.Completed,
   },
   {
-    label:'Cancellation',
+    label: 'Cancellation',
     key: OrderStatus.Cancellation,
   },
 ];

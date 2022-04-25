@@ -5,23 +5,30 @@
 .rc-table {
   .ant-table-thead {
     font-size: 14px;
-    .ant-table-cell{
-      font-weight: normal!important;
+    .ant-table-cell {
+      font-weight: normal !important;
     }
-    .ant-table-cell::before{
-      width: 0!important;
+    .ant-table-cell::before {
+      width: 0 !important;
     }
   }
 }
 
-.rc-anchor{
+.rc-anchor {
   .ant-anchor-ink-ball {
-    width: 1px!important;
-    height: 14px!important;
-    border-left-width: 2px!important;
-    border-bottom-width: 0!important;
-    border-top-width: 0!important;
-    border-right-width: 0!important;
-    border-radius:0!important;
+    width: 1px !important;
+    height: 14px !important;
+    border-left-width: 2px !important;
+    border-bottom-width: 0 !important;
+    border-top-width: 0 !important;
+    border-right-width: 0 !important;
+    border-radius: 0 !important;
   }
+}
+// Order详情进度条颜色修改
+.ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-tail:after {
+  background-color: rgb(248 198 198 / 60%);
+}
+.ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title {
+  color: var(--ant-primary-color);
 }

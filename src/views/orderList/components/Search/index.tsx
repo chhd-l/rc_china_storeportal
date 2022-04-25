@@ -1,7 +1,8 @@
-import { Button, DatePicker, Input, Select } from "antd";
+import { Button, DatePicker, Dropdown, Input, Select, Space } from "antd";
 import React, { useState } from "react";
 import { searchTypeList } from "../../modules/constants";
 import { MenuOutlined } from "@ant-design/icons";
+import LatestReports from "../LatestReports/index"
 
 interface SearchParamsProps {
   orderCreateDate: string;
@@ -35,7 +36,11 @@ const OrderSearch = ({ query }: { query: Function }) => {
             updateSearchParams(dateString, "loginStartTime");
           }}
         />
-        <Button className="ml-3">Export</Button>
+        <Space direction="vertical">
+          <Dropdown overlay={LatestReports} >
+             <Button className="ml-3">Export</Button>
+          </Dropdown>
+        </Space>
         <Button
           className="ml-3"
           icon={<MenuOutlined style={{ color: "#979797" }} />}

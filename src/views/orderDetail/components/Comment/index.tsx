@@ -1,5 +1,5 @@
 import { UserOutlined } from "@ant-design/icons";
-import { Avatar, Button, Form, Input } from "antd";
+import { Avatar, Button, Form, Input, Tooltip } from "antd";
 import React from "react";
 import { Comment } from "@/framework/types/order";
 
@@ -15,6 +15,12 @@ const OrderComment = ({ comments }: { comments: Comment[] }) => {
               <span className="flex items-center">
                 <Avatar size="small" icon={<UserOutlined />} />
                 <span className="ml-2">{item.createdBy}</span>
+                <Tooltip title="Edit">
+                  <span className="cursor-pointer iconfont text-sm icon-rc-edit text-black-500"/>
+                </Tooltip>
+                <Tooltip title="Delete">
+                  <span className="cursor-pointer iconfont text-sm icon-Frame3 text-black-500"/>
+                </Tooltip>
               </span>
               <span>{item.createdAt}</span>
             </div>

@@ -35,7 +35,7 @@ export const columns: ProColumns<CategoryBaseProps>[] = [
     ),
   },
   {
-    title: "操作",
+    title: "Operation",
     key: "option",
     width: 180,
     valueType: "option",
