@@ -22,7 +22,7 @@ const Specification = (props: FormProps) => {
   //   getAttrList()
   // }, [])
   const getAttrList = async () => {
-    let data = await getAttrs()
+    let data = await getAttrs({ storeId: '12345678', categoryId: '12' })
     let list = data.map((item: any) => {
       item.className = 'w-1/2'
       item.type = 'select'

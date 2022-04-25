@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { GoodsAttributeAndValue } from '../schema/product.schema'
 import { productLists } from './../../views/categoryDetail/modules/mockdata'
-import { OptionsProps } from './common'
+import { OptionsProps, PageProps } from './common'
 
 export interface TableHeadersItemProps {
   title: string
@@ -118,6 +118,7 @@ export interface ProductListItemProps {
   price: number
   stock: number
   name: string
+
 }
 export interface ProductListProps {
   products: ProductListItemProps[]
@@ -145,6 +146,12 @@ export interface VarationProps {
 export interface VarationsFormProps {
   changeType: ChangeType
   variationList: VarationProps[]
+}
+export interface ProductListSimpleQueryProps {
+  storeId?: string
+}
+export interface ProductListQueryProps extends PageProps {
+  sample?: ProductListSimpleQueryProps
 }
 export enum ChangeType {
   handleVariation = 'VARIATION',
