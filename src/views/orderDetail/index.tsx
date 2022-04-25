@@ -39,10 +39,15 @@ const OrderDetail = () => {
     <>
       {orderDetail ? (
         <ContentContainer>
-          <div className='flex flex-row'>
-            <div className='mr-4 w-3/4'>
+          <div className="flex flex-row">
+            <div className="mr-4 w-3/4">
               <InfoContainer>
-                <Progress orderState={tradeState.orderState} orderId={orderId} subscriptionId={subscriptionId} />
+                <Progress
+                  orderState={tradeState.orderState}
+                  orderId={orderId}
+                  subscriptionId={subscriptionId}
+                  orderAddress={shippingAddress}
+                />
               </InfoContainer>
               <DivideArea />
               <InfoContainer>
@@ -62,7 +67,7 @@ const OrderDetail = () => {
                 <Payment payInfo={payInfo} />
               </InfoContainer>
             </div>
-            <div className='w-1/4'>
+            <div className="w-1/4">
               <Comment comments={comments} />
               <OperationLog logs={logs} />
             </div>

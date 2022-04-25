@@ -1,21 +1,37 @@
 import { Tabs, Pagination } from 'antd'
-import Mock from 'mockjs'
 import React, { useEffect, useState } from 'react'
 import OrderTable from '@/components/order/OrderTable'
-import { Order } from '@/framework/types/order'
-import { orderListSource } from '@/views/orderDetail/modules/mockdata'
-import { tabList } from './modules/constants'
+import { Order, OrderStatus, OrderSearchParamsProps } from '@/framework/types/order'
+import { tabList, initSearchParams } from './modules/constants'
 import { useLocation } from 'react-router-dom'
 import Search from './components/Search'
-import { OrderStatus } from '@/framework/types/order'
 import { ContentContainer, SearchContainer, TableContainer } from '@/components/ui'
 import { getOrderList } from '@/framework/api/get-order'
+import { handleQueryParams } from './modules/handle-query-params'
+import { PageParamsProps } from '@/framework/types/common'
+import { initPageParams } from '@/lib/constants'
 
 const PetOwnerList = () => {
   const [orderList, setOrderList] = useState<Order[]>([])
   const [activeKey, setActiveKey] = useState('')
-  const [orderTotal, setOrderTotal] = useState(0)
+  const [searchParams, setSearchParams] = useState<OrderSearchParamsProps>(initSearchParams)
+  const [pageParams, setPageParams] = useState<PageParamsProps>(initPageParams)
+  const [total, setTotal] = useState(0)
+  const { currentPage, pageSize } = pageParams
+  const [carrier, setCarrier] = useState('')
   const location = useLocation()
+
+  const getOrderLists = async () => {
+    let params = handleQueryParams({ searchParams, pageParams, orderState: activeKey, shoppingCompany: carrier })
+    console.log('query orders view params', params)
+    const res = await getOrderList(params)
+    setOrderList(res.records)
+    setTotal(res.total)
+  }
+
+  const changePage = (page: any, pageSize: any) => {
+    setPageParams({ currentPage: page, pageSize: pageSize })
+  }
 
   useEffect(() => {
     console.log(location)
@@ -29,34 +45,39 @@ const PetOwnerList = () => {
   useEffect(() => {
     getOrderLists()
   }, [activeKey])
-  const getOrderLists = async () => {
-    let data = await getOrderList()
-    setOrderList(data)
-    setOrderTotal(data.length)
-  }
+
+  useEffect(() => {
+    getOrderLists()
+  }, [searchParams, pageParams])
 
   return (
     <ContentContainer>
       <SearchContainer>
         <Tabs
           activeKey={activeKey}
-          onChange={key => {
+          onChange={(key) => {
             setActiveKey(key)
+            setPageParams(initPageParams)
           }}
         >
-          {tabList.map(item => (
+          {tabList.map((item) => (
             <Tabs.TabPane tab={item.label} key={item.key} />
           ))}
         </Tabs>
-        <Search query={getOrderList} />
+        <Search
+          query={(data: OrderSearchParamsProps) => {
+            setSearchParams(data)
+            setPageParams(initPageParams)
+          }}
+        />
       </SearchContainer>
-      <TableContainer className='py-0 pb-7'>
-        <div className='text-left text-xl font-bold'>{orderTotal} Orders</div>
-        <div className='mt-4  text-left'>
-          <OrderTable orderList={orderList} />
+      <TableContainer className="py-0 pb-7">
+        <div className="text-left text-xl font-bold">{total} Orders</div>
+        <div className="mt-4  text-left">
+          <OrderTable orderList={orderList}/>
         </div>
-        <div className='text-right pt-4'>
-          <Pagination defaultCurrent={1} total={orderList.length} showSizeChanger={true} />
+        <div className="flex flex-row justify-end mt-4">
+          <Pagination current={currentPage} total={total} pageSize={pageSize} onChange={changePage} />
         </div>
       </TableContainer>
     </ContentContainer>

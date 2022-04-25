@@ -34,7 +34,7 @@ const PetOwnerList = () => {
 
   useEffect(() => {
     getCustomers()
-  }, [searchParams])
+  }, [searchParams,pageParams])
 
   return (
     <ContentContainer>
