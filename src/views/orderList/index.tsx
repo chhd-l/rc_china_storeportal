@@ -1,4 +1,4 @@
-import { Tabs, Pagination } from 'antd'
+import { Tabs, Pagination ,ConfigProvider } from 'antd'
 import React, { useEffect, useState } from 'react'
 import OrderTable from '@/components/order/OrderTable'
 import { Order, OrderStatus, OrderSearchParamsProps } from '@/framework/types/order'
@@ -10,6 +10,7 @@ import { getOrderList } from '@/framework/api/get-order'
 import { handleQueryParams } from './modules/handle-query-params'
 import { PageParamsProps } from '@/framework/types/common'
 import { initPageParams } from '@/lib/constants'
+import zhCN from 'antd/lib/locale/zh_CN';
 
 const PetOwnerList = () => {
   const [orderList, setOrderList] = useState<Order[]>([])
@@ -77,8 +78,10 @@ const PetOwnerList = () => {
           <OrderTable orderList={orderList}/>
         </div>
         <div className="flex flex-row justify-end mt-4">
+          <ConfigProvider locale={zhCN}>
           <Pagination current={currentPage} total={total} pageSize={pageSize} onChange={changePage} />
-        </div>
+          </ConfigProvider>
+          </div>
       </TableContainer>
     </ContentContainer>
   )

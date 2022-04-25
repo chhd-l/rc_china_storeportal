@@ -47,7 +47,7 @@ const OrderActions = ({
   return (
     <div className="flex items-center">
       {location.pathname !== '/order-detail' && (
-        <Tooltip title="View Details">
+        <Tooltip title="View order details">
           <span
             className="cursor-pointer iconfont icon-Vector1 text-red-500"
             onClick={() => {
@@ -71,11 +71,11 @@ const OrderActions = ({
         </Tooltip>
       )}
       {/*收货*/}
-      {orderState === OrderStatus['Shipped'] && (
+      {orderState === OrderStatus["Shipped"] && (
         <Tooltip title="Completed">
           <span
-            className="cursor-pointer ml-2 iconfont icon-Order text-red-500 text-red-500"
-            style={{ fontSize: '20px' }}
+            className="cursor-pointer ml-2 iconfont icon-Order text-red-500"
+            style={{ fontSize: "20px" }}
             onClick={() => setCompleteModalVisible(true)}
           />
         </Tooltip>

@@ -33,6 +33,7 @@ const OrderDetail = () => {
   }, [])
   const getDetail = async (orderNum: string) => {
     let data: any = await getOrderDetail({ orderNum })
+    console.log('333',data)
     setOrderDetail(data)
   }
   return (
