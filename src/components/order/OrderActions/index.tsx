@@ -4,7 +4,7 @@ import ShipmentModal from '../ShipmentModal'
 import { useNavigate } from 'react-router-dom'
 import { OrderStatus } from '@/framework/types/order'
 import { useLocation } from 'react-router-dom'
-import { shippedOrder } from '@/framework/api/get-order'
+import { completedOrder, shippedOrder } from '@/framework/api/get-order'
 import _ from 'lodash'
 
 const OrderActions = ({
@@ -31,6 +31,16 @@ const OrderActions = ({
     const res = await shippedOrder(params)
     if (res) {
       setShipModalVisible(false)
+    }
+  }
+
+  const completed = async () => {
+    const res = await completedOrder({
+      orderNum: orderId,
+      nowOrderState: orderState,
+    })
+    if (res) {
+      setCompleteModalVisible(false)
     }
   }
 
@@ -79,7 +89,7 @@ const OrderActions = ({
       <Modal
         title="提示"
         visible={completeModalVisible}
-        onOk={() => setCompleteModalVisible(false)}
+        onOk={() => completed()}
         onCancel={() => setCompleteModalVisible(false)}
       >
         <p>是否确定完成</p>

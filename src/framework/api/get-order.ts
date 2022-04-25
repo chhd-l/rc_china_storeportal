@@ -77,3 +77,19 @@ export const shippedOrder = async (params: any) => {
     return false
   }
 }
+
+export const completedOrder = async (params: any) => {
+  try {
+    params = Object.assign(params, {
+      storeId: '12345678',
+      operator: 'zz',
+    })
+    console.info('completed order view params', params)
+    let res = await ApiRoot.orders().completedOrder({body:params})
+    console.info('completed order data view', res)
+    return res.completedOrder||false
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+}
