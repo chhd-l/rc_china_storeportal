@@ -1,6 +1,6 @@
 import { Avatar, Col, Row, Select } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
-import React from 'react'
+import React,{useEffect} from 'react'
 import { Order, OrderTradeItem } from '@/framework/types/order'
 import { carrierTypeList } from '@/views/orderList/modules/constants'
 import OrderActions from '../OrderActions'
@@ -17,6 +17,10 @@ const orderStatusType: KeyRules = {
 }
 
 const OrderTable = ({ orderList }: { orderList: Order[] }) => {
+  useEffect(() => {
+  console.log(orderList)
+  }, [])
+
   return (
     <div>
       <Row className='bg-gray1 border py-2 px-4'>

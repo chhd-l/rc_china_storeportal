@@ -41,7 +41,7 @@ export const columns: ProColumns<ProductBaseProps>[] = [
     sorter: (a, b) => a.stock - b.stock,
   },
   {
-    title: "操作",
+    title: "Operation",
     key: "option",
     width: 180,
     valueType: "option",

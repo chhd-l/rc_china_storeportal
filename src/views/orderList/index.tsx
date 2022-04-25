@@ -1,4 +1,4 @@
-import { Tabs, Pagination } from 'antd'
+import { Tabs, Pagination,ConfigProvider  } from 'antd'
 import Mock from 'mockjs'
 import React, { useEffect, useState } from 'react'
 import OrderTable from '@/components/order/OrderTable'
@@ -10,6 +10,7 @@ import Search from './components/Search'
 import { OrderStatus } from '@/framework/types/order'
 import { ContentContainer, SearchContainer, TableContainer } from '@/components/ui'
 import { getOrderList } from '@/framework/api/get-order'
+import zhCN from 'antd/lib/locale/zh_CN';
 
 const PetOwnerList = () => {
   const [orderList, setOrderList] = useState<Order[]>([])
@@ -31,6 +32,7 @@ const PetOwnerList = () => {
   }, [activeKey])
   const getOrderLists = async () => {
     let data = await getOrderList()
+    console.log("data",data)
     setOrderList(data)
     setOrderTotal(data.length)
   }
@@ -56,7 +58,9 @@ const PetOwnerList = () => {
           <OrderTable orderList={orderList} />
         </div>
         <div className='text-right pt-4'>
+          <ConfigProvider locale={zhCN}>
           <Pagination defaultCurrent={1} total={orderList.length} showSizeChanger={true} />
+          </ConfigProvider>
         </div>
       </TableContainer>
     </ContentContainer>
