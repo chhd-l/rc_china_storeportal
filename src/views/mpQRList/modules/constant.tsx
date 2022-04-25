@@ -33,7 +33,7 @@ export const tableColumns = ({ handleDelete }: TableColumnsProps) => {
       hideInTable: true,
     },
     {
-      title: "二维码键值",
+      title: "Qr Code Value",
       dataIndex: "id",
     },
     {

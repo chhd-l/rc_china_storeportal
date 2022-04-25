@@ -7,6 +7,7 @@ import { orderDetailSource, orderListSource } from "@/views/orderDetail/modules/
 import Mock from 'mockjs'
 
 export const getOrderList = async (): Promise<Order[]> => {
+  const isMock = true
   try {
     if (isMock) {
       console.log('1111111')

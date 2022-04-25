@@ -18,7 +18,7 @@ const OrderComment = ({ comments }: { comments: Comment[] }) => {
                 <Tooltip title="Edit">
                   <span className="cursor-pointer iconfont text-sm icon-rc-edit text-black-500"/>
                 </Tooltip>
-                <Tooltip title="Delet">
+                <Tooltip title="Delete">
                   <span className="cursor-pointer iconfont text-sm icon-Frame3 text-black-500"/>
                 </Tooltip>
               </span>
