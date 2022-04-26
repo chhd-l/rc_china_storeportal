@@ -2,11 +2,11 @@ import './index.less'
 import { VariationosContext } from '../SalesInfo'
 import { useContext, useEffect, useState } from 'react'
 import { cloneDeep } from 'lodash'
-import { Form, Input } from 'antd'
+import { Button, Form, Input, Popover, Select } from 'antd'
 import { FormProps } from '@/framework/types/common'
-import classNames from 'classnames'
-import { SpecificationListProps, VarationProps, VarationsFormProps } from '@/framework/types/product'
+import { ChangeType, SpecificationListProps, VarationProps, VarationsFormProps } from '@/framework/types/product'
 import { headerOrigition } from '../../modules/constant'
+import Upload, { UploadType } from '@/components/common/Upload'
 interface VarviationProps {
   img: string
   sku: string
@@ -15,7 +15,6 @@ interface VarviationProps {
   marketingPrice: string
   spec: string
   sortIdx: string
-
   [key: string]: string
 }
 interface HeaderProps {
@@ -25,12 +24,12 @@ interface HeaderProps {
 
 const commonClass = 'w-32 border-0 border-t border-r border-solid border-gray-200 text-center'
 const EditVariationList = (props: FormProps) => {
-  const { variationForm: cloneVariationForm, changeType } = useContext(VariationosContext)
+  const { variationForm: cloneVariationForm } = useContext(VariationosContext)
   //changeType操作variation需要做include处理；操作spec需要做===处理
   const [variationList, setVariationList] = useState<VarviationProps[]>([])
   const [headerList, setHeaderList] = useState<HeaderProps[]>([])
   const [variationForm, setVariationForm] = useState({} as VarationsFormProps)
-  console.info('changeType', changeType)
+  console.info('changeType', variationForm)
   // console.info("variationForm", variationForm);
   // const aa = {
   //   variationList: [
@@ -84,7 +83,7 @@ const EditVariationList = (props: FormProps) => {
 
   const initHeader = ({ variationList }: VarationsFormProps) => {
     let variationHeaders = variationList.map((el, idx) => {
-      let header = { label: el.name || `Varations[${idx}]`, type: 'text' }
+      let header = { label: el.name || `Varations[${idx}]`, type: 'text', key: '' }
       return header
     })
     const cloneHeaderOrigition = [...headerOrigition]
@@ -92,63 +91,7 @@ const EditVariationList = (props: FormProps) => {
     console.info('cloneHeaderOrigition', cloneHeaderOrigition)
     setHeaderList(cloneHeaderOrigition)
   }
-  const combination = (vartion: any) => {
-    var heads = vartion[0]
-    for (var i = 1, len = vartion.length; i < len; i++) {
-      heads = addNewType(heads, vartion[i])
-    }
-    return vartion.length > 1 ? heads : heads.map((el: any) => el.option) //only one variation
-  }
-  const addNewType = (heads: any, choices: any) => {
-    var result = []
-    for (var i = 0, len = heads.length; i < len; i++) {
-      for (var j = 0, lenj = choices.length; j < lenj; j++) {
-        result.push((heads[i]?.option || heads[i]) + ',' + choices[j].option)
-      }
-    }
-    return result
-  }
-  const initData = (data: any, { variationList }: VarationsFormProps) => {
-    let list = data.map((el: any) => {
-      let newEl: VarviationProps = {
-        spec: el,
-        img: '',
-        sku: '',
-        subSku: '',
-        Subscription: '',
-        sortIdx: '',
-        ean: '',
-        listPrice: '',
-        marketingPrice: '',
-        SubscriptionPrice: '',
-      }
-      el.split(',').forEach((spec: string, idx: number) => {
-        let name = variationList[idx].name || `Varations[${idx}]`
-        newEl[name] = spec
-      })
 
-      return newEl
-    })
-    console.info('list', list)
-    setVariationList(list)
-  }
-  //   function calcDescartes (array) {
-  //     if (array.length < 2) return array[0] || [];
-
-  //     return [].reduce.call(array, function (col, set) {
-  //         var res = [];
-
-  //         col.forEach(function (c) {
-  //             set.forEach(function (s) {
-  //                 var t = [].concat(Array.isArray(c) ? c : [c]);
-  //                 t.push(s);
-  //                 res.push(t);
-  //             })
-  //         });
-
-  //         return res;
-  //     });
-  // }
   const calcDescartes = (array: any) => {
     if (array.length < 2) return array[0] || []
     // @ts-ignore
@@ -183,6 +126,7 @@ const EditVariationList = (props: FormProps) => {
     let list = vartions.map((vartion: any) => {
       console.info('......', vartion)
       console.info('variationListvariationList', JSON.stringify(variationList))
+      let sortIdx = vartion.map?.((el: any) => el.sortIdx).join('^') || vartion.sortIdx
       let newEl: VarviationProps = {
         spec: vartion.length ? vartion.map((el: any) => el.option).join(',') : vartion.option,
         img: '',
@@ -193,7 +137,38 @@ const EditVariationList = (props: FormProps) => {
         listPrice: '',
         marketingPrice: '',
         SubscriptionPrice: '',
-        sortIdx: vartion.map?.((el: any) => el.sortIdx).join('^') || vartion.sortIdx,
+        sortIdx,
+      }
+      debugger
+      console.info(
+        'variationForm.changeType === ChangeType.handleSpec',
+        variationForm.changeType === ChangeType.handleSpec,
+      )
+      if (variationForm.changeType === ChangeType.handleSpec) {
+        //to do spec选择,需要操作====
+        let oldData = variationList.find(el => el.sortIdx === sortIdx)
+        debugger
+        newEl = Object.assign({}, newEl, oldData, {
+          spec: vartion.length ? vartion.map((el: any) => el.option).join(',') : vartion.option,
+          key: Math.random(),
+        })
+      }
+      console.info(
+        'variationForm.changeType === ChangeType.handleVariation',
+        ChangeType.handleVariation,
+        variationForm.changeType,
+      )
+      if (variationForm.changeType === ChangeType.handleVariation) {
+        //to do variation选择，需要操作include
+        let oldData = variationList
+          .filter(el => el.choosed)
+          .find(el => {
+            return sortIdx.includes(el.sortIdx)
+          })
+        newEl = Object.assign({}, newEl, oldData, {
+          spec: vartion.length ? vartion.map((el: any) => el.option).join(',') : vartion.option,
+          key: Math.random(),
+        })
       }
       if (vartion.length) {
         vartion.forEach((spec: any, idx: number) => {
@@ -208,57 +183,92 @@ const EditVariationList = (props: FormProps) => {
       return newEl
     })
     console.info('list', list)
-    setVariationList(list)
+    setVariationList(cloneDeep(list))
     // return list
   }
+  const handleSelect = () => {}
   console.info('variationListvariationList', variationList)
   return (
-    <div>
-      <table className='table'>
-        <thead>
-          <tr>
-            {headerList.map((th, index) => (
-              <th key={index}>{th.label}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {variationList.map((tr, index) => (
-            <tr key={tr.sortIdx}>
-              {headerList.map((td, count) => (
-                <td key={`${tr.sortIdx}-${count}`}>
-                  <span>
-                    {(() => {
-                      switch (td.type) {
-                        case 'input':
-                          return (
-                            <Input
-                              onBlur={e => {
-                                console.info('e.target.value', e.target.value)
-                                console.info('eeeeee', variationList)
-                                tr[td.label] = e.target.value
-                              }}
-                              defaultValue={tr[td.label]}
-                            />
-                          )
-                        case 'text':
-                          return (
-                            <span>
-                              {console.info('JSON.stringify(tr)', JSON.stringify(tr))}
-                              {tr[td.label]}
-                            </span>
-                          )
-                        default:
-                          return <span>ooo</span>
-                      }
-                    })()}
-                  </span>
-                </td>
+    <div className='overflow-scroll w-full'>
+      {variationList?.length ? (
+        <table className='table' width={1500}>
+          <thead>
+            <tr>
+              {headerList.map((th, index) => (
+                <th key={index}>{th.label}</th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {variationList.map((tr, index) => (
+              <tr key={tr.sortIdx}>
+                {headerList.map((td, count) => (
+                  <td key={`${tr.sortIdx}-${count}`}>
+                    <span>
+                      {(() => {
+                        switch (td.type) {
+                          case 'input':
+                            return (
+                              <Input
+                                onBlur={e => {
+                                  console.info('e.target.value', e.target.value)
+                                  console.info('eeeeee', variationList)
+                                  tr[td.label] = e.target.value
+                                }}
+                                defaultValue={tr[td.label]}
+                              />
+                            )
+                          case 'text':
+                            return <span>{tr[td.label]}</span>
+                          case 'upload':
+                            // return <span>{tr[td.label]}</span>
+                            return (
+                              <Upload
+                                type={UploadType.button}
+                                showUploadList={false}
+                                handleImgUrl={() => {
+                                  console.info('...')
+                                }}
+                              />
+                            )
+                          case 'priceInput':
+                            return <Input prefix='￥' />
+                          case 'select':
+                            return (
+                              <Select
+                                defaultValue='lucy'
+                                style={{ width: 120 }}
+                                options={[
+                                  { label: 'yes', value: '0' },
+                                  { label: 'no', value: '1' },
+                                ]}
+                                onChange={handleSelect}
+                              ></Select>
+                            )
+                          case 'number':
+                            return <Input type='number' />
+                          // return
+                          case 'popup':
+                            return (
+                              <Popover content='哈哈哈' trigger='click' placement='bottom' title='Title'>
+                                <Button type='primary'>Hover me</Button>
+                              </Popover>
+                            )
+                          case 'subSku':
+                            return <div>test</div>
+
+                          default:
+                            return <span>ooo</span>
+                        }
+                      })()}
+                    </span>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : null}
     </div>
     // <>
     //   {variationForm.variationList?.length ? (

@@ -12,7 +12,7 @@ interface FormProps {
 const FormItem = ({ list, parentName, field, layout }: FormProps) => {
   return (
     <>
-      {list.map((el: any) => {
+      {list.map((el: any, idx: number) => {
         let name = parentName ? [...parentName, el.name] : el.name //兼容form.list
         console.info('....test', el)
         return (

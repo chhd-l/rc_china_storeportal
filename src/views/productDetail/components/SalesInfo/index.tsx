@@ -22,8 +22,11 @@ const SalesInfo = (props: FormProps) => {
     wrapperCol: { span: 14 },
   }
   useEffect(() => {
-    setVariationForm(detail.variationForm)
-  }, [])
+    if (detail.variationForm) {
+      setVariationForm(detail.variationForm)
+      debugger
+    }
+  }, [detail.variationForm])
   return (
     // <div>test</div>
     <VariationosContext.Provider value={{ variationForm, setVariationForm }}>

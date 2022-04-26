@@ -1,5 +1,6 @@
-import { CateItemProps, Goods, GoodsAssets, GoodsAttribute, GoodsSpecification } from '../schema/product.schema'
 import { VarationProps, VarationsFormProps } from '../types/product'
+import { CateItemProps, Goods, GoodsAssets, GoodsAttribute, GoodsSpecification, GoodsVariants } from '../schema/product.schema'
+import { ProductListSkuItem } from '../types/product'
 
 export const normaliseDetailforFe = (detail: any) => {
   let spu = {
@@ -60,6 +61,31 @@ export const normaliseVariation = (data: GoodsSpecification[]): VarationProps[] 
     return variation
   })
   return variationList
+}
+export const normaliseProductListSku = (sku: GoodsVariants): ProductListSkuItem => {
+  let skuItem = {
+    id: sku.id,
+    no: sku.skuNo,
+    specs: '',
+    price: sku.marketingPrice,
+    stock: sku.stock
+  }
+  return skuItem
+}
+export const normaliseProductListSpu = (spu: Goods): ProductListSkuItem => {
+  let listItem = {
+    skus: spu.goodsVariants.map(sku => normaliseProductListSku(sku)),
+    img: spu.defaultImage,
+    id: spu.id,
+    no: spu.spuNo,
+    showAll: false,
+    checked: false,
+    specs: 'string',
+    price: 0,
+    stock: 0,
+    name: spu.goodsName
+  }
+  return listItem
 }
 export const normaliseCateProps = (data: CateItemProps[]) => {
   return getTree(data, null, 0)

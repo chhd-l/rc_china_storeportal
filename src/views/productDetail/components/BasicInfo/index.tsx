@@ -15,7 +15,6 @@ const salesStatusList = [
 ]
 const BasicInfo = ({ field }: FormProps) => {
   // const [form] = Form.useForm();
-  console.info('propsprops', field)
   // const onFinish = (values: any) => {
   //   console.log(values);
   // };
