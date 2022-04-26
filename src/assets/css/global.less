@@ -92,13 +92,23 @@
       margin-top: -10px;
       margin-bottom: 10px;
       .ant-menu-item-only-child {
+        width: 170px !important;
         padding-left: 42px !important;
         color: #333333;
         font-size: 13px;
         background-color: #fff;
         margin-left: 8px;
+        margin-top: 0;
+        margin-bottom: 0;
         // line-height: 10px;
         height: 30px;
+        // .ant-menu-item a:before {
+        //   width: 170px !important;
+        // }
+        // 清楚a标签后面的伪类
+        .ant-menu-inline .ant-menu-item-selected::after {
+          content: ' ';
+        }
       }
       .ant-menu-item-only-child:hover {
         font-weight: bold;
