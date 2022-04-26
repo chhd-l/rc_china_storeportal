@@ -94,8 +94,8 @@ const MainInfo = ({ cateInfo }: MainInfoProps) => {
       </div>
       <div className='w-40 fixed right-10' style={{ top: '100px' }}>
         <Anchor affix={false} className='rc-anchor' targetOffset={64} style={{ top: '64px' }}>
-          {steps.map(step => (
-            <Link href={`#${step.anchor}`} title={step.title} />
+          {steps.map((step, idx) => (
+            <Link key={step.anchor + idx} href={`#${step.anchor}`} title={step.title} />
           ))}
         </Anchor>
         <div className='mt-4 bg-yellow-100 text-yellow-700 px-2 py-4'>

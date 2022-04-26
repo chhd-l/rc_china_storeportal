@@ -16,6 +16,12 @@ export enum FormItemType {
   Upload,
   Digit,
 }
+export interface PageProps {
+  offset: number
+  limit: number
+  isNeedTotal: boolean
+  operator?: string
+}
 export interface FormItemProps {
   name: string
   placeholder?: string

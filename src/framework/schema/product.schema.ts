@@ -149,7 +149,7 @@ export interface Goods {
   brandId: string //？？
   goodsCategoryId: string //？？
   // shelvesStatus: IsShelves
-  // defaultImage: string//？？
+  defaultImage: string//？？
   salesStatus: number //？？
   weight: number //？？
   weightUnit: string //？？
