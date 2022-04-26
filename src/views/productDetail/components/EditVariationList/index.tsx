@@ -97,7 +97,6 @@ const EditVariationList = (props: FormProps) => {
     for (var i = 1, len = vartion.length; i < len; i++) {
       heads = addNewType(heads, vartion[i])
     }
-    debugger
     return vartion.length > 1 ? heads : heads.map((el: any) => el.option) //only one variation
   }
   const addNewType = (heads: any, choices: any) => {
@@ -181,7 +180,6 @@ const EditVariationList = (props: FormProps) => {
     }
   }
   const init = (vartions: any, { variationList: formData }: VarationsFormProps) => {
-    debugger
     let list = vartions.map((vartion: any) => {
       console.info('......', vartion)
       console.info('variationListvariationList', JSON.stringify(variationList))
@@ -199,7 +197,6 @@ const EditVariationList = (props: FormProps) => {
       }
       if (vartion.length) {
         vartion.forEach((spec: any, idx: number) => {
-          debugger
           let name = formData[idx]?.name || `Variation${idx}`
           newEl[name] = (spec[0] || spec)?.option || 'option'
         })
@@ -220,16 +217,16 @@ const EditVariationList = (props: FormProps) => {
       <table className='table'>
         <thead>
           <tr>
-            {headerList.map(th => (
-              <th>{th.label}</th>
+            {headerList.map((th, index) => (
+              <th key={index}>{th.label}</th>
             ))}
           </tr>
         </thead>
         <tbody>
           {variationList.map((tr, index) => (
-            <tr>
+            <tr key={tr.sortIdx}>
               {headerList.map((td, count) => (
-                <td>
+                <td key={`${tr.sortIdx}-${count}`}>
                   <span>
                     {(() => {
                       switch (td.type) {

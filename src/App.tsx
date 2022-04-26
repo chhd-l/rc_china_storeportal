@@ -7,11 +7,11 @@ import '@/assets/css/global.less'
 import '@/assets/css/iconfont/iconfont.css'
 import ApiRoot from './framework/api/fetcher'
 
-function App() {
+function App () {
   let Routers = useRoutes(Router)
   const navigate = useNavigate()
   useEffect(() => {
-    navigate('/order-list')
+    // navigate('/order-list')
     // ApiRoot.addresses().createAddress({
     //   body: {
     //     customerId: 'e5edfa8c-ff05-cee0-45af-5c9e69d1b162',
@@ -29,7 +29,7 @@ function App() {
     //   },
     // })
   }, [])
-  
+
   return (
     <div className='App text-center'>
       <Suspense fallback={<Spin className='magin-auto' />}>{Routers}</Suspense>

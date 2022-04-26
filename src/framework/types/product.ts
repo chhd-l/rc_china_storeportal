@@ -80,9 +80,9 @@ export interface ProductDetailProps {
   assets: AssertsProps[]
   length: string
   brandList: [],
-  goodsAttributeValueRel: GoodsAttributeAndValue[]
+  goodsAttributeValueRel?: GoodsAttributeAndValue[]
   // attributeList: AttributeListProps[],
-  categoryList: TreeDataProps[],
+  categoryList?: TreeDataProps[],
   // lifeStage: string
   // listPrice: string
   // marketingPrice: string
@@ -137,6 +137,7 @@ export enum AddCateType {
 }
 export interface SpecificationListProps {
   option: string
+  goodsSpecificationId?: string
 }
 export interface VarationProps {
   name: string

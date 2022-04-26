@@ -1,4 +1,3 @@
-import { getProductBySpuId } from '@/framework/api/get-product'
 import React, { useEffect, useState } from 'react'
 const Home = () => {
   return (

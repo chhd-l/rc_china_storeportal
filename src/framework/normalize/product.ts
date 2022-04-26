@@ -1,4 +1,5 @@
-import { CateItemProps, Goods, GoodsAssets, GoodsAttribute } from '../schema/product.schema'
+import { CateItemProps, Goods, GoodsAssets, GoodsAttribute, GoodsSpecification } from '../schema/product.schema'
+import { VarationProps, VarationsFormProps } from '../types/product'
 
 export const normaliseDetailforFe = (detail: any) => {
   let spu = {
@@ -8,8 +9,8 @@ export const normaliseDetailforFe = (detail: any) => {
     // breeds: string
     cardName: detail.cardName,
     cateId: detail.goodsCategoryId,
-    categoryList: normaliseCateProps(detail.categoryList),
-    // attributeList: normaliseAttrProps(detail.attributeList),
+    categoryList: normaliseCateProps(detail.listCategoryGet),
+    attributeList: normaliseAttrProps(detail.listAttributeGet),
     brandList: detail.brandList,
     description: detail.goodsDescription,
     // feedingDays: detail.feedingDays,
@@ -29,6 +30,9 @@ export const normaliseDetailforFe = (detail: any) => {
     salesStatus: detail.salesStatus,
     // size: detail.,
     spuNo: detail.spuNo,
+    variationForm: {
+      variationList: normaliseVariation(detail.goodsSpecifications)
+    },
     // stock: detail.stock,
     // subscription: detail.subscriptionStatus,//??
     // subscriptionPrice: detail.subscriptionPrice,//？？
@@ -40,6 +44,22 @@ export const normaliseDetailforFe = (detail: any) => {
     // zone: detail.,
   }
   return spu
+}
+export const normaliseVariation = (data: GoodsSpecification[]): VarationProps[] => {
+  let variationList = data.map(el => {
+    let variation = {
+      name: el.specificationName,
+      specificationList: el.goodsSpecificationDetail.map(spe => {
+        let newSpe = {
+          option: spe.specificationDetailName,
+          goodsSpecificationId: spe.id
+        }
+        return newSpe
+      })
+    }
+    return variation
+  })
+  return variationList
 }
 export const normaliseCateProps = (data: CateItemProps[]) => {
   return getTree(data, null, 0)
