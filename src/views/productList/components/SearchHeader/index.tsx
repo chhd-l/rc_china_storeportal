@@ -62,9 +62,14 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
               <Input placeholder={`please Input category`} />
             </Form.Item>
           </Col>
-          <Col span={12}>
-            <Form.Item label="Stock" name="stock">
-              <Input placeholder={`please Input stock`} />
+          <Col span={6}>
+            <Form.Item  label="Stock" name="stock">
+              <Input  placeholder={`please Input stock`} />
+            </Form.Item>
+          </Col>
+          <Col span={6}>
+            <Form.Item  name="stock">
+              <Input  placeholder={`please Input stock`} />
             </Form.Item>
           </Col>
           <Col span={12}>

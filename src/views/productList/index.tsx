@@ -50,7 +50,7 @@ const ProductList = () => {
                 </div>
                 <div className="flex items-center">
                   <Link to="/product/add" className="mr-4">
-                    <Button type="primary">Add a New Product</Button>
+                    <Button type="primary">+ Add a New Product</Button>
                   </Link>
                   <Button className="mr-4">Export</Button>
                   <MenuOutlined className=" border border-solid border-gray-300" />

@@ -1,4 +1,4 @@
-import { Tabs, Pagination ,ConfigProvider } from 'antd'
+import { Tabs, Pagination, ConfigProvider } from 'antd'
 import React, { useEffect, useState } from 'react'
 import OrderTable from '@/components/order/OrderTable'
 import { Order, OrderStatus, OrderSearchParamsProps } from '@/framework/types/order'
@@ -26,6 +26,7 @@ const PetOwnerList = () => {
     let params = handleQueryParams({ searchParams, pageParams, orderState: activeKey, shoppingCompany: carrier })
     console.log('query orders view params', params)
     const res = await getOrderList(params)
+    console.log('res', res)
     setOrderList(res.records)
     setTotal(res.total)
   }
@@ -75,13 +76,13 @@ const PetOwnerList = () => {
       <TableContainer className="py-0 pb-7">
         <div className="text-left text-xl font-bold">{total} Orders</div>
         <div className="mt-4  text-left">
-          <OrderTable orderList={orderList}/>
+          <OrderTable orderList={orderList} />
         </div>
         <div className="flex flex-row justify-end mt-4">
           <ConfigProvider locale={zhCN}>
-          <Pagination current={currentPage} total={total} pageSize={pageSize} onChange={changePage} />
+            <Pagination current={currentPage} total={total} pageSize={pageSize} onChange={changePage} />
           </ConfigProvider>
-          </div>
+        </div>
       </TableContainer>
     </ContentContainer>
   )
