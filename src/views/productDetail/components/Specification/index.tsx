@@ -27,8 +27,6 @@ const Specification = (props: FormProps) => {
       item.className = 'w-1/2'
       item.type = 'select'
       item.defaultVal = detail?.goodsAttributeValueRel.find((el: GoodsAttributeAndValue) => {
-        console.info('el', el)
-        console.info('item', item)
         return el.attributeValueId === item.id
       })?.attributeValueName
       return item

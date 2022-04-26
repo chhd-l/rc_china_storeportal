@@ -1,4 +1,4 @@
-import type { InputSelectProps, InputTextProps } from '@/framework/types/common'
+import { InputSelectProps, InputTextProps } from '@/framework/types/common'
 import { EyeOutlined } from '@ant-design/icons'
 import { ReactNode, useRef, useState } from 'react'
 import { SortableContainer } from 'react-sortable-hoc'
@@ -62,7 +62,10 @@ export const selectList: (InputTextProps | InputSelectProps)[] = [
 
 export const noSkuForm: (InputTextProps | InputSelectProps)[] = [
   {
-    options: [{ name: 'size', value: 'size' }],
+    options: [
+      { name: 'No', value: 0 },
+      { name: 'No', value: 1 },
+    ],
     name: 'subscription',
     label: 'Subscription',
     type: 'select',

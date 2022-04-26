@@ -69,7 +69,6 @@ const AddVariation = ({}: AddVariationProps) => {
   )
   const handleDelSpecification = (variationIdx: number, specificationIdx: number) => {
     variationForm.variationList[variationIdx].specificationList.splice(specificationIdx, 1)
-    debugger
     variationForm.changeType = ChangeType.handleSpec
     console.info(variationForm, 'variationForm')
     setVariationForm(cloneDeep(variationForm))
@@ -78,7 +77,6 @@ const AddVariation = ({}: AddVariationProps) => {
     variationForm.variationList.splice(variationIdx, 1)
     variationForm.changeType = ChangeType.handleVariation
 
-    debugger
     console.info(variationForm, 'variationForm')
     setVariationForm(cloneDeep(variationForm))
   }
@@ -129,7 +127,7 @@ const AddVariation = ({}: AddVariationProps) => {
         onSortEnd={onSortEnd}
       >
         {variationForm.variationList.map((variation: VarationProps, variationIdx: number) => (
-          <Row key={variationIdx} className='pt-6 relative'>
+          <Row key={`variationIdx-${variationIdx}`} className='pt-6 relative'>
             <Col span={4} className='text-right'>
               variation{variationIdx}：
             </Col>

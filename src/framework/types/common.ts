@@ -37,7 +37,7 @@ export interface KeyRules {
 
 export interface OptionsProps {
   name: string
-  value: string
+  value: string | number
 }
 
 export interface LabelOptionProps {
@@ -75,7 +75,7 @@ export interface SearchFormItemProps extends FormItemProps {
 }
 
 //分页组件
-export interface PageParamsProps{
+export interface PageParamsProps {
   currentPage: number,
   pageSize: number,
 }
