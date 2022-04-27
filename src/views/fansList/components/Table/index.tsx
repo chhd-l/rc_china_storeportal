@@ -53,7 +53,7 @@ const Index = ({ fanList }: { fanList: Fans[] }) => {
       render: (text: any, record: any) => (
         <Tooltip title="View Details">
           <span
-            className="cursor-pointer iconfont icon-Vector1 text-red-500"
+            className="cursor-pointer iconfont icon-kjafg text-red-500"
             onClick={() => {
               navigator("/fans-detail", { state: { id: record.id } });
             }}

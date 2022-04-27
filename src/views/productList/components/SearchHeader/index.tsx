@@ -1,6 +1,7 @@
 import { Form, Input, Button, Row, Col, Select, Tooltip } from "antd";
 import type { OptionsProps } from "@/framework/types/common";
 import { SearchContainer } from "@/components/ui/Container";
+import "./index.less"
 
 const { Option } = Select;
 interface SearchProps {
@@ -26,7 +27,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
     form.resetFields();
   };
   return (
-    <SearchContainer>
+    <SearchContainer className="product-search-top">
       <Form
         layout={"inline"}
         form={form}

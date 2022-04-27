@@ -75,7 +75,7 @@ const Picture = () => {
     },
   };
   return (
-    <div>
+    <div className="asset-tab-top">
       <div className="flex flex-row mb-4">
         <Upload {...uploadProps}>
           <Button>Upload Local File</Button>

@@ -33,7 +33,7 @@ const Index = ({ petOwnerList }: PetOwnerTableProps) => {
       render: (text: any, record: any) => (
         <Tooltip title="View Details">
           <span
-            className="cursor-pointer iconfont icon-Vector1 text-red-500"
+            className="cursor-pointer iconfont icon-kjafg text-red-500"
             onClick={() => {
               sessionStorage.setItem('cur-pet-owner',JSON.stringify(record))
               navigator('/pet-owner-detail', { state: { id: record.id } })
