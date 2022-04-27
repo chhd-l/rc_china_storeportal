@@ -58,7 +58,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
           />
         </Input.Group>
         <Button
-          className="w-32 mx-3"
+          className="w-32 mx-3 btn-primary"
           type="primary"
           danger
           onClick={() => {
@@ -70,7 +70,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
         </Button>
         <Button
           className="w-32"
-          danger
+          // danger
           onClick={(e) => {
             setSearchParams(initSearchParams)
             query && query(initSearchParams)

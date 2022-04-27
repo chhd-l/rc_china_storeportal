@@ -70,7 +70,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
                   <br />
                   {item.subscriptionId ? (
                     <span>
-                      <span className="iconfont icon-Frame1 text-red-500 mr-2" />
+                      <span className="iconfont icon-Frame1 primary-color mr-2" />
                       Subscription ID:{item.id}
                     </span>
                   ) : null}

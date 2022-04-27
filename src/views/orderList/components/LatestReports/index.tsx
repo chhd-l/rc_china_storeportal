@@ -56,7 +56,7 @@ const dataSource = [
 const LatestReport=()=>{
    return (
     <ContentContainer>
-        <TableContainer className='py-0 pb-7'>
+        <TableContainer>
         <div className='text-left text-xl font-bold'>LatestReports</div>
                  <Table dataSource={dataSource} columns={columns} pagination={false}/>
        </TableContainer>

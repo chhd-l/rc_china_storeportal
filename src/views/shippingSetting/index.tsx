@@ -23,7 +23,7 @@ const ShippingSetting = () => {
             />
             {enableExpress && (
               <span
-                className="iconfont icon-a-Group437 text-red-500 ml-4"
+                className="iconfont icon-a-Group437 primary-color ml-4"
                 onClick={() => {
                   setShipModalVisible(true);
                 }}

@@ -138,11 +138,11 @@ const ResetPassword = () => {
                 onChange={(e) => setVerifyCode(e.target.value)}
               />
               {errText ? (
-                <p className="my-0 text-left text-red-500">{errText}</p>
+                <p className="my-0 text-left primary-color">{errText}</p>
               ) : null}
               <p className="text-left mt-2">
                 Did not receive the code? &nbsp;
-                <span className="text-red-500" onClick={() => getVerifyCode()}>
+                <span className="primary-color" onClick={() => getVerifyCode()}>
                   Resend
                 </span>
               </p>
@@ -189,7 +189,7 @@ const ResetPassword = () => {
                 ))}
                 <Form.Item wrapperCol={{ span: 24 }} className="login-btn">
                   {errText ? (
-                    <p className="my-0 text-left text-red-500">{errText}</p>
+                    <p className="my-0 text-left primary-color">{errText}</p>
                   ) : null}
                   <ResetBtnGroup
                     back={() => {

@@ -71,7 +71,7 @@ const SubscriptionInformation = ({ subscriptionList, id }: any) => {
             <Col span={6} className="text-right">
               <Tooltip title="View Details">
                 <span
-                  className="cursor-pointer iconfont icon-Vector1 text-red-500"
+                  className="cursor-pointer iconfont icon-kjafg primary-color"
                   onClick={() => {
                     navigator("/subscription-detail", {
                       state: { id: item.subscriptionId },

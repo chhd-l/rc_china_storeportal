@@ -6,7 +6,7 @@ const PaymentInformation = ({ payInfo }: { payInfo: PayInfo | any }) => {
 
   return (
     <div className="flex justify-start flex-row">
-      <span className="iconfont icon-Frame2 text-red-500" />
+      <span className="iconfont icon-Frame2 primary-color" />
       <div className="ml-4 w-3/4">
         <div className="text-left text-base">Payment</div>
         {payTypeName ? (

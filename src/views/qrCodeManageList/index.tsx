@@ -20,7 +20,7 @@ const QrCodeManage = () => {
       <ProTable
         toolBarRender={() => [
           <Link to="/qrcode-manage/add">
-            <Button className="mt-8 " type="primary" ghost>
+            <Button className="mt-8 text-white" type="primary" ghost>
               + Add
             </Button>
           </Link>,

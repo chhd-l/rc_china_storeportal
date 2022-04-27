@@ -68,7 +68,7 @@ const Login = () => {
                 <Checkbox>Remember me</Checkbox>
               </Form.Item>
               <a
-                className="text-red-500 font-medium text-12"
+                className="primary-color font-medium text-12"
                 href={"/resetPassword"}
               >
                 Forget password?
@@ -76,7 +76,7 @@ const Login = () => {
             </Form.Item>
             <Form.Item wrapperCol={{ span: 24 }} className="login-btn">
               {loginError ? (
-                <p className="p-2 text-red-500 text-12">{loginError}</p>
+                <p className="p-2 primary-color text-12">{loginError}</p>
               ) : null}
               <Button
                 className="w-full"
@@ -90,7 +90,7 @@ const Login = () => {
               <p className="text-12 mt-2 text-left">
                 Don't have an account?{" "}
                 <a
-                  className="text-red-500 font-medium text-12"
+                  className="primary-color font-medium text-12"
                   href={"/register"}
                 >
                   Register

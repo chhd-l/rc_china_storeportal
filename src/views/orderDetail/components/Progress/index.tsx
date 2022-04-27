@@ -38,7 +38,7 @@ const OrderProgress = ({
     <div>
       <div className="flex flex-row justify-between">
         <div className="text-left flex flex-row text-black">
-          <span className="icon-dingdan iconfont text-red-500 text-xl" />
+          <span className="icon-dingdan iconfont primary-color text-xl" />
           <span className="ml-4">
             Order ID:{orderId}
             <br />

@@ -57,7 +57,7 @@ const CouponInformation = ({ couponCodeList, id }: CouponInfoProps) => {
       render: (text: any, record: any) => (
         <Tooltip title="Deletes">
           <span
-            className="cursor-pointer iconfont icon-Frame3 text-red-500 text-xl"
+            className="cursor-pointer iconfont icon-Frame3 primary-color text-xl"
             onClick={() => {}}
           />
         </Tooltip>
