@@ -4,6 +4,7 @@ import { Form, Input, Select } from 'antd'
 import { useContext, useEffect, useState } from 'react'
 import { DetailContext } from '../../index'
 import { FormProps } from '@/framework/types/common'
+import { EditOutlined } from '@ant-design/icons'
 const breedList = [
   { name: 'breed1', value: 'breed1' },
   { name: 'breed2', value: 'breed2' },
@@ -61,11 +62,22 @@ const BasicInfo = ({ field }: FormProps) => {
         <Wangeditor defaultValue={detail.description} onChange={handleEditorChange} />
       </Form.Item>
       <Form.Item label='Category' name='category'>
-        <Input
-          onClick={() => {
-            setShowCatePop(true)
-          }}
-        />
+        <div className='flex'>
+          {detail.selectedCateOptions?.map((cate: any, idx: number) => (
+            <div>
+              {idx === 0 ? '' : '>'}
+              {cate.label}
+            </div>
+          ))}
+          <EditOutlined
+            onClick={() => {
+              setShowCatePop(true)
+            }}
+          />
+        </div>
+        {/* <Input
+         
+        /> */}
       </Form.Item>
       <Form.Item label='Brand' name='brand'>
         <Select placeholder='please select Brand' options={breedList} />

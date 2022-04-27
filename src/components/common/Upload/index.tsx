@@ -31,7 +31,9 @@ function beforeUpload (file: any) {
 }
 const UploadWrap = (props: UploadWrapProps) => {
   const [loading, setLoading] = useState(false)
-  const [imageUrl, setImageUrl] = useState('')
+  const [imageUrl, setImageUrl] = useState(
+    'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
+  )
   const uploadProps = {
     name: 'file',
     action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
@@ -70,13 +72,30 @@ const UploadWrap = (props: UploadWrapProps) => {
       })
     }
   }
+  const fileList = [
+    {
+      uid: '-1',
+      name: '',
+      // status: 'done',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+      thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+  ]
   return (
     <div>
       {type === UploadType.button ? (
-        <Upload {...uploadProps}>
-          <Button icon={<UploadOutlined />}>Click to Upload</Button>{' '}
+        <Upload
+          action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
+          listType='picture'
+          defaultFileList={[...fileList]}
+          className='upload-list-inline'
+        >
+          {fileList.length ? null : <Button icon={<UploadOutlined />}>Upload</Button>}
         </Upload>
-      ) : null}
+      ) : // <Upload {...uploadProps}>
+      //   <Button icon={<UploadOutlined />}>Click to Upload</Button>{' '}
+      // </Upload>
+      null}
       {type === UploadType.img ? (
         <Upload
           name='avatar'

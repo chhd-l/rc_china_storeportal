@@ -129,7 +129,7 @@ export interface ProductListProps {
 }
 export enum ProductType {
   Regular = 'REGULAR',
-  Bundle = 'BUNDLE',
+  // Bundle = 'BUNDLE',
 }
 
 export enum AddCateType {

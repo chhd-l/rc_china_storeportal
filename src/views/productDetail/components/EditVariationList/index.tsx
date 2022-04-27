@@ -8,6 +8,7 @@ import { ChangeType, SpecificationListProps, VarationProps, VarationsFormProps }
 import { headerOrigition } from '../../modules/constant'
 import Upload, { UploadType } from '@/components/common/Upload'
 import { DetailContext } from '../..'
+import { VerticalAlignBottomOutlined, VerticalAlignTopOutlined } from '@ant-design/icons'
 export interface VarviationProps {
   defaultImage: string
   skuNo: string
@@ -23,6 +24,7 @@ interface HeaderProps {
   type: string
   label: string
   keyVal: string
+  options?: any
 }
 let isInited = false
 const commonClass = 'w-32 border-0 border-t border-r border-solid border-gray-200 text-center'
@@ -93,6 +95,11 @@ const EditVariationList = (props: FormProps) => {
     cloneHeaderOrigition.splice(1, 0, ...variationHeaders)
     setHeaderList(cloneHeaderOrigition)
   }
+  const updateVations = () => {
+    detail.goodsVariantsInput = variationList
+    detail.goodsSpecificationsInput = variationForm.variationList
+    console.info('detail', detail)
+  }
 
   const calcDescartes = (array: any) => {
     if (array.length < 2) return array[0] || []
@@ -156,6 +163,7 @@ const EditVariationList = (props: FormProps) => {
         marketingPrice: '',
         subscriptionPrice: '',
         sortIdx,
+        relArr: [],
       }
       if (variationForm.changeType === ChangeType.handleSpec || isDefultData) {
         //to do spec选择,需要操作====
@@ -183,11 +191,19 @@ const EditVariationList = (props: FormProps) => {
         vartion.forEach((spec: any, idx: number) => {
           let name = formData[idx]?.name || `Variation${idx}`
           newEl[name] = (spec[0] || spec)?.option || 'option'
+          newEl.relArr.push({
+            specificationName: name,
+            specificationDetailName: newEl[name],
+          })
         })
       } else {
         debugger
         let name = formData[0]?.name || `Variation0`
         newEl[name] = vartion?.option || 'option'
+        newEl.relArr.push({
+          specificationName: name,
+          specificationDetailName: newEl[name],
+        })
       }
 
       return newEl
@@ -196,7 +212,6 @@ const EditVariationList = (props: FormProps) => {
     setVariationList(cloneDeep(list))
     // return list
   }
-  const handleSelect = () => {}
   return (
     <div className='overflow-scroll w-full'>
       {variationList?.length ? (
@@ -215,12 +230,14 @@ const EditVariationList = (props: FormProps) => {
                   <td key={`${tr.sortIdx}-${count}`}>
                     <span>
                       {(() => {
+                        console.info(tr[td.keyVal], typeof tr[td.keyVal])
                         switch (td.type) {
                           case 'input':
                             return (
                               <Input
                                 onBlur={e => {
                                   tr[td.keyVal] = e.target.value
+                                  updateVations()
                                 }}
                                 defaultValue={tr[td.keyVal]}
                               />
@@ -239,21 +256,42 @@ const EditVariationList = (props: FormProps) => {
                               />
                             )
                           case 'priceInput':
-                            return <Input prefix='￥' />
+                            return (
+                              <Input
+                                prefix='￥'
+                                onBlur={e => {
+                                  tr[td.keyVal] = e.target.value
+                                  updateVations()
+                                }}
+                                defaultValue={tr[td.keyVal]}
+                              />
+                            )
                           case 'select':
                             return (
                               <Select
-                                defaultValue=''
+                                defaultValue={tr[td.keyVal]}
+                                // value={tr[td.keyVal]}
                                 style={{ width: 120 }}
-                                options={[
-                                  { label: 'yes', value: '0' },
-                                  { label: 'no', value: '1' },
-                                ]}
-                                onChange={handleSelect}
+                                options={td.options}
+                                // defaultValue={tr[td.keyVal]}
+                                onChange={(value, option) => {
+                                  tr[td.keyVal] = value
+                                  console.info(value, option)
+                                  updateVations()
+                                }}
                               ></Select>
                             )
                           case 'number':
-                            return <Input type='number' />
+                            return (
+                              <Input
+                                type='number'
+                                onBlur={e => {
+                                  tr[td.keyVal] = e.target.value
+                                  updateVations()
+                                }}
+                                defaultValue={tr[td.keyVal]}
+                              />
+                            )
                           // return
                           case 'popup':
                             return (
@@ -263,7 +301,28 @@ const EditVariationList = (props: FormProps) => {
                             )
                           case 'subSku':
                             return <div>test</div>
-
+                          case 'shelves':
+                            return (
+                              <div>
+                                {tr[td.keyVal] === 'true' ? (
+                                  <VerticalAlignTopOutlined
+                                    onClick={() => {
+                                      tr[td.keyVal] = 'flse'
+                                      updateVations()
+                                      console.info('tr[td.keyVal]', tr[td.keyVal])
+                                    }}
+                                  />
+                                ) : (
+                                  <VerticalAlignBottomOutlined
+                                    onClick={() => {
+                                      tr[td.keyVal] = 'true'
+                                      updateVations()
+                                      console.info('tr[td.keyVal]', tr[td.keyVal])
+                                    }}
+                                  />
+                                )}
+                              </div>
+                            )
                           default:
                             return <span>ooo</span>
                         }
@@ -276,6 +335,13 @@ const EditVariationList = (props: FormProps) => {
           </tbody>
         </table>
       ) : null}
+      <button
+        onClick={() => {
+          console.info('datadata', variationList)
+        }}
+      >
+        get VAlue
+      </button>
     </div>
     // <>
     //   {variationForm.variationList?.length ? (

@@ -5,12 +5,13 @@ import Specification from '../Specification'
 import SalesInfo from '../SalesInfo'
 import Shipping from '../Shipping'
 import { Form, Space, Button } from 'antd'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { steps, formInitialValues } from '../../modules/constant'
 import { InfoContainer, DivideArea } from '@/components/ui'
 import { DetailContext } from '../../index'
+import { createProduct } from '@/framework/api/get-product'
 interface MainInfoProps {
-  detail: any
+  details: any
   cateInfo: {
     cateId: string[]
   }
@@ -25,9 +26,22 @@ const MainInfo = ({ cateInfo }: MainInfoProps) => {
   const hanldeTips = (idx: number) => {
     setTipsIdx(idx)
   }
-  const onFinish = (values: any) => {
-    console.log(values, cateInfo)
+  // useEffect(()=>{
+
+  // },detail.name)
+  const onFinish = async (values: any) => {
+    //组装product数据
+    console.log(values, cateInfo, detail)
+
+    let params = Object.assign({}, detail, values, cateInfo, {
+      type: 'REGULAR',
+    })
+    console.info('.......')
+    console.info('params', params)
+    let data = await createProduct(params)
+    console.info('data', data)
   }
+  console.info('detaildetaildetaildetail', detail)
   return (
     <div
       id={steps[0].anchor}
@@ -44,16 +58,7 @@ const MainInfo = ({ cateInfo }: MainInfoProps) => {
             span: 14,
           }}
           layout='horizontal'
-          initialValues={Object.assign(detail, {
-            specification: [
-              {
-                fieldKey: 1,
-                isListField: true,
-                key: 1,
-                name: 1,
-              },
-            ],
-          })}
+          initialValues={detail}
         >
           {/* <Form.List name="product">
             {(fields) => (

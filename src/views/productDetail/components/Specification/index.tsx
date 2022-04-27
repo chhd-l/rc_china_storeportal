@@ -12,6 +12,7 @@ import { GoodsAttributeAndValue } from '@/framework/schema/product.schema'
 const Specification = (props: FormProps) => {
   const { detail } = useContext(DetailContext)
   const [specificationList, setSpecificationList] = useState<AttributeListProps[]>([])
+  const [goodsAttributeValueRel, setGoodsAttributeValueRel] = useState<any>({})
   useEffect(() => {
     console.info('......................', detail.cateId)
     getAttrList()
@@ -26,7 +27,9 @@ const Specification = (props: FormProps) => {
     setSpecificationList(list)
   }, [])
   const getAttrList = async () => {
-    let data = await getAttrs({ storeId: '12345678', categoryId: '12' })
+    let categoryId = detail.cateId[detail.cateId.length - 1]
+    console.info('categoryId', categoryId)
+    let data = await getAttrs({ storeId: '12345678', categoryId })
     let list = data.map((item: any) => {
       item.className = 'w-1/2'
       item.type = 'select'
@@ -55,9 +58,20 @@ const Specification = (props: FormProps) => {
                 defaultValue={{
                   value: specification.defaultVal,
                 }}
+                placeholder={`please select`}
                 style={{ width: 120 }}
                 options={specification.options}
-                onChange={handleChange}
+                onChange={(value, option) => {
+                  let newRel = Object.assign(goodsAttributeValueRel, {
+                    // @ts-ignore
+                    [option.attributeId]: option.id,
+                  })
+                  console.info('newRel', newRel)
+                  console.info(option)
+                  detail.goodsAttributeValueRelInput = newRel
+                  setGoodsAttributeValueRel(newRel)
+                  // handleChange()
+                }}
               ></Select>
             </Col>
           </Row>
