@@ -41,27 +41,7 @@
 
 // sider样式修改
 .ant-layout-sider {
-  // width: 12%;
-  // height: 100%;
-  // overflow: hidden;
-  // background-color: #fff;
-  // border-radius: 5px;
-
-  // :global {
-  //   ::-webkit-scrollbar {
-  //     width: 5px;
-  //     height: 10px;
-  //   }
-  //   ::-webkit-scrollbar-thumb {
-  //     background: rgba(0, 0, 0, 0.1);
-  //     border-radius: 10px;
-  //   }
-  //   ::-webkit-scrollbar-track {
-  //     border-radius: 10px;
-  //   }
-  // }
   .ant-menu-submenu {
-    // margin-top: 27px;
     // 一级菜单样式
     .ant-menu-submenu-selected {
       color: #999999 !important;
@@ -95,7 +75,7 @@
       margin-top: -10px;
       margin-bottom: 10px;
       .ant-menu-item-only-child {
-        width: 170px !important;
+        min-width: 0px !important;
         padding-left: 42px !important;
         color: #333333;
         font-size: 13px;
@@ -103,23 +83,24 @@
         margin-left: 8px;
         margin-top: 0;
         margin-bottom: 0;
-        // line-height: 10px;
         height: 30px;
-        // .ant-menu-item a:before {
-        //   width: 170px !important;
-        // }
-        // 清楚a标签后面的伪类
-        .ant-menu-inline .ant-menu-item-selected::after {
-          content: ' ';
-        }
-      }
-      .ant-menu-item-only-child:hover {
-        font-weight: bold;
-        color: #ee4d2d;
       }
     }
   }
 }
+.ant-menu-item a:before {
+  min-width: 0px !important;
+}
+.ant-menu-item-only-child:hover {
+  font-weight: bold;
+  color: #ee4d2d;
+}
+
+// 清楚a标签后面的伪类
+.ant-menu-inline .ant-menu-item-selected:after {
+  opacity: 0 !important;
+}
+
 /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
 ::-webkit-scrollbar {
   width: 5px;
