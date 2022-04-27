@@ -5,12 +5,12 @@ import { Comment } from "@/framework/types/order";
 
 const OrderComment = ({ comments }: { comments: Comment[] }) => {
   const [form] = Form.useForm();
-
   return (
     <div className="bg-white p-4">
       <div className="h-80 border-b-2">
-        {comments.map((item) => (
-          <div>
+        {comments.map((item) => {
+        console.log(' item', item.createdAt)
+          return(<div>
             <div className="flex justify-between">
               <span className="flex items-center">
                 <Avatar size="small" icon={<UserOutlined />} />
@@ -25,8 +25,9 @@ const OrderComment = ({ comments }: { comments: Comment[] }) => {
               <span>{item.createdAt}</span>
             </div>
             <div className="text-left pl-8">{item.content}</div>
-          </div>
-        ))}
+          </div>)
+        }
+        )}
       </div>
       <div>
         <Form
@@ -65,3 +66,4 @@ const OrderComment = ({ comments }: { comments: Comment[] }) => {
   );
 };
 export default OrderComment;
+

@@ -35,13 +35,13 @@ const column = [
       <>
         <Tooltip title="View QR Code">
           <span
-            className="cursor-pointer ml-2 iconfont icon-Frame-1 text-red-500 text-xl"
+            className="cursor-pointer ml-2 iconfont icon-Frame-1 primary-color text-xl"
             onClick={() => {}}
           />
         </Tooltip>
         <Tooltip title="Delete">
           <span
-            className="cursor-pointer ml-2 iconfont icon-Frame3 text-red-500 text-xl"
+            className="cursor-pointer ml-2 iconfont icon-Frame3 primary-color text-xl"
             onClick={() => {}}
           />
         </Tooltip>

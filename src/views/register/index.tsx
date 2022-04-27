@@ -123,12 +123,12 @@ const Register = () => {
                   ? "Incorrect code!"
                   : "Did not receive the code?"}
                 &nbsp;
-                <span className="text-red-500" onClick={() => getVerifyCode()}>
+                <span className="primary-color" onClick={() => getVerifyCode()}>
                   {errVerifyCode ? "Resend code" : "Resend"}
                 </span>
               </p>
               {getVerifyCodeErr ? (
-                <p className="mb-2 text-left text-red-500">
+                <p className="mb-2 text-left primary-color">
                   {getVerifyCodeErr}
                 </p>
               ) : null}
