@@ -3,6 +3,8 @@ import {
   ShoppingOutlined,
   WechatOutlined,
 } from "@ant-design/icons"
+// 引入icon样式文件
+// import "../assets/css/iconfont/iconfont"
 
 export const menus = [
   {
@@ -10,7 +12,7 @@ export const menus = [
     value: "shipment",
     url: "",
     key: "shipment",
-    icon: <MailOutlined />,
+    icon: <span className="icon iconfont  icon-a-bianzu10" />,
     children: [
       {
         name: "My Shipment",
@@ -31,7 +33,7 @@ export const menus = [
     value: "order",
     url: "",
     key: "order",
-    icon: <MailOutlined />,
+    icon: <span className="icon iconfont icon-a-bianzu11" />,
     children: [
       {
         name: "My Orders",
@@ -53,7 +55,7 @@ export const menus = [
     value: "product",
     url: "",
     key: "product",
-    icon: <ShoppingOutlined />,
+    icon: <span className="icon iconfont icon-a-bianzu12" />,
     children: [
       {
         name: "My Products",
@@ -74,7 +76,7 @@ export const menus = [
     value: "petOwner",
     url: "",
     key: "petOwner",
-    icon: <ShoppingOutlined />,
+    icon: <span className="icon iconfont icon-a-bianzu12-1" />,
     children: [
       {
         name: "My Pet Owner",
@@ -89,7 +91,7 @@ export const menus = [
     value: "shop",
     url: "",
     key: "shop",
-    icon: <ShoppingOutlined />,
+    icon: <span className="icon iconfont icon-a-bianzu18" />,
     children: [
       {
         name: "Shop Rating",
@@ -110,7 +112,7 @@ export const menus = [
     value: "wechat_management",
     url: "",
     key: "wechat_management",
-    icon: <WechatOutlined />,
+    icon: <span className="icon iconfont icon-a-WechatSetting" />,
     children: [
       {
         name: "Account Management",

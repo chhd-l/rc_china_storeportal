@@ -36,6 +36,7 @@ export const formItems: SearchFormItemProps[] = [
     label: "Follow Time",
     name: "followTime",
     placeholder: "Follow Time",
+    type: "dateTime"
   },
   {
     label: "Is Member",

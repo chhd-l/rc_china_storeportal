@@ -52,11 +52,11 @@ export const tableColumns = ({
       order: 2,
       hideInTable: true,
       valueEnum: {
-        all: { text: "全部", status: "Default" },
-        close: { text: "关闭", status: "Default" },
-        running: { text: "运行中", status: "Processing" },
-        online: { text: "已上线", status: "Success" },
-        error: { text: "异常", status: "Error" },
+        all: { text: "All", status: "Default" },
+        close: { text: "Turn Off", status: "Default" },
+        running: { text: "Operation", status: "Processing" },
+        online: { text: "Launched", status: "Success" },
+        error: { text: "Abnormal", status: "Error" },
       },
     },
     {

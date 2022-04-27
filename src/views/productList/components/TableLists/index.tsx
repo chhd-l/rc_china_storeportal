@@ -52,7 +52,7 @@ const ListTable = ({ listData }: ListTableProps) => {
 
   return (
     <div>
-      <div className="border-l border-r border-solid border-gray-400">
+      <div >
         <div className="flex bg-gray-200 py-3">
           <div className="px-2">
             <Checkbox
