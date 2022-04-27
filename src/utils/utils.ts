@@ -6,10 +6,7 @@ export const getCurrencyCode = () => {
 }
 
 export const formatMoney = (price: number) => {
-  if (!price) {
-    return ''
-  }
-  return getCurrencyCode() + price.toFixed(2)
+  return getCurrencyCode() + (price||0).toFixed(2)
 }
 
 export const handleValueEnum = (list: LabelOptionProps[]) => {

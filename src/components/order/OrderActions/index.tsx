@@ -23,7 +23,7 @@ const OrderActions = ({
 
   const shipped = async (tradeShippingInfoInput: any) => {
     const params = {
-      TradeShippingInfoInput: tradeShippingInfoInput,
+      tradeShippingInfoInput: tradeShippingInfoInput,
       address: _.omit(orderAddress, ['isDefault', 'postCode']),
       orderNum: orderId,
       nowOrderState: orderState,
@@ -49,7 +49,7 @@ const OrderActions = ({
       {location.pathname !== '/order-detail' && (
         <Tooltip title="View order details">
           <span
-            className="cursor-pointer iconfont icon-Vector1 text-red-500"
+            className="cursor-pointer iconfont icon-kjafg text-red-500"
             onClick={() => {
               navigator('/order-detail', {
                 state: { id: orderId, status: orderState },
