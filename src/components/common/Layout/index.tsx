@@ -2,12 +2,16 @@ import { Outlet } from "react-router-dom";
 import Menus from "../Menus";
 import TopHeader from "../Header";
 import { Layout } from "antd";
+import RouteBreadcrumb from './RouteBreadcrumb'
+
 const { Header, Content, Sider } = Layout;
 const AppLayout = () => {
+
   return (
     <Layout>
-      <Header className="bg-white p-0 fixed w-full" style={{ zIndex: 1 }}>
-        <TopHeader />
+      <Header className="bg-white p-0 fixed w-full flex items-center" style={{ zIndex: 1 }}>
+        {/* <TopHeader /> */}
+        <RouteBreadcrumb />
       </Header>
       <Layout style={{ marginTop: 64 }}>
         <Sider
