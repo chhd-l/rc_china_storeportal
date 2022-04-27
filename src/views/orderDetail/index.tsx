@@ -1,12 +1,9 @@
-import Mock from 'mockjs'
 import React, { useEffect, useState } from 'react'
 import { TradeItem, Progress, Address, Carrier, OperationLog, Comment, Customer, Payment } from './components'
-import { orderDetailSource } from './modules/mockdata'
 import { useLocation } from 'react-router-dom'
 import { initOrderDetail } from './modules/constants'
 import { ContentContainer, InfoContainer, DivideArea } from '@/components/ui'
 import { getOrderDetail } from '@/framework/api/get-order'
-import { Order, OrderTradeItem } from '@/framework/types/order'
 
 const OrderDetail = () => {
   const [orderId, setOrderId] = useState('')

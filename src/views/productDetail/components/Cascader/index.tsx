@@ -23,7 +23,7 @@ const Cascader = (props: CascaderProps) => {
     setCategories(selectedOptions)
   }
   const getCate = async () => {
-    let list: TreeDataProps[] = await getCategories()
+    let list: TreeDataProps[] = await getCategories({ storeId: '12345678' })
     setCategoryList(list)
   }
   useEffect(() => {

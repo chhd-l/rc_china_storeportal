@@ -10,12 +10,11 @@ const breedList = [
 ]
 
 const salesStatusList = [
-  { value: 'Saleable', name: 1 },
-  { value: 'Not saleable', name: 0 },
+  { value: 'Saleable', name: true },
+  { value: 'Not saleable', name: false },
 ]
 const BasicInfo = ({ field }: FormProps) => {
   // const [form] = Form.useForm();
-  console.info('propsprops', field)
   // const onFinish = (values: any) => {
   //   console.log(values);
   // };

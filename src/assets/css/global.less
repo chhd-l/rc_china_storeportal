@@ -25,10 +25,112 @@
     border-radius: 0 !important;
   }
 }
+.ant-layout-content {
+  height: 1000vh;
+  .ant-form-item-control-input {
+    text-align: left !important;
+  }
+}
 // Order详情进度条颜色修改
 .ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-tail:after {
   background-color: rgb(248 198 198 / 60%);
 }
 .ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title {
   color: var(--ant-primary-color);
+}
+
+// sider样式修改
+.ant-layout-sider {
+  // width: 12%;
+  // height: 100%;
+  // overflow: hidden;
+  // background-color: #fff;
+  // border-radius: 5px;
+
+  // :global {
+  //   ::-webkit-scrollbar {
+  //     width: 5px;
+  //     height: 10px;
+  //   }
+  //   ::-webkit-scrollbar-thumb {
+  //     background: rgba(0, 0, 0, 0.1);
+  //     border-radius: 10px;
+  //   }
+  //   ::-webkit-scrollbar-track {
+  //     border-radius: 10px;
+  //   }
+  // }
+  .ant-menu-submenu {
+    // margin-top: 27px;
+    // 一级菜单样式
+    .ant-menu-submenu-selected {
+      color: #999999 !important;
+    }
+    .ant-menu-submenu-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #999999;
+      padding-left: 20px !important;
+      padding-left: 20px !important;
+    }
+    .ant-menu-item-icon {
+      font-size: 20px;
+      color: #999999;
+    }
+    .ant-menu-submenu-title:hover {
+      font-size: 14px;
+      font-weight: bold;
+      color: #999999;
+      background-color: #fff;
+      padding-left: 20px !important;
+      padding-left: 20px !important;
+      .ant-menu-submenu-arrow:hover {
+        // margin-right: 20px;
+        color: #ee4d2d;
+        font-weight: bold;
+      }
+    }
+    // 二级菜单样式
+    .ant-menu {
+      margin-top: -10px;
+      margin-bottom: 10px;
+      .ant-menu-item-only-child {
+        width: 170px !important;
+        padding-left: 42px !important;
+        color: #333333;
+        font-size: 13px;
+        background-color: #fff;
+        margin-left: 8px;
+        margin-top: 0;
+        margin-bottom: 0;
+        // line-height: 10px;
+        height: 30px;
+        // .ant-menu-item a:before {
+        //   width: 170px !important;
+        // }
+        // 清楚a标签后面的伪类
+        .ant-menu-inline .ant-menu-item-selected::after {
+          content: ' ';
+        }
+      }
+      .ant-menu-item-only-child:hover {
+        font-weight: bold;
+        color: #ee4d2d;
+      }
+    }
+  }
+}
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+}
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track {
+  border-radius: 10px;
 }

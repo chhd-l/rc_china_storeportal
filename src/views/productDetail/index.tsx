@@ -3,7 +3,7 @@ import MainInfo from './components/MainInfo'
 import { createContext, useEffect, useState } from 'react'
 import Demo from './components/Demo'
 import { ContentContainer } from '@/components/ui'
-import { getAttrs, getCategories, getProduct } from '@/framework/api/get-product'
+import { getAttrs, getCategories, getProduct, getProductDetail } from '@/framework/api/get-product'
 import { useParams } from 'react-router-dom'
 import { CateItemProps } from '@/framework/schema/product.schema'
 export const DetailContext = createContext(null as any)
@@ -21,7 +21,7 @@ const Product = () => {
     }
   }, [])
   const getDetail = async () => {
-    let data = await getProduct()
+    let data = await getProductDetail({ storeId: '12345678', goodsId: '7d58d3fb-77a7-66b2-dfb3-dfcd21a44ead' })
     console.info('data', data)
     setDetail(data)
     setCateInfo({ cateId: ['123'] })

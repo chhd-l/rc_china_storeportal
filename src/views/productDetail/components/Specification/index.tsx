@@ -16,19 +16,21 @@ const Specification = (props: FormProps) => {
     console.info('......................', detail.cateId)
     getAttrList()
   }, [detail.cateId])
-  // useEffect(() => {
-  //   console.info('.=====================...........', detail.cateId)
-
-  //   getAttrList()
-  // }, [])
+  useEffect(() => {
+    //to do
+    let list = detail.attributeList?.map((item: any) => {
+      item.className = 'w-1/2'
+      item.type = 'select'
+      return item
+    })
+    setSpecificationList(list)
+  }, [])
   const getAttrList = async () => {
-    let data = await getAttrs()
+    let data = await getAttrs({ storeId: '12345678', categoryId: '12' })
     let list = data.map((item: any) => {
       item.className = 'w-1/2'
       item.type = 'select'
-      item.defaultVal = detail?.goodsAttributeValueRel.find((el: GoodsAttributeAndValue) => {
-        console.info('el', el)
-        console.info('item', item)
+      item.defaultVal = detail?.goodsAttributeValueRel?.find((el: GoodsAttributeAndValue) => {
         return el.attributeValueId === item.id
       })?.attributeValueName
       return item
@@ -42,9 +44,9 @@ const Specification = (props: FormProps) => {
   }
   return (
     <div className='overflow-hidden'>
-      {specificationList.map(specification => {
+      {specificationList?.map(specification => {
         return (
-          <Row className='w-1/2 float-left ant-form-item'>
+          <Row key={specification.id} className='w-1/2 float-left ant-form-item'>
             <Col span={5}>{specification.label}</Col>
             <Col span={16}>
               <Select

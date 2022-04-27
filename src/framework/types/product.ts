@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { GoodsAttributeAndValue } from '../schema/product.schema'
 import { productLists } from './../../views/categoryDetail/modules/mockdata'
-import { OptionsProps } from './common'
+import { OptionsProps, PageProps } from './common'
 
 export interface TableHeadersItemProps {
   title: string
@@ -80,9 +80,9 @@ export interface ProductDetailProps {
   assets: AssertsProps[]
   length: string
   brandList: [],
-  goodsAttributeValueRel: GoodsAttributeAndValue[]
+  goodsAttributeValueRel?: GoodsAttributeAndValue[]
   // attributeList: AttributeListProps[],
-  categoryList: TreeDataProps[],
+  categoryList?: TreeDataProps[],
   // lifeStage: string
   // listPrice: string
   // marketingPrice: string
@@ -118,6 +118,7 @@ export interface ProductListItemProps {
   price: number
   stock: number
   name: string
+
 }
 export interface ProductListProps {
   products: ProductListItemProps[]
@@ -137,19 +138,26 @@ export enum AddCateType {
 }
 export interface SpecificationListProps {
   option: string
+  goodsSpecificationId?: string
 }
 export interface VarationProps {
   name: string
   specificationList: SpecificationListProps[]
 }
 export interface VarationsFormProps {
-  changeType?: ChangeType
+  changeType: ChangeType
   variationList: VarationProps[]
 }
+export interface ProductListSimpleQueryProps {
+  storeId?: string
+}
+export interface ProductListQueryProps extends PageProps {
+  sample?: ProductListSimpleQueryProps
+}
 export enum ChangeType {
-  handleVariation,
+  handleVariation = 'VARIATION',
   // addVariation,
-  handleSpec,
+  handleSpec = 'SPEC',
   // addSpec,
   // drag
 }

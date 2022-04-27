@@ -1,4 +1,6 @@
-import { CateItemProps, Goods, GoodsAssets, GoodsAttribute } from '../schema/product.schema'
+import { VarationProps, VarationsFormProps } from '../types/product'
+import { CateItemProps, Goods, GoodsAssets, GoodsAttribute, GoodsSpecification, GoodsVariants } from '../schema/product.schema'
+import { ProductListSkuItem } from '../types/product'
 
 export const normaliseDetailforFe = (detail: any) => {
   let spu = {
@@ -8,8 +10,8 @@ export const normaliseDetailforFe = (detail: any) => {
     // breeds: string
     cardName: detail.cardName,
     cateId: detail.goodsCategoryId,
-    categoryList: normaliseCateProps(detail.categoryList),
-    // attributeList: normaliseAttrProps(detail.attributeList),
+    categoryList: normaliseCateProps(detail.listCategoryGet),
+    attributeList: normaliseAttrProps(detail.listAttributeGet),
     brandList: detail.brandList,
     description: detail.goodsDescription,
     // feedingDays: detail.feedingDays,
@@ -29,6 +31,9 @@ export const normaliseDetailforFe = (detail: any) => {
     salesStatus: detail.salesStatus,
     // size: detail.,
     spuNo: detail.spuNo,
+    variationForm: {
+      variationList: normaliseVariation(detail.goodsSpecifications)
+    },
     // stock: detail.stock,
     // subscription: detail.subscriptionStatus,//??
     // subscriptionPrice: detail.subscriptionPrice,//？？
@@ -40,6 +45,47 @@ export const normaliseDetailforFe = (detail: any) => {
     // zone: detail.,
   }
   return spu
+}
+export const normaliseVariation = (data: GoodsSpecification[]): VarationProps[] => {
+  let variationList = data.map(el => {
+    let variation = {
+      name: el.specificationName,
+      specificationList: el.goodsSpecificationDetail.map(spe => {
+        let newSpe = {
+          option: spe.specificationDetailName,
+          goodsSpecificationId: spe.id
+        }
+        return newSpe
+      })
+    }
+    return variation
+  })
+  return variationList
+}
+export const normaliseProductListSku = (sku: GoodsVariants): ProductListSkuItem => {
+  let skuItem = {
+    id: sku.id,
+    no: sku.skuNo,
+    specs: '',
+    price: sku.marketingPrice,
+    stock: sku.stock
+  }
+  return skuItem
+}
+export const normaliseProductListSpu = (spu: Goods): ProductListSkuItem => {
+  let listItem = {
+    skus: spu.goodsVariants.map(sku => normaliseProductListSku(sku)),
+    img: spu.defaultImage,
+    id: spu.id,
+    no: spu.spuNo,
+    showAll: false,
+    checked: false,
+    specs: 'string',
+    price: 0,
+    stock: 0,
+    name: spu.goodsName
+  }
+  return listItem
 }
 export const normaliseCateProps = (data: CateItemProps[]) => {
   return getTree(data, null, 0)

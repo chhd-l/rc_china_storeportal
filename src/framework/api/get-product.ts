@@ -1,23 +1,20 @@
 import ApiRoot from './fetcher'
-import Mock from 'mockjs'
-import { detail } from '../mock/productdetail'
-import { CateItemProps } from '../schema/product.schema'
-import { ProductDetailProps, TreeDataProps } from '../types/product'
-import { normaliseAttrProps, normaliseCateProps, normaliseDetailforFe } from '../normalize/product'
+import { CateItemProps, Goods } from '../schema/product.schema'
+import { ProductDetailProps, ProductListProps, ProductListQueryProps, TreeDataProps } from '../types/product'
+import { normaliseAttrProps, normaliseCateProps, normaliseDetailforFe, normaliseProductListSpu } from '../normalize/product'
 import { brandList } from '../mock/brands'
-import { attributeList } from '../mock/attributelist'
-import { categoryList } from '../mock/categorylist'
-// import {ApiRoot} from '@/rc-china-commerce/packages/fetch/lib/index'
-export const getCategories = (): TreeDataProps[] => {
-  const cateList: TreeDataProps[] = normaliseCateProps(categoryList)
+export const getCategories = async ({ storeId }: { storeId: string }): Promise<TreeDataProps[]> => {
+
   try {
+    let categoryList = await ApiRoot.products().getProductCategories({ storeId })
+    const cateList: TreeDataProps[] = normaliseCateProps(categoryList.getProductCates)
     console.info('list', cateList)
-    // const pets = await ApiRoot.products().getCategories({ customerId })
+    return cateList
     // return normalisePets(pets)
   } catch (e) {
     console.log(e)
+    return []
   }
-  return cateList
 }
 
 export const getBrands = () => {
@@ -28,45 +25,87 @@ export const getBrands = () => {
   }
   return brandList
 }
-export const getAttrs = () => {
-  let data = normaliseAttrProps(attributeList)
+export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categoryId: string }) => {
+
   try {
+    const { getAttributes: attributeList } = await ApiRoot.products().getAttrList({ storeId, categoryId })
+    let data = normaliseAttrProps(attributeList)
     console.info('getAttrslist', data)
+    return data
   } catch (e) {
     console.log(e)
+    return []
   }
-  return data
 }
 
-export const getProduct = (): ProductDetailProps => {
-  const detailinfo = detail
-  const normalizedData = normaliseDetailforFe(detailinfo)
+export const getProduct = async ({ storeId, goodsId }: { storeId: string, goodsId: string }): Promise<ProductDetailProps> => {
+
   try {
-    // return detailinfo
-    // const pets = await ApiRoot.products().getProduct({ customerId })
-    // return normalisePets(pets)
+    const detailinfo = await ApiRoot.products().getProductBySpu({ storeId, goodsId })
+    // const detailinfo = detail
+    const normalizedData = normaliseDetailforFe(detailinfo)
+    return normalizedData
+
   } catch (e) {
     console.log(e)
-    // return
+    return {} as ProductDetailProps
   }
-  return normalizedData
 }
 
-export const getProductBySpuId = async () => {
+
+export const getAllProducts = async (params: ProductListQueryProps): Promise<ProductListProps> => {
+  try {
+    const res = await ApiRoot.products().getAllProducts(params)
+    const list = res.products.map((product: Goods) => normaliseProductListSpu(product))
+    let data = {
+      products: list,
+      all: 'string',
+      live: 'string',
+      soldOut: 'string',
+      disabled: 'string',
+
+    }
+    return data
+
+  } catch (e) {
+    console.log(e)
+    return {
+      products: [],
+      all: '0',
+      live: '0',
+      soldOut: '0',
+      disabled: '0',
+    }
+  }
+}
+
+export const getProductBySpuId = async (params: ProductListQueryProps) => {
   // console.info('ApiRoot')
-  const data = await ApiRoot.products().getAllProducts()
+  const data = await ApiRoot.products().getAllProducts(params)
   console.info('.......getAllProducts', data)
-  // const detailinfo = detail
-  // const normalizedData = normaliseDetailforFe(detailinfo)
   try {
-    // return detailinfo
-    // const pets = await ApiRoot.products().getProduct({ customerId })
-    // return normalisePets(pets)
   } catch (e) {
     console.log(e)
     // return
   }
   return data
 }
+
+
+export const getProductDetail = async ({ storeId, goodsId }: { storeId: string, goodsId: string }) => {
+
+  try {
+    const { productDetail } = await ApiRoot.products().getProductDetail({ storeId, goodsId })
+    const { listAttributeGet, listCategoryGet, findGoodsByGoodsId } = productDetail
+    let detail = Object.assign({}, findGoodsByGoodsId, { listAttributeGet, listCategoryGet })
+    let info = normaliseDetailforFe(detail)
+    return info
+  } catch (e) {
+    console.log(e)
+    return {}
+  }
+}
+
+
 
 

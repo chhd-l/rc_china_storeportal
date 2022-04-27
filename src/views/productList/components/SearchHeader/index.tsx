@@ -1,4 +1,4 @@
-import { Form, Input, Button, Row, Col, Select } from "antd";
+import { Form, Input, Button, Row, Col, Select, Tooltip } from "antd";
 import type { OptionsProps } from "@/framework/types/common";
 import { SearchContainer } from "@/components/ui/Container";
 
@@ -59,11 +59,20 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
           </Col>
           <Col span={12}>
             <Form.Item label="Category" name="category">
-              <Input placeholder={`please Input category`} />
+              <Input placeholder={`please Input category`} suffix={
+                <Tooltip title="Choose Category">
+                  <span className="icon iconfont icon-rc-edit" style={{ color: 'rgba(0,0,0,.45)' }}></span>
+                </Tooltip>
+              } />
             </Form.Item>
           </Col>
-          <Col span={12}>
+          <Col span={6}>
             <Form.Item label="Stock" name="stock">
+              <Input placeholder={`please Input stock`} />
+            </Form.Item>
+          </Col>
+          <Col span={6}>
+            <Form.Item name="stock">
               <Input placeholder={`please Input stock`} />
             </Form.Item>
           </Col>
@@ -84,11 +93,12 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                 {/* <SelectKey list={typeForKey} /> */}
               </Form.Item>
               <Form.Item className="flex-1" name="username3">
-                <Input placeholder={`please Input `} />
+                <Select placeholder="Choose Product Type"></Select>
+                {/* <Input placeholder={`please Input `} /> */}
               </Form.Item>
             </Input.Group>
           </Col>
-          <Col span={12} offset={12} className="text-right">
+          <Col span={12} offset={12} className="text-right ml-0">
             <Form.Item>
               <Button htmlType="submit" type="primary" className="mr-4">
                 Submit

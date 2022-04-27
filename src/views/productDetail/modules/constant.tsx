@@ -1,4 +1,4 @@
-import type { InputSelectProps, InputTextProps } from '@/framework/types/common'
+import { InputSelectProps, InputTextProps } from '@/framework/types/common'
 import { EyeOutlined } from '@ant-design/icons'
 import { ReactNode, useRef, useState } from 'react'
 import { SortableContainer } from 'react-sortable-hoc'
@@ -62,7 +62,10 @@ export const selectList: (InputTextProps | InputSelectProps)[] = [
 
 export const noSkuForm: (InputTextProps | InputSelectProps)[] = [
   {
-    options: [{ name: 'size', value: 'size' }],
+    options: [
+      { name: 'No', value: 0 },
+      { name: 'No', value: 1 },
+    ],
     name: 'subscription',
     label: 'Subscription',
     type: 'select',
@@ -173,13 +176,18 @@ export const formInitialValues = {
     }),
 }
 export const headerOrigition = [
-  { label: 'Image', type: 'img' },
-  { label: 'SKU', type: 'input' },
-  { label: 'Sub-SKU', type: 'input' },
-  { label: 'EAN', type: 'input' },
-  { label: 'List Price', type: 'input' },
-  { label: 'Subscription Price', type: 'input' },
-  { label: 'Subscription', type: 'input' },
+  { label: 'Image', type: 'upload', key: 'defaultImage' },
+  { label: '*SKU', type: 'input', require: true, key: '' },
+  { label: 'SKUName', type: 'input', require: true, key: '' },
+  { label: 'Sub-SKU', type: 'subSku', key: '' },
+  { label: 'EAN', type: 'input', key: 'eanCode' },
+  { label: 'Subscription', type: 'select', key: 'subscriptionStatus' },
+  { label: 'List Price', type: 'priceInput', key: 'listPrice' },
+  { label: 'Subscription Price', type: 'priceInput', key: 'subscriptionPrice' },
+  { label: 'Stock', type: 'number', key: 'stock' },
+  { label: 'Feeding Days', type: 'number', key: 'feedingDays' },
+  { label: '*Support 100', type: 'select', require: true, key: 'support100' },
+  { label: 'Live/Dellist', type: 'shelves', key: 'shelvesStatus' }, //上下架
 ]
 
 export const SortContainer = SortableContainer(({ children }: { children: any }) => {

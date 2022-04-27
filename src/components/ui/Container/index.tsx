@@ -19,7 +19,7 @@ const Container: FC<Props> = ({ children, className, el = "div", clean }) => {
 }
 
 export const ContentContainer: FC<Props> = ({ children }) => {
-  return <Container className="px-6 py-6">{children}</Container>
+  return <Container className="px-6 py-6 ">{children}</Container>
 }
 
 export const SearchContainer: FC<Props> = ({ children }) => {

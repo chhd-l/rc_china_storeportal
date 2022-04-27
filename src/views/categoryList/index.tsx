@@ -7,6 +7,7 @@ import { EyeOutlined, SyncOutlined } from "@ant-design/icons";
 import ProTable from "@/components/common/ProTable";
 import { columns } from "./modules/constant";
 import { useState } from "react";
+// import 'antd/dist/antd.css';
 const ShopCategories = () => {
   const [addVisible, setAddvisible] = useState(false);
   const handleAddCate = (visible: boolean) => {
@@ -36,7 +37,7 @@ const ShopCategories = () => {
           </div>
         </div>
         <Alert
-          className="my-6"
+          className="my-6 alert"
           showIcon
           // icon={<InfoCircleTwoTone />}
           message="Your edits will be displayed in your Shop Page within 30 minutes"

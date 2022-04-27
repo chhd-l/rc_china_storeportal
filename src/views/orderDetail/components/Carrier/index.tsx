@@ -40,7 +40,7 @@ const OrderCarrier = ({ carrier }: { carrier: Carrier[] }) => {
                   Pack{index + 1}:{item.packId}
                 </span>
                 <span className="ml-8">
-                  Carrier company:{item.company} Express
+                  Carrier company:{item.company}
                 </span>
               </div>
               <div>

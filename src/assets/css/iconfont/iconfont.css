@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3298206 */
-  src: url('iconfont.woff2?t=1649935867922') format('woff2'),
-       url('iconfont.woff?t=1649935867922') format('woff'),
-       url('iconfont.ttf?t=1649935867922') format('truetype');
+  src: url('iconfont.woff2?t=1650943906961') format('woff2'),
+       url('iconfont.woff?t=1650943906961') format('woff'),
+       url('iconfont.ttf?t=1650943906961') format('truetype');
 }
 
 .iconfont {
@@ -13,16 +13,112 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-rc-edit:before {
+  content: "\e63c";
+}
+
+.icon-a-bianzu3:before {
+  content: "\e627";
+}
+
+.icon-a-bianzu21:before {
+  content: "\e628";
+}
+
+.icon-bianzu1:before {
+  content: "\e629";
+}
+
+.icon-a-bianzu4:before {
+  content: "\e62a";
+}
+
+.icon-a-bianzu5:before {
+  content: "\e62b";
+}
+
+.icon-a-bianzu7:before {
+  content: "\e62c";
+}
+
+.icon-a-bianzu6:before {
+  content: "\e62d";
+}
+
+.icon-a-bianzu70:before {
+  content: "\e626";
+}
+
+.icon-a-Frame1:before {
+  content: "\e620";
+}
+
+.icon-xiajia:before {
+  content: "\e60b";
+}
+
+.icon-Edit:before {
+  content: "\e60c";
+}
+
+.icon-Frame4:before {
+  content: "\e611";
+}
+
+.icon-preview:before {
+  content: "\e604";
+}
+
+.icon-a-WechatSetting:before {
+  content: "\e617";
+}
+
+.icon-a-bianzu14:before {
+  content: "\e61b";
+}
+
+.icon-a-bianzu12-1:before {
+  content: "\e61c";
+}
+
+.icon-a-bianzu13:before {
+  content: "\e61d";
+}
+
+.icon-a-bianzu18beifen-1:before {
+  content: "\e61e";
+}
+
+.icon-a-bianzu15:before {
+  content: "\e61f";
+}
+
+.icon-a-bianzu18:before {
+  content: "\e621";
+}
+
+.icon-a-bianzu10:before {
+  content: "\e622";
+}
+
+.icon-a-bianzu11:before {
+  content: "\e623";
+}
+
+.icon-a-bianzu11-1:before {
+  content: "\e624";
+}
+
+.icon-a-bianzu12:before {
+  content: "\e625";
+}
+
 .icon-a-bianzu2:before {
   content: "\e61a";
 }
 
 .icon-dingdan:before {
   content: "\e619";
-}
-
-.icon-a-bianzu67beifen:before {
-  content: "\e617";
 }
 
 .icon-bianzu3:before {
@@ -57,10 +153,6 @@
   content: "\e610";
 }
 
-.icon-bianzu1:before {
-  content: "\e611";
-}
-
 .icon-Frame2:before {
   content: "\e612";
 }
@@ -77,7 +169,7 @@
   content: "\e609";
 }
 
-.icon-Vector1:before {
+.icon-kjafg:before {
   content: "\e607";
 }
 
