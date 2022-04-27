@@ -42,7 +42,7 @@ const OrderProgress = ({
           <span className="ml-4">
             Order ID:{orderId}
             <br />
-            <span>Subscription ID:{subscriptionId}</span>
+            {subscriptionId&&( <span>Subscription ID:{subscriptionId}</span>)}
           </span>
         </div>
         <div className="justify-items-end">

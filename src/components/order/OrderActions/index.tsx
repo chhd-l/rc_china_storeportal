@@ -23,7 +23,7 @@ const OrderActions = ({
 
   const shipped = async (tradeShippingInfoInput: any) => {
     const params = {
-      TradeShippingInfoInput: tradeShippingInfoInput,
+      tradeShippingInfoInput: tradeShippingInfoInput,
       address: _.omit(orderAddress, ['isDefault', 'postCode']),
       orderNum: orderId,
       nowOrderState: orderState,

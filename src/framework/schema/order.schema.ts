@@ -84,14 +84,14 @@ export interface TradePrice {
 }
 
 export interface TradePayInfo {
-  PayInfoID: string
-  Amount: string
-  PayStartTime: string
-  PayFinishTime: string
-  LastModifiedBy: string
-  PayWayCode: string
-  PayWayOrderID: string
-  PaymentState: string
+  payInfoID: string
+  amount: string
+  payStartTime: string
+  payFinishTime: string
+  lastModifiedBy: string
+  payWayCode: string
+  payWayOrderID: string
+  paymentState: string
 }
 
 export interface TradeLineItem {
@@ -108,9 +108,9 @@ export interface TradeLineItem {
   price: number
   goodsSpecifications: string
   bundle: Boolean
-  BundleSkuNos: [string]
-  GoodsAttributeAndValues: GoodsAttributeAndValue[]
-  FeedingDays: number
+  bundleSkuNos: [string]
+  goodsAttributeAndValues: GoodsAttributeAndValue[]
+  feedingDays: number
 }
 
 export enum TradeLogsIdEnum {

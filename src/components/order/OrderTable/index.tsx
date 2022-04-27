@@ -114,7 +114,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
                 <div>{orderStatusType[item.tradeState.orderState]}</div>
               </Col>
               <Col span={6} className="text-center">
-                {item.carrierType ? item.carrierType + '.Express' : ''}
+                {item.carrierType }
               </Col>
               <Col span={2} className="text-center">
                 <OrderActions

@@ -1,4 +1,5 @@
 import { Pet } from '@/api/types/pet'
+import { handleReturnTime } from '@/utils/utils'
 
 export const normalisePet = (pet: any) => {
   //todo
@@ -23,15 +24,14 @@ export const normalisePets = (pets: Pet[]) => {
 }
 
 export const normaliseCustomer = (customer: any) => {
-  let reg = new RegExp('/', 'g')
   return {
-    id: customer.id,
-    image: customer.avatarUrl,
-    name: customer.name,
-    phone: customer.phone,
-    loginTime: new Date(customer.lastLoginTime).toLocaleString().replace(reg, '-'),
-    nickname: customer.nickName,
-    level: customer.level,
+    id: customer?.id,
+    image: customer?.avatarUrl,
+    name: customer?.name,
+    phone: customer?.phone,
+    loginTime: handleReturnTime(customer?.lastLoginTime),
+    nickname: customer?.nickName,
+    level: customer?.level,
   }
 }
 

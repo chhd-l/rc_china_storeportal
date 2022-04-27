@@ -20,16 +20,16 @@ const normalisePayInfo = (payInfo: TradePayInfo, orderState: any) => {
           outTradeNo: '',
         }
       : {
-          payTypeName: 'Wechat Pay', //??
-          appId: payInfo.PayInfoID, //??
-          payTime: payInfo.PayStartTime, //??
-          outTradeNo: payInfo.PayWayOrderID, //??
+          payTypeName: 'Wechat Pay',
+          appId: payInfo.payInfoID,
+          payTime: payInfo.payStartTime,
+          outTradeNo: payInfo.payWayOrderID,
         }
   return info
 }
 
-export const normaliseOrder = (data: any): any => {
-  const { customerId, nickName, phone } = data.buyer
+export const normaliseOrder = (data: any,expressCompanies:any): any => {
+  const { customerId, nickName, phone,avatarUrl } = data.buyer
   const {
     receiverName,
     id,
@@ -41,17 +41,19 @@ export const normaliseOrder = (data: any): any => {
     postcode: postCode,
     isDefault,
   } = data.shippingAddress
-  let { tradeState, lineItem, tradePrice, payInfo, logs } = data
+  let { tradeState, lineItem, tradePrice, payInfo, logs,shippingInfo,subscriptionId } = data
+  const company=expressCompanies.filter((item:any)=>item.code===shippingInfo.shippingCompany)
+  const carrierType=company.length>0?company[0].name:''
   let { orderState } = tradeState
   let orderItem = {
     orderNumber: data.orderNumber,
     id: data._id,
-    // subscriptionId 没返回？
+    subscriptionId:subscriptionId||'',
     buyer: {
       id: customerId,
       name: nickName,
       phone,
-      // image没返回？
+      image:avatarUrl
     },
     shippingAddress: {
       id,
@@ -72,8 +74,6 @@ export const normaliseOrder = (data: any): any => {
           pic,
           skuName,
           goodsSpecifications,
-          // size,//??
-          // color//??
           num,
           price,
         }
@@ -81,15 +81,23 @@ export const normaliseOrder = (data: any): any => {
     tradeState: {
       orderState: orderState,
     },
-    carrier: [],
-    carrierType:
-      orderState === TradeTradeStateOrderStateEnum.shipped || orderState === TradeTradeStateOrderStateEnum.completed
-        ? 'SF'
-        : '',
+    carrier: [{
+      packId:shippingInfo.trackingId,
+      company:carrierType,
+      tradeItem:lineItem?.map((item: any) => {
+        const { skuId, pic, skuName } = item
+        return {
+          skuId,
+          pic,
+          skuName,
+        }
+      }) || []
+    }],
+    carrierType:carrierType,
     tradePrice: {
       goodsPrice: tradePrice.goodsPrice,
-      discountsPrice: tradePrice?.discountsPrice,
-      deliveryPrice: tradePrice?.deliveryPrice,
+      discountsPrice: tradePrice?.discountsPrice||0,
+      deliveryPrice: tradePrice?.deliveryPrice||0,
       totalPrice: tradePrice.totalPrice,
     },
     payInfo: payInfo ? normalisePayInfo(payInfo, orderState) : {},

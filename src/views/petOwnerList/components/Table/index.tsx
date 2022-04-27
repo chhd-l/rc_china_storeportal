@@ -13,9 +13,9 @@ const Index = ({ petOwnerList }: PetOwnerTableProps) => {
   const columns = [
     {
       title: 'Profile Photo',
-      dataIndex: 'img',
-      key: 'img',
-      render: (text: any, record: any) => <Avatar size="large" icon={<UserOutlined />} />,
+      dataIndex: 'image',
+      key: 'image',
+      render: (text: any, record: any) => <Avatar size="large" icon={<img src={text} alt='' />} />,
     },
     {
       title: 'WeChat Name',

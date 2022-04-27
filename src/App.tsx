@@ -32,7 +32,7 @@ function App () {
 
   return (
     <div className='App text-center'>
-      <Suspense fallback={<Spin className='magin-auto' />}>{Routers}</Suspense>
+      <Suspense fallback={<Spin className='magin-auto' />}><div className="text-left">{Routers}</div></Suspense>
     </div>
   )
 }
