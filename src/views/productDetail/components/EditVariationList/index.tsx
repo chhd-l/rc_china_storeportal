@@ -7,10 +7,12 @@ import { FormProps } from '@/framework/types/common'
 import { ChangeType, SpecificationListProps, VarationProps, VarationsFormProps } from '@/framework/types/product'
 import { headerOrigition } from '../../modules/constant'
 import Upload, { UploadType } from '@/components/common/Upload'
-interface VarviationProps {
-  img: string
-  sku: string
-  ean: string
+import { DetailContext } from '../..'
+export interface VarviationProps {
+  defaultImage: string
+  skuNo: string
+  name: string
+  eanCode: string
   listPrice: string
   marketingPrice: string
   spec: string
@@ -20,10 +22,12 @@ interface VarviationProps {
 interface HeaderProps {
   type: string
   label: string
+  keyVal: string
 }
-
+let isInited = false
 const commonClass = 'w-32 border-0 border-t border-r border-solid border-gray-200 text-center'
 const EditVariationList = (props: FormProps) => {
+  const { detail } = useContext(DetailContext)
   const { variationForm: cloneVariationForm } = useContext(VariationosContext)
   //changeType操作variation需要做include处理；操作spec需要做===处理
   const [variationList, setVariationList] = useState<VarviationProps[]>([])
@@ -66,7 +70,6 @@ const EditVariationList = (props: FormProps) => {
   useEffect(() => {
     const variationForm = cloneDeep(cloneVariationForm)
     const { variationList } = variationForm
-    console.info('variationForm', variationForm)
     variationList?.forEach((variation: any, idx: number) => {
       variation.name = variation.name || `Variation${idx}`
       variation.specificationList.forEach((specification: any) => {
@@ -83,12 +86,11 @@ const EditVariationList = (props: FormProps) => {
 
   const initHeader = ({ variationList }: VarationsFormProps) => {
     let variationHeaders = variationList.map((el, idx) => {
-      let header = { label: el.name || `Varations[${idx}]`, type: 'text', key: '' }
+      let header = { label: el.name || `Varations[${idx}]`, type: 'text', keyVal: el.name }
       return header
     })
     const cloneHeaderOrigition = [...headerOrigition]
     cloneHeaderOrigition.splice(1, 0, ...variationHeaders)
-    console.info('cloneHeaderOrigition', cloneHeaderOrigition)
     setHeaderList(cloneHeaderOrigition)
   }
 
@@ -117,52 +119,59 @@ const EditVariationList = (props: FormProps) => {
     })
     if (specList?.[0]) {
       let datas = calcDescartes(specList)
-      init(cloneDeep(datas), data)
+      if (detail.variationLists?.length && !isInited) {
+        initWithDefault(cloneDeep(datas))
+      } else {
+        init(cloneDeep(datas), data)
+      }
       // let varations: string[] = combination(specList)
       // initData(varations, data)
     }
   }
-  const init = (vartions: any, { variationList: formData }: VarationsFormProps) => {
+  const initWithDefault = (vartions: any) => {
+    isInited = true
+    init(vartions, { variationList: detail.variationLists }, true)
+    // vartions.map(vartion=>{
+    //   detail.goodsVariants.find(el=>vartion.goodsSpecificationId==el.)
+    // })
+  }
+  const init = (vartions: any, { variationList: formData }: any, isDefultData?: boolean) => {
+    let lastData = isDefultData ? detail.variationLists : variationList
     let list = vartions.map((vartion: any) => {
-      console.info('......', vartion)
-      console.info('variationListvariationList', JSON.stringify(variationList))
+      console.info('variationListvariationList', JSON.stringify(lastData))
       let sortIdx = vartion.map?.((el: any) => el.sortIdx).join('^') || vartion.sortIdx
-      let newEl: VarviationProps = {
+      let newEl: any = {
         spec: vartion.length ? vartion.map((el: any) => el.option).join(',') : vartion.option,
-        img: '',
-        sku: '',
+        defaultImage: '',
+        skuNo: '',
+        skuName: '',
+        stock: '',
         subSku: '',
-        Subscription: '',
-        ean: '',
+        feedingDays: '',
+        support100: '',
+        shelvesStatus: '',
+        subscriptionStatus: '',
+        eanCode: '',
         listPrice: '',
         marketingPrice: '',
-        SubscriptionPrice: '',
+        subscriptionPrice: '',
         sortIdx,
       }
-      debugger
-      console.info(
-        'variationForm.changeType === ChangeType.handleSpec',
-        variationForm.changeType === ChangeType.handleSpec,
-      )
-      if (variationForm.changeType === ChangeType.handleSpec) {
+      if (variationForm.changeType === ChangeType.handleSpec || isDefultData) {
         //to do spec选择,需要操作====
-        let oldData = variationList.find(el => el.sortIdx === sortIdx)
         debugger
+        let oldData = lastData.find((el: any) => el.sortIdx === sortIdx)
+        console.info('oldData', oldData)
         newEl = Object.assign({}, newEl, oldData, {
           spec: vartion.length ? vartion.map((el: any) => el.option).join(',') : vartion.option,
           key: Math.random(),
         })
       }
-      console.info(
-        'variationForm.changeType === ChangeType.handleVariation',
-        ChangeType.handleVariation,
-        variationForm.changeType,
-      )
       if (variationForm.changeType === ChangeType.handleVariation) {
         //to do variation选择，需要操作include
-        let oldData = variationList
-          .filter(el => el.choosed)
-          .find(el => {
+        let oldData = lastData
+          .filter((el: any) => el.choosed)
+          .find((el: any) => {
             return sortIdx.includes(el.sortIdx)
           })
         newEl = Object.assign({}, newEl, oldData, {
@@ -176,6 +185,7 @@ const EditVariationList = (props: FormProps) => {
           newEl[name] = (spec[0] || spec)?.option || 'option'
         })
       } else {
+        debugger
         let name = formData[0]?.name || `Variation0`
         newEl[name] = vartion?.option || 'option'
       }
@@ -187,7 +197,6 @@ const EditVariationList = (props: FormProps) => {
     // return list
   }
   const handleSelect = () => {}
-  console.info('variationListvariationList', variationList)
   return (
     <div className='overflow-scroll w-full'>
       {variationList?.length ? (
@@ -211,17 +220,15 @@ const EditVariationList = (props: FormProps) => {
                             return (
                               <Input
                                 onBlur={e => {
-                                  console.info('e.target.value', e.target.value)
-                                  console.info('eeeeee', variationList)
-                                  tr[td.label] = e.target.value
+                                  tr[td.keyVal] = e.target.value
                                 }}
-                                defaultValue={tr[td.label]}
+                                defaultValue={tr[td.keyVal]}
                               />
                             )
                           case 'text':
-                            return <span>{tr[td.label]}</span>
+                            return <span>{tr[td.keyVal]}</span>
                           case 'upload':
-                            // return <span>{tr[td.label]}</span>
+                            // return <span>{tr[td.keyVal]}</span>
                             return (
                               <Upload
                                 type={UploadType.button}
@@ -236,7 +243,7 @@ const EditVariationList = (props: FormProps) => {
                           case 'select':
                             return (
                               <Select
-                                defaultValue='lucy'
+                                defaultValue=''
                                 style={{ width: 120 }}
                                 options={[
                                   { label: 'yes', value: '0' },

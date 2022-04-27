@@ -1,8 +1,11 @@
-import { VarationProps, VarationsFormProps } from '../types/product'
+import { ChangeType, VarationProps, VarationsFormProps } from '../types/product'
 import { CateItemProps, Goods, GoodsAssets, GoodsAttribute, GoodsSpecification, GoodsVariants } from '../schema/product.schema'
 import { ProductListSkuItem } from '../types/product'
+import { VarviationProps } from '@/views/productDetail/components/EditVariationList'
+import { ElementFlags } from 'typescript'
 
 export const normaliseDetailforFe = (detail: any) => {
+  let { variationList, variationLists } = normaliseVariationAndSpecification(detail.goodsSpecifications, detail.goodsVariants)
   let spu = {
     // age: string
     brand: detail.brandId,
@@ -31,8 +34,10 @@ export const normaliseDetailforFe = (detail: any) => {
     salesStatus: detail.salesStatus,
     // size: detail.,
     spuNo: detail.spuNo,
+    variationLists,
     variationForm: {
-      variationList: normaliseVariation(detail.goodsSpecifications)
+      changeType: ChangeType.handleSpec,
+      variationList
     },
     // stock: detail.stock,
     // subscription: detail.subscriptionStatus,//??
@@ -44,24 +49,65 @@ export const normaliseDetailforFe = (detail: any) => {
     width: detail.parcelSizeWidth,
     // zone: detail.,
   }
+  console.info('spu', spu)
   return spu
 }
-export const normaliseVariation = (data: GoodsSpecification[]): VarationProps[] => {
-  let variationList = data.map(el => {
+export const normaliseVariationAndSpecification = (data: GoodsSpecification[], goodsVariants: GoodsVariants[]): {
+  variationList: VarationProps[], variationLists: any[]
+} => {
+  let variationList = data.map((el, idx) => {
     let variation = {
       name: el.specificationName,
-      specificationList: el.goodsSpecificationDetail.map(spe => {
+      sortIdx: idx,
+      id: el.id,
+      specificationList: el.goodsSpecificationDetail.map((spe, cidx) => {
         let newSpe = {
           option: spe.specificationDetailName,
-          goodsSpecificationId: spe.id
+          id: spe.id,
+          sortIdx: `${idx}-${cidx}`,
         }
         return newSpe
       })
     }
     return variation
   })
-  return variationList
+  let variationLists = goodsVariants.map(el => {
+
+
+    let newItem = { ...el, sortIdx: '', spec: '', skuName: el.name }
+    let name = el.goodsSpecificationRel.map(elRel => {
+      let specDetail = data.filter(spec => spec.id === elRel.goodsSpecificationId)
+      specDetail.forEach((cElRel: GoodsSpecification) => {
+        let nameVal = cElRel.goodsSpecificationDetail.find(specDetail => specDetail.id === elRel.goodsSpecificationDetailId)?.specificationDetailName
+        // @ts-ignore
+        newItem[cElRel.specificationName] = nameVal
+      })
+    })
+    // el.goodsSpecificationRel.forEach(el=>{
+    //   newItem[el.]
+    // })
+    let sortIdxArr = el.goodsSpecificationRel.map(cel => {
+      return variationList.find(variation => variation.id === cel.goodsSpecificationId)?.specificationList.filter(specification => {
+        return specification.id === cel.goodsSpecificationDetailId
+      }).map(ccel => {
+        //多规格有问题
+        newItem.sortIdx = ccel.sortIdx
+        // @ts-ignore
+        console.info('el.sortIdxArr', newItem.sortIdxArr)
+        return ccel.sortIdx
+      })
+    })
+    console.info('newItem', newItem)
+    return newItem
+    // @ts-ignore
+    // let sortIdx: string = sortIdxArr.map(sortIdxItem => {
+    //   debugger
+    //   return sortIdxItem?.join('^')
+    // })
+  })
+  return { variationList, variationLists }
 }
+
 export const normaliseProductListSku = (sku: GoodsVariants): ProductListSkuItem => {
   let skuItem = {
     id: sku.id,

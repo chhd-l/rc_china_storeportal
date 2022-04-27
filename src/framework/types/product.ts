@@ -138,10 +138,11 @@ export enum AddCateType {
 }
 export interface SpecificationListProps {
   option: string
-  goodsSpecificationId?: string
+  id?: string
 }
 export interface VarationProps {
   name: string
+  id?: string
   specificationList: SpecificationListProps[]
 }
 export interface VarationsFormProps {

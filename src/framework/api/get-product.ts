@@ -30,7 +30,6 @@ export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categ
   try {
     const { getAttributes: attributeList } = await ApiRoot.products().getAttrList({ storeId, categoryId })
     let data = normaliseAttrProps(attributeList)
-    console.info('getAttrslist', data)
     return data
   } catch (e) {
     console.log(e)

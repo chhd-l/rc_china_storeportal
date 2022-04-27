@@ -176,18 +176,18 @@ export const formInitialValues = {
     }),
 }
 export const headerOrigition = [
-  { label: 'Image', type: 'upload', key: 'defaultImage' },
-  { label: '*SKU', type: 'input', require: true, key: '' },
-  { label: 'SKUName', type: 'input', require: true, key: '' },
-  { label: 'Sub-SKU', type: 'subSku', key: '' },
-  { label: 'EAN', type: 'input', key: 'eanCode' },
-  { label: 'Subscription', type: 'select', key: 'subscriptionStatus' },
-  { label: 'List Price', type: 'priceInput', key: 'listPrice' },
-  { label: 'Subscription Price', type: 'priceInput', key: 'subscriptionPrice' },
-  { label: 'Stock', type: 'number', key: 'stock' },
-  { label: 'Feeding Days', type: 'number', key: 'feedingDays' },
-  { label: '*Support 100', type: 'select', require: true, key: 'support100' },
-  { label: 'Live/Dellist', type: 'shelves', key: 'shelvesStatus' }, //上下架
+  { label: 'Image', type: 'upload', keyVal: 'defaultImage' },
+  { label: '*SKU', type: 'input', require: true, keyVal: 'skuNo' },
+  { label: 'SKUName', type: 'input', require: true, keyVal: 'name' },
+  // { label: 'Sub-SKU', type: 'subSku', keyVal: '' },
+  { label: 'EAN', type: 'input', keyVal: 'eanCode' },
+  { label: 'Subscription', type: 'select', keyVal: 'subscriptionStatus' },
+  { label: 'List Price', type: 'priceInput', keyVal: 'listPrice' },
+  { label: 'Subscription Price', type: 'priceInput', keyVal: 'subscriptionPrice' },
+  { label: 'Stock', type: 'number', keyVal: 'stock' },
+  { label: 'Feeding Days', type: 'number', keyVal: 'feedingDays' },
+  { label: '*Support 100', type: 'select', require: true, keyVal: 'support100' },
+  { label: 'Live/Dellist', type: 'shelves', keyVal: 'shelvesStatus' }, //上下架
 ]
 
 export const SortContainer = SortableContainer(({ children }: { children: any }) => {

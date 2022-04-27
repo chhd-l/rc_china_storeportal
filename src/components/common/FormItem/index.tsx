@@ -14,7 +14,6 @@ const FormItem = ({ list, parentName, field, layout }: FormProps) => {
     <>
       {list.map((el: any, idx: number) => {
         let name = parentName ? [...parentName, el.name] : el.name //兼容form.list
-        console.info('....test', el)
         return (
           <>
             {el.type === 'select' ? (
