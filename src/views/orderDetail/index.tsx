@@ -45,6 +45,7 @@ const OrderDetail = () => {
                   orderId={orderId}
                   subscriptionId={subscriptionId}
                   orderAddress={shippingAddress}
+                  logs={logs}
                 />
               </InfoContainer>
               <DivideArea />

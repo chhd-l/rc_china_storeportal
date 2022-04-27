@@ -28,6 +28,7 @@ export interface Log {
   createdBy: string
   status: string
   id: string
+  event:string
 }
 
 export interface Carrier {

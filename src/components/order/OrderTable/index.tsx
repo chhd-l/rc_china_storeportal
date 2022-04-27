@@ -1,4 +1,4 @@
-import { Avatar, Col, Row, Select } from 'antd'
+import { Avatar, Col, Empty, Row, Select } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
 import React, { useEffect, useState } from 'react'
 import { CarrierType, Order, OrderTradeItem } from '@/framework/types/order'
@@ -127,7 +127,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
           </div>
         ))
       ) : (
-        <div className="w-full h-20 flex justify-center items-center">no data</div>
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
       )}
     </div>
   )
