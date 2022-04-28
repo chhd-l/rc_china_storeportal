@@ -94,9 +94,11 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children }) => {
             )}
           </Form.List> */}
             <Form.Item className='text-right'>
+              {/* <Link to="/product/product-list"> */}
               <Button type='primary' htmlType='submit'>
                 Submit
               </Button>
+              {/* </Link> */}
             </Form.Item>
           </div>
         </Form>

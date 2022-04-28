@@ -55,7 +55,7 @@ const ProductList = () => {
               tab={
                 <div>
                   {el.name.toLowerCase()}
-                  <RenderBadge count={el.value + ''} active={activeKey === el.name} />
+                  {/* <RenderBadge count={el.value + ''} active={activeKey === el.name} /> */}
                 </div>
               }
               key={el.name}
@@ -70,7 +70,11 @@ const ProductList = () => {
                     <Button type="primary">+ Add a New Product</Button>
                   </Link>
                   <Button className='mr-4'>Export</Button>
-                  <MenuOutlined className=' border border-solid border-gray-300' />
+                  {/* <MenuOutlined className=' border border-solid border-gray-300' /> */}
+                  <Button
+          className="ml-3"
+          icon={<MenuOutlined style={{ color: "#979797" }} />}
+        />
                 </div>
               </div>
             </TabPane>
