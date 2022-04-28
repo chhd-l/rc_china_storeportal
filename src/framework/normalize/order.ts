@@ -102,7 +102,7 @@ export const normaliseOrder = (data: any,expressCompanies:any): any => {
     },
     payInfo: payInfo ? normalisePayInfo(payInfo, orderState) : {},
     logs,
-    comments: [],
+    comments: data?.comments,
   }
   return orderItem
 }

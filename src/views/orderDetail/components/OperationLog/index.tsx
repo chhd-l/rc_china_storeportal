@@ -20,6 +20,7 @@ const OperationLog = ({ logs }: { logs: Log[] }) => {
       <Steps direction="vertical" current={0}>
         {logs.reverse().map((item) => (
           <Steps.Step
+            key={item.id}
             title={LogEventEnum[item.event]}
             description={
               <div className="flex justify-between w-full text-gray-400 text-sm">
