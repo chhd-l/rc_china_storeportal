@@ -20,10 +20,10 @@ const BasicInformation = ({ id }: { id: string }) => {
   return (
     <div id={id}>
       <div className="py-4 px-2 border-b text-xl font-medium">Basic Information</div>
-      <div className="px-2 py-4 flex flex-row items-center">
+      <div className="px-2 py-4 flex flex-row items-center justify-around">
         <div>
           <Avatar shape="square" size={64} icon={<img src={image} alt={''}/>} />
-          <div className="mt-4">Profile Photo</div>
+          {/*<div className="mt-4">Profile Photo</div>*/}
         </div>
         <div className="mx-10">
           <span className="font-medium">WeChat Name:</span>
