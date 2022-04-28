@@ -15,7 +15,9 @@ const Specification = (props: FormProps) => {
   const [goodsAttributeValueRel, setGoodsAttributeValueRel] = useState<any>({})
   useEffect(() => {
     console.info('......................', detail.cateId)
-    getAttrList()
+    if (detail.cateId?.length) {
+      getAttrList()
+    }
   }, [detail.cateId])
   useEffect(() => {
     //to do

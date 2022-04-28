@@ -110,8 +110,8 @@ const Product = () => {
     // let data = await getProductDetail({ storeId: '12345678', goodsId: '7d58d3fb-77a7-66b2-dfb3-dfcd21a44ead' })
     let data = await getProductDetail({ storeId: '12345678', goodsId })
     console.info('data', data)
-    // setDetail(cloneDeep(data))
-    setCateInfo({ cateId: ['123'] })
+    setDetail(cloneDeep(data))
+    // setCateInfo({ cateId: ['123'] })
   }
   useEffect(() => {
     let newDetail = Object.assign({}, detail, cateInfo)
@@ -130,8 +130,9 @@ const Product = () => {
     <ContentContainer>
       {/* <Demo />*/}
       <DetailContext.Provider value={{ detail, setShowCatePop }}>
-        {showCatePop && <ChooseCate detail={detail} setShowCatePop={setShowCatePop} handleCate={handleCate} />}
-        {cateInfo && !showCatePop && <MainInfo cateInfo={cateInfo} details={detail} />}
+        <MainInfo details={detail} showCatePop={showCatePop}>
+          {showCatePop && <ChooseCate detail={detail} setShowCatePop={setShowCatePop} handleCate={handleCate} />}
+        </MainInfo>
       </DetailContext.Provider>
     </ContentContainer>
   )

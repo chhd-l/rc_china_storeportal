@@ -35,7 +35,7 @@ const BasicInfo = ({ field }: FormProps) => {
     <>
       <Form.Item label='Product Image' name='assets'>
         <div className='text-left'>
-          <Upload handleImgUrl={handleImgUrl} showUploadList={false} />
+          <Upload handleImgUrl={handleImgUrl} fileList={detail.assets} showUploadList={false} />
         </div>
       </Form.Item>
       <Form.Item label='Product Video' name='video'>

@@ -1,3 +1,4 @@
+import { categoryList } from './../mock/categorylist'
 import { ChangeType, VarationProps, VarationsFormProps } from '../types/product'
 import { CateItemProps, Goods, GoodsAssets, GoodsAttribute, GoodsSpecification, GoodsVariants } from '../schema/product.schema'
 import { ProductListSkuItem } from '../types/product'
@@ -6,13 +7,20 @@ import { ElementFlags } from 'typescript'
 
 export const normaliseDetailforFe = (detail: any) => {
   let { variationList, variationLists } = normaliseVariationAndSpecification(detail.goodsSpecifications, detail.goodsVariants)
+  let choosedCate = normaliseCateIdProps(detail.goodsCategoryId, detail.listCategoryGet, [])
   let spu = {
     // age: string
     brand: detail.brandId,
     goodsAttributeValueRel: detail.goodsAttributeValueRel,
     // breeds: string
     cardName: detail.cardName,
-    cateId: detail.goodsCategoryId,
+    selectedCateOptions: choosedCate.map((el: any) => {
+      return {
+        value: el?.id + '',
+        label: el?.categoryName,
+      }
+    }),
+    cateId: choosedCate.map((el: any) => el.id + ''),
     categoryList: normaliseCateProps(detail.listCategoryGet),
     attributeList: normaliseAttrProps(detail.listAttributeGet),
     brandList: detail.brandList,
@@ -49,8 +57,20 @@ export const normaliseDetailforFe = (detail: any) => {
     width: detail.parcelSizeWidth,
     // zone: detail.,
   }
+
+  console.info('datasss', choosedCate)
+  debugger
   console.info('spu', spu)
   return spu
+}
+export const normaliseCateIdProps: any = (id: string, list: CateItemProps[], parentNode: any) => {
+  let parentOption = list.find((el: any) => el.id == id)
+  if (parentOption) {
+    parentNode.unshift(parentOption)
+    return normaliseCateIdProps(parentOption.parentId + '', list, parentNode)
+  } else {
+    return parentNode
+  }
 }
 export const normaliseProductCreatFor = (data: any) => {
   let detail = {
