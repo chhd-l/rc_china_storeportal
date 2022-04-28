@@ -29,7 +29,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
           icon={<MenuOutlined style={{ color: "#979797" }} />}
         />
       </div>
-      <div className="flex flex-row items-center mt-3 text-left">
+      <div className="flex flex-row items-center mt-4 text-left">
         <Input.Group compact>
           <Select
             onChange={(value, a) => {
