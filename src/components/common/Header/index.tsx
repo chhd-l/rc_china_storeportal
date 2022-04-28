@@ -10,7 +10,7 @@ const Header = ({userInfo}: {userInfo: User | null}) => {
         <img src={logo} alt="" className=" w-28 h-full" />
       </div>
       <RouteBreadcrumb />
-      <div>{userInfo?.username}</div>
+      {/* <div>{userInfo?.username}</div> */}
     </header>
   );
 };
