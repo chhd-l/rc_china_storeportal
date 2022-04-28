@@ -38,7 +38,7 @@ const RouteBreadcrumb = () => {
   }, [pathname])
 
   return (
-    <Breadcrumb className="route-breadcrumb" separator=">">
+    <Breadcrumb className="route-breadcrumb pt-1" separator=">">
       {
         breadcrumbItems.length ? (
           <>
