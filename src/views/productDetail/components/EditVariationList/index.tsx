@@ -155,7 +155,7 @@ const EditVariationList = (props: FormProps) => {
         stock: '',
         subSku: '',
         feedingDays: '',
-        support100: '',
+        isSupport100: '',
         shelvesStatus: '',
         subscriptionStatus: '',
         eanCode: '',
@@ -230,7 +230,7 @@ const EditVariationList = (props: FormProps) => {
                   <td key={`${tr.sortIdx}-${count}`}>
                     <span>
                       {(() => {
-                        console.info(tr[td.keyVal], typeof tr[td.keyVal])
+                        console.info(td.keyVal, tr[td.keyVal], typeof tr[td.keyVal])
                         switch (td.type) {
                           case 'input':
                             return (
@@ -337,6 +337,7 @@ const EditVariationList = (props: FormProps) => {
         </table>
       ) : null}
       <button
+        className='hidden'
         onClick={() => {
           console.info('datadata', variationList)
         }}

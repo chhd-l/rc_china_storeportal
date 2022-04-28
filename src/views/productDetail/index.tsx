@@ -13,12 +13,14 @@ const Product = () => {
   const [cateInfo, setCateInfo] = useState<{ cateId: string[] }>()
   const [showCatePop, setShowCatePop] = useState<boolean>(false)
   const [detail, setDetail] = useState({})
+  const [showMain, setShowMain] = useState(false)
   const params = useParams()
   useEffect(() => {
     let { id } = params
     if (id !== 'add' && id) {
       getDetail(id)
     } else {
+      setShowMain(true)
       setShowCatePop(true)
     }
     let datas = {
@@ -111,6 +113,7 @@ const Product = () => {
     let data = await getProductDetail({ storeId: '12345678', goodsId })
     console.info('data', data)
     setDetail(cloneDeep(data))
+    setShowMain(true)
     // setCateInfo({ cateId: ['123'] })
   }
   useEffect(() => {
@@ -130,9 +133,11 @@ const Product = () => {
     <ContentContainer>
       {/* <Demo />*/}
       <DetailContext.Provider value={{ detail, setShowCatePop }}>
-        <MainInfo details={detail} showCatePop={showCatePop}>
-          {showCatePop && <ChooseCate detail={detail} setShowCatePop={setShowCatePop} handleCate={handleCate} />}
-        </MainInfo>
+        {showMain ? (
+          <MainInfo details={detail} showCatePop={showCatePop}>
+            {showCatePop && <ChooseCate detail={detail} setShowCatePop={setShowCatePop} handleCate={handleCate} />}
+          </MainInfo>
+        ) : null}
       </DetailContext.Provider>
     </ContentContainer>
   )

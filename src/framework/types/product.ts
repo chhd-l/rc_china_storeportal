@@ -87,13 +87,13 @@ export interface ProductDetailProps {
   // listPrice: string
   // marketingPrice: string
   // name: string
-  // salesStatus: string
+  salesStatus: string
   // size: string
   // spu: string
   // stock: string
   // subscription: string
   // subscriptionPrice: string
-  support100: string
+  isSupport100: string
   // technology: string
   // video: string
   weight: string

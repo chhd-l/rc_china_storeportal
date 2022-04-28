@@ -19,15 +19,15 @@ const Specification = (props: FormProps) => {
       getAttrList()
     }
   }, [detail.cateId])
-  useEffect(() => {
-    //to do
-    let list = detail.attributeList?.map((item: any) => {
-      item.className = 'w-1/2'
-      item.type = 'select'
-      return item
-    })
-    setSpecificationList(list)
-  }, [])
+  // useEffect(() => {
+  //   //to do
+  //   let list = detail.attributeList?.map((item: any) => {
+  //     item.className = 'w-1/2'
+  //     item.type = 'select'
+  //     return item
+  //   })
+  //   setSpecificationList(list)
+  // }, [])
   const getAttrList = async () => {
     let categoryId = detail.cateId[detail.cateId.length - 1]
     console.info('categoryId', categoryId)
@@ -36,7 +36,7 @@ const Specification = (props: FormProps) => {
       item.className = 'w-1/2'
       item.type = 'select'
       item.defaultVal = detail?.goodsAttributeValueRel?.find((el: GoodsAttributeAndValue) => {
-        return el.attributeValueId === item.id
+        return el.attributeId === item.id
       })?.attributeValueName
       return item
     })

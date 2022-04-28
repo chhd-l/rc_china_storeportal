@@ -39,7 +39,7 @@ export const normaliseDetailforFe = (detail: any) => {
     // listPrice: detail.listPrice,//??
     // marketingPrice: detail.marketingPrice//??,
     name: detail.goodsName,
-    salesStatus: detail.salesStatus,
+    salesStatus: detail.salesStatus ? '1' : '0',
     // size: detail.,
     spuNo: detail.spuNo,
     variationLists,
@@ -50,7 +50,7 @@ export const normaliseDetailforFe = (detail: any) => {
     // stock: detail.stock,
     // subscription: detail.subscriptionStatus,//??
     // subscriptionPrice: detail.subscriptionPrice,//？？
-    support100: detail.isSupport100,
+    isSupport100: detail.isSupport100 ? 'ture' : 'false',
     // technology: detail.,
     // video: detail.,//??
     weight: detail.weight,
@@ -83,7 +83,7 @@ export const normaliseProductCreatFor = (data: any) => {
     goodsCategoryId: data.goodsCategoryId || '8',
     shelvesStatus: false,
     defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
-    salesStatus: data.salesStatus === "Saleable",
+    salesStatus: data.salesStatus === "1",
     weight: data.weight ? Number(data.weight) : 0,
     // weightUnit: 'g',
     parcelSizeLong: data.length || '1',
@@ -160,7 +160,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any) => {
   if (skus) {
     data = skus.map((data: any) => {
       let newVariation = {
-        isSupport100: data.support100 === 'true' ? true : false,
+        isSupport100: data.isSupport100 === 'true' ? true : false,
         skuType: spu.type,
         skuNo: data.skuNo,
         eanCode: data.eanCode,
@@ -178,9 +178,9 @@ export const normaliseInputVariationProps = (skus: any, spu: any) => {
         operator: 'Noah',
         goodsVariantSpecifications: data.relArr.map((rel: any) => {
           return {
-            specificationNameEn: rel.specificationNameEn,
+            specificationNameEn: rel.specificationName,
             specificationName: rel.specificationName,
-            specificationDetailNameEn: rel.specificationDetailNameEn,
+            specificationDetailNameEn: rel.specificationDetailName,
             specificationDetailName: rel.specificationDetailName,
           }
         })
@@ -256,9 +256,11 @@ export const normaliseVariationAndSpecification = (data: GoodsSpecification[], g
     return variation
   })
   let variationLists = goodsVariants.map(el => {
-
-
-    let newItem = { ...el, sortIdx: '', spec: '', skuName: el.name }
+    let newItem = {
+      ...el, sortIdx: '', spec: '', skuName: el.name,
+      subscriptionStatus: el.subscriptionStatus.toString(),
+      isSupport100: el.isSupport100 ? 'true' : 'false'
+    }
     let name = el.goodsSpecificationRel.map(elRel => {
       let specDetail = data.filter(spec => spec.id === elRel.goodsSpecificationId)
       specDetail.forEach((cElRel: GoodsSpecification) => {
@@ -304,7 +306,7 @@ export const normaliseProductListSku = (sku: GoodsVariants): ProductListSkuItem 
 }
 export const normaliseProductListSpu = (spu: Goods): ProductListSkuItem => {
   let listItem = {
-    skus: spu.goodsVariants.map(sku => normaliseProductListSku(sku)),
+    skus: spu.goodsVariants?.map(sku => normaliseProductListSku(sku)),
     img: spu.defaultImage,
     id: spu.id,
     no: spu.spuNo,

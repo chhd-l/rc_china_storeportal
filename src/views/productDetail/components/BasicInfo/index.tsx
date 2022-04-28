@@ -6,13 +6,12 @@ import { DetailContext } from '../../index'
 import { FormProps } from '@/framework/types/common'
 import { EditOutlined } from '@ant-design/icons'
 const breedList = [
-  { name: 'breed1', value: 'breed1' },
-  { name: 'breed2', value: 'breed2' },
+  { name: 'B1', value: 'B1', label: 'Royal Canin' },
+  { name: 'B2', value: 'B2', label: 'Royal Canin Sub' },
 ]
-
 const salesStatusList = [
-  { value: 'Saleable', name: true },
-  { value: 'Not saleable', name: false },
+  { label: 'Saleable', value: '1' },
+  { label: 'Not saleable', value: '0' },
 ]
 const BasicInfo = ({ field }: FormProps) => {
   // const [form] = Form.useForm();

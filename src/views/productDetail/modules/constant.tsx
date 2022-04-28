@@ -207,10 +207,10 @@ export const headerOrigition = [
     label: '*Support 100',
     type: 'select',
     require: true,
-    keyVal: 'support100',
+    keyVal: 'isSupport100',
     options: [
-      { label: 'Yes', value: 'true' },
-      { label: 'No', value: 'false' },
+      { label: 'Yes', value: 'true', name: 'true' },
+      { label: 'No', value: 'false', name: 'false' },
     ],
   },
   { label: 'Live/Dellist', type: 'shelves', keyVal: 'shelvesStatus' }, //上下架
