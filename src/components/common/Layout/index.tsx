@@ -12,7 +12,6 @@ const AppLayout = () => {
   return (
     <Layout >
       <TopHeader />
-      <RouteBreadcrumb/>
       <Layout>
       <Sider  theme="light" style={{
         overflow: 'auto',
@@ -31,7 +30,7 @@ const AppLayout = () => {
           style={{
             // padding: 24,
             margin: '59px 24px 0 24px',
-            minHeight: 600,
+            // minHeight: 600,
           }}
         >
           <Outlet />
