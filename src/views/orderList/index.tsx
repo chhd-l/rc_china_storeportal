@@ -11,6 +11,7 @@ import { handleQueryParams } from './modules/handle-query-params'
 import { PageParamsProps } from '@/framework/types/common'
 import { initPageParams } from '@/lib/constants'
 import zhCN from 'antd/lib/locale/zh_CN';
+import "./index.less"
 
 const PetOwnerList = () => {
   const [orderList, setOrderList] = useState<Order[]>([])
@@ -54,7 +55,7 @@ const PetOwnerList = () => {
 
   return (
     <ContentContainer>
-      <SearchContainer>
+      <SearchContainer className='order-search-top'>
         <Tabs
           activeKey={activeKey}
           onChange={(key) => {
@@ -73,7 +74,7 @@ const PetOwnerList = () => {
           }}
         />
       </SearchContainer>
-      <TableContainer className="py-0 pb-7">
+      <TableContainer className="py-0 pb-5">
         <div className="text-left text-xl font-bold">{total} Orders</div>
         <div className="mt-4  text-left">
           <OrderTable orderList={orderList} />

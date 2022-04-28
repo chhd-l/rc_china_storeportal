@@ -28,3 +28,12 @@ export const handlePageParams = (pageParams: PageParamsProps) => {
     limit: pageSize,
   }
 }
+
+export const handleReturnTime=(time:any)=>{
+  if(time){
+    const  reg = new RegExp('/', 'g')
+    return new Date(time).toLocaleString().replace(reg, '-')
+  }else{
+    return ''
+  }
+}

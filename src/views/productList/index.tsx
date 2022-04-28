@@ -45,8 +45,8 @@ const ProductList = () => {
     getList()
   }, [])
   return (
-    <ContentContainer className='product-list'>
-      <SearchHeader getFormData={getFormData} />
+    <ContentContainer className='productlist'>
+      <SearchHeader getFormData={getFormData}/>
       <DivideArea />
       <TableContainer>
         <Tabs defaultActiveKey={Tab.All} onChange={handleTab}>

@@ -1,30 +1,32 @@
 import { OrderStatus } from "@/framework/types/order";
 import { BaseListProps } from "@/framework/types/common";
 
-interface StepProps extends BaseListProps {
+interface StepProps {
   updateTime?: string;
+  label:string
+  key:string
 }
 
 export const stepList: StepProps[] = [
   {
     label: "Unpaid",
-    key: OrderStatus.Unpaid,
+    key: "UNPAID",
   },
   {
     label: "To ship",
-    key: OrderStatus.Toship,
+    key: "TO_SHIP",
   },
   {
     label: "Shipped",
-    key: OrderStatus.Shipped,
+    key: "SHIPPED",
   },
   {
     label: "Completed",
-    key: OrderStatus.Completed,
+    key: "COMPLETED",
   },
   {
     label: "Cancellation",
-    key: OrderStatus.Cancellation,
+    key: "VOID",
   },
 ];
 

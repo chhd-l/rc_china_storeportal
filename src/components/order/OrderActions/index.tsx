@@ -49,7 +49,7 @@ const OrderActions = ({
       {location.pathname !== '/order/order-detail' && (
         <Tooltip title="View order details">
           <span
-            className="cursor-pointer iconfont icon-kjafg text-red-500"
+            className="cursor-pointer iconfont icon-kjafg primary-color"
             onClick={() => {
               navigator('/order/order-detail', {
                 state: { id: orderId, status: orderState },
@@ -62,7 +62,7 @@ const OrderActions = ({
       {orderState === OrderStatus['Toship'] && (
         <Tooltip title="Arrange shipment">
           <span
-            className="cursor-pointer ml-2 iconfont icon-dabaodaifahuo text-red-500"
+            className="cursor-pointer ml-2 iconfont icon-dabaodaifahuo primary-color"
             style={{ fontSize: '20px' }}
             onClick={() => {
               setShipModalVisible(true)
@@ -74,7 +74,7 @@ const OrderActions = ({
       {orderState === OrderStatus["Shipped"] && (
         <Tooltip title="Completed">
           <span
-            className="cursor-pointer ml-2 iconfont icon-Order text-red-500"
+            className="cursor-pointer ml-2 iconfont icon-Order primary-color"
             style={{ fontSize: "20px" }}
             onClick={() => setCompleteModalVisible(true)}
           />

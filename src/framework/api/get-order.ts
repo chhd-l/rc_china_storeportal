@@ -11,12 +11,12 @@ export const getOrderList = async (queryOrderListParams: any): Promise<{ total: 
     if (isMock) {
       return Mock.mock(orderListSource('UNPAID')).array
     } else {
-      let expressCompanies=await getExpressCompanyList();
+      let expressCompanies = await getExpressCompanyList()
       console.log('query orders view params', queryOrderListParams)
       let res = await ApiRoot.orders().getOrders({ queryOrderListParams })
-      const { records, total } = res.orders
-      let record = (records || []).map((order: any) => normaliseOrder(order,expressCompanies))
       console.log('query orders view list', res)
+      const { records, total } = res.orders
+      let record = (records || []).map((order: any) => normaliseOrder(order, expressCompanies))
       return {
         total: total || 0,
         records: record,
@@ -37,10 +37,10 @@ export const getOrderDetail = async ({ orderNum }: { orderNum: string }) => {
       console.log('22222222222222222 ')
       return Mock.mock(orderDetailSource('UNPAID'))
     } else {
-      let expressCompanies=await getExpressCompanyList();
+      let expressCompanies = await getExpressCompanyList()
       let { getOrder } = await ApiRoot.orders().getOrder({ storeId: '12345678', orderNum })
       console.info('res', getOrder)
-      const detail = normaliseOrder(getOrder,expressCompanies)
+      const detail = normaliseOrder(getOrder, expressCompanies)
       console.info('list', detail)
       return detail
     }
@@ -64,11 +64,11 @@ export const getOrderSetting = async () => {
 export const getExpressCompanyList = async () => {
   try {
     let expressCompanyList = session.get('express-company-list')
-    if (expressCompanyList===null) {
+    if (expressCompanyList === null) {
       let res = await ApiRoot.orders().getExpressCompany({ storeId: '12345678' })
       console.info('get expressCompany data view', res)
       expressCompanyList = res.expressCompanies || []
-      if(expressCompanyList.length>0){
+      if (expressCompanyList.length > 0) {
         session.set('express-company-list', expressCompanyList)
       }
     }
@@ -105,6 +105,18 @@ export const completedOrder = async (params: any) => {
     let res = await ApiRoot.orders().completedOrder({ body: params })
     console.info('completed order data view', res)
     return res.completedOrder || false
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+}
+
+export const updateComment = async (params: any) => {
+  try {
+    console.info('update comment view params', params)
+    let res = await ApiRoot.orders().updateComment({ body: params })
+    console.info('completed order data view', res)
+    return res.updateComment || false
   } catch (e) {
     console.log(e)
     return false

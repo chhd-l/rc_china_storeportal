@@ -60,14 +60,14 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList 
             {istb(sku)}
           </div>
         ))}
-        {spu.showAll === false && spu.skus.length > 3 ? (
+        {spu.showAll === false && spu.skus?.length > 3 ? (
           <ShowMoreButton listData={listData} spuIdx={spuIdx} list={list} setList={setList}>
             <div className='flex items-center'>
               More({listData[spuIdx].skus.length - 3} Products SKUs) <DownOutlined />
             </div>
           </ShowMoreButton>
         ) : null}
-        {spu.showAll === true && spu.skus.length > 3 ? (
+        {spu.showAll === true && spu.skus?.length > 3 ? (
           <ShowMoreButton listData={listData} spuIdx={spuIdx} list={list} setList={setList}>
             <div className='flex items-center'>
               hide <UpOutlined />

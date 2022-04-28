@@ -17,10 +17,12 @@ export interface Order {
 }
 
 export interface Comment {
-  createdAt: string
-  createdBy: string
-  content: string
-  id: string
+  lastModifiedBy?: string
+  lastModifiedAt?: string
+  createdAt?: string
+  createdBy?: string
+  content?: string
+  id?: string
 }
 
 export interface Log {
@@ -28,6 +30,7 @@ export interface Log {
   createdBy: string
   status: string
   id: string
+  event:string
 }
 
 export interface Carrier {

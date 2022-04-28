@@ -20,6 +20,7 @@ const OrderDetail = () => {
     payInfo,
     logs,
     comments,
+    id,
   } = orderDetail
 
   useEffect(() => {
@@ -28,11 +29,13 @@ const OrderDetail = () => {
     console.info('state.id', state.id)
     getDetail(state.id)
   }, [])
+
   const getDetail = async (orderNum: string) => {
     let data: any = await getOrderDetail({ orderNum })
-    console.log('333',data)
+    console.log('333', data)
     setOrderDetail(data)
   }
+
   return (
     <>
       {orderDetail ? (
@@ -45,6 +48,7 @@ const OrderDetail = () => {
                   orderId={orderId}
                   subscriptionId={subscriptionId}
                   orderAddress={shippingAddress}
+                  logs={logs}
                 />
               </InfoContainer>
               <DivideArea />
@@ -66,7 +70,7 @@ const OrderDetail = () => {
               </InfoContainer>
             </div>
             <div className="w-1/4">
-              <Comment comments={comments} />
+              <Comment comments={comments} orderNum={id} updateSuccess={() => getDetail(orderId)} />
               <OperationLog logs={logs} />
             </div>
           </div>
