@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { SellerLogoPanel } from "@/components/auth";
 import { FormItemProps } from "@/framework/types/common";
 import "./index.less";
+import { login } from "@/framework/api/login-user";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store/user.store";
 
 const formItems: FormItemProps[] = [
   {
@@ -31,7 +34,7 @@ const formItems: FormItemProps[] = [
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const [loginError, setLoginError] = useState("");
-
+  const [,setUserInfo] = useAtom(userAtom)
   const navigate = useNavigate();
   const [form] = Form.useForm();
 
@@ -54,7 +57,13 @@ const Login = () => {
             form={form}
             onFinish={(values) => {
               console.log("----form login-----", values);
-              handleLogin(values);
+              login({ username: values.account, password: values.password }).then(res => {
+                if (res) {
+                  console.log(res, 're')
+                  setUserInfo(res.userInfo)
+                  handleLogin(values)
+                }
+              })
             }}
             autoComplete="off"
           >

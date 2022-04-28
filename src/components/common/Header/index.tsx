@@ -1,5 +1,7 @@
+import { User } from "@/framework/types/common";
+import { useEffect } from "react";
 import logo from "../../../assets/images/logo.png"
-const Header = () => {
+const Header = ({userInfo}: {userInfo: User | null}) => {
   return (
     <header className="flex bg-white p-0 fixed w-full justify-between pl-6 pr-6 h-14 items-center border-b border-gray-200 border-solid shadow-md z-10">
       <div className="flex flex-row">
@@ -7,7 +9,7 @@ const Header = () => {
         <img src={logo} alt="" className=" w-28 h-5" />
         <span className="ml-6">Seller Center</span>
       </div>
-      <div>User</div>
+      <div>{userInfo?.username}</div>
     </header>
   );
 };

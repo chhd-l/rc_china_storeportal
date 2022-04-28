@@ -3,11 +3,15 @@ import Menus from "../Menus";
 import TopHeader from "../Header";
 import { Layout } from "antd";
 import { important } from "tailwind.config";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store/user.store";
+import { useEffect } from "react";
 const { Header, Content, Sider } = Layout;
 const AppLayout = () => {
+  const [userInfo] = useAtom(userAtom)
   return (
     <Layout>
-      <TopHeader />
+      <TopHeader userInfo={userInfo}/>
       <Layout style={{ marginTop: 64 }}>
         <Layout style={{width:"16%",height: "calc(100vh - 64)",top: "58px",background:"#fff"}} className="overflow-auto fixed left-0 bottom-0">
         <Sider

@@ -8,6 +8,7 @@ import {
 } from "@/components/auth";
 import { REGISTER_FORM } from "./modules/form";
 import { FormItemProps } from "@/framework/types/common";
+import { register, verifyMesssage } from "@/framework/api/login-user";
 
 const title = "Sign up";
 const formItems: FormItemProps[] = REGISTER_FORM;
@@ -27,6 +28,7 @@ const Register = () => {
   const [verifyCode, setVerifyCode] = useState("");
   const [errVerifyCode, setErrVerifyCode] = useState(false);
   const [getVerifyCodeErr, setGetVerifyCodeErr] = useState("");
+  const [tempUserId, setTempUserId] = useState("")
 
   const navigate = useNavigate();
   const [form] = Form.useForm();
@@ -46,10 +48,10 @@ const Register = () => {
     }
   };
 
-  const verifyCodeToConfirm = () => {
-    try {
+  const verifyCodeToConfirm = async () => {
+    if (await verifyMesssage({ userId: tempUserId, code: verifyCode })) {
       setCurrentStep(REGISTERSTEPENUM["SUCCESS"]);
-    } catch (err) {
+    } else {
       setErrVerifyCode(true);
     }
   };
@@ -72,6 +74,9 @@ const Register = () => {
               wrapperCol={{ span: 24 }}
               onFinish={(values) => {
                 console.log("----form1-----", values);
+                register({ ...values }).then(id => {
+                  setTempUserId(id)
+                })
                 setPhoneNumber(values.phone);
                 registerToNext();
               }}

@@ -80,9 +80,9 @@ let routes: RouteObject[] = [
     ],
   },
   { path: "/login", element: <Login /> },
-  { path: "*", element: <Home /> },
   { path: "/resetPassword", element: <ResetPassword /> },
   { path: "/register", element: <Register /> },
+  { path: "*", element: <Home /> },
 ]
 
 // The useRoutes() hook allows you to define your routes as JavaScript objects

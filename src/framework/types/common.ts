@@ -85,3 +85,16 @@ export interface PageParamsProps {
   currentPage: number,
   pageSize: number,
 }
+
+export interface User {
+  id: string
+  type: string
+  name: string
+  nickname: string
+  username: string
+  email: string
+  isEmailVerified: boolean
+  phone: string
+  isPhoneVerified: boolean
+  status: string
+}
