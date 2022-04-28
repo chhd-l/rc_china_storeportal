@@ -46,12 +46,12 @@ const OrderActions = ({
 
   return (
     <div className="flex items-center">
-      {location.pathname !== '/order-detail' && (
+      {location.pathname !== '/order/order-detail' && (
         <Tooltip title="View order details">
           <span
             className="cursor-pointer iconfont icon-kjafg primary-color"
             onClick={() => {
-              navigator('/order-detail', {
+              navigator('/order/order-detail', {
                 state: { id: orderId, status: orderState },
               })
             }}

@@ -100,7 +100,7 @@ export const tableColumns = ({
       title: "Action",
       hideInSearch: true,
       render: (_, record) => [
-        <Link to={`/mpbanner/${record.id}`} className="mr-4">
+        <Link to={`/mpbanner/mpbanner-detail/${record.id}`} className="mr-4">
           <FormOutlined />
         </Link>,
         <a className=" mr-4">

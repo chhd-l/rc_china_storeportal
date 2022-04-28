@@ -40,26 +40,26 @@ export const columns: ProColumns<ProductBaseProps>[] = [
     valueType: "date",
     sorter: (a, b) => a.stock - b.stock,
   },
-  {
-    title: "Operation",
-    key: "option",
-    width: 180,
-    valueType: "option",
-    render: (_, record) => [
-      <a>
-        <EyeOutlined />
-      </a>,
-      <Link to={`/product/${record.id}`}>
-        <EditOutlined />
-      </Link>,
-      <a>
-        <DownloadOutlined />
-      </a>,
-      <a>
-        <DeleteOutlined />
-      </a>,
-    ],
-  },
+  // {
+  //   title: "Operation",
+  //   key: "option",
+  //   width: 180,
+  //   valueType: "option",
+  //   render: (_, record) => [
+  //     <a>
+  //       <EyeOutlined />
+  //     </a>,
+  //     <Link to={`/product/${record.id}`}>
+  //       <EditOutlined />
+  //     </Link>,
+  //     <a>
+  //       <DownloadOutlined />
+  //     </a>,
+  //     <a>
+  //       <DeleteOutlined />
+  //     </a>,
+  //   ],
+  // },
 ];
 
 export enum Tab {
@@ -121,24 +121,24 @@ export const tableHeaders: TableHeadersItemProps[] = [
     dataIndex: "stock",
     sortDirection: "",
   },
-  {
-    title: "Options",
-    dataIndex: "actions",
-    render: (record: any, index: number) => (
-      <div>
-        <a className="mr-4">
-          <EyeOutlined />
-        </a>
-        <Link className="mr-4" to={`/product/${record.id}`}>
-          <EditOutlined />
-        </Link>
-        <a className="mr-4">
-          <DownloadOutlined />
-        </a>
-        <a>
-          <DeleteOutlined />
-        </a>
-      </div>
-    ),
-  },
+  // {
+  //   title: "Options",
+  //   dataIndex: "actions",
+  //   render: (record: any, index: number) => (
+  //     <div>
+  //       <a className="mr-4">
+  //         <EyeOutlined />
+  //       </a>
+  //       <Link className="mr-4" to={`/product/${record.id}`}>
+  //         <EditOutlined />
+  //       </Link>
+  //       <a className="mr-4">
+  //         <DownloadOutlined />
+  //       </a>
+  //       <a>
+  //         <DeleteOutlined />
+  //       </a>
+  //     </div>
+  //   ),
+  // },
 ];

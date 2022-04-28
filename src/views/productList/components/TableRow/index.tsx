@@ -2,6 +2,13 @@ import { ProductListItemProps, TableHeadersItemProps } from '@/framework/types/p
 import { DownOutlined, UpOutlined } from '@ant-design/icons'
 import { Checkbox } from 'antd'
 import ShowMoreButton from '../ShowMoreButton'
+import { Link } from "react-router-dom";
+import {
+  DeleteOutlined,
+  EyeOutlined,
+  EditOutlined,
+  DownloadOutlined,
+} from "@ant-design/icons";
 
 interface TableRowProps {
   spu: ProductListItemProps
@@ -13,8 +20,23 @@ interface TableRowProps {
   setList: (list: ProductListItemProps[]) => void
 }
 const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList }: TableRowProps) => {
+
+  const istb = (sku: any) => {
+    if (!tableHeader.length) return
+    console.log('tableHeader', tableHeader)
+    return tableHeader.map((item) => {
+      if (item.dataIndex !== 'name') {
+        return (
+          <div className='flex-1 flex justify-center h-full'>
+            {sku[item.dataIndex]}
+          </div>
+        )
+      }
+    })
+  }
+
   return (
-    <div className='flex bg-white border-b border-solid border-gray-400 text-left'>
+    <div className='flex bg-white border-b text-left items-center pt-2 pb-2'>
       <div className='px-2 py-1'>
         <Checkbox
           checked={spu.checked}
@@ -28,23 +50,14 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList 
           <img src={spu.img} className='w-20 h-20' alt={spu.name} />
         </div>
         <div className='pl-1'>
-          <div>{spu.name}</div>
+          <div className='text-sm font-bold mb-1'>{spu.name}</div>
           <div className='text-gray-400'>{spu.no}</div>
         </div>
       </div>
-      <div>
-        {spu.skus?.map((sku: any, index: number) => (
-          <div className='flex py-1'>
-            {tableHeader.map((item, itemIdx) => (
-              <>
-                {itemIdx > 0 ? (
-                  <div className='w-40'>
-                    {item.dataIndex !== 'actions' && sku[item.dataIndex]}
-                    {item.dataIndex === 'actions' && index === 0 ? item?.render?.(spu, spuIdx) : null}
-                  </div>
-                ) : null}
-              </>
-            ))}
+      <div className=' w-3/5'>
+        {spu.skus.map((sku: any, index: number) => (
+          <div className='flex py-1 justify-stretch items-baseline font-semibold'>
+            {istb(sku)}
           </div>
         ))}
         {spu.showAll === false && spu.skus?.length > 3 ? (
@@ -61,6 +74,20 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList 
             </div>
           </ShowMoreButton>
         ) : null}
+      </div>
+      <div className='w-64 flex justify-center'>
+        <Link to='' className="mr-4">
+          <EyeOutlined />
+        </Link>
+        <Link className="mr-4" to={`/product/${spuIdx}`}>
+          <EditOutlined />
+        </Link>
+        <Link to='' className="mr-4">
+          <DownloadOutlined />
+        </Link>
+        <Link to=''>
+          <DeleteOutlined />
+        </Link>
       </div>
     </div>
   )

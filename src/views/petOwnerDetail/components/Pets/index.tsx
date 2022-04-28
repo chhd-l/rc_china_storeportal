@@ -47,18 +47,17 @@ const PetInformation = ({ id, customerId }: { customerId: string; id: string }) 
                 type="primary"
                 danger
                 onClick={() => {
-                  navigator('/pet-detail', { state: { pet: item } })
+                  navigator('/petOwner/pet-detail', { state: { pet: item } })
                 }}
               >
                 Details
               </Button>
             </div>
           ))}
-        </div>
-      ) : (
-        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-      )}
-    </div>
+        </div >
+      ) : null
+      }
+    </div >
   )
 }
 export default PetInformation
