@@ -18,6 +18,9 @@
   }
 }
 
+.ant-layout {
+  background-color: #f8f8f8;
+}
 .rc-anchor {
   .ant-anchor-ink-ball {
     width: 1px !important;
@@ -30,6 +33,7 @@
   }
 }
 .ant-layout-content {
+  margin-top: 59px;
   min-height: calc(100vh - 69px);
   .ant-form-item-control-input {
     text-align: left !important;
@@ -48,30 +52,32 @@
   .ant-menu-submenu {
     // 一级菜单样式
     .ant-menu-submenu-selected {
-      color: #999999 !important;
+      color: #bbbbbb !important;
     }
     .ant-menu-submenu-title {
       font-size: 14px;
-      font-weight: bold;
-      color: #999999;
+      color: #bbbbbb;
       padding-left: 20px !important;
       padding-left: 20px !important;
+      .ant-menu-title-content {
+        font-weight: bold;
+      }
     }
     .ant-menu-item-icon {
       font-size: 20px;
-      color: #999999;
+      color: #bbbbbb;
+    }
+    .ant-menu-submenu-arrow {
+      color: #bbbbbb;
     }
     .ant-menu-submenu-title:hover {
       font-size: 14px;
-      font-weight: bold;
-      color: #999999;
+      color: #bbbbbb;
       background-color: #fff;
       padding-left: 20px !important;
       padding-left: 20px !important;
       .ant-menu-submenu-arrow:hover {
-        // margin-right: 20px;
         color: #ee4d2d !important;
-        font-weight: bold;
       }
     }
     // 二级菜单样式
@@ -79,25 +85,28 @@
       margin-top: -10px;
       margin-bottom: 10px;
       .ant-menu-item-only-child {
-        min-width: 0px !important;
-        padding-left: 42px !important;
         color: #333333;
         font-size: 13px;
         background-color: #fff;
-        margin-left: 8px;
-        margin-top: 0;
-        margin-bottom: 0;
+        padding-left: 10px;
+        margin: 0 auto;
         height: 30px;
+        a {
+          transition: color 0s !important;
+        }
       }
     }
   }
 }
 .ant-menu-item a:before {
-  min-width: 0px !important;
+  width: 100px;
 }
 .ant-menu-item-only-child:hover {
-  font-weight: bold;
   color: #ee4d2d !important;
+}
+// 二级菜单点击之后加粗
+.ant-menu-item-selected a {
+  font-weight: bold;
 }
 
 // 清楚a标签后面的伪类
@@ -119,6 +128,9 @@
 ::-webkit-scrollbar-track {
   border-radius: 10px;
 }
+.ant-menu-inline {
+  border: none !important;
+}
 
 // 按钮样式修改
 .ant-btn-primary {
@@ -128,4 +140,10 @@
 .ant-col-offset-16 {
   margin-left: 0 !important;
   padding-left: 0 !important;
+}
+
+.ant-menu-inline,
+.ant-menu-item,
+.ant-menu-submenu-title {
+  width: 100% !important;
 }

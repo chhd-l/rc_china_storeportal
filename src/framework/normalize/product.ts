@@ -304,9 +304,9 @@ export const normaliseProductListSku = (sku: GoodsVariants): ProductListSkuItem 
   }
   return skuItem
 }
-export const normaliseProductListSpu = (spu: Goods): ProductListSkuItem => {
+export const normaliseProductListSpu = (spu: any): ProductListSkuItem => {
   let listItem = {
-    skus: spu.goodsVariants?.map(sku => normaliseProductListSku(sku)),
+    skus: spu.goodsVariants?.map((sku: any) => normaliseProductListSku(sku)),
     img: spu.defaultImage,
     id: spu.id,
     no: spu.spuNo,

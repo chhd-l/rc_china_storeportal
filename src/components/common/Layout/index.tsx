@@ -5,35 +5,39 @@ import { Layout } from "antd";
 import RouteBreadcrumb from './RouteBreadcrumb'
 
 const { Header, Content, Sider } = Layout;
+
 const AppLayout = () => {
+  
 
   return (
-    <Layout>
-      <Header className="bg-white fixed w-full flex items-center" style={{ zIndex: 1 }}>
-        <TopHeader />
-        <RouteBreadcrumb />
-      </Header>
-      <Layout style={{ marginTop: 64 }}>
-        <Layout style={{ width: "16%", height: "calc(100vh - 64)", top: "58px", background: "#fff" }} className="overflow-auto fixed left-0 bottom-0">
-          <Sider
-            width={"100%"}
-            theme="light"
-            style={{ background: "#fff" }}
-          // className="overflow-auto fixed left-0 bottom-0"
-          // style={{
-          //   height: "calc(100vh - 64)",
-          //   top: "58px",
-          // }}
-          >
-            <Menus />
-          </Sider>
-        </Layout>
-        <Layout style={{ width: "84%", marginLeft: "auto" }}>
-          <Content >
-            <Outlet />
-          </Content>
-        </Layout>
+    <Layout >
+      <TopHeader />
+      <RouteBreadcrumb/>
+      <Layout>
+      <Sider  theme="light" style={{
+        overflow: 'auto',
+        height: '100vh',
+        position: 'fixed',
+        left: 0,
+        top: 55,
+        bottom: 0,
+      }}>
+        <Menus />
+      </Sider>
+      <Layout style={{ marginLeft: 200 }} >
+        
+        <Content
+          className="site-layout-background"
+          style={{
+            // padding: 24,
+            margin: '59px 24px 0 24px',
+            minHeight: 600,
+          }}
+        >
+          <Outlet />
+        </Content>
       </Layout>
+    </Layout>
     </Layout>
   );
 };
