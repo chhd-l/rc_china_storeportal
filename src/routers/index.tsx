@@ -1,5 +1,4 @@
 import { lazy } from "react" // 路由懒加载
-import type { RouteObject } from "react-router-dom"
 const Layout = lazy(() => import("../components/common/Layout"))
 const Home = lazy(() => import("../views/index"))
 const Login = lazy(() => import("../views/login"))
@@ -37,6 +36,16 @@ const MenuManageDetail = lazy(() => import("@/views/menuManageDetail"))
 const TemplateMessageDetail = lazy(
   () => import("@/views/templateMessageDetail")
 )
+
+interface RouteObject {
+  caseSensitive?: boolean;
+  children?: RouteObject[];
+  element?: React.ReactNode;
+  index?: boolean;
+  path?: string;
+  breadcrumbName?: string;
+}
+
 let routes: RouteObject[] = [
   {
     path: "/",
@@ -46,37 +55,37 @@ let routes: RouteObject[] = [
         path: "home",
         element: <Home />,
       },
-      { path: "/product-list", element: <ProductList /> },
-      { path: "/product/:id", element: <AddProduct /> },
-      { path: "/pet-owner-list", element: <PetOwnerList /> },
-      { path: "/pet-owner-detail", element: <PetOwnerDetail /> },
-      { path: "/pet-detail", element: <PetDetail /> },
-      { path: "/category-list", element: <CategoryList /> },
-      { path: "/category/:id", element: <CategoryDetail /> },
-      { path: "/order-list", element: <OrderList /> },
-      { path: "/shipment-list", element: <OrderList /> },
-      { path: "/order-detail", element: <OrderDetail /> },
-      { path: "/shipping-setting", element: <ShippingSetting /> },
-      { path: "/order-setting", element: <OrderSetting /> },
-      { path: "/account-list", element: <AccountList /> },
-      { path: "/add-account", element: <AddAccount /> },
-      { path: "/fans-list", element: <FansList /> },
-      { path: "/fans-detail", element: <FansDetail /> },
-      { path: "/automatic-replies", element: <AutoReplyList /> },
-      { path: "/add-auto-reply", element: <AddAutoReply /> },
-      { path: "/reply-contents", element: <ReplyContents /> },
-      { path: "/add-reply-content", element: <AddReplyContent /> },
-      { path: "/assets-management", element: <AssetList /> },
-      { path: "/mpbanner-list", element: <MpBannerList /> },
-      { path: "/mpqr-list", element: <MpQRList /> },
-      { path: "/menu-manage-list", element: <MenuManage /> },
-      { path: "/qrcode-manage-list", element: <QrCodeManage /> },
-      { path: "/template-message-list", element: <TemplateMessage /> },
-      { path: "/mpbanner/:id", element: <MpBannerDetail /> },
-      { path: "/mpqr/:id", element: <MpQRDetail /> },
-      { path: "/menu-manage/:id", element: <MenuManageDetail /> },
-      { path: "/qrcode-manage/:id", element: <QrCodeManageDetail /> },
-      { path: "/template-message/:id", element: <TemplateMessageDetail /> },
+      { path: "/product-list", element: <ProductList />, breadcrumbName: 'ProductList' },
+      { path: "/product/:id", element: <AddProduct />, breadcrumbName: 'Product' },
+      { path: "/pet-owner-list", element: <PetOwnerList />, breadcrumbName: 'PetOwnerList' },
+      { path: "/pet-owner-detail", element: <PetOwnerDetail />, breadcrumbName: 'PetOwnerDetail' },
+      { path: "/pet-detail", element: <PetDetail />, breadcrumbName: 'petDetail' },
+      { path: "/category-list", element: <CategoryList />, breadcrumbName: 'CategoryList' },
+      { path: "/category/:id", element: <CategoryDetail />, breadcrumbName: 'Category' },
+      { path: "/order-list", element: <OrderList />, breadcrumbName: 'OrderList' },
+      { path: "/shipment-list", element: <OrderList />, breadcrumbName: 'ShipmentList' },
+      { path: "/order-detail", element: <OrderDetail />, breadcrumbName: 'OrderDetail' },
+      { path: "/shipping-setting", element: <ShippingSetting />, breadcrumbName: 'ShippingSetting' },
+      { path: "/order-setting", element: <OrderSetting />, breadcrumbName: 'OrderSetting' },
+      { path: "/account-list", element: <AccountList />, breadcrumbName: 'AccountList' },
+      { path: "/add-account", element: <AddAccount />, breadcrumbName: 'AddAccount' },
+      { path: "/fans-list", element: <FansList />, breadcrumbName: 'FansList' },
+      { path: "/fans-detail", element: <FansDetail />, breadcrumbName: 'FansDetail' },
+      { path: "/automatic-replies", element: <AutoReplyList />, breadcrumbName: 'AutomaticReplies' },
+      { path: "/add-auto-reply", element: <AddAutoReply />, breadcrumbName: 'addAutoReply' },
+      { path: "/reply-contents", element: <ReplyContents />, breadcrumbName: 'ReplyContents' },
+      { path: "/add-reply-content", element: <AddReplyContent />, breadcrumbName: 'AddReplyContent' },
+      { path: "/assets-management", element: <AssetList />, breadcrumbName: 'AssetsManagement' },
+      { path: "/mpbanner-list", element: <MpBannerList />, breadcrumbName: 'MpbannerList' },
+      { path: "/mpqr-list", element: <MpQRList />, breadcrumbName: 'MpqrList' },
+      { path: "/menu-manage-list", element: <MenuManage />, breadcrumbName: 'MenuManageList' },
+      { path: "/qrcode-manage-list", element: <QrCodeManage />, breadcrumbName: 'QrcodeManageList' },
+      { path: "/template-message-list", element: <TemplateMessage />, breadcrumbName: 'TemplateMessagList' },
+      { path: "/mpbanner/:id", element: <MpBannerDetail />, breadcrumbName: 'Mpbanner' },
+      { path: "/mpqr/:id", element: <MpQRDetail />, breadcrumbName: 'Mpqr' },
+      { path: "/menu-manage/:id", element: <MenuManageDetail />, breadcrumbName: 'MenuManage' },
+      { path: "/qrcode-manage/:id", element: <QrCodeManageDetail />, breadcrumbName: 'QrcodeManage' },
+      { path: "/template-message/:id", element: <TemplateMessageDetail />, breadcrumbName: 'TemplateMessage' },
     ],
   },
   { path: "/login", element: <Login /> },

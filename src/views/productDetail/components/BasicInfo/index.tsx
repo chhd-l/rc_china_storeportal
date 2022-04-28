@@ -4,14 +4,14 @@ import { Form, Input, Select } from 'antd'
 import { useContext, useEffect, useState } from 'react'
 import { DetailContext } from '../../index'
 import { FormProps } from '@/framework/types/common'
+import { EditOutlined } from '@ant-design/icons'
 const breedList = [
-  { name: 'breed1', value: 'breed1' },
-  { name: 'breed2', value: 'breed2' },
+  { name: 'B1', value: 'B1', label: 'Royal Canin' },
+  { name: 'B2', value: 'B2', label: 'Royal Canin Sub' },
 ]
-
 const salesStatusList = [
-  { value: 'Saleable', name: true },
-  { value: 'Not saleable', name: false },
+  { label: 'Saleable', value: '1' },
+  { label: 'Not saleable', value: '0' },
 ]
 const BasicInfo = ({ field }: FormProps) => {
   // const [form] = Form.useForm();
@@ -34,7 +34,7 @@ const BasicInfo = ({ field }: FormProps) => {
     <>
       <Form.Item label='Product Image' name='assets'>
         <div className='text-left'>
-          <Upload handleImgUrl={handleImgUrl} showUploadList={false} />
+          <Upload handleImgUrl={handleImgUrl} fileList={detail.assets} showUploadList={false} />
         </div>
       </Form.Item>
       <Form.Item label='Product Video' name='video'>
@@ -61,11 +61,22 @@ const BasicInfo = ({ field }: FormProps) => {
         <Wangeditor defaultValue={detail.description} onChange={handleEditorChange} />
       </Form.Item>
       <Form.Item label='Category' name='category'>
-        <Input
-          onClick={() => {
-            setShowCatePop(true)
-          }}
-        />
+        <div className='flex'>
+          {detail.selectedCateOptions?.map((cate: any, idx: number) => (
+            <div>
+              {idx === 0 ? '' : '>'}
+              {cate.label}
+            </div>
+          ))}
+          <EditOutlined
+            onClick={() => {
+              setShowCatePop(true)
+            }}
+          />
+        </div>
+        {/* <Input
+         
+        /> */}
       </Form.Item>
       <Form.Item label='Brand' name='brand'>
         <Select placeholder='please select Brand' options={breedList} />

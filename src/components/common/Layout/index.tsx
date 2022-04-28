@@ -1,10 +1,9 @@
 import { Outlet } from "react-router-dom";
 import Menus from "../Menus";
 import TopHeader from "../Header";
-import { Layout, Menu, MenuProps } from "antd";
-import { important } from "tailwind.config";
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from "@ant-design/icons";
-import React from "react";
+import { Layout } from "antd";
+import RouteBreadcrumb from './RouteBreadcrumb'
+
 const { Header, Content, Sider } = Layout;
 
 const AppLayout = () => {

@@ -81,7 +81,7 @@ export const normaliseOrder = (data: any,expressCompanies:any): any => {
     tradeState: {
       orderState: orderState,
     },
-    carrier: [{
+    carrier: shippingInfo?.trackingId?[{
       packId:shippingInfo.trackingId,
       company:carrierType,
       tradeItem:lineItem?.map((item: any) => {
@@ -92,7 +92,7 @@ export const normaliseOrder = (data: any,expressCompanies:any): any => {
           skuName,
         }
       }) || []
-    }],
+    }]:[],
     carrierType:carrierType,
     tradePrice: {
       goodsPrice: tradePrice.goodsPrice,
@@ -101,15 +101,8 @@ export const normaliseOrder = (data: any,expressCompanies:any): any => {
       totalPrice: tradePrice.totalPrice,
     },
     payInfo: payInfo ? normalisePayInfo(payInfo, orderState) : {},
-    logs: (logs || []).map((log: any) => {
-      return {
-        createdAt: log.createdAt,
-        createdBy: log.createdBy,
-        status: 'New Order', //?
-        id: '@id', //??id是枚举？
-      }
-    }),
-    comments: [],
+    logs,
+    comments: data?.comments,
   }
   return orderItem
 }

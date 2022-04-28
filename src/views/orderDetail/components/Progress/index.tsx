@@ -3,28 +3,47 @@ import OrderActions from '@/components/order/OrderActions'
 import React, { useEffect, useState } from 'react'
 import { OrderStatus } from '@/framework/types/order'
 import { stepList } from '../../modules/constants'
+import { KeyRules } from '@/framework/types/common'
+import { handleReturnTime } from '@/utils/utils'
+
+const LogsAndState:KeyRules = {
+  UNPAID: 'INITIALIZATION',
+  TO_SHIP: 'PAY',
+  SHIPPED: 'SHIP',
+  COMPLETED: 'COMPLETE',
+  VOID: 'CANCEL',
+}
 
 const OrderProgress = ({
   orderState,
   orderId,
   subscriptionId,
   orderAddress,
+  logs,
 }: {
   orderState: string
   orderId: string
   subscriptionId: string | undefined
-  orderAddress: any
+  orderAddress: any[]
+  logs: any
 }) => {
   const [currentStep, setCurrentStep] = useState(0)
   const [filterSteps, setFilterSteps] = useState(stepList)
 
   useEffect(() => {
+    let steps = stepList
     if (orderState === OrderStatus.Cancellation) {
-      setFilterSteps(stepList.filter((el) => el.key === OrderStatus.Unpaid || el.key === OrderStatus.Cancellation))
+      steps = stepList.filter((el) => el.key === OrderStatus.Unpaid || el.key === OrderStatus.Cancellation)
     } else {
-      setFilterSteps(stepList.filter((el) => el.key !== OrderStatus.Cancellation))
+      steps = stepList.filter((el) => el.key !== OrderStatus.Cancellation)
     }
-  }, [orderState])
+    steps.map((item) => {
+      const log = logs.filter((el: any) => el.event === LogsAndState[item.key])
+      item.updateTime = log.length > 0 ? handleReturnTime(log[0].createdAt) : ''
+      return item
+    })
+    setFilterSteps(steps)
+  }, [orderState,logs])
 
   useEffect(() => {
     filterSteps.map((el, i) => {
@@ -42,7 +61,7 @@ const OrderProgress = ({
           <span className="ml-4">
             Order ID:{orderId}
             <br />
-            {subscriptionId&&( <span>Subscription ID:{subscriptionId}</span>)}
+            {subscriptionId && <span>Subscription ID:{subscriptionId}</span>}
           </span>
         </div>
         <div className="justify-items-end">

@@ -87,13 +87,13 @@ export interface ProductDetailProps {
   // listPrice: string
   // marketingPrice: string
   // name: string
-  // salesStatus: string
+  salesStatus: string
   // size: string
   // spu: string
   // stock: string
   // subscription: string
   // subscriptionPrice: string
-  support100: string
+  isSupport100: string
   // technology: string
   // video: string
   weight: string
@@ -129,7 +129,7 @@ export interface ProductListProps {
 }
 export enum ProductType {
   Regular = 'REGULAR',
-  Bundle = 'BUNDLE',
+  // Bundle = 'BUNDLE',
 }
 
 export enum AddCateType {
@@ -138,10 +138,11 @@ export enum AddCateType {
 }
 export interface SpecificationListProps {
   option: string
-  goodsSpecificationId?: string
+  id?: string
 }
 export interface VarationProps {
   name: string
+  id?: string
   specificationList: SpecificationListProps[]
 }
 export interface VarationsFormProps {
