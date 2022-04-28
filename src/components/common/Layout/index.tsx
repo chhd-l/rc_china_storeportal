@@ -2,16 +2,20 @@ import { Outlet } from "react-router-dom";
 import Menus from "../Menus";
 import TopHeader from "../Header";
 import { Layout } from "antd";
+import { important } from "tailwind.config";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store/user.store";
+import { useEffect } from "react";
 import RouteBreadcrumb from './RouteBreadcrumb'
 
 const { Header, Content, Sider } = Layout;
 
 const AppLayout = () => {
-  
+  const [userInfo] = useAtom(userAtom)
 
   return (
     <Layout >
-      <TopHeader />
+      <TopHeader userInfo={userInfo}/>
       <Layout>
       <Sider  theme="light" style={{
         overflow: 'auto',

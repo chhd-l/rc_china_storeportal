@@ -11,7 +11,8 @@ function App () {
   let Routers = useRoutes(Router)
   const navigate = useNavigate()
   useEffect(() => {
-    // navigate('/order-list')
+    // console.log('123')
+    // navigate('/login')
     // ApiRoot.addresses().createAddress({
     //   body: {
     //     customerId: 'e5edfa8c-ff05-cee0-45af-5c9e69d1b162',
