@@ -111,6 +111,11 @@ export const getProductDetail = async ({ storeId, goodsId }: { storeId: string, 
     return {}
   }
 }
+export const switchShelves = async ({ goodsId }: { goodsId: string }) => {
+  const data = await ApiRoot.products().deleteMutation({ goodsId, storeId: "12345678" })
+  console.info('{ goodsId }', goodsId)
+
+}
 
 
 
