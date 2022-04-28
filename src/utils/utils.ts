@@ -6,10 +6,7 @@ export const getCurrencyCode = () => {
 }
 
 export const formatMoney = (price: number) => {
-  if (!price) {
-    return ''
-  }
-  return getCurrencyCode() + price.toFixed(2)
+  return getCurrencyCode() + (price||0).toFixed(2)
 }
 
 export const handleValueEnum = (list: LabelOptionProps[]) => {
@@ -29,5 +26,14 @@ export const handlePageParams = (pageParams: PageParamsProps) => {
   return {
     offset: currentPage * pageSize - pageSize,
     limit: pageSize,
+  }
+}
+
+export const handleReturnTime=(time:any)=>{
+  if(time){
+    const  reg = new RegExp('/', 'g')
+    return new Date(time).toLocaleString().replace(reg, '-')
+  }else{
+    return ''
   }
 }

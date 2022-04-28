@@ -1,4 +1,4 @@
-import { Avatar, Col, Row, Select } from 'antd'
+import { Avatar, Col, Empty, Row, Select } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
 import React, { useEffect, useState } from 'react'
 import { CarrierType, Order, OrderTradeItem } from '@/framework/types/order'
@@ -70,7 +70,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
                   <br />
                   {item.subscriptionId ? (
                     <span>
-                      <span className="iconfont icon-Frame1 text-red-500 mr-2" />
+                      <span className="iconfont icon-Frame1 primary-color mr-2" />
                       Subscription ID:{item.id}
                     </span>
                   ) : null}
@@ -114,7 +114,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
                 <div>{orderStatusType[item.tradeState.orderState]}</div>
               </Col>
               <Col span={6} className="text-center">
-                {item.carrierType ? item.carrierType + '.Express' : ''}
+                {item.carrierType }
               </Col>
               <Col span={2} className="text-center">
                 <OrderActions
@@ -127,7 +127,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
           </div>
         ))
       ) : (
-        <div className="w-full h-20 flex justify-center items-center">no data</div>
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
       )}
     </div>
   )

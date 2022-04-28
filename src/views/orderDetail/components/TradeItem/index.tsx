@@ -56,7 +56,7 @@ const OrderInformation = ({
 
   return (
     <div className="flex justify-start">
-      <span className="iconfont icon-bianzu-1 text-red-500" />
+      <span className="iconfont icon-bianzu-1 primary-color" />
       <div className="ml-4 w-full">
         <div className="text-left text-base">Order Information</div>
         <div className="mt-4">
@@ -99,7 +99,7 @@ const OrderInformation = ({
                 <span>{formatMoney(goodsPrice)}</span>
                 <span>{formatMoney(discountsPrice)}</span>
                 <span>{formatMoney(deliveryPrice)}</span>
-                <span className="text-red-500">{formatMoney(totalPrice)}</span>
+                <span className="primary-color">{formatMoney(totalPrice)}</span>
               </div>
             </div>
           ) : null}

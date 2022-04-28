@@ -41,19 +41,19 @@ const Index = ({ accountList }: { accountList: Account[] }) => {
         <>
           <Tooltip title="Edit">
             <span
-              className="cursor-pointer iconfont icon-a-Group437 text-red-500 text-base"
+              className="cursor-pointer iconfont icon-a-Group437 primary-color text-base"
               onClick={() => {}}
             />
           </Tooltip>
           <Tooltip title="Delete">
             <span
-              className="cursor-pointer ml-2 iconfont icon-Frame3 text-red-500 text-xl"
+              className="cursor-pointer ml-2 iconfont icon-Frame3 primary-color text-xl"
               onClick={() => {}}
             />
           </Tooltip>
           <Tooltip title="View QR Code">
             <span
-              className="cursor-pointer ml-2 iconfont icon-Frame-1 text-red-500 text-xl"
+              className="cursor-pointer ml-2 iconfont icon-Frame-1 primary-color text-xl"
               onClick={() => {}}
             />
           </Tooltip>

@@ -9,7 +9,7 @@ const OrderCarrier = ({ carrier }: { carrier: Carrier[] }) => {
     <div className="flex flex-col justify-start mt-4">
       <div className="flex flex-row justify-between">
         <div>
-          <span className="iconfont icon-a-xingzhuangjiehe3 text-red-500" />
+          <span className="iconfont icon-a-xingzhuangjiehe3 primary-color" />
           <span className="ml-4 text-black text-base">Carrier information</span>
         </div>
         <div className="flex flex-row items-center">
@@ -40,7 +40,7 @@ const OrderCarrier = ({ carrier }: { carrier: Carrier[] }) => {
                   Pack{index + 1}:{item.packId}
                 </span>
                 <span className="ml-8">
-                  Carrier company:{item.company} Express
+                  Carrier company:{item.company}
                 </span>
               </div>
               <div>

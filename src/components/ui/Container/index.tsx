@@ -18,22 +18,22 @@ const Container: FC<Props> = ({ children, className, el = "div", clean }) => {
   return <Component className={rootClassName}>{children}</Component>
 }
 
-export const ContentContainer: FC<Props> = ({ children }) => {
-  return <Container className="px-6 py-6">{children}</Container>
+export const ContentContainer: FC<Props> = ({ children, className }) => {
+  return <Container className={cn("px-6 py-6 ",className)}>{children}</Container>
 }
 
-export const SearchContainer: FC<Props> = ({ children }) => {
-  return <Container className="px-9 py-7 bg-white">{children}</Container>
+export const SearchContainer: FC<Props> = ({ children, className }) => {
+  return <Container className={cn("px-9 py-7   bg-white",className)}>{children}</Container>
 }
 
 export const TableContainer: FC<Props> = ({ children }) => {
-  return <Container className="px-10 py-7 bg-white">{children}</Container>
+  return <Container className="px-10 pb-5 bg-white">{children}</Container>
 }
 
 export const InfoContainer: FC<Props> = ({ children, title }) => {
   return (
     <Container className="px-10 py-7 bg-white">
-      {title ? <Container className="pb-7 text-lg">{title}</Container> : null}
+      {title ? <Container className="py-7 text-lg">{title}</Container> : null}
       {children}
     </Container>
   )

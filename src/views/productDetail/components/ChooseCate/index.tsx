@@ -18,7 +18,7 @@ const ChooseCate = ({ handleCate, setShowCatePop, detail }: ChooseCateProps) => 
   // };
   // const onSearch = (value: any) => console.log(value);
   return (
-    <div className='bg-gray-50 px-14 py-6 text-left'>
+    <div className='bg-gray-50  py-6 text-left'>
       <div className='bg-white py-6 px-8'>
         <div>
           <div className='font-bold text-lg'>Add a New Product</div>

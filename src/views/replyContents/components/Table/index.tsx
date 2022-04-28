@@ -28,13 +28,13 @@ const column = [
       <>
         <Tooltip title="Edit">
           <span
-            className="cursor-pointer iconfont icon-a-Group437 text-red-500"
+            className="cursor-pointer iconfont icon-a-Group437 primary-color"
             onClick={() => {}}
           />
         </Tooltip>
         <Tooltip title="Delete">
           <span
-            className="cursor-pointer iconfont icon-Frame3 text-red-500 ml-2"
+            className="cursor-pointer iconfont icon-Frame3 primary-color ml-2"
             onClick={() => {}}
           />
         </Tooltip>
