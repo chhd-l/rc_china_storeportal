@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { cloneDeep } from 'lodash'
-import { Checkbox, Pagination } from 'antd'
+import { Checkbox, Empty, Pagination } from 'antd'
 import './index.less'
 import { tableHeaders } from '../../modules/constant'
 import { ProductListItemProps, ProductListProps } from '@/framework/types/product'
@@ -8,11 +8,13 @@ import TableRow from '../TableRow'
 import TableHeader from '../TableHeader'
 import TableFooter from '../TableFooter'
 interface ListTableProps {
-  listData: ProductListProps
+  listData: ProductListProps,
+  handlePagination: any,
 }
-const ListTable = ({ listData }: ListTableProps) => {
+const ListTable = ({ listData, handlePagination }: ListTableProps) => {
   const [list, setList] = useState<ProductListItemProps[]>(cloneDeep(listData.products))
   const [checkedAll, setCheckedAll] = useState(false)
+  const [checkedItem, setCheckedItem] = useState(false)
   const [tableHeader, setTableHeader] = useState(tableHeaders)
   useEffect(() => {
     let newList = cloneDeep(listData.products).map(item => {
@@ -30,15 +32,19 @@ const ListTable = ({ listData }: ListTableProps) => {
     setCheckedAll(list.every(el => el.checked))
     setList(cloneDeep(list))
   }
+  useEffect(() => {
+    if (list.some(el => el.checked)) {
+      setCheckedItem(true)
+    } else {
+      setCheckedItem(false)
+    }
+  }, [list])
   const handleCheckedAll = () => {
     list.forEach(el => {
       el.checked = !checkedAll
     })
     setCheckedAll(!checkedAll)
     setList(cloneDeep(list))
-  }
-  const handlePagination = (page: number, pageSize: number) => {
-    console.info(page, pageSize)
   }
   const indeterminate = useMemo(() => !checkedAll && list.some(el => el.checked), [checkedAll, list])
 
@@ -55,24 +61,38 @@ const ListTable = ({ listData }: ListTableProps) => {
           </div>
           <TableHeader tableHeader={tableHeader} setTableHeader={setTableHeader} />
         </div>
-        {list.map((spu, spuIdx) => (
-          <TableRow
-            spu={spu}
-            onChange={onChange}
-            spuIdx={spuIdx}
-            tableHeader={tableHeader}
-            listData={listData.products}
-            list={list}
-            setList={setList}
-          />
-        ))}
+        {
+          list.length ? (
+            list.map((spu, spuIdx) => (
+              <TableRow
+                spu={spu}
+                onChange={onChange}
+                spuIdx={spuIdx}
+                tableHeader={tableHeader}
+                listData={listData.products}
+                list={list}
+                setList={setList}
+              />
+            ))
+          ) : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+        }
       </div>
-      <div className='bg-white'>
-        <Pagination className='text-right my-8' onChange={handlePagination} defaultCurrent={1} total={50} />
-      </div>
-      <TableFooter list={list}>
-        <Checkbox indeterminate={indeterminate} checked={checkedAll} onChange={handleCheckedAll} />
-      </TableFooter>
+      {
+        list.length ? (
+          <>
+            <div className='bg-white'>
+              <Pagination className='text-right my-8' showSizeChanger onChange={handlePagination} defaultCurrent={1} total={6} pageSize={2} />
+            </div>
+          </>
+        ) : null
+      }
+      {
+        checkedItem ? (
+          <TableFooter list={list}>
+            <Checkbox indeterminate={indeterminate} checked={checkedAll} onChange={handleCheckedAll} />
+          </TableFooter>
+        ) : null
+      }
     </div>
   )
 }
