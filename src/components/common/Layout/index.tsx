@@ -9,26 +9,26 @@ const AppLayout = () => {
 
   return (
     <Layout>
-      <Header className="bg-white p-0 fixed w-full flex items-center" style={{ zIndex: 1 }}>
-        {/* <TopHeader /> */}
+      <Header className="bg-white fixed w-full flex items-center" style={{ zIndex: 1 }}>
+        <TopHeader />
         <RouteBreadcrumb />
       </Header>
       <Layout style={{ marginTop: 64 }}>
-        <Layout style={{width:"16%",height: "calc(100vh - 64)",top: "58px",background:"#fff"}} className="overflow-auto fixed left-0 bottom-0">
-        <Sider
-          width={"100%"}
-          theme="light"
-          style={{background:"#fff"}}
+        <Layout style={{ width: "16%", height: "calc(100vh - 64)", top: "58px", background: "#fff" }} className="overflow-auto fixed left-0 bottom-0">
+          <Sider
+            width={"100%"}
+            theme="light"
+            style={{ background: "#fff" }}
           // className="overflow-auto fixed left-0 bottom-0"
           // style={{
           //   height: "calc(100vh - 64)",
           //   top: "58px",
           // }}
-        >
-          <Menus />
-        </Sider>
+          >
+            <Menus />
+          </Sider>
         </Layout>
-        <Layout style={{width:"84%",marginLeft:"auto"}}>
+        <Layout style={{ width: "84%", marginLeft: "auto" }}>
           <Content >
             <Outlet />
           </Content>

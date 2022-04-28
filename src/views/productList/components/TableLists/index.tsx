@@ -53,8 +53,8 @@ const ListTable = ({ listData }: ListTableProps) => {
   return (
     <div>
       <div >
-        <div className="flex bg-gray-200 py-3">
-          <div className="px-2">
+        <div className="flex py-3 bg-gray1 border ">
+          <div className="px-2 flex justify-center items-center">
             <Checkbox
               indeterminate={indeterminate}
               checked={checkedAll}

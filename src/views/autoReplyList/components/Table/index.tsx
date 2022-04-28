@@ -35,7 +35,7 @@ const Index = ({ autoReplies }: { autoReplies: AutoReplies[] }) => {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (text: any) => <Switch checked={text} onChange={() => {}} />,
+      render: (text: any) => <Switch checked={text} onChange={() => { }} />,
     },
     {
       title: "Action",
@@ -45,13 +45,13 @@ const Index = ({ autoReplies }: { autoReplies: AutoReplies[] }) => {
           <Tooltip title="Edit">
             <span
               className="cursor-pointer iconfont icon-a-Group437 text-red-500"
-              onClick={() => {}}
+              onClick={() => { }}
             />
           </Tooltip>
           <Tooltip title="Delete">
             <span
               className="cursor-pointer iconfont icon-Frame3 text-red-500 ml-2"
-              onClick={() => {}}
+              onClick={() => { }}
             />
           </Tooltip>
         </>
@@ -66,7 +66,7 @@ const Index = ({ autoReplies }: { autoReplies: AutoReplies[] }) => {
           danger
           className="mr-4"
           onClick={() => {
-            navigator("/add-auto-reply");
+            navigator("/reply/add-auto-reply");
           }}
         >
           + Add

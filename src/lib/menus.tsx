@@ -38,14 +38,14 @@ export const menus = [
       {
         name: "My Orders",
         value: "my_orders",
-        url: "/order-list",
+        url: "/order/order-list",
         // url: "/",
         key: "my_orders",
       },
       {
         name: "Order Setting",
         value: "order_setting",
-        url: "/order-setting",
+        url: "/order/order-setting",
         key: "order_setting",
       },
     ],
@@ -60,13 +60,13 @@ export const menus = [
       {
         name: "My Products",
         value: "my_products",
-        url: "/product-list",
+        url: "/product/product-list",
         key: "my_products",
       },
       {
         name: "Add New Product",
         value: "add_new_product",
-        url: "/product/add",
+        url: "/product/add-product",
         key: "add_new_product",
       },
     ],
@@ -81,7 +81,7 @@ export const menus = [
       {
         name: "My Pet Owner",
         value: "my_pet_owner",
-        url: "/pet-owner-list",
+        url: "/petOwner/pet-owner-list",
         key: "my_pet_owner",
       },
     ],
@@ -117,13 +117,13 @@ export const menus = [
       {
         name: "Account Management",
         value: "account_management",
-        url: "/account-list",
+        url: "/account/account-list",
         key: "account_management",
       },
       {
         name: "Fans Management",
         value: "fans_management",
-        url: "/fans-list",
+        url: "/fans/fans-list",
         key: "fans_management",
       },
       {
@@ -135,7 +135,7 @@ export const menus = [
       {
         name: "Response Content",
         value: "response_content",
-        url: "/reply-contents",
+        url: "/reply/reply-contents",
         key: "response_content",
       },
       {
@@ -147,31 +147,31 @@ export const menus = [
       {
         name: "Menu Management",
         value: "menu_management",
-        url: "/menu-manage-list",
+        url: "/menuManagempqr/menu-manage-list",
         key: "menu_management",
       },
       {
         name: "QR Code Management",
         value: "qr_code_management",
-        url: "/qrcode-manage-list",
+        url: "/QrcodeManage/qrcode-manage-list",
         key: "qr_code_management",
       },
       {
         name: "Template Message",
         value: "template_message",
-        url: "/template-message-list",
+        url: "/template/template-message-list",
         key: "template_message",
       },
       {
         name: "Mini Program QR Code",
         value: "mini_program_qr_code",
-        url: "/mpqr-list",
+        url: "/mpqr/mpqr-list",
         key: "mini_program_qr_code",
       },
       {
         name: "Mini Program Banner",
         value: "mini_program_banner",
-        url: "/mpbanner-list",
+        url: "/mpbanner/mpbanner-list",
         key: "mini_program_banner",
       },
     ],

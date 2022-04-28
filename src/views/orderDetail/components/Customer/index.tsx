@@ -16,7 +16,7 @@ const CustomerInformation = ({ buyer }: { buyer: Customer | any }) => {
         type="primary"
         danger
         onClick={() => {
-          navigation("/pet-owner-detail", { state: { id: buyer.id } });
+          navigation("/petOwner/pet-owner-detail", { state: { id: buyer.id } });
         }}
       >
         Detail

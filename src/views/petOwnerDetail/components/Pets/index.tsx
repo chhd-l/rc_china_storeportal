@@ -46,7 +46,7 @@ const PetInformation = ({ id, customerId }: { customerId: string; id: string }) 
               type="primary"
               danger
               onClick={() => {
-                navigator('/pet-detail', { state: { pet: item } })
+                navigator('/petOwner/pet-detail', { state: { pet: item } })
               }}
             >
               Details

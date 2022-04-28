@@ -10,9 +10,11 @@ import { ContentContainer, TableContainer, DivideArea } from '@/components/ui'
 import { MenuOutlined } from '@ant-design/icons'
 import { getAllProducts } from '@/framework/api/get-product'
 import { ProductListItemProps, ProductListProps } from '@/framework/types/product'
+// import { dataSource } from "./modules/mockdata";
+// import Mock from 'mockjs'
 const { TabPane } = Tabs
 
-// const listData = Mock.mock(dataSource)
+// const listDatas = Mock.mock(dataSource)
 // console.info('listData', listData)
 const ProductList = () => {
   const [activeKey, setActiveKey] = useState<React.Key>(Tab.All)
@@ -64,7 +66,7 @@ const ProductList = () => {
                   Products
                 </div>
                 <div className="flex items-center">
-                  <Link to="/product/add" className="mr-4">
+                  <Link to="/add-product/add" className="mr-4">
                     <Button type="primary">+ Add a New Product</Button>
                   </Link>
                   <Button className='mr-4'>Export</Button>
