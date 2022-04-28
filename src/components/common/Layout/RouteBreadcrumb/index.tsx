@@ -1,8 +1,8 @@
 import { Breadcrumb } from "antd";
 import { Link, useLocation } from "react-router-dom";
+import "./style.less";
 import r from "@/routers";
 import { useEffect, useState } from "react";
-import "./style.less";
 
 /**
  * @description: 该组件用于渲染全局面包屑
@@ -10,56 +10,54 @@ import "./style.less";
  *   注意： 路由中的必须配置 breadcrumbName: 优先根据breadcrumbName去匹配locales文件中的值作为面包屑标题,如果匹配不到对应的将使用breadcrumbName作为面包屑标题
  * @return {*}
  */
-
-
- interface RouteObject {
-    caseSensitive?: boolean;
-    children?: RouteObject[];
-    element?: React.ReactNode;
-    index?: boolean;
-    path: string;
-    breadcrumbName?: string;
-  }
-  
-
+let breadcrumbItemsaRr: any[] = []
 const RouteBreadcrumb = () => {
-  const Location = useLocation();
-  const [breadcrumbItem, setBreadcrumbItem] = useState<RouteObject>({
-    path: '/'
-  })
+  const { pathname } = useLocation();
+  const [breadcrumbItems, setbreadcrumbItems] = useState<any[]>([])
+  // 将路由处理成路由表对应的路由
 
-    const depy = (arr: any[]) => {
-        if(!arr.length) return
-        arr.find((item): any => {
-            if(item.path === Location.pathname) {
-                setBreadcrumbItem(item)
-                return item
-            } else if (item.children?.length) {
-                depy(item.children)
-            }
-        })
-    }
 
-    useEffect(() => {
-        depy(r)
-    }, [Location])
-    
+  const depy = (arr: any[], path: string) => {
+    if (!arr.length) return
+    arr.forEach((item): any => {
+      if (item.path === path) {
+        breadcrumbItemsaRr.push(item)
+        return item
+      } else if (item.children?.length) {
+        return depy(item.children, path)
+      }
+    })
+    setbreadcrumbItems(breadcrumbItemsaRr)
+  }
 
-  // 路由拆分成数组用于匹配面包屑
-//   const pathSnippets = getUrlList(currentRoute.path);
-  
-//   const breadcrumbItems = getBreadcrumbItems(Location);
-//   if (!breadcrumbItems) return null;
+  useEffect(() => {
+    breadcrumbItemsaRr = []
+    pathname.split('/').forEach((path) => {
+      depy(r, path)
+    })
+  }, [pathname])
+
   return (
-    <Breadcrumb className="route-breadcrumb" separator=">">
-    <Breadcrumb.Item>
-        <span>Deloitte</span>
-    </Breadcrumb.Item>
-      <Breadcrumb.Item className="Breadcrumb">
-          <Link to={breadcrumbItem.path}>{breadcrumbItem.breadcrumbName}</Link>
-      </Breadcrumb.Item>
+    <Breadcrumb className="route-breadcrumb pt-1" separator=">">
+      {
+        breadcrumbItems.length ? (
+          <>
+            <Breadcrumb.Item>
+              <Link to='/Home'>Seller Center</Link>
+            </Breadcrumb.Item>
+            {
+              breadcrumbItems.map((breadcrumbItem, index) => (
+                <Breadcrumb.Item key={index}>
+                  <Link to={breadcrumbItem.path}>{breadcrumbItem.breadcrumbName}</Link>
+                </Breadcrumb.Item>
+              ))
+            }
+          </>
+        ) : null
+      }
     </Breadcrumb>
   );
 };
 
 export default RouteBreadcrumb;
+
