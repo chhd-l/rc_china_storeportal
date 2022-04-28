@@ -19,9 +19,9 @@ const TableHeader = ({ tableHeader, setTableHeader }: TableHeaderProps) => {
     console.info('key', key)
   }
   return (
-    <div className='table-header flex'>
+    <div className='table-header flex justify-stretch items-baseline w-full'>
       {tableHeader.map((item, idx) => (
-        <div className={`flex items-center ${idx === 0 ? 'w-64' : 'w-40'} `}>
+        <div className={`flex justify-center items-center ${item.dataIndex === "name" ? 'w-64' : 'flex-1'}`}>
           <div> {item.title}</div>
           {item.sortDirection !== undefined ? (
             <div
@@ -42,6 +42,9 @@ const TableHeader = ({ tableHeader, setTableHeader }: TableHeaderProps) => {
           ) : null}
         </div>
       ))}
+      <div className='flex justify-center items-center w-64'>
+        <div>Options</div>
+      </div>
     </div>
   )
 }

@@ -55,7 +55,7 @@ const Index = ({ fanList }: { fanList: Fans[] }) => {
           <span
             className="cursor-pointer iconfont icon-kjafg primary-color"
             onClick={() => {
-              navigator("/fans-detail", { state: { id: record.id } });
+              navigator("/fans/fans-detail", { state: { id: record.id } });
             }}
           />
         </Tooltip>
@@ -70,15 +70,15 @@ const Index = ({ fanList }: { fanList: Fans[] }) => {
   return (
     <div>
       <div className="flex flex-row mb-4">
-        <Button className="mr-4" onClick={() => {}}>
+        <Button className="mr-4" onClick={() => { }}>
           <span className="iconfont icon-bianzu2 mr-2" />
           Synchronize All Openid
         </Button>
-        <Button className="mr-4" onClick={() => {}}>
+        <Button className="mr-4" onClick={() => { }}>
           <span className="iconfont icon-bianzu2 mr-2" />
           Synchronize All Fan Information
         </Button>
-        <Button onClick={() => {}}>
+        <Button onClick={() => { }}>
           <span className="iconfont icon-bianzu2 mr-2" />
           Partial sync
         </Button>
