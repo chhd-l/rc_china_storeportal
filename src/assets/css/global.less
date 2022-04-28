@@ -150,15 +150,18 @@
   width: 100% !important;
 }
 
-// Product页面Select选择框
-.ant-select-open .ant-select-selector .ant-select-selection-item::after {
-  background-color: #fff !important;
+.rc-date-picker {
+  .ant-picker-input {
+    flex-direction: row-reverse;
+    .ant-picker-suffix {
+      margin-right: 10px !important;
+      margin-left: 0 !important;
+    }
+  }
 }
 
-// 面包屑字体颜色修改
-// .ant-breadcrumb > a {
-//   color: #999999;
-// }
-// .ant-breadcrumb > span > a:hover {
-//   color: #999999 !important;
-// }
+.rc-pagination {
+  .anticon {
+    vertical-align: 2px;
+  }
+}

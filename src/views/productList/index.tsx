@@ -46,7 +46,7 @@ const ProductList = () => {
   }, [])
   return (
     <ContentContainer className='productlist'>
-      <SearchHeader getFormData={getFormData}/>
+      <SearchHeader getFormData={getFormData} />
       <DivideArea />
       <TableContainer>
         <Tabs defaultActiveKey={Tab.All} onChange={handleTab}>
@@ -60,14 +60,11 @@ const ProductList = () => {
               }
               key={el.name}
             >
-              <div className="flex justify-between items-center py-4">
-                <div>
-                  {toolbarList.find((el) => activeKey === el.name)?.value}{" "}
-                  Products
-                </div>
-                <div className="flex items-center">
-                  <Link to="/add-product/add" className="mr-4">
-                    <Button type="primary">+ Add a New Product</Button>
+              <div className='flex justify-between items-center py-4'>
+                <div>{toolbarList.find(el => activeKey === el.name)?.value} Products</div>
+                <div className='flex items-center'>
+                  <Link to='/product/add' className='mr-4'>
+                    <Button type='primary'>+ Add a New Product</Button>
                   </Link>
                   <Button className='mr-4'>Export</Button>
                   {/* <MenuOutlined className=' border border-solid border-gray-300' /> */}
