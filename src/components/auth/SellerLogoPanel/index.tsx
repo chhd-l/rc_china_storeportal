@@ -5,7 +5,7 @@ const SellerLogoPanel = () => {
   return (
     <>
       <div className="flex flex-col justify-start mr-24 pt-2">
-        <p className="text-left mt-2 mb-1 text-red-500 text-xl font-medium">
+        <p className="text-left mt-2 mb-1 primary-color text-xl font-medium">
           Seller Center
         </p>
         <p className="text-left">Efficient store management tools</p>

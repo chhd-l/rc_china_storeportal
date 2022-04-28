@@ -1,4 +1,4 @@
-import { InputSelectProps, InputTextProps } from '@/framework/types/common'
+import { InputSelectProps, InputTextProps, LabelOptionProps } from '@/framework/types/common'
 import { EyeOutlined } from '@ant-design/icons'
 import { ReactNode, useRef, useState } from 'react'
 import { SortableContainer } from 'react-sortable-hoc'
@@ -60,13 +60,13 @@ export const selectList: (InputTextProps | InputSelectProps)[] = [
   },
 ]
 
-export const noSkuForm: (InputTextProps | InputSelectProps)[] = [
+export const noSkuForm: (InputTextProps | InputSelectProps | LabelOptionProps)[] = [
   {
     options: [
-      { name: 'No', value: 0 },
-      { name: 'No', value: 1 },
+      { name: '0', value: '0', label: 'false' },
+      { name: '1', value: '1', label: 'true' },
     ],
-    name: 'subscription',
+    name: 'subscriptionStatus',
     label: 'Subscription',
     type: 'select',
     rules: [{ required: true }],
@@ -105,9 +105,17 @@ export const noSkuForm: (InputTextProps | InputSelectProps)[] = [
     rules: [{ required: true }],
   },
   {
-    type: 'input',
+    options: [
+      { label: 'Yes', value: 'true', name: 'true' },
+      { label: 'No', value: 'false', name: 'false' },
+    ],
+    // options: [
+    //   { name: 'Yes', value: 'true' },
+    //   { name: 'No', value: 'false' },
+    // ],
+    type: 'select',
     label: 'Support 100',
-    name: 'support100',
+    name: 'isSupport100',
     rules: [{ required: true }],
   },
 ]
@@ -176,18 +184,36 @@ export const formInitialValues = {
     }),
 }
 export const headerOrigition = [
-  { label: 'Image', type: 'upload', key: 'defaultImage' },
-  { label: '*SKU', type: 'input', require: true, key: '' },
-  { label: 'SKUName', type: 'input', require: true, key: '' },
-  { label: 'Sub-SKU', type: 'subSku', key: '' },
-  { label: 'EAN', type: 'input', key: 'eanCode' },
-  { label: 'Subscription', type: 'select', key: 'subscriptionStatus' },
-  { label: 'List Price', type: 'priceInput', key: 'listPrice' },
-  { label: 'Subscription Price', type: 'priceInput', key: 'subscriptionPrice' },
-  { label: 'Stock', type: 'number', key: 'stock' },
-  { label: 'Feeding Days', type: 'number', key: 'feedingDays' },
-  { label: '*Support 100', type: 'select', require: true, key: 'support100' },
-  { label: 'Live/Dellist', type: 'shelves', key: 'shelvesStatus' }, //上下架
+  { label: 'Image', type: 'upload', keyVal: 'defaultImage' },
+  { label: '*SKU', type: 'input', require: true, keyVal: 'skuNo' },
+  { label: 'SKUName', type: 'input', require: true, keyVal: 'skuName' },
+  // { label: 'Sub-SKU', type: 'subSku', keyVal: '' },
+  { label: 'EAN', type: 'input', keyVal: 'eanCode' },
+  {
+    label: 'Subscription',
+    type: 'select',
+    keyVal: 'subscriptionStatus',
+    options: [
+      { label: 'Yes', value: '1' },
+      { label: 'No', value: '0' },
+    ],
+  },
+  { label: 'List Price', type: 'priceInput', keyVal: 'listPrice' },
+  { label: 'marketing Price', type: 'priceInput', keyVal: 'marketingPrice' },
+  { label: 'Subscription Price', type: 'priceInput', keyVal: 'subscriptionPrice' },
+  { label: 'Stock', type: 'number', keyVal: 'stock' },
+  { label: 'Feeding Days', type: 'number', keyVal: 'feedingDays' },
+  {
+    label: '*Support 100',
+    type: 'select',
+    require: true,
+    keyVal: 'isSupport100',
+    options: [
+      { label: 'Yes', value: 'true', name: 'true' },
+      { label: 'No', value: 'false', name: 'false' },
+    ],
+  },
+  { label: 'Live/Dellist', type: 'shelves', keyVal: 'shelvesStatus' }, //上下架
 ]
 
 export const SortContainer = SortableContainer(({ children }: { children: any }) => {

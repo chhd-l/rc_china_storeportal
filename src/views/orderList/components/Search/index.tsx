@@ -29,7 +29,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
           icon={<MenuOutlined style={{ color: "#979797" }} />}
         />
       </div>
-      <div className="flex flex-row items-center mt-3 text-left">
+      <div className="flex flex-row items-center mt-4 text-left">
         <Input.Group compact>
           <Select
             onChange={(value, a) => {
@@ -58,7 +58,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
           />
         </Input.Group>
         <Button
-          className="w-32 mx-3"
+          className="w-32 mx-3 btn-primary"
           type="primary"
           danger
           onClick={() => {
@@ -70,7 +70,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
         </Button>
         <Button
           className="w-32"
-          danger
+          // danger
           onClick={(e) => {
             setSearchParams(initSearchParams)
             query && query(initSearchParams)

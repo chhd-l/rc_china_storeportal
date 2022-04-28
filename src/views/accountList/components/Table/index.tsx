@@ -42,26 +42,26 @@ const Index = ({ accountList }: { accountList: Account[] }) => {
           <Tooltip title="Edit">
             <span
               className="cursor-pointer iconfont icon-a-Group437 text-red-500 text-base"
-              onClick={() => {}}
+              onClick={() => { }}
             />
           </Tooltip>
           <Tooltip title="Delete">
             <span
               className="cursor-pointer ml-2 iconfont icon-Frame3 text-red-500 text-xl"
-              onClick={() => {}}
+              onClick={() => { }}
             />
           </Tooltip>
           <Tooltip title="View QR Code">
             <span
               className="cursor-pointer ml-2 iconfont icon-Frame-1 text-red-500 text-xl"
-              onClick={() => {}}
+              onClick={() => { }}
             />
           </Tooltip>
         </>
       ),
     },
   ];
-  const changeAccountStatus = () => {};
+  const changeAccountStatus = () => { };
 
   return (
     <>
@@ -69,7 +69,7 @@ const Index = ({ accountList }: { accountList: Account[] }) => {
         <Button
           danger
           onClick={() => {
-            navigator("/add-account");
+            navigator("/account/add-account");
           }}
         >
           + Add Account

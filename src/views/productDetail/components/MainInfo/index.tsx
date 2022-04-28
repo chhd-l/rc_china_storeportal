@@ -5,29 +5,44 @@ import Specification from '../Specification'
 import SalesInfo from '../SalesInfo'
 import Shipping from '../Shipping'
 import { Form, Space, Button } from 'antd'
-import { useContext, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 import { steps, formInitialValues } from '../../modules/constant'
 import { InfoContainer, DivideArea } from '@/components/ui'
 import { DetailContext } from '../../index'
+import { createProduct } from '@/framework/api/get-product'
 interface MainInfoProps {
-  detail: any
-  cateInfo: {
+  details: any
+  showCatePop: boolean
+  cateInfo?: {
     cateId: string[]
   }
 }
 
 const { Link } = Anchor
 
-const MainInfo = ({ cateInfo }: MainInfoProps) => {
+const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children }) => {
   const [form] = Form.useForm()
   const [tipsIdx, setTipsIdx] = useState(0)
   const { detail } = useContext(DetailContext)
   const hanldeTips = (idx: number) => {
     setTipsIdx(idx)
   }
-  const onFinish = (values: any) => {
-    console.log(values, cateInfo)
+  // useEffect(()=>{
+
+  // },detail.name)
+  const onFinish = async (values: any) => {
+    //组装product数据
+    console.log(values, detail)
+
+    let params = Object.assign({}, detail, values, {
+      type: 'REGULAR',
+    })
+    console.info('.......')
+    console.info('params', params)
+    let data = await createProduct(params)
+    console.info('data', data)
   }
+  console.info('detaildetaildetaildetail', detail)
   return (
     <div
       id={steps[0].anchor}
@@ -44,55 +59,49 @@ const MainInfo = ({ cateInfo }: MainInfoProps) => {
             span: 14,
           }}
           layout='horizontal'
-          initialValues={Object.assign(detail, {
-            specification: [
-              {
-                fieldKey: 1,
-                isListField: true,
-                key: 1,
-                name: 1,
-              },
-            ],
-          })}
+          initialValues={detail}
         >
+          {children}
           {/* <Form.List name="product">
             {(fields) => (
               <> */}
-          {steps.map((field, idx) => (
-            <Space
-              onClick={() => {
-                hanldeTips(idx)
-              }}
-              key={field.anchor}
-              direction='vertical'
-              className='flex'
-            >
-              <InfoContainer>
-                <div id={idx > 0 ? steps[idx].anchor : 'anchor-1'}>
-                  <div className='pb-2'>
-                    <div className='flex justify-between  pb-2'>
-                      <div className='font-bold text-lg'>{steps[idx].title}</div>
-                      <div>{steps[idx].rightSlot}</div>
+          <div className={showCatePop ? 'hidden' : ''}>
+            {steps.map((field, idx) => (
+              <Space
+                onClick={() => {
+                  hanldeTips(idx)
+                }}
+                key={field.anchor}
+                direction='vertical'
+                className='flex'
+              >
+                <InfoContainer>
+                  <div id={idx > 0 ? steps[idx].anchor : 'anchor-1'}>
+                    <div className='pb-2'>
+                      <div className='flex justify-between  pb-2'>
+                        <div className='font-bold text-lg'>{steps[idx].title}</div>
+                        <div>{steps[idx].rightSlot}</div>
+                      </div>
+                      <div className='pb-4'>{steps[idx].subTitle}</div>
                     </div>
-                    <div className='pb-4'>{steps[idx].subTitle}</div>
+                    {steps[idx].render(field)}
                   </div>
-                  {steps[idx].render(field)}
-                </div>
-              </InfoContainer>
-              <DivideArea />
-            </Space>
-          ))}
-          {/* </>
+                </InfoContainer>
+                <DivideArea />
+              </Space>
+            ))}
+            {/* </>
             )}
           </Form.List> */}
-          <Form.Item className='text-right'>
-            <Button type='primary' htmlType='submit'>
-              Submit
-            </Button>
-          </Form.Item>
+            <Form.Item className='text-right'>
+              <Button type='primary' htmlType='submit'>
+                Submit
+              </Button>
+            </Form.Item>
+          </div>
         </Form>
       </div>
-      <div className='w-40 fixed right-10' style={{ top: '100px' }}>
+      <div className={`w-40 fixed right-10 ${showCatePop ? 'hidden' : ''}`} style={{ top: '100px' }}>
         <Anchor affix={false} className='rc-anchor' targetOffset={64} style={{ top: '64px' }}>
           {steps.map((step, idx) => (
             <Link key={step.anchor + idx} href={`#${step.anchor}`} title={step.title} />

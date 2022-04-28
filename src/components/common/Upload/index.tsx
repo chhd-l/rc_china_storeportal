@@ -1,6 +1,6 @@
-import { Upload, message, Button } from 'antd'
+import { Upload, message, Button, Modal } from 'antd'
 import { LoadingOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 // import type { UploadProps } from 'antd';
 import { UploadChangeParam, UploadFile } from 'antd/lib/upload/interface'
 export enum UploadType {
@@ -11,6 +11,7 @@ interface UploadWrapProps {
   showUploadList?: boolean
   handleImgUrl: Function
   type?: UploadType
+  fileList?: any[]
 }
 function getBase64 (img: any, callback: Function) {
   const reader = new FileReader()
@@ -31,7 +32,20 @@ function beforeUpload (file: any) {
 }
 const UploadWrap = (props: UploadWrapProps) => {
   const [loading, setLoading] = useState(false)
-  const [imageUrl, setImageUrl] = useState('')
+  const [previewImage, setPreviewImage] = useState('')
+  const [previewVisible, setPreviewVisible] = useState(false)
+  const [fileList, setFileList] = useState([
+    {
+      uid: '-1',
+      name: '',
+      // status: 'done',
+      url: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
+      thumbUrl: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
+    },
+  ])
+  const [imageUrl, setImageUrl] = useState(
+    'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
+  )
   const uploadProps = {
     name: 'file',
     action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
@@ -56,6 +70,9 @@ const UploadWrap = (props: UploadWrapProps) => {
       <div style={{ marginTop: 8 }}>Upload</div>
     </div>
   )
+  const handleCancel = () => {
+    setPreviewVisible(false)
+  }
   const handleChange = (info: UploadChangeParam<UploadFile<any>>) => {
     if (info.file.status === 'uploading') {
       setLoading(true)
@@ -70,24 +87,62 @@ const UploadWrap = (props: UploadWrapProps) => {
       })
     }
   }
+  const handlePreview = (file: any) => {
+    // if (!file.url && !file.preview) {
+    //   file.preview = await getBase64(file.originFileObj);
+    // }
+    setPreviewImage(file.url)
+    setPreviewVisible(true)
+  }
+  console.info('props.fileList', props.fileList)
+  useEffect(() => {
+    let list = props.fileList?.map(url => {
+      return {
+        uid: url.img,
+        name: '',
+        url: url.img,
+        thumbUrl: url.img,
+      }
+    })
+    if (list) {
+      console.info('.....')
+      setFileList(list)
+    }
+  }, [props.fileList])
+
   return (
     <div>
       {type === UploadType.button ? (
-        <Upload {...uploadProps}>
-          <Button icon={<UploadOutlined />}>Click to Upload</Button>{' '}
+        <Upload
+          action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
+          listType='picture'
+          defaultFileList={[...fileList]}
+          onPreview={handlePreview}
+          className='upload-list-inline'
+        >
+          {fileList.length ? null : <Button icon={<UploadOutlined />}>Upload</Button>}
         </Upload>
-      ) : null}
+      ) : // <Upload {...uploadProps}>
+      //   <Button icon={<UploadOutlined />}>Click to Upload</Button>{' '}
+      // </Upload>
+      null}
+      <Modal
+        visible={previewVisible}
+        // title={previewTitle}
+        footer={null}
+        onCancel={handleCancel}
+      >
+        <img alt='example' style={{ width: '100%' }} src={previewImage} />
+      </Modal>
       {type === UploadType.img ? (
         <Upload
-          name='avatar'
-          listType='picture-card'
-          className='avatar-uploader'
-          showUploadList={props.showUploadList}
           action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
-          beforeUpload={beforeUpload}
+          listType='picture-card'
+          fileList={fileList}
+          // onPreview={handlePreview}
           onChange={handleChange}
         >
-          {imageUrl ? <img src={imageUrl} alt='avatar' style={{ width: '100%' }} /> : uploadButton}
+          {fileList.length >= 8 ? null : uploadButton}
         </Upload>
       ) : null}
     </div>

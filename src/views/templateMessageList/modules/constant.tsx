@@ -76,7 +76,7 @@ export const tableColumns = ({
       title: "Action",
       hideInSearch: true,
       render: (_, record) => [
-        <Link to={`/template-message/${record.id}`} className="mr-4">
+        <Link to={`/template/template-message/${record.id}`} className="mr-4">
           <FormOutlined />
         </Link>,
         <a className=" mr-4">

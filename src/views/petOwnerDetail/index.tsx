@@ -1,4 +1,3 @@
-import Mock from 'mockjs'
 import React, { useEffect, useState } from 'react'
 import { Anchor } from 'antd'
 import {
@@ -12,10 +11,10 @@ import {
   Coupons,
   SmartDevice,
 } from './components'
-import { petOwnerDetailSource } from './modules/mockdata'
 import { useLocation } from 'react-router-dom'
 import './index.less'
 import { ContentContainer, InfoContainer } from '@/components/ui'
+import { getOrderList } from '@/framework/api/get-order'
 
 const { Link } = Anchor
 
@@ -28,13 +27,33 @@ const PetOwnerList = () => {
     subscriptionList: [],
     orderList: [],
   })
-  const { couponCodeList, smartDeviceList, subscriptionList, orderList } = petOwnerDetail
+  const { couponCodeList, smartDeviceList, subscriptionList } = petOwnerDetail
+  const [orderList,setOrderList]=useState<any[]>([])
+
+  const getCustomerOrders=async()=>{
+    const res=await getOrderList({
+      isNeedTotal: true,
+      storeId: '12345678',
+      operator: 'zz',
+      offset:0,
+      limit:10,
+      sample:{
+        customerId:petOwnerId
+      }
+    })
+    setOrderList(res.records)
+    console.log(res);
+  }
+
+  useEffect(()=>{
+    if(petOwnerId!==''){
+      getCustomerOrders()
+    }
+  },[petOwnerId])
 
   useEffect(() => {
     const state: any = location.state
-    // console.log('111', state.id)
     setPetOwnerId(state.id)
-    // setPetOwnerDetail(Mock.mock(petOwnerDetailSource))
   }, [])
 
   return (

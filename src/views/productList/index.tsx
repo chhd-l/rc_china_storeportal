@@ -10,9 +10,11 @@ import { ContentContainer, TableContainer, DivideArea } from '@/components/ui'
 import { MenuOutlined } from '@ant-design/icons'
 import { getAllProducts } from '@/framework/api/get-product'
 import { ProductListItemProps, ProductListProps } from '@/framework/types/product'
+// import { dataSource } from "./modules/mockdata";
+// import Mock from 'mockjs'
 const { TabPane } = Tabs
 
-// const listData = Mock.mock(dataSource)
+// const listDatas = Mock.mock(dataSource)
 // console.info('listData', listData)
 const ProductList = () => {
   const [activeKey, setActiveKey] = useState<React.Key>(Tab.All)
@@ -43,7 +45,7 @@ const ProductList = () => {
     getList()
   }, [])
   return (
-    <ContentContainer className='product-list'>
+    <ContentContainer className='productlist'>
       <SearchHeader getFormData={getFormData} />
       <DivideArea />
       <TableContainer>
@@ -58,14 +60,11 @@ const ProductList = () => {
               }
               key={el.name}
             >
-              <div className="flex justify-between items-center py-4">
-                <div>
-                  {toolbarList.find((el) => activeKey === el.name)?.value}{" "}
-                  Products
-                </div>
-                <div className="flex items-center">
-                  <Link to="/product/add" className="mr-4">
-                    <Button type="primary">+ Add a New Product</Button>
+              <div className='flex justify-between items-center py-4'>
+                <div>{toolbarList.find(el => activeKey === el.name)?.value} Products</div>
+                <div className='flex items-center'>
+                  <Link to='/product/add' className='mr-4'>
+                    <Button type='primary'>+ Add a New Product</Button>
                   </Link>
                   <Button className='mr-4'>Export</Button>
                   <MenuOutlined className=' border border-solid border-gray-300' />

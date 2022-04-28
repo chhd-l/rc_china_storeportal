@@ -13,9 +13,9 @@ const Index = ({ petOwnerList }: PetOwnerTableProps) => {
   const columns = [
     {
       title: 'Profile Photo',
-      dataIndex: 'img',
-      key: 'img',
-      render: (text: any, record: any) => <Avatar size="large" icon={<UserOutlined />} />,
+      dataIndex: 'image',
+      key: 'image',
+      render: (text: any, record: any) => <Avatar size="large" icon={<img src={text} alt='' />} />,
     },
     {
       title: 'WeChat Name',
@@ -33,10 +33,10 @@ const Index = ({ petOwnerList }: PetOwnerTableProps) => {
       render: (text: any, record: any) => (
         <Tooltip title="View Details">
           <span
-            className="cursor-pointer iconfont icon-Vector1 text-red-500"
+            className="cursor-pointer iconfont icon-kjafg primary-color"
             onClick={() => {
-              sessionStorage.setItem('cur-pet-owner',JSON.stringify(record))
-              navigator('/pet-owner-detail', { state: { id: record.id } })
+              sessionStorage.setItem('cur-pet-owner', JSON.stringify(record))
+              navigator('/petOwner/pet-owner-detail', { state: { id: record.id } })
             }}
           />
         </Tooltip>

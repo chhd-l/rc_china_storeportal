@@ -19,7 +19,7 @@ const MenuManage = () => {
       <ProTable
         search={false}
         toolBarRender={() => [
-          <Button className="mt-8 " type="primary" ghost>
+          <Button className="mt-8 text-white" type="primary" ghost>
             + Add
           </Button>,
         ]}

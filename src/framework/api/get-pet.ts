@@ -1,15 +1,21 @@
 import ApiRoot from './fetcher'
-import { normalisePets, normalisePet } from '@/framework/normallize/customer'
+import { normalisePets, normalisePet } from '@/framework/normalize/customer'
 import Mock from 'mockjs'
 import { petListSource, petDetailSource } from '@/views/petOwnerDetail/modules/mockdata'
 
+const isMock=false
+
 export const getPetList = async ({ customerId }: { customerId: string }) => {
   try {
-    const pets = await ApiRoot.pets().getPets({ customerId })
-    return normalisePets(pets)
+    if(isMock){
+      return Mock.mock(petListSource).array
+    }else{
+      const pets = await ApiRoot.pets().getPets({ customerId })
+      return normalisePets(pets)
+    }
   } catch (e) {
     console.log(e)
-    return Mock.mock(petListSource).array
+    return []
   }
 }
 

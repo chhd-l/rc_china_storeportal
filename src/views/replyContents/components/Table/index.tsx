@@ -18,7 +18,7 @@ const column = [
     title: "Status",
     dataIndex: "status",
     key: "status",
-    render: (text: any) => <Switch checked={text} onChange={() => {}} />,
+    render: (text: any) => <Switch checked={text} onChange={() => { }} />,
   },
   {
     title: "Action",
@@ -29,13 +29,13 @@ const column = [
         <Tooltip title="Edit">
           <span
             className="cursor-pointer iconfont icon-a-Group437 text-red-500"
-            onClick={() => {}}
+            onClick={() => { }}
           />
         </Tooltip>
         <Tooltip title="Delete">
           <span
             className="cursor-pointer iconfont icon-Frame3 text-red-500 ml-2"
-            onClick={() => {}}
+            onClick={() => { }}
           />
         </Tooltip>
       </>
@@ -52,7 +52,7 @@ const Index = ({ replyContents }: { replyContents: ReplyContent[] }) => {
           danger
           className="mr-4"
           onClick={() => {
-            navigator("/add-reply-content");
+            navigator("/reply/add-reply-content");
           }}
         >
           + Add
