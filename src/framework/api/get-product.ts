@@ -1,15 +1,15 @@
 import ApiRoot from './fetcher'
 import { CateItemProps, Goods } from '../schema/product.schema'
 import { ProductDetailProps, ProductListProps, ProductListQueryProps, TreeDataProps } from '../types/product'
-import { normaliseAttrProps, normaliseCateProps, normaliseDetailforFe, normaliseProductListSpu } from '../normalize/product'
+import { normaliseAttrProps, normaliseCateProps, normaliseDetailforFe, normaliseProductCreatFor, normaliseProductListSpu } from '../normalize/product'
 import { brandList } from '../mock/brands'
-export const getCategories = async ({ storeId }: { storeId: string }): Promise<TreeDataProps[]> => {
+export const getCategories = async ({ storeId }: { storeId: string }): Promise<CateItemProps[]> => {
 
   try {
     let categoryList = await ApiRoot.products().getProductCategories({ storeId })
-    const cateList: TreeDataProps[] = normaliseCateProps(categoryList.getProductCates)
-    console.info('list', cateList)
-    return cateList
+    // const cateList: TreeDataProps[] = normaliseCateProps(categoryList.getProductCates)
+    console.info('list', categoryList.getProductCates)
+    return categoryList.getProductCates
     // return normalisePets(pets)
   } catch (e) {
     console.log(e)
@@ -17,6 +17,12 @@ export const getCategories = async ({ storeId }: { storeId: string }): Promise<T
   }
 }
 
+export const createProduct = async (params: any) => {
+  let paramsData = normaliseProductCreatFor(params)
+  console.info('paramsData', paramsData)
+  const data = await ApiRoot.products().createProduct({ body: paramsData })
+  console.info('createProduct', data)
+}
 export const getBrands = () => {
   try {
     console.info('list', brandList)
@@ -30,7 +36,6 @@ export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categ
   try {
     const { getAttributes: attributeList } = await ApiRoot.products().getAttrList({ storeId, categoryId })
     let data = normaliseAttrProps(attributeList)
-    console.info('getAttrslist', data)
     return data
   } catch (e) {
     console.log(e)
@@ -39,7 +44,7 @@ export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categ
 }
 
 export const getProduct = async ({ storeId, goodsId }: { storeId: string, goodsId: string }): Promise<ProductDetailProps> => {
-
+  debugger
   try {
     const detailinfo = await ApiRoot.products().getProductBySpu({ storeId, goodsId })
     // const detailinfo = detail
@@ -99,6 +104,7 @@ export const getProductDetail = async ({ storeId, goodsId }: { storeId: string, 
     const { listAttributeGet, listCategoryGet, findGoodsByGoodsId } = productDetail
     let detail = Object.assign({}, findGoodsByGoodsId, { listAttributeGet, listCategoryGet })
     let info = normaliseDetailforFe(detail)
+    debugger
     return info
   } catch (e) {
     console.log(e)

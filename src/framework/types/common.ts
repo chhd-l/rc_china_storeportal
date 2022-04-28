@@ -44,6 +44,7 @@ export interface KeyRules {
 export interface OptionsProps {
   name: string
   value: string | number
+  label?: string
 }
 
 export interface LabelOptionProps {

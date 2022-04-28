@@ -1,10 +1,10 @@
 import { Form, Input, Select } from 'antd'
-import { InputSelectProps, InputTextProps } from '@/framework/types/common'
+import { InputSelectProps, InputTextProps, LabelOptionProps } from '@/framework/types/common'
 import { FormListFieldData } from 'antd/lib/form/FormList'
 import { AttributeListProps } from '@/framework/types/product'
 
 interface FormProps {
-  list: (InputTextProps | InputSelectProps | AttributeListProps)[]
+  list: (InputTextProps | InputSelectProps | AttributeListProps | LabelOptionProps)[]
   parentName?: Array<any>
   field?: FormListFieldData
   layout?: any
@@ -14,7 +14,6 @@ const FormItem = ({ list, parentName, field, layout }: FormProps) => {
     <>
       {list.map((el: any, idx: number) => {
         let name = parentName ? [...parentName, el.name] : el.name //兼容form.list
-        console.info('....test', el)
         return (
           <>
             {el.type === 'select' ? (
