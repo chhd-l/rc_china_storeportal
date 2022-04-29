@@ -48,11 +48,11 @@ const Login = () => {
   };
 
   return (
-    <div className="h-screen bg-gray1">
-      <div className="flex flex-row  justify-center pt-20">
+    <div className="h-screen bg-gray1 flex justify-center items-center">
+      <div className="flex flex-row  justify-center">
         <SellerLogoPanel />
         <div className="bg-white w-80 border p-6">
-          <p className="text-xl font-medium">Seller Center</p>
+          <p className="text-2xl font-medium text-center">Seller Center</p>
           <Form
             form={form}
             onFinish={(values) => {

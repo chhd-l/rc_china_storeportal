@@ -15,7 +15,7 @@ const CustomPanelTitle = ({
 }: CustomPanelTitleProps) => {
   return (
     <>
-      {showBackArrow ? (
+      {/* {showBackArrow ? (
         <p className="text-left mb-0">
           <ArrowLeftOutlined
             style={{ color: "rgba(239, 68, 68,1)", fontSize: "24px" }}
@@ -24,8 +24,9 @@ const CustomPanelTitle = ({
             }}
           />
         </p>
-      ) : null}
-      <p className={`text-xl font-medium ${showBackArrow ? "-mt-4" : ""}`}>
+      ) : null} */}
+      {/* <p className={`text-2xl font-medium ${showBackArrow ? "-mt-4" : ""}`}> */}
+      <p className={`text-2xl font-medium mb-6 text-center`}>
         {title}
       </p>
     </>

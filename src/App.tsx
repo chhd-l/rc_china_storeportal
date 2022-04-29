@@ -6,6 +6,7 @@ import './App.css'
 import '@/assets/css/global.less'
 import '@/assets/css/iconfont/iconfont.css'
 import ApiRoot from './framework/api/fetcher'
+import Loading from '@/assets/images/loading.gif'
 
 function App () {
   let Routers = useRoutes(Router)
@@ -33,7 +34,16 @@ function App () {
 
   return (
     <div className='App text-center'>
-      <Suspense fallback={<Spin className='magin-auto' />}><div className="text-left">{Routers}</div></Suspense>
+      {/* <Spin className='margin-auto' /> */}
+      {/* <Suspense fallback={}></Suspense> */}
+      <Suspense
+        fallback={
+          <div className='w-full h-screen flex justify-center items-center'>
+            <img className='mb-15' style={{width: "13rem"}} src={Loading}/>
+          </div>
+        }>
+        <div className="text-left">{Routers}</div>
+      </Suspense>
     </div>
   )
 }
