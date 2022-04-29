@@ -7,11 +7,18 @@ import { ProductListItemProps, ProductListProps } from '@/framework/types/produc
 import TableRow from '../TableRow'
 import TableHeader from '../TableHeader'
 import TableFooter from '../TableFooter'
+
+interface Pages {
+  page: number | undefined,
+  pageSize: number | undefined
+}
 interface ListTableProps {
   listData: ProductListProps,
   handlePagination: any,
+  pages: Pages
 }
-const ListTable = ({ listData, handlePagination }: ListTableProps) => {
+
+const ListTable = ({ listData, handlePagination, pages }: ListTableProps) => {
   const [list, setList] = useState<ProductListItemProps[]>(cloneDeep(listData.products))
   const [checkedAll, setCheckedAll] = useState(false)
   const [checkedItem, setCheckedItem] = useState(false)
@@ -81,7 +88,7 @@ const ListTable = ({ listData, handlePagination }: ListTableProps) => {
         list.length ? (
           <>
             <div className='bg-white'>
-              <Pagination className='text-right my-8' showSizeChanger onChange={handlePagination} defaultCurrent={1} total={listData.total} pageSize={10} />
+              <Pagination className='text-right my-8' showSizeChanger onChange={handlePagination} defaultCurrent={pages.page} total={listData.total} pageSize={pages.pageSize} />
             </div>
           </>
         ) : null

@@ -3,7 +3,6 @@ import { DownOutlined, UpOutlined } from '@ant-design/icons'
 import { Checkbox } from 'antd'
 import ShowMoreButton from '../ShowMoreButton'
 import { Link } from 'react-router-dom'
-import { DeleteOutlined, EyeOutlined, EditOutlined, DownloadOutlined } from '@ant-design/icons'
 
 interface TableRowProps {
   spu: ProductListItemProps
@@ -15,13 +14,15 @@ interface TableRowProps {
   setList: (list: ProductListItemProps[]) => void
 }
 const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList }: TableRowProps) => {
+
   const istb = (sku: any) => {
     if (!tableHeader.length) return
     return tableHeader.map(item => {
       if (item.dataIndex !== 'name') {
         return (
           <div className='flex-1 flex justify-center h-full'>
-            {item.dataIndex === 'price' ? '￥' + sku[item.dataIndex] : sku[item.dataIndex]}
+            {item.dataIndex === 'price' ? <span className='font-extralight'>￥</span> : ''}
+            {sku[item.dataIndex]}
           </div>
         )
       }
@@ -43,13 +44,13 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList 
           <img src={spu.img} className='w-20 h-20' alt={spu.name} />
         </div>
         <div className='pl-1'>
-          <div className='text-sm font-bold mb-1'>{spu.name}</div>
+          <div className='text-sm mb-1'>{spu.name}</div>
           <div className='text-gray-400'>{spu.no}</div>
         </div>
       </div>
       <div className=' w-3/5'>
         {spu.skus.map((sku: any, index: number) => (
-          <div className='flex py-1 justify-stretch items-baseline font-semibold'>{istb(sku)}</div>
+          <div className='flex py-1 justify-stretch items-baseline'>{istb(sku)}</div>
         ))}
         {spu.showAll === false && spu.skus?.length > 3 ? (
           <ShowMoreButton listData={listData} spuIdx={spuIdx} list={list} setList={setList}>

@@ -43,7 +43,7 @@ export interface KeyRules {
 
 export interface OptionsProps {
   name: string
-  value: string | number
+  value: string | number | boolean
   label?: string
 }
 
