@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
 import { GoodsAttributeAndValue } from '../schema/product.schema'
-import { productLists } from './../../views/categoryDetail/modules/mockdata'
 import { OptionsProps, PageProps } from './common'
 
 export interface TableHeadersItemProps {
@@ -93,7 +92,7 @@ export interface ProductDetailProps {
   // stock: string
   // subscription: string
   // subscriptionPrice: string
-  isSupport100: string
+  isSupport100?: string
   // technology: string
   // video: string
   weight: string
@@ -104,7 +103,7 @@ export interface ProductListSkuItem {
   id: string
   no: string
   specs: string
-  price: number
+  price: string
   stock: number
 }
 export interface ProductListItemProps {
@@ -116,7 +115,7 @@ export interface ProductListItemProps {
   showAll?: boolean
   checked?: boolean
   specs: string
-  price: number
+  price: string
   stock: number
   name: string
 

@@ -7,6 +7,7 @@ interface EditorProps {
 const Editor = ({ defaultValue, onChange }: EditorProps) => (
   <ReactWEditor
     defaultValue={defaultValue}
+    placeholder="Please enter the text"
     linkImgCallback={(src, alt, href) => {
       // 插入网络图片的回调事件
       console.log("图片 src ", src);

@@ -2,19 +2,18 @@ import { Link } from 'react-router-dom'
 import { Button, Tabs } from 'antd'
 import { useEffect, useState } from 'react'
 import SearchHeader from './components/SearchHeader'
-import RenderBadge from './components/RenderBadge'
 import TableList from './components/TableLists'
 import { OptionsProps } from '@/framework/types/common'
 import { Tab, toolbarInit, handleTabValue } from './modules/constant'
 import { ContentContainer, TableContainer, DivideArea } from '@/components/ui'
 import { MenuOutlined } from '@ant-design/icons'
-import { deleteProducts, getAllProducts, getScProducts, switchShelves } from '@/framework/api/get-product'
-import { ProductListItemProps, ProductListProps } from '@/framework/types/product'
-import { dataSource } from './modules/mockdata'
-import Mock from 'mockjs'
+import { getAllProducts, getScProducts } from '@/framework/api/get-product'
+import {  ProductListProps } from '@/framework/types/product'
+// import { dataSource } from "./modules/mockdata";
+// import Mock from 'mockjs'
 const { TabPane } = Tabs
 
-const listDatas = Mock.mock(dataSource)
+// const listDatas = Mock.mock(dataSource)
 // console.info('listData', listData)
 const ProductList = () => {
   const [activeKey, setActiveKey] = useState<React.Key>(Tab.All)
