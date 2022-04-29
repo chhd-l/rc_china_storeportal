@@ -16,9 +16,10 @@ interface ListTableProps {
   listData: ProductListProps,
   handlePagination: any,
   pages: Pages
+  setListData: Function
 }
 
-const ListTable = ({ listData, handlePagination, pages }: ListTableProps) => {
+const ListTable = ({ listData, handlePagination, setListData, pages }: ListTableProps) => {
   const [list, setList] = useState<ProductListItemProps[]>(cloneDeep(listData.products))
   const [checkedAll, setCheckedAll] = useState(false)
   const [checkedItem, setCheckedItem] = useState(false)
@@ -57,32 +58,30 @@ const ListTable = ({ listData, handlePagination, pages }: ListTableProps) => {
 
   return (
     <div>
-      <div >
-        <div className="flex py-3 bg-gray1 border ">
-          <div className="px-2 flex justify-center items-center">
-            <Checkbox
-              indeterminate={indeterminate}
-              checked={checkedAll}
-              onChange={handleCheckedAll}
-            />
+      <div>
+        <div className='flex py-3 bg-gray1 border '>
+          <div className='px-2 flex justify-center items-center'>
+            <Checkbox indeterminate={indeterminate} checked={checkedAll} onChange={handleCheckedAll} />
           </div>
-          <TableHeader tableHeader={tableHeader} setTableHeader={setTableHeader} />
+          <TableHeader setListData={setListData} tableHeader={tableHeader} setTableHeader={setTableHeader} />
         </div>
-        {
-          list.length ? (
-            list.map((spu, spuIdx) => (
-              <TableRow
-                spu={spu}
-                onChange={onChange}
-                spuIdx={spuIdx}
-                tableHeader={tableHeader}
-                listData={listData.products}
-                list={list}
-                setList={setList}
-              />
-            ))
-          ) : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-        }
+        {list.length ? (
+          list.map((spu, spuIdx) => (
+            <TableRow
+              key={spu.id}
+              setListData={setListData}
+              spu={spu}
+              onChange={onChange}
+              spuIdx={spuIdx}
+              tableHeader={tableHeader}
+              listData={listData.products}
+              list={list}
+              setList={setList}
+            />
+          ))
+        ) : (
+          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+        )}
       </div>
       {
         list.length ? (
@@ -95,7 +94,7 @@ const ListTable = ({ listData, handlePagination, pages }: ListTableProps) => {
       }
       {
         checkedItem ? (
-          <TableFooter list={list}>
+          <TableFooter  setListData={setListData} list={list}>
             <Checkbox indeterminate={indeterminate} checked={checkedAll} onChange={handleCheckedAll} />
           </TableFooter>
         ) : null
