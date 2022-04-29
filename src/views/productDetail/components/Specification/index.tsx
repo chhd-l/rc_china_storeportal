@@ -40,15 +40,13 @@ const Specification = (props: FormProps) => {
       })?.attributeValueName
       return item
     })
-
-    console.info('datagetAttrs', list)
     setSpecificationList(list)
   }
   const handleChange = (value: any) => {
     console.info(',,,,', value)
   }
   return (
-    <div className='overflow-hidden'>
+    <div className='overflow-hidden pl-12'>
       {specificationList?.map(specification => {
         return (
           <Row key={specification.id} className='w-1/2 float-left ant-form-item'>
@@ -56,10 +54,8 @@ const Specification = (props: FormProps) => {
             <Col span={16}>
               <Select
                 className='w-full'
+                mode="multiple"
                 labelInValue
-                defaultValue={{
-                  value: specification.defaultVal,
-                }}
                 placeholder={`please select`}
                 style={{ width: 120 }}
                 options={specification.options}
@@ -68,8 +64,6 @@ const Specification = (props: FormProps) => {
                     // @ts-ignore
                     [option.attributeId]: option.id,
                   })
-                  console.info('newRel', newRel)
-                  console.info(option)
                   detail.goodsAttributeValueRelInput = newRel
                   setGoodsAttributeValueRel(newRel)
                   // handleChange()

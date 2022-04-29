@@ -66,7 +66,7 @@ export enum Tab {
   All = "All",
   Live = "Live",
   Soldout = "Sold out",
-  Disabled = "Disabled",
+  Disabled = "Delisted",
 }
 export const toolbarInit: OptionsProps[] = [
   {
