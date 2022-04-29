@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, Button, Form } from "antd";
+import { Input, Button, Form, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import {
   SellerLogoPanel,
@@ -75,11 +75,19 @@ const Register = () => {
               wrapperCol={{ span: 24 }}
               onFinish={(values) => {
                 console.log("----form1-----", values);
+                if (values.confirmPassword !== values.password) {
+                  message.error('Password verification failed')
+                  return
+                }
                 register({ ...values }).then(id => {
-                  setTempUserId(id)
+                  if (id) {
+                    setTempUserId(id)  
+                    setPhoneNumber(values.phone);
+                    registerToNext();
+                  } else {
+                    message.error('Register failed！')
+                  }
                 })
-                setPhoneNumber(values.phone);
-                registerToNext();
               }}
               autoComplete="off"
             >

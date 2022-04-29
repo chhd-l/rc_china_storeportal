@@ -23,11 +23,12 @@ export const verifyMesssage = async ({ userId, code }: { userId: string, code: s
 
 export const login = async ({ username, password }: { username: string, password: string }) => {
   try {
-    const { data } = await ApiRoot.users().login({ username, password })
+    const { userInfo } = await ApiRoot.users().login({ username, password })
     return {
-      userInfo: data
+      userInfo
     }
   } catch (e) {
+    console.log(e)
     return false
   }
 }
