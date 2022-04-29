@@ -141,7 +141,7 @@ const AddVariation = ({}: AddVariationProps) => {
                 <Col span={15}>
                   <Input
                     defaultValue={variation.name}
-                    onChange={e => {
+                    onBlur={e => {
                       handleName(e, variationIdx)
                     }}
                     placeholder='Name'
