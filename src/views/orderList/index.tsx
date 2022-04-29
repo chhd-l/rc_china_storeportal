@@ -38,7 +38,7 @@ const PetOwnerList = () => {
 
   useEffect(() => {
     console.log(location)
-    if (location.pathname === '/shipment-list') {
+    if (location.pathname === '/shipment-list' || location.pathname === '/') {
       setActiveKey(OrderStatus.Toship)
     } else {
       setActiveKey('')

@@ -84,14 +84,14 @@ const ListTable = ({ listData, handlePagination, setListData }: ListTableProps) 
               showSizeChanger
               onChange={handlePagination}
               defaultCurrent={1}
-              total={6}
-              pageSize={2}
+              total={listData.total}
+              pageSize={10}
             />
           </div>
         </>
       ) : null}
       {checkedItem ? (
-        <TableFooter list={list} setListData={setListData}>
+        <TableFooter setListData={setListData} list={list}>
           <Checkbox indeterminate={indeterminate} checked={checkedAll} onChange={handleCheckedAll} />
         </TableFooter>
       ) : null}
