@@ -98,7 +98,7 @@ export interface GoodsVariants {
   eanCode: string
   name: string
   skuType: string
-  marketingPrice: number // 当前价格
+  marketingPrice: string // 当前价格
   listPrice: number // 划线价
   shelvesStatus: boolean
   // shelvesTime: string

@@ -43,7 +43,7 @@ const TableHeader = ({ tableHeader, setTableHeader }: TableHeaderProps) => {
           ) : null}
         </div>
       ))}
-      <div className='flex justify-center items-center w-64'>
+      <div className='flex justify-left items-center w-64'>
         <div>Options</div>
       </div>
     </div>
