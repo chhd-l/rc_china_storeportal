@@ -4,9 +4,9 @@ import { SearchContainer } from "@/components/ui/Container";
 import "./index.less"
 import { useState } from "react";
 
-const { Option } = Select;
+const { Option } = Select
 interface SearchProps {
-  getFormData: Function;
+  getFormData: Function
 }
 const nameForKey: OptionsProps[] = [
   { name: "Product Name", value: "goodsName" },
@@ -14,9 +14,9 @@ const nameForKey: OptionsProps[] = [
   { name: "SPU", value: "SPU" },
 ];
 const typeForKey: OptionsProps[] = [
-  { name: "Product Type", value: "ProductType" },
-  { name: "Subscription Status", value: "SubscriptionStatus" },
-];
+  { name: 'Product Type', value: 'ProductType' },
+  { name: 'Subscription Status', value: 'SubscriptionStatus' },
+]
 const chooseProductType: OptionsProps[] = [
   { name: "Bundle bundle", value: "BUNDLE BUNDLE" },
   { name: "Regular regular", value: "REGULAR REGULAR" },
@@ -31,6 +31,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
   const [form] = Form.useForm();
   const [typeSelect, setTypeSelect] = useState(typeForKey[0].value)
   const onFinish = (values: any) => {
+    console.info('values', values)
     const val = {
       startStock : values.startStock,
       [values.selectName] : values.goodsName,
@@ -38,29 +39,26 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
       endStock : values.endStock,
       cateId : values.cateId,
     }
-    getFormData(val);
-  };
+    getFormData(val)
+  }
   const onReset = () => {
-    form.resetFields();
-  };
+    form.resetFields()
+  }
   return (
-    <SearchContainer className="product-search-top">
+    <SearchContainer className='product-search-top'>
       <Form
-        layout={"inline"}
+        layout={'inline'}
         form={form}
         onFinish={onFinish}
         initialValues={{
-          layout: "inline",
+          layout: 'inline',
         }}
       >
-        <Row justify="start" gutter={[0, 14]}>
+        <Row justify='start' gutter={[0, 14]}>
           <Col span={12}>
-            <Input.Group compact className="flex">
-              <Form.Item name="selectName" initialValue={nameForKey[0].value}>
-                <Select
-                  style={{ width: 140 }}
-                  placeholder="Select a option and change input text above"
-                >
+            <Input.Group compact className='flex'>
+              <Form.Item name='selectName' initialValue={nameForKey[0].value}>
+                <Select style={{ width: 140 }} placeholder='Select a option and change input text above'>
                   {nameForKey.map((el: any) => (
                     <Option key={el.value} value={el.value}>
                       {el.name}
@@ -69,7 +67,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                 </Select>
                 {/* <SelectKey list={nameForKey} /> */}
               </Form.Item>
-              <Form.Item name="goodsName" className="flex-1">
+              <Form.Item name='goodsName' className='flex-1'>
                 <Input placeholder={`please Input goodsName`} />
               </Form.Item>
             </Input.Group>
@@ -84,12 +82,12 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
             </Form.Item>
           </Col>
           <Col span={6}>
-            <Form.Item label="stock" name="startStock">
+            <Form.Item label='stock' name='startStock'>
               <Input placeholder={`please Input startStock`} />
             </Form.Item>
           </Col>
           <Col span={6}>
-            <Form.Item name="endStock">
+            <Form.Item name='endStock'>
               <Input placeholder={`please Input endStock`} />
             </Form.Item>
           </Col>
@@ -133,7 +131,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
               </Form.Item>
             </Input.Group>
           </Col>
-          <Col span={12} offset={12} className="text-right ml-0">
+          <Col span={12} offset={12} className='text-right ml-0'>
             <Form.Item>
               <Button htmlType="submit" type="primary" className="mr-4">
               search
@@ -144,6 +142,6 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
         </Row>
       </Form>
     </SearchContainer>
-  );
-};
-export default SearchHeader;
+  )
+}
+export default SearchHeader

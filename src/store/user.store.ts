@@ -1,14 +1,17 @@
+//@ts-nocheck
+
 import { User } from '@/framework/types/common'
 import { atom } from 'jotai'
-export const userAtom = atom<User | null>({
-  id: '12345',
-  type: '12345',
-  name: '12345',
-  nickname: '12345',
-  username: '12345',
-  email: '12345',
+
+export const userAtom = atom<User | null>(JSON.parse(localStorage.getItem("rc-userInfo")) as null || {
+  id: '',
+  type: '',
+  name: '',
+  nickname: '',
+  username: '',
+  email: '',
   isEmailVerified: true,
-  phone: '13080534977',
+  phone: '',
   isPhoneVerified: true,
-  status: 'aa',
+  status: '',
 })

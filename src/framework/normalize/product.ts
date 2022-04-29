@@ -4,6 +4,7 @@ import { CateItemProps, Goods, GoodsAssets, GoodsAttribute, GoodsSpecification, 
 import { ProductListSkuItem } from '../types/product'
 import { VarviationProps } from '@/views/productDetail/components/EditVariationList'
 import { ElementFlags } from 'typescript'
+import { specialCharMap } from '@testing-library/user-event/dist/keyboard'
 
 export const normaliseDetailforFe = (detail: any) => {
   let withoutSku = detail.goodsVariants[0]?.withoutSku
@@ -337,12 +338,22 @@ export const normaliseVariationAndSpecification = (data: GoodsSpecification[], g
   })
   return { variationList, variationLists }
 }
+export const normalizeSpecText = (goodsSpecificationRel: any, goodsSpecifications: any): string[] => {
+  return goodsSpecificationRel?.map((el: any) => {
+    debugger
+    let specObj = goodsSpecifications.find((spec: any) => spec.id === el.goodsSpecificationId)
+    let specDetailName = specObj?.goodsSpecificationDetail?.find(
+      (specDetail: any) => specDetail.id === el.goodsSpecificationDetailId,
+    )?.specificationDetailName
+    return specDetailName || ''
+  })
+}
 
-export const normaliseProductListSku = (sku: GoodsVariants): ProductListSkuItem => {
+export const normaliseProductListSku = (sku: GoodsVariants, goodsSpecifications: GoodsSpecification): ProductListSkuItem => {
   let skuItem = {
     id: sku.id,
     no: sku.skuNo,
-    specs: '',
+    specs: normalizeSpecText(sku.goodsSpecificationRel, goodsSpecifications)?.join(','),
     price: sku.marketingPrice,
     stock: sku.stock
   }
@@ -350,7 +361,7 @@ export const normaliseProductListSku = (sku: GoodsVariants): ProductListSkuItem 
 }
 export const normaliseProductListSpu = (spu: any): ProductListSkuItem => {
   let listItem = {
-    skus: spu.goodsVariants?.map((sku: any) => normaliseProductListSku(sku)),
+    skus: spu.goodsVariants?.map((sku: any) => normaliseProductListSku(sku, spu.goodsSpecifications)),
     img: spu.defaultImage,
     id: spu.id,
     no: spu.spuNo,

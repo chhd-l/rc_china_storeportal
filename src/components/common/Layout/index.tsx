@@ -9,7 +9,6 @@ const { Content, Sider } = Layout;
 
 const AppLayout = () => {
   const [userInfo] = useAtom(userAtom)
-
   return (
     <Layout >
       <TopHeader userInfo={userInfo}/>

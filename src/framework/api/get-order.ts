@@ -15,11 +15,18 @@ export const getOrderList = async (queryOrderListParams: any): Promise<{ total: 
       console.log('query orders view params', queryOrderListParams)
       let res = await ApiRoot.orders().getOrders({ queryOrderListParams })
       console.log('query orders view list', res)
-      const { records, total } = res.orders
-      let record = (records || []).map((order: any) => normaliseOrder(order, expressCompanies))
-      return {
-        total: total || 0,
-        records: record,
+      if (res?.orders?.records) {
+        const { records, total } = res.orders
+        let record = (records || []).map((order: any) => normaliseOrder(order, expressCompanies))
+        return {
+          total: total || 0,
+          records: record,
+        }
+      } else {
+        return {
+          total: 0,
+          records: [],
+        }
       }
     }
   } catch (e) {
