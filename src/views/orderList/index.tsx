@@ -56,7 +56,7 @@ const PetOwnerList = () => {
   useEffect(() => {
     console.log(location)
     const state: any = location.state
-    if (location.pathname === '/shipment-list'||location.pathname === '/') {
+    if (location.pathname === '/shipment-list') {
       setActiveKey(OrderStatus.Toship)
       getOrderLists({ searchParams, pageParams, orderState: OrderStatus.Toship, company: carrier })
     } else {
