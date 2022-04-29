@@ -85,7 +85,7 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
             } text-base`}
             onClick={async () => {
               console.info('............', listData[spuIdx])
-              debugger
+              // debugger
               let { shelvesStatus } = listData[spuIdx]
               switchShelves({ goodsId: [listData[spuIdx]?.id], status: !shelvesStatus })
               // listData[spuIdx].shelvesStatus = !shelvesStatus

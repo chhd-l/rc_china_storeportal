@@ -24,7 +24,7 @@ const SalesInfo = (props: FormProps) => {
   useEffect(() => {
     if (detail.variationForm) {
       setVariationForm(detail.variationForm)
-      debugger
+      // debugger
     }
   }, [detail.variationForm])
   return (
