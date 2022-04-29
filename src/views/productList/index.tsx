@@ -58,8 +58,8 @@ const ProductList = () => {
     setToolbarList(newToolbarList)
   }
   useEffect(() => {
-    // getList()
-    setListData(listDatas)
+    getList()
+    // setListData(listDatas)
   }, [])
   return (
     <ContentContainer className='productlist'>

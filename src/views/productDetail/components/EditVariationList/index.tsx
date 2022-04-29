@@ -73,11 +73,12 @@ const EditVariationList = (props: FormProps) => {
     const variationForm = cloneDeep(cloneVariationForm)
     const { variationList } = variationForm
     variationList?.forEach((variation: any, idx: number) => {
-      variation.name = variation.name || `Variation${idx}`
+      variation.name = variation.name || `Variation${idx + 1}`
       variation.specificationList.forEach((specification: any) => {
         specification.option = specification.option || 'option'
       })
     })
+    console.info('variationList', variationList)
     if (variationList?.length === 0) {
       setVariationList([])
     }
@@ -194,6 +195,8 @@ const EditVariationList = (props: FormProps) => {
       }
       if (vartion.length) {
         console.info('vartion', vartion)
+        debugger
+
         vartion.forEach((spec: any, idx: number) => {
           let name = formData[idx]?.name || `Variation${idx}`
           newEl[name] = (spec[0] || spec)?.option || 'option'
@@ -205,7 +208,7 @@ const EditVariationList = (props: FormProps) => {
         })
       } else {
         debugger
-        let name = formData[0]?.name || `Variation0`
+        let name = formData[0]?.name || `Variation1`
         newEl[name] = vartion?.option || 'option'
         newEl.relArr[name] = vartion?.option || 'option'
         // newEl.relArr.push({
