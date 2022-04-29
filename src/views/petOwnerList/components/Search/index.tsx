@@ -74,6 +74,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
           className="w-20"
           danger
           onClick={(e) => {
+            console.log(1111)
             setSearchParams(initSearchParams)
             query &&query(initSearchParams)
           }}

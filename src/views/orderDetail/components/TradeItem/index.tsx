@@ -1,19 +1,19 @@
-import { Divider, Table } from "antd";
-import React, { useState } from "react";
-import { DownOutlined, UpOutlined } from "@ant-design/icons";
-import { OrderTradeItem, TradePrice } from "@/framework/types/order";
-import { formatMoney } from "@/utils/utils";
+import { Divider, Table } from 'antd'
+import React, { useState } from 'react'
+import { DownOutlined, UpOutlined } from '@ant-design/icons'
+import { OrderTradeItem, TradePrice } from '@/framework/types/order'
+import { formatMoney } from '@/utils/utils'
 
 const column = [
   {
-    title: "No",
-    key: "no",
+    title: 'No',
+    key: 'no',
     render: (text: any, record: any, index: number) => `${index + 1}`,
   },
   {
-    title: "Product",
-    dataIndex: "pic",
-    key: "pic",
+    title: 'Product',
+    dataIndex: 'pic',
+    key: 'pic',
     render: (text: any, record: any) => (
       <div className="flex flex-row items-center">
         <img src={text} className="w-10 h-10 mr-2" alt="" />
@@ -26,33 +26,26 @@ const column = [
     ),
   },
   {
-    title: "Unit price",
-    dataIndex: "price",
-    key: "price",
+    title: 'Unit price',
+    dataIndex: 'price',
+    key: 'price',
+    render: (text: any, record: any) => <div>{formatMoney(text)}</div>,
   },
   {
-    title: "Quantity",
-    dataIndex: "num",
-    key: "num",
+    title: 'Quantity',
+    dataIndex: 'num',
+    key: 'num',
   },
   {
-    title: "Subtotal",
-    key: "Subtotal",
-    render: (text: any, record: any) => (
-      <div>{formatMoney(record.price * record.num)}</div>
-    ),
+    title: 'Subtotal',
+    key: 'Subtotal',
+    render: (text: any, record: any) => <div>{formatMoney(record.price * record.num)}</div>,
   },
-];
+]
 
-const OrderInformation = ({
-  tradeItem,
-  tradePrice,
-}: {
-  tradeItem: OrderTradeItem[];
-  tradePrice: TradePrice;
-}) => {
-  const [showMore, setShowMore] = useState(true);
-  const { goodsPrice, discountsPrice, deliveryPrice, totalPrice } = tradePrice;
+const OrderInformation = ({ tradeItem, tradePrice }: { tradeItem: OrderTradeItem[]; tradePrice: TradePrice }) => {
+  const [showMore, setShowMore] = useState(true)
+  const { goodsPrice, discountsPrice, deliveryPrice, totalPrice } = tradePrice
 
   return (
     <div className="flex justify-start">
@@ -60,13 +53,7 @@ const OrderInformation = ({
       <div className="ml-4 w-full">
         <div className="text-left text-base">Order Information</div>
         <div className="mt-4">
-          <Table
-            columns={column}
-            dataSource={tradeItem}
-            pagination={false}
-            rowKey="skuId"
-            className='rc-table'
-          />
+          <Table columns={column} dataSource={tradeItem} pagination={false} rowKey="skuId" className="rc-table" />
         </div>
         <div className="flex flex-col mt-4 ">
           <Divider orientation="right" orientationMargin="0">
@@ -75,13 +62,13 @@ const OrderInformation = ({
               {showMore ? (
                 <UpOutlined
                   onClick={() => {
-                    setShowMore(false);
+                    setShowMore(false)
                   }}
                 />
               ) : (
                 <DownOutlined
                   onClick={() => {
-                    setShowMore(true);
+                    setShowMore(true)
                   }}
                 />
               )}
@@ -106,6 +93,6 @@ const OrderInformation = ({
         </div>
       </div>
     </div>
-  );
-};
-export default OrderInformation;
+  )
+}
+export default OrderInformation

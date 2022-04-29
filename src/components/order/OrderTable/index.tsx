@@ -61,7 +61,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
           <div className="border mt-2" key={item.id}>
             <Row className="bg-gray1 border-b py-2 px-4">
               <Col span={12} className="flex items-center">
-                <Avatar icon={<UserOutlined />} />
+                <Avatar icon={<img src={item.buyer.image} alt={''}/>} />
                 <span className="ml-2">{item.buyer.name}</span>
               </Col>
               <Col span={12} className="text-right">
@@ -114,7 +114,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
                 <div>{orderStatusType[item.tradeState.orderState]}</div>
               </Col>
               <Col span={6} className="text-center">
-                {item.carrierType }
+                {item.carrierType}
               </Col>
               <Col span={2} className="text-center">
                 <OrderActions
