@@ -31,7 +31,7 @@ const BasicInfo = ({ field }: FormProps) => {
   }
 
   return (
-    <>
+    <div className='basicinfo'>
       <Form.Item label='Product Image' name='assets'>
         <div className='text-left'>
           <Upload handleImgUrl={handleImgUrl} fileList={detail.assets} showUploadList={false} />
@@ -84,7 +84,7 @@ const BasicInfo = ({ field }: FormProps) => {
       <Form.Item label='Sales Status' name='salesStatus'>
         <Select placeholder='please select Sales Status' options={salesStatusList} />
       </Form.Item>
-    </>
+    </div>
   )
 }
 

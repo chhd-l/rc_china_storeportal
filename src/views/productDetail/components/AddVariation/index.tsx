@@ -39,7 +39,7 @@ const AddVariation = ({}: AddVariationProps) => {
       return (
         <Row className='pt-3'>
           <Col span={4} className='text-right'>
-            Option：
+            Option:
           </Col>
           <Col span={15}>
             <Input
@@ -131,12 +131,12 @@ const AddVariation = ({}: AddVariationProps) => {
         {variationForm.variationList.map((variation: VarationProps, variationIdx: number) => (
           <Row key={`variationIdx-${variationIdx}`} className='pt-6 relative'>
             <Col span={4} className='text-right'>
-              variation{variationIdx}：
+              variation{variationIdx}:
             </Col>
             <Col span={16} className='bg-gray-200 pt-6'>
               <Row>
                 <Col span={4} className='text-right'>
-                  Name：
+                  Name:
                 </Col>
                 <Col span={15}>
                   <Input
@@ -170,7 +170,7 @@ const AddVariation = ({}: AddVariationProps) => {
                       handleAddSpecification(variationIdx)
                     }}
                   >
-                    Add Specification
+                    Add Option
                   </Button>
                 </Col>
               </Row>
@@ -185,20 +185,16 @@ const AddVariation = ({}: AddVariationProps) => {
         ))}
       </SortContainer>
 
-      <Row className='py-3'>
-        <Col span={16} offset={4}>
-          <Row>
-            <Col span={15} offset={4}>
+      <div className=' flex' style={{paddingLeft:"60px"}}>
+        <div >Variation:</div>
               {variationForm.variationList.length < 2 ? (
-                <Button className='w-full' onClick={handleAddVariation}>
+                <Button style={{width:"440px",marginLeft:"10px"}} type="dashed" onClick={handleAddVariation}>
                   Add Variation
                 </Button>
               ) : null}
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+      </div>
     </div>
+    
   )
 }
 

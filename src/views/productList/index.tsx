@@ -2,19 +2,18 @@ import { Link } from 'react-router-dom'
 import { Button, Tabs } from 'antd'
 import { useEffect, useState } from 'react'
 import SearchHeader from './components/SearchHeader'
-import RenderBadge from './components/RenderBadge'
 import TableList from './components/TableLists'
 import { OptionsProps } from '@/framework/types/common'
 import { Tab, toolbarInit, handleTabValue } from './modules/constant'
 import { ContentContainer, TableContainer, DivideArea } from '@/components/ui'
 import { MenuOutlined } from '@ant-design/icons'
-import { deleteProducts, getAllProducts, getScProducts, switchShelves } from '@/framework/api/get-product'
-import { ProductListItemProps, ProductListProps } from '@/framework/types/product'
-import { dataSource } from './modules/mockdata'
-import Mock from 'mockjs'
+import { getAllProducts, getScProducts } from '@/framework/api/get-product'
+import {  ProductListProps } from '@/framework/types/product'
+// import { dataSource } from "./modules/mockdata";
+// import Mock from 'mockjs'
 const { TabPane } = Tabs
 
-const listDatas = Mock.mock(dataSource)
+// const listDatas = Mock.mock(dataSource)
 // console.info('listData', listData)
 const ProductList = () => {
   const [activeKey, setActiveKey] = useState<React.Key>(Tab.All)
@@ -27,26 +26,31 @@ const ProductList = () => {
     soldOut: '0',
     disabled: '0',
   })
+  const [pages, setPages] = useState({
+    page: 1,
+    pageSize: 10
+  })
 
   const getFormData = (data: any) => {
     setSample(data)
   }
   const handlePagination = (page: number, pageSize: number) => {
-    getList(page,pageSize)
+    const pages = {page, pageSize}
+    setPages(pages)
   }
   const handleTab = (activeKey: any) => {
     setActiveKey(activeKey)
     console.info(activeKey)
   }
 
-  const getList = async (page = 1,pageSize=10) => {
+  const getList = async () => {
     // let res = await getAllProducts({ limit: 2, sample: {}, isNeedTotal: true, operator: 'sss', offset: page })
     let res = await getScProducts({
-      limit: pageSize,
+      limit: pages.pageSize,
       sample,
       isNeedTotal: true,
       operator: 'sss',
-      offset: page - 1,
+      offset: pages.page - 1,
     })
 
     setListData(res)
@@ -56,7 +60,7 @@ const ProductList = () => {
   useEffect(() => {
     getList()
     // setListData(listDatas)
-  }, [sample])
+  }, [sample,pages])
   return (
     <ContentContainer className='productlist'>
       <SearchHeader getFormData={getFormData} />
@@ -88,7 +92,7 @@ const ProductList = () => {
             </TabPane>
           ))}
         </Tabs>
-        <TableList setListData={getList} listData={listData} handlePagination={handlePagination} />
+        <TableList setListData={getList} listData={listData} handlePagination={handlePagination} pages={pages} />
       </TableContainer>
     </ContentContainer>
   )

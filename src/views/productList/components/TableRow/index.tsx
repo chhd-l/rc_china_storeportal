@@ -3,7 +3,6 @@ import { DownOutlined, UpOutlined } from '@ant-design/icons'
 import { Checkbox } from 'antd'
 import ShowMoreButton from '../ShowMoreButton'
 import { Link } from 'react-router-dom'
-import { DeleteOutlined, EyeOutlined, EditOutlined, DownloadOutlined } from '@ant-design/icons'
 import { deleteProducts, getScProducts, switchShelves } from '@/framework/api/get-product'
 import { cloneDeep } from 'lodash'
 
@@ -21,11 +20,13 @@ interface TableRowProps {
 const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList, setListData }: TableRowProps) => {
   const istb = (sku: any) => {
     if (!tableHeader.length) return
-    return tableHeader.map(item => {
+    console.log('tableHeader', tableHeader)
+    return tableHeader.map((item) => {
       if (item.dataIndex !== 'name') {
         return (
           <div className='flex-1 flex justify-center h-full'>
-            {item.dataIndex === 'price' ? '￥' + sku[item.dataIndex] : sku[item.dataIndex]}
+            {item.dataIndex === 'price' ? <span className='font-extralight'>￥</span> : ''}
+            {sku[item.dataIndex]}
           </div>
         )
       }
@@ -47,13 +48,13 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
           <img src={spu.img} className='w-20 h-20' alt={spu.name} />
         </div>
         <div className='pl-1'>
-          <div className='text-sm font-bold mb-1'>{spu.name}</div>
+          <div className='text-sm mb-1'>{spu.name}</div>
           <div className='text-gray-400'>{spu.no}</div>
         </div>
       </div>
       <div className=' w-3/5'>
         {spu.skus.map((sku: any, index: number) => (
-          <div className='flex py-1 justify-stretch items-baseline font-semibold'>{istb(sku)}</div>
+          <div className='flex py-1 justify-stretch items-baseline'>{istb(sku)}</div>
         ))}
         {spu.showAll === false && spu.skus?.length > 3 ? (
           <ShowMoreButton listData={listData} spuIdx={spuIdx} list={list} setList={setList}>
@@ -71,7 +72,7 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
         ) : null}
       </div>
       <div className='w-64 flex justify-center text-12'>
-        <Link to='' className='mr-4'>
+        <Link to='' className="mr-4">
           <span className='icon iconfont icon-preview'></span>
         </Link>
         <Link className='mr-4' to={`/product/${listData[spuIdx]?.id}`}>

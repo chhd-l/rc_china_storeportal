@@ -84,7 +84,6 @@ const EditVariationList = (props: FormProps) => {
     }
     // variationForms
     setVariationForm(variationForm)
-    debugger
     if (variationList[0]) {
       getRows(variationForm)
       initHeader(variationForm)
@@ -173,7 +172,7 @@ const EditVariationList = (props: FormProps) => {
       }
       if (variationForm.changeType === ChangeType.handleSpec || isDefultData) {
         //to do spec选择,需要操作====
-        debugger
+        // debugger
         let oldData = lastData.find((el: any) => el.sortIdx === sortIdx)
         console.info('oldData', oldData)
         newEl = Object.assign({}, newEl, oldData, {
@@ -195,7 +194,7 @@ const EditVariationList = (props: FormProps) => {
       }
       if (vartion.length) {
         console.info('vartion', vartion)
-        debugger
+        // debugger
 
         vartion.forEach((spec: any, idx: number) => {
           let name = formData[idx]?.name || `Variation${idx}`
@@ -207,7 +206,7 @@ const EditVariationList = (props: FormProps) => {
           // })
         })
       } else {
-        debugger
+        // debugger
         let name = formData[0]?.name || `Variation1`
         newEl[name] = vartion?.option || 'option'
         newEl.relArr[name] = vartion?.option || 'option'
