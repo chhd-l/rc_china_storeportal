@@ -1,4 +1,4 @@
-import ClientBuilder from '@rc-china-commerce/fetch'
+import ClientBuilder from '@rc-china-commerce/fetch/'
 // import ClientBuilder from '@/rc-china-commerce/packages/fetch/lib/index'
 
 // const API_URL = 'http://localhost:9000/graphql'

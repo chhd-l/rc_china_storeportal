@@ -17,6 +17,7 @@ const { TabPane } = Tabs
 // console.info('listData', listData)
 const ProductList = () => {
   const [activeKey, setActiveKey] = useState<React.Key>(Tab.All)
+  const [sample, setSample] = useState({})
   const [toolbarList, setToolbarList] = useState<OptionsProps[]>([])
   const [listData, setListData] = useState<ProductListProps>({
     products: [],
@@ -27,31 +28,26 @@ const ProductList = () => {
   })
 
   const getFormData = (data: any) => {
-    console.info(data, 'data')
+    setSample(data)
   }
   const handlePagination = (page: number, pageSize: number) => {
-    getList(page)
+    getList(page,pageSize)
   }
   const handleTab = (activeKey: any) => {
     setActiveKey(activeKey)
     console.info(activeKey)
   }
 
-  useEffect(() => {
-    // switchShelves({ goodsId: ['27efe318-a578-4035-048e-699da3c798b5'], status: false })
-    // deleteProducts({ goodsId: ['066c491b-a448-10f5-05c7-18332a654074'] })
-    // getScProducts({ limit: 100, sample: {}, isNeedTotal: true, operator: 'sss', offset: 1 })
-  }, [])
-  const getList = async (page = 1) => {
+  const getList = async (page = 1,pageSize=10) => {
     // let res = await getAllProducts({ limit: 2, sample: {}, isNeedTotal: true, operator: 'sss', offset: page })
     let res = await getScProducts({
-      limit: 100,
-      sample: {},
+      limit: pageSize,
+      sample,
       isNeedTotal: true,
       operator: 'sss',
-      offset: 1,
+      offset: page - 1,
     })
-    console.info('resgetScproducts', res)
+
     setListData(res)
     let newToolbarList = handleTabValue(toolbarInit, res)
     setToolbarList(newToolbarList)
@@ -59,7 +55,7 @@ const ProductList = () => {
   useEffect(() => {
     getList()
     // setListData(listDatas)
-  }, [])
+  }, [sample])
   return (
     <ContentContainer className='productlist'>
       <SearchHeader getFormData={getFormData} />
@@ -91,7 +87,7 @@ const ProductList = () => {
             </TabPane>
           ))}
         </Tabs>
-        <TableList listData={listData} handlePagination={handlePagination} />
+        <TableList setListData={getList} listData={listData} handlePagination={handlePagination} />
       </TableContainer>
     </ContentContainer>
   )

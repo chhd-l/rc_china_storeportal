@@ -1,7 +1,7 @@
 import { Breadcrumb } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import "./style.less";
-import r from "@/routers";
+import r from "@/routers/index";
 import { useEffect, useState } from "react";
 
 /**
@@ -18,7 +18,7 @@ const RouteBreadcrumb = () => {
 
 
   const depy = (arr: any[], path: string) => {
-    if (!arr.length) return
+    if (path === '') return
     arr.forEach((item): any => {
       if (item.path === path) {
         breadcrumbItemsaRr.push(item)
@@ -32,6 +32,7 @@ const RouteBreadcrumb = () => {
 
   useEffect(() => {
     breadcrumbItemsaRr = []
+  console.log(' pathname.split(/)', pathname.split('/'))
     pathname.split('/').forEach((path) => {
       depy(r, path)
     })

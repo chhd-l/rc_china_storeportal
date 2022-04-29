@@ -111,6 +111,7 @@ export interface ProductListItemProps {
   img: string
   id: string
   no: string
+  shelvesStatus: boolean
   showAll?: boolean
   checked?: boolean
   specs: string
@@ -124,7 +125,8 @@ export interface ProductListProps {
   all: string
   live: string
   soldOut: string
-  disabled: string
+  disabled: string,
+  total?: number
 }
 export enum ProductType {
   Regular = 'REGULAR',
