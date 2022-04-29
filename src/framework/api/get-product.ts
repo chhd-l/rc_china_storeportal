@@ -44,7 +44,7 @@ export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categ
 }
 
 export const getProduct = async ({ storeId, goodsId }: { storeId: string, goodsId: string }): Promise<ProductDetailProps> => {
-  debugger
+  // debugger
   try {
     const detailinfo = await ApiRoot.products().getProductBySpu({ storeId, goodsId })
     // const detailinfo = detail
@@ -97,9 +97,9 @@ export const getProductBySpuId = async (params: ProductListQueryProps) => {
 }
 
 
-export const getESProducts = async (params: ProductListQueryProps): Promise<any> => {
+export const getESProducts = async (params: any): Promise<any> => {
   try {
-    const res = await ApiRoot.products().getAllProducts(params)
+    const res = await ApiRoot.products().getESProductLists(params)
     console.info('res', res)
   } catch (e) {
     console.log(e)
@@ -113,7 +113,7 @@ export const getProductDetail = async ({ storeId, goodsId }: { storeId: string, 
     const { listAttributeGet, listCategoryGet, findGoodsByGoodsId } = productDetail
     let detail = Object.assign({}, findGoodsByGoodsId, { listAttributeGet, listCategoryGet })
     let info = normaliseDetailforFe(detail)
-    debugger
+    // debugger
     return info
   } catch (e) {
     console.log(e)
