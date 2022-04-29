@@ -79,8 +79,8 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
         </Link>
         <Link to='' className='mr-4'>
           <span
-            className={`icon iconfont ${listData[spuIdx].shelvesStatus}  ${
-              listData[spuIdx].shelvesStatus ? 'icon-Frame4' : 'icon-xiajia'
+            className={`icon iconfont ${listData[spuIdx]?.shelvesStatus}  ${
+              listData[spuIdx]?.shelvesStatus ? 'icon-Frame4' : 'icon-xiajia'
             } text-base`}
             onClick={async () => {
               console.info('............', listData[spuIdx])
