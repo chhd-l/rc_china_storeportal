@@ -49,6 +49,7 @@ const Register = () => {
   };
 
   const verifyCodeToConfirm = async () => {
+    if(verifyCode === "") return
     if (await verifyMesssage({ userId: tempUserId, code: verifyCode })) {
       setCurrentStep(REGISTERSTEPENUM["SUCCESS"]);
     } else {
@@ -57,8 +58,8 @@ const Register = () => {
   };
 
   return (
-    <div className="h-screen bg-gray1">
-      <div className="flex flex-row  justify-center pt-20">
+    <div className="h-screen bg-gray1 flex justify-center items-center">
+      <div className="flex flex-row  justify-center">
         <SellerLogoPanel />
         {currentStep === REGISTERSTEPENUM["REGISTERINFOR"] ? (
           <div className="bg-white w-80 border p-6">
@@ -89,12 +90,19 @@ const Register = () => {
                   rules={item.rules}
                   key={item.name}
                 >
-                  <Input placeholder={item.placeholder} />
+                  <Input placeholder={item.placeholder} type={item.type} />
                 </Form.Item>
               ))}
-              <Form.Item wrapperCol={{ span: 24 }}>
+              <Form.Item wrapperCol={{ span: 24 }} className="text-center">
+              <Button
+                  className="px-8"
+                  danger
+                  onClick={() => navigate("/login")}
+                >
+                  Back
+                </Button>
                 <Button
-                  className="w-full"
+                  className="px-8 ml-10"
                   type="primary"
                   danger
                   htmlType="submit"
@@ -128,7 +136,7 @@ const Register = () => {
                   ? "Incorrect code!"
                   : "Did not receive the code?"}
                 &nbsp;
-                <span className="primary-color" onClick={() => getVerifyCode()}>
+                <span className="primary-color cursor-pointer" onClick={() => getVerifyCode()}>
                   {errVerifyCode ? "Resend code" : "Resend"}
                 </span>
               </p>
@@ -137,16 +145,24 @@ const Register = () => {
                   {getVerifyCodeErr}
                 </p>
               ) : null}
-              <Button
-                type="primary"
-                loading={loading}
-                danger
-                disabled={verifyCode === ""}
-                onClick={() => verifyCodeToConfirm()}
-                className="w-full"
-              >
-                Confirm
-              </Button>
+              <div className="text-center">
+                <Button
+                  className="px-8"
+                  danger
+                  onClick={() => setCurrentStep(REGISTERSTEPENUM["REGISTERINFOR"])}
+                >
+                  Back
+                </Button>
+                <Button
+                  className="px-8 ml-8"
+                  type="primary"
+                  loading={loading}
+                  // disabled={}
+                  onClick={() => verifyCodeToConfirm()}
+                >
+                  Confirm
+                </Button>
+              </div>
             </div>
           </div>
         ) : null}
