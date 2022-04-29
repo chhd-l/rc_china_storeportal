@@ -26,9 +26,10 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList 
     console.log('tableHeader', tableHeader)
     return tableHeader.map((item) => {
       if (item.dataIndex !== 'name') {
+        console.log('item',item)
         return (
           <div className='flex-1 flex justify-center h-full'>
-            {sku[item.dataIndex]}
+            {item.dataIndex === "price" ? "￥" + sku[item.dataIndex] : sku[item.dataIndex]}
           </div>
         )
       }
