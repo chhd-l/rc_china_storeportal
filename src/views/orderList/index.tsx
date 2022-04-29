@@ -20,7 +20,7 @@ const PetOwnerList = () => {
   const [pageParams, setPageParams] = useState<PageParamsProps>(initPageParams)
   const [total, setTotal] = useState(0)
   const { currentPage, pageSize } = pageParams
-  const [carrier, setCarrier] = useState('')
+  const [carrier] = useState('')
   const location = useLocation()
   const navigator = useNavigate()
 
@@ -63,6 +63,7 @@ const PetOwnerList = () => {
       setActiveKey(state?.key || '')
       getOrderLists({ searchParams, pageParams, orderState: state?.key || '', company: carrier })
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname])
 
   const changeTab = (key: any) => {
