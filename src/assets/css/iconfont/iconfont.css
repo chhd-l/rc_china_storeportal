@@ -1,7 +1,9 @@
 @font-face {
-  font-family: 'iconfont'; /* Project id 3298206 */
-  src: url('iconfont.woff2?t=1650943906961') format('woff2'), url('iconfont.woff?t=1650943906961') format('woff'),
-    url('iconfont.ttf?t=1650943906961') format('truetype');
+  font-family: 'iconfont';
+  /* Project id 3298206 */
+  src: url('//at.alicdn.com/t/font_3298206_6lavb8cjz8s.woff2?t=1651208134856') format('woff2'),
+    url('//at.alicdn.com/t/font_3298206_6lavb8cjz8s.woff?t=1651208134856') format('woff'),
+    url('//at.alicdn.com/t/font_3298206_6lavb8cjz8s.ttf?t=1651208134856') format('truetype');
 }
 
 .iconfont {
@@ -194,4 +196,9 @@
 
 .icon-Order:before {
   content: '\e601';
+}
+
+
+.icon-user::before {
+  content: '\e631';
 }
