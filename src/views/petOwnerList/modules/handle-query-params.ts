@@ -13,7 +13,7 @@ export const handleQueryParams = ({
   const sample = Object.assign({}, name !== '' ? { nickName: name } : {}, phone !== '' ? { phone: phone } : {})
   const where = Object.assign(
     {},
-    loginStartTime !== '' ? { lastLoginTimeForm: new Date(loginStartTime).toISOString() } : {},
+    loginStartTime !== '' ? { lastLoginTimeFrom: new Date(loginStartTime).toISOString() } : {},
     loginEndTime !== '' ? { lastLoginTimeTo: new Date(loginEndTime).toISOString() } : {},
   )
   let params = Object.assign(

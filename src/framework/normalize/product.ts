@@ -212,7 +212,8 @@ export const normaliseInputVariationProps = (skus: any, spu: any) => {
         feedingDays: data.feedingDays ? Number(data.feedingDays) : 0,
         subscriptionPrice: data.subscriptionPrice ? Number(data.subscriptionPrice) : 0,
         operator: 'Noah',
-        goodsVariantSpecifications: data.relArr && Object.keys(data.relArr)?.map((rel: any) => {
+        //特殊处理，有bug
+        goodsVariantSpecifications: data.relArr && Object.keys(data.relArr)?.filter((rel: any) => rel !== 'Variation1').map((rel: any) => {
           let item = {
             specificationNameEn: rel,
             specificationName: rel,

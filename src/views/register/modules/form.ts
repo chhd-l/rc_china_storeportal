@@ -5,6 +5,7 @@ export const REGISTER_FORM: FormItemProps[] = [
   {
     name: "username",
     placeholder: "Enter user name",
+    type: "text",
     rules: [
       {
         required: true,
@@ -15,6 +16,7 @@ export const REGISTER_FORM: FormItemProps[] = [
   {
     name: "phone",
     placeholder: "Enter phone number",
+    type: "text",
     rules: [
       {
         required: true,
@@ -28,6 +30,7 @@ export const REGISTER_FORM: FormItemProps[] = [
   },
   {
     name: "password",
+    type: "password",
     placeholder: "Enter password",
     rules: [
       {
@@ -38,6 +41,7 @@ export const REGISTER_FORM: FormItemProps[] = [
   },
   {
     name: "confirmPassword",
+    type: "password",
     placeholder: "Confirm password",
     rules: [
       {
