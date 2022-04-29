@@ -7,12 +7,19 @@ import { ProductListItemProps, ProductListProps } from '@/framework/types/produc
 import TableRow from '../TableRow'
 import TableHeader from '../TableHeader'
 import TableFooter from '../TableFooter'
+
+interface Pages {
+  page: number | undefined,
+  pageSize: number | undefined
+}
 interface ListTableProps {
-  listData: ProductListProps
-  handlePagination: any
+  listData: ProductListProps,
+  handlePagination: any,
+  pages: Pages
   setListData: Function
 }
-const ListTable = ({ listData, handlePagination, setListData }: ListTableProps) => {
+
+const ListTable = ({ listData, handlePagination, setListData, pages }: ListTableProps) => {
   const [list, setList] = useState<ProductListItemProps[]>(cloneDeep(listData.products))
   const [checkedAll, setCheckedAll] = useState(false)
   const [checkedItem, setCheckedItem] = useState(false)
@@ -76,25 +83,22 @@ const ListTable = ({ listData, handlePagination, setListData }: ListTableProps) 
           <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
         )}
       </div>
-      {list.length ? (
-        <>
-          <div className='bg-white'>
-            <Pagination
-              className='text-right my-8'
-              showSizeChanger
-              onChange={handlePagination}
-              defaultCurrent={1}
-              total={listData.total}
-              pageSize={10}
-            />
-          </div>
-        </>
-      ) : null}
-      {checkedItem ? (
-        <TableFooter setListData={setListData} list={list}>
-          <Checkbox indeterminate={indeterminate} checked={checkedAll} onChange={handleCheckedAll} />
-        </TableFooter>
-      ) : null}
+      {
+        list.length ? (
+          <>
+            <div className='bg-white'>
+              <Pagination className='text-right my-8' showSizeChanger onChange={handlePagination} defaultCurrent={pages.page} total={listData.total} pageSize={pages.pageSize} />
+            </div>
+          </>
+        ) : null
+      }
+      {
+        checkedItem ? (
+          <TableFooter  setListData={setListData} list={list}>
+            <Checkbox indeterminate={indeterminate} checked={checkedAll} onChange={handleCheckedAll} />
+          </TableFooter>
+        ) : null
+      }
     </div>
   )
 }

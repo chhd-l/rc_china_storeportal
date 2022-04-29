@@ -26,26 +26,31 @@ const ProductList = () => {
     soldOut: '0',
     disabled: '0',
   })
+  const [pages, setPages] = useState({
+    page: 1,
+    pageSize: 10
+  })
 
   const getFormData = (data: any) => {
     setSample(data)
   }
   const handlePagination = (page: number, pageSize: number) => {
-    getList(page,pageSize)
+    const pages = {page, pageSize}
+    setPages(pages)
   }
   const handleTab = (activeKey: any) => {
     setActiveKey(activeKey)
     console.info(activeKey)
   }
 
-  const getList = async (page = 1,pageSize=10) => {
+  const getList = async () => {
     // let res = await getAllProducts({ limit: 2, sample: {}, isNeedTotal: true, operator: 'sss', offset: page })
     let res = await getScProducts({
-      limit: pageSize,
+      limit: pages.pageSize,
       sample,
       isNeedTotal: true,
       operator: 'sss',
-      offset: page - 1,
+      offset: pages.page - 1,
     })
 
     setListData(res)
@@ -55,7 +60,7 @@ const ProductList = () => {
   useEffect(() => {
     getList()
     // setListData(listDatas)
-  }, [sample])
+  }, [sample,pages])
   return (
     <ContentContainer className='productlist'>
       <SearchHeader getFormData={getFormData} />
@@ -87,7 +92,7 @@ const ProductList = () => {
             </TabPane>
           ))}
         </Tabs>
-        <TableList setListData={getList} listData={listData} handlePagination={handlePagination} />
+        <TableList setListData={getList} listData={listData} handlePagination={handlePagination} pages={pages} />
       </TableContainer>
     </ContentContainer>
   )
