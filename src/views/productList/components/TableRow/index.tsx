@@ -62,18 +62,18 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList 
           </ShowMoreButton>
         ) : null}
       </div>
-      <div className='w-64 flex justify-center'>
+      <div className='w-64 flex justify-center text-12'>
         <Link to='' className='mr-4'>
-          <EyeOutlined />
+          <span className='icon iconfont icon-preview'></span>
         </Link>
         <Link className='mr-4' to={`/product/${listData[spuIdx].id}`}>
-          <EditOutlined />
+          <span className='icon iconfont icon-Edit'></span>
         </Link>
         <Link to='' className='mr-4'>
-          <DownloadOutlined />
+          <span className='icon iconfont icon-xiajia text-base'></span>
         </Link>
         <Link to=''>
-          <DeleteOutlined />
+          <span className='icon iconfont icon-Frame3 text-base'></span>
         </Link>
       </div>
     </div>

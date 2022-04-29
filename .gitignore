@@ -25,6 +25,6 @@ yarn-error.log*
 .idea/
 
 # rc_commerce
-# /src/rc-china-commerce
+/src/rc-china-commerce
 
-# /rc-china-commerce
+

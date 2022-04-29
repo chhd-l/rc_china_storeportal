@@ -15,7 +15,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
 
   return (
     <div>
-      <div className="flex flex-row justify-start">
+      <div className="flex flex-row justify-around">
         <div className="flex flex-row items-center">
           <div className="w-auto mr-2">WeChat Name:</div>
           <Input
@@ -41,6 +41,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
         <div className="flex flex-row items-center">
           <div className="mr-2 ml-4">Login Time:</div>
           <DatePicker
+            className="rc-date-picker"
             style={{ width: '200px' }}
             onChange={(date, dateString) => {
               updateSearchParams(dateString, 'loginStartTime')
@@ -50,6 +51,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
         <div className="flex flex-row items-center">
           <div className="mr-2 ml-4">To:</div>
           <DatePicker
+            className="rc-date-picker"
             style={{ width: '200px' }}
             onChange={(date, dateString) => {
               updateSearchParams(dateString, 'loginEndTime')
@@ -72,6 +74,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
           className="w-20"
           danger
           onClick={(e) => {
+            console.log(1111)
             setSearchParams(initSearchParams)
             query &&query(initSearchParams)
           }}
