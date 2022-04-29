@@ -2,13 +2,8 @@ import { ProductListItemProps, TableHeadersItemProps } from '@/framework/types/p
 import { DownOutlined, UpOutlined } from '@ant-design/icons'
 import { Checkbox } from 'antd'
 import ShowMoreButton from '../ShowMoreButton'
-import { Link } from "react-router-dom";
-import {
-  DeleteOutlined,
-  EyeOutlined,
-  EditOutlined,
-  DownloadOutlined,
-} from "@ant-design/icons";
+import { Link } from 'react-router-dom'
+import { DeleteOutlined, EyeOutlined, EditOutlined, DownloadOutlined } from '@ant-design/icons'
 
 interface TableRowProps {
   spu: ProductListItemProps
@@ -20,17 +15,11 @@ interface TableRowProps {
   setList: (list: ProductListItemProps[]) => void
 }
 const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList }: TableRowProps) => {
-
   const istb = (sku: any) => {
     if (!tableHeader.length) return
-    console.log('tableHeader', tableHeader)
-    return tableHeader.map((item) => {
+    return tableHeader.map(item => {
       if (item.dataIndex !== 'name') {
-        return (
-          <div className='flex-1 flex justify-center h-full'>
-            {sku[item.dataIndex]}
-          </div>
-        )
+        return <div className='flex-1 flex justify-center h-full'>{sku[item.dataIndex]}</div>
       }
     })
   }
@@ -56,9 +45,7 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList 
       </div>
       <div className=' w-3/5'>
         {spu.skus.map((sku: any, index: number) => (
-          <div className='flex py-1 justify-stretch items-baseline font-semibold'>
-            {istb(sku)}
-          </div>
+          <div className='flex py-1 justify-stretch items-baseline font-semibold'>{istb(sku)}</div>
         ))}
         {spu.showAll === false && spu.skus?.length > 3 ? (
           <ShowMoreButton listData={listData} spuIdx={spuIdx} list={list} setList={setList}>
@@ -76,13 +63,13 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList 
         ) : null}
       </div>
       <div className='w-64 flex justify-center'>
-        <Link to='' className="mr-4">
+        <Link to='' className='mr-4'>
           <EyeOutlined />
         </Link>
-        <Link className="mr-4" to={`/product/${spuIdx}`}>
+        <Link className='mr-4' to={`/product/${listData[spuIdx].id}`}>
           <EditOutlined />
         </Link>
-        <Link to='' className="mr-4">
+        <Link to='' className='mr-4'>
           <DownloadOutlined />
         </Link>
         <Link to=''>

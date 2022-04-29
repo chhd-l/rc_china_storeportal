@@ -10,6 +10,7 @@ import { steps, formInitialValues } from '../../modules/constant'
 import { InfoContainer, DivideArea } from '@/components/ui'
 import { DetailContext } from '../../index'
 import { createProduct } from '@/framework/api/get-product'
+import { useNavigate } from 'react-router-dom'
 interface MainInfoProps {
   details: any
   showCatePop: boolean
@@ -19,11 +20,13 @@ interface MainInfoProps {
 }
 
 const { Link } = Anchor
-
+let shelvesStatus = true
 const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children }) => {
   const [form] = Form.useForm()
   const [tipsIdx, setTipsIdx] = useState(0)
   const { detail } = useContext(DetailContext)
+  const navigator = useNavigate()
+
   const hanldeTips = (idx: number) => {
     setTipsIdx(idx)
   }
@@ -31,16 +34,35 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children }) => {
 
   // },detail.name)
   const onFinish = async (values: any) => {
+    console.info('shelvesStatus', shelvesStatus)
     //组装product数据
     console.log(values, detail)
 
     let params = Object.assign({}, detail, values, {
       type: 'REGULAR',
+      shelvesStatus,
     })
+    if (!detail.goodsVariants?.length) {
+      detail.goodsVariants = [
+        {
+          skuNo: 'test0001', //to do
+          withoutSku: true,
+          subscriptionPrice: detail.subscriptionPrice,
+          subscriptionStatus: detail.subscriptionStatus,
+          stock: detail.stock,
+          listPrice: detail.listPrice,
+          marketingPrice: detail.marketingPrice,
+          feedingDays: detail.feedingDays,
+          isSupport100: detail.isSupport100,
+          defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
+        },
+      ]
+    }
     console.info('.......')
     console.info('params', params)
     let data = await createProduct(params)
     console.info('data', data)
+    navigator('/product/product-list')
   }
   console.info('detaildetaildetaildetail', detail)
   return (
@@ -93,11 +115,35 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children }) => {
             {/* </>
             )}
           </Form.List> */}
-            <Form.Item className='text-right'>
-              <Button type='primary' htmlType='submit'>
-                Submit
+            <div className='text-rigth flex justify-end'>
+              <Button
+                className='ml-4'
+                onClick={() => {
+                  navigator('/product/product-list')
+                }}
+              >
+                Cancel
               </Button>
-            </Form.Item>
+              <Button
+                className='ml-4'
+                onClick={() => {
+                  shelvesStatus = false
+                  form.submit()
+                }}
+              >
+                Save and Delist
+              </Button>
+              <Button
+                className='ml-4'
+                type='primary'
+                onClick={() => {
+                  shelvesStatus = true
+                  form.submit()
+                }}
+              >
+                Save and Publish
+              </Button>
+            </div>
           </div>
         </Form>
       </div>

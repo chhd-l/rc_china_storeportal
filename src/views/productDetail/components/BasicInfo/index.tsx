@@ -54,11 +54,11 @@ const BasicInfo = ({ field }: FormProps) => {
       </Form.Item>
       <Form.Item
         label='Product Description'
-        name='description'
-        // initialValue={detail.description}
+        name='goodsDescription'
+        // initialValue={detail.goodsDescription}
         rules={[{ required: true, message: 'Missing Product Description' }]}
       >
-        <Wangeditor defaultValue={detail.description} onChange={handleEditorChange} />
+        <Wangeditor defaultValue={detail.goodsDescription} onChange={handleEditorChange} />
       </Form.Item>
       <Form.Item label='Category' name='category'>
         <div className='flex'>
@@ -78,7 +78,7 @@ const BasicInfo = ({ field }: FormProps) => {
          
         /> */}
       </Form.Item>
-      <Form.Item label='Brand' name='brand'>
+      <Form.Item label='Brand' name='brandId'>
         <Select placeholder='please select Brand' options={breedList} />
       </Form.Item>
       <Form.Item label='Sales Status' name='salesStatus'>

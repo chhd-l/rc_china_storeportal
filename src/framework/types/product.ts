@@ -69,11 +69,11 @@ export interface AttributeValListProps {
 }
 export interface ProductDetailProps {
   // age: string
-  brand: string
+  brandId: string
   // breeds: string
   cardName: string
   cateId: string
-  description: string
+  goodsDescription: string
   // feedingDays: string
   // functions: string
   height: string

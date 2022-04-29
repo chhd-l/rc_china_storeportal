@@ -8,7 +8,7 @@ import { OptionsProps } from '@/framework/types/common'
 import { Tab, toolbarInit, handleTabValue } from './modules/constant'
 import { ContentContainer, TableContainer, DivideArea } from '@/components/ui'
 import { MenuOutlined } from '@ant-design/icons'
-import { getAllProducts } from '@/framework/api/get-product'
+import { deleteProducts, getAllProducts, getScProducts, switchShelves } from '@/framework/api/get-product'
 import { ProductListItemProps, ProductListProps } from '@/framework/types/product'
 // import { dataSource } from "./modules/mockdata";
 // import Mock from 'mockjs'
@@ -34,9 +34,21 @@ const ProductList = () => {
     console.info(activeKey)
   }
 
+  useEffect(() => {
+    // switchShelves({ goodsId: ['27efe318-a578-4035-048e-699da3c798b5'], status: false })
+    // deleteProducts({ goodsId: ['066c491b-a448-10f5-05c7-18332a654074'] })
+    // getScProducts({ limit: 100, sample: {}, isNeedTotal: true, operator: 'sss', offset: 1 })
+  }, [])
+
   const getList = async () => {
-    let res = await getAllProducts({ limit: 100, sample: {}, isNeedTotal: true, operator: 'sss', offset: 1 })
-    console.info(res, res)
+    let res = await getScProducts({
+      limit: 100,
+      sample: {},
+      isNeedTotal: true,
+      operator: 'sss',
+      offset: 1,
+    })
+    console.info('resgetScproducts', res)
     setListData(res)
     let newToolbarList = handleTabValue(toolbarInit, res)
     setToolbarList(newToolbarList)

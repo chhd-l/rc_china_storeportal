@@ -92,6 +92,8 @@ const AddVariation = ({}: AddVariationProps) => {
       newIndex,
     )
     variationForm.changeType = ChangeType.handleSpec
+    console.info('onSortEndonSortEndvariationFormvariationForm', variationForm)
+    console.info('onSortEndonSortEndvariationFormvariationForm', JSON.stringify(variationForm))
     setVariationForm(cloneDeep(variationForm))
   }
   const handleAddVariation = () => {

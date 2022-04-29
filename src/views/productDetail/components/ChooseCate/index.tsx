@@ -54,11 +54,13 @@ const ChooseCate = ({ handleCate, setShowCatePop, detail }: ChooseCateProps) => 
               fieldProps={{ maxLength: 120, showCount: true, placeholder: 'Please Enter' }}
               width={200}
               name='name'
+              required={true}
               label='Product Name'
             />
             <ProFormSelect
               width={210}
               name='type'
+              required={true}
               label='Product Type'
               valueEnum={ProductType}
               placeholder='Please select'

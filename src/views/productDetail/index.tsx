@@ -135,6 +135,7 @@ const Product = () => {
       <DetailContext.Provider value={{ detail, setShowCatePop }}>
         {showMain ? (
           <MainInfo details={detail} showCatePop={showCatePop}>
+            {/* <div></div> */}
             {showCatePop && <ChooseCate detail={detail} setShowCatePop={setShowCatePop} handleCate={handleCate} />}
           </MainInfo>
         ) : null}

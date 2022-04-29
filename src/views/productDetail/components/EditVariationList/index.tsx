@@ -78,8 +78,12 @@ const EditVariationList = (props: FormProps) => {
         specification.option = specification.option || 'option'
       })
     })
+    if (variationList?.length === 0) {
+      setVariationList([])
+    }
     // variationForms
     setVariationForm(variationForm)
+    debugger
     if (variationList[0]) {
       getRows(variationForm)
       initHeader(variationForm)
@@ -146,6 +150,7 @@ const EditVariationList = (props: FormProps) => {
     let lastData = isDefultData ? detail.variationLists : variationList
     let list = vartions.map((vartion: any) => {
       console.info('variationListvariationList', JSON.stringify(lastData))
+      console.info('vartionvartionvartionvartion', JSON.stringify(vartion), vartion)
       let sortIdx = vartion.map?.((el: any) => el.sortIdx).join('^') || vartion.sortIdx
       let newEl: any = {
         spec: vartion.length ? vartion.map((el: any) => el.option).join(',') : vartion.option,
@@ -163,7 +168,7 @@ const EditVariationList = (props: FormProps) => {
         marketingPrice: '',
         subscriptionPrice: '',
         sortIdx,
-        relArr: [],
+        relArr: {},
       }
       if (variationForm.changeType === ChangeType.handleSpec || isDefultData) {
         //to do spec选择,需要操作====
@@ -178,7 +183,7 @@ const EditVariationList = (props: FormProps) => {
       if (variationForm.changeType === ChangeType.handleVariation) {
         //to do variation选择，需要操作include
         let oldData = lastData
-          .filter((el: any) => el.choosed)
+          // .filter((el: any) => el.choosed)
           .find((el: any) => {
             return sortIdx.includes(el.sortIdx)
           })
@@ -188,23 +193,32 @@ const EditVariationList = (props: FormProps) => {
         })
       }
       if (vartion.length) {
+        console.info('vartion', vartion)
         vartion.forEach((spec: any, idx: number) => {
           let name = formData[idx]?.name || `Variation${idx}`
           newEl[name] = (spec[0] || spec)?.option || 'option'
-          newEl.relArr.push({
-            specificationName: name,
-            specificationDetailName: newEl[name],
-          })
+          newEl.relArr[name] = (spec[0] || spec)?.option || 'option'
+          // newEl.relArr.push({
+          //   specificationName: name,
+          //   specificationDetailName: newEl[name],
+          // })
         })
       } else {
         debugger
         let name = formData[0]?.name || `Variation0`
         newEl[name] = vartion?.option || 'option'
-        newEl.relArr.push({
-          specificationName: name,
-          specificationDetailName: newEl[name],
-        })
+        newEl.relArr[name] = vartion?.option || 'option'
+        // newEl.relArr.push({
+        //   specificationName: name,
+        //   specificationDetailName: newEl[name],
+        // })
       }
+      // let name = formData[0]?.name || `Variation0`
+      // newEl[name] = vartion?.option || 'option'
+      // newEl.relArr.push({
+      //   specificationName: name,
+      //   specificationDetailName: newEl[name],
+      // })
 
       return newEl
     })
@@ -217,7 +231,7 @@ const EditVariationList = (props: FormProps) => {
       {variationList?.length ? (
         <table className='table' width={1500}>
           <thead>
-            <tr>
+            <tr className='text-center'>
               {headerList.map((th, index) => (
                 <th key={index}>{th.label}</th>
               ))}
@@ -243,7 +257,7 @@ const EditVariationList = (props: FormProps) => {
                               />
                             )
                           case 'text':
-                            return <span>{tr[td.keyVal]}</span>
+                            return <span className='inline-block px-4'>{tr[td.keyVal]}</span>
                           case 'upload':
                             // return <span>{tr[td.keyVal]}</span>
                             return (
@@ -304,19 +318,22 @@ const EditVariationList = (props: FormProps) => {
                             return <div>test</div>
                           case 'shelves':
                             return (
-                              <div>
+                              <div className='text-center'>
                                 {tr[td.keyVal] === 'true' ? (
                                   <VerticalAlignTopOutlined
                                     onClick={() => {
                                       tr[td.keyVal] = 'flse'
                                       updateVations()
+                                      setVariationList([...variationList])
                                       console.info('tr[td.keyVal]', tr[td.keyVal])
+                                      console.info('tr[td.keyVal]', typeof tr[td.keyVal])
                                     }}
                                   />
                                 ) : (
                                   <VerticalAlignBottomOutlined
                                     onClick={() => {
                                       tr[td.keyVal] = 'true'
+                                      setVariationList([...variationList])
                                       updateVations()
                                       console.info('tr[td.keyVal]', tr[td.keyVal])
                                     }}
