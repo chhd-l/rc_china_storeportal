@@ -4,6 +4,8 @@ import { Checkbox } from 'antd'
 import ShowMoreButton from '../ShowMoreButton'
 import { Link } from 'react-router-dom'
 import { DeleteOutlined, EyeOutlined, EditOutlined, DownloadOutlined } from '@ant-design/icons'
+import { deleteProducts, getScProducts, switchShelves } from '@/framework/api/get-product'
+import { cloneDeep } from 'lodash'
 
 interface TableRowProps {
   spu: ProductListItemProps
@@ -13,13 +15,14 @@ interface TableRowProps {
   listData: ProductListItemProps[]
   list: ProductListItemProps[]
   setList: (list: ProductListItemProps[]) => void
+  setListData: Function
 }
-const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList }: TableRowProps) => {
+
+const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList, setListData }: TableRowProps) => {
   const istb = (sku: any) => {
     if (!tableHeader.length) return
     return tableHeader.map(item => {
       if (item.dataIndex !== 'name') {
-        console.log('item', item)
         return (
           <div className='flex-1 flex justify-center h-full'>
             {item.dataIndex === 'price' ? '￥' + sku[item.dataIndex] : sku[item.dataIndex]}
@@ -71,14 +74,53 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList 
         <Link to='' className='mr-4'>
           <span className='icon iconfont icon-preview'></span>
         </Link>
-        <Link className='mr-4' to={`/product/${listData[spuIdx].id}`}>
+        <Link className='mr-4' to={`/product/${listData[spuIdx]?.id}`}>
           <span className='icon iconfont icon-Edit'></span>
         </Link>
         <Link to='' className='mr-4'>
-          <span className='icon iconfont icon-xiajia text-base'></span>
+          <span
+            className={`icon iconfont ${listData[spuIdx].shelvesStatus}  ${
+              listData[spuIdx].shelvesStatus ? 'icon-Frame4' : 'icon-xiajia'
+            } text-base`}
+            onClick={async () => {
+              console.info('............', listData[spuIdx])
+              debugger
+              let { shelvesStatus } = listData[spuIdx]
+              switchShelves({ goodsId: [listData[spuIdx]?.id], status: !shelvesStatus })
+              // listData[spuIdx].shelvesStatus = !shelvesStatus
+              // setList(cloneDeep(listData))
+              let res = await getScProducts({
+                limit: 10,
+                sample: {},
+                isNeedTotal: true,
+                operator: 'sss',
+                offset: 0,
+              })
+              console.info('resgetScproducts', res)
+              setListData(res)
+            }}
+          ></span>
         </Link>
         <Link to=''>
-          <span className='icon iconfont icon-Frame3 text-base'></span>
+          <span
+            className='icon iconfont icon-Frame3 text-base'
+            onClick={async () => {
+              console.info('............', listData[spuIdx])
+              // let { shelvesStatus } = listData[spuIdx]
+              deleteProducts({ goodsId: [listData[spuIdx]?.id] })
+              // listData[spuIdx].shelvesStatus = !shelvesStatus
+              // setList(cloneDeep(listData))
+              let res = await getScProducts({
+                limit: 10,
+                sample: {},
+                isNeedTotal: true,
+                operator: 'sss',
+                offset: 0,
+              })
+              console.info('resgetScproducts', res)
+              setListData(cloneDeep(res))
+            }}
+          ></span>
         </Link>
       </div>
     </div>

@@ -92,7 +92,7 @@ const ProductList = () => {
             </TabPane>
           ))}
         </Tabs>
-        <TableList listData={listData} handlePagination={handlePagination} />
+        <TableList setListData={getList} listData={listData} handlePagination={handlePagination} />
       </TableContainer>
     </ContentContainer>
   )

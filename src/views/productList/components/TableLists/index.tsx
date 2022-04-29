@@ -8,10 +8,11 @@ import TableRow from '../TableRow'
 import TableHeader from '../TableHeader'
 import TableFooter from '../TableFooter'
 interface ListTableProps {
-  listData: ProductListProps,
-  handlePagination: any,
+  listData: ProductListProps
+  handlePagination: any
+  setListData: Function
 }
-const ListTable = ({ listData, handlePagination }: ListTableProps) => {
+const ListTable = ({ listData, handlePagination, setListData }: ListTableProps) => {
   const [list, setList] = useState<ProductListItemProps[]>(cloneDeep(listData.products))
   const [checkedAll, setCheckedAll] = useState(false)
   const [checkedItem, setCheckedItem] = useState(false)
@@ -50,49 +51,50 @@ const ListTable = ({ listData, handlePagination }: ListTableProps) => {
 
   return (
     <div>
-      <div >
-        <div className="flex py-3 bg-gray1 border ">
-          <div className="px-2 flex justify-center items-center">
-            <Checkbox
-              indeterminate={indeterminate}
-              checked={checkedAll}
-              onChange={handleCheckedAll}
+      <div>
+        <div className='flex py-3 bg-gray1 border '>
+          <div className='px-2 flex justify-center items-center'>
+            <Checkbox indeterminate={indeterminate} checked={checkedAll} onChange={handleCheckedAll} />
+          </div>
+          <TableHeader setListData={setListData} tableHeader={tableHeader} setTableHeader={setTableHeader} />
+        </div>
+        {list.length ? (
+          list.map((spu, spuIdx) => (
+            <TableRow
+              key={spu.id}
+              setListData={setListData}
+              spu={spu}
+              onChange={onChange}
+              spuIdx={spuIdx}
+              tableHeader={tableHeader}
+              listData={listData.products}
+              list={list}
+              setList={setList}
+            />
+          ))
+        ) : (
+          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+        )}
+      </div>
+      {list.length ? (
+        <>
+          <div className='bg-white'>
+            <Pagination
+              className='text-right my-8'
+              showSizeChanger
+              onChange={handlePagination}
+              defaultCurrent={1}
+              total={6}
+              pageSize={2}
             />
           </div>
-          <TableHeader tableHeader={tableHeader} setTableHeader={setTableHeader} />
-        </div>
-        {
-          list.length ? (
-            list.map((spu, spuIdx) => (
-              <TableRow
-                spu={spu}
-                onChange={onChange}
-                spuIdx={spuIdx}
-                tableHeader={tableHeader}
-                listData={listData.products}
-                list={list}
-                setList={setList}
-              />
-            ))
-          ) : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-        }
-      </div>
-      {
-        list.length ? (
-          <>
-            <div className='bg-white'>
-              <Pagination className='text-right my-8' showSizeChanger onChange={handlePagination} defaultCurrent={1} total={6} pageSize={2} />
-            </div>
-          </>
-        ) : null
-      }
-      {
-        checkedItem ? (
-          <TableFooter list={list}>
-            <Checkbox indeterminate={indeterminate} checked={checkedAll} onChange={handleCheckedAll} />
-          </TableFooter>
-        ) : null
-      }
+        </>
+      ) : null}
+      {checkedItem ? (
+        <TableFooter list={list} setListData={setListData}>
+          <Checkbox indeterminate={indeterminate} checked={checkedAll} onChange={handleCheckedAll} />
+        </TableFooter>
+      ) : null}
     </div>
   )
 }
