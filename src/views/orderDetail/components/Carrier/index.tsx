@@ -44,10 +44,16 @@ const OrderCarrier = ({ carrier }: { carrier: Carrier[] }) => {
                 </span>
               </div>
               <div>
-                {item?.tradeItem?.map((el) => (
-                  <div className="flex flex-row items-center" key={el.skuId}>
-                    <img src={el.pic} alt="" className="w-20 h-20" />
-                    <span>{el.skuName}</span>
+                {/*{item?.tradeItem?.map((el) => (*/}
+                {/*  <div className="flex flex-row items-center" key={el.skuId}>*/}
+                {/*    <img src={el.pic} alt="" className="w-20 h-20" />*/}
+                {/*    <span>{el.skuName}</span>*/}
+                {/*  </div>*/}
+                {/*))}*/}
+                {item?.deliveries?.map((el,index) => (
+                  <div className="flex flex-col mt-2" key={index}>
+                    <span>{el.context}</span>
+                    <span>{el.time}</span>
                   </div>
                 ))}
               </div>
