@@ -1,7 +1,7 @@
 import { Breadcrumb } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import "./style.less";
-import r from "@/routers";
+import r from "@/routers/index";
 import { useEffect, useState } from "react";
 
 /**
@@ -21,6 +21,7 @@ const RouteBreadcrumb = () => {
     if (!arr.length) return
     arr.forEach((item): any => {
       if (item.path === path) {
+        console.log('item',item)
         breadcrumbItemsaRr.push(item)
         return item
       } else if (item.children?.length) {

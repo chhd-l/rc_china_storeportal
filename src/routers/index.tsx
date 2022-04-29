@@ -1,4 +1,5 @@
 import { lazy } from 'react' // 路由懒加载
+import { Navigate, Route, Routes } from 'react-router-dom'
 const Layout = lazy(() => import('../components/common/Layout'))
 const Home = lazy(() => import('../views/index'))
 const Login = lazy(() => import('../views/login'))
@@ -42,6 +43,7 @@ interface RouteObject {
   index?: boolean
   path?: string
   breadcrumbName?: string
+  Navigate?: string
 }
 
 let routes: RouteObject[] = [
@@ -53,6 +55,12 @@ let routes: RouteObject[] = [
         path: 'home',
         element: <Home />,
       },
+      // { index: true , element:<Routes><Route  element={<Navigate to={'/Home'} />} /></Routes> },
+      // { index: true, element: <OrderList /> },
+      { path: '/shipment-list', element: <OrderList />, breadcrumbName: 'ShipmentList' },
+      { path: '/shipping-setting', element: <ShippingSetting />, breadcrumbName: 'ShippingSetting' },
+      { path: '/automatic-replies', element: <AutoReplyList />, breadcrumbName: 'AutomaticReplies' },
+      { path: '/assets-management', element: <AssetList />, breadcrumbName: 'AssetsManagement' },
       {
         path: 'product',
         breadcrumbName: 'product',
@@ -82,12 +90,7 @@ let routes: RouteObject[] = [
         path: 'order',
         breadcrumbName: 'Order',
         children: [
-          {
-            path: 'order-list',
-            index: true,
-            element: <OrderList />,
-            breadcrumbName: 'OrderList',
-          },
+          { path: 'order-list', index: true, element: <OrderList />, breadcrumbName: 'OrderList' },
           { path: 'order-detail', element: <OrderDetail />, breadcrumbName: 'OrderDetail' },
           { path: 'order-setting', element: <OrderSetting />, breadcrumbName: 'OrderSetting' },
         ],
@@ -166,10 +169,6 @@ let routes: RouteObject[] = [
           { path: 'qrcode-manage-detail/:id', element: <QrCodeManageDetail />, breadcrumbName: 'QrCodeManageDetail' },
         ],
       },
-      { path: '/shipment-list', element: <OrderList />, breadcrumbName: 'ShipmentList' },
-      { path: '/shipping-setting', element: <ShippingSetting />, breadcrumbName: 'ShippingSetting' },
-      { path: '/automatic-replies', element: <AutoReplyList />, breadcrumbName: 'AutomaticReplies' },
-      { path: '/assets-management', element: <AssetList />, breadcrumbName: 'AssetsManagement' },
     ],
   },
   { path: "/login", element: <Login /> },
