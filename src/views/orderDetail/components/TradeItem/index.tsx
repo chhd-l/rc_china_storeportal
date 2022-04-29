@@ -56,27 +56,25 @@ const OrderInformation = ({ tradeItem, tradePrice }: { tradeItem: OrderTradeItem
           <Table columns={column} dataSource={tradeItem} pagination={false} rowKey="skuId" className="rc-table" />
         </div>
         <div className="flex flex-col mt-4 ">
-          <Divider orientation="right" orientationMargin="0">
-            <span className="inline-flex items-center font-normal">
-              <span className="mr-2">View order amount detail</span>
-              {showMore ? (
-                <UpOutlined
-                  onClick={() => {
-                    setShowMore(false)
-                  }}
-                />
-              ) : (
-                <DownOutlined
-                  onClick={() => {
-                    setShowMore(true)
-                  }}
-                />
-              )}
-            </span>
-          </Divider>
+         <div className="flex justify-end mb-4 items-center">
+           <span className="mr-2">View order amount detail</span>
+           {showMore ? (
+             <UpOutlined
+               onClick={() => {
+                 setShowMore(false)
+               }}
+             />
+           ) : (
+             <DownOutlined
+               onClick={() => {
+                 setShowMore(true)
+               }}
+             />
+           )}
+         </div>
           {showMore ? (
             <div className="flex flex-row border-b -mt-3 pb-2">
-              <div className="flex flex-col text-right w-3/4 border-r pr-2">
+              <div className="flex flex-col text-right w-3/4 pr-2">
                 <span>Products amount</span>
                 <span>Promotion amount</span>
                 <span>Shipping fee</span>

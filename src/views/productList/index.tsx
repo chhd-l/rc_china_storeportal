@@ -8,7 +8,7 @@ import { Tab, toolbarInit, handleTabValue } from './modules/constant'
 import { ContentContainer, TableContainer, DivideArea } from '@/components/ui'
 import { MenuOutlined } from '@ant-design/icons'
 import { getAllProducts, getScProducts } from '@/framework/api/get-product'
-import {  ProductListProps } from '@/framework/types/product'
+import { ProductListProps } from '@/framework/types/product'
 // import { dataSource } from "./modules/mockdata";
 // import Mock from 'mockjs'
 const { TabPane } = Tabs
@@ -28,14 +28,14 @@ const ProductList = () => {
   })
   const [pages, setPages] = useState({
     page: 1,
-    pageSize: 10
+    pageSize: 10,
   })
 
   const getFormData = (data: any) => {
     setSample(data)
   }
   const handlePagination = (page: number, pageSize: number) => {
-    const pages = {page, pageSize}
+    const pages = { page, pageSize }
     setPages(pages)
   }
   const handleTab = (activeKey: any) => {
@@ -60,7 +60,7 @@ const ProductList = () => {
   useEffect(() => {
     getList()
     // setListData(listDatas)
-  }, [sample,pages])
+  }, [sample, pages])
   return (
     <ContentContainer className='productlist'>
       <SearchHeader getFormData={getFormData} />

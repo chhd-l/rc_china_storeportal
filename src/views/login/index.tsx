@@ -43,7 +43,7 @@ const Login = () => {
   const handleLogin = (e: any) => {
     try {
       setLoading(true);
-      navigate("/home");
+      navigate("/shipment-list");
     } catch (err) {
       setLoginError("error");
     }
@@ -99,7 +99,7 @@ const Login = () => {
                 htmlType="submit"
                 loading={loading}
               >
-                Log in
+                Login
               </Button>
               <p className="text-12 mt-2 text-left">
                 Don't have an account?{" "}

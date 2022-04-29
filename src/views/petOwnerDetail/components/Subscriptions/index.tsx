@@ -12,11 +12,12 @@ const SubscriptionInformation = ({ subscriptionList, id }: any) => {
       <div className="px-2 py-4 flex flex-row items-center justify-end">
         <div className="flex flex-row items-center mr-10">
           <div className="mr-4">Subscription Time Date:</div>
-          <DatePicker />
-        </div>
-        <div className="flex flex-row items-center">
-          <div className="mr-4">to:</div>
-          <DatePicker />
+          <DatePicker.RangePicker
+            style={{ width: '300px' }}
+            onChange={(date, dateString) => {
+              console.log(date, dateString)
+            }}
+          />
         </div>
       </div>
       <Row className="bg-gray1 border p-4">

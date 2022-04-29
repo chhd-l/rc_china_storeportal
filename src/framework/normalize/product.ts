@@ -339,6 +339,7 @@ export const normaliseVariationAndSpecification = (data: GoodsSpecification[], g
   return { variationList, variationLists }
 }
 export const normalizeSpecText = (goodsSpecificationRel: any, goodsSpecifications: any): string[] => {
+  console.info('goodsSpecificationRel', goodsSpecificationRel)
   return goodsSpecificationRel?.map((el: any) => {
     // debugger
     let specObj = goodsSpecifications.find((spec: any) => spec.id === el.goodsSpecificationId)
@@ -353,13 +354,13 @@ export const normaliseProductListSku = (sku: GoodsVariants, goodsSpecifications:
   let skuItem = {
     id: sku.id,
     no: sku.skuNo,
-    specs: normalizeSpecText(sku.goodsSpecificationRel, goodsSpecifications)?.join(','),
+    specs: normalizeSpecText(sku.goodsSpecificationRel, goodsSpecifications)[0],//todo 
     price: sku.marketingPrice,
     stock: sku.stock
   }
   return skuItem
 }
-export const normaliseProductListSpu = (spu: any): ProductListSkuItem => {
+export const normaliseProductListSpu = (spu: any): any => {
   let listItem = {
     skus: spu.goodsVariants?.map((sku: any) => normaliseProductListSku(sku, spu.goodsSpecifications)),
     img: spu.defaultImage,
