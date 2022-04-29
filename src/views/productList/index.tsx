@@ -10,11 +10,11 @@ import { ContentContainer, TableContainer, DivideArea } from '@/components/ui'
 import { MenuOutlined } from '@ant-design/icons'
 import { getAllProducts } from '@/framework/api/get-product'
 import { ProductListItemProps, ProductListProps } from '@/framework/types/product'
-// import { dataSource } from "./modules/mockdata";
-// import Mock from 'mockjs'
+import { dataSource } from "./modules/mockdata";
+import Mock from 'mockjs'
 const { TabPane } = Tabs
 
-// const listDatas = Mock.mock(dataSource)
+const listDatas = Mock.mock(dataSource)
 // console.info('listData', listData)
 const ProductList = () => {
   const [activeKey, setActiveKey] = useState<React.Key>(Tab.All)
@@ -26,23 +26,28 @@ const ProductList = () => {
     soldOut: '0',
     disabled: '0',
   })
+
   const getFormData = (data: any) => {
     console.info(data, 'data')
+  }
+  const handlePagination = (page: number, pageSize: number) => {
+    getList(page)
   }
   const handleTab = (activeKey: any) => {
     setActiveKey(activeKey)
     console.info(activeKey)
   }
 
-  const getList = async () => {
-    let res = await getAllProducts({ limit: 100, sample: {}, isNeedTotal: true, operator: 'sss', offset: 1 })
+  const getList = async (page = 1) => {
+    let res = await getAllProducts({ limit: 2, sample: {}, isNeedTotal: true, operator: 'sss', offset: page })
     console.info(res, res)
     setListData(res)
     let newToolbarList = handleTabValue(toolbarInit, res)
     setToolbarList(newToolbarList)
   }
   useEffect(() => {
-    getList()
+    // getList()
+    setListData(listDatas)
   }, [])
   return (
     <ContentContainer className='productlist'>
@@ -54,8 +59,9 @@ const ProductList = () => {
             <TabPane
               tab={
                 <div>
-                  {el.name.toLowerCase()}
-                  <RenderBadge count={el.value + ''} active={activeKey === el.name} />
+                  {el.name}
+                  {/* {console.log('el', el)}
+                  <RenderBadge count={el.value + ''} active={activeKey === el.name} /> */}
                 </div>
               }
               key={el.name}
@@ -67,13 +73,17 @@ const ProductList = () => {
                     <Button type='primary'>+ Add a New Product</Button>
                   </Link>
                   <Button className='mr-4'>Export</Button>
-                  <MenuOutlined className=' border border-solid border-gray-300' />
+                  {/* <MenuOutlined className=' border border-solid border-gray-300' /> */}
+                  <Button
+          className="ml-3"
+          icon={<MenuOutlined style={{ color: "#979797" }} />}
+        />
                 </div>
               </div>
             </TabPane>
           ))}
         </Tabs>
-        <TableList listData={listData} />
+        <TableList listData={listData} handlePagination={handlePagination} />
       </TableContainer>
     </ContentContainer>
   )

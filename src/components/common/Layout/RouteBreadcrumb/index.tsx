@@ -43,12 +43,12 @@ const RouteBreadcrumb = () => {
         breadcrumbItems.length ? (
           <>
             <Breadcrumb.Item>
-              <Link to='/Home'>Seller Center</Link>
+              <Link className="hover:text-gray-400" to='/Home'>Seller Center</Link>
             </Breadcrumb.Item>
             {
               breadcrumbItems.map((breadcrumbItem, index) => (
                 <Breadcrumb.Item key={index}>
-                  <Link to={breadcrumbItem.path}>{breadcrumbItem.breadcrumbName}</Link>
+                  <Link className={`${index === breadcrumbItems.length-1 ? '' : "hover:text-gray-400"}`} to={breadcrumbItem.path}>{breadcrumbItem.breadcrumbName}</Link>
                 </Breadcrumb.Item>
               ))
             }
