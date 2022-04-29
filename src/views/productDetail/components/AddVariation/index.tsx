@@ -92,6 +92,8 @@ const AddVariation = ({}: AddVariationProps) => {
       newIndex,
     )
     variationForm.changeType = ChangeType.handleSpec
+    console.info('onSortEndonSortEndvariationFormvariationForm', variationForm)
+    console.info('onSortEndonSortEndvariationFormvariationForm', JSON.stringify(variationForm))
     setVariationForm(cloneDeep(variationForm))
   }
   const handleAddVariation = () => {
@@ -139,7 +141,7 @@ const AddVariation = ({}: AddVariationProps) => {
                 <Col span={15}>
                   <Input
                     defaultValue={variation.name}
-                    onChange={e => {
+                    onBlur={e => {
                       handleName(e, variationIdx)
                     }}
                     placeholder='Name'
