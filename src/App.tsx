@@ -1,6 +1,6 @@
 import { Suspense, useEffect } from 'react'
 import { useRoutes, useNavigate } from 'react-router-dom'
-import Router from './routers'
+import Router from './routers/index'
 import { Spin } from 'antd'
 import './App.css'
 import '@/assets/css/global.less'
