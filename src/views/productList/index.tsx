@@ -7,7 +7,7 @@ import { OptionsProps } from '@/framework/types/common'
 import { Tab, toolbarInit, handleTabValue } from './modules/constant'
 import { ContentContainer, TableContainer, DivideArea } from '@/components/ui'
 import { MenuOutlined } from '@ant-design/icons'
-import { getAllProducts, getScProducts } from '@/framework/api/get-product'
+import { getAllProducts, getESProducts, getScProducts } from '@/framework/api/get-product'
 import { ProductListProps } from '@/framework/types/product'
 // import { dataSource } from "./modules/mockdata";
 // import Mock from 'mockjs'
@@ -45,13 +45,7 @@ const ProductList = () => {
 
   const getList = async () => {
     // let res = await getAllProducts({ limit: 2, sample: {}, isNeedTotal: true, operator: 'sss', offset: page })
-    let res = await getScProducts({
-      limit: pages.pageSize,
-      sample,
-      isNeedTotal: true,
-      operator: 'sss',
-      offset: pages.page - 1,
-    })
+    let res = await getESProducts(sample)
 
     setListData(res)
     let newToolbarList = handleTabValue(toolbarInit, res)
