@@ -8,9 +8,9 @@ import { OptionsProps } from '@/framework/types/common'
 import { Tab, toolbarInit, handleTabValue } from './modules/constant'
 import { ContentContainer, TableContainer, DivideArea } from '@/components/ui'
 import { MenuOutlined } from '@ant-design/icons'
-import { getAllProducts } from '@/framework/api/get-product'
+import { deleteProducts, getAllProducts, getScProducts, switchShelves } from '@/framework/api/get-product'
 import { ProductListItemProps, ProductListProps } from '@/framework/types/product'
-import { dataSource } from "./modules/mockdata";
+import { dataSource } from './modules/mockdata'
 import Mock from 'mockjs'
 const { TabPane } = Tabs
 
@@ -18,6 +18,7 @@ const listDatas = Mock.mock(dataSource)
 // console.info('listData', listData)
 const ProductList = () => {
   const [activeKey, setActiveKey] = useState<React.Key>(Tab.All)
+  const [sample, setSample] = useState({})
   const [toolbarList, setToolbarList] = useState<OptionsProps[]>([])
   const [listData, setListData] = useState<ProductListProps>({
     products: [],
@@ -28,19 +29,26 @@ const ProductList = () => {
   })
 
   const getFormData = (data: any) => {
-    console.info(data, 'data')
+    setSample(data)
   }
   const handlePagination = (page: number, pageSize: number) => {
-    getList(page)
+    getList(page,pageSize)
   }
   const handleTab = (activeKey: any) => {
     setActiveKey(activeKey)
     console.info(activeKey)
   }
 
-  const getList = async (page = 1) => {
-    let res = await getAllProducts({ limit: 2, sample: {}, isNeedTotal: true, operator: 'sss', offset: page })
-    console.info(res, res)
+  const getList = async (page = 1,pageSize=10) => {
+    // let res = await getAllProducts({ limit: 2, sample: {}, isNeedTotal: true, operator: 'sss', offset: page })
+    let res = await getScProducts({
+      limit: pageSize,
+      sample,
+      isNeedTotal: true,
+      operator: 'sss',
+      offset: page - 1,
+    })
+
     setListData(res)
     let newToolbarList = handleTabValue(toolbarInit, res)
     setToolbarList(newToolbarList)
@@ -48,7 +56,7 @@ const ProductList = () => {
   useEffect(() => {
     getList()
     // setListData(listDatas)
-  }, [])
+  }, [sample])
   return (
     <ContentContainer className='productlist'>
       <SearchHeader getFormData={getFormData} />
@@ -74,10 +82,7 @@ const ProductList = () => {
                   </Link>
                   <Button className='mr-4'>Export</Button>
                   {/* <MenuOutlined className=' border border-solid border-gray-300' /> */}
-                  <Button
-          className="ml-3"
-          icon={<MenuOutlined style={{ color: "#979797" }} />}
-        />
+                  <Button className='ml-3' icon={<MenuOutlined style={{ color: '#979797' }} />} />
                 </div>
               </div>
             </TabPane>

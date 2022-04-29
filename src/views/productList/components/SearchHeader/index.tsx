@@ -20,8 +20,14 @@ const typeForKey: OptionsProps[] = [
 const SearchHeader = ({ getFormData }: SearchProps) => {
   const [form] = Form.useForm();
   const onFinish = (values: any) => {
-    console.log("Finish:", values);
-    getFormData(values);
+    const val = {
+      [values.startStock] : values.startStock,
+      [values.selectName] : values.goodsName,
+      [values.type] : values.GoodsType,
+      [values.endStock] : values.endStock,
+      [values.category] : values.category,
+    }
+    getFormData(val);
   };
   const onReset = () => {
     form.resetFields();
@@ -39,11 +45,10 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
         <Row justify="start" gutter={[0, 14]}>
           <Col span={12}>
             <Input.Group compact className="flex">
-              <Form.Item name="selectName">
+              <Form.Item name="selectName" initialValue={nameForKey[0].value}>
                 <Select
                   style={{ width: 140 }}
                   placeholder="Select a option and change input text above"
-                  defaultValue={nameForKey[0].value}
                 >
                   {nameForKey.map((el: any) => (
                     <Option key={el.value} value={el.value}>
@@ -53,8 +58,8 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                 </Select>
                 {/* <SelectKey list={nameForKey} /> */}
               </Form.Item>
-              <Form.Item name="username" className="flex-1">
-                <Input placeholder={`please Input `} />
+              <Form.Item name="goodsName" className="flex-1">
+                <Input placeholder={`please Input goodsName`} />
               </Form.Item>
             </Input.Group>
           </Col>
@@ -68,22 +73,21 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
             </Form.Item>
           </Col>
           <Col span={6}>
-            <Form.Item label="Stock" name="stock">
-              <Input placeholder={`please Input stock`} />
+            <Form.Item label="stock" name="startStock">
+              <Input placeholder={`please Input startStock`} />
             </Form.Item>
           </Col>
           <Col span={6}>
-            <Form.Item name="stock">
-              <Input placeholder={`please Input stock`} />
+            <Form.Item name="endStock">
+              <Input placeholder={`please Input endStock`} />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Input.Group compact className="flex">
-              <Form.Item name="typeName">
+              <Form.Item name="type" initialValue={typeForKey[0].value}>
                 <Select
                   style={{ width: 140 }}
                   placeholder="Select a option and change input text above"
-                  defaultValue={typeForKey[0].value}
                 >
                   {typeForKey.map((el: any) => (
                     <Option key={el.value} value={el.value}>
@@ -93,7 +97,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                 </Select>
                 {/* <SelectKey list={typeForKey} /> */}
               </Form.Item>
-              <Form.Item className="flex-1" name="username3">
+              <Form.Item className="flex-1" name="GoodsType">
                 <Select placeholder="Choose Product Type"></Select>
                 {/* <Input placeholder={`please Input `} /> */}
               </Form.Item>

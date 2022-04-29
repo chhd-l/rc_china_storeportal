@@ -63,10 +63,10 @@ export const columns: ProColumns<ProductBaseProps>[] = [
 ];
 
 export enum Tab {
-  All = "ALL",
-  Live = "LIVE",
-  Soldout = "SOLDOUT",
-  Disabled = "DISABLED",
+  All = "All",
+  Live = "Live",
+  Soldout = "Sold out",
+  Disabled = "Disabled",
 }
 export const toolbarInit: OptionsProps[] = [
   {

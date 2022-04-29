@@ -51,19 +51,16 @@ let routes: RouteObject[] = [
     path: '/',
     element: <Layout />,
     children: [
-      {
-        path: 'home',
-        element: <Home />,
-      },
+      { index: true, element: <OrderList /> },
+      { path: 'home', element: <Home /> },
       // { index: true , element:<Routes><Route  element={<Navigate to={'/Home'} />} /></Routes> },
-      // { index: true, element: <OrderList /> },
-      { path: '/shipment-list', element: <OrderList />, breadcrumbName: 'ShipmentList' },
-      { path: '/shipping-setting', element: <ShippingSetting />, breadcrumbName: 'ShippingSetting' },
-      { path: '/automatic-replies', element: <AutoReplyList />, breadcrumbName: 'AutomaticReplies' },
-      { path: '/assets-management', element: <AssetList />, breadcrumbName: 'AssetsManagement' },
+      { path: 'shipment-list', element: <OrderList />, breadcrumbName: 'ShipmentList' },
+      { path: 'shipping-setting', element: <ShippingSetting />, breadcrumbName: 'ShippingSetting' },
+      { path: 'automatic-replies', element: <AutoReplyList />, breadcrumbName: 'AutomaticReplies' },
+      { path: 'assets-management', element: <AssetList />, breadcrumbName: 'AssetsManagement' },
       {
         path: 'product',
-        breadcrumbName: 'product',
+        breadcrumbName: 'Product',
         children: [
           { path: 'product-list', index: true, element: <ProductList />, breadcrumbName: 'ProductList' },
           { path: ':id', element: <AddProduct />, breadcrumbName: 'AddProduct' },
@@ -71,7 +68,7 @@ let routes: RouteObject[] = [
       },
       {
         path: 'petOwner',
-        breadcrumbName: 'petOwner',
+        breadcrumbName: 'PetOwner',
         children: [
           { path: 'pet-owner-list', index: true, element: <PetOwnerList />, breadcrumbName: 'PetOwnerList' },
           { path: 'pet-owner-detail', element: <PetOwnerDetail />, breadcrumbName: 'PetOwnerDetail' },
@@ -80,7 +77,7 @@ let routes: RouteObject[] = [
       },
       {
         path: 'category',
-        breadcrumbName: 'category',
+        breadcrumbName: 'Category',
         children: [
           { path: 'category-list', index: true, element: <CategoryList />, breadcrumbName: 'CategoryList' },
           { path: 'category-detail/:id', element: <CategoryDetail />, breadcrumbName: 'CategoryDetail' },
@@ -97,7 +94,7 @@ let routes: RouteObject[] = [
       },
       {
         path: 'account',
-        breadcrumbName: 'account',
+        breadcrumbName: 'Account',
         children: [
           { path: 'account-list', index: true, element: <AccountList />, breadcrumbName: 'AccountList' },
           { path: 'add-account', element: <AddAccount />, breadcrumbName: 'AddAccount' },
@@ -105,7 +102,7 @@ let routes: RouteObject[] = [
       },
       {
         path: 'fans',
-        breadcrumbName: 'fans',
+        breadcrumbName: 'Fans',
         children: [
           { path: 'fans-list', index: true, element: <FansList />, breadcrumbName: 'FansList' },
           { path: 'fans-detail', element: <FansDetail />, breadcrumbName: 'FansDetail' },
@@ -113,9 +110,9 @@ let routes: RouteObject[] = [
       },
       {
         path: 'reply',
-        breadcrumbName: 'reply',
+        breadcrumbName: 'Reply',
         children: [
-          { path: 'add-auto-reply', index: true, element: <AddAutoReply />, breadcrumbName: 'addAutoReply' },
+          { path: 'add-auto-reply', index: true, element: <AddAutoReply />, breadcrumbName: 'AddAutoReply' },
           { path: 'reply-contents', element: <ReplyContents />, breadcrumbName: 'ReplyContents' },
           { path: 'add-reply-content', element: <AddReplyContent />, breadcrumbName: 'AddReplyContent' },
         ],
@@ -139,7 +136,7 @@ let routes: RouteObject[] = [
       },
       {
         path: 'mpbanner',
-        breadcrumbName: 'mpbanner',
+        breadcrumbName: 'Mpbanner',
         children: [
           { path: 'mpbanner-list', index: true, element: <MpBannerList />, breadcrumbName: 'MpbannerList' },
           { path: 'mpbanner-detail/:id', element: <MpBannerDetail />, breadcrumbName: 'MpBannerDetail' },
@@ -147,7 +144,7 @@ let routes: RouteObject[] = [
       },
       {
         path: 'mpqr',
-        breadcrumbName: 'mpqr',
+        breadcrumbName: 'Mpqr',
         children: [
           { path: 'mpqr-list', index: true, element: <MpQRList />, breadcrumbName: 'MpqrList' },
           { path: 'mpqr-detail/:id', element: <MpQRDetail />, breadcrumbName: 'MpQRDetail' },
@@ -155,7 +152,7 @@ let routes: RouteObject[] = [
       },
       {
         path: 'menuManagempqr',
-        breadcrumbName: 'menuManagempqr',
+        breadcrumbName: 'MenuManagempqr',
         children: [
           { path: 'menu-manage-list', index: true, element: <MenuManage />, breadcrumbName: 'MenuManageList' },
           { path: 'menu-manage-detail/:id', element: <MenuManageDetail />, breadcrumbName: 'MenuManage' },

@@ -9,7 +9,7 @@ interface CustomerSample {
 }
 
 interface CustomerWhere {
-  lastLoginTimeForm?: string
+  lastLoginTimeFrom?: string
   lastLoginTimeTo?: string
 }
 

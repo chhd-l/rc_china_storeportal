@@ -1,7 +1,7 @@
 import ApiRoot from './fetcher'
 import { CateItemProps, Goods } from '../schema/product.schema'
 import { ProductDetailProps, ProductListProps, ProductListQueryProps, TreeDataProps } from '../types/product'
-import { normaliseAttrProps, normaliseCateProps, normaliseDetailforFe, normaliseProductCreatFor, normaliseProductListSpu } from '../normalize/product'
+import { normaliseAttrProps, normaliseCateProps, normaliseDetailforFe, normaliseProductCreatFor, normaliseProductListSpu, normaliseScProductsforFe } from '../normalize/product'
 import { brandList } from '../mock/brands'
 export const getCategories = async ({ storeId }: { storeId: string }): Promise<CateItemProps[]> => {
 
@@ -111,10 +111,39 @@ export const getProductDetail = async ({ storeId, goodsId }: { storeId: string, 
     return {}
   }
 }
-export const switchShelves = async ({ goodsId }: { goodsId: string }) => {
-  const data = await ApiRoot.products().deleteMutation({ goodsId, storeId: "12345678" })
-  console.info('{ goodsId }', goodsId)
+export const deleteProducts = async ({ goodsId }: { goodsId: string[] }) => {
+  try {
+    const data = await ApiRoot.products().deleteMutation({ goodsId, storeId: "12345678" })
+    console.info('{ goodsId }', goodsId)
+  } catch (e) {
+    console.log(e)
+    return {}
+  }
 
+}
+
+
+export const switchShelves = async ({ goodsId, status }: { goodsId: string[], status: boolean }) => {
+  try {
+    const data = await ApiRoot.products().switchShelvesMutation({ goodsId, status })
+    console.info('{ goodsId }', goodsId)
+  } catch (e) {
+    console.log(e)
+    return {}
+  }
+
+}
+
+export const getScProducts = async (params: ProductListQueryProps): Promise<any> => {
+  try {
+    const res = await ApiRoot.products().getScProducts(params)
+    const data = normaliseScProductsforFe(res.getScProducts)
+    console.info('resgetScProductsresgetScProducts', data)
+    return data
+  } catch (e) {
+    console.log(e)
+    return { total: 0, products: [] }
+  }
 }
 
 

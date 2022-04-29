@@ -18,10 +18,9 @@ const RouteBreadcrumb = () => {
 
 
   const depy = (arr: any[], path: string) => {
-    if (!arr.length) return
+    if (path === '') return
     arr.forEach((item): any => {
       if (item.path === path) {
-        console.log('item',item)
         breadcrumbItemsaRr.push(item)
         return item
       } else if (item.children?.length) {
@@ -33,6 +32,7 @@ const RouteBreadcrumb = () => {
 
   useEffect(() => {
     breadcrumbItemsaRr = []
+  console.log(' pathname.split(/)', pathname.split('/'))
     pathname.split('/').forEach((path) => {
       depy(r, path)
     })

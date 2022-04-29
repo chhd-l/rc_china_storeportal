@@ -69,11 +69,11 @@ export interface AttributeValListProps {
 }
 export interface ProductDetailProps {
   // age: string
-  brand: string
+  brandId: string
   // breeds: string
   cardName: string
   cateId: string
-  description: string
+  goodsDescription: string
   // feedingDays: string
   // functions: string
   height: string
@@ -125,7 +125,8 @@ export interface ProductListProps {
   all: string
   live: string
   soldOut: string
-  disabled: string
+  disabled: string,
+  total?: number
 }
 export enum ProductType {
   Regular = 'REGULAR',
