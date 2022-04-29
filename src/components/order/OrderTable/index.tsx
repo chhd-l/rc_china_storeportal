@@ -1,5 +1,4 @@
 import { Avatar, Col, Empty, Row, Select } from 'antd'
-import { UserOutlined } from '@ant-design/icons'
 import React, { useEffect, useState } from 'react'
 import { CarrierType, Order, OrderTradeItem } from '@/framework/types/order'
 import OrderActions from '../OrderActions'
@@ -29,7 +28,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
   }, [])
 
   return (
-    <div>
+    <div className='order-list-page'>
       <Row className="bg-gray1 border py-2 px-4">
         <Col span={8}>Product(s)</Col>
         <Col span={4} className="text-right">
@@ -82,7 +81,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
                 {item.tradeItem.map((product: OrderTradeItem, index: number) => (
                   <Row className="items-center" key={product.skuId}>
                     <Col span={8}>
-                      <img src={product.pic} className="w-20 h-20" />
+                      <img src={product.pic} className="w-14 h-14 order-img" alt=''/>
                     </Col>
                     <Col span={16}>
                       <Row

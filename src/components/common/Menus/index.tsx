@@ -1,18 +1,33 @@
 import { Menu } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import { menus, initActive } from "@/lib/menus";
+import { useEffect, useState } from 'react'
 // import "./index.less"
+
 const Menus = () => {
   const { pathname } = useLocation();
   const { SubMenu } = Menu;
-  const selectedKeys = initActive(pathname);
-  const openKeys = [selectedKeys[0]];
+  const [selectedKeys,setSelectKeys]=useState(initActive(pathname))
+  const [openKeys,setOpenKeys]=useState([initActive(pathname)[0]])
+
+  useEffect(()=>{
+    console.log(333333,pathname)
+    setSelectKeys(initActive(pathname));
+    setOpenKeys([initActive(pathname)[0]])
+  },[pathname])
+
+  const onOpenChange=(opens:string[])=>{
+    setOpenKeys(openKeys.concat(opens))
+  }
 
   return (
     <Menu
       defaultSelectedKeys={selectedKeys}
+      selectedKeys={selectedKeys}
+      openKeys={openKeys}
       defaultOpenKeys={openKeys}
       mode="inline"
+      onOpenChange={onOpenChange}
     >
       {menus.map(({ key, icon, name, children }) => (
         <SubMenu key={key} icon={icon} title={name} >

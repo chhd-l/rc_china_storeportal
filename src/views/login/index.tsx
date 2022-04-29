@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, Button, Checkbox, Form } from "antd";
+import { Input, Button, Checkbox, Form, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { SellerLogoPanel } from "@/components/auth";
 import { FormItemProps } from "@/framework/types/common";
@@ -12,6 +12,7 @@ const formItems: FormItemProps[] = [
   {
     name: "account",
     placeholder: "Account number",
+    type: "text",
     rules: [
       {
         required: true,
@@ -22,6 +23,7 @@ const formItems: FormItemProps[] = [
   {
     name: "password",
     placeholder: "Password",
+    type: "password",
     rules: [
       {
         required: true,
@@ -41,7 +43,7 @@ const Login = () => {
   const handleLogin = (e: any) => {
     try {
       setLoading(true);
-      navigate("/home");
+      navigate("/shipment-list");
     } catch (err) {
       setLoginError("error");
     }
@@ -61,7 +63,10 @@ const Login = () => {
                 if (res) {
                   console.log(res, 're')
                   setUserInfo(res.userInfo)
+                  localStorage.setItem("rc-userInfo", JSON.stringify(res.userInfo))
                   handleLogin(values)
+                } else {
+                  message.error('Login failed！')
                 }
               })
             }}
@@ -69,7 +74,7 @@ const Login = () => {
           >
             {formItems.map((item: FormItemProps) => (
               <Form.Item name={item.name} rules={item.rules} key={item.name}>
-                <Input placeholder={item.placeholder} />
+                <Input placeholder={item.placeholder} type={item.type}/>
               </Form.Item>
             ))}
             <Form.Item className="login-remember">
@@ -94,7 +99,7 @@ const Login = () => {
                 htmlType="submit"
                 loading={loading}
               >
-                Next
+                Login
               </Button>
               <p className="text-12 mt-2 text-left">
                 Don't have an account?{" "}
