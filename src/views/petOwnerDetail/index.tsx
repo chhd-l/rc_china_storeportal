@@ -77,7 +77,7 @@ const PetOwnerList = () => {
         <div className="fixed rc-anchor" style={{
           right: '50px'
         }}>
-          <Anchor affix={true} offsetTop={120} className="petowner-anchor-link">
+          <Anchor affix={true} offsetTop={100} className="petowner-anchor-link">
             <Link href="#basic-information" title="Basic Information" />
             <Link href="#tagging" title="Tagging" />
             <Link href="#pet-information" title="Pet Information" />
