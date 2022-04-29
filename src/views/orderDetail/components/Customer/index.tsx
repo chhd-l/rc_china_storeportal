@@ -31,6 +31,7 @@ const CustomerInformation = ({ buyer }: { buyer: Customer | any }) => {
         type="primary"
         danger
         onClick={() => {
+          sessionStorage.setItem('cur-pet-owner',JSON.stringify(customer))
           navigation("/petOwner/pet-owner-detail", { state: { id: buyer.id } });
         }}
       >

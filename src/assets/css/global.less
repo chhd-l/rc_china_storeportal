@@ -1,7 +1,7 @@
 :root {
   --gray1: #f8f8f8;
   --ant-primary-color: #ee4d2d !important;
-  color: #ee4d2d !important;
+  // color: #ee4d2d !important;
 }
 .primary-color {
   color: #ee4d2d !important;
@@ -49,16 +49,16 @@
 
 // sider样式修改
 .ant-layout-sider {
-  z-index: 99 !important;
+  // z-index: 99 !important;
   top: 51px !important;
   .ant-menu-submenu {
     // 一级菜单样式
     .ant-menu-submenu-selected {
-      color: #bbbbbb !important;
+      color: #999999 !important;
     }
     .ant-menu-submenu-title {
       font-size: 14px;
-      color: #bbbbbb;
+      color: #999999;
       padding-left: 20px !important;
       padding-left: 20px !important;
       .ant-menu-title-content {
@@ -67,14 +67,14 @@
     }
     .ant-menu-item-icon {
       font-size: 20px;
-      color: #bbbbbb;
+      color: #999999;
     }
     .ant-menu-submenu-arrow {
-      color: #bbbbbb;
+      color: #999999;
     }
     .ant-menu-submenu-title:hover {
       font-size: 14px;
-      color: #bbbbbb;
+      color: #999999;
       background-color: #fff;
       padding-left: 20px !important;
       padding-left: 20px !important;
@@ -148,4 +148,20 @@
 .ant-menu-item,
 .ant-menu-submenu-title {
   width: 100% !important;
+}
+
+.rc-date-picker {
+  .ant-picker-input {
+    flex-direction: row-reverse;
+    .ant-picker-suffix {
+      margin-right: 10px !important;
+      margin-left: 0 !important;
+    }
+  }
+}
+
+.rc-pagination {
+  .anticon {
+    vertical-align: 2px;
+  }
 }

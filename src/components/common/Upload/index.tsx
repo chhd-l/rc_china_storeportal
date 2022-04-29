@@ -94,7 +94,6 @@ const UploadWrap = (props: UploadWrapProps) => {
     setPreviewImage(file.url)
     setPreviewVisible(true)
   }
-  console.info('props.fileList', props.fileList)
   useEffect(() => {
     let list = props.fileList?.map(url => {
       return {

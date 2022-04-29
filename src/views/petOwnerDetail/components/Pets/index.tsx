@@ -2,7 +2,7 @@ import { UserOutlined } from '@ant-design/icons'
 import { Avatar, Button, Empty } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { Pet } from '@/framework/types/customer'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getPetList } from '@/framework/api/get-pet'
 
 const PetInformation = ({ id, customerId }: { customerId: string; id: string }) => {
@@ -54,10 +54,11 @@ const PetInformation = ({ id, customerId }: { customerId: string; id: string }) 
               </Button>
             </div>
           ))}
-        </div >
-      ) : null
-      }
-    </div >
+        </div>
+      ) : (
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+      )}
+    </div>
   )
 }
 export default PetInformation
