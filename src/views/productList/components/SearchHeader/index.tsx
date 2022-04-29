@@ -16,6 +16,11 @@ const typeForKey: OptionsProps[] = [
   { name: "Product Type", value: "ProductType" },
   { name: "Subscription Status", value: "SubscriptionStatus" },
 ];
+const chooseProductType: OptionsProps[] = [
+  { name: "Bundle bundle", value: "BUNDLE BUNDLE" },
+  { name: "Regular regular", value: "REGULAR REGULAR" },
+  { name: "Other other", value: "OTHER OTHER" },
+];
 
 const SearchHeader = ({ getFormData }: SearchProps) => {
   const [form] = Form.useForm();
@@ -98,8 +103,13 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                 {/* <SelectKey list={typeForKey} /> */}
               </Form.Item>
               <Form.Item className="flex-1" name="GoodsType">
-                <Select placeholder="Choose Product Type"></Select>
-                {/* <Input placeholder={`please Input `} /> */}
+                <Select placeholder="Choose Product Type">
+                  {chooseProductType.map((el: any) => (
+                    <Option key={el.value} value={el.value}>
+                      {el.name}
+                    </Option>
+                  ))}
+                </Select>
               </Form.Item>
             </Input.Group>
           </Col>
