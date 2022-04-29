@@ -356,7 +356,7 @@ export const normaliseProductListSku = (sku: GoodsVariants, goodsSpecifications:
   let skuItem = {
     id: sku.id,
     no: sku.skuNo,
-    specs: normalizeSpecText(sku.goodsSpecificationRel, goodsSpecifications)[0],//todo 
+    specs: normalizeSpecText(sku.goodsSpecificationRel, goodsSpecifications)?.[0],//todo 
     price: sku.marketingPrice,
     stock: sku.stock
   }
