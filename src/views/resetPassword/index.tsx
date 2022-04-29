@@ -76,8 +76,8 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="h-screen bg-gray1">
-      <div className="flex flex-row  justify-center pt-20">
+    <div className="h-screen bg-gray1 flex justify-center items-center">
+      <div className="flex flex-row  justify-center">
         {currentStep === RESETPASSWORDENUM["PHONE"] ? (
           <div className="bg-white w-80 h-80 border p-6">
             <CustomPanelTitle />
@@ -142,7 +142,7 @@ const ResetPassword = () => {
               ) : null}
               <p className="text-left mt-2">
                 Did not receive the code? &nbsp;
-                <span className="primary-color" onClick={() => getVerifyCode()}>
+                <span className="primary-color cursor-pointer" onClick={() => getVerifyCode()}>
                   Resend
                 </span>
               </p>
