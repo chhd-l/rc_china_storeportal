@@ -136,7 +136,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
           <Col span={12} offset={12} className="text-right ml-0">
             <Form.Item>
               <Button htmlType="submit" type="primary" className="mr-4">
-                Submit
+              search
               </Button>
               <Button onClick={onReset}>Reset</Button>
             </Form.Item>
