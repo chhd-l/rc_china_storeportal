@@ -81,7 +81,7 @@ const ListTable = ({ listData, handlePagination }: ListTableProps) => {
         list.length ? (
           <>
             <div className='bg-white'>
-              <Pagination className='text-right my-8' showSizeChanger onChange={handlePagination} defaultCurrent={1} total={6} pageSize={2} />
+              <Pagination className='text-right my-8' showSizeChanger onChange={handlePagination} defaultCurrent={1} total={listData.total} pageSize={10} />
             </div>
           </>
         ) : null

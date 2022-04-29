@@ -125,7 +125,8 @@ export interface ProductListProps {
   all: string
   live: string
   soldOut: string
-  disabled: string
+  disabled: string,
+  total?: number
 }
 export enum ProductType {
   Regular = 'REGULAR',
