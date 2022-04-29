@@ -374,7 +374,7 @@ export const normaliseProductListSpu = (spu: any): ProductListSkuItem => {
     price: 0,
     stock: 0,
     shelvesStatus: spu.shelvesStatus,
-    name: spu.goodsName
+    name: spu.goodsName + ''
   }
   return listItem
 }
