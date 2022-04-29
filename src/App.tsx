@@ -5,15 +5,23 @@ import './App.css'
 import '@/assets/css/global.less'
 import '@/assets/css/iconfont/iconfont.css'
 import Loading from '@/assets/images/loading.gif'
+import { useAtom } from 'jotai'
+import { userAtom } from './store/user.store'
+
 
 function App () {
   let Routers = useRoutes(Router)
   const navigate = useNavigate()
   const location = useLocation()
+  const [userInfo] = useAtom(userAtom)
 
   useEffect(() => {
-    if(location.pathname==='/'){
-      navigate('/shipment-list')
+    if (location.pathname === '/') {
+      if (userInfo?.id) {
+        navigate('/shipment-list')  
+      } else {
+        navigate('/login')
+      }
     }
   }, [location.pathname])
 
