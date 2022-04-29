@@ -87,7 +87,7 @@ export const normaliseDetailforFe = (detail: any) => {
     spu.defaultImage = 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png'
   }
   console.info('datasss', choosedCate)
-  debugger
+  // debugger
   console.info('spu', spu)
   return spu
 }
@@ -341,9 +341,7 @@ export const normaliseVariationAndSpecification = (data: GoodsSpecification[], g
 export const normalizeSpecText = (goodsSpecificationRel: any, goodsSpecifications: any): string[] => {
   console.info('goodsSpecificationRel', goodsSpecificationRel)
   return goodsSpecificationRel?.map((el: any) => {
-    debugger
-    console.info('goodsSpecificationRel', goodsSpecificationRel)
-
+    // debugger
     let specObj = goodsSpecifications.find((spec: any) => spec.id === el.goodsSpecificationId)
     let specDetailName = specObj?.goodsSpecificationDetail?.find(
       (specDetail: any) => specDetail.id === el.goodsSpecificationDetailId,
