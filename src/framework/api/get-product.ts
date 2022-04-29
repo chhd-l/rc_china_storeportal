@@ -97,6 +97,15 @@ export const getProductBySpuId = async (params: ProductListQueryProps) => {
 }
 
 
+export const getESProducts = async (params: ProductListQueryProps): Promise<any> => {
+  try {
+    const res = await ApiRoot.products().getAllProducts(params)
+    console.info('res', res)
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 export const getProductDetail = async ({ storeId, goodsId }: { storeId: string, goodsId: string }) => {
 
   try {

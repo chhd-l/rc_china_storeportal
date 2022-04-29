@@ -32,14 +32,14 @@ const ProductList = () => {
     setSample(data)
   }
   const handlePagination = (page: number, pageSize: number) => {
-    getList(page,pageSize)
+    getList(page, pageSize)
   }
   const handleTab = (activeKey: any) => {
     setActiveKey(activeKey)
     console.info(activeKey)
   }
 
-  const getList = async (page = 1,pageSize=10) => {
+  const getList = async (page = 1, pageSize = 10) => {
     // let res = await getAllProducts({ limit: 2, sample: {}, isNeedTotal: true, operator: 'sss', offset: page })
     let res = await getScProducts({
       limit: pageSize,
