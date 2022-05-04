@@ -23,7 +23,7 @@ const BasicInfo = ({ field }: FormProps) => {
   const [videoUrl, setvideoUrl] = useState('')
   const handleEditorChange = (html: string) => {
     setEditorHtml(html)
-    console.info('editorHtml', editorHtml)
+    console.info('editorHtml', html)
   }
   const handleImgUrl = (url: string) => {
     setvideoUrl(url)

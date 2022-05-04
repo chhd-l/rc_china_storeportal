@@ -44,9 +44,7 @@ const Specification = (props: FormProps) => {
     console.info('datagetAttrs', list)
     setSpecificationList(list)
   }
-  const handleChange = (value: any) => {
-    console.info(',,,,', value)
-  }
+
   return (
     <div className='overflow-hidden'>
       {specificationList?.map(specification => {
@@ -57,22 +55,18 @@ const Specification = (props: FormProps) => {
               <Select
                 className='w-full'
                 labelInValue
-                defaultValue={{
-                  value: specification.defaultVal,
-                }}
+                mode='multiple'
+                allowClear
+                // defaultValue={['064fe462-a0ac-8f05-a800-8e927781', '4b1c30f4-c38c-b789-92c4-c0790cd1']}
+                defaultValue={specification.defaultVal}
                 placeholder={`please select`}
                 style={{ width: 120 }}
                 options={specification.options}
                 onChange={(value, option) => {
-                  let newRel = Object.assign(goodsAttributeValueRel, {
-                    // @ts-ignore
-                    [option.attributeId]: option.id,
-                  })
-                  console.info('newRel', newRel)
+                  console.info('value, option', value, option)
                   console.info(option)
-                  detail.goodsAttributeValueRelInput = newRel
-                  setGoodsAttributeValueRel(newRel)
-                  // handleChange()
+                  detail.goodsAttributeValueRelInput = option
+                  setGoodsAttributeValueRel(option)
                 }}
               ></Select>
             </Col>
