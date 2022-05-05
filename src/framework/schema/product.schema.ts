@@ -116,12 +116,13 @@ export interface GoodsVariants {
   goodsSpecificationRel: GoodsSpecificationValueRel[]
 }
 export interface GoodsAssets {
-  // id: string
+  id: string
   // goodsId: string
   // goodsVariantId: string
   artworkUrl: string
   type: string
-  // storeId: string
+  storeId: string
+  isDeleted: boolean
   // createdAt: string
   // is_default: string
   // createdBy: string

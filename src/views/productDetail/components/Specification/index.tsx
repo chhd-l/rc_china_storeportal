@@ -42,9 +42,7 @@ const Specification = (props: FormProps) => {
     })
     setSpecificationList(list)
   }
-  const handleChange = (value: any) => {
-    console.info(',,,,', value)
-  }
+
   return (
     <div className='overflow-hidden pl-12'>
       {specificationList?.map(specification => {
@@ -54,19 +52,19 @@ const Specification = (props: FormProps) => {
             <Col span={16}>
               <Select
                 className='w-full'
-                mode="multiple"
                 labelInValue
+                mode='multiple'
+                allowClear
+                // defaultValue={['064fe462-a0ac-8f05-a800-8e927781', '4b1c30f4-c38c-b789-92c4-c0790cd1']}
+                defaultValue={specification.defaultVal}
                 placeholder={`please select`}
                 style={{ width: 120 }}
                 options={specification.options}
                 onChange={(value, option) => {
-                  let newRel = Object.assign(goodsAttributeValueRel, {
-                    // @ts-ignore
-                    [option.attributeId]: option.id,
-                  })
-                  detail.goodsAttributeValueRelInput = newRel
-                  setGoodsAttributeValueRel(newRel)
-                  // handleChange()
+                  console.info('value, option', value, option)
+                  console.info(option)
+                  detail.goodsAttributeValueRelInput = option
+                  setGoodsAttributeValueRel(option)
                 }}
               ></Select>
             </Col>

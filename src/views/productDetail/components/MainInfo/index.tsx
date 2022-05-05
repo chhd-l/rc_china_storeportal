@@ -13,6 +13,7 @@ import { createProduct } from '@/framework/api/get-product'
 import { useNavigate } from 'react-router-dom'
 interface MainInfoProps {
   details: any
+  beforeData: any
   showCatePop: boolean
   cateInfo?: {
     cateId: string[]
@@ -21,7 +22,7 @@ interface MainInfoProps {
 
 const { Link } = Anchor
 let shelvesStatus = true
-const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children }) => {
+const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeData }) => {
   const [form] = Form.useForm()
   const [tipsIdx, setTipsIdx] = useState(0)
   const { detail } = useContext(DetailContext)
@@ -60,7 +61,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children }) => {
     }
     console.info('.......')
     console.info('params', params)
-    let data = await createProduct(params)
+    let data = await createProduct(params, beforeData)
     console.info('data', data)
     navigator('/product/product-list')
   }

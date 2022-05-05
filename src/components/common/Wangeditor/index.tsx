@@ -1,33 +1,81 @@
-import ReactWEditor from "wangeditor-for-react";
-import type { ReactWEProps } from "wangeditor-for-react/lib/type";
+import { useState, useEffect, FC } from 'react'
+import '@wangeditor/editor/dist/css/style.css'
+import { IEditorConfig, DomEditor } from '@wangeditor/editor'
+import { Editor, Toolbar } from '@wangeditor/editor-for-react'
 interface EditorProps {
-  onChange?: Function;
-  defaultValue?: string;
+  onChange?: Function
+  defaultValue?: string
 }
-const Editor = ({ defaultValue, onChange }: EditorProps) => (
-  <ReactWEditor
-    defaultValue={defaultValue}
-    placeholder="Please enter the text"
-    linkImgCallback={(src, alt, href) => {
-      // 插入网络图片的回调事件
-      console.log("图片 src ", src);
-      console.log("图片文字说明", alt);
-      console.log("跳转链接", href);
-    }}
-    onlineVideoCallback={(video) => {
-      // 插入网络视频的回调事件
-      console.log("插入视频内容", video);
-    }}
-    onChange={(html) => {
-      console.log("onChange html:", html);
-      onChange?.(html);
-    }}
-    onBlur={(html) => {
-      console.log("onBlur html:", html);
-    }}
-    onFocus={(html) => {
-      console.log("onFocus html:", html);
-    }}
-  />
-);
-export default Editor;
+const MyEditor: FC<EditorProps> = ({ defaultValue = '', onChange }) => {
+  const [editor, setEditor] = useState<any>(null) // 存储 editor 实例
+  const [html, setHtml] = useState('')
+
+  const toolbarConfig = {
+    excludeKeys: [
+      'headerSelect',
+      'italic',
+      'group-justify',
+      'group-indent',
+      'bulletedList',
+      'numberedList',
+      'group-video',
+      'group-more-style', // 排除菜单组，写菜单组 key 的值即可
+    ],
+  }
+  const editorConfig: Partial<IEditorConfig> = { MENU_CONF: {} } // 初始化 MENU_CONF 属性
+  // 修改 uploadImage 菜单配置
+  if (editorConfig.MENU_CONF) {
+    //上面就申明了，但是一直提示object可能为空？？
+    editorConfig.MENU_CONF['uploadImage'] = {
+      server: '/api/upload-image',
+      fieldName: 'custom-field-name',
+      // 继续写其他配置...
+      //【注意】不需要修改的不用写，wangEditor 会去 merge 当前其他配置
+    }
+  }
+  useEffect(() => {
+    setHtml(defaultValue)
+  }, [defaultValue])
+
+  // 及时销毁 editor
+  useEffect(() => {
+    if (editor) {
+      const toolbar = DomEditor.getToolbar(editor)
+      const uploadImageConfig = editor.getMenuConfig('uploadImage')
+      console.info('toolbar', toolbar)
+      console.info('uploadImageConfig', uploadImageConfig)
+    }
+    return () => {
+      if (editor == null) return
+      editor.destroy()
+      setEditor(null)
+    }
+  }, [editor])
+
+  return (
+    <>
+      <div style={{ border: '1px solid #ccc', zIndex: 100, marginTop: '15px' }}>
+        <Toolbar
+          editor={editor}
+          defaultConfig={toolbarConfig}
+          mode='default'
+          style={{ borderBottom: '1px solid #ccc' }}
+        />
+        <Editor
+          defaultConfig={editorConfig}
+          value={html}
+          onCreated={setEditor}
+          onChange={editor => {
+            let htmls = editor.getHtml()
+            setHtml(htmls)
+            onChange?.(htmls)
+          }}
+          mode='default'
+          style={{ height: '400px' }}
+        />
+      </div>
+    </>
+  )
+}
+
+export default MyEditor

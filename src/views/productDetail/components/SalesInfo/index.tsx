@@ -21,11 +21,11 @@ const SalesInfo = (props: FormProps) => {
     labelCol: { span: 4 },
     wrapperCol: { span: 14 },
   }
+
   useEffect(() => {
     console.log('123123123213123123',123123123213123123)
     if (detail.variationForm) {
       setVariationForm(detail.variationForm)
-      // debugger
     }
   }, [detail.variationForm])
   return (

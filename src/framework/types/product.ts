@@ -140,10 +140,12 @@ export enum AddCateType {
 export interface SpecificationListProps {
   option: string
   id?: string
+  isDeleted?: boolean
 }
 export interface VarationProps {
   name: string
   id?: string
+  isDeleted?: boolean
   specificationList: SpecificationListProps[]
 }
 export interface VarationsFormProps {
@@ -152,6 +154,14 @@ export interface VarationsFormProps {
 }
 export interface ProductListSimpleQueryProps {
   storeId?: string
+  goodsName?: string
+  cateId?: string
+  productType?: string
+  startStock?: string
+  endStock?: string
+  SKU?: string
+  SPU?: string
+  SubscriptionStatus?: string
 }
 export interface ProductListQueryProps extends PageProps {
   sample?: ProductListSimpleQueryProps

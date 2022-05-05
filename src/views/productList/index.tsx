@@ -44,22 +44,15 @@ const ProductList = () => {
   }
 
   const getList = async () => {
-    // let res = await getAllProducts({ 
-    //   limit: pages.pageSize, 
-    //   sample, 
-    //   isNeedTotal: true, 
-    //   operator: 'sss', 
-    //   offset: pages.page - 1
-    // })
-    let res = await getAllProducts({ 
-      limit: pages.pageSize, 
-      sample, 
-      isNeedTotal: true, 
-      operator: 'sss', 
-      offset: pages.page - 1
+    // let res = await getAllProducts({ limit: 2, sample: {}, isNeedTotal: true, operator: 'sss', offset: page })
+    let res = await getScProducts({
+      limit: pages.pageSize,
+      sample,
+      isNeedTotal: true,
+      operator: 'sss',
+      offset: pages.page - 1,
     })
-    // let ares = await getESProducts(sample)
-    // console.log('ares',ares)
+
     setListData(res)
     let newToolbarList = handleTabValue(toolbarInit, res)
     setToolbarList(newToolbarList)
