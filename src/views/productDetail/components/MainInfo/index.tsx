@@ -65,6 +65,11 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children }) => {
     navigator('/product/product-list')
   }
   console.info('detaildetaildetaildetail', detail)
+
+  useEffect(()=>{
+    console.log('form.122',form.getFieldsValue(true))
+  }, [])
+
   return (
     <div
       id={steps[0].anchor}

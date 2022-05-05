@@ -1,10 +1,12 @@
 import Upload from '@/components/common/Upload'
 import Wangeditor from '@/components/common/Wangeditor'
 import { Form, Input, Select } from 'antd'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { DetailContext } from '../../index'
 import { FormProps } from '@/framework/types/common'
 import { EditOutlined } from '@ant-design/icons'
+import ProForm from '@ant-design/pro-form'
+import { useForm } from 'antd/lib/form/Form'
 const breedList = [
   { name: 'B1', value: 'B1', label: 'Royal Canin' },
   { name: 'B2', value: 'B2', label: 'Royal Canin Sub' },
@@ -18,7 +20,8 @@ const BasicInfo = ({ field }: FormProps) => {
   // const onFinish = (values: any) => {
   //   console.log(values);
   // };
-  const { setShowCatePop, detail } = useContext(DetailContext)
+  const { setShowCatePop, detail, ProductName } = useContext(DetailContext)
+  const [form] = Form.useForm()
   const [editorHtml, setEditorHtml] = useState('')
   const [videoUrl, setvideoUrl] = useState('')
   const handleEditorChange = (html: string) => {
@@ -30,8 +33,16 @@ const BasicInfo = ({ field }: FormProps) => {
     console.info('videoUrl', videoUrl)
   }
 
+  useEffect(()=>{
+    form.setFieldsValue({
+      name: ProductName
+    })
+  }, [ProductName])
+
   return (
+    ProductName ? 
     <div className='basicinfo'>
+    {/* <ProForm form={form}> */}
       <Form.Item label='Product Image' name='assets'>
         <div className='text-left'>
           <Upload handleImgUrl={handleImgUrl} fileList={detail.assets} showUploadList={false} />
@@ -45,7 +56,7 @@ const BasicInfo = ({ field }: FormProps) => {
       <Form.Item label='SPU' name='spuNo' rules={[{ required: true, message: 'Missing SPU' }]}>
         <Input />
       </Form.Item>
-      <Form.Item label='Product Name' name='name' rules={[{ required: true, message: 'Missing Product Name' }]}>
+      <Form.Item label='Product Name' name='name' initialValue={ProductName} rules={[{ required: true, message: 'Missing Product Name' }]}>
         <Input showCount maxLength={120} />
       </Form.Item>
 
@@ -81,10 +92,11 @@ const BasicInfo = ({ field }: FormProps) => {
       <Form.Item label='Brand' name='brandId'>
         <Select placeholder='please select Brand' options={breedList} />
       </Form.Item>
-      <Form.Item label='Sales Status' name='salesStatus'>
+      <Form.Item label='Sales Status' name='salesStatus' required>
         <Select placeholder='please select Sales Status' options={salesStatusList} />
       </Form.Item>
-    </div>
+    {/* </ProForm> */}
+    </div> : null
   )
 }
 

@@ -9,11 +9,11 @@ import { ContentContainer, TableContainer, DivideArea } from '@/components/ui'
 import { MenuOutlined } from '@ant-design/icons'
 import { getAllProducts, getESProducts, getScProducts } from '@/framework/api/get-product'
 import { ProductListProps } from '@/framework/types/product'
-// import { dataSource } from "./modules/mockdata";
-// import Mock from 'mockjs'
+import { dataSource } from "./modules/mockdata";
+import Mock from 'mockjs'
 const { TabPane } = Tabs
 
-// const listDatas = Mock.mock(dataSource)
+const listDatas = Mock.mock(dataSource)
 // console.info('listData', listData)
 const ProductList = () => {
   const [activeKey, setActiveKey] = useState<React.Key>(Tab.All)
@@ -44,9 +44,22 @@ const ProductList = () => {
   }
 
   const getList = async () => {
-    // let res = await getAllProducts({ limit: 2, sample: {}, isNeedTotal: true, operator: 'sss', offset: page })
-    let res = await getESProducts(sample)
-
+    // let res = await getAllProducts({ 
+    //   limit: pages.pageSize, 
+    //   sample, 
+    //   isNeedTotal: true, 
+    //   operator: 'sss', 
+    //   offset: pages.page - 1
+    // })
+    let res = await getAllProducts({ 
+      limit: pages.pageSize, 
+      sample, 
+      isNeedTotal: true, 
+      operator: 'sss', 
+      offset: pages.page - 1
+    })
+    // let ares = await getESProducts(sample)
+    // console.log('ares',ares)
     setListData(res)
     let newToolbarList = handleTabValue(toolbarInit, res)
     setToolbarList(newToolbarList)
@@ -73,11 +86,11 @@ const ProductList = () => {
               key={el.name}
             >
               <div className='flex justify-between items-center py-4'>
-                <div>{toolbarList.find(el => activeKey === el.name)?.value} Products</div>
+                <div>{listData.products.length ? listData.products.length : ''} Products</div>
                 <div className='flex items-center'>
-                  <Link to='/product/add' className='mr-4'>
-                    <Button type='primary'>+ Add a New Product</Button>
-                  </Link>
+                  <Button type='primary' onClick={()=>{
+                      window.open("/product/add")
+                    }}>+ Add a New Product</Button>
                   <Button className='mr-4'>Export</Button>
                   {/* <MenuOutlined className=' border border-solid border-gray-300' /> */}
                   <Button className='ml-3' icon={<MenuOutlined style={{ color: '#979797' }} />} />

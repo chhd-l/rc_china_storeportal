@@ -1,5 +1,4 @@
 import { lazy } from 'react' // 路由懒加载
-import { Navigate, Route, Routes } from 'react-router-dom'
 const Layout = lazy(() => import('../components/common/Layout'))
 const Home = lazy(() => import('../views/index'))
 const Login = lazy(() => import('../views/login'))

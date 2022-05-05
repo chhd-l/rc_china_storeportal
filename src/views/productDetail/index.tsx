@@ -12,6 +12,7 @@ export const DetailContext = createContext(null as any)
 const Product = () => {
   const [cateInfo, setCateInfo] = useState<{ cateId: string[] }>()
   const [showCatePop, setShowCatePop] = useState<boolean>(false)
+  const [ProductName, setProductName] = useState<string>('')
   const [detail, setDetail] = useState({})
   const [showMain, setShowMain] = useState(false)
   const params = useParams()
@@ -132,11 +133,11 @@ const Product = () => {
   return (
     <ContentContainer>
       {/* <Demo />*/}
-      <DetailContext.Provider value={{ detail, setShowCatePop }}>
+      <DetailContext.Provider value={{ detail, setShowCatePop, setProductName, ProductName}}>
         {showMain ? (
           <MainInfo details={detail} showCatePop={showCatePop}>
             {/* <div></div> */}
-            {showCatePop && <ChooseCate detail={detail} setShowCatePop={setShowCatePop} handleCate={handleCate} />}
+            {showCatePop && <ChooseCate detail={detail} setShowCatePop={setShowCatePop} setProductName={setProductName} handleCate={handleCate} />}
           </MainInfo>
         ) : null}
       </DetailContext.Provider>

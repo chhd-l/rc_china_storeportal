@@ -31,7 +31,6 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
   const [form] = Form.useForm();
   const [typeSelect, setTypeSelect] = useState(typeForKey[0].value)
   const onFinish = (values: any) => {
-    console.info('values', values)
     const val = {
       startStock : values.startStock,
       [values.selectName] : values.goodsName,
