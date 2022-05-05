@@ -32,10 +32,8 @@ const RouteBreadcrumb = () => {
 
   useEffect(() => {
     breadcrumbItemsaRr = []
-  console.log(' pathname.split(/)', pathname.split('/'))
-    pathname.split('/').forEach((path) => {
-      depy(r, path)
-    })
+    const path = pathname.split('/')[pathname.split('/').length - 1]
+    depy(r, path)
   }, [pathname])
 
   return (

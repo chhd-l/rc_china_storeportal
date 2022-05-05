@@ -53,7 +53,7 @@ const EditVariationList = (props: FormProps) => {
     }
     // variationForms
     console.info('variationForm==========================', variationForm)
-    debugger
+    // debugger
     setVariationForm(variationForm)
     if (variationList[0]) {
       getRows(variationForm)
@@ -161,7 +161,7 @@ const EditVariationList = (props: FormProps) => {
         sortIdx,
         relArr: [],
       }
-      debugger
+      // debugger
       if (changeType === ChangeType.handleSpec || isDefultData) {
         //spec选择,需要操作====
         // debugger
@@ -200,7 +200,7 @@ const EditVariationList = (props: FormProps) => {
           if (formData[idx]?.goodsSpecificationId) {
             newEl.relArr[idx].goodsSpecificationId = formData[idx]?.goodsSpecificationId
           }
-          debugger
+          // debugger
           if (spec.id) {
             newEl.relArr[idx].id = spec.id
           }
@@ -232,7 +232,7 @@ const EditVariationList = (props: FormProps) => {
       //   specificationName: name,
       //   specificationDetailName: newEl[name],
       // })
-      debugger
+      // debugger
       return newEl
     })
     detail.goodsVariantsInput = list //编辑的时候需要赋值todo
@@ -287,6 +287,7 @@ const EditVariationList = (props: FormProps) => {
                           case 'priceInput':
                             return (
                               <Input
+                                disabled={td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0'}
                                 prefix='￥'
                                 onBlur={e => {
                                   tr[td.keyVal] = e.target.value
@@ -306,6 +307,7 @@ const EditVariationList = (props: FormProps) => {
                                 onChange={(value, option) => {
                                   tr[td.keyVal] = value
                                   updateVations(value, index, td.keyVal, tr)
+                                  setVariationList([...variationList])
                                 }}
                               ></Select>
                             )
