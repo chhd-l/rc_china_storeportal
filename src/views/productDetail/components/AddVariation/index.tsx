@@ -40,7 +40,7 @@ const AddVariation = ({}: AddVariationProps) => {
         //编辑操作
         if (detail.id) {
           let variationData = detail.editChange.variationList
-          debugger
+          // debugger
           if (!variationData[variationIdx]) {
             variationData[variationIdx] = {}
           }
@@ -123,9 +123,9 @@ const AddVariation = ({}: AddVariationProps) => {
       if (!variationData[variationIdx].goodsSpecificationDetail[specificationIdx]) {
         variationData[variationIdx].goodsSpecificationDetail[specificationIdx] = {}
       }
-      debugger
+      // debugger
       if (variationForm.variationList[variationIdx].specificationList[specificationIdx]?.id) {
-        debugger
+        // debugger
         variationData[variationIdx].id = variationForm.variationList[variationIdx].id
         variationData[variationIdx].goodsSpecificationDetail[specificationIdx].id =
           variationForm.variationList[variationIdx].specificationList[specificationIdx].id
@@ -200,7 +200,7 @@ const AddVariation = ({}: AddVariationProps) => {
     console.info('option', e.target.value)
     // let changedVariationList = detail.editChange.variationList
     // changedVariationList[variationIdx].name = e.target.value
-    debugger
+    // debugger
     if (detail.id) {
       let variationData = detail.editChange.variationList
       if (!variationData[variationIdx]) {

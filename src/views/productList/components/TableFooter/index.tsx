@@ -11,7 +11,7 @@ export type Props = {
 }
 const TableFooter: FC<Props> = ({ children, list, setListData }) => {
   return (
-    <div className='table-footer bg-white flex justify-between py-4'>
+    <div className='table-footer flex justify-between items-center py-4 fixed bottom-2 right-10 w-4/5'>
       <div>{children}</div>
       <div>
         <span className='mr-4'>{list.filter(el => el.checked)?.length || 0} products selected</span>

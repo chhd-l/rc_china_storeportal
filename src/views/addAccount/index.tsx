@@ -3,6 +3,7 @@ import { ACCOUNT_FORM } from "@/views/addAccount/modules/form";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { ContentContainer, InfoContainer } from "@/components/ui";
+import { createAccount, modifyAccount } from '@/framework/api/wechatSetting'
 
 const AddAccount = () => {
   const [fromItems, setFormItems] = useState(ACCOUNT_FORM);
@@ -16,8 +17,12 @@ const AddAccount = () => {
     }
   };
 
-  const addAccount = (values: any) => {
+  const addAccount = async (values: any) => {
     console.log(values);
+    //新增
+    await createAccount({})
+    //编辑
+    await modifyAccount({})
   };
 
   return (

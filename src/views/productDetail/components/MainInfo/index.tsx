@@ -1,12 +1,9 @@
 import './index.less'
 import { Anchor } from 'antd'
-import BasicInfo from '../BasicInfo'
-import Specification from '../Specification'
-import SalesInfo from '../SalesInfo'
-import Shipping from '../Shipping'
+import { useLocation } from "react-router-dom";
 import { Form, Space, Button } from 'antd'
 import { FC, useContext, useEffect, useState } from 'react'
-import { steps, formInitialValues } from '../../modules/constant'
+import { steps } from '../../modules/constant'
 import { InfoContainer, DivideArea } from '@/components/ui'
 import { DetailContext } from '../../index'
 import { createProduct } from '@/framework/api/get-product'
@@ -23,6 +20,7 @@ interface MainInfoProps {
 const { Link } = Anchor
 let shelvesStatus = true
 const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeData }) => {
+  const { pathname } = useLocation();
   const [form] = Form.useForm()
   const [tipsIdx, setTipsIdx] = useState(0)
   const { detail } = useContext(DetailContext)
@@ -66,10 +64,14 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     navigator('/product/product-list')
   }
   console.info('detaildetaildetaildetail', detail)
+
+  useEffect(()=>{
+    console.log('form.122',form.getFieldsValue(true))
+  }, [])
+
   return (
     <div
       id={steps[0].anchor}
-      // className="flex bg-gray-50 px-14 py-6 text-left"
     >
       <div className='flex-1 mr-48'>
         <Form
@@ -116,7 +118,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
             {/* </>
             )}
           </Form.List> */}
-            <div className='text-rigth flex justify-end'>
+            <div className='text-rigth flex justify-end w-full fixed bottom-2 right-72'>
               <Button
                 className='ml-4'
                 onClick={() => {
@@ -132,7 +134,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                   form.submit()
                 }}
               >
-                Save and Delist
+                Delist
               </Button>
               <Button
                 className='ml-4'
@@ -142,8 +144,22 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                   form.submit()
                 }}
               >
-                Save and Publish
+                Publish
               </Button>
+              {
+                pathname !== '/product/add' ? (
+                  <Button
+                    className='ml-4'
+                    type='primary'
+                    onClick={() => {
+                      shelvesStatus = true
+                      form.submit()
+                    }}
+                  >
+                    Update
+                  </Button>
+                ) : null
+              }
             </div>
           </div>
         </Form>

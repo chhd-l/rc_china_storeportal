@@ -23,6 +23,7 @@ const SalesInfo = (props: FormProps) => {
   }
 
   useEffect(() => {
+    console.log('123123123213123123',123123123213123123)
     if (detail.variationForm) {
       setVariationForm(detail.variationForm)
     }

@@ -43,17 +43,15 @@ const Specification = (props: FormProps) => {
       console.info(' item.defaultVal ', item.defaultVal)
       return item
     })
-
-    console.info('datagetAttrs', list)
     setSpecificationList(list)
   }
 
   return (
-    <div className='overflow-hidden'>
+    <div className='overflow-hidden pl-32'>
       {specificationList?.map(specification => {
         return (
           <Row key={specification.id} className='w-1/2 float-left ant-form-item'>
-            <Col span={5}>{specification.label}</Col>
+            <Col className='text-right pr-6' span={5}>{specification.label}</Col>
             <Col span={16}>
               <Select
                 className='w-full'

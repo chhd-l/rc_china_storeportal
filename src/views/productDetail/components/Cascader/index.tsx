@@ -95,10 +95,12 @@ const Cascader = (props: CascaderProps) => {
       </div>
 
       <div className='py-4'>
-        the current selected :{' '}
+        The currently selected :{' '}
+        <span className={`${categories.length ? "font-semibold text-red-600" : "" }`}>
         {categories.length
           ? categories.map((el: TreeDataProps, idx: number) => ` ${idx === 0 ? '' : '>'} ${el.label}`)
           : 'No categories has been chosen'}
+        </span>
       </div>
     </div>
   )
