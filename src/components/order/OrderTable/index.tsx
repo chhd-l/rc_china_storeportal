@@ -20,7 +20,9 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
 
   const getExpressCompanys = async () => {
     const res = await getExpressCompanyList()
+    // console.log('res999999999999', res)
     setCarrierTypes(res)
+    // console.log('9999999999999999')
   }
 
   useEffect(() => {
@@ -39,14 +41,14 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
         </Col>
         <Col span={6} className="text-center">
           <Select
-            onChange={(val, a) => {}}
+            onChange={(val, a) => { }}
             getPopupContainer={(trigger: any) => trigger.parentNode}
             value="Carrier"
             className="order-table-select"
           >
             {carrierTypes.map((item) => (
-              <Select.Option value={item.code} key={item.name}>
-                {item.name}
+              <Select.Option value={item.code} key={item.nameEn}>
+                {item.nameEn}
               </Select.Option>
             ))}
           </Select>
@@ -60,7 +62,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
           <div className="border mt-2" key={item.id}>
             <Row className="bg-gray1 border-b py-2 px-4">
               <Col span={12} className="flex items-center">
-                <Avatar icon={<img src={item.buyer.image} alt={''}/>} />
+                <Avatar icon={<img src={item.buyer.image} alt={''} />} />
                 <span className="ml-2">{item.buyer.name}</span>
               </Col>
               <Col span={12} className="text-right">
@@ -79,15 +81,14 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
             <Row className="p-2 flex items-start">
               <Col span={8} className="flex flex-col justify-start">
                 {item.tradeItem.map((product: OrderTradeItem, index: number) => (
-                  <Row className={`${index!==item.tradeItem.length-1?'mb-2':''} items-start`} key={product.skuId}>
+                  <Row className={`${index !== item.tradeItem.length - 1 ? 'mb-2' : ''} items-start`} key={product.skuId}>
                     <Col span={6}>
-                      <img src={product.pic} className="w-16 h-16 order-img" alt=''/>
+                      <img src={product.pic} className="w-16 h-16 order-img" alt='' />
                     </Col>
                     <Col span={18}>
                       <Row
-                        className={`${
-                          item.tradeItem.length > 1 && index !== item.tradeItem.length - 1 ? 'border-b pb-2' : ''
-                        }`}
+                        className={`${item.tradeItem.length > 1 && index !== item.tradeItem.length - 1 ? 'border-b pb-2' : ''
+                          }`}
                       >
                         <Col span={20}>
                           <span>{product.skuName}</span>
