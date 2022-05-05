@@ -56,7 +56,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
         <Row justify='start' gutter={[0, 14]}>
           <Col span={12}>
             <Input.Group compact className='flex'>
-              <Form.Item name='selectName' initialValue={nameForKey[0].value}>
+              <Form.Item className='rounded-xl' name='selectName' initialValue={nameForKey[0].value}>
                 <Select style={{ width: 140 }} placeholder='Select a option and change input text above'>
                   {nameForKey.map((el: any) => (
                     <Option key={el.value} value={el.value}>
