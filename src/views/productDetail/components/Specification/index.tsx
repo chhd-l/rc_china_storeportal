@@ -35,9 +35,12 @@ const Specification = (props: FormProps) => {
     let list = data.map((item: any) => {
       item.className = 'w-1/2'
       item.type = 'select'
-      item.defaultVal = detail?.goodsAttributeValueRel?.find((el: GoodsAttributeAndValue) => {
-        return el.attributeId === item.id
-      })?.attributeValueName
+      item.defaultVal = detail?.goodsAttributeValueRel
+        ?.filter((el: GoodsAttributeAndValue) => {
+          return el.attributeId === item.id
+        })
+        ?.map((el: GoodsAttributeAndValue) => el.attributeValueName)
+      console.info(' item.defaultVal ', item.defaultVal)
       return item
     })
 
@@ -62,11 +65,18 @@ const Specification = (props: FormProps) => {
                 placeholder={`please select`}
                 style={{ width: 120 }}
                 options={specification.options}
-                onChange={(value, option) => {
+                onChange={(value, option: any) => {
                   console.info('value, option', value, option)
                   console.info(option)
-                  detail.goodsAttributeValueRelInput = option
-                  setGoodsAttributeValueRel(option)
+                  if (option[0]?.attributeId) {
+                    let newRel = Object.assign({}, goodsAttributeValueRel, {
+                      // @ts-ignore
+                      [option[0]?.attributeId]: value.map(el => el.value),
+                    })
+                    detail.goodsAttributeValueRelInput = newRel
+                    console.info('newRel', newRel)
+                    setGoodsAttributeValueRel(newRel)
+                  }
                 }}
               ></Select>
             </Col>

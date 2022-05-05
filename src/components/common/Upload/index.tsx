@@ -96,7 +96,6 @@ const UploadWrap = (props: UploadWrapProps) => {
         })
       : []
     if (list) {
-      console.info('.....fileListfileList', props.fileList, fileList)
       setFileList(list)
     }
   }, [props.fileList])

@@ -2,7 +2,7 @@ import './index.less'
 import { VariationosContext } from '../SalesInfo'
 import { useContext, useEffect, useState } from 'react'
 import { cloneDeep } from 'lodash'
-import { Button, Form, Input, Popover, Select } from 'antd'
+import { Button, Col, Form, Input, Popover, Row, Select } from 'antd'
 import { FormProps } from '@/framework/types/common'
 import { ChangeType, SpecificationListProps, VarationProps, VarationsFormProps } from '@/framework/types/product'
 import { headerOrigition } from '../../modules/constant'
@@ -184,7 +184,7 @@ const EditVariationList = (props: FormProps) => {
           key: Math.random(),
         })
       }
-      console.info('vartioneditChange.variationList', detail.editChange.variationList)
+      console.info('vartioneditChange.variationList', detail?.editChange?.variationList)
 
       if (vartion.length) {
         console.info('vartion', vartion)
@@ -240,139 +240,149 @@ const EditVariationList = (props: FormProps) => {
     setVariationList(cloneDeep(list))
     // return list
   }
-  return (
-    <div className='overflow-scroll w-full'>
-      {variationList?.length ? (
-        <table className='table' width={1500}>
-          <thead>
-            <tr className='text-center'>
-              {headerList.map((th, index) => (
-                <th key={index}>{th.label}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {variationList.map((tr, index) => (
-              <tr key={tr.sortIdx}>
-                {headerList.map((td, count) => (
-                  <td key={`${tr.sortIdx}-${count}`}>
-                    <span>
-                      {(() => {
-                        // console.info(td.keyVal, tr[td.keyVal], typeof tr[td.keyVal])
-                        switch (td.type) {
-                          case 'input':
-                            return (
-                              <Input
-                                onBlur={e => {
-                                  tr[td.keyVal] = e.target.value
-                                  updateVations(e.target.value, index, td.keyVal, tr)
-                                }}
-                                defaultValue={tr[td.keyVal]}
-                              />
-                            )
-                          case 'text':
-                            return <span className='inline-block px-4'>{tr[td.keyVal]}</span>
-                          case 'upload':
-                            // return <span>{tr[td.keyVal]}</span>
-                            return (
-                              <Upload
-                                type={UploadType.button}
-                                fileList={[{ img: tr[td.keyVal] }]}
-                                showUploadList={false}
-                                handleImgUrl={() => {
-                                  console.info('...')
-                                }}
-                              />
-                            )
-                          case 'priceInput':
-                            return (
-                              <Input
-                                prefix='￥'
-                                onBlur={e => {
-                                  tr[td.keyVal] = e.target.value
-                                  updateVations(e.target.value, index, td.keyVal, tr)
-                                }}
-                                defaultValue={tr[td.keyVal]}
-                              />
-                            )
-                          case 'select':
-                            return (
-                              <Select
-                                defaultValue={tr[td.keyVal]}
-                                // value={tr[td.keyVal]}
-                                style={{ width: 120 }}
-                                options={td.options}
-                                // defaultValue={tr[td.keyVal]}
-                                onChange={(value, option) => {
-                                  tr[td.keyVal] = value
-                                  updateVations(value, index, td.keyVal, tr)
-                                }}
-                              ></Select>
-                            )
-                          case 'number':
-                            return (
-                              <Input
-                                type='number'
-                                onBlur={e => {
-                                  tr[td.keyVal] = e.target.value
-                                  updateVations(e.target.value, index, td.keyVal, tr)
-                                }}
-                                defaultValue={tr[td.keyVal]}
-                              />
-                            )
-                          // return
-                          case 'popup':
-                            return (
-                              <Popover content='哈哈哈' trigger='click' placement='bottom' title='Title'>
-                                <Button type='primary'>Hover me</Button>
-                              </Popover>
-                            )
-                          case 'subSku':
-                            return <div>test</div>
-                          case 'shelves':
-                            return (
-                              <div className='text-center'>
-                                {tr[td.keyVal] === 'true' ? (
-                                  <VerticalAlignTopOutlined
-                                    onClick={() => {
-                                      tr[td.keyVal] = 'flse'
-                                      updateVations('false', index, td.keyVal, tr)
-                                      setVariationList([...variationList])
-                                    }}
-                                  />
-                                ) : (
-                                  <VerticalAlignBottomOutlined
-                                    onClick={() => {
-                                      tr[td.keyVal] = 'true'
-                                      setVariationList([...variationList])
-                                      updateVations('true', index, td.keyVal, tr)
-                                    }}
-                                  />
-                                )}
-                              </div>
-                            )
-                          default:
-                            return <span>ooo</span>
-                        }
-                      })()}
-                    </span>
-                  </td>
+  return variationList?.length ? (
+    <div className='edit-variation-list'>
+      <Row>
+        <Col span={4} className='text-right mr-2 pb-4'>
+          Variation List
+        </Col>
+      </Row>
+      <Row>
+        <Col span={22} offset={2} className='edit-variation-table overflow-scroll w-full'>
+          <table className='table' width={1500}>
+            <thead>
+              <tr className='text-center bg-gray-primary h-12'>
+                {headerList.map((th, index) => (
+                  <th className='font-normal' key={index}>
+                    {th.label}
+                  </th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : null}
-      <button
-        className='hidden'
-        onClick={() => {
-          console.info('variationListvariationListvariationListdata', variationList)
-        }}
-      >
-        get VAlue
-      </button>
+            </thead>
+            <tbody>
+              {variationList.map((tr, index) => (
+                <tr key={tr.sortIdx} className='h-12'>
+                  {headerList.map((td, count) => (
+                    <td key={`${tr.sortIdx}-${count}`}>
+                      <span>
+                        {(() => {
+                          // console.info(td.keyVal, tr[td.keyVal], typeof tr[td.keyVal])
+                          switch (td.type) {
+                            case 'input':
+                              return (
+                                <Input
+                                  onBlur={e => {
+                                    tr[td.keyVal] = e.target.value
+                                    updateVations(e.target.value, index, td.keyVal, tr)
+                                  }}
+                                  defaultValue={tr[td.keyVal]}
+                                />
+                              )
+                            case 'text':
+                              return <span className='inline-block px-4'>{tr[td.keyVal]}</span>
+                            case 'upload':
+                              // return <span>{tr[td.keyVal]}</span>
+                              return (
+                                <Upload
+                                  type={UploadType.button}
+                                  fileList={[{ img: tr[td.keyVal] }]}
+                                  showUploadList={false}
+                                  handleImgUrl={() => {
+                                    console.info('...')
+                                  }}
+                                />
+                              )
+                            case 'priceInput':
+                              return (
+                                <Input
+                                  className='price-input'
+                                  prefix='￥'
+                                  onBlur={e => {
+                                    tr[td.keyVal] = e.target.value
+                                    updateVations(e.target.value, index, td.keyVal, tr)
+                                  }}
+                                  defaultValue={tr[td.keyVal]}
+                                />
+                              )
+                            case 'select':
+                              return (
+                                <Select
+                                  defaultValue={tr[td.keyVal]}
+                                  // value={tr[td.keyVal]}
+                                  style={{ width: 120 }}
+                                  options={td.options}
+                                  // defaultValue={tr[td.keyVal]}
+                                  onChange={(value, option) => {
+                                    tr[td.keyVal] = value
+                                    updateVations(value, index, td.keyVal, tr)
+                                  }}
+                                ></Select>
+                              )
+                            case 'number':
+                              return (
+                                <Input
+                                  type='number'
+                                  onBlur={e => {
+                                    tr[td.keyVal] = e.target.value
+                                    updateVations(e.target.value, index, td.keyVal, tr)
+                                  }}
+                                  defaultValue={tr[td.keyVal]}
+                                />
+                              )
+                            // return
+                            case 'popup':
+                              return (
+                                <Popover content='哈哈哈' trigger='click' placement='bottom' title='Title'>
+                                  <Button type='primary'>Hover me</Button>
+                                </Popover>
+                              )
+                            case 'subSku':
+                              return <div>test</div>
+                            case 'shelves':
+                              return (
+                                <div className='text-center'>
+                                  {tr[td.keyVal] === 'true' ? (
+                                    <VerticalAlignTopOutlined
+                                      onClick={() => {
+                                        tr[td.keyVal] = 'flse'
+                                        updateVations('false', index, td.keyVal, tr)
+                                        setVariationList([...variationList])
+                                      }}
+                                    />
+                                  ) : (
+                                    <VerticalAlignBottomOutlined
+                                      onClick={() => {
+                                        tr[td.keyVal] = 'true'
+                                        setVariationList([...variationList])
+                                        updateVations('true', index, td.keyVal, tr)
+                                      }}
+                                    />
+                                  )}
+                                </div>
+                              )
+                            default:
+                              return <span>ooo</span>
+                          }
+                        })()}
+                      </span>
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <button
+            className='hidden'
+            onClick={() => {
+              console.info('variationListvariationListvariationListdata', variationList)
+            }}
+          >
+            get VAlue
+          </button>
+        </Col>
+      </Row>
     </div>
-  )
+  ) : null
 }
 
 export default EditVariationList

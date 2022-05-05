@@ -71,7 +71,7 @@ const Cascader = (props: CascaderProps) => {
   return (
     <div className='cate-cascader'>
       <div className='p-6 bg-gray-50'>
-        {categoryList.length ? (
+        {categoryList?.length ? (
           <ProFormCascader
             name='cateId'
             rules={[{ required: true, message: '这是必填项' }]}
