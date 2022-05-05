@@ -11,15 +11,19 @@ import {
   SearchContainer,
   TableContainer,
 } from "@/components/ui";
+import { getFansList } from '@/framework/api/wechatSetting'
 
 const FanList = () => {
   const [fanList, setFanList] = useState<Fans[]>([]);
 
   useEffect(() => {
     setFanList(Mock.mock(fansDetailListSource).array);
+    getFanList()
   }, []);
 
-  const getFanList = () => {};
+  const getFanList = async () => {
+    await getFansList({})
+  };
 
   return (
     <ContentContainer>
