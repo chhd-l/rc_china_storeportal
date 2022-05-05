@@ -1,14 +1,53 @@
-import { DatePicker } from 'antd'
-import React from 'react'
-import { Order } from '@/framework/types/order'
+import { DatePicker, Pagination } from 'antd'
+import React, { useEffect, useState } from 'react'
 import OrderTable from '@/components/order/OrderTable'
+import { getOrderList } from '@/framework/api/get-order'
+import { PageParamsProps } from '@/framework/types/common'
+import { initPageParams } from '@/lib/constants'
+import { handleQueryParams } from '@/views/orderList/modules/handle-query-params'
+import { OrderSearchParamsProps } from '@/framework/types/order'
+import { initSearchParams } from '@/views/orderList/modules/constants'
 
 interface OrderInfoProps {
-  orderList: Order[]
   id: string
+  customerId: string
 }
 
-const OrderInformation = ({ orderList, id }: OrderInfoProps) => {
+const OrderInformation = ({ id, customerId }: OrderInfoProps) => {
+  const [orderList, setOrderList] = useState<any[]>([])
+  const [pageParams, setPageParams] = useState<PageParamsProps>(initPageParams)
+  const [total, setTotal] = useState(0)
+  const { currentPage, pageSize } = pageParams
+  const [searchParams, setSearchParams] = useState<OrderSearchParamsProps>(initSearchParams)
+
+  const getCustomerOrders = async ({
+    searchParams,
+    pageParams,
+  }: {
+    searchParams: OrderSearchParamsProps
+    pageParams: PageParamsProps
+  }) => {
+    let params = handleQueryParams({ searchParams, pageParams, orderState: '', shoppingCompany: '' })
+    console.log('query orders view params', params)
+    const res = await getOrderList({ ...params, sample: { ...params.sample, customerId } })
+    console.log('res', res)
+    setOrderList(res.records)
+    setTotal(res.total)
+  }
+
+  const changePage = async (page: any, pageSize: any) => {
+    setPageParams({ currentPage: page, pageSize: pageSize })
+    await getCustomerOrders({
+      searchParams,
+      pageParams: { currentPage: page, pageSize: pageSize },
+    })
+  }
+
+  useEffect(() => {
+    if (customerId !== '') {
+      getCustomerOrders({ searchParams, pageParams })
+    }
+  }, [customerId])
   return (
     <div id={id} className="mt-4">
       <div className="py-4 px-2 border-b text-xl font-medium">Order Information</div>
@@ -18,10 +57,24 @@ const OrderInformation = ({ orderList, id }: OrderInfoProps) => {
           style={{ width: '300px' }}
           onChange={(date, dateString) => {
             console.log(date, dateString)
+            getCustomerOrders({
+              searchParams: { ...searchParams, startTime: dateString[0], endTime: dateString[1] },
+              pageParams,
+            })
           }}
         />
       </div>
       <OrderTable orderList={orderList} />
+      <div className="flex flex-row justify-end mt-4">
+        <Pagination
+          current={currentPage}
+          total={total}
+          pageSize={pageSize}
+          onChange={changePage}
+          showSizeChanger={true}
+          className="rc-pagination"
+        />
+      </div>
     </div>
   )
 }

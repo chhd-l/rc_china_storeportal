@@ -14,42 +14,12 @@ import {
 import { useLocation } from 'react-router-dom'
 import './index.less'
 import { ContentContainer, InfoContainer } from '@/components/ui'
-import { getOrderList } from '@/framework/api/get-order'
 
 const { Link } = Anchor
 
 const PetOwnerList = () => {
   const location = useLocation()
   const [petOwnerId, setPetOwnerId] = useState('')
-  const [petOwnerDetail, setPetOwnerDetail] = useState({
-    couponCodeList: [],
-    smartDeviceList: [],
-    subscriptionList: [],
-    orderList: [],
-  })
-  const { couponCodeList, smartDeviceList, subscriptionList } = petOwnerDetail
-  const [orderList,setOrderList]=useState<any[]>([])
-
-  const getCustomerOrders=async()=>{
-    const res=await getOrderList({
-      isNeedTotal: true,
-      storeId: '12345678',
-      operator: 'zz',
-      offset:0,
-      limit:10,
-      sample:{
-        customerId:petOwnerId
-      }
-    })
-    setOrderList(res.records)
-    console.log(res);
-  }
-
-  useEffect(()=>{
-    if(petOwnerId!==''){
-      getCustomerOrders()
-    }
-  },[petOwnerId])
 
   useEffect(() => {
     const state: any = location.state
@@ -66,7 +36,7 @@ const PetOwnerList = () => {
               <Tagging id="tagging" customerId={petOwnerId} />
               <Pets id="pet-information" customerId={petOwnerId} />
               <TencentAccount id="tencent-account" customerId={petOwnerId} />
-              <Orders id="order-information" orderList={orderList} />
+              <Orders id="order-information" customerId={petOwnerId} />
               {/*<Subscriptions id="subscription-information" subscriptionList={subscriptionList} />*/}
               <Address id="my-address" customerId={petOwnerId} />
               {/*<Coupons id="coupon-information" couponCodeList={couponCodeList} />*/}

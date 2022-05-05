@@ -97,9 +97,9 @@ export const getProductBySpuId = async (params: ProductListQueryProps) => {
 }
 
 
-export const getESProducts = async (params: ProductListQueryProps): Promise<any> => {
+export const getESProducts = async (params: any): Promise<any> => {
   try {
-    const res = await ApiRoot.products().getAllProducts(params)
+    const res = await ApiRoot.products().getESProductLists(params)
     console.info('res', res)
   } catch (e) {
     console.log(e)

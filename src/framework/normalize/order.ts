@@ -91,7 +91,8 @@ export const normaliseOrder = (data: any,expressCompanies:any): any => {
           pic,
           skuName,
         }
-      }) || []
+      }) || [],
+      deliveries:shippingInfo?.deliveries
     }]:[],
     carrierType:carrierType,
     tradePrice: {
