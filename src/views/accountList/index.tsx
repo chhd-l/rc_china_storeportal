@@ -11,20 +11,24 @@ import {
   SearchContainer,
   TableContainer,
 } from "@/components/ui";
+import { getAccountList } from '@/framework/api/wechatSetting'
 
 const AccountList = () => {
   const [accountList, setAccountList] = useState<Account[]>([]);
 
   useEffect(() => {
     setAccountList(Mock.mock(dataSource).array);
+    getAccounts()
   }, []);
 
-  const getAccountList = () => {};
+  const getAccounts= async () => {
+    await getAccountList({});
+  };
 
   return (
     <ContentContainer>
       <SearchContainer>
-        <Search query={getAccountList} formItems={formItems} />
+        <Search query={getAccounts} formItems={formItems} />
       </SearchContainer>
       <DivideArea />
       <TableContainer>

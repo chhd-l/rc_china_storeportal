@@ -52,7 +52,7 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
         </div>
       </div>
       <div className=' w-3/5'>
-        {spu.skus.map((sku: any, index: number) => (
+        {spu?.skus?.map((sku: any, index: number) => (
           <div className='flex py-1 justify-stretch items-baseline'>{istb(sku)}</div>
         ))}
         {spu.showAll === false && spu.skus?.length > 3 ? (
