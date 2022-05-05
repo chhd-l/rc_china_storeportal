@@ -44,11 +44,11 @@ const Specification = (props: FormProps) => {
   }
 
   return (
-    <div className='overflow-hidden pl-12'>
+    <div className='overflow-hidden pl-32'>
       {specificationList?.map(specification => {
         return (
           <Row key={specification.id} className='w-1/2 float-left ant-form-item'>
-            <Col span={5}>{specification.label}</Col>
+            <Col className='text-right pr-6' span={5}>{specification.label}</Col>
             <Col span={16}>
               <Select
                 className='w-full'

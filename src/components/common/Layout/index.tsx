@@ -15,7 +15,7 @@ const AppLayout = () => {
   const [isOpen, setIsOpen] = useState(true)
 
   useEffect(()=>{
-    if(pathname === '/product/add') {
+    if(pathname.split('/').some((path) => path === 'product') && pathname !== '/product/product-list') {
       setIsOpen(false)
     } else {
       setIsOpen(true)

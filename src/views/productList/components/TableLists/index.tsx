@@ -58,8 +58,8 @@ const ListTable = ({ listData, handlePagination, setListData, pages }: ListTable
 
   return (
     <div>
-      <div>
-        <div className='flex py-3 bg-gray1 border '>
+      <div className='border'>
+        <div className='flex py-3 bg-gray1'>
           <div className='px-2 flex items-center'>
             <Checkbox indeterminate={indeterminate} checked={checkedAll} onChange={handleCheckedAll} />
           </div>

@@ -25,6 +25,7 @@ const ProductList = () => {
     live: '0',
     soldOut: '0',
     disabled: '0',
+    total: 0,
   })
   const [pages, setPages] = useState({
     page: 1,
@@ -79,7 +80,7 @@ const ProductList = () => {
               key={el.name}
             >
               <div className='flex justify-between items-center py-4'>
-                <div>{listData.products.length ? listData.products.length : ''} Products</div>
+                <div><span className='font-semibold'>{listData.total ? listData.total : 0}</span> Products</div>
                 <div className='flex items-center'>
                   <Button type='primary' onClick={()=>{
                       window.open("/product/add")

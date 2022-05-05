@@ -23,8 +23,8 @@ const chooseProductType: OptionsProps[] = [
   { name: 'Other', value: 'OTHER' },
 ]
 const SubscriptionType: OptionsProps[] = [
-  { name: 'True', value: true },
-  { name: 'False', value: false },
+  { name: 'Yes', value: true },
+  { name: 'No', value: false },
 ]
 
 const SearchHeader = ({ getFormData }: SearchProps) => {
@@ -67,14 +67,14 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                 {/* <SelectKey list={nameForKey} /> */}
               </Form.Item>
               <Form.Item name='goodsName' className='flex-1'>
-                <Input placeholder={`please Input goodsName`} />
+                <Input placeholder={`please Input`} />
               </Form.Item>
             </Input.Group>
           </Col>
           <Col span={12}>
             <Form.Item label='Category' name='cateId'>
               <Input
-                placeholder={`please Input category`}
+                placeholder={`Choose category`}
                 suffix={
                   <Tooltip title='Choose Category'>
                     <span className='icon iconfont icon-rc-edit' style={{ color: 'rgba(0,0,0,.45)' }}></span>
@@ -83,15 +83,16 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
               />
             </Form.Item>
           </Col>
-          <Col span={6}>
-            <Form.Item label='stock' name='startStock'>
-              <InputNumber className='w-full' placeholder={`please Input startStock`} />
+          <Col span={5}>
+            <Form.Item label='stock' name='startStock' className='mr-0'>
+              <InputNumber className='w-full' placeholder={`please Input`} />
               {/* <Input type='number' placeholder={`please Input startStock`} /> */}
             </Form.Item>
           </Col>
-          <Col span={6}>
+          <Col className='ml-2 mr-2 flex items-center'> - </Col>
+          <Col span={5}>
             <Form.Item name='endStock'>
-              <InputNumber className='w-full' placeholder={`please Input endStock`} />
+              <InputNumber className='w-full' placeholder={`please Input`} />
               {/* <Input type='number' placeholder={`please Input endStock`} /> */}
             </Form.Item>
           </Col>

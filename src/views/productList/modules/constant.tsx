@@ -108,7 +108,7 @@ export const tableHeaders: TableHeadersItemProps[] = [
     dataIndex: "no",
   },
   {
-    title: "Varitions",
+    title: "Variations",
     dataIndex: "specs",
   },
   {
