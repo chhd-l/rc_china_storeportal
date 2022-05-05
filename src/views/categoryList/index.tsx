@@ -7,7 +7,13 @@ import { EyeOutlined, SyncOutlined } from '@ant-design/icons'
 import ProTable from '@/components/common/ProTable'
 import { columns } from './modules/constant'
 import { useEffect, useState } from 'react'
-import { getShopCategories } from '@/framework/api/get-product'
+import {
+  createShopCategoryGoodsRel,
+  getShopCategories,
+  saveShopCategory,
+  shopCategoryFilterRules,
+  updateShopCategory,
+} from '@/framework/api/get-product'
 // import 'antd/dist/antd.css';
 const ShopCategories = () => {
   const [addVisible, setAddvisible] = useState(false)
@@ -23,6 +29,10 @@ const ShopCategories = () => {
     //     storeId: '12345678',
     //   },
     // })
+    // createShopCategoryGoodsRel([{ shopCategoryId: '8', goodsId: 'ea63d308-f451-9899-47d3-14f4a83ff16b' }])
+    // updateShopCategory({ id: '12316c9e-d151-909b-8256-4cfae4e70213', categoryType: 'RULE_BASED', isDisplay: true })
+    // saveShopCategory({})
+    // shopCategoryFilterRules({ id: '12316c9e-d151-909b-8256-4cfae4e70213' })
   }, [])
   return (
     <div className='shop-categories bg-gray-50 py-14 px-6 text-left'>
