@@ -7,7 +7,7 @@ import { FormProps } from '@/framework/types/common'
 import { ChangeType, SpecificationListProps, VarationProps, VarationsFormProps } from '@/framework/types/product'
 import { headerOrigition } from '../../modules/constant'
 import Upload, { UploadType } from '@/components/common/Upload'
-import { DetailContext } from '../..'
+import { DetailContext } from '../../index'
 import { VerticalAlignBottomOutlined, VerticalAlignTopOutlined } from '@ant-design/icons'
 export interface VarviationProps {
   defaultImage: string
