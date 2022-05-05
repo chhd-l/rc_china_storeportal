@@ -173,3 +173,64 @@ export enum ChangeType {
   // addSpec,
   // drag
 }
+
+export interface shopCateQuery extends PageProps {
+  sample?: GoodsPageSampleInput,
+}
+export interface GoodsPageSampleInput {
+  storeId?: string
+  goodsName?: string
+  cateId?: string
+  type?: string
+  startStock?: number
+  endStock?: number
+  spu?: string
+  sku?: string
+  subscriptionStatus?: boolean
+}
+
+export interface SaveShopCategoryInput {
+  name?: string
+  categoryType?: string
+  isDisplay?: boolean
+  displayName?: string
+  storeId?: string
+  rank?: number
+  cateStatus?: string
+  isDeleted?: Boolean
+}
+
+export interface ShopCategoryFilterRulesInput {
+  id?: string
+  code?: string
+  name?: string
+  description?: string
+  value?: string
+  shopCategoryId?: string
+  storeId?: string
+  isDeleted?: boolean
+}
+
+export interface ShopCategoryUpdateInput {
+  id: string
+  name?: string
+  categoryType: string
+  isDisplay: boolean
+  displayName?: string
+  storeId?: string
+  rank?: number
+  cateStatus?: string
+  isDeleted?: boolean
+}
+
+export interface ShopCategoryGoodsRelInput {
+  goodsId: string
+  shopCategoryId: string
+  storeId?: string
+  createdAt?: string
+  createdBy?: string
+  lastModifiedAt?: string
+  lastModifiedBy?: string
+  isDeleted?: string
+}
+
