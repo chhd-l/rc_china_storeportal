@@ -1,6 +1,6 @@
 import ApiRoot from './fetcher'
 import { CateItemProps, Goods } from '../schema/product.schema'
-import { ProductDetailProps, ProductListProps, ProductListQueryProps, TreeDataProps } from '../types/product'
+import { ProductDetailProps, ProductListProps, ProductListQueryProps, shopCateQuery, TreeDataProps } from '../types/product'
 import { normaliseAttrProps, normaliseCateProps, normaliseDetailforFe, normaliseProductCreatFor, normaliseProductListSpu, normaliseScProductsforFe, normalizeNullDataRemove, normaliseEditPDP } from '../normalize/product'
 import { brandList } from '../mock/brands'
 export const getCategories = async ({ storeId }: { storeId: string }): Promise<CateItemProps[]> => {
@@ -170,6 +170,49 @@ export const getScProducts = async (params: ProductListQueryProps): Promise<any>
   }
 }
 
+export const getShopCategories = async (params: shopCateQuery): Promise<any> => {
+  try {
+    let res = await ApiRoot.products().getShopCategoryList(params)
+    console.info('getShopCategories', res)
+  } catch (e) {
+    console.log(e)
+  }
+}
 
+export const createShopCategoryGoodsRel = async (params: shopCateQuery): Promise<any> => {
+  try {
+    let res = await ApiRoot.products().createShopCategoryGoodsRel(params)
+    console.info('createShopCategoryGoodsRel', res)
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const updateShopCategory = async (params: shopCateQuery): Promise<any> => {
+  try {
+    let res = await ApiRoot.products().updateShopCategory(params)
+    console.info('updateShopCategory', res)
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const shopCategoryFilterRules = async (params: shopCateQuery): Promise<any> => {
+  try {
+    let res = await ApiRoot.products().shopCategoryFilterRules(params)
+    console.info('shopCategoryFilterRules', res)
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const saveShopCategory = async (params: shopCateQuery): Promise<any> => {
+  try {
+    let res = await ApiRoot.products().saveShopCategory(params)
+    console.info('saveShopCategory', res)
+  } catch (e) {
+    console.log(e)
+  }
+}
 
 

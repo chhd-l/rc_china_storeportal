@@ -21,7 +21,7 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
   const istb = (sku: any) => {
     if (!tableHeader.length) return
     console.log('tableHeader', tableHeader)
-    return tableHeader.map((item) => {
+    return tableHeader.map(item => {
       if (item.dataIndex !== 'name') {
         return (
           <div className='flex-1 flex justify-center h-full'>
@@ -53,7 +53,7 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
         </div>
       </div>
       <div className=' w-3/5'>
-        {spu.skus.map((sku: any, index: number) => (
+        {spu?.skus?.map((sku: any, index: number) => (
           <div className='flex py-1 justify-stretch items-baseline'>{istb(sku)}</div>
         ))}
         {spu.showAll === false && spu.skus?.length > 3 ? (
@@ -72,7 +72,7 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
         ) : null}
       </div>
       <div className='w-64 flex justify-center text-12'>
-        <Link to='' className="mr-4">
+        <Link to='' className='mr-4'>
           <span className='icon iconfont icon-preview'></span>
         </Link>
         <Link className='mr-4' to={`/product/${listData[spuIdx]?.id}`}>

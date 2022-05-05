@@ -173,3 +173,18 @@ export enum ChangeType {
   // addSpec,
   // drag
 }
+
+export interface shopCateQuery extends PageProps {
+  sample?: GoodsPageSampleInput,
+}
+export interface GoodsPageSampleInput {
+  storeId?: string
+  goodsName?: string
+  cateId?: string
+  type?: string
+  startStock?: number
+  endStock?: number
+  spu?: string
+  sku?: string
+  subscriptionStatus?: boolean
+}
