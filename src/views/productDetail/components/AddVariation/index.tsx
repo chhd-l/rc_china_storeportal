@@ -230,7 +230,7 @@ const AddVariation = ({}: AddVariationProps) => {
             <Col span={4} className='text-right'>
               variation{variationIdx + 1}:
             </Col>
-            <Col span={16} className='bg-gray-200 pt-6'>
+            <Col span={16} className='pt-6' style={{background:"#f8f8f8"}}>
               <Row>
                 <Col span={4} className='text-right'>
                   Name:
@@ -285,7 +285,7 @@ const AddVariation = ({}: AddVariationProps) => {
       <div className=' flex' style={{ paddingLeft: '60px' }}>
         <div>Variation:</div>
         {variationForm.variationList.length < 2 ? (
-          <Button style={{ width: '440px', marginLeft: '10px' }} type='dashed' onClick={handleAddVariation}>
+          <Button  type='dashed' onClick={handleAddVariation}>
             Add Variation
           </Button>
         ) : null}
