@@ -37,6 +37,15 @@ export interface Carrier {
   packId: string
   company: string
   tradeItem: OrderTradeItem[]
+  deliveries?:Deliveries[]
+}
+
+export interface Deliveries{
+  areaCode?:string
+  areaName?:string
+  context:string
+  status:string
+  time:string
 }
 
 export interface PayInfo {

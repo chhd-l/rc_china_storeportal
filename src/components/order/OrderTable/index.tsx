@@ -79,11 +79,11 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
             <Row className="p-2 flex items-start">
               <Col span={8} className="flex flex-col justify-start">
                 {item.tradeItem.map((product: OrderTradeItem, index: number) => (
-                  <Row className="items-center" key={product.skuId}>
-                    <Col span={8}>
-                      <img src={product.pic} className="w-14 h-14 order-img" alt=''/>
+                  <Row className={`${index!==item.tradeItem.length-1?'mb-2':''} items-start`} key={product.skuId}>
+                    <Col span={6}>
+                      <img src={product.pic} className="w-16 h-16 order-img" alt=''/>
                     </Col>
-                    <Col span={16}>
+                    <Col span={18}>
                       <Row
                         className={`${
                           item.tradeItem.length > 1 && index !== item.tradeItem.length - 1 ? 'border-b pb-2' : ''

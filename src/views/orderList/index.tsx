@@ -1,4 +1,4 @@
-import { Tabs, Pagination, ConfigProvider } from 'antd'
+import { Tabs, Pagination } from 'antd'
 import React, { useEffect, useState } from 'react'
 import OrderTable from '@/components/order/OrderTable'
 import { Order, OrderStatus, OrderSearchParamsProps } from '@/framework/types/order'
@@ -10,7 +10,6 @@ import { getOrderList } from '@/framework/api/get-order'
 import { handleQueryParams } from './modules/handle-query-params'
 import { PageParamsProps } from '@/framework/types/common'
 import { initPageParams } from '@/lib/constants'
-import zhCN from 'antd/lib/locale/zh_CN'
 import './index.less'
 
 const PetOwnerList = () => {
@@ -63,7 +62,7 @@ const PetOwnerList = () => {
       setActiveKey(state?.key || '')
       getOrderLists({ searchParams, pageParams, orderState: state?.key || '', company: carrier })
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname])
 
   const changeTab = (key: any) => {
@@ -112,9 +111,14 @@ const PetOwnerList = () => {
           <OrderTable orderList={orderList} />
         </div>
         <div className="flex flex-row justify-end mt-4">
-          <ConfigProvider locale={zhCN}>
-            <Pagination current={currentPage} total={total} pageSize={pageSize} onChange={changePage} />
-          </ConfigProvider>
+            <Pagination
+              current={currentPage}
+              total={total}
+              pageSize={pageSize}
+              onChange={changePage}
+              showSizeChanger={true}
+              className="rc-pagination"
+            />
         </div>
       </TableContainer>
     </ContentContainer>

@@ -34,18 +34,8 @@ const UploadWrap = (props: UploadWrapProps) => {
   const [loading, setLoading] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewVisible, setPreviewVisible] = useState(false)
-  const [fileList, setFileList] = useState([
-    {
-      uid: '-1',
-      name: '',
-      // status: 'done',
-      url: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
-      thumbUrl: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
-    },
-  ])
-  const [imageUrl, setImageUrl] = useState(
-    'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
-  )
+  const [fileList, setFileList] = useState<any>([])
+  const [imageUrl, setImageUrl] = useState('')
   const uploadProps = {
     name: 'file',
     action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
@@ -95,16 +85,18 @@ const UploadWrap = (props: UploadWrapProps) => {
     setPreviewVisible(true)
   }
   useEffect(() => {
-    let list = props.fileList?.map(url => {
-      return {
-        uid: url.img,
-        name: '',
-        url: url.img,
-        thumbUrl: url.img,
-      }
-    })
+    let list = props.fileList?.[0]
+      ? props.fileList.map(img => {
+          return {
+            uid: img.id,
+            name: 'xx.png',
+            url: img.url,
+            thumbUrl: img.url,
+          }
+        })
+      : []
     if (list) {
-      console.info('.....')
+      console.info('.....fileListfileList', props.fileList, fileList)
       setFileList(list)
     }
   }, [props.fileList])
@@ -134,15 +126,19 @@ const UploadWrap = (props: UploadWrapProps) => {
         <img alt='example' style={{ width: '100%' }} src={previewImage} />
       </Modal>
       {type === UploadType.img ? (
-        <Upload
-          action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
-          listType='picture-card'
-          fileList={fileList}
-          // onPreview={handlePreview}
-          onChange={handleChange}
-        >
-          {fileList.length >= 8 ? null : uploadButton}
-        </Upload>
+        <div>
+          <Upload
+            action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
+            listType='picture-card'
+            fileList={fileList}
+            // onPreview={handlePreview}
+            onChange={handleChange}
+          >
+            {/* {imageUrl ? <img src={imageUrl} alt='avatar' style={{ width: '100%' }} /> : uploadButton} */}
+            {fileList.length > 0 ? null : uploadButton}
+          </Upload>
+          <div className='mb-4 -mt-1 text-center'>{fileList[0]?.name}</div>
+        </div>
       ) : null}
     </div>
   )

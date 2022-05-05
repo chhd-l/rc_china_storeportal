@@ -20,21 +20,41 @@ const BasicInfo = ({ field }: FormProps) => {
   // };
   const { setShowCatePop, detail } = useContext(DetailContext)
   const [editorHtml, setEditorHtml] = useState('')
+  const [initAsserts, setInitAsserts] = useState<any>(Array(9).fill(null))
   const [videoUrl, setvideoUrl] = useState('')
   const handleEditorChange = (html: string) => {
     setEditorHtml(html)
-    console.info('editorHtml', editorHtml)
+    console.info('editorHtml', html)
   }
   const handleImgUrl = (url: string) => {
     setvideoUrl(url)
     console.info('videoUrl', videoUrl)
   }
+  useEffect(() => {
+    if (detail.assets) {
+      let list = initAsserts.map((item: any, index: number) => {
+        return detail.assets[index] || null
+      })
+      console.info('initAsserts', list)
+      setInitAsserts(list)
+    }
+  }, [detail?.assets])
 
   return (
     <div className='basicinfo'>
-      <Form.Item label='Product Image' name='assets'>
-        <div className='text-left'>
-          <Upload handleImgUrl={handleImgUrl} fileList={detail.assets} showUploadList={false} />
+      <Form.Item
+        label='Product Image'
+        labelCol={{
+          span: 5,
+        }}
+        wrapperCol={{
+          span: 19,
+        }}
+      >
+        <div className='text-left  flex flex-wrap'>
+          {initAsserts?.map((img: any) => (
+            <Upload handleImgUrl={handleImgUrl} fileList={[img]} showUploadList={false} />
+          ))}
         </div>
       </Form.Item>
       <Form.Item label='Product Video' name='video'>
