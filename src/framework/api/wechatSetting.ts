@@ -92,3 +92,15 @@ export const modifyAccount = async (queryParams: any) => {
     return []
   }
 }
+
+export const syncFans = async (accountId: string) => {
+  try {
+    let res = await ApiRoot.wechatSettings().syncFans({ accountId: "000001" })
+    const syncSuccess = res?.syncFans
+    console.log('sync fans view data',syncSuccess)
+    return syncSuccess
+  } catch (e) {
+    console.log(e)
+    return []
+  }
+}
