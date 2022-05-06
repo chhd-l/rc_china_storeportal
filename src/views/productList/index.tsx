@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Button, Tabs } from 'antd'
 import { useEffect, useState } from 'react'
 import SearchHeader from './components/SearchHeader'
@@ -9,7 +9,7 @@ import { ContentContainer, TableContainer, DivideArea } from '@/components/ui'
 import { MenuOutlined } from '@ant-design/icons'
 import { getAllProducts, getESProducts, getScProducts } from '@/framework/api/get-product'
 import { ProductListProps } from '@/framework/types/product'
-import { dataSource } from "./modules/mockdata";
+import { dataSource } from './modules/mockdata'
 import Mock from 'mockjs'
 const { TabPane } = Tabs
 
@@ -19,6 +19,7 @@ const ProductList = () => {
   const [activeKey, setActiveKey] = useState<React.Key>(Tab.All)
   const [sample, setSample] = useState({})
   const [toolbarList, setToolbarList] = useState<OptionsProps[]>([])
+  const navigation = useNavigate()
   const [listData, setListData] = useState<ProductListProps>({
     products: [],
     all: '0',
@@ -80,11 +81,19 @@ const ProductList = () => {
               key={el.name}
             >
               <div className='flex justify-between items-center py-4'>
-                <div><span className='font-semibold'>{listData.total ? listData.total : 0}</span> Products</div>
+                <div>
+                  <span className='font-semibold'>{listData.total ? listData.total : 0}</span> Products
+                </div>
                 <div className='flex items-center'>
-                  <Button type='primary' onClick={()=>{
-                      window.open("/product/add")
-                    }}>+ Add a New Product</Button>
+                  <Button
+                    type='primary'
+                    onClick={() => {
+                      // window.open('/product/add')
+                      navigation(`/product/add`)
+                    }}
+                  >
+                    + Add a New Product
+                  </Button>
                   <Button className='mr-4'>Export</Button>
                   {/* <MenuOutlined className=' border border-solid border-gray-300' /> */}
                   <Button className='ml-3' icon={<MenuOutlined style={{ color: '#979797' }} />} />
