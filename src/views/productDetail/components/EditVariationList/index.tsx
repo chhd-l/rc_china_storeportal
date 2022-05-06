@@ -294,6 +294,7 @@ const EditVariationList = (props: FormProps) => {
                               return (
                                 <Input
                                   className='price-input'
+                                  disabled={td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0'}
                                   prefix='￥'
                                   onBlur={e => {
                                     tr[td.keyVal] = e.target.value
@@ -313,6 +314,7 @@ const EditVariationList = (props: FormProps) => {
                                   onChange={(value, option) => {
                                     tr[td.keyVal] = value
                                     updateVations(value, index, td.keyVal, tr)
+                                    setVariationList([...variationList])
                                   }}
                                 ></Select>
                               )
