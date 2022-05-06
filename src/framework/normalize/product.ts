@@ -9,7 +9,7 @@ import { specialCharMap } from '@testing-library/user-event/dist/keyboard'
 import { handleObjDataForEdit } from '@/utils/utils'
 
 export const normaliseDetailforFe = (detail: any) => {
-  let withoutSku = detail.goodsVariants[0]?.withoutSku
+  let withoutSku = detail.goodsVariants[0]?.spuNo
 
   let { variationList, variationLists } = normaliseVariationAndSpecification(detail.goodsSpecifications, detail.goodsVariants)
 
@@ -171,7 +171,7 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     //     ],
     //   },
     // ],
-    goodsVariants: normaliseInputVariationProps(data.goodsVariantsInput, data, beforeData),
+    goodsVariants: data.goodsVariantsInput && normaliseInputVariationProps(data.goodsVariantsInput, data, beforeData),
     goodsAsserts: [
       {
         artworkUrl: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
@@ -371,12 +371,25 @@ export const normaliseInputSpecificationProps = (data: any) => {
   })
 }
 export const normaliseInputAttrProps = (goodsAttributeValueRel: any) => {
-  return goodsAttributeValueRel.filter((item: any) => item.id).map((el: any) => {
-    return {
-      attributeId: el.attributeId,
-      attributeValueId: el.id
-    }
+  let newRel: any = []
+  Object.keys(goodsAttributeValueRel)?.map(el => {
+    goodsAttributeValueRel[el].forEach((rel: any) => {
+      if (rel) {
+        newRel.push({
+          attributeId: el,
+          attributeValueId: rel
+        })
+      }
+    })
   })
+  console.info('newRel', newRel)
+  return newRel
+  // return goodsAttributeValueRel.filter((item: any) => item.id).map((el: any) => {
+  //   return {
+  //     attributeId: el.attributeId,
+  //     attributeValueId: el.id
+  //   }
+  // })
   // return Object.keys(goodsAttributeValueRel)?.map(el => {
   //   let newItem = {
   //     attributeId: el,

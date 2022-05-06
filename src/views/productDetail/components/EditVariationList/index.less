@@ -3,12 +3,37 @@
   height: 500px; /* 设置固定高度 */
 }
 .edit-variation-list {
-  overflow: auto;
-  height: 208px; /* 设置固定高度 */
-  width: 900px;
+  // overflow: auto;
+  // height: 208px; /* 设置固定高度 */
+  // width: 900px;
   .table-warp {
     width: 800px;
     table-layout: fixed;
+  }
+  .ant-input,.ant-input-affix-wrapper{
+    border: 0;
+  }
+  .price-input{
+  .ant-input-prefix{
+    padding-right: 4px;
+    border-right: 1px solid rgb(216,216,216);
+  }
+  }
+  // .edit-variation-table{
+  //   border-left:  1px solid rgb(212,212,212);
+  //   border-right:  1px solid rgb(212,212,212);
+  // }
+  th,tr {
+    tr:first-child{
+      border-right: 0;
+    }
+  }
+  th{
+    border-top: 1px solid rgb(212,212,212);
+  }
+  td,th{
+    border-right: 1px solid rgb(212,212,212);
+    border-bottom: 1px solid rgb(212,212,212);
   }
   .list-header {
     position: sticky;
