@@ -89,16 +89,16 @@ export const menus = [
     key: 'shop',
     icon: <span className='icon iconfont icon-a-bianzu18' />,
     children: [
-      {
-        name: 'Shop Rating',
-        value: 'shop_rating',
-        url: '/shop-rating',
-        key: 'shop_rating',
-      },
+      // {
+      //   name: 'Shop Rating',
+      //   value: 'shop_rating',
+      //   url: '/category/shop-rating',
+      //   key: 'shop_rating',
+      // },
       {
         name: 'Shop Categories',
         value: 'shop_categories',
-        url: '/category-list',
+        url: '/category/category-list',
         key: 'shop_categories',
       },
     ],

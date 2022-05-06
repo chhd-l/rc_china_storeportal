@@ -17,11 +17,12 @@ function App () {
 
   useEffect(() => {
     if (location.pathname === '/') {
-      if (userInfo?.id) {
-        navigate('/shipment-list')  
-      } else {
-        navigate('/login')
-      }
+      navigate('/shipment-list')
+      // if (userInfo?.id) {
+      //   navigate('/shipment-list')  
+      // } else {
+      //   navigate('/login')
+      // }
     }
   }, [location.pathname])
 

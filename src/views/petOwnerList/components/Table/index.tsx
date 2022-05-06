@@ -13,7 +13,7 @@ const Index = ({ petOwnerList }: PetOwnerTableProps) => {
   const columns = [
     {
       width: 200,
-      align: "center",
+      // align: "center",
       title: 'Profile Photo',
       dataIndex: 'image',
       key: 'image',
@@ -21,21 +21,21 @@ const Index = ({ petOwnerList }: PetOwnerTableProps) => {
     },
     {
       width: 200,
-      align: "center",
+      // align: "center",
       title: 'WeChat Name',
       dataIndex: 'nickname',
       key: 'nickname',
     },
     {
       width: 200,
-      align: "center",
+      // align: "center",
       title: 'Phone Number',
       dataIndex: 'phone',
       key: 'phone',
     },
     {
       width: 200,
-      align: "center",
+      // align: "center",
       title: 'Options',
       key: 'Options',
       render: (text: any, record: any) => (

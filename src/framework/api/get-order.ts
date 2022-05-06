@@ -9,7 +9,10 @@ const isMock = false
 export const getOrderList = async (queryOrderListParams: any): Promise<{ total: number; records: any[] }> => {
   try {
     if (isMock) {
-      return Mock.mock(orderListSource('UNPAID')).array
+      return {
+        records: Mock.mock(orderListSource('UNPAID')).array,
+        total: 0
+      }
     } else {
       let expressCompanies = await getExpressCompanyList()
       console.log('query orders view params', queryOrderListParams)

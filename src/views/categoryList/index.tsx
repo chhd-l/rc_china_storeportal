@@ -15,6 +15,7 @@ import {
   updateShopCategory,
 } from '@/framework/api/get-product'
 // import 'antd/dist/antd.css';
+import comingsoon from "../../assets/images/comingsoon.png"
 const ShopCategories = () => {
   const [addVisible, setAddvisible] = useState(false)
   const handleAddCate = (visible: boolean) => {
@@ -38,6 +39,7 @@ const ShopCategories = () => {
     <div className='shop-categories bg-gray-50 py-14 px-6 text-left'>
       <div className='bg-white p-6 '>
         <div className='flex justify-between'>
+          <img src="comingsoon" alt="" />
           <div>My Shop Categories</div>
           <div>
             <Button className=' mr-4' icon={<EyeOutlined />}>
