@@ -34,6 +34,8 @@ const MpQRDetail = lazy(() => import('@/views/mpQRDetail'))
 const QrCodeManageDetail = lazy(() => import('@/views/qrCodeManageDetail'))
 const MenuManageDetail = lazy(() => import('@/views/menuManageDetail'))
 const TemplateMessageDetail = lazy(() => import('@/views/templateMessageDetail'))
+const TagList = lazy(() => import('@/views/tagList'))
+const EditTag = lazy(() => import('@/views/editTag'))
 
 interface RouteObject {
   caseSensitive?: boolean
@@ -72,6 +74,8 @@ let routes: RouteObject[] = [
           { path: 'pet-owner-list', index: true, element: <PetOwnerList />, breadcrumbName: 'PetOwnerList' },
           { path: 'pet-owner-detail', element: <PetOwnerDetail />, breadcrumbName: 'PetOwnerDetail' },
           { path: 'pet-detail', element: <PetDetail />, breadcrumbName: 'petDetail' },
+          { path: 'tag-list', index: true, element: <TagList />, breadcrumbName: 'TagList' },
+          { path: 'edit-tag', element: <EditTag />, breadcrumbName: 'Tagging Details' },
         ],
       },
       {
