@@ -1,8 +1,10 @@
-import { Form, Input, Button, Row, Col, Select, Tooltip, InputNumber } from 'antd'
+import { Form, Input, Button, Row, Col, Select, Tooltip, InputNumber, Modal } from 'antd'
 import { OptionsProps } from '@/framework/types/common'
 import { SearchContainer } from '@/components/ui/Container'
 import './index.less'
 import { useState } from 'react'
+import { CloseCircleOutlined, EditOutlined } from '@ant-design/icons'
+import Cascader from '../Cascader'
 
 const { Option } = Select
 interface SearchProps {
@@ -30,18 +32,33 @@ const SubscriptionType: OptionsProps[] = [
 const SearchHeader = ({ getFormData }: SearchProps) => {
   const [form] = Form.useForm()
   const [typeSelect, setTypeSelect] = useState(typeForKey[0].value)
+  const [selectedCateOptions, setSelectedCateOptions] = useState([])
+  const [selectedOptions, setSelectedOptions] = useState([])
+  const [cateId, setCateId] = useState<any>([])
+  const [showCatePop, setShowCatePop] = useState(false)
   const onFinish = (values: any) => {
     const val = {
+      cateId: cateId[cateId.length - 1]?.value,
       startStock: values.startStock,
       [values.selectName]: values.goodsName,
       [values.type]: values.GoodsType,
       endStock: values.endStock,
-      cateId: values.cateId,
     }
     getFormData(val)
   }
   const onReset = () => {
     form.resetFields()
+  }
+  // const handleCateId = (cateIds: any) => {
+  //   setCateId(cateIds)
+  // }
+  const handleOk = () => {
+    console.info('selectedOptions', selectedOptions)
+    setCateId(selectedOptions)
+    setShowCatePop(false)
+  }
+  const handleCancel = () => {
+    setShowCatePop(false)
   }
   return (
     <SearchContainer className='product-search-top'>
@@ -54,7 +71,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
         }}
       >
         <Row justify='start' gutter={[0, 14]}>
-          <Col span={12}>
+          <Col span={11}>
             <Input.Group compact className='flex'>
               <Form.Item name='selectName' initialValue={nameForKey[0].value}>
                 <Select style={{ width: 140 }} placeholder='Select a option and change input text above'>
@@ -71,16 +88,44 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
               </Form.Item>
             </Input.Group>
           </Col>
-          <Col span={12}>
+          <Col span={11} offset={2}>
             <Form.Item label='Category' name='cateId'>
-              <Input
+              <div className='flex cate-box items-center'>
+                <div className='flex-1 flex'>
+                  {cateId?.length ? (
+                    cateId.map((cate: any, idx: number) => (
+                      <div>
+                        {idx === 0 ? '' : '>'}
+                        {cate.label}
+                      </div>
+                    ))
+                  ) : (
+                    <div style={{ color: 'rgb(217, 217, 217)' }}>Choose Category</div>
+                  )}
+                </div>
+                {cateId?.length ? (
+                  <CloseCircleOutlined
+                    onClick={() => {
+                      setCateId([])
+                    }}
+                  />
+                ) : (
+                  <EditOutlined
+                    className=''
+                    onClick={() => {
+                      setShowCatePop(true)
+                    }}
+                  />
+                )}
+              </div>
+              {/* <Input
                 placeholder={`Choose category`}
                 suffix={
                   <Tooltip title='Choose Category'>
-                    <span className='icon iconfont icon-rc-edit' style={{ color: 'rgba(0,0,0,.45)' }}></span>
+                    <span className='icon iconfont icon-rc-edit'  style={{ color: 'rgba(0,0,0,.45)' }}></span>
                   </Tooltip>
                 }
-              />
+              /> */}
             </Form.Item>
           </Col>
           <Col span={5}>
@@ -89,14 +134,17 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
               {/* <Input type='number' placeholder={`please Input startStock`} /> */}
             </Form.Item>
           </Col>
-          <Col className='ml-2 mr-2 flex items-center'> - </Col>
+          <Col span={1} className=' flex items-center justify-center'>
+            {' '}
+            -{' '}
+          </Col>
           <Col span={5}>
             <Form.Item name='endStock'>
               <InputNumber className='w-full' placeholder={`please Input`} />
               {/* <Input type='number' placeholder={`please Input endStock`} /> */}
             </Form.Item>
           </Col>
-          <Col span={12}>
+          <Col span={11} offset={2}>
             <Input.Group compact className='flex'>
               <Form.Item name='type' initialValue={typeForKey[0].value}>
                 <Select
@@ -132,9 +180,9 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
               </Form.Item>
             </Input.Group>
           </Col>
-          <Col span={12} offset={12} className='text-right ml-0'>
+          <Col span={11} offset={11} className='text-right ml-0'>
             <Form.Item>
-              <Button htmlType="submit" type="primary" className="mr-4">
+              <Button htmlType='submit' type='primary' className='mr-4'>
                 Search
               </Button>
               <Button onClick={onReset}>Reset</Button>
@@ -142,6 +190,19 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
           </Col>
         </Row>
       </Form>
+      {showCatePop ? (
+        <Modal
+          title='Select Category'
+          width='57rem'
+          okText='Comfirm'
+          cancelText='Cancel'
+          visible={true}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          <Cascader cateId={cateId} handleCateId={setSelectedOptions} />
+        </Modal>
+      ) : null}
     </SearchContainer>
   )
 }
