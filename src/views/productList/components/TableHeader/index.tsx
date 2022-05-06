@@ -4,7 +4,7 @@ import { cloneDeep } from 'lodash'
 import './index.less'
 export type TableHeaderProps = {
   tableHeader: TableHeadersItemProps[]
-  setListData: Function
+  getList: Function
   setTableHeader: (header: TableHeadersItemProps[]) => void
 }
 const TableHeader = ({ tableHeader, setTableHeader }: TableHeaderProps) => {

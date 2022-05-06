@@ -84,15 +84,15 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
             </Form.Item>
           </Col>
           <Col span={5}>
-            <Form.Item label='stock' name='startStock' className='mr-0'>
-              <InputNumber className='w-full' placeholder={`please Input`} />
+            <Form.Item label='Stock' name='startStock' className='mr-0'>
+              <InputNumber min={0} className='w-full' placeholder={`please Input`} />
               {/* <Input type='number' placeholder={`please Input startStock`} /> */}
             </Form.Item>
           </Col>
           <Col className='ml-2 mr-2 flex items-center'> - </Col>
           <Col span={5}>
             <Form.Item name='endStock'>
-              <InputNumber className='w-full' placeholder={`please Input`} />
+              <InputNumber min={0} className='w-full' placeholder={`please Input`} />
               {/* <Input type='number' placeholder={`please Input endStock`} /> */}
             </Form.Item>
           </Col>

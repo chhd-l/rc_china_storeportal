@@ -7,9 +7,9 @@ import './index.less'
 export type Props = {
   children: ReactElement
   list: ProductListItemProps[]
-  setListData: Function
+  getList: Function
 }
-const TableFooter: FC<Props> = ({ children, list, setListData }) => {
+const TableFooter: FC<Props> = ({ children, list, getList }) => {
   const [checkedAll, setCheckedAll] = useState(0)
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const TableFooter: FC<Props> = ({ children, list, setListData }) => {
   }, [list])
 
   return (
-    <div className='table-footer flex justify-between items-center py-4 fixed bottom-2 right-10 w-4/5'>
+    <div className='table-footer flex justify-between items-center fixed bottom-2'>
       <div>{children}</div>
       <div>
         <span className='mr-4'>{list.filter(el => el.checked)?.length || 0} products selected</span>
@@ -42,16 +42,7 @@ const TableFooter: FC<Props> = ({ children, list, setListData }) => {
             }
             deleteProducts({ goodsId })
             // listData[spuIdx].shelvesStatus = !shelvesStatus
-            // setList(cloneDeep(listData))
-            let res = await getScProducts({
-              limit: 10,
-              sample: {},
-              isNeedTotal: true,
-              operator: 'sss',
-              offset: 0,
-            })
-            console.info('resgetScproducts', res)
-            setListData(cloneDeep(res))
+            getList()
           }}
         >
           Delete
@@ -68,15 +59,7 @@ const TableFooter: FC<Props> = ({ children, list, setListData }) => {
                 switchShelves({ goodsId, status: false })
                 // listData[spuIdx].shelvesStatus = !shelvesStatus
                 // setList(cloneDeep(listData))
-                let res = await getScProducts({
-                  limit: 10,
-                  sample: {},
-                  isNeedTotal: true,
-                  operator: 'sss',
-                  offset: 0,
-                })
-                console.info('resgetScproducts', res)
-                setListData(cloneDeep(res))
+                getList()
               }}
             >
               Delist
@@ -96,15 +79,7 @@ const TableFooter: FC<Props> = ({ children, list, setListData }) => {
                 switchShelves({ goodsId, status: true })
                 // listData[spuIdx].shelvesStatus = !shelvesStatus
                 // setList(cloneDeep(listData))
-                let res = await getScProducts({
-                  limit: 10,
-                  sample: {},
-                  isNeedTotal: true,
-                  operator: 'sss',
-                  offset: 0,
-                })
-                console.info('resgetScproducts', res)
-                setListData(cloneDeep(res))
+                getList()
               }}
             >
               Publish

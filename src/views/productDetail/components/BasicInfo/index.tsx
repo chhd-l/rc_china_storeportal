@@ -111,7 +111,8 @@ const BasicInfo = ({ field }: FormProps) => {
       <Form.Item label='Brand' name='brandId'>
         <Select placeholder='please select Brand' options={breedList} />
       </Form.Item>
-      <Form.Item label='Sales Status' name='salesStatus' required>
+      <Form.Item label='Sales Status' name='salesStatus' 
+        rules={[{ required: true, message: 'please select Sales Status' }]}>
         <Select placeholder='please select Sales Status' options={salesStatusList} />
       </Form.Item>
     </div> : null
