@@ -47,7 +47,7 @@ const Index = ({ accountList }: { accountList: Account[] }) => {
           </Tooltip>
           <Tooltip title="Delete">
             <span
-              className="cursor-pointer ml-2 iconfont icon-Frame3 text-red-500 text-xl"
+              className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl"
               onClick={() => { }}
             />
           </Tooltip>

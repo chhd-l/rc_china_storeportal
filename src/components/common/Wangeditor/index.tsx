@@ -34,7 +34,10 @@ const MyEditor: FC<EditorProps> = ({ defaultValue = '', onChange }) => {
     }
   }
   useEffect(() => {
-    setHtml(defaultValue)
+    if (defaultValue) {
+      console.info('goodsDescriptiondefaultValue======', defaultValue)
+      setHtml(`<p>${defaultValue}</p>`) //不知道为啥加了标签就可以反显，不加就不行
+    }
   }, [defaultValue])
 
   // 及时销毁 editor
@@ -51,7 +54,7 @@ const MyEditor: FC<EditorProps> = ({ defaultValue = '', onChange }) => {
       setEditor(null)
     }
   }, [editor])
-
+  console.info('htmlhtmlhtml', html)
   return (
     <>
       <div style={{ border: '1px solid #ccc', zIndex: 100, marginTop: '15px' }}>

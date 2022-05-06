@@ -117,17 +117,17 @@ export const getESProducts = async (params: any): Promise<any> => {
 }
 
 export const getProductDetail = async ({ storeId, goodsId }: { storeId: string, goodsId: string }) => {
-
+  let info: any = {}
   try {
     const { productDetail } = await ApiRoot.products().getProductDetail({ storeId, goodsId })
     const { listAttributeGet, listCategoryGet, findGoodsByGoodsId } = productDetail
     let detail = Object.assign({}, findGoodsByGoodsId, { listAttributeGet, listCategoryGet })
-    let info = normaliseDetailforFe(detail)
+    info = normaliseDetailforFe(detail)
     // debugger
     return { afterData: info, beforeData: findGoodsByGoodsId }
   } catch (e) {
     console.log(e)
-    return { afterData: {}, beforeData: {} }
+    return { afterData: info, beforeData: {} }
   }
 }
 export const deleteProducts = async ({ goodsId }: { goodsId: string[] }) => {

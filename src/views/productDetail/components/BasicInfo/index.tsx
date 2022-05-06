@@ -43,14 +43,13 @@ const BasicInfo = ({ field }: FormProps) => {
     }
   }, [detail?.assets])
 
-  useEffect(()=>{
+  useEffect(() => {
     form.setFieldsValue({
-      name: ProductName
+      name: ProductName,
     })
   }, [ProductName])
 
-  return (
-    ProductName ? 
+  return ProductName ? (
     <div className='basicinfo'>
       <Form.Item
         label='Product Image'
@@ -75,7 +74,12 @@ const BasicInfo = ({ field }: FormProps) => {
       <Form.Item label='SPU' name='spuNo' rules={[{ required: true, message: 'Missing SPU' }]}>
         <Input />
       </Form.Item>
-      <Form.Item label='Product Name' name='name' initialValue={ProductName} rules={[{ required: true, message: 'Missing Product Name' }]}>
+      <Form.Item
+        label='Product Name'
+        name='name'
+        initialValue={ProductName}
+        rules={[{ required: true, message: 'Missing Product Name' }]}
+      >
         <Input showCount maxLength={120} />
       </Form.Item>
 
@@ -115,8 +119,8 @@ const BasicInfo = ({ field }: FormProps) => {
         rules={[{ required: true, message: 'please select Sales Status' }]}>
         <Select placeholder='please select Sales Status' options={salesStatusList} />
       </Form.Item>
-    </div> : null
-  )
+    </div>
+  ) : null
 }
 
 export default BasicInfo

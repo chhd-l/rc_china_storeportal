@@ -34,7 +34,7 @@ const column = [
         </Tooltip>
         <Tooltip title="Delete">
           <span
-            className="cursor-pointer iconfont icon-Frame3 text-red-500 ml-2"
+            className="cursor-pointer iconfont icon-delete text-red-500 ml-2"
             onClick={() => { }}
           />
         </Tooltip>

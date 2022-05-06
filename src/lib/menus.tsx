@@ -80,6 +80,12 @@ export const menus = [
         url: '/petOwner/pet-owner-list',
         key: 'my_pet_owner',
       },
+      {
+        name: 'Tagging Setting',
+        value: 'tagging_setting',
+        url: '/petOwner/tag-list',
+        key: 'tagging_setting',
+      },
     ],
   },
   {
@@ -98,7 +104,7 @@ export const menus = [
       {
         name: 'Shop Categories',
         value: 'shop_categories',
-        url: '/category-list',
+        url: '/category/category-list',
         key: 'shop_categories',
       },
     ],
