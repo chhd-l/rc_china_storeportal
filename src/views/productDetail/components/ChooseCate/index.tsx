@@ -8,6 +8,7 @@ interface ChooseCateProps {
   handleCate: Function
   setShowCatePop: Function
   detail: any
+  setProductName: Function
 }
 
 const formItemLayout = {
@@ -15,7 +16,7 @@ const formItemLayout = {
   wrapperCol: { span: 14 },
 };
 
-const ChooseCate = ({ handleCate, setShowCatePop, detail }: ChooseCateProps) => {
+const ChooseCate = ({ handleCate, setShowCatePop, detail, setProductName }: ChooseCateProps) => {
   // const onFinish = (values: any) => {
   //   console.log(values);
   // };
@@ -52,7 +53,7 @@ const ChooseCate = ({ handleCate, setShowCatePop, detail }: ChooseCateProps) => 
               // console.log(values)
             }}
             onFinish={async value => {
-              console.info('....vlaue', value)
+              setProductName(value.name || '')
               setShowCatePop(false)
               handleCate(value)
             }}

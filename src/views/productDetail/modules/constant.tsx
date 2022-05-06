@@ -199,7 +199,7 @@ export const headerOrigition = [
     ],
   },
   { label: 'List Price', type: 'priceInput', keyVal: 'listPrice' },
-  { label: 'marketing Price', type: 'priceInput', keyVal: 'marketingPrice' },
+  { label: 'Marketing Price', type: 'priceInput', keyVal: 'marketingPrice' },
   { label: 'Subscription Price', type: 'priceInput', keyVal: 'subscriptionPrice' },
   { label: 'Stock', type: 'number', keyVal: 'stock' },
   { label: 'Feeding Days', type: 'number', keyVal: 'feedingDays' },

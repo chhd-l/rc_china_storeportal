@@ -20,11 +20,10 @@ interface TableRowProps {
 const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList, setListData }: TableRowProps) => {
   const istb = (sku: any) => {
     if (!tableHeader.length) return
-    console.log('tableHeader', tableHeader)
-    return tableHeader.map(item => {
+    return tableHeader.map((item) => {
       if (item.dataIndex !== 'name') {
         return (
-          <div className='flex-1 flex justify-center h-full'>
+          <div className='flex-1 flex h-full'>
             {item.dataIndex === 'price' ? <span className='font-extralight'>￥</span> : ''}
             {sku[item.dataIndex]}
           </div>
@@ -71,8 +70,8 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
           </ShowMoreButton>
         ) : null}
       </div>
-      <div className='w-64 flex justify-center text-12'>
-        <Link to='' className='mr-4'>
+      <div className='w-64 flex text-12'>
+        <Link to='' className="mr-4">
           <span className='icon iconfont icon-preview'></span>
         </Link>
         <Link className='mr-4' to={`/product/${listData[spuIdx]?.id}`}>

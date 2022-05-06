@@ -1,10 +1,12 @@
 import Upload from '@/components/common/Upload'
 import Wangeditor from '@/components/common/Wangeditor'
 import { Form, Input, Select } from 'antd'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { DetailContext } from '../../index'
 import { FormProps } from '@/framework/types/common'
 import { EditOutlined } from '@ant-design/icons'
+import ProForm from '@ant-design/pro-form'
+import { useForm } from 'antd/lib/form/Form'
 const breedList = [
   { name: 'B1', value: 'B1', label: 'Royal Canin' },
   { name: 'B2', value: 'B2', label: 'Royal Canin Sub' },
@@ -18,7 +20,8 @@ const BasicInfo = ({ field }: FormProps) => {
   // const onFinish = (values: any) => {
   //   console.log(values);
   // };
-  const { setShowCatePop, detail } = useContext(DetailContext)
+  const { setShowCatePop, detail, ProductName } = useContext(DetailContext)
+  const [form] = Form.useForm()
   const [editorHtml, setEditorHtml] = useState('')
   const [initAsserts, setInitAsserts] = useState<any>(Array(9).fill(null))
   const [videoUrl, setvideoUrl] = useState('')
@@ -40,7 +43,14 @@ const BasicInfo = ({ field }: FormProps) => {
     }
   }, [detail?.assets])
 
+  useEffect(()=>{
+    form.setFieldsValue({
+      name: ProductName
+    })
+  }, [ProductName])
+
   return (
+    ProductName ? 
     <div className='basicinfo'>
       <Form.Item
         label='Product Image'
@@ -119,7 +129,7 @@ const BasicInfo = ({ field }: FormProps) => {
       <Form.Item label='Sales Status' name='salesStatus' labelCol={{ span: 4 }} rules={[{ required: true }]}>
         <Select placeholder='please select Sales Status' options={salesStatusList} style={{ width: 195 }} />
       </Form.Item>
-    </div>
+    </div> : null
   )
 }
 
