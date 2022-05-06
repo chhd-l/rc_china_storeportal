@@ -75,7 +75,7 @@ const AddVariation = ({}: AddVariationProps) => {
       }
       return (
         <Row className={classNames('pt-3', specification.isDeleted ? 'hidden' : '')}>
-          <Col span={4} className='text-right'>
+          <Col span={4} className='text-right  mr-2'>
             Option:
           </Col>
           <Col span={15}>
@@ -129,7 +129,7 @@ const AddVariation = ({}: AddVariationProps) => {
         variationData[variationIdx].id = variationForm.variationList[variationIdx].id
         variationData[variationIdx].goodsSpecificationDetail[specificationIdx].id =
           variationForm.variationList[variationIdx].specificationList[specificationIdx].id
-        variationData[variationIdx].goodsSpecificationDetail[specificationIdx].isDelete = true
+        variationData[variationIdx].goodsSpecificationDetail[specificationIdx].isDeleted = true
       } else {
         variationData[variationIdx].goodsSpecificationDetail.splice(variationIdx, 1)
       }
@@ -227,12 +227,13 @@ const AddVariation = ({}: AddVariationProps) => {
             key={`variationIdx-${variationIdx}`}
             className={classNames('pt-6 relative', variation.isDeleted ? 'hidden' : '')}
           >
-            <Col span={4} className='text-right'>
-              variation{variationIdx + 1}:
+            <Col span={4} className='text-right pr-2'>
+              variation{variationIdx + 1}
+              {` :`}
             </Col>
-            <Col span={16} className='bg-gray-200 pt-6'>
+            <Col span={16} className='bg-gray-primary pt-6'>
               <Row>
-                <Col span={4} className='text-right'>
+                <Col span={4} className='text-right  mr-2'>
                   Name:
                 </Col>
                 <Col span={15}>
@@ -262,7 +263,7 @@ const AddVariation = ({}: AddVariationProps) => {
               <Row className='py-3'>
                 <Col span={15} offset={4}>
                   <Button
-                    className='w-full'
+                    className='w-full ml-2'
                     onClick={() => {
                       handleAddSpecification(variationIdx)
                     }}
@@ -282,14 +283,34 @@ const AddVariation = ({}: AddVariationProps) => {
         ))}
       </SortContainer>
 
-      <div className=' flex' style={{ paddingLeft: '60px' }}>
-        <div>Variation:</div>
+      {/* <div className=' flex' style={{ paddingLeft: '60px' }}>
+        <div>Variation{variationForm.variationList.length + 1}:</div>
         {variationForm.variationList.length < 2 ? (
           <Button style={{ width: '440px', marginLeft: '10px' }} type='dashed' onClick={handleAddVariation}>
             Add Variation
           </Button>
         ) : null}
-      </div>
+      </div> */}
+      {variationForm.variationList.filter((el: any) => el.isDeleted).length < 2 ? (
+        <Row className=' py-4'>
+          <Col span={4} className='text-right pr-2'>
+            Variation
+            {variationForm.variationList.filter((el: any) => el.isDeleted).length
+              ? variationForm.variationList.length + 1
+              : ''}
+            {` :`}
+          </Col>
+          <Col span={16}>
+            {/* <Row>
+            <Col> */}
+            <Button type='dashed' className='w-full' onClick={handleAddVariation}>
+              Add Variation
+            </Button>
+            {/* </Col>
+          </Row> */}
+          </Col>
+        </Row>
+      ) : null}
     </div>
   )
 }

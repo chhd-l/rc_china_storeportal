@@ -104,7 +104,7 @@ export const menus = [
       {
         name: 'Shop Categories',
         value: 'shop_categories',
-        url: '/category-list',
+        url: '/category/category-list',
         key: 'shop_categories',
       },
     ],
