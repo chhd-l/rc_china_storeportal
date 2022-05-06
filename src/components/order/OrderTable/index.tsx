@@ -53,13 +53,13 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
             ))}
           </Select>
         </Col>
-        <Col span={2} className="text-center">
+        <Col span={2} className="text-left">
           Actions
         </Col>
       </Row>
       {orderList.length > 0 ? (
         orderList.map((item: Order) => (
-          <div className="border mt-2" key={item.id}>
+          <div className="border mt-4" key={item.id}>
             <Row className="bg-gray1 border-b py-2 px-4">
               <Col span={12} className="flex items-center">
                 <Avatar icon={<img src={item.buyer.image} alt={''} />} />
@@ -81,13 +81,13 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
             <Row className="p-2 flex items-start">
               <Col span={8} className="flex flex-col justify-start">
                 {item.tradeItem.map((product: OrderTradeItem, index: number) => (
-                  <Row className={`${index !== item.tradeItem.length - 1 ? 'mb-2' : ''} items-start`} key={product.skuId}>
+                  <Row className={`${index !== item.tradeItem.length - 1 ? 'border-b mb-2 pb-2' : ''} items-start`} key={product.skuId}>
                     <Col span={6}>
                       <img src={product.pic} className="w-16 h-16 order-img" alt='' />
                     </Col>
                     <Col span={18}>
                       <Row
-                        className={`${item.tradeItem.length > 1 && index !== item.tradeItem.length - 1 ? 'border-b pb-2' : ''
+                        className={`${item.tradeItem.length > 1 && index !== item.tradeItem.length - 1 ? ' pb-2' : ''
                           }`}
                       >
                         <Col span={20}>
@@ -107,7 +107,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
                 <div>
                   {formatMoney(item.tradePrice.totalPrice)}
                   <br />
-                  <span className="text-gray-400">{item?.payInfo?.payTypeName}</span>
+                  <span className="text-gray-400 ">{item?.payInfo?.payTypeName}</span>
                 </div>
               </Col>
               <Col span={4} className="text-right pr-8">
@@ -116,7 +116,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
               <Col span={6} className="text-center">
                 {item.carrierType}
               </Col>
-              <Col span={2} className="text-center">
+              <Col span={2} className="text-center ">
                 <OrderActions
                   orderState={item.tradeState.orderState}
                   orderId={item.id}
