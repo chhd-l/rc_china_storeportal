@@ -8,6 +8,7 @@ export enum UploadType {
   img = 'IMG',
 }
 interface UploadWrapProps {
+  className?: string
   showUploadList?: boolean
   handleImgUrl: Function
   type?: UploadType
@@ -101,7 +102,7 @@ const UploadWrap = (props: UploadWrapProps) => {
   }, [props.fileList])
 
   return (
-    <div>
+    <div className={props.className}>
       {type === UploadType.button ? (
         <Upload
           action='https://www.mocky.io/v2/5cc8019d300000980a055e76'

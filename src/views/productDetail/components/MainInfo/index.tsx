@@ -1,6 +1,6 @@
 import './index.less'
 import { Anchor } from 'antd'
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom'
 import { Form, Space, Button } from 'antd'
 import { FC, useContext, useEffect, useState } from 'react'
 import { steps } from '../../modules/constant'
@@ -20,15 +20,30 @@ interface MainInfoProps {
 const { Link } = Anchor
 let shelvesStatus = true
 const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeData }) => {
-  const { pathname } = useLocation();
+  const { pathname } = useLocation()
   const [form] = Form.useForm()
   const [tipsIdx, setTipsIdx] = useState(0)
   const { detail } = useContext(DetailContext)
   const navigator = useNavigate()
-
+  const [dataTips, setDataTips] = useState('')
   const hanldeTips = (idx: number) => {
     setTipsIdx(idx)
   }
+
+  useEffect(() => {
+    document.addEventListener(
+      'click',
+      e => {
+        console.info('data-tips', e)
+        // @ts-ignore
+        let str = e?.target?.closest('.tips-wrap').dataset?.tips || ''
+        if (str) {
+          setDataTips(str)
+        }
+      },
+      false,
+    )
+  }, [])
   // useEffect(()=>{
 
   // },detail.name)
@@ -63,14 +78,12 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     console.info('data', data)
     navigator('/product/product-list')
   }
-  useEffect(()=>{
-    console.log('form.122',beforeData.shelvesStatus)
+  useEffect(() => {
+    console.log('form.122', beforeData.shelvesStatus)
   }, [])
 
   return (
-    <div
-      id={steps[0].anchor}
-    >
+    <div id={steps[0].anchor}>
       <div className='flex-1 mr-48 MainInfo'>
         <Form
           form={form}
@@ -125,47 +138,41 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
               >
                 Cancel
               </Button>
-              {
-                beforeData.shelvesStatus &&  pathname !== '/product/add' ? (
-                  <Button
-                    className='ml-4'
-                    onClick={() => {
-                      shelvesStatus = false
-                      form.submit()
-                    }}
-                  >
-                    { pathname === '/product/add' ? 'Save and Delish' : 'Delish' }
-                  </Button>
-                ) : null
-              }
-              {
-                !beforeData.shelvesStatus &&  pathname !== '/product/add' ? (
-                  <Button
-                    className='ml-4'
-                    type='primary'
-                    onClick={() => {
-                      shelvesStatus = true
-                      form.submit()
-                    }}
-                  >
-                    { pathname === '/product/add' ? 'Save and Publish' : 'Publish' }
-                  </Button>
-                ) : null
-              }
-              {
-                pathname !== '/product/add' ? (
-                  <Button
-                    className='ml-4'
-                    type='primary'
-                    onClick={() => {
-                      shelvesStatus = true
-                      form.submit()
-                    }}
-                  >
-                    Update
-                  </Button>
-                ) : null
-              }
+              {beforeData.shelvesStatus && pathname !== '/product/add' ? (
+                <Button
+                  className='ml-4'
+                  onClick={() => {
+                    shelvesStatus = false
+                    form.submit()
+                  }}
+                >
+                  {pathname === '/product/add' ? 'Save and Delish' : 'Delish'}
+                </Button>
+              ) : null}
+              {!beforeData.shelvesStatus && pathname !== '/product/add' ? (
+                <Button
+                  className='ml-4'
+                  type='primary'
+                  onClick={() => {
+                    shelvesStatus = true
+                    form.submit()
+                  }}
+                >
+                  {pathname === '/product/add' ? 'Save and Publish' : 'Publish'}
+                </Button>
+              ) : null}
+              {pathname !== '/product/add' ? (
+                <Button
+                  className='ml-4'
+                  type='primary'
+                  onClick={() => {
+                    shelvesStatus = true
+                    form.submit()
+                  }}
+                >
+                  Update
+                </Button>
+              ) : null}
             </div>
           </div>
         </Form>
@@ -178,7 +185,8 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
         </Anchor>
         <div className='mt-4 bg-yellow-100 text-yellow-700 px-2 py-4'>
           <div className='font-bold '>Tips</div>
-          <div>{steps[tipsIdx].tips}</div>
+          <br />
+          <div dangerouslySetInnerHTML={{ __html: dataTips }}></div>
         </div>
       </div>
     </div>

@@ -56,6 +56,8 @@ const BasicInfo = ({ field }: FormProps) => {
         labelCol={{
           span: 2,
         }}
+        className='tips-wrap'
+        data-tips={`Product Image:<p>Cover photo should have 1. white background & 2. present obvious product packaging</p><p>Every photos should have fine resolution - pixel doesn't appear breaking when zooming in<p>Product image can add up to 9 photos</p>`}
         wrapperCol={{
           span: 22,
         }}
@@ -66,38 +68,70 @@ const BasicInfo = ({ field }: FormProps) => {
           ))}
         </div>
       </Form.Item>
-      <Form.Item label='Product Video' labelCol={{
-        span: 2,
-      }}
+      <Form.Item
+        label='Product Video'
+        labelCol={{
+          span: 2,
+        }}
         wrapperCol={{
           span: 22,
-        }} name='video'>
+        }}
+        name='video'
+      >
         <div className='text-left pl-6'>
           <Upload handleImgUrl={handleImgUrl} showUploadList={false} />
         </div>
       </Form.Item>
-      <Form.Item label='SPU' name='spuNo' rules={[{ required: true, message: 'Missing SPU' }]} labelCol={{ span: 2 }} >
+      <Form.Item
+        label='SPU'
+        className='tips-wrap'
+        data-tips='SPU:<p>SPU should be unique and conform to coding rules.</p>'
+        name='spuNo'
+        rules={[{ required: true, message: 'Missing SPU' }]}
+        labelCol={{ span: 2 }}
+      >
         <div className='text-left pl-6'>
           <Input />
         </div>
       </Form.Item>
-      <Form.Item label='Product Name' name='name' rules={[{ required: true, message: 'Missing Product Name' }]} labelCol={{ span: 2 }}>
+      <Form.Item
+        label='Product Name'
+        name='name'
+        className='tips-wrap'
+        data-tips={`Product Name:<p>Briefly summarize the product</p>`}
+        rules={[{ required: true, message: 'Missing Product Name' }]}
+        labelCol={{ span: 2 }}
+      >
         <div className='text-left pl-6'>
-          <Input showCount maxLength={120} />
+          <Input data-tips='test' showCount maxLength={120} />
         </div>
       </Form.Item>
 
-      <Form.Item label='Product Card Name' name='cardName' labelCol={{ span: 2 }}>
-        <div className='text-left pl-6'>
+      <Form.Item label='Product Card Name' className='tips-wrap' name='cardName' labelCol={{ span: 2 }}>
+        <div
+          className='text-left pl-6 tips-wrap'
+          data-tips={`Product Card Name:<p>Product Card Name should be set as the display name in the product list</p>`}
+        >
           <Input showCount maxLength={120} />
         </div>
       </Form.Item>
       <Form.Item
         label='Product Description'
         name='goodsDescription'
+        className='tips-wrap'
+        data-tips={`Product Description:
+        Should consist of<br/>
+        1. Brand<br/>
+        2. Weight<br/>
+        3. Benefits<br/>
+        4. Feeding advice<br/>
+        5. Products Recommended<br/>
+        6. Product guarantee"<br/>
+        `}
         // initialValue={detail.goodsDescription}
         rules={[{ required: true, message: 'Missing Product Description' }]}
-        labelCol={{ span: 2 }}>
+        labelCol={{ span: 2 }}
+      >
         <div className='text-left pl-6'>
           <Wangeditor defaultValue={detail.goodsDescription} onChange={handleEditorChange} />
         </div>
@@ -110,7 +144,7 @@ const BasicInfo = ({ field }: FormProps) => {
               {cate.label}
             </div>
           ))}
-          <div className="text-left ml-6">
+          <div className='text-left ml-6'>
             <EditOutlined
               onClick={() => {
                 setShowCatePop(true)
@@ -125,7 +159,17 @@ const BasicInfo = ({ field }: FormProps) => {
       <Form.Item label='Brand' name='brandId' labelCol={{ span: 4 }} rules={[{ required: true }]}>
         <Select placeholder='please select Brand' options={breedList} style={{ width: 195 }} />
       </Form.Item>
-      <Form.Item label='Sales Status' name='salesStatus' labelCol={{ span: 4 }} rules={[{ required: true }]}>
+      <Form.Item
+        label='Sales Status'
+        className='tips-wrap'
+        data-tips={`Sales Status:
+<p>Products that need to be displayed and sold in the store should be set to Y</p>
+<p>Products that are not displayed and sold in the mall should be set to N</p>
+`}
+        name='salesStatus'
+        labelCol={{ span: 4 }}
+        rules={[{ required: true }]}
+      >
         <Select placeholder='please select Sales Status' options={salesStatusList} style={{ width: 195 }} />
       </Form.Item>
     </div>
