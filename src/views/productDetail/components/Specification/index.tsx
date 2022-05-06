@@ -12,24 +12,31 @@ import { GoodsAttributeAndValue } from '@/framework/schema/product.schema'
 const Specification = (props: FormProps) => {
   const { detail } = useContext(DetailContext)
   const [specificationList, setSpecificationList] = useState<AttributeListProps[]>([])
+  const [goodsAttributeValueRel, setGoodsAttributeValueRel] = useState<any>({})
   useEffect(() => {
     console.info('......................', detail.cateId)
-    getAttrList()
+    if (detail.cateId?.length) {
+      getAttrList()
+    }
   }, [detail.cateId])
   // useEffect(() => {
-  //   console.info('.=====================...........', detail.cateId)
-
-  //   getAttrList()
+  //   //to do
+  //   let list = detail.attributeList?.map((item: any) => {
+  //     item.className = 'w-1/2'
+  //     item.type = 'select'
+  //     return item
+  //   })
+  //   setSpecificationList(list)
   // }, [])
   const getAttrList = async () => {
-    let data = await getAttrs()
+    let categoryId = detail.cateId[detail.cateId.length - 1]
+    console.info('categoryId', categoryId)
+    let data = await getAttrs({ storeId: '12345678', categoryId })
     let list = data.map((item: any) => {
       item.className = 'w-1/2'
       item.type = 'select'
-      item.defaultVal = detail?.goodsAttributeValueRel.find((el: GoodsAttributeAndValue) => {
-        console.info('el', el)
-        console.info('item', item)
-        return el.attributeValueId === item.id
+      item.defaultVal = detail?.goodsAttributeValueRel?.find((el: GoodsAttributeAndValue) => {
+        return el.attributeId === item.id
       })?.attributeValueName
       return item
     })
@@ -37,25 +44,30 @@ const Specification = (props: FormProps) => {
     console.info('datagetAttrs', list)
     setSpecificationList(list)
   }
-  const handleChange = (value: any) => {
-    console.info(',,,,', value)
-  }
+
   return (
     <div className='overflow-hidden'>
-      {specificationList.map(specification => {
+      {specificationList?.map(specification => {
         return (
-          <Row className='w-1/2 float-left ant-form-item'>
+          <Row key={specification.id} className='w-1/2 float-left ant-form-item'>
             <Col span={5}>{specification.label}</Col>
             <Col span={16}>
               <Select
                 className='w-full'
                 labelInValue
-                defaultValue={{
-                  value: specification.defaultVal,
-                }}
+                mode='multiple'
+                allowClear
+                // defaultValue={['064fe462-a0ac-8f05-a800-8e927781', '4b1c30f4-c38c-b789-92c4-c0790cd1']}
+                defaultValue={specification.defaultVal}
+                placeholder={`please select`}
                 style={{ width: 120 }}
                 options={specification.options}
-                onChange={handleChange}
+                onChange={(value, option) => {
+                  console.info('value, option', value, option)
+                  console.info(option)
+                  detail.goodsAttributeValueRelInput = option
+                  setGoodsAttributeValueRel(option)
+                }}
               ></Select>
             </Col>
           </Row>

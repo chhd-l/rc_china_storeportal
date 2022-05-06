@@ -15,7 +15,7 @@ export interface PetOwner {
 export interface Customer {
   id: string;
   image?: string;
-  name: string;
+  name?: string;
   phone: string;
   loginTime?: string;
   nickname?: string; //昵称

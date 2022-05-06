@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, Button, Form } from "antd";
+import { Input, Button, Form, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import {
   SellerLogoPanel,
@@ -8,6 +8,7 @@ import {
 } from "@/components/auth";
 import { REGISTER_FORM } from "./modules/form";
 import { FormItemProps } from "@/framework/types/common";
+import { register, verifyMesssage } from "@/framework/api/login-user";
 
 const title = "Sign up";
 const formItems: FormItemProps[] = REGISTER_FORM;
@@ -27,6 +28,7 @@ const Register = () => {
   const [verifyCode, setVerifyCode] = useState("");
   const [errVerifyCode, setErrVerifyCode] = useState(false);
   const [getVerifyCodeErr, setGetVerifyCodeErr] = useState("");
+  const [tempUserId, setTempUserId] = useState("")
 
   const navigate = useNavigate();
   const [form] = Form.useForm();
@@ -46,17 +48,18 @@ const Register = () => {
     }
   };
 
-  const verifyCodeToConfirm = () => {
-    try {
+  const verifyCodeToConfirm = async () => {
+    if(verifyCode === "") return
+    if (await verifyMesssage({ userId: tempUserId, code: verifyCode })) {
       setCurrentStep(REGISTERSTEPENUM["SUCCESS"]);
-    } catch (err) {
+    } else {
       setErrVerifyCode(true);
     }
   };
 
   return (
-    <div className="h-screen bg-gray1">
-      <div className="flex flex-row  justify-center pt-20">
+    <div className="h-screen bg-gray1 flex justify-center items-center">
+      <div className="flex flex-row  justify-center">
         <SellerLogoPanel />
         {currentStep === REGISTERSTEPENUM["REGISTERINFOR"] ? (
           <div className="bg-white w-80 border p-6">
@@ -72,8 +75,19 @@ const Register = () => {
               wrapperCol={{ span: 24 }}
               onFinish={(values) => {
                 console.log("----form1-----", values);
-                setPhoneNumber(values.phone);
-                registerToNext();
+                if (values.confirmPassword !== values.password) {
+                  message.error('Password verification failed')
+                  return
+                }
+                register({ ...values }).then(id => {
+                  if (id) {
+                    setTempUserId(id)  
+                    setPhoneNumber(values.phone);
+                    registerToNext();
+                  } else {
+                    message.error('Register failed！')
+                  }
+                })
               }}
               autoComplete="off"
             >
@@ -84,12 +98,19 @@ const Register = () => {
                   rules={item.rules}
                   key={item.name}
                 >
-                  <Input placeholder={item.placeholder} />
+                  <Input placeholder={item.placeholder} type={item.type} />
                 </Form.Item>
               ))}
-              <Form.Item wrapperCol={{ span: 24 }}>
+              <Form.Item wrapperCol={{ span: 24 }} className="text-center">
+              <Button
+                  className="px-8"
+                  danger
+                  onClick={() => navigate("/login")}
+                >
+                  Back
+                </Button>
                 <Button
-                  className="w-full"
+                  className="px-8 ml-10"
                   type="primary"
                   danger
                   htmlType="submit"
@@ -123,25 +144,33 @@ const Register = () => {
                   ? "Incorrect code!"
                   : "Did not receive the code?"}
                 &nbsp;
-                <span className="text-red-500" onClick={() => getVerifyCode()}>
+                <span className="primary-color cursor-pointer" onClick={() => getVerifyCode()}>
                   {errVerifyCode ? "Resend code" : "Resend"}
                 </span>
               </p>
               {getVerifyCodeErr ? (
-                <p className="mb-2 text-left text-red-500">
+                <p className="mb-2 text-left primary-color">
                   {getVerifyCodeErr}
                 </p>
               ) : null}
-              <Button
-                type="primary"
-                loading={loading}
-                danger
-                disabled={verifyCode === ""}
-                onClick={() => verifyCodeToConfirm()}
-                className="w-full"
-              >
-                Confirm
-              </Button>
+              <div className="text-center">
+                <Button
+                  className="px-8"
+                  danger
+                  onClick={() => setCurrentStep(REGISTERSTEPENUM["REGISTERINFOR"])}
+                >
+                  Back
+                </Button>
+                <Button
+                  className="px-8 ml-8"
+                  type="primary"
+                  loading={loading}
+                  // disabled={}
+                  onClick={() => verifyCodeToConfirm()}
+                >
+                  Confirm
+                </Button>
+              </div>
             </div>
           </div>
         ) : null}

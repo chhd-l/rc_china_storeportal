@@ -6,13 +6,14 @@ import reportWebVitals from './reportWebVitals';
 // import 'antd/dist/antd.min.css'
 import { BrowserRouter } from "react-router-dom"
 import { ConfigProvider } from 'antd'; 
+import en_US from "antd/lib/locale/en_US"
 ConfigProvider.config({
-    theme: { primaryColor: '#E2001A', },
+    theme: { primaryColor: '#ee4d2d', },
 });
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <ConfigProvider>
+      <ConfigProvider locale={en_US} >
         <App />
       </ConfigProvider>
     </BrowserRouter>

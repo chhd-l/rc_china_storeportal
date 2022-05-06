@@ -1,4 +1,4 @@
-import { Address, Customer } from "./customer"
+import { Address, Customer } from './customer'
 
 export interface Order {
   id: string
@@ -17,23 +17,35 @@ export interface Order {
 }
 
 export interface Comment {
-  createdAt: string,
-  createdBy: string,
-  content: string,
-  id: string
+  lastModifiedBy?: string
+  lastModifiedAt?: string
+  createdAt?: string
+  createdBy?: string
+  content?: string
+  id?: string
 }
 
 export interface Log {
-  createdAt: string,
-  createdBy: string,
-  status: string,
+  createdAt: string
+  createdBy: string
+  status: string
   id: string
+  event: string
 }
 
 export interface Carrier {
   packId: string
   company: string
   tradeItem: OrderTradeItem[]
+  deliveries?: Deliveries[]
+}
+
+export interface Deliveries {
+  areaCode?: string
+  areaName?: string
+  context: string
+  status: string
+  time: string
 }
 
 export interface PayInfo {
@@ -67,9 +79,27 @@ export interface OrderTradeItem {
 }
 
 export enum OrderStatus {
-  Unpaid = "UNPAID",
-  Toship = "TOSHIP",
-  Shipped = "SHIPPED",
-  Completed = "COMPLETED",
-  Cancellation = "CANCELLATION",
+  Unpaid = 'UNPAID',
+  Toship = 'TO_SHIP',
+  Shipped = 'SHIPPED',
+  Completed = 'COMPLETED',
+  Cancellation = 'VOID',
+}
+
+export interface OrderSearchParamsProps {
+  startTime: string
+  endTime: string
+  searchType: string
+  searchTypeValue: string
+}
+
+export interface CarrierType {
+  id: string
+  name: string
+  nameEn: string
+  code: string
+  isChecked: boolean
+  isDeleted: boolean
+  isEnabled: boolean
+  storeId: string
 }

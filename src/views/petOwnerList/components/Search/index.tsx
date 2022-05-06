@@ -5,6 +5,7 @@ import { initSearchParams } from '@/views/petOwnerList/modules/constants'
 
 const OrderSearch = ({ query }: { query: Function }) => {
   const [searchParams, setSearchParams] = useState<SearchParamsProps>(initSearchParams)
+  const [pickValue,setPickValue]=useState<any>(undefined)
 
   const updateSearchParams = (value: any, name: string) => {
     setSearchParams({
@@ -15,9 +16,9 @@ const OrderSearch = ({ query }: { query: Function }) => {
 
   return (
     <div>
-      <div className="flex flex-row justify-start">
+      <div className="flex flex-row justify-between">
         <div className="flex flex-row items-center">
-          <div className="w-auto mr-2">WeChat Name:</div>
+          <div className="w-auto mr-2 text-left">WeChat Name:</div>
           <Input
             style={{ width: '200px' }}
             placeholder="Enter WeChat name"
@@ -40,19 +41,12 @@ const OrderSearch = ({ query }: { query: Function }) => {
         </div>
         <div className="flex flex-row items-center">
           <div className="mr-2 ml-4">Login Time:</div>
-          <DatePicker
-            style={{ width: '200px' }}
+          <DatePicker.RangePicker
+            style={{ width: '300px' }}
+            value={pickValue}
             onChange={(date, dateString) => {
-              updateSearchParams(dateString, 'loginStartTime')
-            }}
-          />
-        </div>
-        <div className="flex flex-row items-center">
-          <div className="mr-2 ml-4">To:</div>
-          <DatePicker
-            style={{ width: '200px' }}
-            onChange={(date, dateString) => {
-              updateSearchParams(dateString, 'loginEndTime')
+              console.log(date, dateString)
+              setSearchParams({ ...searchParams, loginStartTime: dateString[0], loginEndTime: dateString[1] })
             }}
           />
         </div>
@@ -72,6 +66,8 @@ const OrderSearch = ({ query }: { query: Function }) => {
           className="w-20"
           danger
           onClick={(e) => {
+            console.log(1111)
+            setPickValue(null)
             setSearchParams(initSearchParams)
             query &&query(initSearchParams)
           }}

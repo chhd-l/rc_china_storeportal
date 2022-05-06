@@ -9,6 +9,8 @@ import { SortContainer } from '../../modules/constant'
 import { SortableElement, SortableHandle } from 'react-sortable-hoc'
 import SortElement from '../SortElement'
 import { ChangeType, SpecificationListProps, VarationProps } from '@/framework/types/product'
+import { DetailContext } from '../../index'
+import classNames from 'classnames'
 
 export type AddVariationProps = {}
 const initVaration = {
@@ -19,6 +21,8 @@ const initVaration = {
 const initSpec = { option: '', sortIdx: '0-0' }
 const AddVariation = ({}: AddVariationProps) => {
   const { variationForm, setVariationForm } = useContext(VariationosContext)
+  const { detail } = useContext(DetailContext)
+
   const [form] = Form.useForm()
   const DragHandle = SortableHandle(() => <DragOutlined className='mx-2' />)
   const SortElements = SortableElement(
@@ -33,13 +37,46 @@ const AddVariation = ({}: AddVariationProps) => {
     }) => {
       const handleOption = (e: any) => {
         variationForm.variationList[variationIdx].specificationList[specificationIdx].option = e.target.value
-        console.info('option', e.target.value)
+        //编辑操作
+        if (detail.id) {
+          let variationData = detail.editChange.variationList
+          debugger
+          if (!variationData[variationIdx]) {
+            variationData[variationIdx] = {}
+          }
+          if (!variationData[variationIdx].goodsSpecificationDetail) {
+            variationData[variationIdx].goodsSpecificationDetail = []
+          }
+          if (!variationData[variationIdx].goodsSpecificationDetail[specificationIdx]) {
+            variationData[variationIdx].goodsSpecificationDetail[specificationIdx] = {}
+          }
+          if (variationForm.variationList[variationIdx].id) {
+            variationData[variationIdx].id = variationForm.variationList[variationIdx].id
+          } else {
+            variationData[variationIdx].specificationName = variationForm.variationList[variationIdx].name
+            variationData[variationIdx].specificationNameEn = variationForm.variationList[variationIdx].name
+          }
+          if (variationForm.variationList[variationIdx].specificationList[specificationIdx].id) {
+            variationData[variationIdx].goodsSpecificationDetail[specificationIdx].id =
+              variationForm.variationList[variationIdx].specificationList[specificationIdx].id
+          }
+          variationData[variationIdx].goodsSpecificationDetail[specificationIdx].specificationDetailName =
+            e.target.value
+          variationData[variationIdx].goodsSpecificationDetail[specificationIdx].specificationDetailNameEn =
+            e.target.value
+        }
+
+        // let changedVariationList = detail.editChange.variationList
+        // changedVariationList[variationIdx].specificationList[specificationIdx].option =
+        //   e.target.value
+        // console.info('option', e.target.value)
+        updateVations(variationForm)
         setVariationForm(cloneDeep(variationForm))
       }
       return (
-        <Row className='pt-3'>
+        <Row className={classNames('pt-3', specification.isDeleted ? 'hidden' : '')}>
           <Col span={4} className='text-right'>
-            Option：
+            Option:
           </Col>
           <Col span={15}>
             <Input
@@ -68,18 +105,57 @@ const AddVariation = ({}: AddVariationProps) => {
     },
   )
   const handleDelSpecification = (variationIdx: number, specificationIdx: number) => {
-    variationForm.variationList[variationIdx].specificationList.splice(specificationIdx, 1)
-    debugger
+    if (variationForm.variationList[variationIdx].specificationList[specificationIdx]?.id) {
+      //之前就存在的就需要标记被删除，之前没有的直接删除
+      variationForm.variationList[variationIdx].specificationList[specificationIdx].isDeleted = true
+    } else {
+      variationForm.variationList[variationIdx].specificationList.splice(specificationIdx, 1)
+    }
     variationForm.changeType = ChangeType.handleSpec
-    console.info(variationForm, 'variationForm')
+    if (detail.id) {
+      let variationData = detail.editChange.variationList
+      if (!variationData[variationIdx]) {
+        variationData[variationIdx] = {}
+      }
+      if (!variationData[variationIdx].goodsSpecificationDetail) {
+        variationData[variationIdx].goodsSpecificationDetail = []
+      }
+      if (!variationData[variationIdx].goodsSpecificationDetail[specificationIdx]) {
+        variationData[variationIdx].goodsSpecificationDetail[specificationIdx] = {}
+      }
+      debugger
+      if (variationForm.variationList[variationIdx].specificationList[specificationIdx]?.id) {
+        debugger
+        variationData[variationIdx].id = variationForm.variationList[variationIdx].id
+        variationData[variationIdx].goodsSpecificationDetail[specificationIdx].id =
+          variationForm.variationList[variationIdx].specificationList[specificationIdx].id
+        variationData[variationIdx].goodsSpecificationDetail[specificationIdx].isDelete = true
+      } else {
+        variationData[variationIdx].goodsSpecificationDetail.splice(variationIdx, 1)
+      }
+    }
     setVariationForm(cloneDeep(variationForm))
   }
   const handleDelVariation = (variationIdx: number) => {
-    variationForm.variationList.splice(variationIdx, 1)
-    variationForm.changeType = ChangeType.handleVariation
+    if (variationForm.variationList[variationIdx]?.id) {
+      variationForm.variationList[variationIdx].isDeleted = true
+    } else {
+      variationForm.variationList.splice(variationIdx, 1)
+    }
+    // variationForm.variationList.splice(variationIdx, 1)
 
-    debugger
-    console.info(variationForm, 'variationForm')
+    variationForm.changeType = ChangeType.handleVariation
+    if (detail.id) {
+      let variationData = detail.editChange.variationList
+      if (variationForm.variationList[variationIdx]?.id) {
+        //是之前有的，删除的时候需要加上isDelete
+        if (!variationData[variationIdx]) {
+          variationData[variationIdx] = {}
+        }
+        variationData[variationIdx].id = variationForm.variationList[variationIdx].id
+        variationData[variationIdx].isDeleted = variationForm.variationList[variationIdx].isDeleted
+      }
+    }
     setVariationForm(cloneDeep(variationForm))
   }
 
@@ -108,6 +184,9 @@ const AddVariation = ({}: AddVariationProps) => {
     variationForm.variationList = [...variationList, initVarationData]
     setVariationForm(cloneDeep(variationForm))
   }
+  const updateVations = ({ variationList }: { variationList: any }) => {
+    // detail.goodsSpecificationsInput = variationList
+  }
 
   const handleAddSpecification = (variationIdx: number) => {
     let specificationSortIdx = variationForm.variationList[variationIdx].specificationList.length
@@ -119,6 +198,21 @@ const AddVariation = ({}: AddVariationProps) => {
   const handleName = (e: any, variationIdx: number) => {
     variationForm.variationList[variationIdx].name = e.target.value
     console.info('option', e.target.value)
+    // let changedVariationList = detail.editChange.variationList
+    // changedVariationList[variationIdx].name = e.target.value
+    debugger
+    if (detail.id) {
+      let variationData = detail.editChange.variationList
+      if (!variationData[variationIdx]) {
+        variationData[variationIdx] = {}
+      }
+      if (variationForm.variationList[variationIdx].id) {
+        variationData[variationIdx].id = variationForm.variationList[variationIdx].id
+      }
+      variationData[variationIdx].specificationName = e.target.value
+      variationData[variationIdx].specificationNameEn = e.target.value
+    }
+    updateVations(variationForm)
     setVariationForm(cloneDeep(variationForm))
   }
   return (
@@ -129,19 +223,22 @@ const AddVariation = ({}: AddVariationProps) => {
         onSortEnd={onSortEnd}
       >
         {variationForm.variationList.map((variation: VarationProps, variationIdx: number) => (
-          <Row key={variationIdx} className='pt-6 relative'>
+          <Row
+            key={`variationIdx-${variationIdx}`}
+            className={classNames('pt-6 relative', variation.isDeleted ? 'hidden' : '')}
+          >
             <Col span={4} className='text-right'>
-              variation{variationIdx}：
+              variation{variationIdx + 1}:
             </Col>
-            <Col span={16} className='bg-gray-200 pt-6'>
+            <Col span={16} className='pt-6' style={{background:"#f8f8f8"}}>
               <Row>
                 <Col span={4} className='text-right'>
-                  Name：
+                  Name:
                 </Col>
                 <Col span={15}>
                   <Input
                     defaultValue={variation.name}
-                    onChange={e => {
+                    onBlur={e => {
                       handleName(e, variationIdx)
                     }}
                     placeholder='Name'
@@ -170,7 +267,7 @@ const AddVariation = ({}: AddVariationProps) => {
                       handleAddSpecification(variationIdx)
                     }}
                   >
-                    Add Specification
+                    Add Option
                   </Button>
                 </Col>
               </Row>
@@ -185,19 +282,14 @@ const AddVariation = ({}: AddVariationProps) => {
         ))}
       </SortContainer>
 
-      <Row className='py-3'>
-        <Col span={16} offset={4}>
-          <Row>
-            <Col span={15} offset={4}>
-              {variationForm.variationList.length < 2 ? (
-                <Button className='w-full' onClick={handleAddVariation}>
-                  Add Variation
-                </Button>
-              ) : null}
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+      <div className=' flex' style={{ paddingLeft: '60px' }}>
+        <div>Variation:</div>
+        {variationForm.variationList.length < 2 ? (
+          <Button  type='dashed' onClick={handleAddVariation}>
+            Add Variation
+          </Button>
+        ) : null}
+      </div>
     </div>
   )
 }

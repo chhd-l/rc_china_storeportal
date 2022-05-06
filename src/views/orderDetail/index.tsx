@@ -1,12 +1,9 @@
-import Mock from 'mockjs'
 import React, { useEffect, useState } from 'react'
 import { TradeItem, Progress, Address, Carrier, OperationLog, Comment, Customer, Payment } from './components'
-import { orderDetailSource } from './modules/mockdata'
 import { useLocation } from 'react-router-dom'
 import { initOrderDetail } from './modules/constants'
 import { ContentContainer, InfoContainer, DivideArea } from '@/components/ui'
 import { getOrderDetail } from '@/framework/api/get-order'
-import { Order, OrderTradeItem } from '@/framework/types/order'
 
 const OrderDetail = () => {
   const [orderId, setOrderId] = useState('')
@@ -23,6 +20,7 @@ const OrderDetail = () => {
     payInfo,
     logs,
     comments,
+    id,
   } = orderDetail
 
   useEffect(() => {
@@ -31,18 +29,27 @@ const OrderDetail = () => {
     console.info('state.id', state.id)
     getDetail(state.id)
   }, [])
+
   const getDetail = async (orderNum: string) => {
     let data: any = await getOrderDetail({ orderNum })
+    console.log('333', data)
     setOrderDetail(data)
   }
+
   return (
     <>
       {orderDetail ? (
         <ContentContainer>
-          <div className='flex flex-row'>
-            <div className='mr-4 w-3/4'>
+          <div className="flex flex-row">
+            <div className="mr-4 w-3/4">
               <InfoContainer>
-                <Progress orderState={tradeState.orderState} orderId={orderId} subscriptionId={subscriptionId} />
+                <Progress
+                  orderState={tradeState.orderState}
+                  orderId={orderId}
+                  subscriptionId={subscriptionId}
+                  orderAddress={shippingAddress}
+                  logs={logs}
+                />
               </InfoContainer>
               <DivideArea />
               <InfoContainer>
@@ -62,8 +69,8 @@ const OrderDetail = () => {
                 <Payment payInfo={payInfo} />
               </InfoContainer>
             </div>
-            <div className='w-1/4'>
-              <Comment comments={comments} />
+            <div className="w-1/4">
+              <Comment comments={comments} orderNum={id} updateSuccess={() => getDetail(orderId)} />
               <OperationLog logs={logs} />
             </div>
           </div>

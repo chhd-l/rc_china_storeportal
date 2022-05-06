@@ -1,5 +1,5 @@
 import ApiRoot from './fetcher'
-import { normalisePetOwnerList, normalisePetOwnerTagList } from '@/framework/normallize/customer'
+import { normaliseCustomer, normalisePetOwnerList, normalisePetOwnerTagList } from '@/framework/normalize/customer'
 import Mock from 'mockjs'
 import { petOwnerListSource } from '@/views/petOwnerDetail/modules/mockdata'
 
@@ -9,7 +9,7 @@ interface CustomerSample {
 }
 
 interface CustomerWhere {
-  lastLoginTimeForm?: string
+  lastLoginTimeFrom?: string
   lastLoginTimeTo?: string
 }
 
@@ -50,6 +50,18 @@ export const getCustomTags = async ({ customerId }: { customerId: string }) => {
     console.log('customerTags', res)
     const customerTags = normalisePetOwnerTagList(res)
     return customerTags
+  } catch (e) {
+    console.log(e)
+    return []
+  }
+}
+
+export const getCustomer = async ({ customerId }: { customerId: string }) => {
+  try {
+    let res = await ApiRoot.customers().getCustomer({id:customerId})
+    console.log('customer info', res)
+    const customer=normaliseCustomer(res.customer);
+    return customer
   } catch (e) {
     console.log(e)
     return []

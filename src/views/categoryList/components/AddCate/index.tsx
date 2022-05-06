@@ -14,7 +14,7 @@ const AddCate = ({ visible, handleVisible }: AddCateProps) => {
   const navigation = useNavigate();
   const onFinish = async (values: any) => {
     console.info(values);
-    navigation(`/category/add`, { state: { addCateType: values.type } });
+    navigation(`/category/category-detail/add`, { state: { addCateType: values.type } });
     return true;
   };
   return (

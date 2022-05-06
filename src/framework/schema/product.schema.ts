@@ -97,14 +97,15 @@ export interface GoodsVariants {
   stock: number
   eanCode: string
   name: string
-  // skuType: number
-  marketingPrice: number // 当前价格
+  skuType: string
+  marketingPrice: string // 当前价格
   listPrice: number // 划线价
-  // shelvesStatus: IsShelves
+  shelvesStatus: boolean
   // shelvesTime: string
-  // storeId: string
+  storeId: string
+  isSupport100: boolean
   defaultImage: string
-  // subscriptionStatus: number //？？
+  subscriptionStatus: number //？？
   feedingDays: number //？？
   subscriptionPrice: number //？？
   // created_at: string
@@ -115,12 +116,13 @@ export interface GoodsVariants {
   goodsSpecificationRel: GoodsSpecificationValueRel[]
 }
 export interface GoodsAssets {
-  // id: string
+  id: string
   // goodsId: string
   // goodsVariantId: string
   artworkUrl: string
   type: string
-  // storeId: string
+  storeId: string
+  isDeleted: boolean
   // createdAt: string
   // is_default: string
   // createdBy: string
@@ -149,8 +151,8 @@ export interface Goods {
   brandId: string //？？
   goodsCategoryId: string //？？
   // shelvesStatus: IsShelves
-  // defaultImage: string//？？
-  salesStatus: number //？？
+  defaultImage: string//？？
+  salesStatus: boolean //？？
   weight: number //？？
   weightUnit: string //？？
   parcelSizeLong: string

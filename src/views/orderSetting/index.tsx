@@ -10,12 +10,9 @@ const OrderSetting = () => {
 
   return (
     <ContentContainer>
-      <InfoContainer>
-        <div className="text-xl font-medium"> Order Setting</div>
-      </InfoContainer>
       <DivideArea />
       <InfoContainer>
-        <div className="text-left font-medium">General order setting</div>
+        <div className="text-left font-medium text-xl">General order setting</div>
       </InfoContainer>
       <InfoContainer>
         <div className="border p-2 flex justify-between items-center">

@@ -18,7 +18,7 @@ const TemplateMessage = () => {
     <ContentContainer className="template-message">
       <ProTable
         toolBarRender={() => [
-          <Button className="mt-8 " type="primary" ghost>
+          <Button className="mt-8 text-white" type="primary" ghost>
             + Add
           </Button>,
           <SyncOutlined className="mt-6 ml-2 mr-8 text-xl " />,

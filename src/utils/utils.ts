@@ -1,3 +1,4 @@
+
 import { LabelOptionProps, PageParamsProps } from "@/framework/types/common"
 import { ReactNode } from "react"
 
@@ -6,10 +7,7 @@ export const getCurrencyCode = () => {
 }
 
 export const formatMoney = (price: number) => {
-  if (!price) {
-    return ''
-  }
-  return getCurrencyCode() + price.toFixed(2)
+  return getCurrencyCode() + (price || 0).toFixed(2)
 }
 
 export const handleValueEnum = (list: LabelOptionProps[]) => {
@@ -30,4 +28,90 @@ export const handlePageParams = (pageParams: PageParamsProps) => {
     offset: currentPage * pageSize - pageSize,
     limit: pageSize,
   }
+}
+
+export const handleReturnTime = (time: any) => {
+  if (time) {
+    const reg = new RegExp('/', 'g')
+    return new Date(time).toLocaleString().replace(reg, '-')
+  } else {
+    return ''
+  }
+}
+
+export const handleObjDataForEdit = (before: any, after: any, diffObj: any) => {
+  let keysOne = Object.keys(before) // 获取对象1所有键数组
+  for (let key of keysOne) {
+    if (typeof before[key] === 'object' && before[key] !== null) {  // 如果是对象，则再递归对比，如果递归返回false，则直接方法也直接返回false
+      if (Object.prototype.toString.call(before[key]) === '[object Object]') {
+        handleObjDataForEdit(before[key], after[key], diffObj)
+        // if (!handleObjDataForEdit(before[key], after[key])) return false
+      }
+      if (Object.prototype.toString.call(before[key]) === '[object Array]') {
+        //数组的情况
+        // handleArrDataForEdit(before[key], after[key], diffObj, key)
+      }
+    } else if (typeof before[key] === 'function' || typeof before[key] === 'symbol') { // 如果是function或symbol，转字符串再对比，不匹配则直接返回false
+      if (String(before[key]) !== String(after[key])) return false
+    } else {  // 最后其他类型用es6得Object.is()来比较，不匹配直接返回false
+      if (before[key] !== after[key]) {
+
+        diffObj[key] = after[key]
+      }
+      // if (!Object.is(before[key], after[key])) return false
+    }
+  }
+  return diffObj  // 遍历结束了没有返回false，说明没有问题，这里直接返回true，表示键值全等了
+}
+
+export const handleArrDataForEdit = (before: any, after: any, diffObj: any, keyName: string) => {
+  // todo
+  if (!after) {
+    return
+  }
+  if (keyName === 'goodsSpecifications') {
+    debugger
+  }
+  if (!diffObj[keyName]) {
+    diffObj[keyName] = []
+  }
+  //取到补集
+  let complement = after.filter((beforeItem: any) => {
+    return before.findIndex((afterItem: any) => beforeItem.id === afterItem.id) === -1
+  })
+  //取到交集
+  let union = before.filter((beforeItem: any) => {
+    return after.findIndex((afterItem: any) => beforeItem.id === afterItem.id) !== -1
+  })
+  //判断有没有删除
+  let deleted = complement.filter((item: any) => item.id).map((item: any) => {
+    let newItem = {
+      isDelete: true,
+      id: item.id
+    }
+    return newItem
+  })
+
+
+  //判断有没有新增
+  let added = complement.filter((item: any) => !item.id)
+  if (deleted?.length || added?.length) {
+    debugger
+    let datas = [...deleted, ...added]
+    diffObj[keyName].push(datas)
+    // if (diffObj[keyName]) {
+    //   diffObj[keyName].push(datas)
+    // } else {
+    //   diffObj[keyName] = []
+    //   diffObj[keyName].push(datas)
+    // }
+  }
+  // 判断有没有修改 //修改这个有点麻烦
+  union.forEach((unionItem: any) => {
+    after.find((item: any) => {
+      if (unionItem.id === item.id) {
+        handleObjDataForEdit(unionItem, item, diffObj[keyName])
+      }
+    })
+  })
 }

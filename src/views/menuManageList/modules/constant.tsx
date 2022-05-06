@@ -43,7 +43,7 @@ export const tableColumns = ({ handleDelete, changeStatus }: TableColumns) => {
       title: "Action",
       hideInSearch: true,
       render: (_, record) => [
-        <Link to={`/menu-manage/${record.id}`} className="mr-4">
+        <Link to={`/menuManagempqr/menu-manage-detail/${record.id}`} className="mr-4">
           <FormOutlined />
         </Link>,
         <a className="mr-4">

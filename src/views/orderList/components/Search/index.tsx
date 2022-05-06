@@ -1,47 +1,35 @@
-import { Button, DatePicker, Input, Select } from "antd";
-import React, { useState } from "react";
-import { searchTypeList } from "../../modules/constants";
-import { MenuOutlined } from "@ant-design/icons";
-
-interface SearchParamsProps {
-  orderCreateDate: string;
-  searchType: string;
-  searchTypeValue: string;
-}
+import { Button, DatePicker,Dropdown, Input, Select, Space } from 'antd'
+import React, { useState } from 'react'
+import { searchTypeList, initSearchParams } from '../../modules/constants'
+import { MenuOutlined } from '@ant-design/icons'
+import { OrderSearchParamsProps } from '@/framework/types/order'
+import LatestReports from "../LatestReports/index"
 
 const OrderSearch = ({ query }: { query: Function }) => {
-  const initSearchParams: SearchParamsProps = {
-    orderCreateDate: "",
-    searchType: "orderId",
-    searchTypeValue: "",
-  };
-  const [searchParams, setSearchParams] =
-    useState<SearchParamsProps>(initSearchParams);
-
-  const updateSearchParams = (value: any, name: string) => {
-    setSearchParams({
-      ...searchParams,
-      [name]: value,
-    });
-  };
+  const [searchParams, setSearchParams] = useState<OrderSearchParamsProps>(initSearchParams)
 
   return (
     <div>
       <div className="flex flex-row items-center justify-end">
         <div className="w-auto mr-3">Order Creation Date</div>
-        <DatePicker
-          style={{ width: "200px" }}
+        <DatePicker.RangePicker
+          style={{ width: '300px' }}
           onChange={(date, dateString) => {
-            updateSearchParams(dateString, "loginStartTime");
+            console.log(date, dateString)
+            setSearchParams({ ...searchParams, startTime: dateString[0], endTime: dateString[1] })
           }}
         />
-        <Button className="ml-3">Export</Button>
+        <Space direction="vertical">
+          <Dropdown overlay={LatestReports} >
+             <Button className="ml-3">Export</Button>
+          </Dropdown>
+        </Space>
         <Button
           className="ml-3"
           icon={<MenuOutlined style={{ color: "#979797" }} />}
         />
       </div>
-      <div className="flex flex-row items-center mt-3 text-left">
+      <div className="flex flex-row items-center mt-4 text-left">
         <Input.Group compact>
           <Select
             onChange={(value, a) => {
@@ -58,42 +46,41 @@ const OrderSearch = ({ query }: { query: Function }) => {
             ))}
           </Select>
           <Input
-            style={{ width: "80%" }}
+            style={{ width: '80%' }}
             value={searchParams.searchTypeValue}
             onChange={(e) => {
               setSearchParams({
                 ...searchParams,
                 searchTypeValue: e.target.value,
-              });
+              })
             }}
-            placeholder={
-              "Input " +
-              searchTypeList.filter(
-                (item) => item.key === searchParams.searchType
-              )[0].label
-            }
+            placeholder={'Input ' + searchTypeList.filter((item) => item.key === searchParams.searchType)[0].label}
           />
         </Input.Group>
         <Button
-          className="w-32 mx-3"
+          className="w-32 mx-3 btn-primary"
           type="primary"
           danger
-          onClick={() => query()}
+          onClick={() => {
+            console.log('searchParams', searchParams)
+            query && query(searchParams)
+          }}
         >
           Search
         </Button>
         <Button
           className="w-32"
-          danger
+          // danger
           onClick={(e) => {
-            setSearchParams(initSearchParams);
+            setSearchParams(initSearchParams)
+            query && query(initSearchParams)
           }}
         >
           Reset
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default OrderSearch;
+export default OrderSearch

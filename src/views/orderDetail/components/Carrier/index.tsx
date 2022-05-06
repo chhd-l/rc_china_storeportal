@@ -9,7 +9,7 @@ const OrderCarrier = ({ carrier }: { carrier: Carrier[] }) => {
     <div className="flex flex-col justify-start mt-4">
       <div className="flex flex-row justify-between">
         <div>
-          <span className="iconfont icon-a-xingzhuangjiehe3 text-red-500" />
+          <span className="iconfont icon-a-xingzhuangjiehe3 primary-color" />
           <span className="ml-4 text-black text-base">Carrier information</span>
         </div>
         <div className="flex flex-row items-center">
@@ -40,14 +40,20 @@ const OrderCarrier = ({ carrier }: { carrier: Carrier[] }) => {
                   Pack{index + 1}:{item.packId}
                 </span>
                 <span className="ml-8">
-                  Carrier company:{item.company} Express
+                  Carrier company:{item.company}
                 </span>
               </div>
               <div>
-                {item?.tradeItem?.map((el) => (
-                  <div className="flex flex-row items-center" key={el.skuId}>
-                    <img src={el.pic} alt="" className="w-20 h-20" />
-                    <span>{el.skuName}</span>
+                {/*{item?.tradeItem?.map((el) => (*/}
+                {/*  <div className="flex flex-row items-center" key={el.skuId}>*/}
+                {/*    <img src={el.pic} alt="" className="w-20 h-20" />*/}
+                {/*    <span>{el.skuName}</span>*/}
+                {/*  </div>*/}
+                {/*))}*/}
+                {item?.deliveries?.map((el,index) => (
+                  <div className="flex flex-col mt-2" key={index}>
+                    <span>{el.context}</span>
+                    <span>{el.time}</span>
                   </div>
                 ))}
               </div>

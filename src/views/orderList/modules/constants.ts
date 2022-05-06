@@ -1,5 +1,5 @@
 import { BaseListProps } from "@/framework/types/common";
-import { OrderStatus } from "@/framework/types/order";
+import {OrderSearchParamsProps, OrderStatus} from "@/framework/types/order";
 
 export const tabList: BaseListProps[] = [
   {
@@ -23,7 +23,7 @@ export const tabList: BaseListProps[] = [
     key: OrderStatus.Completed,
   },
   {
-    label:'Cancellation',
+    label: 'Cancellation',
     key: OrderStatus.Cancellation,
   },
 ];
@@ -31,7 +31,7 @@ export const tabList: BaseListProps[] = [
 export const searchTypeList: BaseListProps[] = [
   {
     label: "Order ID",
-    key: "orderId",
+    key: "orderNumber",
   },
   {
     label: "Subscription ID",
@@ -39,7 +39,7 @@ export const searchTypeList: BaseListProps[] = [
   },
   {
     label: "Phone Number",
-    key: "phoneNumber",
+    key: "phone",
   },
   {
     label: "Pet Owner Name",
@@ -47,7 +47,7 @@ export const searchTypeList: BaseListProps[] = [
   },
   {
     label: "Product Name",
-    key: "skuName",
+    key: "spuName",
   },
   {
     label: "Order Type",
@@ -85,3 +85,10 @@ export const carrierTypeList: BaseListProps[] = [
     key: "Yunda",
   },
 ];
+
+export const initSearchParams: OrderSearchParamsProps = {
+  startTime: "",
+  endTime:"",
+  searchType: "orderNumber",
+  searchTypeValue: "",
+};

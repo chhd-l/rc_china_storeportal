@@ -16,6 +16,12 @@ export enum FormItemType {
   Upload,
   Digit,
 }
+export interface PageProps {
+  offset: number
+  limit: number
+  isNeedTotal: boolean
+  operator?: string
+}
 export interface FormItemProps {
   name: string
   placeholder?: string
@@ -37,7 +43,8 @@ export interface KeyRules {
 
 export interface OptionsProps {
   name: string
-  value: string
+  value: string | number | boolean
+  label?: string
 }
 
 export interface LabelOptionProps {
@@ -75,7 +82,20 @@ export interface SearchFormItemProps extends FormItemProps {
 }
 
 //分页组件
-export interface PageParamsProps{
+export interface PageParamsProps {
   currentPage: number,
   pageSize: number,
+}
+
+export interface User {
+  id: string
+  type: string
+  name: string
+  nickname: string
+  username: string
+  email: string
+  isEmailVerified: boolean
+  phone: string
+  isPhoneVerified: boolean
+  status: string
 }

@@ -1,7 +1,6 @@
 import { ReactNode } from 'react'
 import { GoodsAttributeAndValue } from '../schema/product.schema'
-import { productLists } from './../../views/categoryDetail/modules/mockdata'
-import { OptionsProps } from './common'
+import { OptionsProps, PageProps } from './common'
 
 export interface TableHeadersItemProps {
   title: string
@@ -69,31 +68,31 @@ export interface AttributeValListProps {
 }
 export interface ProductDetailProps {
   // age: string
-  brand: string
+  brandId: string
   // breeds: string
   cardName: string
   cateId: string
-  description: string
+  goodsDescription: string
   // feedingDays: string
   // functions: string
   height: string
   assets: AssertsProps[]
   length: string
   brandList: [],
-  goodsAttributeValueRel: GoodsAttributeAndValue[]
+  goodsAttributeValueRel?: GoodsAttributeAndValue[]
   // attributeList: AttributeListProps[],
-  categoryList: TreeDataProps[],
+  categoryList?: TreeDataProps[],
   // lifeStage: string
   // listPrice: string
   // marketingPrice: string
   // name: string
-  // salesStatus: string
+  salesStatus: string
   // size: string
   // spu: string
   // stock: string
   // subscription: string
   // subscriptionPrice: string
-  support100: string
+  isSupport100?: string
   // technology: string
   // video: string
   weight: string
@@ -104,7 +103,7 @@ export interface ProductListSkuItem {
   id: string
   no: string
   specs: string
-  price: number
+  price: string
   stock: number
 }
 export interface ProductListItemProps {
@@ -112,23 +111,26 @@ export interface ProductListItemProps {
   img: string
   id: string
   no: string
+  shelvesStatus: boolean
   showAll?: boolean
   checked?: boolean
   specs: string
-  price: number
+  price: string
   stock: number
   name: string
+
 }
 export interface ProductListProps {
   products: ProductListItemProps[]
   all: string
   live: string
   soldOut: string
-  disabled: string
+  disabled: string,
+  total?: number
 }
 export enum ProductType {
   Regular = 'REGULAR',
-  Bundle = 'BUNDLE',
+  // Bundle = 'BUNDLE',
 }
 
 export enum AddCateType {
@@ -137,19 +139,98 @@ export enum AddCateType {
 }
 export interface SpecificationListProps {
   option: string
+  id?: string
+  isDeleted?: boolean
 }
 export interface VarationProps {
   name: string
+  id?: string
+  isDeleted?: boolean
   specificationList: SpecificationListProps[]
 }
 export interface VarationsFormProps {
-  changeType?: ChangeType
+  changeType: ChangeType
   variationList: VarationProps[]
 }
+export interface ProductListSimpleQueryProps {
+  storeId?: string
+  goodsName?: string
+  cateId?: string
+  productType?: string
+  startStock?: string
+  endStock?: string
+  SKU?: string
+  SPU?: string
+  SubscriptionStatus?: string
+}
+export interface ProductListQueryProps extends PageProps {
+  sample?: ProductListSimpleQueryProps
+}
 export enum ChangeType {
-  handleVariation,
+  handleVariation = 'VARIATION',
   // addVariation,
-  handleSpec,
+  handleSpec = 'SPEC',
   // addSpec,
   // drag
 }
+
+export interface shopCateQuery extends PageProps {
+  sample?: GoodsPageSampleInput,
+}
+export interface GoodsPageSampleInput {
+  storeId?: string
+  goodsName?: string
+  cateId?: string
+  type?: string
+  startStock?: number
+  endStock?: number
+  spu?: string
+  sku?: string
+  subscriptionStatus?: boolean
+}
+
+export interface SaveShopCategoryInput {
+  name?: string
+  categoryType?: string
+  isDisplay?: boolean
+  displayName?: string
+  storeId?: string
+  rank?: number
+  cateStatus?: string
+  isDeleted?: Boolean
+}
+
+export interface ShopCategoryFilterRulesInput {
+  id?: string
+  code?: string
+  name?: string
+  description?: string
+  value?: string
+  shopCategoryId?: string
+  storeId?: string
+  isDeleted?: boolean
+}
+
+export interface ShopCategoryUpdateInput {
+  id: string
+  name?: string
+  categoryType: string
+  isDisplay: boolean
+  displayName?: string
+  storeId?: string
+  rank?: number
+  cateStatus?: string
+  isDeleted?: boolean
+}
+
+export interface ShopCategoryGoodsRelInput {
+  goodsId: string
+  shopCategoryId: string
+  storeId?: string
+  createdAt?: string
+  createdBy?: string
+  lastModifiedAt?: string
+  lastModifiedBy?: string
+  isDeleted?: string
+}
+

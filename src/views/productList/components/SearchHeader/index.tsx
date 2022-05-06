@@ -1,49 +1,64 @@
-import { Form, Input, Button, Row, Col, Select } from "antd";
-import type { OptionsProps } from "@/framework/types/common";
-import { SearchContainer } from "@/components/ui/Container";
+import { Form, Input, Button, Row, Col, Select, Tooltip, InputNumber } from 'antd'
+import { OptionsProps } from '@/framework/types/common'
+import { SearchContainer } from '@/components/ui/Container'
+import './index.less'
+import { useState } from 'react'
 
-const { Option } = Select;
+const { Option } = Select
 interface SearchProps {
-  getFormData: Function;
+  getFormData: Function
 }
 const nameForKey: OptionsProps[] = [
-  { name: "Product Name", value: "ProductName" },
-  { name: "SKU", value: "SKU" },
-  { name: "SPU", value: "SPU" },
-];
+  { name: 'Product Name', value: 'goodsName' },
+  { name: 'SKU', value: 'sku' },
+  { name: 'SPU', value: 'spu' },
+]
 const typeForKey: OptionsProps[] = [
-  { name: "Product Type", value: "ProductType" },
-  { name: "Subscription Status", value: "SubscriptionStatus" },
-];
+  { name: 'Product Type', value: 'type' },
+  { name: 'Subscription Status', value: 'subscriptionStatus' },
+]
+const chooseProductType: OptionsProps[] = [
+  { name: 'Bundle', value: 'BUNDLE' },
+  { name: 'Regular', value: 'REGULAR' },
+  { name: 'Other', value: 'OTHER' },
+]
+const SubscriptionType: OptionsProps[] = [
+  { name: 'True', value: true },
+  { name: 'False', value: false },
+]
 
 const SearchHeader = ({ getFormData }: SearchProps) => {
-  const [form] = Form.useForm();
+  const [form] = Form.useForm()
+  const [typeSelect, setTypeSelect] = useState(typeForKey[0].value)
   const onFinish = (values: any) => {
-    console.log("Finish:", values);
-    getFormData(values);
-  };
+    console.info('values', values)
+    const val = {
+      startStock: values.startStock,
+      [values.selectName]: values.goodsName,
+      [values.type]: values.GoodsType,
+      endStock: values.endStock,
+      cateId: values.cateId,
+    }
+    getFormData(val)
+  }
   const onReset = () => {
-    form.resetFields();
-  };
+    form.resetFields()
+  }
   return (
-    <SearchContainer>
+    <SearchContainer className='product-search-top'>
       <Form
-        layout={"inline"}
+        layout={'inline'}
         form={form}
         onFinish={onFinish}
         initialValues={{
-          layout: "inline",
+          layout: 'inline',
         }}
       >
-        <Row justify="start" gutter={[0, 14]}>
+        <Row justify='start' gutter={[0, 14]}>
           <Col span={12}>
-            <Input.Group compact className="flex">
-              <Form.Item name="selectName">
-                <Select
-                  style={{ width: 140 }}
-                  placeholder="Select a option and change input text above"
-                  defaultValue={nameForKey[0].value}
-                >
+            <Input.Group compact className='flex'>
+              <Form.Item name='selectName' initialValue={nameForKey[0].value}>
+                <Select style={{ width: 140 }} placeholder='Select a option and change input text above'>
                   {nameForKey.map((el: any) => (
                     <Option key={el.value} value={el.value}>
                       {el.name}
@@ -52,28 +67,45 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                 </Select>
                 {/* <SelectKey list={nameForKey} /> */}
               </Form.Item>
-              <Form.Item name="username" className="flex-1">
-                <Input placeholder={`please Input `} />
+              <Form.Item name='goodsName' className='flex-1'>
+                <Input placeholder={`please Input goodsName`} />
               </Form.Item>
             </Input.Group>
           </Col>
           <Col span={12}>
-            <Form.Item label="Category" name="category">
-              <Input placeholder={`please Input category`} />
+            <Form.Item label='Category' name='cateId'>
+              <Input
+                placeholder={`please Input category`}
+                suffix={
+                  <Tooltip title='Choose Category'>
+                    <span className='icon iconfont icon-rc-edit' style={{ color: 'rgba(0,0,0,.45)' }}></span>
+                  </Tooltip>
+                }
+              />
+            </Form.Item>
+          </Col>
+          <Col span={6}>
+            <Form.Item label='stock' name='startStock'>
+              <InputNumber className='w-full' placeholder={`please Input startStock`} />
+              {/* <Input type='number' placeholder={`please Input startStock`} /> */}
+            </Form.Item>
+          </Col>
+          <Col span={6}>
+            <Form.Item name='endStock'>
+              <InputNumber className='w-full' placeholder={`please Input endStock`} />
+              {/* <Input type='number' placeholder={`please Input endStock`} /> */}
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item label="Stock" name="stock">
-              <Input placeholder={`please Input stock`} />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Input.Group compact className="flex">
-              <Form.Item name="typeName">
+            <Input.Group compact className='flex'>
+              <Form.Item name='type' initialValue={typeForKey[0].value}>
                 <Select
                   style={{ width: 140 }}
-                  placeholder="Select a option and change input text above"
-                  defaultValue={typeForKey[0].value}
+                  placeholder='Select a option and change input text above'
+                  onChange={v => {
+                    form.setFieldsValue({ GoodsType: '' })
+                    setTypeSelect(v)
+                  }}
                 >
                   {typeForKey.map((el: any) => (
                     <Option key={el.value} value={el.value}>
@@ -83,15 +115,27 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                 </Select>
                 {/* <SelectKey list={typeForKey} /> */}
               </Form.Item>
-              <Form.Item className="flex-1" name="username3">
-                <Input placeholder={`please Input `} />
+              <Form.Item className='flex-1' name='GoodsType'>
+                <Select placeholder='Choose Product Type'>
+                  {typeSelect === typeForKey[0].value
+                    ? chooseProductType.map((el: any) => (
+                        <Option key={el.value} value={el.value}>
+                          {el.name}
+                        </Option>
+                      ))
+                    : SubscriptionType.map((el: any) => (
+                        <Option key={el.value} value={el.value}>
+                          {el.name}
+                        </Option>
+                      ))}
+                </Select>
               </Form.Item>
             </Input.Group>
           </Col>
-          <Col span={12} offset={12} className="text-right">
+          <Col span={12} offset={12} className='text-right ml-0'>
             <Form.Item>
-              <Button htmlType="submit" type="primary" className="mr-4">
-                Submit
+              <Button htmlType='submit' type='primary' className='mr-4'>
+                search
               </Button>
               <Button onClick={onReset}>Reset</Button>
             </Form.Item>
@@ -99,6 +143,6 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
         </Row>
       </Form>
     </SearchContainer>
-  );
-};
-export default SearchHeader;
+  )
+}
+export default SearchHeader

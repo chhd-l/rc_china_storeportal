@@ -4,77 +4,122 @@ import { Form, Input, Select } from 'antd'
 import { useContext, useEffect, useState } from 'react'
 import { DetailContext } from '../../index'
 import { FormProps } from '@/framework/types/common'
+import { EditOutlined } from '@ant-design/icons'
 const breedList = [
-  { name: 'breed1', value: 'breed1' },
-  { name: 'breed2', value: 'breed2' },
+  { name: 'B1', value: 'B1', label: 'Royal Canin' },
+  { name: 'B2', value: 'B2', label: 'Royal Canin Sub' },
 ]
-
 const salesStatusList = [
-  { value: 'Saleable', name: 1 },
-  { value: 'Not saleable', name: 0 },
+  { label: 'Saleable', value: '1' },
+  { label: 'Not saleable', value: '0' },
 ]
 const BasicInfo = ({ field }: FormProps) => {
   // const [form] = Form.useForm();
-  console.info('propsprops', field)
   // const onFinish = (values: any) => {
   //   console.log(values);
   // };
   const { setShowCatePop, detail } = useContext(DetailContext)
   const [editorHtml, setEditorHtml] = useState('')
+  const [initAsserts, setInitAsserts] = useState<any>(Array(9).fill(null))
   const [videoUrl, setvideoUrl] = useState('')
   const handleEditorChange = (html: string) => {
     setEditorHtml(html)
-    console.info('editorHtml', editorHtml)
+    console.info('editorHtml', html)
   }
   const handleImgUrl = (url: string) => {
     setvideoUrl(url)
     console.info('videoUrl', videoUrl)
   }
+  useEffect(() => {
+    if (detail.assets) {
+      let list = initAsserts.map((item: any, index: number) => {
+        return detail.assets[index] || null
+      })
+      console.info('initAsserts', list)
+      setInitAsserts(list)
+    }
+  }, [detail?.assets])
 
   return (
-    <>
-      <Form.Item label='Product Image' name='assets'>
-        <div className='text-left'>
+    <div className='basicinfo'>
+      <Form.Item
+        label='Product Image'
+        labelCol={{
+          span: 2,
+        }}
+        wrapperCol={{
+          span: 22,
+        }}
+      >
+        <div className='text-left pl-6  flex flex-wrap'>
+          {initAsserts?.map((img: any) => (
+            <Upload handleImgUrl={handleImgUrl} fileList={[img]} showUploadList={false} />
+          ))}
+        </div>
+      </Form.Item>
+      <Form.Item label='Product Video' labelCol={{
+        span: 2,
+      }}
+        wrapperCol={{
+          span: 22,
+        }} name='video'>
+        <div className='text-left pl-6'>
           <Upload handleImgUrl={handleImgUrl} showUploadList={false} />
         </div>
       </Form.Item>
-      <Form.Item label='Product Video' name='video'>
-        <div className='text-left'>
-          <Upload handleImgUrl={handleImgUrl} showUploadList={false} />
+      <Form.Item label='SPU' name='spuNo' rules={[{ required: true, message: 'Missing SPU' }]} labelCol={{ span: 2 }} >
+        <div className='text-left pl-6'>
+          <Input />
         </div>
       </Form.Item>
-      <Form.Item label='SPU' name='spuNo' rules={[{ required: true, message: 'Missing SPU' }]}>
-        <Input />
-      </Form.Item>
-      <Form.Item label='Product Name' name='name' rules={[{ required: true, message: 'Missing Product Name' }]}>
-        <Input showCount maxLength={120} />
+      <Form.Item label='Product Name' name='name' rules={[{ required: true, message: 'Missing Product Name' }]} labelCol={{ span: 2 }}>
+        <div className='text-left pl-6'>
+          <Input showCount maxLength={120} />
+        </div>
       </Form.Item>
 
-      <Form.Item label='Product Card Name' name='cardName'>
-        <Input showCount maxLength={120} />
+      <Form.Item label='Product Card Name' name='cardName' labelCol={{ span: 2 }}>
+        <div className='text-left pl-6'>
+          <Input showCount maxLength={120} />
+        </div>
       </Form.Item>
       <Form.Item
         label='Product Description'
-        name='description'
-        // initialValue={detail.description}
+        name='goodsDescription'
+        // initialValue={detail.goodsDescription}
         rules={[{ required: true, message: 'Missing Product Description' }]}
-      >
-        <Wangeditor defaultValue={detail.description} onChange={handleEditorChange} />
+        labelCol={{ span: 2 }}>
+        <div className='text-left pl-6'>
+          <Wangeditor defaultValue={detail.goodsDescription} onChange={handleEditorChange} />
+        </div>
       </Form.Item>
-      <Form.Item label='Category' name='category'>
-        <Input
-          onClick={() => {
-            setShowCatePop(true)
-          }}
-        />
+      <Form.Item label='Category' name='category' labelCol={{ span: 4 }} rules={[{ required: true }]}>
+        <div className='flex pr-6'>
+          {detail.selectedCateOptions?.map((cate: any, idx: number) => (
+            <div>
+              {idx === 0 ? '' : '>'}
+              {cate.label}
+            </div>
+          ))}
+          <div className="text-left ml-6">
+            <EditOutlined
+              onClick={() => {
+                setShowCatePop(true)
+              }}
+            />
+          </div>
+        </div>
+        {/* <Input
+         
+        /> */}
       </Form.Item>
-      <Form.Item label='Brand' name='brand'>
-        <Select placeholder='please select Brand' options={breedList} />
+      <Form.Item label='Brand' name='brandId' labelCol={{ span: 4 }} rules={[{ required: true }]}>
+        <Select placeholder='please select Brand' options={breedList} style={{ width: 195 }} />
       </Form.Item>
-      <Form.Item label='Sales Status' name='salesStatus'>
-        <Select placeholder='please select Sales Status' options={salesStatusList} />
+      <Form.Item label='Sales Status' name='salesStatus' labelCol={{ span: 4 }} rules={[{ required: true }]}>
+        <Select placeholder='please select Sales Status' options={salesStatusList} style={{ width: 195 }} />
       </Form.Item>
-    </>
+    </div>
   )
 }
 

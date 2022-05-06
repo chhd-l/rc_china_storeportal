@@ -8,7 +8,7 @@ import { getPetOwnerList } from '@/framework/api/customer'
 import { SearchParamsProps } from '@/framework/types/customer'
 import { initSearchParams } from '@/views/petOwnerList/modules/constants'
 import { handleQueryParams } from '@/views/petOwnerList/modules/handle-query-params'
-import {PageParamsProps} from "@/framework/types/common";
+import { PageParamsProps } from '@/framework/types/common'
 
 const PetOwnerList = () => {
   const [petOwnerList, setPetOwnerList] = useState<Customer[]>([])
@@ -34,7 +34,7 @@ const PetOwnerList = () => {
 
   useEffect(() => {
     getCustomers()
-  }, [searchParams])
+  }, [searchParams, pageParams])
 
   return (
     <ContentContainer>
@@ -50,7 +50,14 @@ const PetOwnerList = () => {
       <TableContainer>
         <Table petOwnerList={petOwnerList} />
         <div className="flex flex-row justify-end mt-4">
-          <Pagination current={currentPage} total={total} pageSize={pageSize} onChange={changePage} />
+          <Pagination
+            className="rc-pagination"
+            current={currentPage}
+            total={total}
+            pageSize={pageSize}
+            onChange={changePage}
+            showSizeChanger={true}
+          />
         </div>
       </TableContainer>
     </ContentContainer>

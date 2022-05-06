@@ -2,34 +2,41 @@ import { Outlet } from "react-router-dom";
 import Menus from "../Menus";
 import TopHeader from "../Header";
 import { Layout } from "antd";
-const { Header, Content, Sider } = Layout;
+import { useAtom } from "jotai";
+import { userAtom } from "@/store/user.store";
+
+const { Content, Sider } = Layout;
+
 const AppLayout = () => {
+  const [userInfo] = useAtom(userAtom)
   return (
-    <Layout>
-      <Header className="bg-white p-0 fixed w-full" style={{ zIndex: 1 }}>
-        <TopHeader />
-      </Header>
-      <Layout style={{ marginTop: 64 }}>
-        <Sider
-          theme="light"
-          className="overflow-auto fixed left-0 bottom-0"
+    <Layout >
+      <TopHeader userInfo={userInfo}/>
+      <Layout>
+      <Sider  theme="light" style={{
+        overflow: 'auto',
+        height: '100vh',
+        position: 'fixed',
+        left: 0,
+        top: 55,
+        bottom: 0,
+      }}>
+        <Menus />
+      </Sider>
+      <Layout style={{ marginLeft: 200 }} >
+        
+        <Content
+          className="site-layout-background"
           style={{
-            height: "calc(100vh - 64)",
-            top: "64px",
+            // padding: 24,
+            margin: '59px 24px 0 24px',
+            // minHeight: 600,
           }}
         >
-          <Menus />
-        </Sider>
-        {/* <section className="flex">
-      <main className="flex-1">
-      </main>
-    </section> */}
-        <Layout style={{ marginLeft: 200 }}>
-          <Content>
-            <Outlet />
-          </Content>
-        </Layout>
+          <Outlet />
+        </Content>
       </Layout>
+    </Layout>
     </Layout>
   );
 };
