@@ -36,18 +36,16 @@ const EditVariationList = (props: FormProps) => {
   const [variationForm, setVariationForm] = useState({} as VarationsFormProps)
   useEffect(() => {
     const variationForm = cloneDeep(cloneVariationForm)
-    const { variationList } = variationForm
-    variationList
-      ?.filter((el: any) => {
-        el.specificationList = el.specificationList.filter((spec: any) => !spec.isDeleted)
-        return !el.isDeleted
+    const variationList = variationForm?.variationList?.filter((el: any) => {
+      el.specificationList = el.specificationList?.filter((spec: any) => !spec.isDeleted)
+      return !el.isDeleted
+    })
+    variationList?.forEach((variation: any, idx: number) => {
+      variation.name = variation.name || `Variation${idx + 1}`
+      variation.specificationList.forEach((specification: any) => {
+        specification.option = specification.option || 'option'
       })
-      ?.forEach((variation: any, idx: number) => {
-        variation.name = variation.name || `Variation${idx + 1}`
-        variation.specificationList.forEach((specification: any) => {
-          specification.option = specification.option || 'option'
-        })
-      })
+    })
     if (variationList?.length === 0) {
       setVariationList([])
     }
@@ -55,7 +53,7 @@ const EditVariationList = (props: FormProps) => {
     console.info('variationForm==========================', variationForm)
     // debugger
     setVariationForm(variationForm)
-    if (variationList[0]) {
+    if (variationList?.length) {
       getRows(variationForm)
       initHeader(variationForm)
     }

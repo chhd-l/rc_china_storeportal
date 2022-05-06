@@ -129,7 +129,7 @@ const AddVariation = ({}: AddVariationProps) => {
         variationData[variationIdx].id = variationForm.variationList[variationIdx].id
         variationData[variationIdx].goodsSpecificationDetail[specificationIdx].id =
           variationForm.variationList[variationIdx].specificationList[specificationIdx].id
-        variationData[variationIdx].goodsSpecificationDetail[specificationIdx].isDelete = true
+        variationData[variationIdx].goodsSpecificationDetail[specificationIdx].isDeleted = true
       } else {
         variationData[variationIdx].goodsSpecificationDetail.splice(variationIdx, 1)
       }
@@ -227,8 +227,9 @@ const AddVariation = ({}: AddVariationProps) => {
             key={`variationIdx-${variationIdx}`}
             className={classNames('pt-6 relative', variation.isDeleted ? 'hidden' : '')}
           >
-            <Col span={4} className='text-right mr-2'>
-              variation{variationIdx + 1}:
+            <Col span={4} className='text-right pr-2'>
+              variation{variationIdx + 1}
+              {` :`}
             </Col>
             <Col span={16} className='pt-6' style={{background:"#f8f8f8"}}>
               <Row>
@@ -290,10 +291,14 @@ const AddVariation = ({}: AddVariationProps) => {
           </Button>
         ) : null}
       </div> */}
-      {variationForm.variationList.length < 2 ? (
+      {variationForm.variationList.filter((el: any) => el.isDeleted).length < 2 ? (
         <Row className=' py-4'>
-          <Col span={4} className='text-right mr-2'>
-            Variation{variationForm.variationList.length + 1}:
+          <Col span={4} className='text-right pr-2'>
+            Variation
+            {variationForm.variationList.filter((el: any) => el.isDeleted).length
+              ? variationForm.variationList.length + 1
+              : ''}
+            {` :`}
           </Col>
           <Col span={16}>
             {/* <Row>

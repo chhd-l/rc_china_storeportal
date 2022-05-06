@@ -23,7 +23,7 @@ const Product = () => {
       setShowMain(true)
       setShowCatePop(true)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const getDetail = async (goodsId: string) => {
@@ -32,6 +32,7 @@ const Product = () => {
     console.info('data', afterData)
     setBeforeData(beforeData)
     setDetail(afterData)
+    setProductName(afterData.name || '')
     setShowMain(true)
     // setCateInfo({ cateId: ['123'] })
   }
@@ -39,7 +40,7 @@ const Product = () => {
   useEffect(() => {
     let newDetail = Object.assign({}, detail, cateInfo)
     setDetail(cloneDeep(newDetail))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cateInfo])
 
   const handleCate = (value: any) => {
@@ -53,10 +54,17 @@ const Product = () => {
 
   return (
     <ContentContainer>
-      <DetailContext.Provider value={{ detail, setShowCatePop, setProductName, ProductName}}>
+      <DetailContext.Provider value={{ detail, setShowCatePop, setProductName, ProductName }}>
         {showMain ? (
           <MainInfo details={detail} beforeData={beforeData} showCatePop={showCatePop}>
-            {showCatePop && <ChooseCate detail={detail} setShowCatePop={setShowCatePop} setProductName={setProductName} handleCate={handleCate} />}
+            {showCatePop && (
+              <ChooseCate
+                detail={detail}
+                setShowCatePop={setShowCatePop}
+                setProductName={setProductName}
+                handleCate={handleCate}
+              />
+            )}
           </MainInfo>
         ) : null}
       </DetailContext.Provider>
