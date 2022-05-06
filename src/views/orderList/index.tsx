@@ -11,6 +11,9 @@ import { handleQueryParams } from './modules/handle-query-params'
 import { PageParamsProps } from '@/framework/types/common'
 import { initPageParams } from '@/lib/constants'
 import './index.less'
+// 引入翻译
+import { ConfigProvider } from 'antd'; 
+import en_US from "antd/lib/locale/en_US"
 
 const PetOwnerList = () => {
   const [orderList, setOrderList] = useState<Order[]>([])
@@ -92,6 +95,7 @@ const PetOwnerList = () => {
             <Tabs.TabPane tab={item.label} key={item.key} />
           ))}
         </Tabs>
+        <ConfigProvider locale={en_US} >
         <Search
           query={(data: OrderSearchParamsProps) => {
             setSearchParams(data)
@@ -104,6 +108,7 @@ const PetOwnerList = () => {
             })
           }}
         />
+        </ConfigProvider>
       </SearchContainer>
       <TableContainer className="py-0 pb-5">
         <div className="text-left text-xl font-bold">{total} Orders</div>

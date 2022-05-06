@@ -27,7 +27,7 @@ export const SearchContainer: FC<Props> = ({ children, className }) => {
 }
 
 export const TableContainer: FC<Props> = ({ children }) => {
-  return <Container className="px-10 pb-5 bg-white">{children}</Container>
+  return <Container className="px-6 pb-5 bg-white">{children}</Container>
 }
 
 export const InfoContainer: FC<Props> = ({ children, title }) => {

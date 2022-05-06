@@ -30,22 +30,22 @@ export interface Log {
   createdBy: string
   status: string
   id: string
-  event:string
+  event: string
 }
 
 export interface Carrier {
   packId: string
   company: string
   tradeItem: OrderTradeItem[]
-  deliveries?:Deliveries[]
+  deliveries?: Deliveries[]
 }
 
-export interface Deliveries{
-  areaCode?:string
-  areaName?:string
-  context:string
-  status:string
-  time:string
+export interface Deliveries {
+  areaCode?: string
+  areaName?: string
+  context: string
+  status: string
+  time: string
 }
 
 export interface PayInfo {

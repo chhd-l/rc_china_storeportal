@@ -54,70 +54,79 @@ const BasicInfo = ({ field }: FormProps) => {
       <Form.Item
         label='Product Image'
         labelCol={{
-          span: 5,
+          span: 2,
         }}
         wrapperCol={{
-          span: 19,
+          span: 22,
         }}
       >
-        <div className='text-left  flex flex-wrap'>
+        <div className='text-left pl-6  flex flex-wrap'>
           {initAsserts?.map((img: any) => (
             <Upload handleImgUrl={handleImgUrl} fileList={[img]} showUploadList={false} />
           ))}
         </div>
       </Form.Item>
-      <Form.Item label='Product Video' name='video'>
-        <div className='text-left'>
+      <Form.Item label='Product Video' labelCol={{
+        span: 2,
+      }}
+        wrapperCol={{
+          span: 22,
+        }} name='video'>
+        <div className='text-left pl-6'>
           <Upload handleImgUrl={handleImgUrl} showUploadList={false} />
         </div>
       </Form.Item>
-      <Form.Item label='SPU' name='spuNo' rules={[{ required: true, message: 'Missing SPU' }]}>
-        <Input />
+      <Form.Item label='SPU' name='spuNo' rules={[{ required: true, message: 'Missing SPU' }]} labelCol={{ span: 2 }} >
+        <div className='text-left pl-6'>
+          <Input />
+        </div>
       </Form.Item>
-      <Form.Item
-        label='Product Name'
-        name='name'
-        initialValue={ProductName}
-        rules={[{ required: true, message: 'Missing Product Name' }]}
-      >
-        <Input showCount maxLength={120} />
+      <Form.Item label='Product Name' name='name' rules={[{ required: true, message: 'Missing Product Name' }]} labelCol={{ span: 2 }}>
+        <div className='text-left pl-6'>
+          <Input showCount maxLength={120} />
+        </div>
       </Form.Item>
 
-      <Form.Item label='Product Card Name' name='cardName'>
-        <Input showCount maxLength={120} />
+      <Form.Item label='Product Card Name' name='cardName' labelCol={{ span: 2 }}>
+        <div className='text-left pl-6'>
+          <Input showCount maxLength={120} />
+        </div>
       </Form.Item>
       <Form.Item
         label='Product Description'
         name='goodsDescription'
         // initialValue={detail.goodsDescription}
         rules={[{ required: true, message: 'Missing Product Description' }]}
-      >
-        <Wangeditor defaultValue={detail.goodsDescription} onChange={handleEditorChange} />
+        labelCol={{ span: 2 }}>
+        <div className='text-left pl-6'>
+          <Wangeditor defaultValue={detail.goodsDescription} onChange={handleEditorChange} />
+        </div>
       </Form.Item>
-      <Form.Item label='Category' name='category'>
-        <div className='flex'>
+      <Form.Item label='Category' name='category' labelCol={{ span: 4 }} rules={[{ required: true }]}>
+        <div className='flex pr-6'>
           {detail.selectedCateOptions?.map((cate: any, idx: number) => (
             <div>
               {idx === 0 ? '' : '>'}
               {cate.label}
             </div>
           ))}
-          <EditOutlined
-            onClick={() => {
-              setShowCatePop(true)
-            }}
-          />
+          <div className="text-left ml-6">
+            <EditOutlined
+              onClick={() => {
+                setShowCatePop(true)
+              }}
+            />
+          </div>
         </div>
         {/* <Input
          
         /> */}
       </Form.Item>
-      <Form.Item label='Brand' name='brandId'>
-        <Select placeholder='please select Brand' options={breedList} />
+      <Form.Item label='Brand' name='brandId' labelCol={{ span: 4 }} rules={[{ required: true }]}>
+        <Select placeholder='please select Brand' options={breedList} style={{ width: 195 }} />
       </Form.Item>
-      <Form.Item label='Sales Status' name='salesStatus' 
-        rules={[{ required: true, message: 'please select Sales Status' }]}>
-        <Select placeholder='please select Sales Status' options={salesStatusList} />
+      <Form.Item label='Sales Status' name='salesStatus' labelCol={{ span: 4 }} rules={[{ required: true }]}>
+        <Select placeholder='please select Sales Status' options={salesStatusList} style={{ width: 195 }} />
       </Form.Item>
     </div>
   ) : null

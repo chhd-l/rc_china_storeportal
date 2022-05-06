@@ -39,20 +39,28 @@ export const columns: ProColumns<CategoryBaseProps>[] = [
     key: "option",
     width: 180,
     valueType: "option",
-    render: (_, record) => [
-      <Link to={`/category/${record.id}`} className="mr-4">
+    render: (_, record) => {
+      if(record.productNum<=0){
+        return[
+        <Link to={`/category/${record.id}`} className="mr-4">
         +
       </Link>,
+      // <a className=" mr-4">
+      //   <SettingOutlined />
+      // </a>,
       <a className=" mr-4">
-        <SettingOutlined />
-      </a>,
-      <a className=" mr-4">
-        <DeleteOutlined />
-      </a>,
+      <DeleteOutlined />
+      </a>]
+      }else{
+        return[
       <Link to={`/category/${record.id}`} className="mr-4">
         <FileTextOutlined />
       </Link>,
-    ],
+      <a className=" mr-4">
+      <DeleteOutlined />
+      </a>,]
+      }
+    },
   },
 ];
 
