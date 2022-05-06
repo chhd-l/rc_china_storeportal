@@ -95,7 +95,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
                           <br />
                           <span className="text-gray-400 text-sm">Variation:{product.goodsSpecifications}</span>
                         </Col>
-                        <Col span={4} className="items-start text-right">
+                        <Col span={4} className="items-start text-left">
                           x{product.num}
                         </Col>
                       </Row>
@@ -103,14 +103,14 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
                   </Row>
                 ))}
               </Col>
-              <Col span={4} className="text-right">
+              <Col span={4} className="text-right pr-3">
                 <div>
                   {formatMoney(item.tradePrice.totalPrice)}
                   <br />
                   <span className="text-gray-400">{item?.payInfo?.payTypeName}</span>
                 </div>
               </Col>
-              <Col span={4} className="text-right">
+              <Col span={4} className="text-right pr-8">
                 <div>{orderStatusType[item.tradeState.orderState]}</div>
               </Col>
               <Col span={6} className="text-center">
