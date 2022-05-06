@@ -18,6 +18,7 @@ const listDatas = Mock.mock(dataSource)
 const ProductList = () => {
   const [activeKey, setActiveKey] = useState<React.Key>(Tab.All)
   const [sample, setSample] = useState({})
+  const [filterCondition, setFilterCondition] = useState('')
   const [toolbarList, setToolbarList] = useState<OptionsProps[]>([])
   const navigation = useNavigate()
   const [listData, setListData] = useState<ProductListProps>({
@@ -42,19 +43,29 @@ const ProductList = () => {
   }
   const handleTab = (activeKey: any) => {
     setActiveKey(activeKey)
-    console.info(activeKey)
+    let filter = ''
+    if (activeKey !== 'All') {
+      filter = activeKey
+        .split(' ')
+        .join('_')
+        .toUpperCase()
+    }
+    setFilterCondition(filter)
+    console.info()
   }
 
   const getList = async () => {
-    // let res = await getAllProducts({ limit: 2, sample: {}, isNeedTotal: true, operator: 'sss', offset: page })
-    let res = await getScProducts({
+    let params: any = {
       limit: pages.pageSize,
       sample,
       isNeedTotal: true,
       operator: 'sss',
       offset: pages.page - 1,
-    })
-
+    }
+    if (filterCondition) {
+      params.filterCondition = filterCondition
+    }
+    let res = await getScProducts(params)
     setListData(res)
     let newToolbarList = handleTabValue(toolbarInit, res)
     setToolbarList(newToolbarList)
@@ -63,6 +74,11 @@ const ProductList = () => {
     getList()
     // setListData(listDatas)
   }, [sample, pages])
+
+  useEffect(() => {
+    getList()
+    // setListData(listDatas)
+  }, [filterCondition])
   return (
     <ContentContainer className='productlist'>
       <SearchHeader getFormData={getFormData} />

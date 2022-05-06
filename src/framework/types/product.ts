@@ -165,6 +165,7 @@ export interface ProductListSimpleQueryProps {
 }
 export interface ProductListQueryProps extends PageProps {
   sample?: ProductListSimpleQueryProps
+  filterCondition?: string
 }
 export enum ChangeType {
   handleVariation = 'VARIATION',
