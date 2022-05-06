@@ -45,9 +45,10 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
             getPopupContainer={(trigger: any) => trigger.parentNode}
             value="Carrier"
             className="order-table-select"
+            style={{width:"150px"}}
           >
             {carrierTypes.map((item) => (
-              <Select.Option value={item.code} key={item.nameEn}>
+              <Select.Option value={item.code} key={item.code}>
                 {item.nameEn}
               </Select.Option>
             ))}

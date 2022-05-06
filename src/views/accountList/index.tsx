@@ -22,7 +22,8 @@ const AccountList = () => {
   }, []);
 
   const getAccounts= async () => {
-    await getAccountList({});
+    let res = await getAccountList({});
+    console.log('res',res)
   };
 
   return (

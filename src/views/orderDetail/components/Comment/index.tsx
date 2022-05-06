@@ -77,7 +77,7 @@ const OrderComment = ({
                   </Tooltip>
                   <Tooltip title="Delete">
                     <span
-                      className="cursor-pointer iconfont text-sm icon-Frame3 text-black-500 ml-2"
+                      className="cursor-pointer iconfont text-sm icon-delete text-black-500 ml-2"
                       onClick={() => {
                         setDelModalShow(true)
                         setCurComment(item)

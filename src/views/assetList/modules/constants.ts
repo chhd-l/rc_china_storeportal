@@ -5,10 +5,10 @@ export const tabList: BaseListProps[] = [
     label: "Picture",
     key: "picture",
   },
-  {
-    label: 'Graphic message',
-    key: 'graphic',
-  },
+  // {
+  //   label: 'Graphic message',
+  //   key: 'graphic',
+  // },
   {
     label: 'Voice',
     key: 'voice',

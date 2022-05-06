@@ -40,7 +40,7 @@ const Index = ({ petOwnerList }: PetOwnerTableProps) => {
             />
           </Tooltip>
           <Tooltip title="Delete">
-            <span className="cursor-pointer ml-2 iconfont icon-Frame3 text-red-500 text-xl" onClick={() => {}} />
+            <span className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl" onClick={() => {}} />
           </Tooltip>
         </>
       ),

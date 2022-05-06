@@ -63,17 +63,15 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     console.info('data', data)
     navigator('/product/product-list')
   }
-  console.info('detaildetaildetaildetail', detail)
-
   useEffect(()=>{
-    console.log('form.122',form.getFieldsValue(true))
+    console.log('form.122',beforeData.shelvesStatus)
   }, [])
 
   return (
     <div
       id={steps[0].anchor}
     >
-      <div className='flex-1 mr-48'>
+      <div className='flex-1 mr-48 MainInfo'>
         <Form
           form={form}
           onFinish={onFinish}
@@ -118,7 +116,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
             {/* </>
             )}
           </Form.List> */}
-            <div className='text-rigth flex justify-end w-full fixed bottom-2 right-72'>
+            <div className='text-rigth flex justify-end w-full fixed bottom-2 footerBtn'>
               <Button
                 className='ml-4'
                 onClick={() => {
@@ -127,25 +125,33 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
               >
                 Cancel
               </Button>
-              <Button
-                className='ml-4'
-                onClick={() => {
-                  shelvesStatus = false
-                  form.submit()
-                }}
-              >
-                Delist
-              </Button>
-              <Button
-                className='ml-4'
-                type='primary'
-                onClick={() => {
-                  shelvesStatus = true
-                  form.submit()
-                }}
-              >
-                Publish
-              </Button>
+              {
+                beforeData.shelvesStatus &&  pathname !== '/product/add' ? (
+                  <Button
+                    className='ml-4'
+                    onClick={() => {
+                      shelvesStatus = false
+                      form.submit()
+                    }}
+                  >
+                    { pathname === '/product/add' ? 'Save and Delish' : 'Delish' }
+                  </Button>
+                ) : null
+              }
+              {
+                !beforeData.shelvesStatus &&  pathname !== '/product/add' ? (
+                  <Button
+                    className='ml-4'
+                    type='primary'
+                    onClick={() => {
+                      shelvesStatus = true
+                      form.submit()
+                    }}
+                  >
+                    { pathname === '/product/add' ? 'Save and Publish' : 'Publish' }
+                  </Button>
+                ) : null
+              }
               {
                 pathname !== '/product/add' ? (
                   <Button
