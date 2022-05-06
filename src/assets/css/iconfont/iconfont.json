@@ -6,6 +6,48 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "29486742",
+      "name": "upload",
+      "font_class": "a-bianzu67beifen3",
+      "unicode": "e633",
+      "unicode_decimal": 58931
+    },
+    {
+      "icon_id": "29460961",
+      "name": "日期组件图标",
+      "font_class": "riqizujiantubiao",
+      "unicode": "e632",
+      "unicode_decimal": 58930
+    },
+    {
+      "icon_id": "29391215",
+      "name": "编组 2",
+      "font_class": "a-User",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "29385663",
+      "name": "订单备注",
+      "font_class": "a-bianzu8",
+      "unicode": "e630",
+      "unicode_decimal": 58928
+    },
+    {
+      "icon_id": "29384114",
+      "name": "编组 7",
+      "font_class": "a-More",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
+    },
+    {
+      "icon_id": "29384115",
+      "name": "编组 6",
+      "font_class": "a-prompt",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
+    },
+    {
       "icon_id": "23553253",
       "name": "Edit",
       "font_class": "rc-edit",
@@ -71,7 +113,7 @@
     {
       "icon_id": "29187880",
       "name": "category 排序",
-      "font_class": "a-Frame1",
+      "font_class": "a-sort",
       "unicode": "e620",
       "unicode_decimal": 58912
     },
@@ -181,13 +223,6 @@
       "unicode_decimal": 58917
     },
     {
-      "icon_id": "28993951",
-      "name": "编组 (2)",
-      "font_class": "a-bianzu2",
-      "unicode": "e61a",
-      "unicode_decimal": 58906
-    },
-    {
       "icon_id": "28993568",
       "name": "订单",
       "font_class": "dingdan",
@@ -218,7 +253,7 @@
     {
       "icon_id": "28903322",
       "name": "Frame",
-      "font_class": "Frame3",
+      "font_class": "delete",
       "unicode": "e613",
       "unicode_decimal": 58899
     },
