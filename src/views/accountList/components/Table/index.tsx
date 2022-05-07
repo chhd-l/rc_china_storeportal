@@ -72,12 +72,15 @@ const Index = ({ accountList, getAccounts, pages, setPages }: {
                }}
             />
           </Tooltip>
-          <Tooltip title="Delete">
+          {/*避免误删除现在用的accountId*/}
+          {record.id!=='000001'&&(
+            <Tooltip title="Delete">
             <span
               className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl"
               onClick={() => setIsModalVisible(true)}
             />
-          </Tooltip>
+            </Tooltip>
+          )}
           {/* <Tooltip title="View QR Code">
             <span
               className="cursor-pointer ml-2 iconfont icon-Frame-1 text-red-500 text-xl"
