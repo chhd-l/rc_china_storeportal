@@ -5,8 +5,8 @@ import { Account } from "@/framework/types/wechat";
 import { modifyAccount } from '@/framework/api/wechatSetting'
 import './Style.less'
 
-const Index = ({ accountList, getAccounts, pages, setPages }: { 
-  accountList: Account[], 
+const Index = ({ accountList, getAccounts, pages, setPages }: {
+  accountList: Account[],
   getAccounts: Function,
   setPages: Function,
   pages: any
@@ -21,7 +21,7 @@ const Index = ({ accountList, getAccounts, pages, setPages }: {
     isDeleted: true
   }
     await modifyAccount(items)
-    await getAccounts()
+    getAccounts&&getAccounts()
     setIsModalVisible(false)
   }
 
@@ -122,11 +122,7 @@ const Index = ({ accountList, getAccounts, pages, setPages }: {
           pageSize: pages.limit,
           total: pages.total,
           onChange: (page, pageSize) => {
-            setPages({
-              ...pages,
-              page,
-              limit: pageSize
-            })
+            setPages(page, pageSize)
           }
         }}
       />
