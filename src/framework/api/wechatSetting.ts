@@ -109,7 +109,7 @@ export const syncFans = async (accountId: string) => {
 
 export const getMedias = async (queryParams: any) => {
   try {
-    let res = await ApiRoot.wechatSettings().getMedias({ body: queryParams })
+    let res = await ApiRoot.wechatSettings().getMedias({ body: {...queryParams,accountId: "000001"} })
     const mediaList = res?.mediaList
     mediaList.records = normaliseMediaList(mediaList.records)
     console.log('get wechat setting media list view data', mediaList)
@@ -140,24 +140,24 @@ export const createMedia = async (queryParams: any) => {
       ),
       operator: 'zz',
     })
-    const media = res?.addMedia
-    console.log('create media view data', media)
-    return media
+    const addMedia = res?.addMedia
+    console.log('create media view data', addMedia)
+    return addMedia || false
   } catch (e) {
     console.log(e)
-    return []
+    return false
   }
 }
 
 export const updateMedia = async (queryParams: any) => {
   try {
     let res = await ApiRoot.wechatSettings().modifyMedia(queryParams)
-    const media = res?.addMedia
-    console.log('create media view data', media)
-    return media
+    const modifyMedia = res?.modifyMedia
+    console.log('create media view data', modifyMedia)
+    return modifyMedia || false
   } catch (e) {
     console.log(e)
-    return []
+    return false
   }
 }
 
@@ -166,9 +166,9 @@ export const syncMedias = async (type: string) => {
     let res = await ApiRoot.wechatSettings().syncMedia({ accountId: '000001', type })
     const syncSuccess = res?.data?.syncMedia
     console.log('sync media view data', syncSuccess)
-    return syncSuccess
+    return syncSuccess || false
   } catch (e) {
     console.log(e)
-    return []
+    return false
   }
 }

@@ -6,8 +6,9 @@ import { ContentContainer } from '@/components/ui'
 import { PageParamsProps } from '@/framework/types/common'
 import { handlePageParams } from '@/utils/utils'
 import { useNavigate } from 'react-router'
+import { initPageParams } from '@/lib/constants'
 
-const Picture = () => {
+const Video = () => {
   const column = [
     {
       title: 'Title',
@@ -54,10 +55,7 @@ const Picture = () => {
   ]
   const navigator = useNavigate()
   const [pictureList, setPictureList] = useState<Asset[]>([])
-  const [pageParams, setPageParams] = useState<PageParamsProps>({
-    currentPage: 1,
-    pageSize: 10,
-  })
+  const [pageParams, setPageParams] = useState<PageParamsProps>(initPageParams)
   const [total, setTotal] = useState(0)
   const { currentPage, pageSize } = pageParams
   const initSearchParams = {
@@ -74,11 +72,13 @@ const Picture = () => {
   }
 
   const deleteMedia = async (record: any) => {
-    await updateMedia({
+    const res = await updateMedia({
       id: record.id,
       isDeleted: true,
     })
-    await getMediaList({})
+    if (res) {
+      await getMediaList({})
+    }
   }
 
   useEffect(() => {
@@ -89,7 +89,6 @@ const Picture = () => {
     const { description, startTime, endTime } = curSearchParams
     const queryParams = Object.assign(
       {
-        accountId: '000001',
         sample: Object.assign(
           { type: 'video' },
           description !== '' ? { description } : {},
@@ -104,7 +103,7 @@ const Picture = () => {
   }
 
   const syncMediaList = async () => {
-    await syncMedias('image')
+    await syncMedias('video')
   }
 
   return (
@@ -180,4 +179,4 @@ const Picture = () => {
     </ContentContainer>
   )
 }
-export default Picture
+export default Video
