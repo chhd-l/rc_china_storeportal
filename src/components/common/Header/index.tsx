@@ -12,7 +12,7 @@ const Header = ({userInfo}: {userInfo: User | null}) => {
         <RouteBreadcrumb />
       </div>
       <div className="h-full flex-none" style={{ lineHeight: "51px", width: "150px" }}>
-        <span className="iconfont icon-user align-middle" style={{ fontSize: "28px" }}></span>
+        <span className="iconfont icon-a-User align-middle" style={{ fontSize: "28px" }}></span>
         <span className="align-middle ml-2">{userInfo?.username}</span>
       </div>
     </header>

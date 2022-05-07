@@ -7,6 +7,7 @@ import "./index.less";
 import { login } from "@/framework/api/login-user";
 import { useAtom } from "jotai";
 import { userAtom } from "@/store/user.store";
+import axios from "axios";
 
 const formItems: FormItemProps[] = [
   {

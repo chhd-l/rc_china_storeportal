@@ -16,6 +16,7 @@ function App () {
   const [userInfo] = useAtom(userAtom)
 
   useEffect(() => {
+    console.log(process.env.REACT_APP_BESE_URL, 'console.log(process.env.REACT_APP_BASE_URL)')
     if (location.pathname === '/') {
       if (userInfo?.id) {
         navigate('/shipment-list')  
