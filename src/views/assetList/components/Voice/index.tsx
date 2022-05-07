@@ -1,12 +1,13 @@
-import { Button, message, Pagination, Table, Tooltip, Upload, Image } from 'antd'
+import { Button, message, Pagination, Table, Tooltip, Upload } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Asset } from '@/framework/types/wechat'
 import { createMedia, getMedias, syncMedias, updateMedia } from '@/framework/api/wechatSetting'
 import { ContentContainer } from '@/components/ui'
 import { PageParamsProps } from '@/framework/types/common'
 import { handlePageParams } from '@/utils/utils'
+import { initPageParams } from '@/lib/constants'
 
-const Picture = () => {
+const Voice = ({ isReload = false, openDelete }: { isReload: boolean; openDelete: Function }) => {
   const column = [
     {
       title: 'Voice',
@@ -37,44 +38,38 @@ const Picture = () => {
         <Tooltip title="Delete">
           <span
             className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl"
-            onClick={() => deleteMedia(record)}
+            onClick={() => openDelete && openDelete(record.id)}
           />
         </Tooltip>
       ),
     },
   ]
   const [pictureList, setPictureList] = useState<Asset[]>([])
-  const [pageParams, setPageParams] = useState<PageParamsProps>({
-    currentPage: 1,
-    pageSize: 10,
-  })
+  const [pageParams, setPageParams] = useState<PageParamsProps>(initPageParams)
   const [total, setTotal] = useState(0)
   const { currentPage, pageSize } = pageParams
 
   const changePage = async (page: any, pageSize: any) => {
     await setPageParams({ currentPage: page, pageSize: pageSize })
-    await getMediaList()
+    await getMediaList({ currentPage: page, pageSize: pageSize })
   }
 
-  const deleteMedia = async (record: any) => {
-    await updateMedia({
-      id: record.id,
-      isDeleted: true,
-    })
-    await getMediaList()
-  }
+  useEffect(() => {
+    if (isReload) {
+      getMediaList()
+    }
+  }, [isReload])
 
   useEffect(() => {
     getMediaList()
   }, [])
 
-  const getMediaList = async () => {
+  const getMediaList = async (curPageParams = pageParams) => {
     const queryParams = Object.assign(
       {
-        accountId: '000001',
         sample: { type: 'voice' },
       },
-      handlePageParams(pageParams),
+      handlePageParams(curPageParams),
     )
     const res = await getMedias(queryParams)
     setTotal(res.total)
@@ -88,14 +83,12 @@ const Picture = () => {
       authorization: 'authorization-text',
     },
     onChange: async (info: any) => {
-      if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList)
-      }
       if (info.file.status === 'done') {
-        console.log('success', info.file.response)
         message.success(`${info.file.name} file uploaded successfully`)
-        await createMedia({ type: 'voice', url: info.file.response.url, fileExtension: 'mp3' })
-        await getMediaList()
+        const res=await createMedia({ type: 'voice', url: info.file.response.url, fileExtension: 'mp3' })
+        if(res){
+          await getMediaList()
+        }
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} file upload failed.`)
       }
@@ -103,7 +96,7 @@ const Picture = () => {
   }
 
   const syncMediaList = async () => {
-    await syncMedias('image')
+    await syncMedias('voice')
   }
 
   return (
@@ -134,4 +127,4 @@ const Picture = () => {
     </ContentContainer>
   )
 }
-export default Picture
+export default Voice

@@ -3,6 +3,7 @@ import React from "react";
 import { SearchFormItemProps } from "@/framework/types/common";
 import moment from "moment";
 import './index.less'
+import { isArray } from "lodash";
 
 const { RangePicker } = DatePicker;
 const dateFormat = 'YYYY/MM/DD';
@@ -20,20 +21,20 @@ const Search = ({
 }) => {
   const [form] = Form.useForm();
 
-  const formValuesChange = (changedValues: any, allValues: any) => {
-    console.log(changedValues, allValues);
-  };
-
   const search = (values: any) => {
-    console.log(values);
-    query && query();
+    const val = {...values}
+    if(values?.followTime) {
+      val.followStartTime = moment(values.followTime[1]._d).format('YYYY-MM-DD')
+      val.followEndTime = moment(values.followTime[0]._d).format('YYYY-MM-DD')
+      delete val.followTime
+    }
+    query(val);
   };
 
   return (
     <div id="fanslist">
       <Form
         form={form}
-        onValuesChange={formValuesChange}
         onFinish={search}
         autoComplete="off"
         className={`${classes} flex flex-row flex-wrap justify-start`}
@@ -51,8 +52,8 @@ const Search = ({
           >
             {item.type === "select" ? (
               <Select placeholder={item.placeholder}>
-                {(item.selectList || []).map((el) => (
-                  <Select.Option value={el.key} key={el.key}>
+                {(item.selectList || []).map((el, index) => (
+                  <Select.Option value={el.key} key={index}>
                     {el.label}
                   </Select.Option>
                 ))}
@@ -82,6 +83,7 @@ const Search = ({
             htmlType="button"
             onClick={() => {
               form.resetFields();
+              query()
             }}
           >
             Reset

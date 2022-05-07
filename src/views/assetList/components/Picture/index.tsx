@@ -1,12 +1,14 @@
 import { Button, message, Pagination, Table, Tooltip, Upload, Image } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Asset } from '@/framework/types/wechat'
-import { createMedia, getMedias, syncMedias, updateMedia } from '@/framework/api/wechatSetting'
+import { createMedia, getMedias, syncMedias } from '@/framework/api/wechatSetting'
 import { ContentContainer } from '@/components/ui'
 import { PageParamsProps } from '@/framework/types/common'
 import { handlePageParams } from '@/utils/utils'
+import './index.less'
+import { initPageParams } from '@/lib/constants'
 
-const Picture = () => {
+const Picture = ({ isReload = false, openDelete }: { isReload: boolean; openDelete: Function }) => {
   const [visible, setVisible] = useState(false)
   const column = [
     {
@@ -38,30 +40,19 @@ const Picture = () => {
       key: 'action',
       render: (text: any, record: any) => (
         <div className="flex flex-row items-center">
-          <Tooltip title="View QR Code">
+          <Tooltip title="View Image">
             <span
               className="cursor-pointer ml-2 iconfont icon-bianzu3 primary-color"
               onClick={() => {
+                setPreviewImg(record.assetLink)
                 setVisible(true)
               }}
             />
           </Tooltip>
-          <Image
-            key={record.id}
-            style={{ display: 'none' }}
-            src={`${record.assetLink}?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200`}
-            preview={{
-              visible,
-              src: record.assetLink,
-              onVisibleChange: (value) => {
-                setVisible(value)
-              },
-            }}
-          />
           <Tooltip title="Delete">
             <span
               className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl"
-              onClick={() => deleteMedia(record)}
+              onClick={() => openDelete && openDelete(record.id)}
             />
           </Tooltip>
         </div>
@@ -69,34 +60,29 @@ const Picture = () => {
     },
   ]
   const [pictureList, setPictureList] = useState<Asset[]>([])
-  const [pageParams, setPageParams] = useState<PageParamsProps>({
-    currentPage: 1,
-    pageSize: 10,
-  })
+  const [pageParams, setPageParams] = useState<PageParamsProps>(initPageParams)
   const [total, setTotal] = useState(0)
   const { currentPage, pageSize } = pageParams
+  const [previewImg, setPreviewImg] = useState('')
 
   const changePage = async (page: any, pageSize: any) => {
     setPageParams({ currentPage: page, pageSize: pageSize })
     await getMediaList({ currentPage: page, pageSize: pageSize })
   }
 
-  const deleteMedia = async (record: any) => {
-    await updateMedia({
-      id: record.id,
-      isDeleted: true,
-    })
-    await getMediaList()
-  }
-
   useEffect(() => {
     getMediaList()
   }, [])
 
+  useEffect(() => {
+    if (isReload) {
+      getMediaList()
+    }
+  }, [isReload])
+
   const getMediaList = async (curPageParams = pageParams) => {
     const queryParams = Object.assign(
       {
-        accountId: '000001',
         sample: { type: 'image' },
       },
       handlePageParams(curPageParams),
@@ -113,14 +99,12 @@ const Picture = () => {
       authorization: 'authorization-text',
     },
     onChange: async (info: any) => {
-      if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList)
-      }
       if (info.file.status === 'done') {
-        console.log('success', info.file.response)
         message.success(`${info.file.name} file uploaded successfully`)
-        await createMedia({ type: 'image', url: info.file.response.url, fileExtension: 'png' })
-        await getMediaList()
+        const res = await createMedia({ type: 'image', url: info.file.response.url, fileExtension: 'png' })
+        if (res) {
+          await getMediaList()
+        }
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} file upload failed.`)
       }
@@ -145,7 +129,7 @@ const Picture = () => {
           Synchronous WeChat Assets
         </Button>
       </div>
-      <Table columns={column} dataSource={pictureList} pagination={false} rowKey="skuId" className="rc-table w-full" />
+      <Table columns={column} dataSource={pictureList} pagination={false} rowKey="id" className="rc-table w-full" />
       <div className="flex flex-row justify-end mt-4">
         <Pagination
           className="rc-pagination"
@@ -156,6 +140,18 @@ const Picture = () => {
           showSizeChanger={true}
         />
       </div>
+      <Image
+        className="rc-image-preview-img"
+        style={{ display: 'none' }}
+        src={previewImg}
+        preview={{
+          visible,
+          src: previewImg,
+          onVisibleChange: (value) => {
+            setVisible(value)
+          },
+        }}
+      />
     </ContentContainer>
   )
 }

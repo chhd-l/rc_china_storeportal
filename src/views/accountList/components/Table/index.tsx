@@ -1,30 +1,55 @@
-import { Button, Switch, Table, Tooltip } from "antd";
+import { Button, Switch, Table, Tooltip, Modal } from "antd";
 import { useNavigate } from "react-router-dom";
-import React from "react";
+import React, { useState } from "react";
 import { Account } from "@/framework/types/wechat";
+import { modifyAccount } from '@/framework/api/wechatSetting'
+import './Style.less'
 
-const Index = ({ accountList }: { accountList: Account[] }) => {
+const Index = ({ accountList, getAccounts, pages, setPages }: {
+  accountList: Account[],
+  getAccounts: Function,
+  setPages: Function,
+  pages: any
+}) => {
   const navigator = useNavigate();
+  const [isModalVisible, setIsModalVisible] = useState(false)
+
+  const handleOk = async (id: string) => {const items = {
+    account: {
+      id: id,
+    },
+    isDeleted: true
+  }
+    await modifyAccount(items)
+    getAccounts&&getAccounts()
+    setIsModalVisible(false)
+  }
+
+  const handleCancel = () => {
+    setIsModalVisible(false)
+  }
+
+
   const columns = [
     {
       title: "Account Principal",
-      dataIndex: "principal",
-      key: "principal",
+      dataIndex: "accountPrincipal",
+      key: "accountPrincipal",
     },
     {
       title: "Account Type",
-      dataIndex: "type",
-      key: "type",
+      dataIndex: "accountType",
+      key: "accountType",
     },
     {
       title: "Account Name",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "accountName",
+      key: "accountName",
     },
     {
       title: "Official Account Type",
-      dataIndex: "officialType",
-      key: "officialType",
+      dataIndex: "officialAccountType",
+      key: "officialAccountType",
     },
     {
       title: "Status",
@@ -42,21 +67,33 @@ const Index = ({ accountList }: { accountList: Account[] }) => {
           <Tooltip title="Edit">
             <span
               className="cursor-pointer iconfont icon-a-Group437 text-red-500 text-base"
-              onClick={() => { }}
+              onClick={() => {
+                navigator("/account/account-details", { state: record });
+               }}
             />
           </Tooltip>
           <Tooltip title="Delete">
             <span
               className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl"
-              onClick={() => { }}
+              onClick={() => setIsModalVisible(true)}
             />
           </Tooltip>
-          <Tooltip title="View QR Code">
+          {/* <Tooltip title="View QR Code">
             <span
               className="cursor-pointer ml-2 iconfont icon-Frame-1 text-red-500 text-xl"
               onClick={() => { }}
             />
-          </Tooltip>
+          </Tooltip> */}
+          <Modal
+            className="acconutModal"
+            title='Delete Item'
+            visible={isModalVisible}
+            onOk={() => handleOk(record.id)}
+            onCancel={handleCancel}
+            okText='Confirm'
+          >
+            <div>Are you sure you want to delete the item ?</div>
+          </Modal>
         </>
       ),
     },
@@ -80,6 +117,14 @@ const Index = ({ accountList }: { accountList: Account[] }) => {
         columns={columns}
         rowKey="id"
         className="rc-table"
+        pagination={{
+          current: pages.page,
+          pageSize: pages.limit,
+          total: pages.total,
+          onChange: (page, pageSize) => {
+            setPages(page, pageSize)
+          }
+        }}
       />
     </>
   );

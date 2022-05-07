@@ -14,40 +14,42 @@ import {
 } from "@/components/ui";
 
 const FansDetail = () => {
-  const [fansId, setFansId] = useState("");
-  const [fansDetail, setFansDetail] = useState(initFansDetail);
+  const [fansDetail, setFansDetail] = useState<any>(initFansDetail);
   const location = useLocation();
 
   useEffect(() => {
     const state: any = location.state;
-    console.log("333", state.id);
-    setFansId(state.id);
-    console.log(fansId);
-    setFansDetail(Mock.mock(fansDetailSource));
+    console.log('state',state)
+    setFansDetail(state)
+    // setFansDetail(Mock.mock(fansDetailSource));
   }, []);
 
   return (
     <ContentContainer>
       <InfoContainer>
         <div className="text-2xl text-bold mb-2">Fans Detail</div>
-        {fansDetail.account ? (
+        {fansDetail.accountId ? (
           <Form
             autoComplete="off"
             className="flex flex-row flex-wrap justify-start pr-8"
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
-            initialValues={fansDetail}
           >
-            {fansDetailForm.map((item) => (
-              <Form.Item
-                label={item.label}
-                name={item.name}
-                className="w-1/2"
-                key={item.name}
-              >
-                <Input disabled className="bg-white text-black" />
-              </Form.Item>
-            ))}
+            {fansDetailForm.map((item) => {
+              let val = fansDetail[item.name]
+              if(item.label === "Sex") {
+                fansDetail[item.name] === '0' ? val = 'Male' : val = 'Female'
+              }
+              return (
+                <Form.Item
+                  label={item.label}
+                  className="w-1/2"
+                  key={item.name}
+                >
+                  <Input disabled value={val} className="bg-white text-black" />
+                </Form.Item>
+                )
+            })}
           </Form>
         ) : null}
         <div className="flex justify-end">

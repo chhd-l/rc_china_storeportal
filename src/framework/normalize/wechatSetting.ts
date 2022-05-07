@@ -8,7 +8,7 @@ export const normaliseMedia = (media: any) => {
     assetId: media.mediaId,
     assetLink: media.url,
     createTime: handleReturnTime(media.createdAt),
-    status: media.status ? 'Synchronized' : '',
+    status: media.status ? 'Synchronized' : 'Not Synchronized',
     video: media.url,
     voice: media.url,
     assetTitle: media.title,
