@@ -91,8 +91,8 @@ const PetOwnerList = () => {
     <ContentContainer>
       <SearchContainer className="order-search-top">
         <Tabs activeKey={activeKey} onChange={changeTab}>
-          {tabList.map((item) => (
-            <Tabs.TabPane tab={item.label} key={item.key} />
+          {tabList.map((item, idx) => (
+            <Tabs.TabPane tab={item.label} key={idx} />
           ))}
         </Tabs>
         <ConfigProvider locale={en_US} >

@@ -38,8 +38,8 @@ const PetOwnerList = () => {
             setActiveKey(key)
           }}
         >
-          {tabList.map((item) => (
-            <Tabs.TabPane tab={item.label} key={item.key} />
+          {tabList.map((item, index) => (
+            <Tabs.TabPane tab={item.label} key={index} />
           ))}
         </Tabs>
         {activeKey === 'picture' ? <Picture isReload={isReload} openDelete={openDeleteModal} /> : null}
