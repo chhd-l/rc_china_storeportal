@@ -16,8 +16,8 @@
       width: 0 !important;
     }
   }
-  .ant-table-cell{
-    overflow-wrap: anywhere!important;
+  .ant-table-cell {
+    overflow-wrap: anywhere !important;
   }
 }
 
@@ -63,12 +63,13 @@
 .ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title {
   color: #ee4d2d !important;
 }
-.common-dropdown-cascader{
-  .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled),.ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled):hover{
+.common-dropdown-cascader {
+  .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled),
+  .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled):hover {
     background: transparent;
     color: #ee4d2d !important;
   }
-  .ant-cascader-menu-item:hover{
+  .ant-cascader-menu-item:hover {
     background-color: #f8f8f8;
   }
   // .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled):hover{
@@ -76,9 +77,13 @@
   // }
 }
 // sider样式修改
+.ant-menu-light {
+  padding-top: 10px !important;
+}
 .ant-layout-sider {
   // z-index: 99 !important;
   top: 51px !important;
+
   .ant-menu-submenu {
     // 一级菜单样式
     .ant-menu-submenu-selected {
@@ -214,4 +219,19 @@
 // tabHover颜色
 .ant-tabs-tab:hover {
   color: #ee4d2d !important;
+}
+
+// 日期选择框样式调整
+// ant-picker ant-picker-range
+.ant-picker-range {
+  align-items: flex-start !important;
+}
+.ant-picker-range .ant-picker-active-bar {
+  background: none !important;
+}
+.ant-picker-focused,
+.ant-picker:hover {
+  color: #dcdcdc !important;
+  border-color: #dcdcdc !important;
+  box-shadow: none !important;
 }

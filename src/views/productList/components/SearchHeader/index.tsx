@@ -83,7 +83,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                 </Select>
                 {/* <SelectKey list={nameForKey} /> */}
               </Form.Item>
-              <Form.Item name='goodsName' className='flex-1'>
+              <Form.Item name='goodsName' className='flex-1 no-border-radius-left'>
                 <Input placeholder={`please Input`} />
               </Form.Item>
             </Input.Group>
