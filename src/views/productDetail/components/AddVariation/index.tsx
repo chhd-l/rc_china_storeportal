@@ -22,8 +22,6 @@ const initSpec = { option: '', sortIdx: '0-0' }
 const AddVariation = ({}: AddVariationProps) => {
   const { variationForm, setVariationForm } = useContext(VariationosContext)
   const { detail } = useContext(DetailContext)
-
-  const [form] = Form.useForm()
   const DragHandle = SortableHandle(() => <DragOutlined className='mx-2' />)
   const SortElements = SortableElement(
     ({
@@ -159,9 +157,6 @@ const AddVariation = ({}: AddVariationProps) => {
     setVariationForm(cloneDeep(variationForm))
   }
 
-  const handleVariationUpdate = () => {
-    setVariationForm(form.getFieldsValue())
-  }
   const onSortEnd = ({ oldIndex, newIndex, collection }: { oldIndex: number; newIndex: number; collection: any }) => {
     const { variationList } = variationForm
     variationList[collection].specificationList = arrayMoveImmutable(

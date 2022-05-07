@@ -84,7 +84,7 @@ const Cascader = (props: CascaderProps) => {
               onChange: onChange,
               options: categoryList,
               showSearch: true,
-              dropdownClassName: 'product-choose-cate',
+              dropdownClassName: 'product-choose-cate common-dropdown-cascader',
               open: true,
               placement: 'bottomLeft',
               placeholder: 'Categores Name',
@@ -96,10 +96,10 @@ const Cascader = (props: CascaderProps) => {
 
       <div className='py-4'>
         The currently selected :{' '}
-        <span className={`${categories.length ? "font-semibold text-red-600" : "" }`}>
-        {categories.length
-          ? categories.map((el: TreeDataProps, idx: number) => ` ${idx === 0 ? '' : '>'} ${el.label}`)
-          : 'No categories has been chosen'}
+        <span className={`${categories.length ? 'font-semibold text-red-600' : ''}`}>
+          {categories.length
+            ? categories.map((el: TreeDataProps, idx: number) => ` ${idx === 0 ? '' : '>'} ${el.label}`)
+            : 'No categories has been chosen'}
         </span>
       </div>
     </div>

@@ -143,7 +143,7 @@ export const steps: StepsProps[] = [
     subTitle: '',
     tips: 'Basic Infomation',
     rightSlot: <EyeOutlined />,
-    render: (field: FormListFieldData) => <BasicInfo field={field} />,
+    render: (field: FormListFieldData, form: any) => <BasicInfo field={field} form={form} />,
   },
   {
     title: 'Specification',

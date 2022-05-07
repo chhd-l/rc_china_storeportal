@@ -1,23 +1,27 @@
-import { Button, message, Pagination, Table, Tooltip, Upload } from 'antd'
+import { Button, message, Pagination, Table, Tooltip, Upload, Image } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Asset } from '@/framework/types/wechat'
-import { assetListSource } from '@/views/assetList/modules/mockdata'
-import Mock from 'mockjs'
-import { createMedia, getMedias, updateMedia } from '@/framework/api/wechatSetting'
-import { TableContainer } from '@/components/ui'
+import { createMedia, getMedias, syncMedias, updateMedia } from '@/framework/api/wechatSetting'
+import { ContentContainer } from '@/components/ui'
 import { PageParamsProps } from '@/framework/types/common'
+import { handlePageParams } from '@/utils/utils'
+import './index.less'
+import { initPageParams } from '@/lib/constants'
 
-const Picture = () => {
+const Picture = ({ isReload = false, openDelete }: { isReload: boolean; openDelete: Function }) => {
+  const [visible, setVisible] = useState(false)
   const column = [
     {
       title: 'Picture',
       dataIndex: 'picture',
       key: 'picture',
+      render: (text: any) => <img src={text} className="w-16 h-16 order-img" alt="" />,
     },
     {
       title: 'Wechat Assets Link',
       dataIndex: 'assetLink',
       key: 'assetLink',
+      width: '40%',
     },
     {
       title: 'Create Time',
@@ -36,42 +40,64 @@ const Picture = () => {
       key: 'action',
       render: (text: any, record: any) => (
         <div className="flex flex-row items-center">
-          <Tooltip title="View QR Code">
-            <span className="cursor-pointer ml-2 iconfont icon-bianzu3 primary-color" onClick={() => {}} />
+          <Tooltip title="View Image">
+            <span
+              className="cursor-pointer ml-2 iconfont icon-bianzu3 primary-color"
+              onClick={() => {
+                setPreviewImg(record.assetLink)
+                setVisible(true)
+              }}
+            />
           </Tooltip>
           <Tooltip title="Delete">
-            <span className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl" onClick={() => deleteMedia(record)} />
+            <span
+              className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl"
+              onClick={() => openDelete && openDelete(record.id)}
+            />
           </Tooltip>
         </div>
       ),
     },
   ]
   const [pictureList, setPictureList] = useState<Asset[]>([])
-  const [pageParams, setPageParams] = useState<PageParamsProps>({
-    currentPage: 1,
-    pageSize: 10,
-  })
+  const [pageParams, setPageParams] = useState<PageParamsProps>(initPageParams)
   const [total, setTotal] = useState(0)
   const { currentPage, pageSize } = pageParams
+  const [previewImg, setPreviewImg] = useState('')
 
-  const changePage = (page: any, pageSize: any) => {
+  const changePage = async (page: any, pageSize: any) => {
     setPageParams({ currentPage: page, pageSize: pageSize })
+    await getMediaList({ currentPage: page, pageSize: pageSize })
   }
 
-  const deleteMedia=async(record:any)=>{
-    await updateMedia({
-      id:record.id,
-      isDeleted:true
+  const deleteMedia = async (record: any) => {
+    const res = await updateMedia({
+      id: record.id,
+      isDeleted: true,
     })
-    await getMediaList()
+    if (res) {
+      await getMediaList()
+    }
   }
 
   useEffect(() => {
     getMediaList()
   }, [])
 
-  const getMediaList = async () => {
-    const res=await getMedias({})
+  useEffect(() => {
+    if (isReload) {
+      getMediaList()
+    }
+  }, [isReload])
+
+  const getMediaList = async (curPageParams = pageParams) => {
+    const queryParams = Object.assign(
+      {
+        sample: { type: 'image' },
+      },
+      handlePageParams(curPageParams),
+    )
+    const res = await getMedias(queryParams)
     setTotal(res.total)
     setPictureList(res.records)
   }
@@ -82,22 +108,25 @@ const Picture = () => {
     headers: {
       authorization: 'authorization-text',
     },
-    onChange:async (info: any) =>{
-      if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList)
-      }
+    onChange: async (info: any) => {
       if (info.file.status === 'done') {
-        console.log('success', info.file.response)
         message.success(`${info.file.name} file uploaded successfully`)
-        await createMedia({type:'image',url:info.file.response.url,fileExtension:'png'})
-        await getMediaList()
+        const res = await createMedia({ type: 'image', url: info.file.response.url, fileExtension: 'png' })
+        if (res) {
+          await getMediaList()
+        }
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} file upload failed.`)
       }
     },
   }
+
+  const syncMediaList = async () => {
+    await syncMedias('image')
+  }
+
   return (
-    <div className="asset-tab-top">
+    <ContentContainer>
       <div className="flex flex-row mb-4">
         <Upload {...uploadProps}>
           <Button className="flex items-center">
@@ -105,12 +134,12 @@ const Picture = () => {
             Upload Local File
           </Button>
         </Upload>
-        <Button className="ml-4 flex items-center" onClick={() => {}}>
+        <Button className="ml-4 flex items-center" onClick={() => syncMediaList()}>
           <span className="iconfont icon-bianzu2 mr-2 text-xl" />
           Synchronous WeChat Assets
         </Button>
       </div>
-      <Table columns={column} dataSource={pictureList} pagination={false} rowKey="skuId" className="rc-table" />
+      <Table columns={column} dataSource={pictureList} pagination={false} rowKey="id" className="rc-table w-full" />
       <div className="flex flex-row justify-end mt-4">
         <Pagination
           className="rc-pagination"
@@ -121,7 +150,19 @@ const Picture = () => {
           showSizeChanger={true}
         />
       </div>
-    </div>
+      <Image
+        className="rc-image-preview-img"
+        style={{ display: 'none' }}
+        src={previewImg}
+        preview={{
+          visible,
+          src: previewImg,
+          onVisibleChange: (value) => {
+            setVisible(value)
+          },
+        }}
+      />
+    </ContentContainer>
   )
 }
 export default Picture

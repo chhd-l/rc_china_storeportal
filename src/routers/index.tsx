@@ -37,6 +37,7 @@ const MenuManageDetail = lazy(() => import('@/views/menuManageDetail'))
 const TemplateMessageDetail = lazy(() => import('@/views/templateMessageDetail'))
 const TagList = lazy(() => import('@/views/tagList'))
 const EditTag = lazy(() => import('@/views/editTag'))
+const AddVideo = lazy(() => import('@/views/addVideo'))
 
 interface RouteObject {
   caseSensitive?: boolean
@@ -60,6 +61,7 @@ let routes: RouteObject[] = [
       { path: 'shipping-setting', element: <ShippingSetting />, breadcrumbName: 'ShippingSetting' },
       { path: 'automatic-replies', element: <AutoReplyList />, breadcrumbName: 'AutomaticReplies' },
       { path: 'assets-management', element: <AssetList />, breadcrumbName: 'AssetsManagement' },
+      { path: 'add-video', element: <AddVideo />, breadcrumbName: 'Add Video' },
       {
         path: 'product',
         breadcrumbName: 'Product',

@@ -36,7 +36,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
       e => {
         console.info('data-tips', e)
         // @ts-ignore
-        let str = e?.target?.closest('.tips-wrap').dataset?.tips || ''
+        let str = e?.target?.closest('.tips-wrap')?.dataset?.tips || ''
         if (str) {
           setDataTips(str)
         }
@@ -120,7 +120,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                       </div>
                       <div className='pb-4'>{steps[idx].subTitle}</div>
                     </div>
-                    {steps[idx].render(field)}
+                    {steps[idx].render(field, form)}
                   </div>
                 </InfoContainer>
                 <DivideArea />

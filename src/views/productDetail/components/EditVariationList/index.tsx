@@ -284,7 +284,8 @@ const EditVariationList = (props: FormProps) => {
                               return (
                                 <Upload
                                   type={UploadType.button}
-                                  fileList={[{ img: tr[td.keyVal] }]}
+                                  hideName={true}
+                                  fileList={[{ url: tr[td.keyVal] }]}
                                   showUploadList={false}
                                   handleImgUrl={() => {
                                     console.info('...')

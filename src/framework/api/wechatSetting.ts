@@ -77,14 +77,7 @@ export const syncFans = async (accountId: string) => {
 
 export const getMedias = async (queryParams: any) => {
   try {
-    //todo 查询参数处理
-    const params = {
-      offset: 0,
-      limit: 10,
-      accountId: '000001',
-      sample: { type: 'image' },
-    }
-    let res = await ApiRoot.wechatSettings().getMedias({ body: params })
+    let res = await ApiRoot.wechatSettings().getMedias({ body: { ...queryParams, accountId: "000001" } })
     const mediaList = res?.mediaList
     mediaList.records = normaliseMediaList(mediaList.records)
     console.log('get wechat setting media list view data', mediaList)
@@ -98,32 +91,52 @@ export const getMedias = async (queryParams: any) => {
 export const createMedia = async (queryParams: any) => {
   try {
     let res = await ApiRoot.wechatSettings().createMedia({
-      mediaInput: {
-        accountId: '000001',
-        type: queryParams.type,
-        url: queryParams.url,
-        status: false,
-        fileExtension: queryParams.fileExtension,
-      },
+      mediaInput: Object.assign(
+        {
+          accountId: '000001',
+          type: queryParams.type,
+          url: queryParams.url,
+          status: false,
+          fileExtension: queryParams.fileExtension,
+        },
+        queryParams.type === 'video'
+          ? {
+            title: queryParams.title,
+            description: queryParams.description,
+          }
+          : {},
+      ),
       operator: 'zz',
     })
-    const media = res?.addMedia
-    console.log('create media view data', media)
-    return media
+    const addMedia = res?.addMedia
+    console.log('create media view data', addMedia)
+    return addMedia || false
   } catch (e) {
     console.log(e)
-    return []
+    return false
   }
 }
 
 export const updateMedia = async (queryParams: any) => {
   try {
     let res = await ApiRoot.wechatSettings().modifyMedia(queryParams)
-    const media = res?.addMedia
-    console.log('create media view data', media)
-    return media
+    const modifyMedia = res?.modifyMedia
+    console.log('create media view data', modifyMedia)
+    return modifyMedia || false
   } catch (e) {
     console.log(e)
-    return []
+    return false
+  }
+}
+
+export const syncMedias = async (type: string) => {
+  try {
+    let res = await ApiRoot.wechatSettings().syncMedia({ accountId: '000001', type })
+    const syncSuccess = res?.data?.syncMedia
+    console.log('sync media view data', syncSuccess)
+    return syncSuccess || false
+  } catch (e) {
+    console.log(e)
+    return false
   }
 }
