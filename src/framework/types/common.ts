@@ -71,7 +71,7 @@ export interface InputTextProps extends InputBaseProps {
 
 export interface BaseListProps {
   label: string
-  key?: string | OrderStatus
+  key?: string | OrderStatus | boolean | number
   value?: string | OrderStatus
   children?: any[]
 }

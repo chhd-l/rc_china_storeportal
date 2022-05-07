@@ -3,8 +3,7 @@ import { DownOutlined, UpOutlined } from '@ant-design/icons'
 import { Checkbox, Tooltip, Modal, Image } from 'antd'
 import ShowMoreButton from '../ShowMoreButton'
 import { Link } from 'react-router-dom'
-import { deleteProducts, getScProducts, switchShelves } from '@/framework/api/get-product'
-import { cloneDeep } from 'lodash'
+import { deleteProducts, switchShelves } from '@/framework/api/get-product'
 import { useState } from 'react'
 
 interface TableRowProps {
@@ -109,9 +108,9 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
           </Link>
         </Tooltip>
         <Tooltip title='Delete'>
-          <Link to=''>
+          <Link  to=''>
             <span
-              className='icon iconfont icon-Frame3 text-base'
+              className='icon iconfont icon-delete text-base'
               onClick={() => {
                 setIsModalVisible(true)
               }}
