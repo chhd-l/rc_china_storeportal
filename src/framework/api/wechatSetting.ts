@@ -83,7 +83,7 @@ export const modifyAccount = async (queryParams: any) => {
         id: '3c00e55e-fbfc-43be-cb82-6fd8364b5ea2',
         accountName: '4444',
       },
-      isDeleted: true
+      isDeleted: true,
     }
     let res = await ApiRoot.wechatSettings().modifyAccount({ body: params })
     const modifySuccess = res?.modifyAccount
@@ -123,13 +123,21 @@ export const getMedias = async (queryParams: any) => {
 export const createMedia = async (queryParams: any) => {
   try {
     let res = await ApiRoot.wechatSettings().createMedia({
-      mediaInput: {
-        accountId: '000001',
-        type: queryParams.type,
-        url: queryParams.url,
-        status: false,
-        fileExtension: queryParams.fileExtension,
-      },
+      mediaInput: Object.assign(
+        {
+          accountId: '000001',
+          type: queryParams.type,
+          url: queryParams.url,
+          status: false,
+          fileExtension: queryParams.fileExtension,
+        },
+        queryParams.type === 'video'
+          ? {
+              title: queryParams.title,
+              description: queryParams.description,
+            }
+          : {},
+      ),
       operator: 'zz',
     })
     const media = res?.addMedia
@@ -155,7 +163,7 @@ export const updateMedia = async (queryParams: any) => {
 
 export const syncMedias = async (type: string) => {
   try {
-    let res = await ApiRoot.wechatSettings().syncMedia({ accountId: '000001',type })
+    let res = await ApiRoot.wechatSettings().syncMedia({ accountId: '000001', type })
     const syncSuccess = res?.data?.syncMedia
     console.log('sync media view data', syncSuccess)
     return syncSuccess

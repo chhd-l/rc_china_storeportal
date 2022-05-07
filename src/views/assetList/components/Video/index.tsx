@@ -1,4 +1,4 @@
-import { Button, Pagination, Table, Tooltip } from 'antd'
+import { Button, DatePicker, Input, Pagination, Table, Tooltip } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Asset } from '@/framework/types/wechat'
 import { getMedias, syncMedias, updateMedia } from '@/framework/api/wechatSetting'
@@ -11,8 +11,8 @@ const Picture = () => {
   const column = [
     {
       title: 'Title',
-      dataIndex: 'title',
-      key: 'title',
+      dataIndex: 'assetTitle',
+      key: 'assetTitle',
     },
     {
       title: 'Description',
@@ -35,12 +35,20 @@ const Picture = () => {
       dataIndex: 'action',
       key: 'action',
       render: (text: any, record: any) => (
-        <Tooltip title="Delete">
-          <span
-            className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl"
-            onClick={() => deleteMedia(record)}
-          />
-        </Tooltip>
+        <>
+          <Tooltip title="Delete">
+            <span
+              className="cursor-pointer ml-2 iconfont icon-a-Frame2 primary-color text-xl"
+              onClick={() => window.open(record.assetLink)}
+            />
+          </Tooltip>
+          <Tooltip title="Delete">
+            <span
+              className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl"
+              onClick={() => deleteMedia(record)}
+            />
+          </Tooltip>
+        </>
       ),
     },
   ]
@@ -52,10 +60,17 @@ const Picture = () => {
   })
   const [total, setTotal] = useState(0)
   const { currentPage, pageSize } = pageParams
+  const initSearchParams = {
+    description: '',
+    startTime: '',
+    endTime: '',
+  }
+  const [searchParams, setSearchParams] = useState(initSearchParams)
+  const [pickValue, setPickValue] = useState<any>(undefined)
 
   const changePage = async (page: any, pageSize: any) => {
     await setPageParams({ currentPage: page, pageSize: pageSize })
-    await getMediaList()
+    await getMediaList({ curPageParams: { currentPage: page, pageSize: pageSize } })
   }
 
   const deleteMedia = async (record: any) => {
@@ -63,20 +78,25 @@ const Picture = () => {
       id: record.id,
       isDeleted: true,
     })
-    await getMediaList()
+    await getMediaList({})
   }
 
   useEffect(() => {
-    getMediaList()
+    getMediaList({})
   }, [])
 
-  const getMediaList = async () => {
+  const getMediaList = async ({ curPageParams = pageParams, curSearchParams = searchParams }) => {
+    const { description, startTime, endTime } = curSearchParams
     const queryParams = Object.assign(
       {
         accountId: '000001',
-        sample: { type: 'voice' },
+        sample: Object.assign(
+          { type: 'video' },
+          description !== '' ? { description } : {},
+          startTime !== '' ? { startTime, endTime } : {},
+        ),
       },
-      handlePageParams(pageParams),
+      handlePageParams(curPageParams),
     )
     const res = await getMedias(queryParams)
     setTotal(res.total)
@@ -89,6 +109,48 @@ const Picture = () => {
 
   return (
     <ContentContainer>
+      <div className="mb-8">
+        <div className="flex flex-row">
+          <div className="flex flex-row items-center">
+            <div className="w-auto mr-2 text-left">Description</div>
+            <Input
+              style={{ width: '200px' }}
+              placeholder="Input"
+              value={searchParams.description}
+              onChange={(e) => {
+                setSearchParams({ ...searchParams, description: e.target.value })
+              }}
+            />
+          </div>
+          <div className="flex flex-row items-center">
+            <div className="mr-2 ml-4">Login Time:</div>
+            <DatePicker.RangePicker
+              style={{ width: '300px' }}
+              value={pickValue}
+              onChange={(date, dateString) => {
+                console.log(date, dateString)
+                setSearchParams({ ...searchParams, startTime: dateString[0], endTime: dateString[1] })
+              }}
+            />
+          </div>
+        </div>
+        <div className="my-4 flex">
+          <Button className="w-20 mr-8" type="primary" danger onClick={() => getMediaList({})}>
+            Search
+          </Button>
+          <Button
+            className="w-20"
+            danger
+            onClick={(e) => {
+              setPickValue(null)
+              setSearchParams(initSearchParams)
+              getMediaList({ curSearchParams: initSearchParams })
+            }}
+          >
+            Reset
+          </Button>
+        </div>
+      </div>
       <div className="flex flex-row justify-between mb-4">
         <Button className="flex items-center" onClick={() => syncMediaList()}>
           <span className="iconfont icon-bianzu2 mr-2 text-xl" />
