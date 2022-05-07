@@ -1,10 +1,8 @@
 import Table from "./components/Table";
-import Mock from "mockjs";
 import React, { useEffect, useState } from "react";
 import { formItems } from "./modules/form";
 import Search from "@/components/common/Search";
 import { Fans } from "@/framework/types/wechat";
-import { fansDetailListSource } from "@/views/fansDetail/modules/mockdata";
 import {
   ContentContainer,
   DivideArea,
@@ -12,17 +10,44 @@ import {
   TableContainer,
 } from "@/components/ui";
 import { getFansList } from '@/framework/api/wechatSetting'
+// import Mock from "mockjs";
+// import { fansDetailListSource } from "@/views/fansDetail/modules/mockdata";
 
 const FanList = () => {
   const [fanList, setFanList] = useState<Fans[]>([]);
+  const [pages, setPages] = useState({
+    page: 1,
+    limit: 10,
+    total: 10,
+  });
 
   useEffect(() => {
-    setFanList(Mock.mock(fansDetailListSource).array);
+    // setFanList(Mock.mock(fansDetailListSource).array);
     getFanList()
   }, []);
 
-  const getFanList = async () => {
-    await getFansList({})
+  const getFanList = async (item = {}) => {
+   let val: {
+    offset: number
+    limit: number
+    isNeedTotal: boolean
+    accountId: string
+    sample?: any
+   } =  {
+    offset: pages.page - 1,
+    limit: pages.limit,
+    isNeedTotal: true,
+    accountId: '000001'
+   }
+   if(JSON.stringify(item) !== '{}') {
+    val.sample = item
+  }
+   let res = await getFansList(val)
+   setFanList(res?.records || [])
+   setPages({
+    ...pages,
+     total: res?.total || 10
+   })
   };
 
   return (

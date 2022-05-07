@@ -5,6 +5,7 @@ export const ADD_VIDEO_FORM: FormItemProps[] = [
     label: "File",
     name: "url",
     placeholder: "Select the file",
+    type:'upload',
     rules: [
       {
         required: true,
