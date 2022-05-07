@@ -20,7 +20,9 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
 
   const getExpressCompanys = async () => {
     const res = await getExpressCompanyList()
+    // console.log('res999999999999', res)
     setCarrierTypes(res)
+    // console.log('9999999999999999')
   }
 
   useEffect(() => {
@@ -30,16 +32,16 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
   return (
     <div className='order-list-page'>
       <Row className="bg-gray1 border py-2 px-4">
-        <Col span={8}>Product(s)</Col>
-        <Col span={4} className="text-right">
+        <Col span={10}>Product(s)</Col>
+        <Col span={4} className="text-left">
           Order Total
         </Col>
-        <Col span={4} className="text-right">
+        <Col span={4} className="text-left">
           Order status
         </Col>
-        <Col span={6} className="text-center">
+        <Col span={4} className="text-left">
           <Select
-            onChange={(val, a) => {}}
+            onChange={(val, a) => { }}
             getPopupContainer={(trigger: any) => trigger.parentNode}
             value="Carrier"
             className="order-table-select"
@@ -52,16 +54,16 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
             ))}
           </Select>
         </Col>
-        <Col span={2} className="text-center">
+        <Col span={2} className="text-left">
           Actions
         </Col>
       </Row>
       {orderList.length > 0 ? (
         orderList.map((item: Order) => (
-          <div className="border mt-2" key={item.id}>
+          <div className="border mt-4" key={item.id}>
             <Row className="bg-gray1 border-b py-2 px-4">
               <Col span={12} className="flex items-center">
-                <Avatar icon={<img src={item.buyer.image} alt={''}/>} />
+                <Avatar icon={<img src={item.buyer.image} alt={''} />} />
                 <span className="ml-2">{item.buyer.name}</span>
               </Col>
               <Col span={12} className="text-right">
@@ -78,24 +80,23 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
               </Col>
             </Row>
             <Row className="p-2 flex items-start">
-              <Col span={8} className="flex flex-col justify-start">
+              <Col span={10} className="flex flex-col justify-start">
                 {item.tradeItem.map((product: OrderTradeItem, index: number) => (
-                  <Row className={`${index!==item.tradeItem.length-1?'mb-2':''} items-start`} key={product.skuId}>
+                  <Row className={`${index !== item.tradeItem.length - 1 ? 'border-b mb-2 pb-2' : ''} items-start`} key={product.skuId}>
                     <Col span={6}>
-                      <img src={product.pic} className="w-16 h-16 order-img" alt=''/>
+                      <img src={product.pic} className="w-16 h-16 order-img" alt='' />
                     </Col>
-                    <Col span={18}>
+                    <Col span={16}>
                       <Row
-                        className={`${
-                          item.tradeItem.length > 1 && index !== item.tradeItem.length - 1 ? 'border-b pb-2' : ''
-                        }`}
+                        className={`${item.tradeItem.length > 1 && index !== item.tradeItem.length - 1 ? ' pb-2' : ''
+                          }`}
                       >
                         <Col span={20}>
                           <span>{product.skuName}</span>
                           <br />
                           <span className="text-gray-400 text-sm">Variation:{product.goodsSpecifications}</span>
                         </Col>
-                        <Col span={4} className="items-start text-right">
+                        <Col span={4} className="items-start text-left">
                           x{product.num}
                         </Col>
                       </Row>
@@ -103,20 +104,20 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
                   </Row>
                 ))}
               </Col>
-              <Col span={4} className="text-right">
+              <Col span={4} className="text-left">
                 <div>
                   {formatMoney(item.tradePrice.totalPrice)}
                   <br />
-                  <span className="text-gray-400">{item?.payInfo?.payTypeName}</span>
+                  <span className="text-gray-400 ">{item?.payInfo?.payTypeName}</span>
                 </div>
               </Col>
-              <Col span={4} className="text-right">
+              <Col span={4} className="text-left">
                 <div>{orderStatusType[item.tradeState.orderState]}</div>
               </Col>
-              <Col span={6} className="text-center">
+              <Col span={4} className="text-left">
                 {item.carrierType}
               </Col>
-              <Col span={2} className="text-center">
+              <Col span={2} className="text-left">
                 <OrderActions
                   orderState={item.tradeState.orderState}
                   orderId={item.id}

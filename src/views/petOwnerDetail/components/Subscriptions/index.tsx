@@ -34,7 +34,7 @@ const SubscriptionInformation = ({ subscriptionList, id }: any) => {
       </Row>
       {subscriptionList.length > 0 ? (
         subscriptionList.map((item: any) => (
-          <div className="border mt-2" key={item.subscriptionId}>
+          <div className="border mt-4" key={item.subscriptionId}>
             <Row className="bg-gray1 border-b p-4">
               <Col span={12} className="flex items-center">
                 <Avatar icon={<UserOutlined />} />

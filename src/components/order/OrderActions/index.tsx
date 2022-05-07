@@ -87,12 +87,12 @@ const OrderActions = ({
         shipped={shipped}
       />
       <Modal
-        title="提示"
+        title="Order Completed"
         visible={completeModalVisible}
         onOk={() => completed()}
         onCancel={() => setCompleteModalVisible(false)}
       >
-        <p>是否确定完成</p>
+        <p>Are you sure you want to complete the order?</p>
       </Modal>
     </div>
   )

@@ -24,6 +24,7 @@ interface HeaderProps {
   type: string
   label: string
   keyVal: string
+  dataTips?: string
   options?: any
 }
 let isInited = false
@@ -262,7 +263,7 @@ const EditVariationList = (props: FormProps) => {
                 <tr key={tr.sortIdx} className='h-12'>
                   {headerList.map((td, count) => (
                     <td key={`${tr.sortIdx}-${count}`}>
-                      <span>
+                      <span data-tips={td.dataTips} className='tips-wrap'>
                         {(() => {
                           // console.info(td.keyVal, tr[td.keyVal], typeof tr[td.keyVal])
                           switch (td.type) {
@@ -277,13 +278,14 @@ const EditVariationList = (props: FormProps) => {
                                 />
                               )
                             case 'text':
-                              return <span className='inline-block px-4'>{tr[td.keyVal]}</span>
+                              return <span className=' inline-block px-4'>{tr[td.keyVal]}</span>
                             case 'upload':
                               // return <span>{tr[td.keyVal]}</span>
                               return (
                                 <Upload
                                   type={UploadType.button}
-                                  fileList={[{ img: tr[td.keyVal] }]}
+                                  hideName={true}
+                                  fileList={[{ url: tr[td.keyVal] }]}
                                   showUploadList={false}
                                   handleImgUrl={() => {
                                     console.info('...')
@@ -294,6 +296,7 @@ const EditVariationList = (props: FormProps) => {
                               return (
                                 <Input
                                   className='price-input'
+                                  disabled={td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0'}
                                   prefix='￥'
                                   onBlur={e => {
                                     tr[td.keyVal] = e.target.value
@@ -313,12 +316,14 @@ const EditVariationList = (props: FormProps) => {
                                   onChange={(value, option) => {
                                     tr[td.keyVal] = value
                                     updateVations(value, index, td.keyVal, tr)
+                                    setVariationList([...variationList])
                                   }}
                                 ></Select>
                               )
                             case 'number':
                               return (
                                 <Input
+                                  className=''
                                   type='number'
                                   onBlur={e => {
                                     tr[td.keyVal] = e.target.value
@@ -330,15 +335,15 @@ const EditVariationList = (props: FormProps) => {
                             // return
                             case 'popup':
                               return (
-                                <Popover content='哈哈哈' trigger='click' placement='bottom' title='Title'>
+                                <Popover className='' content='哈哈哈' trigger='click' placement='bottom' title='Title'>
                                   <Button type='primary'>Hover me</Button>
                                 </Popover>
                               )
                             case 'subSku':
-                              return <div>test</div>
+                              return <div className=''>test</div>
                             case 'shelves':
                               return (
-                                <div className='text-center'>
+                                <div className='text-center '>
                                   {tr[td.keyVal] === 'true' ? (
                                     <VerticalAlignTopOutlined
                                       onClick={() => {
@@ -359,7 +364,7 @@ const EditVariationList = (props: FormProps) => {
                                 </div>
                               )
                             default:
-                              return <span>ooo</span>
+                              return <span className=''>ooo</span>
                           }
                         })()}
                       </span>

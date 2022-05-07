@@ -1,10 +1,11 @@
 import { ProductListItemProps, TableHeadersItemProps } from '@/framework/types/product'
 import { DownOutlined, UpOutlined } from '@ant-design/icons'
-import { Checkbox } from 'antd'
+import { Checkbox, Tooltip, Modal, Image } from 'antd'
 import ShowMoreButton from '../ShowMoreButton'
 import { Link } from 'react-router-dom'
 import { deleteProducts, getScProducts, switchShelves } from '@/framework/api/get-product'
 import { cloneDeep } from 'lodash'
+import { useState } from 'react'
 
 interface TableRowProps {
   spu: ProductListItemProps
@@ -14,13 +15,15 @@ interface TableRowProps {
   listData: ProductListItemProps[]
   list: ProductListItemProps[]
   setList: (list: ProductListItemProps[]) => void
-  setListData: Function
+  getList: Function
 }
 
-const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList, setListData }: TableRowProps) => {
+const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList, getList }: TableRowProps) => {
+  const [isModalVisible, setIsModalVisible] = useState(false)
+
   const istb = (sku: any) => {
     if (!tableHeader.length) return
-    return tableHeader.map((item) => {
+    return tableHeader.map(item => {
       if (item.dataIndex !== 'name') {
         return (
           <div className='flex-1 flex h-full'>
@@ -30,6 +33,16 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
         )
       }
     })
+  }
+
+  const handleOk = async (id: string) => {
+    setIsModalVisible(false)
+    deleteProducts({ goodsId: [id] })
+    getList()
+  }
+
+  const handleCancel = () => {
+    setIsModalVisible(false)
   }
 
   return (
@@ -71,57 +84,52 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
         ) : null}
       </div>
       <div className='w-64 flex text-12'>
-        <Link to='' className="mr-4">
-          <span className='icon iconfont icon-preview'></span>
-        </Link>
-        <Link className='mr-4' to={`/product/${listData[spuIdx]?.id}`}>
-          <span className='icon iconfont icon-Edit'></span>
-        </Link>
-        <Link to='' className='mr-4'>
-          <span
-            className={`icon iconfont ${listData[spuIdx]?.shelvesStatus}  ${
-              listData[spuIdx]?.shelvesStatus ? 'icon-Frame4' : 'icon-xiajia'
-            } text-base`}
-            onClick={async () => {
-              console.info('............', listData[spuIdx])
-              // debugger
-              let { shelvesStatus } = listData[spuIdx]
-              switchShelves({ goodsId: [listData[spuIdx]?.id], status: !shelvesStatus })
-              // listData[spuIdx].shelvesStatus = !shelvesStatus
-              // setList(cloneDeep(listData))
-              let res = await getScProducts({
-                limit: 10,
-                sample: {},
-                isNeedTotal: true,
-                operator: 'sss',
-                offset: 0,
-              })
-              console.info('resgetScproducts', res)
-              setListData(res)
-            }}
-          ></span>
-        </Link>
-        <Link to=''>
-          <span
-            className='icon iconfont icon-Frame3 text-base'
-            onClick={async () => {
-              console.info('............', listData[spuIdx])
-              // let { shelvesStatus } = listData[spuIdx]
-              deleteProducts({ goodsId: [listData[spuIdx]?.id] })
-              // listData[spuIdx].shelvesStatus = !shelvesStatus
-              // setList(cloneDeep(listData))
-              let res = await getScProducts({
-                limit: 10,
-                sample: {},
-                isNeedTotal: true,
-                operator: 'sss',
-                offset: 0,
-              })
-              console.info('resgetScproducts', res)
-              setListData(cloneDeep(res))
-            }}
-          ></span>
-        </Link>
+        <Tooltip title='Preview'>
+          <Link to='' className='mr-4'>
+            <span className='icon iconfont icon-preview'></span>
+          </Link>
+        </Tooltip>
+        <Tooltip title='Edit'>
+          <Link className='mr-4' to={`/product/${listData[spuIdx]?.id}`}>
+            <span className='icon iconfont icon-Edit'></span>
+          </Link>
+        </Tooltip>
+        <Tooltip title={`${listData[spuIdx]?.shelvesStatus ? 'Delist' : 'Publish'}`}>
+          <Link to='' className='mr-4'>
+            <span
+              className={`icon iconfont ${listData[spuIdx]?.shelvesStatus}  ${
+                !listData[spuIdx]?.shelvesStatus ? 'icon-Frame4' : 'icon-xiajia'
+              } text-base`}
+              onClick={async () => {
+                let { shelvesStatus } = listData[spuIdx]
+                switchShelves({ goodsId: [listData[spuIdx]?.id], status: !shelvesStatus })
+                getList()
+              }}
+            ></span>
+          </Link>
+        </Tooltip>
+        <Tooltip title='Delete'>
+          <Link to=''>
+            <span
+              className='icon iconfont icon-Frame3 text-base'
+              onClick={() => {
+                setIsModalVisible(true)
+              }}
+            ></span>
+          </Link>
+        </Tooltip>
+        <Modal
+          title='Delete Product'
+          visible={isModalVisible}
+          onOk={() => handleOk(listData[spuIdx]?.id)}
+          onCancel={handleCancel}
+        >
+          <div>Are you sure want to delete the following product? Warning: You cannot undo this action!</div>
+          <p className='flex items-center'>
+            <Image width={110} src={listData[spuIdx]?.img} />
+            <div className='font-semibold w-full pl-4'>{listData[spuIdx]?.name}</div>
+          </p>
+        </Modal>
       </div>
     </div>
   )

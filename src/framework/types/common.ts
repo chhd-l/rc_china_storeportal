@@ -36,6 +36,7 @@ export interface FormProps {
   parentName?: Array<any>
   name?: string
   layout?: any
+  form?: any
 }
 export interface KeyRules {
   [key: string]: string
@@ -66,6 +67,7 @@ export interface InputSelectProps extends InputBaseProps {
 }
 export interface InputTextProps extends InputBaseProps {
   addonBefore?: string
+  dataTips?: string
 }
 
 export interface BaseListProps {

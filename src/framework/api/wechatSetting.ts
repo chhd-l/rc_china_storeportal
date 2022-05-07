@@ -1,6 +1,7 @@
 import ApiRoot from '@/framework/api/fetcher'
 import { normaliseMediaList } from '@/framework/normalize/wechatSetting'
 
+// 查询 accon
 export const getAccountList = async (queryParams: any) => {
   try {
     //todo 查询参数处理
@@ -20,7 +21,7 @@ export const getAccountList = async (queryParams: any) => {
     return []
   }
 }
-
+// 查询 fans
 export const getFansList = async (queryParams: any) => {
   try {
     //todo 查询参数处理
@@ -41,7 +42,7 @@ export const getFansList = async (queryParams: any) => {
     return []
   }
 }
-
+// 新增 accon
 export const createAccount = async (queryParams: any) => {
   try {
     //todo 新增参数处理
@@ -73,7 +74,7 @@ export const createAccount = async (queryParams: any) => {
     return []
   }
 }
-
+// 编辑 accon
 export const modifyAccount = async (queryParams: any) => {
   try {
     //todo 编辑参数处理（改了什么传什么，加上isDeleted就是删除接口）
@@ -82,7 +83,7 @@ export const modifyAccount = async (queryParams: any) => {
         id: '3c00e55e-fbfc-43be-cb82-6fd8364b5ea2',
         accountName: '4444',
       },
-      isDeleted: true,
+      isDeleted: true
     }
     let res = await ApiRoot.wechatSettings().modifyAccount({ body: params })
     const modifySuccess = res?.modifyAccount
@@ -93,7 +94,7 @@ export const modifyAccount = async (queryParams: any) => {
     return []
   }
 }
-
+// 同步粉丝
 export const syncFans = async (accountId: string) => {
   try {
     let res = await ApiRoot.wechatSettings().syncFans({ accountId: '000001' })

@@ -69,7 +69,7 @@ const Cascader = (props: CascaderProps) => {
               onChange: onChange,
               options: categoryList,
               showSearch: true,
-              dropdownClassName: 'productlist-choose-cate',
+              dropdownClassName: 'productlist-choose-cate common-dropdown-cascader',
               open: true,
               placement: 'bottomLeft',
               placeholder: 'Categores Name',

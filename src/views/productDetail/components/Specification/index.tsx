@@ -40,18 +40,25 @@ const Specification = (props: FormProps) => {
           return el.attributeId === item.id
         })
         ?.map((el: GoodsAttributeAndValue) => el.attributeValueName)
-      console.info(' item.defaultVal ', item.defaultVal)
+      // console.info(' item.defaultVal ', item.defaultVal)
       return item
     })
     setSpecificationList(list)
   }
 
   return (
-    <div className='overflow-hidden pl-32'>
+    <div
+      className='overflow-hidden pl-32 tips-wrap'
+      data-tips={`Product Attribute:
+    <p>Product attributes should relate to the product name and description</p>
+    `}
+    >
       {specificationList?.map(specification => {
         return (
           <Row key={specification.id} className='w-1/2 float-left ant-form-item'>
-            <Col className='text-right pr-6' span={5}>{specification.label}</Col>
+            <Col className='text-right pr-6' span={5}>
+              {specification.label}
+            </Col>
             <Col span={16}>
               <Select
                 className='w-full'

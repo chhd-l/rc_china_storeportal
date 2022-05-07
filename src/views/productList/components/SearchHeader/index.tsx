@@ -73,7 +73,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
         <Row justify='start' gutter={[0, 14]}>
           <Col span={11}>
             <Input.Group compact className='flex'>
-              <Form.Item name='selectName' initialValue={nameForKey[0].value}>
+              <Form.Item className='rounded-xl' name='selectName' initialValue={nameForKey[0].value}>
                 <Select style={{ width: 140 }} placeholder='Select a option and change input text above'>
                   {nameForKey.map((el: any) => (
                     <Option key={el.value} value={el.value}>
@@ -129,8 +129,8 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
             </Form.Item>
           </Col>
           <Col span={5}>
-            <Form.Item label='stock' name='startStock' className='mr-0'>
-              <InputNumber className='w-full' placeholder={`please Input`} />
+            <Form.Item label='Stock' name='startStock' className='mr-0'>
+              <InputNumber min={0} className='w-full' placeholder={`please Input`} />
               {/* <Input type='number' placeholder={`please Input startStock`} /> */}
             </Form.Item>
           </Col>
@@ -140,7 +140,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
           </Col>
           <Col span={5}>
             <Form.Item name='endStock'>
-              <InputNumber className='w-full' placeholder={`please Input`} />
+              <InputNumber min={0} className='w-full' placeholder={`please Input`} />
               {/* <Input type='number' placeholder={`please Input endStock`} /> */}
             </Form.Item>
           </Col>
