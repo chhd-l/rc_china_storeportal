@@ -32,7 +32,14 @@ export const createProduct = async (params: any, beforeData?: any) => {
     paramsData = Object.assign({}, diffData, {
       goodsAttributeValueRel,
       spuNo: paramsData.spuNo,
-      id: paramsData.id
+      id: paramsData.id,
+      goodsName: paramsData.goodsName,
+      type: paramsData.type,
+      brandId: paramsData.brandId,
+      goodsCategoryId: paramsData.goodsCategoryId,
+      shelvesStatus: paramsData.shelvesStatus,
+      defaultImage: paramsData.defaultImage,
+      salesStatus: paramsData.salesStatus,
     })
   }
   console.info('paramsData', paramsData)
