@@ -18,8 +18,8 @@ const AccountList = () => {
   const [pages, setPages] = useState({
     page: 1,
     limit: 10,
-    total: 10,
   });
+  const [total, setTotal] = useState(0)
 
   useEffect(() => {
     // setAccountList(Mock.mock(dataSource).array);
@@ -28,17 +28,18 @@ const AccountList = () => {
 
   const getAccounts= async (items = {}) => {
     let res = await getAccountList(items);
-    setAccountList(res)
+    setAccountList(res?.records || [])
+    setTotal(res?.total || 10)
   };
 
   return (
     <ContentContainer>
       <SearchContainer>
-        <Search query={getAccounts} formItems={formItems} />
+        <Search state={true} query={getAccounts} formItems={formItems} />
       </SearchContainer>
       <DivideArea />
       <TableContainer>
-        <Table getAccounts={getAccounts} accountList={accountList} pages={pages} setPages={setPages} />
+        <Table getAccounts={getAccounts} accountList={accountList} pages={pages} setPages={setPages} total={total} />
       </TableContainer>
     </ContentContainer>
   );

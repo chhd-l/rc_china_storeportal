@@ -62,9 +62,11 @@ const Specification = (props: FormProps) => {
             <Col span={16}>
               <Select
                 className='w-full'
+                searchValue=''
                 labelInValue
                 mode='multiple'
                 allowClear
+                showArrow
                 // defaultValue={['064fe462-a0ac-8f05-a800-8e927781', '4b1c30f4-c38c-b789-92c4-c0790cd1']}
                 defaultValue={specification.defaultVal}
                 placeholder={`please select`}

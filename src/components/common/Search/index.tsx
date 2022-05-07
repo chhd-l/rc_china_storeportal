@@ -3,7 +3,6 @@ import React from "react";
 import { SearchFormItemProps } from "@/framework/types/common";
 import moment from "moment";
 import './index.less'
-import { isArray } from "lodash";
 
 const { RangePicker } = DatePicker;
 const dateFormat = 'YYYY/MM/DD';
@@ -13,11 +12,13 @@ const Search = ({
   formItems,
   classes = "",
   style = { width: "320px" },
+  state = false
 }: {
   query: Function;
   formItems: SearchFormItemProps[];
   classes?: string;
   style?: any;
+  state?: boolean;
 }) => {
   const [form] = Form.useForm();
 
@@ -42,17 +43,17 @@ const Search = ({
         // onValuesChange={formValuesChange}
         onFinish={search}
         autoComplete="off"
-        className={`${classes} flex flex-row flex-wrap justify-start`}
+        className={`${classes} flex flex-row flex-wrap ${ state ? 'justify-between' : 'justify-start' } items-center`}
         layout={"inline"}
-        labelCol={{ span: 10 }}
+        labelCol={{ span: 12 }}
         wrapperCol={{ span: 14 }}
       >
         {formItems.map((item) => (
           <Form.Item
             label={item.label}
             name={item.name}
-            key={item.name}
             style={style}
+            key={item.name}
             className="mt-4"
           >
             {item.type === "select" ? (
