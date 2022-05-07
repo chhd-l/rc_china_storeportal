@@ -34,7 +34,6 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     document.addEventListener(
       'click',
       e => {
-        console.info('data-tips', e)
         // @ts-ignore
         let str = e?.target?.closest('.tips-wrap')?.dataset?.tips || ''
         if (str) {
@@ -138,60 +137,31 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
               >
                 Cancel
               </Button>
-              {
-                  pathname !== '/product/add' ? 
-                    beforeData.shelvesStatus ? (
-                      <Button
-                        className='ml-4'
-                        onClick={() => {
-                          shelvesStatus = false
-                          form.submit()
-                        }}
-                      >
-                        { pathname === '/product/add' ? 'Save and Delish' : 'Delish' }
-                      </Button>
-                    ) : null
-                   : (
-                    <Button
-                      className='ml-4'
-                      onClick={() => {
-                        shelvesStatus = false
-                        form.submit()
-                      }}
-                    >
-                      { pathname === '/product/add' ? 'Save and Delish' : 'Delish' }
-                    </Button>
-                  )
-              }
-              {
-                  pathname !== '/product/add' ? 
-                    beforeData.shelvesStatus ? (
-                      <Button
-                        className='ml-4'
-                        type='primary'
-                        onClick={() => {
-                          shelvesStatus = true
-                          form.submit()
-                        }}
-                      >
-                        { pathname === '/product/add' ? 'Save and Publish' : 'Publish' }
-                      </Button>
-                    ) : null
-                   : (
-                    <Button
-                      className='ml-4'
-                      type='primary'
-                      onClick={() => {
-                        shelvesStatus = true
-                        form.submit()
-                      }}
-                    >
-                      { pathname === '/product/add' ? 'Save and Publish' : 'Publish' }
-                    </Button>
-                  )
-              }
-              {
-                pathname !== '/product/add' ? (
+              {pathname !== '/product/add' ? (
+                beforeData.shelvesStatus ? (
+                  <Button
+                    className='ml-4'
+                    onClick={() => {
+                      shelvesStatus = false
+                      form.submit()
+                    }}
+                  >
+                    {pathname === '/product/add' ? 'Save and Delish' : 'Delish'}
+                  </Button>
+                ) : null
+              ) : (
+                <Button
+                  className='ml-4'
+                  onClick={() => {
+                    shelvesStatus = false
+                    form.submit()
+                  }}
+                >
+                  {pathname === '/product/add' ? 'Save and Delish' : 'Delish'}
+                </Button>
+              )}
+              {pathname !== '/product/add' ? (
+                beforeData.shelvesStatus ? (
                   <Button
                     className='ml-4'
                     type='primary'
@@ -200,10 +170,33 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                       form.submit()
                     }}
                   >
-                    Update
+                    {pathname === '/product/add' ? 'Save and Publish' : 'Publish'}
                   </Button>
                 ) : null
-              }
+              ) : (
+                <Button
+                  className='ml-4'
+                  type='primary'
+                  onClick={() => {
+                    shelvesStatus = true
+                    form.submit()
+                  }}
+                >
+                  {pathname === '/product/add' ? 'Save and Publish' : 'Publish'}
+                </Button>
+              )}
+              {pathname !== '/product/add' ? (
+                <Button
+                  className='ml-4'
+                  type='primary'
+                  onClick={() => {
+                    shelvesStatus = true
+                    form.submit()
+                  }}
+                >
+                  Update
+                </Button>
+              ) : null}
             </div>
           </div>
         </Form>
