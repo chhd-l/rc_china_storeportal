@@ -55,4 +55,5 @@ export interface Asset {
   assetTitle?: string;
   graphic?: string;
   syncTime: string;
+  description?:string
 }

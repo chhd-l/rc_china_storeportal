@@ -40,7 +40,7 @@ const Specification = (props: FormProps) => {
           return el.attributeId === item.id
         })
         ?.map((el: GoodsAttributeAndValue) => el.attributeValueName)
-      console.info(' item.defaultVal ', item.defaultVal)
+      // console.info(' item.defaultVal ', item.defaultVal)
       return item
     })
     setSpecificationList(list)

@@ -36,6 +36,7 @@ export interface FormProps {
   parentName?: Array<any>
   name?: string
   layout?: any
+  form?: any
 }
 export interface KeyRules {
   [key: string]: string
