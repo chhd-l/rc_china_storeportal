@@ -94,7 +94,7 @@ const ProductList = () => {
                   >
                     + Add a New Product
                   </Button>
-                  <Button className='mr-4'>Export</Button>
+                  <Button className='ml-4'>Export</Button>
                   {/* <MenuOutlined className=' border border-solid border-gray-300' /> */}
                   <Button className='ml-3' icon={<MenuOutlined style={{ color: '#979797' }} />} />
                 </div>
