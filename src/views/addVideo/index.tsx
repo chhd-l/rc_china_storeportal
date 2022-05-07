@@ -41,7 +41,6 @@ const AddAccount = () => {
         console.log('success', info.file.response)
         message.success(`${info.file.name} file uploaded successfully`)
         form.setFieldsValue({ url: info.file.response.url })
-        // await createMedia({ type: 'video', url: info.file.response.url, fileExtension: 'mp4' })
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} file upload failed.`)
       }
@@ -69,10 +68,10 @@ const AddAccount = () => {
               key={item.name}
             >
               {item.type === 'upload' ? (
-                <Upload {...uploadProps}>
-                  <Button className="flex items-center">
+                <Upload {...uploadProps} className="w-full">
+                  <Button className="flex items-center justify-between w-full">
+                    <span>select the file</span>
                     <span className="iconfont icon-a-bianzu67beifen3 mr-2 text-xl" />
-                    Upload Local File
                   </Button>
                 </Upload>
               ) : (

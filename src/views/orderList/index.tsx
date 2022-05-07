@@ -12,7 +12,7 @@ import { PageParamsProps } from '@/framework/types/common'
 import { initPageParams } from '@/lib/constants'
 import './index.less'
 // 引入翻译
-import { ConfigProvider } from 'antd'; 
+import { ConfigProvider } from 'antd';
 import en_US from "antd/lib/locale/en_US"
 
 const PetOwnerList = () => {
@@ -92,7 +92,7 @@ const PetOwnerList = () => {
       <SearchContainer className="order-search-top">
         <Tabs activeKey={activeKey} onChange={changeTab}>
           {tabList.map((item, idx) => (
-            <Tabs.TabPane tab={item.label} key={idx} />
+            <Tabs.TabPane tab={item.label} key={item.key} />
           ))}
         </Tabs>
         <ConfigProvider locale={en_US} >
