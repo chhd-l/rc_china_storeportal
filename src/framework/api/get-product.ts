@@ -21,12 +21,18 @@ export const createProduct = async (params: any, beforeData?: any) => {
   let paramsData: any = normaliseProductCreatFor(params, beforeData)
   if (beforeData?.id) {
     //编辑
-    let diffData = normaliseEditPDP(beforeData, paramsData)
+    let diffData: any = normaliseEditPDP(beforeData, paramsData)
     let { goodsSpecifications, goodsVariants, goodsAttributeValueRel } = paramsData
+    if (goodsSpecifications?.length) {
+      diffData.goodsSpecifications = goodsSpecifications
+    }
+    if (goodsVariants?.length) {
+      diffData.goodsVariants = goodsVariants
+    }
     paramsData = Object.assign({}, diffData, {
-      goodsSpecifications,
-      goodsVariants,
-      goodsAttributeValueRel
+      goodsAttributeValueRel,
+      spuNo: paramsData.spuNo,
+      id: paramsData.id
     })
   }
   console.info('paramsData', paramsData)
