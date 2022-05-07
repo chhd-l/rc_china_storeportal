@@ -7,7 +7,7 @@ import { PageParamsProps } from '@/framework/types/common'
 import { handlePageParams } from '@/utils/utils'
 import { initPageParams } from '@/lib/constants'
 
-const Voice = () => {
+const Voice = ({ isReload = false, openDelete }: { isReload: boolean; openDelete: Function }) => {
   const column = [
     {
       title: 'Voice',
@@ -38,7 +38,7 @@ const Voice = () => {
         <Tooltip title="Delete">
           <span
             className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl"
-            onClick={() => deleteMedia(record)}
+            onClick={() => openDelete && openDelete(record.id)}
           />
         </Tooltip>
       ),
@@ -54,15 +54,11 @@ const Voice = () => {
     await getMediaList({ currentPage: page, pageSize: pageSize })
   }
 
-  const deleteMedia = async (record: any) => {
-    const res = await updateMedia({
-      id: record.id,
-      isDeleted: true,
-    })
-    if (res) {
-      await getMediaList()
+  useEffect(() => {
+    if (isReload) {
+      getMediaList()
     }
-  }
+  }, [isReload])
 
   useEffect(() => {
     getMediaList()
