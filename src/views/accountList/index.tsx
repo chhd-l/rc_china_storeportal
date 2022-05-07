@@ -18,10 +18,14 @@ const AccountList = () => {
     getAccounts()
   }, [])
 
-  const getAccounts= async (items = {}) => {
-    let res = await getAccountList(items);
-    setAccountList(res?.records || [])
-    setTotal(res?.total || 10)
+  const getAccounts= async (offset = pages.page, limit = pages.limit, items = {}) => {
+    const params = Object.assign({ sample: { ...items, storeId: '12345678' } }, {
+      offset,
+      limit
+    })
+    let res = await getAccountList(params)
+    setAccountList(res.records)
+    setTotal(res.total)
   };
 
   return (

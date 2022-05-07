@@ -130,6 +130,7 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
               page,
               limit: pageSize
             })
+            getAccounts(page, pageSize)
           }
         }}
       />
