@@ -19,12 +19,11 @@ interface TableRowProps {
 }
 
 const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList, getList }: TableRowProps) => {
-
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false)
 
   const istb = (sku: any) => {
     if (!tableHeader.length) return
-    return tableHeader.map((item) => {
+    return tableHeader.map(item => {
       if (item.dataIndex !== 'name') {
         return (
           <div className='flex-1 flex h-full'>
@@ -37,14 +36,14 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
   }
 
   const handleOk = async (id: string) => {
-    setIsModalVisible(false);
+    setIsModalVisible(false)
     deleteProducts({ goodsId: [id] })
     getList()
-  };
+  }
 
   const handleCancel = () => {
-    setIsModalVisible(false);
-  };
+    setIsModalVisible(false)
+  }
 
   return (
     <div className='flex bg-white border-b text-left items-center pt-2 pb-2'>
@@ -85,30 +84,31 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
         ) : null}
       </div>
       <div className='w-64 flex text-12'>
-        <Tooltip title="Preview">
-          <Link to='' className="mr-4">
+        <Tooltip title='Preview'>
+          <Link to='' className='mr-4'>
             <span className='icon iconfont icon-preview'></span>
           </Link>
         </Tooltip>
-        <Tooltip title="Edit">
+        <Tooltip title='Edit'>
           <Link className='mr-4' to={`/product/${listData[spuIdx]?.id}`}>
             <span className='icon iconfont icon-Edit'></span>
           </Link>
         </Tooltip>
         <Tooltip title={`${listData[spuIdx]?.shelvesStatus ? 'Delist' : 'Publish'}`}>
-        <Link to='' className='mr-4'>
-          <span
-            className={`icon iconfont ${listData[spuIdx]?.shelvesStatus}  ${!listData[spuIdx]?.shelvesStatus ? 'icon-Frame4' : 'icon-xiajia'
+          <Link to='' className='mr-4'>
+            <span
+              className={`icon iconfont ${listData[spuIdx]?.shelvesStatus}  ${
+                !listData[spuIdx]?.shelvesStatus ? 'icon-Frame4' : 'icon-xiajia'
               } text-base`}
-            onClick={async () => {
-              let { shelvesStatus } = listData[spuIdx]
-              switchShelves({ goodsId: [listData[spuIdx]?.id], status: !shelvesStatus })
-              getList()
-            }}
-          ></span>
-        </Link>
+              onClick={async () => {
+                let { shelvesStatus } = listData[spuIdx]
+                switchShelves({ goodsId: [listData[spuIdx]?.id], status: !shelvesStatus })
+                getList()
+              }}
+            ></span>
+          </Link>
         </Tooltip>
-        <Tooltip title="Delete">
+        <Tooltip title='Delete'>
           <Link to=''>
             <span
               className='icon iconfont icon-Frame3 text-base'
@@ -118,14 +118,16 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
             ></span>
           </Link>
         </Tooltip>
-        <Modal title="Delete Product" visible={isModalVisible} onOk={()=>handleOk(listData[spuIdx]?.id)} onCancel={handleCancel}>
+        <Modal
+          title='Delete Product'
+          visible={isModalVisible}
+          onOk={() => handleOk(listData[spuIdx]?.id)}
+          onCancel={handleCancel}
+        >
           <div>Are you sure want to delete the following product? Warning: You cannot undo this action!</div>
           <p className='flex items-center'>
-            <Image
-              width={110}
-              src={listData[spuIdx].img}
-            />
-            <div className='font-semibold w-full pl-4'>{listData[spuIdx].name}</div>
+            <Image width={110} src={listData[spuIdx]?.img} />
+            <div className='font-semibold w-full pl-4'>{listData[spuIdx]?.name}</div>
           </p>
         </Modal>
       </div>

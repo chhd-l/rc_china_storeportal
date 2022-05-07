@@ -216,7 +216,11 @@ const AddVariation = ({}: AddVariationProps) => {
     setVariationForm(cloneDeep(variationForm))
   }
   return (
-    <div className='add-variation'>
+    <div
+      className='add-variation tips-wrap'
+      data-tips={`Variation:
+<p>Can set up to two variation. Which the first layer should be more important one</p>`}
+    >
       <SortContainer
         useDragHandle={true}
         // key={variationIdx}
@@ -231,7 +235,7 @@ const AddVariation = ({}: AddVariationProps) => {
               variation{variationIdx + 1}
               {` :`}
             </Col>
-            <Col span={16} className='pt-6' style={{background:"#f8f8f8"}}>
+            <Col span={16} className='pt-6' style={{ background: '#f8f8f8' }}>
               <Row>
                 <Col span={4} className='text-right  mr-2'>
                   Name:

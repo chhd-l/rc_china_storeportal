@@ -66,6 +66,7 @@ export interface InputSelectProps extends InputBaseProps {
 }
 export interface InputTextProps extends InputBaseProps {
   addonBefore?: string
+  dataTips?: string
 }
 
 export interface BaseListProps {

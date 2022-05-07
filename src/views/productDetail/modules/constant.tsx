@@ -69,6 +69,7 @@ export const noSkuForm: (InputTextProps | InputSelectProps | LabelOptionProps)[]
     name: 'subscriptionStatus',
     label: 'Subscription',
     type: 'select',
+    dataTips: '',
     rules: [{ required: true }],
   },
   {
@@ -76,11 +77,13 @@ export const noSkuForm: (InputTextProps | InputSelectProps | LabelOptionProps)[]
     addonBefore: '¥',
     label: 'List Price',
     name: 'listPrice',
+    dataTips: '',
     rules: [{ required: true }],
   },
   {
     type: 'input',
     addonBefore: '¥',
+    dataTips: '',
     label: 'Marketing Price',
     name: 'marketingPrice',
     rules: [{ required: true }],
@@ -88,6 +91,7 @@ export const noSkuForm: (InputTextProps | InputSelectProps | LabelOptionProps)[]
   {
     type: 'input',
     addonBefore: '¥',
+    dataTips: '',
     label: 'Subscription Price',
     name: 'subscriptionPrice',
     rules: [{ required: true }],
@@ -95,12 +99,14 @@ export const noSkuForm: (InputTextProps | InputSelectProps | LabelOptionProps)[]
   {
     type: 'input',
     label: 'Stock',
+    dataTips: '',
     name: 'stock',
     rules: [{ required: true }],
   },
   {
     type: 'input',
     label: 'Feeding Days',
+    dataTips: '',
     name: 'feedingDays',
     rules: [{ required: true }],
   },
@@ -113,6 +119,7 @@ export const noSkuForm: (InputTextProps | InputSelectProps | LabelOptionProps)[]
     //   { name: 'Yes', value: 'true' },
     //   { name: 'No', value: 'false' },
     // ],
+    dataTips: '',
     type: 'select',
     label: 'Support 100',
     name: 'isSupport100',
@@ -183,37 +190,115 @@ export const formInitialValues = {
       return newEl
     }),
 }
-export const headerOrigition = [
-  { label: 'Image', type: 'upload', keyVal: 'defaultImage' },
-  { label: '*SKU', type: 'input', require: true, keyVal: 'skuNo' },
-  { label: 'SKUName', type: 'input', require: true, keyVal: 'skuName' },
-  // { label: 'Sub-SKU', type: 'subSku', keyVal: '' },
-  { label: 'EAN', type: 'input', keyVal: 'eanCode' },
+export const headerOrigition: any = [
+  {
+    label: 'Image',
+    type: 'upload',
+    keyVal: 'defaultImage',
+    dataTips: `Variation Image:
+  <p>Variation image should be clear and in line with the variation name</p>
+  <p>Image for each of the variations should also be in the same format</p>
+  `,
+  },
+  {
+    label: '*SKU',
+    type: 'input',
+    require: true,
+    keyVal: 'skuNo',
+    dataTips: `SKU:<p>SKU should be unique and conform to coding rules</p>
+  `,
+  },
+  {
+    label: 'SKUName',
+    type: 'input',
+    require: true,
+    keyVal: 'skuName',
+    dataTips: `SKU Name:
+  <p>SKU Name should be related to the variation option</p>
+  `,
+  },
+  // { label: 'Sub-SKU', type: 'subSku', keyVal: `Sub-SKU:<p>Sub-SKU should add the sub-products that the SKU needs to be bound and sold</p>` },
+  {
+    label: 'EAN',
+    type: 'input',
+    keyVal: 'eanCode',
+    dataTips: `EAN:
+    <p>EAN should be associated with SKUs and conform to coding rules</p>
+    `,
+  },
   {
     label: 'Subscription',
     type: 'select',
     keyVal: 'subscriptionStatus',
+    dataTips: `Subscription:<p>Support subscription should configure Y</p>    
+    <p>Subscription not supported should be N</p>
+    `,
     options: [
       { label: 'Yes', value: '1' },
       { label: 'No', value: '0' },
     ],
   },
-  { label: 'List Price', type: 'priceInput', keyVal: 'listPrice' },
-  { label: 'Marketing Price', type: 'priceInput', keyVal: 'marketingPrice' },
-  { label: 'Subscription Price', type: 'priceInput', keyVal: 'subscriptionPrice' },
-  { label: 'Stock', type: 'number', keyVal: 'stock' },
-  { label: 'Feeding Days', type: 'number', keyVal: 'feedingDays' },
+  {
+    label: 'List Price',
+    type: 'priceInput',
+    keyVal: 'listPrice',
+    dataTips: `List Price:
+  <p>List Price should include VAT and remain stable over time.</p>`,
+  },
+  {
+    label: 'Marketing Price',
+    type: 'priceInput',
+    keyVal: 'marketingPrice',
+    dataTips: `Marketing Price:
+  <p>Marketing Price should include VAT and remain stable over time.</p>`,
+  },
+
+  {
+    label: 'Subscription Price',
+    type: 'priceInput',
+    keyVal: 'subscriptionPrice',
+    dataTips: `Subscription Price:
+  <p>Subscription price should include VAT and no more than the market price.</p>
+  <p>Subscription status is N, and the subscription price cannot be entered.</p>
+  `,
+  },
+  {
+    label: 'Stock',
+    type: 'number',
+    keyVal: 'stock',
+    dataTips: `Stock:
+    <p>Number of stocks should reflect the actual stock that is ready to ship.</p>
+    <p>If out of stock, please fill in 0, to avoid non-filfillment rate (NFR) or late shipment rate (LSR).</p>
+    `,
+  },
+  {
+    label: 'Feeding Days',
+    type: 'number',
+    keyVal: 'feedingDays',
+    dataTips: `Feeding Days:
+  <p>Feeding days should be filled reasonably according to the product specifications.</p>
+    `,
+  },
   {
     label: '*Support 100',
     type: 'select',
     require: true,
     keyVal: 'isSupport100',
+    dataTips: `Support 100:
+<p>Product production date is set to Y within 100 days, and set to N when not within 100 days</p>`,
     options: [
       { label: 'Yes', value: 'true', name: 'true' },
       { label: 'No', value: 'false', name: 'false' },
     ],
   },
-  { label: 'Live/Dellist', type: 'shelves', keyVal: 'shelvesStatus' }, //上下架
+  {
+    label: 'Live/Dellist',
+    type: 'shelves',
+    keyVal: 'shelvesStatus',
+    dataTips: `Live/Delist:
+ <p> Live: SKU on the shelf</p>
+  <p>Delist: SKU off the shelf</p>`,
+  }, //上下架
 ]
 
 export const SortContainer = SortableContainer(({ children }: { children: any }) => {

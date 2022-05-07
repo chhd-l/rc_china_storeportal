@@ -32,14 +32,14 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
   return (
     <div className='order-list-page'>
       <Row className="bg-gray1 border py-2 px-4">
-        <Col span={8}>Product(s)</Col>
-        <Col span={4} className="text-right">
+        <Col span={10}>Product(s)</Col>
+        <Col span={4} className="text-left">
           Order Total
         </Col>
-        <Col span={4} className="text-right">
+        <Col span={4} className="text-left">
           Order status
         </Col>
-        <Col span={6} className="text-center">
+        <Col span={4} className="text-left">
           <Select
             onChange={(val, a) => { }}
             getPopupContainer={(trigger: any) => trigger.parentNode}
@@ -80,13 +80,13 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
               </Col>
             </Row>
             <Row className="p-2 flex items-start">
-              <Col span={8} className="flex flex-col justify-start">
+              <Col span={10} className="flex flex-col justify-start">
                 {item.tradeItem.map((product: OrderTradeItem, index: number) => (
                   <Row className={`${index !== item.tradeItem.length - 1 ? 'border-b mb-2 pb-2' : ''} items-start`} key={product.skuId}>
                     <Col span={6}>
                       <img src={product.pic} className="w-16 h-16 order-img" alt='' />
                     </Col>
-                    <Col span={18}>
+                    <Col span={16}>
                       <Row
                         className={`${item.tradeItem.length > 1 && index !== item.tradeItem.length - 1 ? ' pb-2' : ''
                           }`}
@@ -104,20 +104,20 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
                   </Row>
                 ))}
               </Col>
-              <Col span={4} className="text-right pr-3">
+              <Col span={4} className="text-left">
                 <div>
                   {formatMoney(item.tradePrice.totalPrice)}
                   <br />
                   <span className="text-gray-400 ">{item?.payInfo?.payTypeName}</span>
                 </div>
               </Col>
-              <Col span={4} className="text-right pr-8">
+              <Col span={4} className="text-left">
                 <div>{orderStatusType[item.tradeState.orderState]}</div>
               </Col>
-              <Col span={6} className="text-center">
+              <Col span={4} className="text-left">
                 {item.carrierType}
               </Col>
-              <Col span={2} className="text-center ">
+              <Col span={2} className="text-left">
                 <OrderActions
                   orderState={item.tradeState.orderState}
                   orderId={item.id}
