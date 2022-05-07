@@ -210,6 +210,8 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
   let editData: any = []
   if (skus) {
     skuData = skus.map((data: any) => {
+      console.info('data.marketingPrice', data.marketingPrice)
+      debugger
       let newVariation: any = {
         isSupport100: data.isSupport100 === 'true' ? true : false,
         skuType: spu.type,
@@ -473,7 +475,7 @@ export const normaliseEditPDP = (beforeData: any, afterData: any) => {
   var diffData = handleObjDataForEdit(beforeData, afterData, {})
 
   console.info('diffData', diffData)
-  return {}
+  return diffData
 }
 export const normaliseChangedvaration = (beforeData: any, afterData: any) => {
   // detail.editChange.variationList

@@ -82,6 +82,20 @@ const EditVariationList = (props: FormProps) => {
         detail.editChange.goodsVariants[index].id = tr.id
       }
       detail.editChange.goodsVariants[index][propertyName] = val
+      //处理类型转换
+      if (
+        propertyName === 'stock' ||
+        propertyName === 'marketingPrice' ||
+        propertyName === 'subscriptionStatus' ||
+        propertyName === 'feedingDays' ||
+        propertyName === 'listPrice' ||
+        propertyName === 'subscriptionPrice'
+      ) {
+        detail.editChange.goodsVariants[index][propertyName] = Number(val)
+      }
+      if (propertyName === 'isSupport100') {
+        detail.editChange.goodsVariants[index][propertyName] = val === 'true' ? true : false
+      }
       if (!tr.id) {
         //新增的
         detail.editChange.goodsVariants[index].goodsVariantSpecifications = tr.relArr?.map((rel: any) => {

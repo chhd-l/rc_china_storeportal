@@ -11,6 +11,7 @@ interface UploadWrapProps {
   className?: string
   showUploadList?: boolean
   handleImgUrl: Function
+  idx: number
   type?: UploadType
   hideName?: boolean
   fileList?: any[]
@@ -73,7 +74,7 @@ const UploadWrap = (props: UploadWrapProps) => {
     } else if (info.file.status === 'done') {
       console.log('success', info.file.response)
       list = []
-      props.handleImgUrl(info.file.response?.url)
+      props.handleImgUrl(info.file.response?.url, props.idx)
       // Get this url from response in real world.
       getBase64(info.file.originFileObj, (imageUrl: any) => {
         setImageUrl(imageUrl)
@@ -104,6 +105,7 @@ const UploadWrap = (props: UploadWrapProps) => {
       setFileList(list)
     }
   }, [props.fileList])
+  // console.info('fileList', fileList)
   return (
     <div className={props.className}>
       {type === UploadType.button ? (
@@ -136,6 +138,7 @@ const UploadWrap = (props: UploadWrapProps) => {
             action='https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload'
             listType='picture-card'
             defaultFileList={fileList}
+            maxCount={1}
             // fileList={fileList}
             headers={{
               authorization: 'authorization-text',

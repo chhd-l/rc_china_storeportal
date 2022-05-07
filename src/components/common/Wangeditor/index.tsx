@@ -6,6 +6,7 @@ interface EditorProps {
   onChange?: Function
   defaultValue?: string
 }
+type InsertFnType = (url: string) => void
 const MyEditor: FC<EditorProps> = ({ defaultValue = '', onChange }) => {
   const [editor, setEditor] = useState<any>(null) // 存储 editor 实例
   const [html, setHtml] = useState('')
@@ -27,8 +28,25 @@ const MyEditor: FC<EditorProps> = ({ defaultValue = '', onChange }) => {
   if (editorConfig.MENU_CONF) {
     //上面就申明了，但是一直提示object可能为空？？
     editorConfig.MENU_CONF['uploadImage'] = {
-      server: '/api/upload-image',
-      fieldName: 'custom-field-name',
+      server: 'https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload',
+      fieldName: 'file',
+      // meta: {
+      //   type: 'image',
+      // },
+      // 选择文件时的类型限制，默认为 ['image/*'] 。如不想限制，则设置为 []
+      allowedFileTypes: ['image/*'],
+      headers: {
+        authorization: 'authorization-text',
+      },
+      // 自定义插入图片
+      customInsert (res: any, insertFn: InsertFnType) {
+        // res 即服务端的返回结果
+        let { url } = res
+        console.info(url)
+        // 从 res 中找到 url alt href ，然后插图图片
+        insertFn(url)
+      },
+      maxFileSize: 10 * 1024 * 1024, // 10M
       // 继续写其他配置...
       //【注意】不需要修改的不用写，wangEditor 会去 merge 当前其他配置
     }
@@ -70,6 +88,7 @@ const MyEditor: FC<EditorProps> = ({ defaultValue = '', onChange }) => {
           onCreated={setEditor}
           onChange={editor => {
             let htmls = editor.getHtml()
+            console.info('htmlshtmlshtmlshtmlshtmls', htmls)
             setHtml(htmls)
             onChange?.(htmls)
           }}

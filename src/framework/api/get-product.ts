@@ -31,28 +31,20 @@ export const createProduct = async (params: any, beforeData?: any) => {
     }
     paramsData = Object.assign({}, diffData, {
       goodsAttributeValueRel,
-      spuNo: paramsData.spuNo,
+      // spuNo: paramsData.spuNo,
       id: paramsData.id,
-      goodsName: paramsData.goodsName,
-      type: paramsData.type,
-      brandId: paramsData.brandId,
-      goodsCategoryId: paramsData.goodsCategoryId,
-      shelvesStatus: paramsData.shelvesStatus,
-      defaultImage: paramsData.defaultImage,
-      salesStatus: paramsData.salesStatus,
+      // goodsName: paramsData.goodsName,
+      // type: paramsData.type,
+      // brandId: paramsData.brandId,
+      // goodsCategoryId: paramsData.goodsCategoryId,
+      // shelvesStatus: paramsData.shelvesStatus,
+      // defaultImage: paramsData.defaultImage,
+      // salesStatus: paramsData.salesStatus,
     })
   }
   console.info('paramsData', paramsData)
   const data = await ApiRoot.products().createProduct({ body: paramsData })
   console.info('createProduct', data)
-}
-export const getBrands = () => {
-  try {
-    console.info('list', brandList)
-  } catch (e) {
-    console.log(e)
-  }
-  return brandList
 }
 export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categoryId: string }) => {
 
@@ -226,6 +218,19 @@ export const saveShopCategory = async (params: SaveShopCategoryInput): Promise<a
   } catch (e) {
     console.log(e)
   }
+}
+
+
+export const getBundleGoodsvariants = async (params: any) => {
+  // console.info('ApiRoot')
+  const data = await ApiRoot.products().getBundleGoodsvariants(params)
+  console.info('.......getBundleGoodsvariants', data)
+  try {
+  } catch (e) {
+    console.log(e)
+    // return
+  }
+  return data
 }
 
 
