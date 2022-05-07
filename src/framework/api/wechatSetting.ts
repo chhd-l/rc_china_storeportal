@@ -1,22 +1,23 @@
 import ApiRoot from '@/framework/api/fetcher'
-import { normaliseMediaList } from '@/framework/normalize/wechatSetting'
+import { normaliseBrands, normaliseMediaList } from '@/framework/normalize/wechatSetting'
 
-// 查询 accon
+// 查询 account
 export const getAccountList = async (queryParams: any) => {
   try {
-    //todo 查询参数处理
-    const params = {
-      storeId: '12345678',
-      ...queryParams
-    }
-    let res = await ApiRoot.wechatSettings().getAccounts({ body: params })
+    let res = await ApiRoot.wechatSettings().getAccounts({ body: queryParams })
     const accounts = res?.accounts
     //todo account manage normalize
     console.log('get wechat setting account list view data', accounts)
-    return accounts
+    return {
+      total:accounts.total||0,
+      records:accounts.records||[]
+    }
   } catch (e) {
     console.log(e)
-    return []
+    return {
+      total:0,
+      records:[]
+    }
   }
 }
 // 查询 fans
@@ -77,7 +78,7 @@ export const syncFans = async (accountId: string) => {
 
 export const getMedias = async (queryParams: any) => {
   try {
-    let res = await ApiRoot.wechatSettings().getMedias({ body: { ...queryParams, accountId: "000001" } })
+    let res = await ApiRoot.wechatSettings().getMedias({ body: { ...queryParams, accountId: '000001' } })
     const mediaList = res?.mediaList
     mediaList.records = normaliseMediaList(mediaList.records)
     console.log('get wechat setting media list view data', mediaList)
@@ -101,9 +102,9 @@ export const createMedia = async (queryParams: any) => {
         },
         queryParams.type === 'video'
           ? {
-            title: queryParams.title,
-            description: queryParams.description,
-          }
+              title: queryParams.title,
+              description: queryParams.description,
+            }
           : {},
       ),
       operator: 'zz',
@@ -138,5 +139,16 @@ export const syncMedias = async (type: string) => {
   } catch (e) {
     console.log(e)
     return false
+  }
+}
+export const getBrands = async (storeId: string) => {
+  try {
+    let res = await ApiRoot.wechatSettings().getBarndList({ storeId })
+    console.log('getBrands', res)
+    let list = normaliseBrands(res?.listBrandByStoreId || [])
+    return list
+  } catch (e) {
+    console.log(e)
+    return []
   }
 }

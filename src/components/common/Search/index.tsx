@@ -22,10 +22,6 @@ const Search = ({
 }) => {
   const [form] = Form.useForm();
 
-  // const formValuesChange = (changedValues: any, allValues: any) => {
-  //   console.log(changedValues, allValues);
-  // };
-
   const search = (values: any) => {
     const val = {...values}
     if(values?.followTime) {
@@ -40,7 +36,6 @@ const Search = ({
     <div id="fanslist">
       <Form
         form={form}
-        // onValuesChange={formValuesChange}
         onFinish={search}
         autoComplete="off"
         className={`${classes} flex flex-row flex-wrap ${ state ? 'justify-between' : 'justify-start' } items-center`}
@@ -89,6 +84,7 @@ const Search = ({
             htmlType="button"
             onClick={() => {
               form.resetFields();
+              query()
             }}
           >
             Reset

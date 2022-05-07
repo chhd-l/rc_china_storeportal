@@ -1,7 +1,7 @@
 import { Upload, message, Button, Modal } from 'antd'
 import { LoadingOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
-// import type { UploadProps } from 'antd';
+import { UploadProps } from 'antd'
 import { UploadChangeParam, UploadFile } from 'antd/lib/upload/interface'
 export enum UploadType {
   button = 'BUTTON',
@@ -40,7 +40,7 @@ const UploadWrap = (props: UploadWrapProps) => {
   const [imageUrl, setImageUrl] = useState('')
   const uploadProps = {
     name: 'file',
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    action: 'https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload',
     headers: {
       authorization: 'authorization-text',
     },
@@ -65,19 +65,22 @@ const UploadWrap = (props: UploadWrapProps) => {
   const handleCancel = () => {
     setPreviewVisible(false)
   }
-  const handleChange = (info: UploadChangeParam<UploadFile<any>>) => {
+  const handleChange = async (info: UploadChangeParam<UploadFile<any>>) => {
+    let list = fileList.length ? fileList : []
+    debugger
     if (info.file.status === 'uploading') {
       setLoading(true)
-      return
-    }
-    if (info.file.status === 'done') {
+    } else if (info.file.status === 'done') {
+      console.log('success', info.file.response)
+      list = []
+      props.handleImgUrl(info.file.response?.url)
       // Get this url from response in real world.
       getBase64(info.file.originFileObj, (imageUrl: any) => {
         setImageUrl(imageUrl)
         setLoading(false)
-        props.handleImgUrl(imageUrl)
       })
     }
+    setFileList(list)
   }
   const handlePreview = (file: any) => {
     // if (!file.url && !file.preview) {
@@ -101,15 +104,14 @@ const UploadWrap = (props: UploadWrapProps) => {
       setFileList(list)
     }
   }, [props.fileList])
-  console.info('fileList', fileList)
-  console.info('typetype', type)
   return (
     <div className={props.className}>
       {type === UploadType.button ? (
         <Upload
-          action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
+          action='https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload'
           listType='picture'
           fileList={fileList}
+          onChange={handleChange}
           onPreview={handlePreview}
           className='upload-list-inline'
         >
@@ -131,11 +133,17 @@ const UploadWrap = (props: UploadWrapProps) => {
       {type === UploadType.img ? (
         <div>
           <Upload
-            action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
+            action='https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload'
             listType='picture-card'
-            fileList={fileList}
+            defaultFileList={fileList}
+            // fileList={fileList}
+            headers={{
+              authorization: 'authorization-text',
+            }}
             // onPreview={handlePreview}
-            onChange={handleChange}
+            onChange={async info => {
+              handleChange(info)
+            }}
           >
             {/* {imageUrl ? <img src={imageUrl} alt='avatar' style={{ width: '100%' }} /> : uploadButton} */}
             {fileList.length > 0 ? null : uploadButton}
