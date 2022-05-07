@@ -108,14 +108,7 @@ export const syncFans = async (accountId: string) => {
 
 export const getMedias = async (queryParams: any) => {
   try {
-    //todo 查询参数处理
-    const params = {
-      offset: 0,
-      limit: 10,
-      accountId: '000001',
-      sample: { type: 'image' },
-    }
-    let res = await ApiRoot.wechatSettings().getMedias({ body: params })
+    let res = await ApiRoot.wechatSettings().getMedias({ body: queryParams })
     const mediaList = res?.mediaList
     mediaList.records = normaliseMediaList(mediaList.records)
     console.log('get wechat setting media list view data', mediaList)
@@ -153,6 +146,18 @@ export const updateMedia = async (queryParams: any) => {
     const media = res?.addMedia
     console.log('create media view data', media)
     return media
+  } catch (e) {
+    console.log(e)
+    return []
+  }
+}
+
+export const syncMedias = async (type: string) => {
+  try {
+    let res = await ApiRoot.wechatSettings().syncMedia({ accountId: '000001',type })
+    const syncSuccess = res?.data?.syncMedia
+    console.log('sync media view data', syncSuccess)
+    return syncSuccess
   } catch (e) {
     console.log(e)
     return []
