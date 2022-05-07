@@ -21,12 +21,25 @@ export const createProduct = async (params: any, beforeData?: any) => {
   let paramsData: any = normaliseProductCreatFor(params, beforeData)
   if (beforeData?.id) {
     //编辑
-    let diffData = normaliseEditPDP(beforeData, paramsData)
+    let diffData: any = normaliseEditPDP(beforeData, paramsData)
     let { goodsSpecifications, goodsVariants, goodsAttributeValueRel } = paramsData
+    if (goodsSpecifications?.length) {
+      diffData.goodsSpecifications = goodsSpecifications
+    }
+    if (goodsVariants?.length) {
+      diffData.goodsVariants = goodsVariants
+    }
     paramsData = Object.assign({}, diffData, {
-      goodsSpecifications,
-      goodsVariants,
-      goodsAttributeValueRel
+      goodsAttributeValueRel,
+      spuNo: paramsData.spuNo,
+      id: paramsData.id,
+      goodsName: paramsData.goodsName,
+      type: paramsData.type,
+      brandId: paramsData.brandId,
+      goodsCategoryId: paramsData.goodsCategoryId,
+      shelvesStatus: paramsData.shelvesStatus,
+      defaultImage: paramsData.defaultImage,
+      salesStatus: paramsData.salesStatus,
     })
   }
   console.info('paramsData', paramsData)
@@ -117,17 +130,17 @@ export const getESProducts = async (params: any): Promise<any> => {
 }
 
 export const getProductDetail = async ({ storeId, goodsId }: { storeId: string, goodsId: string }) => {
-
+  let info: any = {}
   try {
     const { productDetail } = await ApiRoot.products().getProductDetail({ storeId, goodsId })
     const { listAttributeGet, listCategoryGet, findGoodsByGoodsId } = productDetail
     let detail = Object.assign({}, findGoodsByGoodsId, { listAttributeGet, listCategoryGet })
-    let info = normaliseDetailforFe(detail)
+    info = normaliseDetailforFe(detail)
     // debugger
     return { afterData: info, beforeData: findGoodsByGoodsId }
   } catch (e) {
     console.log(e)
-    return { afterData: {}, beforeData: {} }
+    return { afterData: info, beforeData: {} }
   }
 }
 export const deleteProducts = async ({ goodsId }: { goodsId: string[] }) => {

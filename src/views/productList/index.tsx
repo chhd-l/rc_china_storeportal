@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Button, Tabs } from 'antd'
 import { useEffect, useState } from 'react'
 import SearchHeader from './components/SearchHeader'
@@ -9,22 +9,25 @@ import { ContentContainer, TableContainer, DivideArea } from '@/components/ui'
 import { MenuOutlined } from '@ant-design/icons'
 import { getAllProducts, getESProducts, getScProducts } from '@/framework/api/get-product'
 import { ProductListProps } from '@/framework/types/product'
-// import { dataSource } from "./modules/mockdata";
-// import Mock from 'mockjs'
+import { dataSource } from './modules/mockdata'
+import Mock from 'mockjs'
 const { TabPane } = Tabs
 
-// const listDatas = Mock.mock(dataSource)
+const listDatas = Mock.mock(dataSource)
 // console.info('listData', listData)
 const ProductList = () => {
   const [activeKey, setActiveKey] = useState<React.Key>(Tab.All)
   const [sample, setSample] = useState({})
+  const [filterCondition, setFilterCondition] = useState('')
   const [toolbarList, setToolbarList] = useState<OptionsProps[]>([])
+  const navigation = useNavigate()
   const [listData, setListData] = useState<ProductListProps>({
     products: [],
     all: '0',
     live: '0',
     soldOut: '0',
     disabled: '0',
+    total: 0,
   })
   const [pages, setPages] = useState({
     page: 1,
@@ -40,19 +43,29 @@ const ProductList = () => {
   }
   const handleTab = (activeKey: any) => {
     setActiveKey(activeKey)
-    console.info(activeKey)
+    let filter = ''
+    if (activeKey !== 'All') {
+      filter = activeKey
+        .split(' ')
+        .join('_')
+        .toUpperCase()
+    }
+    setFilterCondition(filter)
+    console.info()
   }
 
   const getList = async () => {
-    // let res = await getAllProducts({ limit: 2, sample: {}, isNeedTotal: true, operator: 'sss', offset: page })
-    let res = await getScProducts({
+    let params: any = {
       limit: pages.pageSize,
       sample,
       isNeedTotal: true,
       operator: 'sss',
       offset: pages.page - 1,
-    })
-
+    }
+    if (filterCondition) {
+      params.filterCondition = filterCondition
+    }
+    let res = await getScProducts(params)
     setListData(res)
     let newToolbarList = handleTabValue(toolbarInit, res)
     setToolbarList(newToolbarList)
@@ -61,6 +74,11 @@ const ProductList = () => {
     getList()
     // setListData(listDatas)
   }, [sample, pages])
+
+  useEffect(() => {
+    getList()
+    // setListData(listDatas)
+  }, [filterCondition])
   return (
     <ContentContainer className='productlist'>
       <SearchHeader getFormData={getFormData} />
@@ -79,12 +97,20 @@ const ProductList = () => {
               key={el.name}
             >
               <div className='flex justify-between items-center py-4'>
-                <div>{toolbarList.find(el => activeKey === el.name)?.value} Products</div>
+                <div>
+                  <span className='font-semibold'>{listData.total ? listData.total : 0}</span> Products
+                </div>
                 <div className='flex items-center'>
-                  <Link to='/product/add' className='mr-4'>
-                    <Button type='primary'>+ Add a New Product</Button>
-                  </Link>
-                  <Button className='mr-4'>Export</Button>
+                  <Button
+                    type='primary'
+                    onClick={() => {
+                      // window.open('/product/add')
+                      navigation(`/product/add`)
+                    }}
+                  >
+                    + Add a New Product
+                  </Button>
+                  <Button className='ml-4'>Export</Button>
                   {/* <MenuOutlined className=' border border-solid border-gray-300' /> */}
                   <Button className='ml-3' icon={<MenuOutlined style={{ color: '#979797' }} />} />
                 </div>
@@ -92,7 +118,7 @@ const ProductList = () => {
             </TabPane>
           ))}
         </Tabs>
-        <TableList setListData={getList} listData={listData} handlePagination={handlePagination} pages={pages} />
+        <TableList getList={getList} listData={listData} handlePagination={handlePagination} pages={pages} />
       </TableContainer>
     </ContentContainer>
   )

@@ -71,7 +71,7 @@ const Cascader = (props: CascaderProps) => {
   return (
     <div className='cate-cascader'>
       <div className='p-6 bg-gray-50'>
-        {categoryList.length ? (
+        {categoryList?.length ? (
           <ProFormCascader
             name='cateId'
             rules={[{ required: true, message: '这是必填项' }]}
@@ -84,7 +84,7 @@ const Cascader = (props: CascaderProps) => {
               onChange: onChange,
               options: categoryList,
               showSearch: true,
-              dropdownClassName: 'product-choose-cate',
+              dropdownClassName: 'product-choose-cate common-dropdown-cascader',
               open: true,
               placement: 'bottomLeft',
               placeholder: 'Categores Name',
@@ -95,10 +95,12 @@ const Cascader = (props: CascaderProps) => {
       </div>
 
       <div className='py-4'>
-        the current selected :{' '}
-        {categories.length
-          ? categories.map((el: TreeDataProps, idx: number) => ` ${idx === 0 ? '' : '>'} ${el.label}`)
-          : 'No categories has been chosen'}
+        The currently selected :{' '}
+        <span className={`${categories.length ? 'font-semibold text-red-600' : ''}`}>
+          {categories.length
+            ? categories.map((el: TreeDataProps, idx: number) => ` ${idx === 0 ? '' : '>'} ${el.label}`)
+            : 'No categories has been chosen'}
+        </span>
       </div>
     </div>
   )

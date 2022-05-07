@@ -8,7 +8,6 @@ import Loading from '@/assets/images/loading.gif'
 import { useAtom } from 'jotai'
 import { userAtom } from './store/user.store'
 
-
 function App () {
   let Routers = useRoutes(Router)
   const navigate = useNavigate()
@@ -31,10 +30,11 @@ function App () {
       <Suspense
         fallback={
           <div className='w-full h-screen flex justify-center items-center'>
-            <img className='mb-15' style={{width: "13rem"}} src={Loading}/>
+            <img className='mb-15' style={{ width: '13rem' }} src={Loading} />
           </div>
-        }>
-        <div className="text-left">{Routers}</div>
+        }
+      >
+        <div className='text-left'>{Routers}</div>
       </Suspense>
     </div>
   )

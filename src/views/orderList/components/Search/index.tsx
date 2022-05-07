@@ -39,8 +39,8 @@ const OrderSearch = ({ query }: { query: Function }) => {
             value={searchParams.searchType}
             style={{ width: "20%" }}
           >
-            {searchTypeList.map((item) => (
-              <Select.Option value={item.key} key={item.key}>
+            {searchTypeList.map((item, idx) => (
+              <Select.Option value={item.key} key={idx}>
                 {item.label}
               </Select.Option>
             ))}

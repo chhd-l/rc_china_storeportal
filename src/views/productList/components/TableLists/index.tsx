@@ -16,10 +16,10 @@ interface ListTableProps {
   listData: ProductListProps,
   handlePagination: any,
   pages: Pages
-  setListData: Function
+  getList: Function
 }
 
-const ListTable = ({ listData, handlePagination, setListData, pages }: ListTableProps) => {
+const ListTable = ({ listData, handlePagination, getList, pages }: ListTableProps) => {
   const [list, setList] = useState<ProductListItemProps[]>(cloneDeep(listData.products))
   const [checkedAll, setCheckedAll] = useState(false)
   const [checkedItem, setCheckedItem] = useState(false)
@@ -58,18 +58,18 @@ const ListTable = ({ listData, handlePagination, setListData, pages }: ListTable
 
   return (
     <div>
-      <div>
-        <div className='flex py-3 bg-gray1 border '>
-          <div className='px-2 flex justify-center items-center'>
+      <div className='border'>
+        <div className='flex py-3 bg-gray1'>
+          <div className='px-2 flex items-center'>
             <Checkbox indeterminate={indeterminate} checked={checkedAll} onChange={handleCheckedAll} />
           </div>
-          <TableHeader setListData={setListData} tableHeader={tableHeader} setTableHeader={setTableHeader} />
+          <TableHeader getList={getList} tableHeader={tableHeader} setTableHeader={setTableHeader} />
         </div>
         {list.length ? (
           list.map((spu, spuIdx) => (
             <TableRow
               key={spu.id}
-              setListData={setListData}
+              getList={getList}
               spu={spu}
               onChange={onChange}
               spuIdx={spuIdx}
@@ -94,7 +94,7 @@ const ListTable = ({ listData, handlePagination, setListData, pages }: ListTable
       }
       {
         checkedItem ? (
-          <TableFooter  setListData={setListData} list={list}>
+          <TableFooter  getList={getList} list={list}>
             <Checkbox indeterminate={indeterminate} checked={checkedAll} onChange={handleCheckedAll} />
           </TableFooter>
         ) : null

@@ -22,8 +22,6 @@ const initSpec = { option: '', sortIdx: '0-0' }
 const AddVariation = ({}: AddVariationProps) => {
   const { variationForm, setVariationForm } = useContext(VariationosContext)
   const { detail } = useContext(DetailContext)
-
-  const [form] = Form.useForm()
   const DragHandle = SortableHandle(() => <DragOutlined className='mx-2' />)
   const SortElements = SortableElement(
     ({
@@ -40,7 +38,7 @@ const AddVariation = ({}: AddVariationProps) => {
         //编辑操作
         if (detail.id) {
           let variationData = detail.editChange.variationList
-          debugger
+          // debugger
           if (!variationData[variationIdx]) {
             variationData[variationIdx] = {}
           }
@@ -75,7 +73,7 @@ const AddVariation = ({}: AddVariationProps) => {
       }
       return (
         <Row className={classNames('pt-3', specification.isDeleted ? 'hidden' : '')}>
-          <Col span={4} className='text-right'>
+          <Col span={4} className='text-right  mr-2'>
             Option:
           </Col>
           <Col span={15}>
@@ -123,13 +121,13 @@ const AddVariation = ({}: AddVariationProps) => {
       if (!variationData[variationIdx].goodsSpecificationDetail[specificationIdx]) {
         variationData[variationIdx].goodsSpecificationDetail[specificationIdx] = {}
       }
-      debugger
+      // debugger
       if (variationForm.variationList[variationIdx].specificationList[specificationIdx]?.id) {
-        debugger
+        // debugger
         variationData[variationIdx].id = variationForm.variationList[variationIdx].id
         variationData[variationIdx].goodsSpecificationDetail[specificationIdx].id =
           variationForm.variationList[variationIdx].specificationList[specificationIdx].id
-        variationData[variationIdx].goodsSpecificationDetail[specificationIdx].isDelete = true
+        variationData[variationIdx].goodsSpecificationDetail[specificationIdx].isDeleted = true
       } else {
         variationData[variationIdx].goodsSpecificationDetail.splice(variationIdx, 1)
       }
@@ -159,9 +157,6 @@ const AddVariation = ({}: AddVariationProps) => {
     setVariationForm(cloneDeep(variationForm))
   }
 
-  const handleVariationUpdate = () => {
-    setVariationForm(form.getFieldsValue())
-  }
   const onSortEnd = ({ oldIndex, newIndex, collection }: { oldIndex: number; newIndex: number; collection: any }) => {
     const { variationList } = variationForm
     variationList[collection].specificationList = arrayMoveImmutable(
@@ -200,7 +195,7 @@ const AddVariation = ({}: AddVariationProps) => {
     console.info('option', e.target.value)
     // let changedVariationList = detail.editChange.variationList
     // changedVariationList[variationIdx].name = e.target.value
-    debugger
+    // debugger
     if (detail.id) {
       let variationData = detail.editChange.variationList
       if (!variationData[variationIdx]) {
@@ -216,7 +211,11 @@ const AddVariation = ({}: AddVariationProps) => {
     setVariationForm(cloneDeep(variationForm))
   }
   return (
-    <div className='add-variation'>
+    <div
+      className='add-variation tips-wrap'
+      data-tips={`Variation:
+<p>Can set up to two variation. Which the first layer should be more important one</p>`}
+    >
       <SortContainer
         useDragHandle={true}
         // key={variationIdx}
@@ -227,12 +226,13 @@ const AddVariation = ({}: AddVariationProps) => {
             key={`variationIdx-${variationIdx}`}
             className={classNames('pt-6 relative', variation.isDeleted ? 'hidden' : '')}
           >
-            <Col span={4} className='text-right'>
-              variation{variationIdx + 1}:
+            <Col span={4} className='text-right pr-2'>
+              variation{variationIdx + 1}
+              {` :`}
             </Col>
-            <Col span={16} className='bg-gray-200 pt-6'>
+            <Col span={16} className='pt-6' style={{ background: '#f8f8f8' }}>
               <Row>
-                <Col span={4} className='text-right'>
+                <Col span={4} className='text-right  mr-2'>
                   Name:
                 </Col>
                 <Col span={15}>
@@ -262,7 +262,7 @@ const AddVariation = ({}: AddVariationProps) => {
               <Row className='py-3'>
                 <Col span={15} offset={4}>
                   <Button
-                    className='w-full'
+                    className='w-full ml-2'
                     onClick={() => {
                       handleAddSpecification(variationIdx)
                     }}
@@ -282,14 +282,34 @@ const AddVariation = ({}: AddVariationProps) => {
         ))}
       </SortContainer>
 
-      <div className=' flex' style={{ paddingLeft: '60px' }}>
-        <div>Variation:</div>
+      {/* <div className=' flex' style={{ paddingLeft: '60px' }}>
+        <div>Variation{variationForm.variationList.length + 1}:</div>
         {variationForm.variationList.length < 2 ? (
-          <Button style={{ width: '440px', marginLeft: '10px' }} type='dashed' onClick={handleAddVariation}>
+          <Button  type='dashed' onClick={handleAddVariation}>
             Add Variation
           </Button>
         ) : null}
-      </div>
+      </div> */}
+      {variationForm.variationList.filter((el: any) => el.isDeleted).length < 2 ? (
+        <Row className=' py-4'>
+          <Col span={4} className='text-right pr-2'>
+            Variation
+            {variationForm.variationList.filter((el: any) => el.isDeleted).length
+              ? variationForm.variationList.length + 1
+              : ''}
+            {` :`}
+          </Col>
+          <Col span={16}>
+            {/* <Row>
+            <Col> */}
+            <Button type='dashed' className='w-full' onClick={handleAddVariation}>
+              Add Variation
+            </Button>
+            {/* </Col>
+          </Row> */}
+          </Col>
+        </Row>
+      ) : null}
     </div>
   )
 }

@@ -32,10 +32,22 @@ const RouteBreadcrumb = () => {
 
   useEffect(() => {
     breadcrumbItemsaRr = []
-  console.log(' pathname.split(/)', pathname.split('/'))
-    pathname.split('/').forEach((path) => {
+    if(pathname.split('/').some((path) => path === 'product') && pathname !== '/product/product-list') {
+      if(pathname === '/product/add') {
+        setbreadcrumbItems([{
+          path: pathname,
+          breadcrumbName: 'Add New Product'
+        }])
+      } else {
+        setbreadcrumbItems([{
+          path: pathname,
+          breadcrumbName: 'Product Details'
+        }])
+      }
+    } else {
+      const path = pathname.split('/')[pathname.split('/').length - 1]
       depy(r, path)
-    })
+    }
   }, [pathname])
 
   return (

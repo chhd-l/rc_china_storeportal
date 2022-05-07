@@ -4,12 +4,12 @@ import { officialTypeList, statusList } from "./constants";
 export const formItems: SearchFormItemProps[] = [
   {
     label: "Account Name",
-    name: "name",
+    name: "accountName",
     placeholder: "Input",
   },
   {
     label: "Official Account Type",
-    name: "officialType",
+    name: "officialAccountType",
     placeholder: "select",
     type: "select",
     selectList: officialTypeList,

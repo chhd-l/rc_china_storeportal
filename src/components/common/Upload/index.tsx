@@ -8,9 +8,11 @@ export enum UploadType {
   img = 'IMG',
 }
 interface UploadWrapProps {
+  className?: string
   showUploadList?: boolean
   handleImgUrl: Function
   type?: UploadType
+  hideName?: boolean
   fileList?: any[]
 }
 function getBase64 (img: any, callback: Function) {
@@ -88,29 +90,30 @@ const UploadWrap = (props: UploadWrapProps) => {
     let list = props.fileList?.[0]
       ? props.fileList.map(img => {
           return {
-            uid: img.id,
-            name: 'xx.png',
+            uid: img.id || img.url,
+            name: props.hideName ? '' : 'xx.png',
             url: img.url,
             thumbUrl: img.url,
           }
         })
       : []
     if (list) {
-      console.info('.....fileListfileList', props.fileList, fileList)
       setFileList(list)
     }
   }, [props.fileList])
-
+  console.info('fileList', fileList)
+  console.info('typetype', type)
   return (
-    <div>
+    <div className={props.className}>
       {type === UploadType.button ? (
         <Upload
           action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
           listType='picture'
-          defaultFileList={[...fileList]}
+          fileList={fileList}
           onPreview={handlePreview}
           className='upload-list-inline'
         >
+          {/* <Button icon={<UploadOutlined />}>Click to Upload</Button> */}
           {fileList.length ? null : <Button icon={<UploadOutlined />}>Upload</Button>}
         </Upload>
       ) : // <Upload {...uploadProps}>

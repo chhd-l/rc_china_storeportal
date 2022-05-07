@@ -1,12 +1,9 @@
 import './index.less'
 import { Anchor } from 'antd'
-import BasicInfo from '../BasicInfo'
-import Specification from '../Specification'
-import SalesInfo from '../SalesInfo'
-import Shipping from '../Shipping'
+import { useLocation } from 'react-router-dom'
 import { Form, Space, Button } from 'antd'
 import { FC, useContext, useEffect, useState } from 'react'
-import { steps, formInitialValues } from '../../modules/constant'
+import { steps } from '../../modules/constant'
 import { InfoContainer, DivideArea } from '@/components/ui'
 import { DetailContext } from '../../index'
 import { createProduct } from '@/framework/api/get-product'
@@ -23,14 +20,30 @@ interface MainInfoProps {
 const { Link } = Anchor
 let shelvesStatus = true
 const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeData }) => {
+  const { pathname } = useLocation()
   const [form] = Form.useForm()
   const [tipsIdx, setTipsIdx] = useState(0)
   const { detail } = useContext(DetailContext)
   const navigator = useNavigate()
-
+  const [dataTips, setDataTips] = useState('')
   const hanldeTips = (idx: number) => {
     setTipsIdx(idx)
   }
+
+  useEffect(() => {
+    document.addEventListener(
+      'click',
+      e => {
+        console.info('data-tips', e)
+        // @ts-ignore
+        let str = e?.target?.closest('.tips-wrap')?.dataset?.tips || ''
+        if (str) {
+          setDataTips(str)
+        }
+      },
+      false,
+    )
+  }, [])
   // useEffect(()=>{
 
   // },detail.name)
@@ -65,13 +78,13 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     console.info('data', data)
     navigator('/product/product-list')
   }
-  console.info('detaildetaildetaildetail', detail)
+  useEffect(() => {
+    console.log('form.122', beforeData.shelvesStatus)
+  }, [])
+
   return (
-    <div
-      id={steps[0].anchor}
-      // className="flex bg-gray-50 px-14 py-6 text-left"
-    >
-      <div className='flex-1 mr-48'>
+    <div id={steps[0].anchor}>
+      <div className='flex-1 mr-48 MainInfo'>
         <Form
           form={form}
           onFinish={onFinish}
@@ -107,7 +120,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                       </div>
                       <div className='pb-4'>{steps[idx].subTitle}</div>
                     </div>
-                    {steps[idx].render(field)}
+                    {steps[idx].render(field, form)}
                   </div>
                 </InfoContainer>
                 <DivideArea />
@@ -116,7 +129,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
             {/* </>
             )}
           </Form.List> */}
-            <div className='text-rigth flex justify-end'>
+            <div className='text-rigth flex justify-end w-full fixed bottom-2 footerBtn'>
               <Button
                 className='ml-4'
                 onClick={() => {
@@ -125,25 +138,72 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
               >
                 Cancel
               </Button>
-              <Button
-                className='ml-4'
-                onClick={() => {
-                  shelvesStatus = false
-                  form.submit()
-                }}
-              >
-                Save and Delist
-              </Button>
-              <Button
-                className='ml-4'
-                type='primary'
-                onClick={() => {
-                  shelvesStatus = true
-                  form.submit()
-                }}
-              >
-                Save and Publish
-              </Button>
+              {
+                  pathname !== '/product/add' ? 
+                    beforeData.shelvesStatus ? (
+                      <Button
+                        className='ml-4'
+                        onClick={() => {
+                          shelvesStatus = false
+                          form.submit()
+                        }}
+                      >
+                        { pathname === '/product/add' ? 'Save and Delish' : 'Delish' }
+                      </Button>
+                    ) : null
+                   : (
+                    <Button
+                      className='ml-4'
+                      onClick={() => {
+                        shelvesStatus = false
+                        form.submit()
+                      }}
+                    >
+                      { pathname === '/product/add' ? 'Save and Delish' : 'Delish' }
+                    </Button>
+                  )
+              }
+              {
+                  pathname !== '/product/add' ? 
+                    beforeData.shelvesStatus ? (
+                      <Button
+                        className='ml-4'
+                        type='primary'
+                        onClick={() => {
+                          shelvesStatus = true
+                          form.submit()
+                        }}
+                      >
+                        { pathname === '/product/add' ? 'Save and Publish' : 'Publish' }
+                      </Button>
+                    ) : null
+                   : (
+                    <Button
+                      className='ml-4'
+                      type='primary'
+                      onClick={() => {
+                        shelvesStatus = true
+                        form.submit()
+                      }}
+                    >
+                      { pathname === '/product/add' ? 'Save and Publish' : 'Publish' }
+                    </Button>
+                  )
+              }
+              {
+                pathname !== '/product/add' ? (
+                  <Button
+                    className='ml-4'
+                    type='primary'
+                    onClick={() => {
+                      shelvesStatus = true
+                      form.submit()
+                    }}
+                  >
+                    Update
+                  </Button>
+                ) : null
+              }
             </div>
           </div>
         </Form>
@@ -156,7 +216,8 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
         </Anchor>
         <div className='mt-4 bg-yellow-100 text-yellow-700 px-2 py-4'>
           <div className='font-bold '>Tips</div>
-          <div>{steps[tipsIdx].tips}</div>
+          <br />
+          <div dangerouslySetInnerHTML={{ __html: dataTips }}></div>
         </div>
       </div>
     </div>

@@ -19,10 +19,11 @@ const SalesInfo = (props: FormProps) => {
   })
   const layout = {
     labelCol: { span: 4 },
-    wrapperCol: { span: 14 },
+    wrapperCol: { span: 16 },
   }
 
   useEffect(() => {
+    console.log('123123123213123123', 123123123213123123)
     if (detail.variationForm) {
       setVariationForm(detail.variationForm)
     }
@@ -32,7 +33,9 @@ const SalesInfo = (props: FormProps) => {
     <VariationosContext.Provider value={{ variationForm, setVariationForm }}>
       <AddVariation />
       <EditVariationList field={props.field} />
-      {variationForm.variationList?.length ? null : <FormItem list={noSkuForm} {...props} layout={layout} />}
+      {variationForm.variationList.filter((el: any) => !el.isDeleted)?.length ? null : (
+        <FormItem list={noSkuForm} {...props} layout={layout} />
+      )}
     </VariationosContext.Provider>
   )
 }

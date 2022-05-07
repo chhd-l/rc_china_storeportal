@@ -14,11 +14,11 @@ export const formItems: SearchFormItemProps[] = [
     selectList: [
       {
         label: "Female",
-        key: "Female",
+        key: 1,
       },
       {
         label: "Male",
-        key: "Male",
+        key: 0,
       },
     ],
   },
@@ -36,22 +36,22 @@ export const formItems: SearchFormItemProps[] = [
     label: "Follow Time",
     name: "followTime",
     placeholder: "Follow Time",
-    type: "dateTime"
+    type: "dateTime",
   },
-  {
-    label: "Is Member",
-    name: "isMember",
-    placeholder: "select",
-    type: "select",
-    selectList: [
-      {
-        label: "Y",
-        key: "Y",
-      },
-      {
-        label: "N",
-        key: "N",
-      },
-    ],
-  },
+  // {
+  //   label: "Is Member",
+  //   name: "isMember",
+  //   placeholder: "select",
+  //   type: "select",
+  //   selectList: [
+  //     {
+  //       label: "Yes",
+  //       key: "Yes",
+  //     },
+  //     {
+  //       label: "No",
+  //       key: "No",
+  //     },
+  //   ],
+  // },
 ];

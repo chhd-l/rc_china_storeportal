@@ -1,5 +1,4 @@
 import { lazy } from 'react' // 路由懒加载
-import { Navigate, Route, Routes } from 'react-router-dom'
 const Layout = lazy(() => import('../components/common/Layout'))
 const Home = lazy(() => import('../views/index'))
 const Login = lazy(() => import('../views/login'))
@@ -18,6 +17,7 @@ const ShippingSetting = lazy(() => import('@/views/shippingSetting'))
 const OrderSetting = lazy(() => import('@/views/orderSetting'))
 const AccountList = lazy(() => import('@/views/accountList'))
 const AddAccount = lazy(() => import('@/views/addAccount'))
+const AccountDetails = lazy(() => import('@/views/accountDetails'))
 const FansList = lazy(() => import('@/views/fansList'))
 const FansDetail = lazy(() => import('@/views/fansDetail'))
 const AutoReplyList = lazy(() => import('@/views/autoReplyList'))
@@ -35,6 +35,9 @@ const MpQRDetail = lazy(() => import('@/views/mpQRDetail'))
 const QrCodeManageDetail = lazy(() => import('@/views/qrCodeManageDetail'))
 const MenuManageDetail = lazy(() => import('@/views/menuManageDetail'))
 const TemplateMessageDetail = lazy(() => import('@/views/templateMessageDetail'))
+const TagList = lazy(() => import('@/views/tagList'))
+const EditTag = lazy(() => import('@/views/editTag'))
+const AddVideo = lazy(() => import('@/views/addVideo'))
 
 interface RouteObject {
   caseSensitive?: boolean
@@ -58,6 +61,7 @@ let routes: RouteObject[] = [
       { path: 'shipping-setting', element: <ShippingSetting />, breadcrumbName: 'ShippingSetting' },
       { path: 'automatic-replies', element: <AutoReplyList />, breadcrumbName: 'AutomaticReplies' },
       { path: 'assets-management', element: <AssetList />, breadcrumbName: 'AssetsManagement' },
+      { path: 'add-video', element: <AddVideo />, breadcrumbName: 'Add Video' },
       {
         path: 'product',
         breadcrumbName: 'Product',
@@ -73,6 +77,8 @@ let routes: RouteObject[] = [
           { path: 'pet-owner-list', index: true, element: <PetOwnerList />, breadcrumbName: 'PetOwnerList' },
           { path: 'pet-owner-detail', element: <PetOwnerDetail />, breadcrumbName: 'PetOwnerDetail' },
           { path: 'pet-detail', element: <PetDetail />, breadcrumbName: 'petDetail' },
+          { path: 'tag-list', index: true, element: <TagList />, breadcrumbName: 'TagList' },
+          { path: 'edit-tag', element: <EditTag />, breadcrumbName: 'Tagging Details' },
         ],
       },
       {
@@ -98,6 +104,7 @@ let routes: RouteObject[] = [
         children: [
           { path: 'account-list', index: true, element: <AccountList />, breadcrumbName: 'AccountList' },
           { path: 'add-account', element: <AddAccount />, breadcrumbName: 'AddAccount' },
+          { path: 'account-details', element: <AccountDetails />, breadcrumbName: 'AccountDetails' },
         ],
       },
       {

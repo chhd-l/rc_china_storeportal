@@ -1,21 +1,19 @@
 import ChooseCate from './components/ChooseCate'
 import MainInfo from './components/MainInfo'
 import { createContext, useEffect, useState } from 'react'
-import Demo from './components/Demo'
 import { ContentContainer } from '@/components/ui'
-import { createProduct, getAttrs, getCategories, getProduct, getProductDetail } from '@/framework/api/get-product'
+import { getProductDetail } from '@/framework/api/get-product'
 import { useParams } from 'react-router-dom'
-import { CateItemProps } from '@/framework/schema/product.schema'
 import { cloneDeep } from 'lodash'
 export const DetailContext = createContext(null as any)
 
 const Product = () => {
   const [cateInfo, setCateInfo] = useState<{ cateId: string[] }>()
   const [showCatePop, setShowCatePop] = useState<boolean>(false)
+  const [ProductName, setProductName] = useState<string>('')
   const [detail, setDetail] = useState({})
   const [showMain, setShowMain] = useState(false)
   const [beforeData, setBeforeData] = useState({})
-  const [changedProp, setChangedProp] = useState({})
   const params = useParams()
   useEffect(() => {
     let { id } = params
@@ -25,6 +23,7 @@ const Product = () => {
       setShowMain(true)
       setShowCatePop(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const getDetail = async (goodsId: string) => {
@@ -33,6 +32,7 @@ const Product = () => {
     console.info('data', afterData)
     setBeforeData(beforeData)
     setDetail(afterData)
+    setProductName(afterData.name || '')
     setShowMain(true)
     // setCateInfo({ cateId: ['123'] })
   }
@@ -40,7 +40,9 @@ const Product = () => {
   useEffect(() => {
     let newDetail = Object.assign({}, detail, cateInfo)
     setDetail(cloneDeep(newDetail))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cateInfo])
+
   const handleCate = (value: any) => {
     console.info('tetstets', value)
     if (value) {
@@ -49,17 +51,20 @@ const Product = () => {
       setCateInfo(value)
     }
   }
-  useEffect(() => {
-    console.info('detail', detail)
-  }, [detail])
+
   return (
     <ContentContainer>
-      {/* <Demo />*/}
-      <DetailContext.Provider value={{ detail, setShowCatePop }}>
+      <DetailContext.Provider value={{ detail, setShowCatePop, setProductName, ProductName }}>
         {showMain ? (
           <MainInfo details={detail} beforeData={beforeData} showCatePop={showCatePop}>
-            {/* <div></div> */}
-            {showCatePop && <ChooseCate detail={detail} setShowCatePop={setShowCatePop} handleCate={handleCate} />}
+            {showCatePop && (
+              <ChooseCate
+                detail={detail}
+                setShowCatePop={setShowCatePop}
+                setProductName={setProductName}
+                handleCate={handleCate}
+              />
+            )}
           </MainInfo>
         ) : null}
       </DetailContext.Provider>

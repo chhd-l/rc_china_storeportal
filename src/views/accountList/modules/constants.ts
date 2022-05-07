@@ -18,10 +18,10 @@ export const officialTypeList: BaseListProps[] = [
 export const statusList: BaseListProps[] = [
   {
     label: "Enable",
-    key: "enable",
+    key: true,
   },
   {
     label: "Disable",
-    key: "disable",
+    key: false,
   },
 ];

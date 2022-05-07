@@ -1,7 +1,5 @@
 import Table from "./components/Table";
-import Mock from "mockjs";
 import React, { useEffect, useState } from "react";
-import { dataSource } from "./modules/mockdata";
 import Search from "@/components/common/Search";
 import { Account } from "@/framework/types/wechat";
 import { formItems } from "./modules/form";
@@ -12,17 +10,25 @@ import {
   TableContainer,
 } from "@/components/ui";
 import { getAccountList } from '@/framework/api/wechatSetting'
+// import Mock from "mockjs";
+// import { dataSource } from "./modules/mockdata";
 
 const AccountList = () => {
   const [accountList, setAccountList] = useState<Account[]>([]);
+  const [pages, setPages] = useState({
+    page: 1,
+    limit: 10,
+    total: 10,
+  });
 
   useEffect(() => {
-    setAccountList(Mock.mock(dataSource).array);
+    // setAccountList(Mock.mock(dataSource).array);
     getAccounts()
   }, []);
 
-  const getAccounts= async () => {
-    await getAccountList({});
+  const getAccounts= async (items = {}) => {
+    let res = await getAccountList(items);
+    setAccountList(res)
   };
 
   return (
@@ -32,7 +38,7 @@ const AccountList = () => {
       </SearchContainer>
       <DivideArea />
       <TableContainer>
-        <Table accountList={accountList} />
+        <Table getAccounts={getAccounts} accountList={accountList} pages={pages} setPages={setPages} />
       </TableContainer>
     </ContentContainer>
   );

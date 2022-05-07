@@ -43,7 +43,7 @@ export const normaliseOrder = (data: any,expressCompanies:any): any => {
   } = data.shippingAddress
   let { tradeState, lineItem, tradePrice, payInfo, logs,shippingInfo,subscriptionId } = data
   const company=expressCompanies.filter((item:any)=>item.code===shippingInfo.shippingCompany)
-  const carrierType=company.length>0?company[0].name:''
+  const carrierType=company.length>0?company[0].nameEn:''
   let { orderState } = tradeState
   let orderItem = {
     orderNumber: data.orderNumber,

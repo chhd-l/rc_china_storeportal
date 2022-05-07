@@ -5,7 +5,7 @@ import { officialTypeList } from "@/views/accountList/modules/constants";
 export const ACCOUNT_FORM: FormItemProps[] = [
   {
     label: "Account Principal",
-    name: "principal",
+    name: "accountPrincipal",
     placeholder: "Input",
     rules: [
       {
@@ -16,7 +16,7 @@ export const ACCOUNT_FORM: FormItemProps[] = [
   },
   {
     label: "Account Type",
-    name: "type",
+    name: "accountType",
     placeholder: "Select",
     type: "select",
     rules: [
@@ -33,13 +33,13 @@ export const ACCOUNT_FORM: FormItemProps[] = [
     placeholder: "Input",
     rules: [
       {
-        required: true,
+        // required: true,
         message: "Please input Original ID!",
       },
     ],
   },
   {
-    name: "name",
+    name: "accountName",
     label: "Account Name",
     placeholder: "Input",
     rules: [
@@ -82,7 +82,7 @@ export const ACCOUNT_FORM: FormItemProps[] = [
     placeholder: "Input",
   },
   {
-    name: "manageMode",
+    name: "managementMode",
     label: "Management Mode",
     placeholder: "select",
     type: "select",
@@ -95,12 +95,12 @@ export const ACCOUNT_FORM: FormItemProps[] = [
     selectList: manageModeList,
   },
   {
-    name: "pushServer",
+    name: "pushServerURL",
     label: "Push Server",
     placeholder: "Input",
   },
   {
-    name: "officialType",
+    name: "officialAccountType",
     label: "Official Account Type",
     placeholder: "select",
     type: "select",
@@ -113,7 +113,7 @@ export const ACCOUNT_FORM: FormItemProps[] = [
     selectList: officialTypeList,
   },
   {
-    name: "magEncrypt",
+    name: "messageEncryption",
     label: "Message Encryption",
     placeholder: "Input",
     rules: [
@@ -135,7 +135,7 @@ export const ACCOUNT_FORM: FormItemProps[] = [
     ],
   },
   {
-    name: "pertifyPath",
+    name: "certificatePath",
     label: "Pertificate Path",
     placeholder: "Input",
     type: "upload",

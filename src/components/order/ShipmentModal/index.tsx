@@ -53,9 +53,9 @@ const ShipmentModal = ({
         </Form.Item>
         <Form.Item label="Carrier company:" name="shippingCompany">
           <Select placeholder="Please select">
-            {carrierTypes.map((item) => (
+            {carrierTypes.map((item:any) => (
               <Select.Option value={item.code} key={item.code}>
-                {item.name}
+                {item?.name}
               </Select.Option>
             ))}
           </Select>

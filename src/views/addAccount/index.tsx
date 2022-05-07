@@ -1,28 +1,18 @@
 import { Button, Form, Input, Select, Upload } from "antd";
 import { ACCOUNT_FORM } from "@/views/addAccount/modules/form";
-import { useState } from "react";
 import { useNavigate } from "react-router";
 import { ContentContainer, InfoContainer } from "@/components/ui";
-import { createAccount, modifyAccount } from '@/framework/api/wechatSetting'
+import { createAccount } from '@/framework/api/wechatSetting'
 
 const AddAccount = () => {
-  const [fromItems, setFormItems] = useState(ACCOUNT_FORM);
   const navigator = useNavigate();
-
-  const formValuesChange = (changedValues: any, allValues: any) => {
-    if (allValues.type === "serviceAccount") {
-      setFormItems(ACCOUNT_FORM);
-    } else {
-      setFormItems(ACCOUNT_FORM.splice(0, 9));
-    }
-  };
 
   const addAccount = async (values: any) => {
     console.log(values);
     //新增
-    await createAccount({})
-    //编辑
-    await modifyAccount({})
+    await createAccount(values).then(() => {
+      navigator("/account/account-list")
+    })
   };
 
   return (
@@ -31,12 +21,12 @@ const AddAccount = () => {
         <div className="text-2xl text-medium mb-4">add Account</div>
         <Form
           initialValues={{ type: "serviceAccount" }}
-          onValuesChange={formValuesChange}
+          // onValuesChange={formValuesChange}
           onFinish={addAccount}
           autoComplete="off"
           className="flex flex-row flex-wrap justify-start pr-4"
         >
-          {fromItems.map((item) => (
+          {ACCOUNT_FORM.map((item) => (
             <Form.Item
               label={item.label}
               name={item.name}
@@ -79,7 +69,7 @@ const AddAccount = () => {
               danger
               className="mr-4"
               onClick={() => {
-                navigator("/account-list");
+                navigator("/account/account-list");
               }}
             >
               Cancel
