@@ -44,11 +44,13 @@ const PetOwnerList = () => {
         </Tabs>
         {activeKey === 'picture' ? <Picture isReload={isReload} openDelete={openDeleteModal} /> : null}
         {activeKey === 'graphic' ? <Graphic /> : null}
-        {activeKey === 'voice' ? <Voice /> : null}
-        {activeKey === 'video' ? <Video /> : null}
+        {activeKey === 'voice' ? <Voice isReload={isReload} openDelete={openDeleteModal} /> : null}
+        {activeKey === 'video' ? <Video isReload={isReload} openDelete={openDeleteModal} /> : null}
       </SearchContainer>
       <Modal
+        className="rc-modal"
         title="Delete Item"
+        okText='Confirm'
         visible={isModalVisible}
         onOk={confirmDelete}
         onCancel={() => setIsModalVisible(false)}

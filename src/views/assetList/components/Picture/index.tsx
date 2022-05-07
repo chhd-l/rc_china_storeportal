@@ -1,7 +1,7 @@
 import { Button, message, Pagination, Table, Tooltip, Upload, Image } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Asset } from '@/framework/types/wechat'
-import { createMedia, getMedias, syncMedias, updateMedia } from '@/framework/api/wechatSetting'
+import { createMedia, getMedias, syncMedias } from '@/framework/api/wechatSetting'
 import { ContentContainer } from '@/components/ui'
 import { PageParamsProps } from '@/framework/types/common'
 import { handlePageParams } from '@/utils/utils'
@@ -68,16 +68,6 @@ const Picture = ({ isReload = false, openDelete }: { isReload: boolean; openDele
   const changePage = async (page: any, pageSize: any) => {
     setPageParams({ currentPage: page, pageSize: pageSize })
     await getMediaList({ currentPage: page, pageSize: pageSize })
-  }
-
-  const deleteMedia = async (record: any) => {
-    const res = await updateMedia({
-      id: record.id,
-      isDeleted: true,
-    })
-    if (res) {
-      await getMediaList()
-    }
   }
 
   useEffect(() => {

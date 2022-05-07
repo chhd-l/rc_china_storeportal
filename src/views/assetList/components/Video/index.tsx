@@ -1,14 +1,14 @@
 import { Button, DatePicker, Input, Pagination, Table, Tooltip } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Asset } from '@/framework/types/wechat'
-import { getMedias, syncMedias, updateMedia } from '@/framework/api/wechatSetting'
+import { getMedias, syncMedias } from '@/framework/api/wechatSetting'
 import { ContentContainer } from '@/components/ui'
 import { PageParamsProps } from '@/framework/types/common'
 import { handlePageParams } from '@/utils/utils'
 import { useNavigate } from 'react-router'
 import { initPageParams } from '@/lib/constants'
 
-const Video = () => {
+const Video = ({ isReload = false, openDelete }: { isReload: boolean; openDelete: Function }) => {
   const column = [
     {
       title: 'Title',
@@ -46,7 +46,7 @@ const Video = () => {
           <Tooltip title="Delete">
             <span
               className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl"
-              onClick={() => deleteMedia(record)}
+              onClick={() => openDelete && openDelete(record.id)}
             />
           </Tooltip>
         </>
@@ -71,15 +71,11 @@ const Video = () => {
     await getMediaList({ curPageParams: { currentPage: page, pageSize: pageSize } })
   }
 
-  const deleteMedia = async (record: any) => {
-    const res = await updateMedia({
-      id: record.id,
-      isDeleted: true,
-    })
-    if (res) {
-      await getMediaList({})
+  useEffect(() => {
+    if (isReload) {
+      getMediaList({})
     }
-  }
+  }, [isReload])
 
   useEffect(() => {
     getMediaList({})
