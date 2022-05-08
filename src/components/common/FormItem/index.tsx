@@ -8,8 +8,9 @@ interface FormProps {
   parentName?: Array<any>
   field?: FormListFieldData
   layout?: any
+  disabled?: boolean
 }
-const FormItem = ({ list, parentName, field, layout }: FormProps) => {
+const FormItem = ({ list, parentName, field, layout, disabled }: FormProps) => {
   return (
     <>
       {list.map((el: any, idx: number) => {
@@ -22,7 +23,15 @@ const FormItem = ({ list, parentName, field, layout }: FormProps) => {
               </Form.Item>
             ) : null}
             {el.type === 'input' ? (
-              <Form.Item className={el.className} {...layout} {...field} label={el.label} name={name} rules={el.rules}>
+              <Form.Item
+                className={el.className}
+                {...layout}
+                {...field}
+                label={el.label}
+                name={name}
+                disabled={el.disabled || false}
+                rules={el.rules}
+              >
                 <Input placeholder={'please input ' + el.label} addonBefore={el.addonBefore} />
               </Form.Item>
             ) : null}

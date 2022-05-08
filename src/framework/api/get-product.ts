@@ -223,9 +223,12 @@ export const saveShopCategory = async (params: SaveShopCategoryInput): Promise<a
 
 export const getBundleGoodsvariants = async (params: any) => {
   // console.info('ApiRoot')
-  const data = await ApiRoot.products().getBundleGoodsvariants(params)
-  console.info('.......getBundleGoodsvariants', data)
+  let data: any = []
   try {
+    console.info('params', params)
+    let res = await ApiRoot.products().getBundleGoodsvariants(params)
+    data = res?.findBundleGoodsVariantList || []
+    console.info('.......getBundleGoodsvariants', data)
   } catch (e) {
     console.log(e)
     // return

@@ -22,7 +22,7 @@ const typeForKey: OptionsProps[] = [
 const chooseProductType: OptionsProps[] = [
   { name: 'Bundle', value: 'BUNDLE' },
   { name: 'Regular', value: 'REGULAR' },
-  { name: 'Other', value: 'OTHER' },
+  // { name: 'Other', value: 'OTHER' },
 ]
 const SubscriptionType: OptionsProps[] = [
   { name: 'Yes', value: true },

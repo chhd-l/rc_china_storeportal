@@ -23,7 +23,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
   const { pathname } = useLocation()
   const [form] = Form.useForm()
   const [tipsIdx, setTipsIdx] = useState(0)
-  const { detail } = useContext(DetailContext)
+  const { detail, spuType } = useContext(DetailContext)
   const navigator = useNavigate()
   const [dataTips, setDataTips] = useState('')
   const hanldeTips = (idx: number) => {
@@ -52,24 +52,55 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     console.log(values, detail)
 
     let params = Object.assign({}, detail, values, {
-      type: 'REGULAR',
+      type: spuType,
       shelvesStatus,
     })
-    if (!detail.goodsVariants?.length) {
-      detail.goodsVariants = [
+    if (!detail.goodsSpecificationsInput?.length) {
+      params.goodsVariantsInput = [
         {
-          skuNo: 'test0001', //to do
+          // skuNo: 'test0001', //to do
           withoutSku: true,
-          subscriptionPrice: detail.subscriptionPrice,
-          subscriptionStatus: detail.subscriptionStatus,
-          stock: detail.stock,
-          listPrice: detail.listPrice,
-          marketingPrice: detail.marketingPrice,
-          feedingDays: detail.feedingDays,
-          isSupport100: detail.isSupport100,
+          subscriptionPrice: values.subscriptionPrice,
+          subscriptionStatus: values.subscriptionStatus,
+          stock: values.stock,
+          listPrice: values.listPrice,
+          marketingPrice: values.marketingPrice,
+          feedingDays: values.feedingDays,
+          isSupport100: values.isSupport100,
+          id: detail.skuId,
           defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
         },
       ]
+      if (detail.goodsVariantBundleInfo?.length) {
+        params.goodsVariantsInput[0].goodsVariantBundleInfo = detail.goodsVariantBundleInfo
+      }
+      if (detail.id) {
+        //编辑
+        if (!detail.editChange.goodsVariants) {
+          detail.editChange.goodsVariants = [
+            {
+              stock: detail.stock,
+              id: detail.skuId,
+              goodsVariantBundleInfo: detail.goodsVariantBundleInfo?.map((el: any) => {
+                let bundleInfo = {
+                  bundleNumber: el.bundleNumber,
+                  id: el.bunldeRelId,
+                  goodsVariantId: el.goodsVariantId,
+                  subGoodsVariantId: el.subGoodsVariantId || detail.skuId,
+                  skuNo: el.skuNo,
+                }
+                if (!el.goodsVariantId) {
+                  delete bundleInfo.goodsVariantId
+                }
+                if (!el.skuNo) {
+                  delete bundleInfo.skuNo
+                }
+                return bundleInfo
+              }),
+            },
+          ]
+        }
+      }
     }
     console.info('.......')
     console.info('params', params)
@@ -77,9 +108,6 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     console.info('data', data)
     navigator('/product/product-list')
   }
-  useEffect(() => {
-    console.log('form.122', beforeData.shelvesStatus)
-  }, [])
 
   return (
     <div id={steps[0].anchor}>
@@ -128,7 +156,10 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
             {/* </>
             )}
           </Form.List> */}
-            <div className='text-rigth flex justify-end w-full fixed bottom-2 footerBtn'>
+            <div
+              style={{ left: '24px', right: '13.5rem' }}
+              className='text-rigth flex justify-end fixed bottom-2 footerBtn'
+            >
               <Button
                 className='ml-4'
                 onClick={() => {

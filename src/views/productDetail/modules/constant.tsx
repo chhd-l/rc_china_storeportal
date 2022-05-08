@@ -159,7 +159,7 @@ export const steps: StepsProps[] = [
     subTitle: '',
     tips: 'Sales Infomation',
     rightSlot: null,
-    render: (field: FormListFieldData) => <SalesInfo field={field} />,
+    render: (field: FormListFieldData, form: any) => <SalesInfo field={field} form={form} />,
   },
   {
     title: 'Shipping',
@@ -217,7 +217,11 @@ export const headerOrigition: any = [
   <p>SKU Name should be related to the variation option</p>
   `,
   },
-  // { label: 'Sub-SKU', type: 'subSku', keyVal: `Sub-SKU:<p>Sub-SKU should add the sub-products that the SKU needs to be bound and sold</p>` },
+  {
+    label: 'Sub-SKU',
+    type: 'subSku',
+    keyVal: `Sub-SKU:<p>Sub-SKU should add the sub-products that the SKU needs to be bound and sold</p>`,
+  },
   {
     label: 'EAN',
     type: 'input',

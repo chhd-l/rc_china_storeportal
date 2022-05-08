@@ -11,6 +11,7 @@ const Product = () => {
   const [cateInfo, setCateInfo] = useState<{ cateId: string[] }>()
   const [showCatePop, setShowCatePop] = useState<boolean>(false)
   const [ProductName, setProductName] = useState<string>('')
+  const [spuType, setSpuType] = useState()
   const [detail, setDetail] = useState({})
   const [showMain, setShowMain] = useState(false)
   const [beforeData, setBeforeData] = useState({})
@@ -32,6 +33,9 @@ const Product = () => {
     console.info('data', afterData)
     setBeforeData(beforeData)
     setDetail(afterData)
+    if (afterData.type) {
+      setSpuType(afterData.type)
+    }
     setProductName(afterData.name || '')
     setShowMain(true)
     // setCateInfo({ cateId: ['123'] })
@@ -54,11 +58,12 @@ const Product = () => {
 
   return (
     <ContentContainer>
-      <DetailContext.Provider value={{ detail, setShowCatePop, setProductName, ProductName }}>
+      <DetailContext.Provider value={{ detail, setShowCatePop, setProductName, spuType, ProductName }}>
         {showMain ? (
           <MainInfo details={detail} beforeData={beforeData} showCatePop={showCatePop}>
             {showCatePop && (
               <ChooseCate
+                setSpuType={setSpuType}
                 detail={detail}
                 setShowCatePop={setShowCatePop}
                 setProductName={setProductName}
