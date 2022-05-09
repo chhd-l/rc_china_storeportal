@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 import { Fans } from "@/framework/types/wechat";
 import { handleReturnTime } from "@/utils/utils";
+import { syncFans } from "@/framework/api/wechatSetting";
 
 const Index = ({ fanList, pages, setPages, getFanList, total }: { 
   fanList: Fans[],
@@ -84,7 +85,7 @@ const Index = ({ fanList, pages, setPages, getFanList, total }: {
           <span className="iconfont icon-bianzu2 mr-2" />
           Synchronize All Openid
         </Button> */}
-        <Button className="mr-4" onClick={() => { }}>
+        <Button className="mr-4" onClick={() => syncFans()}>
           <span className="iconfont icon-bianzu2 mr-2" />
           Synchronize All Fan Information
         </Button>

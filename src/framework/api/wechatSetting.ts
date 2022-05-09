@@ -9,14 +9,14 @@ export const getAccountList = async (queryParams: any) => {
     //todo account manage normalize
     console.log('get wechat setting account list view data', accounts)
     return {
-      total:accounts.total||0,
-      records:accounts.records||[]
+      total: accounts.total || 0,
+      records: accounts.records || []
     }
   } catch (e) {
     console.log(e)
     return {
-      total:0,
-      records:[]
+      total: 0,
+      records: []
     }
   }
 }
@@ -64,7 +64,7 @@ export const modifyAccount = async (queryParams: any) => {
   }
 }
 // 同步粉丝
-export const syncFans = async (accountId: string) => {
+export const syncFans = async () => {
   try {
     let res = await ApiRoot.wechatSettings().syncFans({ accountId: '000001' })
     const syncSuccess = res?.syncFans
@@ -102,9 +102,9 @@ export const createMedia = async (queryParams: any) => {
         },
         queryParams.type === 'video'
           ? {
-              title: queryParams.title,
-              description: queryParams.description,
-            }
+            title: queryParams.title,
+            description: queryParams.description,
+          }
           : {},
       ),
       operator: 'zz',
