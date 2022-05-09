@@ -1,4 +1,4 @@
-import { Button, DatePicker,Dropdown, Input, Select, Space } from 'antd'
+import { Button, DatePicker, Dropdown, Input, Select, Space } from 'antd'
 import React, { useState } from 'react'
 import { searchTypeList, initSearchParams } from '../../modules/constants'
 import { MenuOutlined } from '@ant-design/icons'
@@ -20,8 +20,8 @@ const OrderSearch = ({ query }: { query: Function }) => {
           }}
         />
         <Space direction="vertical">
-          <Dropdown overlay={LatestReports} >
-             <Button className="ml-3">Export</Button>
+          <Dropdown overlay={LatestReports} placement="bottom" >
+            <Button className="ml-3">Export</Button>
           </Dropdown>
         </Space>
         <Button

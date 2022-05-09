@@ -77,9 +77,13 @@
   // }
 }
 // sider样式修改
+.ant-menu-light {
+  padding-top: 10px !important;
+}
 .ant-layout-sider {
   // z-index: 99 !important;
   top: 51px !important;
+
   .ant-menu-submenu {
     // 一级菜单样式
     .ant-menu-submenu-selected {
@@ -230,6 +234,20 @@
   color: #ee4d2d !important;
 }
 
+// 日期选择框样式调整
+// ant-picker ant-picker-range
+.ant-picker-range {
+  align-items: flex-start !important;
+}
+.ant-picker-range .ant-picker-active-bar {
+  background: none !important;
+}
+.ant-picker-focused,
+.ant-picker:hover {
+  color: #dcdcdc !important;
+  border-color: #dcdcdc !important;
+  box-shadow: none !important;
+}
 .rc-modal {
   .ant-modal-header {
     border-bottom: none;
@@ -245,18 +263,21 @@
     border-top: none;
   }
 }
-::-webkit-scrollbar {//滚动条的宽度
-  width:1px;
-  height:1px;
+::-webkit-scrollbar {
+  //滚动条的宽度
+  width: 1px;
+  height: 1px;
 }
-::-webkit-scrollbar-thumb {//滚动条的设置
-  background-color:#dddddd;
-  background-clip:padding-box; /*背景被裁剪到内边距框   content-box 背景裁剪到内容框*/
-  min-height:28px;
+::-webkit-scrollbar-thumb {
+  //滚动条的设置
+  background-color: #dddddd;
+  background-clip: padding-box; /*背景被裁剪到内边距框   content-box 背景裁剪到内容框*/
+  min-height: 28px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background-color:#bbb;
+  background-color: #bbb;
 }
-::-webkit-scrollbar-track-piece { //滚动条凹槽的颜色，还可以设置边框属性
-  background-color:#f8f8f8;
+::-webkit-scrollbar-track-piece {
+  //滚动条凹槽的颜色，还可以设置边框属性
+  background-color: #f8f8f8;
 }
