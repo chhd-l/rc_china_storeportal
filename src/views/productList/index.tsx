@@ -11,6 +11,7 @@ import { getAllProducts, getESProducts, getScProducts } from '@/framework/api/ge
 import { ProductListProps } from '@/framework/types/product'
 import { dataSource } from './modules/mockdata'
 import Mock from 'mockjs'
+import "./index.less"
 const { TabPane } = Tabs
 
 const listDatas = Mock.mock(dataSource)
@@ -80,46 +81,48 @@ const ProductList = () => {
     // setListData(listDatas)
   }, [filterCondition])
   return (
-    <ContentContainer className='productlist'>
-      <SearchHeader getFormData={getFormData} />
-      <DivideArea />
-      <TableContainer>
-        <Tabs defaultActiveKey={Tab.All} onChange={handleTab}>
-          {toolbarList.map(el => (
-            <TabPane
-              tab={
-                <div>
-                  {el.name}
-                  {/* {console.log('el', el)}
+    <ContentContainer>
+      <div className='product-list'>
+        <SearchHeader getFormData={getFormData} />
+        <DivideArea />
+        <TableContainer>
+          <Tabs defaultActiveKey={Tab.All} onChange={handleTab}>
+            {toolbarList.map(el => (
+              <TabPane
+                tab={
+                  <div>
+                    {el.name}
+                    {/* {console.log('el', el)}
                   <RenderBadge count={el.value + ''} active={activeKey === el.name} /> */}
+                  </div>
+                }
+                key={el.name}
+              >
+                <div className='flex justify-between items-center py-4'>
+                  <div className='total-products'>
+                    <span >{listData.total ? listData.total : 0}</span> Products
+                  </div>
+                  <div className='flex items-center'>
+                    <Button
+                      type='primary'
+                      onClick={() => {
+                        // window.open('/product/add')
+                        navigation(`/product/add`)
+                      }}
+                    >
+                      + Add a New Product
+                    </Button>
+                    <Button className='ml-4'>Export</Button>
+                    {/* <MenuOutlined className=' border border-solid border-gray-300' /> */}
+                    <Button className='ml-3' icon={<MenuOutlined style={{ color: '#979797' }} />} />
+                  </div>
                 </div>
-              }
-              key={el.name}
-            >
-              <div className='flex justify-between items-center py-4'>
-                <div>
-                  <span className='font-semibold'>{listData.total ? listData.total : 0}</span> Products
-                </div>
-                <div className='flex items-center'>
-                  <Button
-                    type='primary'
-                    onClick={() => {
-                      // window.open('/product/add')
-                      navigation(`/product/add`)
-                    }}
-                  >
-                    + Add a New Product
-                  </Button>
-                  <Button className='ml-4'>Export</Button>
-                  {/* <MenuOutlined className=' border border-solid border-gray-300' /> */}
-                  <Button className='ml-3' icon={<MenuOutlined style={{ color: '#979797' }} />} />
-                </div>
-              </div>
-            </TabPane>
-          ))}
-        </Tabs>
-        <TableList getList={getList} listData={listData} handlePagination={handlePagination} pages={pages} />
-      </TableContainer>
+              </TabPane>
+            ))}
+          </Tabs>
+          <TableList getList={getList} listData={listData} handlePagination={handlePagination} pages={pages} />
+        </TableContainer>
+      </div>
     </ContentContainer>
   )
 }
