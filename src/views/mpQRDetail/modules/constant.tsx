@@ -20,33 +20,33 @@ export const useFormItems = () => {
       name: "channel",
       label: "Channel Type",
       valueEnum: handleValueEnum(channelTypeList),
-      placeholder: "please select",
+      placeholder: "Please select",
     },
     {
       type: FormItemType.Select,
       name: "qrCodeTyep",
       label: "QR Code Type",
       valueEnum: handleValueEnum(qrCodeTyep),
-      placeholder: "please select",
+      placeholder: "Please select",
     },
     {
       type: FormItemType.Select,
       name: "scenario",
       label: "Scenario type",
       valueEnum: handleValueEnum(scenario),
-      placeholder: "please select",
+      placeholder: "Please select",
     },
     {
       type: FormItemType.Input,
       name: "id",
       label: "二维码键值",
-      placeholder: "please input",
+      placeholder: "Please input",
     },
     {
       type: FormItemType.Input,
       name: "path",
       label: "Min Program Path",
-      placeholder: "please input",
+      placeholder: "Please input",
     },
     {
       type: FormItemType.Input,
@@ -60,7 +60,7 @@ export const useFormItems = () => {
       name: "isTransparent",
       label: "Transparent background",
       valueEnum: IsTransparent,
-      placeholder: "please select",
+      placeholder: "Please select",
     },
   ]
   return formItems

@@ -2,21 +2,22 @@ import { Divider } from 'antd'
 import ProForm, { ProFormText, ProFormSelect } from '@ant-design/pro-form'
 import Cascader from '../Cascader'
 import { ProductType } from '@/framework/types/product'
-import "./style.less"
+import './style.less'
 // import { detail } from '@/framework/mock/productdetail'
 interface ChooseCateProps {
   handleCate: Function
   setShowCatePop: Function
   detail: any
   setProductName: Function
+  setSpuType: Function
 }
 
 const formItemLayout = {
   labelCol: { span: 6 },
   wrapperCol: { span: 14 },
-};
+}
 
-const ChooseCate = ({ handleCate, setShowCatePop, detail, setProductName }: ChooseCateProps) => {
+const ChooseCate = ({ handleCate, setShowCatePop, detail, setProductName, setSpuType }: ChooseCateProps) => {
   // const onFinish = (values: any) => {
   //   console.log(values);
   // };
@@ -26,7 +27,7 @@ const ChooseCate = ({ handleCate, setShowCatePop, detail, setProductName }: Choo
   // };
   // const onSearch = (value: any) => console.log(value);
   return (
-    <div className='bg-gray-50  py-6 text-left addProduct'>
+    <div className='bg-gray-50  py-6 px-20 text-left addProduct'>
       <div className='bg-white py-6 px-8'>
         <div>
           <div className='font-black text-lg'>Add a New Product</div>
@@ -53,7 +54,10 @@ const ChooseCate = ({ handleCate, setShowCatePop, detail, setProductName }: Choo
               // console.log(values)
             }}
             onFinish={async value => {
+              detail.spuType = value.type
               setProductName(value.name || '')
+              debugger
+              setSpuType(value.type)
               setShowCatePop(false)
               handleCate(value)
             }}

@@ -1,7 +1,7 @@
 import { BaseListProps } from "@/framework/types/common";
 import {OrderSearchParamsProps, OrderStatus} from "@/framework/types/order";
 
-export const tabList: BaseListProps[] = [
+export const tabList: any[] = [
   {
     label: "All",
     key: "",

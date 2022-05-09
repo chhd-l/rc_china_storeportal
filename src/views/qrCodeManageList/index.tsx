@@ -4,17 +4,28 @@ import { mockList, mockOptionsList } from "./modules/mockdata"
 import Mock from "mockjs"
 import { Button, Modal } from "antd"
 import { SyncOutlined } from "@ant-design/icons"
-import { useState } from "react"
+import { useEffect, useState } from 'react'
 import { tableColumns } from "./modules/constant"
 import { ContentContainer } from "@/components/ui"
 import { Link } from "react-router-dom"
+import { getQrCodes } from '@/framework/api/wechatSetting'
 const QrCodeManage = () => {
   const [previewImage, setPreviewImage] = useState("")
   const QRcodeTypeList = Mock.mock(mockOptionsList).list
+
   const handlePreview = (img: string) => {
     setPreviewImage(img)
   }
   const columns = tableColumns({ handlePreview, QRcodeTypeList })
+
+  const getQrCodeList=async ()=>{
+    await getQrCodes({})
+  }
+
+  useEffect(()=>{
+    getQrCodeList()
+  },[])
+
   return (
     <ContentContainer className="qr-code-manage">
       <ProTable

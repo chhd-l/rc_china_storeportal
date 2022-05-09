@@ -1,4 +1,4 @@
-import { Form, Input, Button, Row, Col, Select, Tooltip, InputNumber, Modal } from 'antd'
+import { Form, Input, Button, Row, Col, Select, InputNumber, Modal } from 'antd'
 import { OptionsProps } from '@/framework/types/common'
 import { SearchContainer } from '@/components/ui/Container'
 import './index.less'
@@ -22,7 +22,6 @@ const typeForKey: OptionsProps[] = [
 const chooseProductType: OptionsProps[] = [
   { name: 'Bundle', value: 'BUNDLE' },
   { name: 'Regular', value: 'REGULAR' },
-  { name: 'Other', value: 'OTHER' },
 ]
 const SubscriptionType: OptionsProps[] = [
   { name: 'Yes', value: true },
@@ -32,7 +31,6 @@ const SubscriptionType: OptionsProps[] = [
 const SearchHeader = ({ getFormData }: SearchProps) => {
   const [form] = Form.useForm()
   const [typeSelect, setTypeSelect] = useState(typeForKey[0].value)
-  const [selectedCateOptions, setSelectedCateOptions] = useState([])
   const [selectedOptions, setSelectedOptions] = useState([])
   const [cateId, setCateId] = useState<any>([])
   const [showCatePop, setShowCatePop] = useState(false)
@@ -149,7 +147,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
               <Form.Item name='type' initialValue={typeForKey[0].value}>
                 <Select
                   className='no-border-radius-right'
-                  style={{ width: 140 }}
+                  style={{ width: 150 }}
                   placeholder='Select a option and change input text above'
                   onChange={v => {
                     form.setFieldsValue({ GoodsType: '' })

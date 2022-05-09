@@ -1,4 +1,4 @@
-import Upload from '@/components/common/Upload'
+import Upload from '../UploadList'
 import Wangeditor from '@/components/common/Wangeditor'
 import { Form, Input, Select } from 'antd'
 import { useContext, useEffect, useRef, useState } from 'react'
@@ -8,10 +8,17 @@ import { FormProps } from '@/framework/types/common'
 import { EditOutlined } from '@ant-design/icons'
 import ProForm from '@ant-design/pro-form'
 import { useForm } from 'antd/lib/form/Form'
-const breedList = [
-  { name: 'B1', value: 'B1', label: 'Royal Canin' },
-  { name: 'B2', value: 'B2', label: 'Royal Canin Sub' },
-]
+import { getBrands } from '@/framework/api/wechatSetting'
+interface uploadHandleProps {
+  url: string
+  idx: number
+  type: string
+  id?: string
+}
+// const breedList = [
+//   { name: 'B1', value: 'B1', label: 'Royal Canin' },
+//   { name: 'B2', value: 'B2', label: 'Royal Canin Sub' },
+// ]
 const salesStatusList = [
   { label: 'Saleable', value: '1' },
   { label: 'Not saleable', value: '0' },
@@ -20,25 +27,48 @@ const BasicInfo = ({ field, form }: FormProps) => {
   const { setShowCatePop, detail, ProductName } = useContext(DetailContext)
   // const [form] = Form.useForm()
   const [editorHtml, setEditorHtml] = useState('')
+  const [brandList, setBrandList] = useState([])
   const [initAsserts, setInitAsserts] = useState<any>(Array(9).fill(null))
-  const [videoUrl, setvideoUrl] = useState('')
+  const [videoUrl, setvideoUrl] = useState<uploadHandleProps | {}>({})
+  // const [assetsUrl, setAssetsUrl] = useState<any>([])
   const handleEditorChange = (html: string) => {
     setEditorHtml(html)
+    form.setFieldsValue({
+      goodsDescription: html,
+    })
     console.info('editorHtml', html)
   }
-  const handleImgUrl = (url: string) => {
-    setvideoUrl(url)
-    console.info('videoUrl', videoUrl)
+  const handleImgUrl = ({ url, idx, type, id }: uploadHandleProps) => {
+    let newAssets = [...initAsserts]
+    newAssets[idx] = { url, type, id }
+    setInitAsserts(newAssets)
+    form.setFieldsValue({
+      goodsAsserts: newAssets,
+    })
+    console.info('setAssetsUrl', newAssets)
+  }
+  const handleVideoUrl = ({ url, idx, type, id }: uploadHandleProps) => {
+    // setvideoUrl({ url, idx, type, id })
+    // form.setFieldsValue({
+    //   goodsDescription: html,
+    // })
   }
   useEffect(() => {
-    if (detail.assets) {
-      let list = initAsserts.map((item: any, index: number) => {
-        return detail.assets[index] || null
+    if (detail?.goodsAsserts) {
+      let newAssets = [...initAsserts]
+      detail?.goodsAsserts.forEach((img: any, idx: number) => {
+        newAssets[idx] = { url: img.url, id: img.id, type: img.type || 'image', key: img.id }
       })
-      console.info('initAsserts', list)
-      setInitAsserts(list)
+      setInitAsserts(newAssets)
     }
-  }, [detail?.assets])
+  }, [detail?.goodsAsserts])
+  const getBrandList = async () => {
+    let list = await getBrands('12345678')
+    setBrandList(list)
+  }
+  useEffect(() => {
+    getBrandList()
+  }, [])
 
   useEffect(() => {
     if (ProductName) {
@@ -55,14 +85,15 @@ const BasicInfo = ({ field, form }: FormProps) => {
       })
     }
   }, [detail?.selectedCateOptions])
-  console.info('......detaildetaildetaildetail', detail)
+  console.info('......detaildetaildetaildetail', initAsserts)
   return (
     <div className='basicinfo'>
       <Form.Item
         label='Product Image'
         labelCol={{
-          span: 2,
+          span: 3,
         }}
+        name='goodsAsserts'
         className='tips-wrap'
         data-tips={`Product Image:<p>Cover photo should have 1. white background & 2. present obvious product packaging</p><p>Every photos should have fine resolution - pixel doesn't appear breaking when zooming in<p>Product image can add up to 9 photos</p>`}
         wrapperCol={{
@@ -70,22 +101,29 @@ const BasicInfo = ({ field, form }: FormProps) => {
         }}
       >
         <div className='flex flex-wrap'>
-          {initAsserts?.map((img: any) => (
-            <Upload handleImgUrl={handleImgUrl} fileList={[img]} showUploadList={false} />
+          {initAsserts?.map((img: any, index: number) => (
+            <Upload
+              key={img?.key || `img-${index}`}
+              handleImgUrl={handleImgUrl}
+              idx={index}
+              type='image'
+              fileList={[img]}
+              showUploadList={false}
+            />
           ))}
         </div>
       </Form.Item>
       <Form.Item
         label='Product Video'
         labelCol={{
-          span: 2,
+          span: 3,
         }}
         wrapperCol={{
           span: 22,
         }}
         name='video'
       >
-        <Upload handleImgUrl={handleImgUrl} showUploadList={false} />
+        <Upload handleImgUrl={handleVideoUrl} fileName='Cover Video' type='video' idx={0} showUploadList={false} />
       </Form.Item>
       <Form.Item
         label='SPU'
@@ -93,7 +131,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         data-tips='SPU:<p>SPU should be unique and conform to coding rules.</p>'
         name='spuNo'
         rules={[{ required: true, message: 'Missing SPU' }]}
-        labelCol={{ span: 2 }}
+        labelCol={{ span: 3 }}
       >
         <Input />
       </Form.Item>
@@ -103,7 +141,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         className='tips-wrap'
         data-tips={`Product Name:<p>Briefly summarize the product</p>`}
         rules={[{ required: true, message: 'Missing Product Name' }]}
-        labelCol={{ span: 2 }}
+        labelCol={{ span: 3 }}
       >
         <Input data-tips='test' showCount maxLength={120} />
       </Form.Item>
@@ -113,7 +151,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         className='tips-wrap'
         data-tips={`Product Card Name:<p>Product Card Name should be set as the display name in the product list</p>`}
         name='cardName'
-        labelCol={{ span: 2 }}
+        labelCol={{ span: 3 }}
       >
         <Input showCount maxLength={120} />
       </Form.Item>
@@ -132,7 +170,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         `}
         // initialValue={detail.goodsDescription}
         rules={[{ required: true, message: 'Missing Product Description' }]}
-        labelCol={{ span: 2 }}
+        labelCol={{ span: 3 }}
       >
         <Wangeditor defaultValue={detail.goodsDescription} onChange={handleEditorChange} />
       </Form.Item>
@@ -169,7 +207,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         labelCol={{ span: 4 }}
         rules={[{ required: true }]}
       >
-        <Select placeholder='please select Brand' options={breedList} style={{ width: 195 }} />
+        <Select placeholder='Please select Brand' options={brandList} style={{ width: 195 }} />
       </Form.Item>
       <Form.Item
         label='Sales Status'
@@ -182,7 +220,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         labelCol={{ span: 4 }}
         rules={[{ required: true }]}
       >
-        <Select placeholder='please select Sales Status' options={salesStatusList} style={{ width: 195 }} />
+        <Select placeholder='Please select Sales Status' options={salesStatusList} style={{ width: 195 }} />
       </Form.Item>
     </div>
   )

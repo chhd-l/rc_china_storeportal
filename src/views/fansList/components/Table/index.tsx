@@ -3,8 +3,15 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 import { Fans } from "@/framework/types/wechat";
 import { handleReturnTime } from "@/utils/utils";
+import { syncFans } from "@/framework/api/wechatSetting";
 
-const Index = ({ fanList }: { fanList: Fans[] }) => {
+const Index = ({ fanList, pages, setPages, getFanList, total }: { 
+  fanList: Fans[],
+  pages: any,
+  setPages: Function,
+  getFanList: Function,
+  total: number
+ }) => {
   const navigator = useNavigate();
   const columns = [
     {
@@ -78,7 +85,7 @@ const Index = ({ fanList }: { fanList: Fans[] }) => {
           <span className="iconfont icon-bianzu2 mr-2" />
           Synchronize All Openid
         </Button> */}
-        <Button className="mr-4" onClick={() => { }}>
+        <Button className="mr-4" onClick={() => syncFans()}>
           <span className="iconfont icon-bianzu2 mr-2" />
           Synchronize All Fan Information
         </Button>
@@ -93,6 +100,18 @@ const Index = ({ fanList }: { fanList: Fans[] }) => {
         columns={columns}
         rowKey="id"
         className="rc-table"
+        pagination={{
+          current: pages.page,
+          pageSize: pages.limit,
+          total: total,
+          onChange: (page, pageSize) => {
+            setPages({
+              page,
+              limit: pageSize,
+            })
+            getFanList(page, pageSize)
+          }
+        }}
       />
     </div>
   );

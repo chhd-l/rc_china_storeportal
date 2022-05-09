@@ -84,6 +84,17 @@ export interface GoodsSpecification {
   // lastModifiedBy: string
   // isDeleted: Boolean
 }
+export interface GoodsVariantBundleRel {
+  id: string
+  goodsVariantId: string
+  subGoodsVariantId: string
+  bundleNumber: number
+  skuNo: string
+  stock?: number
+  storeId?: string
+  operator?: string
+  isDeleted?: boolean
+}
 export interface GoodsSpecificationValueRel {
   goodsSpecificationId: string
   goodsSpecificationDetailId: string
@@ -114,6 +125,7 @@ export interface GoodsVariants {
   // last_modified_by: string
   // is_deleted: string //？？
   goodsSpecificationRel: GoodsSpecificationValueRel[]
+  goodsVariantBundleInfo: GoodsVariantBundleRel[]
 }
 export interface GoodsAssets {
   id: string

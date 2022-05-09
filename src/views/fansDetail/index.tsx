@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { Button, Form, Input } from "antd";
 import { fansDetailForm } from "./modules/form";
-import { fansDetailSource } from "./modules/mockdata";
 import { initFansDetail } from "./modules/constants";
-import Mock from "mockjs";
 import {
   ContentContainer,
-  DivideArea,
   InfoContainer,
-  SearchContainer,
-  TableContainer,
 } from "@/components/ui";
 
 const FansDetail = () => {
   const [fansDetail, setFansDetail] = useState<any>(initFansDetail);
   const location = useLocation();
+  const navigator = useNavigate();
 
   useEffect(() => {
     const state: any = location.state;
@@ -53,7 +50,9 @@ const FansDetail = () => {
           </Form>
         ) : null}
         <div className="flex justify-end">
-          <Button>Cancel</Button>
+          <Button onClick={() => {
+              navigator("/fans/fans-list");
+          }}>Cancel</Button>
         </div>
       </InfoContainer>
     </ContentContainer>

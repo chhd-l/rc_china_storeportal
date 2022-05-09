@@ -1,6 +1,6 @@
 import { BaseListProps } from "@/framework/types/common";
 
-export const tabList: BaseListProps[] = [
+export const tabList: any[] = [
   {
     label: "Picture",
     key: "picture",

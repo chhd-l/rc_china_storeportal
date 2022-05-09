@@ -3,7 +3,6 @@ import React from "react";
 import { SearchFormItemProps } from "@/framework/types/common";
 import moment from "moment";
 import './index.less'
-import { isArray } from "lodash";
 
 const { RangePicker } = DatePicker;
 const dateFormat = 'YYYY/MM/DD';
@@ -13,17 +12,17 @@ const Search = ({
   formItems,
   classes = "",
   style = { width: "320px" },
+  state = false,
+  pages
 }: {
   query: Function;
   formItems: SearchFormItemProps[];
   classes?: string;
   style?: any;
+  state?: boolean;
+  pages?: any;
 }) => {
   const [form] = Form.useForm();
-
-  // const formValuesChange = (changedValues: any, allValues: any) => {
-  //   console.log(changedValues, allValues);
-  // };
 
   const search = (values: any) => {
     const val = {...values}
@@ -32,27 +31,26 @@ const Search = ({
       val.followEndTime = moment(values.followTime[0]._d).format('YYYY-MM-DD')
       delete val.followTime
     }
-    query(val);
+    query(pages.page, pages.limit ,val);
   };
 
   return (
     <div id="fanslist">
       <Form
         form={form}
-        // onValuesChange={formValuesChange}
         onFinish={search}
         autoComplete="off"
-        className={`${classes} flex flex-row flex-wrap justify-start`}
+        className={`${classes} flex flex-row flex-wrap ${ state ? 'justify-between' : 'justify-start' } items-center`}
         layout={"inline"}
-        labelCol={{ span: 10 }}
-        wrapperCol={{ span: 14 }}
+        labelCol={{ span: 12 }}
+        wrapperCol={{ span: 18 }}
       >
         {formItems.map((item) => (
           <Form.Item
             label={item.label}
             name={item.name}
-            key={item.name}
             style={style}
+            key={item.name}
             className="mt-4"
           >
             {item.type === "select" ? (
@@ -70,7 +68,8 @@ const Search = ({
               />
             ) : item.type === "dateTime" ? (
               <RangePicker
-                defaultValue={[moment('2021/11/09', dateFormat), moment('2021/11/12', dateFormat)]}
+                className="flex items-center"
+                // defaultValue={[moment('2021/11/09', dateFormat), moment('2021/11/12', dateFormat)]}
                 format={dateFormat}
 
               />
@@ -88,6 +87,7 @@ const Search = ({
             htmlType="button"
             onClick={() => {
               form.resetFields();
+              query()
             }}
           >
             Reset

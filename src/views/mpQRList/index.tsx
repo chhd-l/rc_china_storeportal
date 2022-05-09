@@ -6,8 +6,23 @@ import { Button } from "antd"
 import { SyncOutlined } from "@ant-design/icons"
 import { tableColumns } from "./modules/constant"
 import { ContentContainer } from "@/components/ui"
+import { getAppQrCodes, upsertAppQrCodes } from '@/framework/api/wechatSetting'
+import { useEffect } from 'react'
 
 const MpQrList = () => {
+  const getAppQrCodeList=async ()=>{
+    await getAppQrCodes({})
+  }
+
+  const createAppQrCode=async ()=>{
+    await upsertAppQrCodes({})
+  }
+
+  useEffect(()=>{
+    getAppQrCodeList()
+    createAppQrCode()
+  },[])
+
   const handleDelete = (id: string) => {
     console.info("handleDelete", id)
   }

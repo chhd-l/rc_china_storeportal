@@ -1,22 +1,23 @@
 import ApiRoot from '@/framework/api/fetcher'
-import { normaliseMediaList } from '@/framework/normalize/wechatSetting'
+import { normaliseBrands, normaliseMediaList } from '@/framework/normalize/wechatSetting'
 
-// 查询 accon
+// 查询 account
 export const getAccountList = async (queryParams: any) => {
   try {
-    //todo 查询参数处理
-    const params = {
-      storeId: '12345678',
-      ...queryParams
-    }
-    let res = await ApiRoot.wechatSettings().getAccounts({ body: params })
+    let res = await ApiRoot.wechatSettings().getAccounts({ body: queryParams })
     const accounts = res?.accounts
     //todo account manage normalize
     console.log('get wechat setting account list view data', accounts)
-    return accounts
+    return {
+      total: accounts.total || 0,
+      records: accounts.records || [],
+    }
   } catch (e) {
     console.log(e)
-    return []
+    return {
+      total: 0,
+      records: [],
+    }
   }
 }
 // 查询 fans
@@ -63,7 +64,7 @@ export const modifyAccount = async (queryParams: any) => {
   }
 }
 // 同步粉丝
-export const syncFans = async (accountId: string) => {
+export const syncFans = async () => {
   try {
     let res = await ApiRoot.wechatSettings().syncFans({ accountId: '000001' })
     const syncSuccess = res?.syncFans
@@ -77,7 +78,7 @@ export const syncFans = async (accountId: string) => {
 
 export const getMedias = async (queryParams: any) => {
   try {
-    let res = await ApiRoot.wechatSettings().getMedias({ body: { ...queryParams, accountId: "000001" } })
+    let res = await ApiRoot.wechatSettings().getMedias({ body: { ...queryParams, accountId: '000001' } })
     const mediaList = res?.mediaList
     mediaList.records = normaliseMediaList(mediaList.records)
     console.log('get wechat setting media list view data', mediaList)
@@ -138,5 +139,89 @@ export const syncMedias = async (type: string) => {
   } catch (e) {
     console.log(e)
     return false
+  }
+}
+export const getBrands = async (storeId: string) => {
+  try {
+    let res = await ApiRoot.wechatSettings().getBarndList({ storeId })
+    console.log('getBrands', res)
+    let list = normaliseBrands(res?.listBrandByStoreId || [])
+    return list
+  } catch (e) {
+    console.log(e)
+    return []
+  }
+}
+
+// 查询 小程序二维码
+export const getAppQrCodes = async (queryParams: any) => {
+  try {
+    //todo 查询参数处理
+    const params = {
+      offset: 0,
+      limit: 10,
+      isNeedTotal: true,
+      // sample:{}
+    }
+    let res = await ApiRoot.wechatSettings().getAppQrCodes({ body: params })
+    const findWxAppQRCodePage = res?.findWxAppQRCodePage
+    //todo fans manage normalize
+    console.log('get appQrCode list view data', findWxAppQRCodePage)
+    return findWxAppQRCodePage
+  } catch (e) {
+    console.log(e)
+    return []
+  }
+}
+
+// 新增、编辑、删除 小程序二维码
+export const upsertAppQrCodes = async (queryParams: any) => {
+  try {
+    //todo 参数处理 编辑参数加id,删除参数加id and isDeleted
+    const params = {
+      accountId: '22c2f601-5a60-8b10-20c1-c56ef0d8bd53',
+      scenarioId: 'mockScenarioId',
+      type: 'mocktype',
+      key: 'MY_QRCODE_HOME',
+      appInternalPath: '/pages/index/index',
+      width: 300,
+      isHyaline: false,
+      imgUrl: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/05774105-6b54-384d-7ce9-5f75fcd1a98c.png',
+      operator: 'zz',
+    }
+    let res = await ApiRoot.wechatSettings().updateAppQrCode({ body: params })
+    const upsertWxAppQRCode = res?.upsertWxAppQRCode
+    console.log('upsert app qrCode view data', upsertWxAppQRCode)
+    return upsertWxAppQRCode || false
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+}
+
+// 查询二维码列表
+export const getQrCodes = async (queryParams: any) => {
+  try {
+    //todo 查询参数处理
+    const params = {
+      offset: 0,
+      limit: 10,
+      accountId: "000001"
+      // sample:{}
+    }
+    let res = await ApiRoot.wechatSettings().getQrCodes({ body: params })
+    const qrCodeList = res?.qrCodeList
+    //todo fans manage normalize
+    console.log('get qrCode list view data', qrCodeList)
+    return {
+      records: qrCodeList.records || [],
+      total: qrCodeList.total || 0,
+    }
+  } catch (e) {
+    console.log(e)
+    return {
+      records: [],
+      total: 0,
+    }
   }
 }
