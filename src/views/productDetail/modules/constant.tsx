@@ -220,7 +220,8 @@ export const headerOrigition: any = [
   {
     label: 'Sub-SKU',
     type: 'subSku',
-    keyVal: `Sub-SKU:<p>Sub-SKU should add the sub-products that the SKU needs to be bound and sold</p>`,
+    keyVal: 'subSku',
+    dataTips: `Sub-SKU:<p>Sub-SKU should add the sub-products that the SKU needs to be bound and sold</p>`,
   },
   {
     label: 'EAN',

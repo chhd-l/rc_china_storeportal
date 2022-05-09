@@ -55,7 +55,10 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
       type: spuType,
       shelvesStatus,
     })
-    if (!detail.goodsSpecificationsInput?.length) {
+    let withoutSku = !detail.variationForm?.variationList?.length
+    debugger
+    if (withoutSku) {
+      debugger
       params.goodsVariantsInput = [
         {
           // skuNo: 'test0001', //to do
@@ -106,7 +109,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     console.info('params', params)
     let data = await createProduct(params, beforeData)
     console.info('data', data)
-    navigator('/product/product-list')
+    // navigator('/product/product-list')
   }
 
   return (

@@ -7,6 +7,7 @@ import { VarviationProps } from '@/views/productDetail/components/EditVariationL
 import { ElementFlags } from 'typescript'
 import { specialCharMap } from '@testing-library/user-event/dist/keyboard'
 import { handleObjDataForEdit } from '@/utils/utils'
+import { map } from 'lodash'
 
 export const normaliseDetailforFe = (detail: any) => {
   let withoutSku = !detail.goodsVariants[0]?.skuNo
@@ -39,7 +40,7 @@ export const normaliseDetailforFe = (detail: any) => {
     // feedingDays: detail.feedingDays,
     // functions: detail.
     height: detail.parcelSizeHeight,
-    assets: detail.goodsAsserts?.map((el: GoodsAssets) => {
+    goodsAsserts: detail.goodsAsserts?.map((el: GoodsAssets) => {
       return {
         type: el.type,
         storeId: el.storeId,
@@ -142,7 +143,7 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     brandId: data.brandId,
     goodsCategoryId: data.goodsCategoryId || '8',
     shelvesStatus: false,
-    defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
+    // defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',//?干嘛呢
     salesStatus: data.salesStatus === "1",
     weight: data.weight ? Number(data.weight) : 0,
     // weightUnit: 'g',
@@ -156,13 +157,25 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     isDeleted: false,
     operator: 'Noah',
     goodsVariants: data.goodsVariantsInput && normaliseInputVariationProps(data.goodsVariantsInput, data, beforeData),
-    goodsAsserts: [
-      {
-        artworkUrl: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
-        type: 'image',
-        storeId: '12345678',
-      },
-    ],
+    // goodsAsserts: [
+    //   {
+    //     artworkUrl: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
+    //     type: 'image',
+    //     storeId: '12345678',
+    //   },
+    // ],
+    goodsAsserts: data.goodsAsserts?.filter((el: any) => el?.url)?.map((el: any) => {
+      let asset = {
+        artworkUrl: el.url,
+        type: el.type,
+        id: el.id,
+        storeId: "12345678"
+      }
+      if (!el.id) {
+        delete asset.id
+      }
+      return asset
+    }),
     goodsSpecifications: data.id ? data.editChange.variationList : data.goodsSpecificationsInput && normaliseInputSpecificationProps(data.goodsSpecificationsInput),
     goodsAttributeValueRel: data.goodsAttributeValueRelInput && normaliseInputAttrProps(data.goodsAttributeValueRelInput)
   }
@@ -251,6 +264,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
     let delArr = beforeData.goodsVariants.filter((el: any) => {
       return spu.goodsVariantsInput.every((cel: any) => cel.id !== el.id)
     })
+    debugger
     delArr = delArr.map((el: any) => {
       let newEl = {
         isDeleted: true,

@@ -9,6 +9,12 @@ import { EditOutlined } from '@ant-design/icons'
 import ProForm from '@ant-design/pro-form'
 import { useForm } from 'antd/lib/form/Form'
 import { getBrands } from '@/framework/api/wechatSetting'
+interface uploadHandleProps {
+  url: string
+  idx: number
+  type: string
+  id?: string
+}
 // const breedList = [
 //   { name: 'B1', value: 'B1', label: 'Royal Canin' },
 //   { name: 'B2', value: 'B2', label: 'Royal Canin Sub' },
@@ -23,7 +29,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
   const [editorHtml, setEditorHtml] = useState('')
   const [brandList, setBrandList] = useState([])
   const [initAsserts, setInitAsserts] = useState<any>(Array(9).fill(null))
-  const [videoUrl, setvideoUrl] = useState('')
+  const [videoUrl, setvideoUrl] = useState<uploadHandleProps | {}>({})
   // const [assetsUrl, setAssetsUrl] = useState<any>([])
   const handleEditorChange = (html: string) => {
     setEditorHtml(html)
@@ -32,12 +38,30 @@ const BasicInfo = ({ field, form }: FormProps) => {
     })
     console.info('editorHtml', html)
   }
-  const handleImgUrl = (url: string, idx: number) => {
+  const handleImgUrl = ({ url, idx, type, id }: uploadHandleProps) => {
     let newAssets = [...initAsserts]
-    newAssets[idx] = { url }
+    newAssets[idx] = { url, type, id }
     setInitAsserts(newAssets)
+    form.setFieldsValue({
+      goodsAsserts: newAssets,
+    })
     console.info('setAssetsUrl', newAssets)
   }
+  const handleVideoUrl = ({ url, idx, type, id }: uploadHandleProps) => {
+    // setvideoUrl({ url, idx, type, id })
+    // form.setFieldsValue({
+    //   goodsDescription: html,
+    // })
+  }
+  useEffect(() => {
+    if (detail?.goodsAsserts) {
+      let newAssets = [...initAsserts]
+      detail?.goodsAsserts.forEach((img: any, idx: number) => {
+        newAssets[idx] = { url: img.url, id: img.id, type: img.type || 'image', key: img.id }
+      })
+      setInitAsserts(newAssets)
+    }
+  }, [detail?.goodsAsserts])
   const getBrandList = async () => {
     let list = await getBrands('12345678')
     setBrandList(list)
@@ -45,15 +69,6 @@ const BasicInfo = ({ field, form }: FormProps) => {
   useEffect(() => {
     getBrandList()
   }, [])
-  useEffect(() => {
-    if (detail.assets) {
-      let list = initAsserts.map((item: any, index: number) => {
-        return detail.assets[index] || null
-      })
-      console.info('initAsserts', list)
-      setInitAsserts(list)
-    }
-  }, [detail?.assets])
 
   useEffect(() => {
     if (ProductName) {
@@ -70,7 +85,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
       })
     }
   }, [detail?.selectedCateOptions])
-  console.info('......detaildetaildetaildetail', detail)
+  console.info('......detaildetaildetaildetail', initAsserts)
   return (
     <div className='basicinfo'>
       <Form.Item
@@ -78,6 +93,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         labelCol={{
           span: 2,
         }}
+        name='goodsAsserts'
         className='tips-wrap'
         data-tips={`Product Image:<p>Cover photo should have 1. white background & 2. present obvious product packaging</p><p>Every photos should have fine resolution - pixel doesn't appear breaking when zooming in<p>Product image can add up to 9 photos</p>`}
         wrapperCol={{
@@ -86,7 +102,14 @@ const BasicInfo = ({ field, form }: FormProps) => {
       >
         <div className='flex flex-wrap'>
           {initAsserts?.map((img: any, index: number) => (
-            <Upload handleImgUrl={handleImgUrl} idx={index} fileList={[img]} showUploadList={false} />
+            <Upload
+              key={img?.key || `img-${index}`}
+              handleImgUrl={handleImgUrl}
+              idx={index}
+              type='image'
+              fileList={[img]}
+              showUploadList={false}
+            />
           ))}
         </div>
       </Form.Item>
@@ -100,7 +123,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         }}
         name='video'
       >
-        <Upload handleImgUrl={handleImgUrl} idx={0} showUploadList={false} />
+        <Upload handleImgUrl={handleVideoUrl} fileName='Cover Video' type='video' idx={0} showUploadList={false} />
       </Form.Item>
       <Form.Item
         label='SPU'

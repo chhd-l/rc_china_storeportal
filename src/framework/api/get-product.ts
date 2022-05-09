@@ -8,7 +8,6 @@ export const getCategories = async ({ storeId }: { storeId: string }): Promise<C
   try {
     let categoryList = await ApiRoot.products().getProductCategories({ storeId })
     // const cateList: TreeDataProps[] = normaliseCateProps(categoryList.getProductCates)
-    console.info('list', categoryList.getProductCates)
     return categoryList.getProductCates
     // return normalisePets(pets)
   } catch (e) {
@@ -33,6 +32,7 @@ export const createProduct = async (params: any, beforeData?: any) => {
       goodsAttributeValueRel,
       // spuNo: paramsData.spuNo,
       id: paramsData.id,
+      goodsAsserts: paramsData.goodsAsserts//后面有排序处理，不太好操作先全量
       // goodsName: paramsData.goodsName,
       // type: paramsData.type,
       // brandId: paramsData.brandId,

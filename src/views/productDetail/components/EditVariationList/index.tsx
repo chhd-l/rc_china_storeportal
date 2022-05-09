@@ -6,10 +6,10 @@ import { Button, Col, Form, Input, Popover, Row, Select } from 'antd'
 import { FormProps } from '@/framework/types/common'
 import { ChangeType, SpecificationListProps, VarationProps, VarationsFormProps } from '@/framework/types/product'
 import { headerOrigition } from '../../modules/constant'
-import Upload, { UploadType } from '@/components/common/Upload'
 import { DetailContext } from '../../index'
 import { VerticalAlignBottomOutlined, VerticalAlignTopOutlined } from '@ant-design/icons'
 import BundleSubSKu from '../BundleSubSKu'
+import Upload from '../UploadList'
 export interface VarviationProps {
   defaultImage: string
   skuNo: string
@@ -66,6 +66,11 @@ const EditVariationList = (props: FormProps) => {
       let header = { label: el.name || `Varations[${idx}]`, type: 'text', keyVal: el.name }
       return header
     })
+
+    if (spuType === 'REGULAR') {
+      let idx = headerOrigition.findIndex((el: any) => el.keyVal === 'subSku')
+      headerOrigition.splice(idx, 1)
+    }
     const cloneHeaderOrigition = [...headerOrigition]
     cloneHeaderOrigition.splice(1, 0, ...variationHeaders)
     setHeaderList(cloneHeaderOrigition)
@@ -303,19 +308,23 @@ const EditVariationList = (props: FormProps) => {
                               )
                             case 'text':
                               return <span className=' inline-block px-4'>{tr[td.keyVal]}</span>
-                            // case 'upload':
-                            //   // return <span>{tr[td.keyVal]}</span>
-                            //   return (
-                            //     <Upload
-                            //       type={UploadType.button}
-                            //       hideName={true}
-                            //       fileList={[{ url: tr[td.keyVal] }]}
-                            //       showUploadList={false}
-                            //       handleImgUrl={() => {
-                            //         console.info('...')
-                            //       }}
-                            //     />
-                            //   )
+                            case 'upload':
+                              console.info('tr[td.keyVal]', tr[td.keyVal])
+                              // return <span>{tr[td.keyVal]}</span>
+                              return (
+                                <Upload
+                                  size='small'
+                                  hideName={true}
+                                  type='image'
+                                  fileList={[{ url: tr[td.keyVal], type: 'image' }]}
+                                  showUploadList={false}
+                                  handleImgUrl={(imgInfo: any) => {
+                                    tr[td.keyVal] = imgInfo.url
+                                    console.info('...', imgInfo.url)
+                                    updateVations(imgInfo.url, index, td.keyVal, tr)
+                                  }}
+                                />
+                              )
                             case 'priceInput':
                               return td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0' ? (
                                 <Input
