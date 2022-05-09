@@ -191,7 +191,6 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
   if (skus) {
     skuData = skus.map((data: any) => {
       console.info('data.marketingPrice', data.marketingPrice)
-      debugger
       let newVariation: any = {
         isSupport100: data.isSupport100 === 'true' ? true : false,
         skuType: spu.type,
@@ -289,7 +288,6 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
       // let complement = [...complement1, ...complement2]
       console.info('deleteComplement', deleteComplement)
       console.info('addedComplement', addedComplement)
-      debugger
       //删除的
       deleteComplement?.forEach((item: any) => {
         if (!editData[index]) {

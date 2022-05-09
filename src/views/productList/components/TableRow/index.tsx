@@ -123,7 +123,7 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
           onOk={() => handleOk(listData[spuIdx]?.id)}
           onCancel={handleCancel}
         >
-          <div>Are you sure want to delete the following product? Warning: You cannot undo this action!</div>
+          <div style={{ wordBreak:'break-word' }}>Are you sure want to delete the following product ? Warning: You cannot undo this action!</div>
           <p className='flex items-center'>
             <Image width={110} src={listData[spuIdx]?.img} />
             <div className='font-semibold w-full pl-4'>{listData[spuIdx]?.name}</div>

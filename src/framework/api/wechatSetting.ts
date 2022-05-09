@@ -29,10 +29,16 @@ export const getFansList = async (queryParams: any) => {
     const fansList = res?.fansList
     //todo fans manage normalize
     console.log('get wechat setting fans list view data', fansList)
-    return fansList
+    return {
+      records: fansList.records || [],
+      total: fansList.total || 0,
+    }
   } catch (e) {
     console.log(e)
-    return []
+    return {
+      records: [],
+      total: 0,
+    }
   }
 }
 // 新增 accon
@@ -47,7 +53,7 @@ export const createAccount = async (queryParams: any) => {
     return account
   } catch (e) {
     console.log(e)
-    return []
+    return {}
   }
 }
 // 编辑 accon 更新（不传isDeleted） 删除（isDeleted: true）
@@ -57,22 +63,39 @@ export const modifyAccount = async (queryParams: any) => {
     const params = queryParams
     let res = await ApiRoot.wechatSettings().modifyAccount({ body: params })
     const modifySuccess = res?.modifyAccount
-    return modifySuccess
+    return modifySuccess || false
   } catch (e) {
     console.log(e)
-    return []
+    return false
   }
 }
-// 同步粉丝
+// 同步全部粉丝
 export const syncFans = async () => {
   try {
     let res = await ApiRoot.wechatSettings().syncFans({ accountId: '000001' })
     const syncSuccess = res?.syncFans
     console.log('sync fans view data', syncSuccess)
-    return syncSuccess
+    return syncSuccess || false
   } catch (e) {
     console.log(e)
-    return []
+    return false
+  }
+}
+
+// 同步部分粉丝
+export const syncPartFans = async (syncParams: any) => {
+  try {
+    const params = {
+      accountId: '000001',
+      openIds: [],
+    }
+    let res = await ApiRoot.wechatSettings().syncPartFans(params)
+    const syncSuccess = res?.sycPartFans
+    console.log('sync fans view data', syncSuccess)
+    return syncSuccess || false
+  } catch (e) {
+    console.log(e)
+    return false
   }
 }
 
@@ -82,10 +105,16 @@ export const getMedias = async (queryParams: any) => {
     const mediaList = res?.mediaList
     mediaList.records = normaliseMediaList(mediaList.records)
     console.log('get wechat setting media list view data', mediaList)
-    return mediaList
+    return {
+      records: mediaList.records || [],
+      total: mediaList.total || 0,
+    }
   } catch (e) {
     console.log(e)
-    return []
+    return {
+      records: [],
+      total: 0
+    }
   }
 }
 
@@ -157,20 +186,21 @@ export const getBrands = async (storeId: string) => {
 export const getAppQrCodes = async (queryParams: any) => {
   try {
     //todo 查询参数处理
-    const params = {
-      offset: 0,
-      limit: 10,
-      isNeedTotal: true,
-      // sample:{}
-    }
+    const params = queryParams
     let res = await ApiRoot.wechatSettings().getAppQrCodes({ body: params })
     const findWxAppQRCodePage = res?.findWxAppQRCodePage
     //todo fans manage normalize
     console.log('get appQrCode list view data', findWxAppQRCodePage)
-    return findWxAppQRCodePage
+    return {
+      records: findWxAppQRCodePage.records || [],
+      total: findWxAppQRCodePage.total || 0
+    }
   } catch (e) {
     console.log(e)
-    return []
+    return {
+      records: [],
+      total: 0
+    }
   }
 }
 
@@ -203,12 +233,7 @@ export const upsertAppQrCodes = async (queryParams: any) => {
 export const getQrCodes = async (queryParams: any) => {
   try {
     //todo 查询参数处理
-    const params = {
-      offset: 0,
-      limit: 10,
-      accountId: "000001"
-      // sample:{}
-    }
+    const params = queryParams
     let res = await ApiRoot.wechatSettings().getQrCodes({ body: params })
     const qrCodeList = res?.qrCodeList
     //todo fans manage normalize
@@ -232,14 +257,14 @@ export const createQrCode = async (queryParams: any) => {
     //todo 参数处理 编辑参数加id,删除参数加id and isDeleted
     const params = {
       input: {
-        accountId: "000001",
-        name: "111",
+        accountId: '000001',
+        name: '111',
         type: 'QR_LIMIT_STR_SCENE',
-        replyContentId: "111",
-        comment: "cccc",
-        ScenarioStr: "sss",
+        replyContentId: '111',
+        comment: 'cccc',
+        ScenarioStr: 'sss',
       },
-      operator:'zz'
+      operator: 'zz',
     }
     let res = await ApiRoot.wechatSettings().addQrCode(params)
     const addQrCode = res?.addQrCode

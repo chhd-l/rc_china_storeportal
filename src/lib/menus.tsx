@@ -16,12 +16,12 @@ export const menus = [
         url: '/shipment-list',
         key: 'my_shipment',
       },
-      {
-        name: 'Shipping Setting',
-        value: 'shipping_setting',
-        url: '/shipping-setting',
-        key: 'shipping_setting',
-      },
+      // {
+      //   name: 'Shipping Setting',
+      //   value: 'shipping_setting',
+      //   url: '/shipping-setting',
+      //   key: 'shipping_setting',
+      // },
     ],
   },
   {
@@ -38,12 +38,12 @@ export const menus = [
         // url: "/",
         key: 'my_orders',
       },
-      {
-        name: 'Order Setting',
-        value: 'order_setting',
-        url: '/order/order-setting',
-        key: 'order_setting',
-      },
+      // {
+      //   name: 'Order Setting',
+      //   value: 'order_setting',
+      //   url: '/order/order-setting',
+      //   key: 'order_setting',
+      // },
     ],
   },
   {
@@ -80,12 +80,12 @@ export const menus = [
         url: '/petOwner/pet-owner-list',
         key: 'my_pet_owner',
       },
-      {
-        name: 'Tagging Setting',
-        value: 'tagging_setting',
-        url: '/petOwner/tag-list',
-        key: 'tagging_setting',
-      },
+      // {
+      //   name: 'Tagging Setting',
+      //   value: 'tagging_setting',
+      //   url: '/petOwner/tag-list',
+      //   key: 'tagging_setting',
+      // },
     ],
   },
   {
@@ -128,18 +128,18 @@ export const menus = [
         url: '/fans/fans-list',
         key: 'fans_management',
       },
-      {
-        name: 'Automatic Replies',
-        value: 'automatic_replies',
-        url: '/automatic-replies',
-        key: 'automatic_replies',
-      },
-      {
-        name: 'Response Content',
-        value: 'response_content',
-        url: '/reply/reply-contents',
-        key: 'response_content',
-      },
+      // {
+      //   name: 'Automatic Replies',
+      //   value: 'automatic_replies',
+      //   url: '/automatic-replies',
+      //   key: 'automatic_replies',
+      // },
+      // {
+      //   name: 'Response Content',
+      //   value: 'response_content',
+      //   url: '/reply/reply-contents',
+      //   key: 'response_content',
+      // },
       {
         name: 'Assets Management',
         value: 'assets_management',
@@ -170,12 +170,12 @@ export const menus = [
         url: '/mpqr/mpqr-list',
         key: 'mini_program_qr_code',
       },
-      {
-        name: 'Mini Program Banner',
-        value: 'mini_program_banner',
-        url: '/mpbanner/mpbanner-list',
-        key: 'mini_program_banner',
-      },
+      // {
+      //   name: 'Mini Program Banner',
+      //   value: 'mini_program_banner',
+      //   url: '/mpbanner/mpbanner-list',
+      //   key: 'mini_program_banner',
+      // },
     ],
   },
 ]

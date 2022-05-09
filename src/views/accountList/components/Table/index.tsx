@@ -87,12 +87,12 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
             />
             </Tooltip>
           )}
-          {/* <Tooltip title="View QR Code">
+          <Tooltip title="View QR Code">
             <span
               className="cursor-pointer ml-2 iconfont icon-Frame-1 text-red-500 text-xl"
               onClick={() => { }}
             />
-          </Tooltip> */}
+          </Tooltip>
         </>
       ),
     },

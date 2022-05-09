@@ -4,47 +4,84 @@ import { mockList } from "./modules/mockdata"
 import Mock from "mockjs"
 import { Button } from "antd"
 import { SyncOutlined } from "@ant-design/icons"
-import { tableColumns } from "./modules/constant"
+// import { tableColumns } from "./modules/constant"
 import { ContentContainer } from "@/components/ui"
-import { getAppQrCodes, upsertAppQrCodes } from '@/framework/api/wechatSetting'
-import { useEffect } from 'react'
+import { getAppQrCodes } from '@/framework/api/wechatSetting'
+import { Link } from "react-router-dom"
+import IconFont from "@/components/common/IconFont"
+import { EyeOutlined } from '@ant-design/icons';
 
 const MpQrList = () => {
-  const getAppQrCodeList=async ()=>{
-    await getAppQrCodes({})
-  }
 
-  const createAppQrCode=async ()=>{
-    await upsertAppQrCodes({})
-  }
+  // const createAppQrCode=async ()=>{
+  //   await upsertAppQrCodes({})
+  // }
+  const columns = [
+    {
+      title: 'Channel',
+      dataIndex: "accountId",
+    },
+    {
+      title: "Scenario",
+      dataIndex: "scenarioId",
+    },
+    {
+      title: "QR Code Key Value",
+      dataIndex: "type",
+    },
+    {
+      title: "Mini Program Path",
+      dataIndex: "appInternalPath",
+      hideInSearch: true,
+    },
+    {
+      title: "Action",
+      hideInSearch: true,
+      render: (text: any, record: any) => (
+        <div className="flex items-center">
+          <Link to='' onClick={() => {}}>
+          <EyeOutlined />
+          </Link>
+          <Link className="ml-3" to='' onClick={() => {}}>
+            <IconFont type='icon-delete' />
+          </Link>
+          <Link className="ml-3" to='' onClick={() => {}}>
+            <IconFont type='icon-Frame-1' />
+          </Link>
+        </div>
+      )
+    }
+  ]
 
-  useEffect(()=>{
-    getAppQrCodeList()
-    createAppQrCode()
-  },[])
-
-  const handleDelete = (id: string) => {
-    console.info("handleDelete", id)
-  }
-  const columns = tableColumns({ handleDelete })
   return (
     <ContentContainer className="mp-qr-list">
       <ProTable
+        columns={columns}
+        search= {{
+          labelWidth: 136
+        }}
         toolBarRender={() => [
           <Button className="mt-8 text-white" type="primary" ghost>
             + Add
           </Button>,
           // <SyncOutlined className="mt-6 ml-2 mr-8 text-xl " />,
         ]}
-        search={{ searchText: 'Search' }}
-        columns={columns}
-        request={(params, sorter, filter) => {
+        request={async (params) => {
           // 表单搜索项会从 params 传入，传递给后端接口。
-          console.log("test sort", params, sorter, filter)
-          const datas = Mock.mock(mockList).list
-          console.info("datas", datas)
+          console.log('params',params)
+          let res = await getAppQrCodes({
+            offset: params.current - 1,
+            limit: params.pageSize,
+            isNeedTotal: true,
+            sample: {
+              name: params.name,
+              accountPrincipal: params.officialAccount,
+              type: params.type
+            }
+          })
+          // const datas = Mock.mock(mockList).list
           return Promise.resolve({
-            data: datas,
+            data: res.records,
             success: true,
           })
         }}
