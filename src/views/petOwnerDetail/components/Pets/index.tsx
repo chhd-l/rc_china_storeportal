@@ -24,9 +24,9 @@ const PetInformation = ({ id, customerId }: { customerId: string; id: string }) 
     <div id={id}>
       <div className="py-4 px-2 border-b text-xl font-medium">Pet Information</div>
       {pets.length > 0 ? (
-        <div className="px-2 py-4 flex flex-row flex-wrap">
+        <div className="px-2 py-4 flex flex-row flex-wrap justify-items-center">
           {pets.map((item: Pet) => (
-            <div className="flex justify-between items-center border p-4 mr-4 mt-4 w-1/3" key={item.id}>
+            <div className="flex justify-between items-center border p-4 mt-4 ml-2 justify-items-stretch" style={{width:'32%'}} key={item.id}>
               <div className="flex flex-row">
                 <Avatar shape="square" size="large" icon={<UserOutlined />} />
                 <div className="ml-4">

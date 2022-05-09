@@ -87,6 +87,58 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
             </Input.Group>
           </Col>
           <Col span={11} offset={2}>
+            <Input.Group compact className='flex'>
+              <Form.Item name='type' initialValue={typeForKey[0].value}>
+                <Select
+                  style={{ width: 150 }}
+                  placeholder='Select a option and change input text above'
+                  onChange={v => {
+                    form.setFieldsValue({ GoodsType: '' })
+                    setTypeSelect(v)
+                  }}
+                >
+                  {typeForKey.map((el: any) => (
+                    <Option key={el.value} value={el.value}>
+                      {el.name}
+                    </Option>
+                  ))}
+                </Select>
+                {/* <SelectKey list={typeForKey} /> */}
+              </Form.Item>
+              <Form.Item className='flex-1' name='GoodsType'>
+                <Select placeholder='Choose Product Type'>
+                  {typeSelect === typeForKey[0].value
+                    ? chooseProductType.map((el: any) => (
+                        <Option key={el.value} value={el.value}>
+                          {el.name}
+                        </Option>
+                      ))
+                    : SubscriptionType.map((el: any) => (
+                        <Option key={el.value} value={el.value}>
+                          {el.name}
+                        </Option>
+                      ))}
+                </Select>
+              </Form.Item>
+            </Input.Group>
+          </Col>
+          <Col span={5}>
+            <Form.Item label='Stock' name='startStock' className='mr-0'>
+              <InputNumber min={0} className='w-full' placeholder={`Please Input`} />
+              {/* <Input type='number' placeholder={`please Input startStock`} /> */}
+            </Form.Item>
+          </Col>
+          <Col span={1} className=' flex items-center justify-center'>
+            {' '}
+            -{' '}
+          </Col>
+          <Col span={5}>
+            <Form.Item name='endStock'>
+              <InputNumber min={0} className='w-full' placeholder={`Please Input`} />
+              {/* <Input type='number' placeholder={`please Input endStock`} /> */}
+            </Form.Item>
+          </Col>
+          <Col span={11} offset={2}>
             <Form.Item label='Category' name='cateId'>
               <div className='flex cate-box items-center'>
                 <div className='flex-1 flex'>
@@ -125,58 +177,6 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                 }
               /> */}
             </Form.Item>
-          </Col>
-          <Col span={5}>
-            <Form.Item label='Stock' name='startStock' className='mr-0'>
-              <InputNumber min={0} className='w-full' placeholder={`Please Input`} />
-              {/* <Input type='number' placeholder={`please Input startStock`} /> */}
-            </Form.Item>
-          </Col>
-          <Col span={1} className=' flex items-center justify-center'>
-            {' '}
-            -{' '}
-          </Col>
-          <Col span={5}>
-            <Form.Item name='endStock'>
-              <InputNumber min={0} className='w-full' placeholder={`Please Input`} />
-              {/* <Input type='number' placeholder={`please Input endStock`} /> */}
-            </Form.Item>
-          </Col>
-          <Col span={11} offset={2}>
-            <Input.Group compact className='flex'>
-              <Form.Item name='type' initialValue={typeForKey[0].value}>
-                <Select
-                  style={{ width: 150 }}
-                  placeholder='Select a option and change input text above'
-                  onChange={v => {
-                    form.setFieldsValue({ GoodsType: '' })
-                    setTypeSelect(v)
-                  }}
-                >
-                  {typeForKey.map((el: any) => (
-                    <Option key={el.value} value={el.value}>
-                      {el.name}
-                    </Option>
-                  ))}
-                </Select>
-                {/* <SelectKey list={typeForKey} /> */}
-              </Form.Item>
-              <Form.Item className='flex-1' name='GoodsType'>
-                <Select placeholder='Choose Product Type'>
-                  {typeSelect === typeForKey[0].value
-                    ? chooseProductType.map((el: any) => (
-                        <Option key={el.value} value={el.value}>
-                          {el.name}
-                        </Option>
-                      ))
-                    : SubscriptionType.map((el: any) => (
-                        <Option key={el.value} value={el.value}>
-                          {el.name}
-                        </Option>
-                      ))}
-                </Select>
-              </Form.Item>
-            </Input.Group>
           </Col>
           <Col span={11} offset={11} className='text-right ml-0'>
             <Form.Item>

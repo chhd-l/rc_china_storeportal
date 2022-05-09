@@ -157,12 +157,7 @@ export const getBrands = async (storeId: string) => {
 export const getAppQrCodes = async (queryParams: any) => {
   try {
     //todo 查询参数处理
-    const params = {
-      offset: 0,
-      limit: 10,
-      isNeedTotal: true,
-      // sample:{}
-    }
+    const params = queryParams
     let res = await ApiRoot.wechatSettings().getAppQrCodes({ body: params })
     const findWxAppQRCodePage = res?.findWxAppQRCodePage
     //todo fans manage normalize
@@ -203,12 +198,7 @@ export const upsertAppQrCodes = async (queryParams: any) => {
 export const getQrCodes = async (queryParams: any) => {
   try {
     //todo 查询参数处理
-    const params = {
-      offset: 0,
-      limit: 10,
-      accountId: "000001"
-      // sample:{}
-    }
+    const params = queryParams
     let res = await ApiRoot.wechatSettings().getQrCodes({ body: params })
     const qrCodeList = res?.qrCodeList
     //todo fans manage normalize

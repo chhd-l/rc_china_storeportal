@@ -17,7 +17,7 @@ const Menus = () => {
   },[pathname])
 
   const onOpenChange=(opens:string[])=>{
-    setOpenKeys(openKeys.concat(opens))
+    setOpenKeys(opens)
   }
 
   return (
