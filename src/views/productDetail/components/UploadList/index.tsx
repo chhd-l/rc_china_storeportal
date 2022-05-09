@@ -3,16 +3,21 @@ import { LoadingOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons
 import { useEffect, useState } from 'react'
 import { UploadProps } from 'antd'
 import { UploadChangeParam, UploadFile } from 'antd/lib/upload/interface'
+import classNames from 'classnames'
+import './index.less'
 export enum UploadType {
   button = 'BUTTON',
   img = 'IMG',
 }
 interface UploadWrapProps {
+  size?: string
   className?: string
   showUploadList?: boolean
-  handleImgUrl: Function
-  type?: UploadType
+  handleImgUrl?: Function
+  idx?: number
   hideName?: boolean
+  fileName?: string
+  type?: string
   fileList?: any[]
 }
 function getBase64 (img: any, callback: Function) {
@@ -21,23 +26,12 @@ function getBase64 (img: any, callback: Function) {
   reader.readAsDataURL(img)
 }
 
-function beforeUpload (file: any) {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
-  if (!isJpgOrPng) {
-    message.error('You can only upload JPG/PNG file!')
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2
-  if (!isLt2M) {
-    message.error('Image must smaller than 2MB!')
-  }
-  return isJpgOrPng && isLt2M
-}
 const UploadWrap = (props: UploadWrapProps) => {
   const [loading, setLoading] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewVisible, setPreviewVisible] = useState(false)
   const [fileList, setFileList] = useState<any>([])
-  const [imageUrl, setImageUrl] = useState('')
+  const [imageInfo, setImageInfo] = useState<any>({})
   const uploadProps = {
     name: 'file',
     action: 'https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload',
@@ -55,11 +49,27 @@ const UploadWrap = (props: UploadWrapProps) => {
       }
     },
   }
-  const { type = UploadType.img } = props
+  const beforeUpload = (file: any) => {
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || props.type === 'video'
+    if (!isJpgOrPng && props.type === 'image') {
+      message.error('You can only upload JPG/PNG file!')
+    }
+    const isLt2M = (file.size / 1024 / 1024 < 2 && props.type === 'image') || props.type === 'video'
+    if (!isLt2M) {
+      message.error('Image must smaller than 2MB!')
+    }
+    return isJpgOrPng && isLt2M
+  }
   const uploadButton = (
     <div>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
+      {loading ? (
+        <LoadingOutlined />
+      ) : (
+        <div className='rounded-full border border-solid p-2  border-primary w-full h-full justify-center flex items-center'>
+          <PlusOutlined />
+        </div>
+      )}
+      {/* <div style={{ marginTop: 8 }}></div> */}
     </div>
   )
   const handleCancel = () => {
@@ -73,12 +83,9 @@ const UploadWrap = (props: UploadWrapProps) => {
     } else if (info.file.status === 'done') {
       console.log('success', info.file.response)
       list = []
-      props.handleImgUrl(info.file.response?.url)
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, (imageUrl: any) => {
-        setImageUrl(imageUrl)
-        setLoading(false)
-      })
+      let imgInfo = { url: info.file.response?.url, idx: props.idx, type: props.type }
+      props.handleImgUrl?.(imgInfo)
+      setImageInfo(imgInfo)
     }
     setFileList(list)
   }
@@ -93,35 +100,31 @@ const UploadWrap = (props: UploadWrapProps) => {
     let list = props.fileList?.[0]
       ? props.fileList.map(img => {
           return {
+            type: img.type,
             uid: img.id || img.url,
-            name: props.hideName ? '' : 'xx.png',
+            name: props.hideName
+              ? ''
+              : props.fileName
+              ? props.fileName
+              : props.idx === 0
+              ? '*Cover Photo'
+              : `Image${props.idx}`,
             url: img.url,
             thumbUrl: img.url,
           }
         })
       : []
     if (list) {
+      debugger
       setFileList(list)
     }
+    if (list?.[0]) {
+      setImageInfo(list[0])
+    }
   }, [props.fileList])
+  console.info("imageInfo.type === 'image'", imageInfo.type === 'image')
   return (
-    <div className={props.className}>
-      {type === UploadType.button ? (
-        <Upload
-          action='https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload'
-          listType='picture'
-          fileList={fileList}
-          onChange={handleChange}
-          onPreview={handlePreview}
-          className='upload-list-inline'
-        >
-          {/* <Button icon={<UploadOutlined />}>Click to Upload</Button> */}
-          {fileList.length ? null : <Button icon={<UploadOutlined />}>Upload</Button>}
-        </Upload>
-      ) : // <Upload {...uploadProps}>
-      //   <Button icon={<UploadOutlined />}>Click to Upload</Button>{' '}
-      // </Upload>
-      null}
+    <div className={classNames(props.className, props.size, 'upload-list-wrap')}>
       <Modal
         visible={previewVisible}
         // title={previewTitle}
@@ -130,27 +133,35 @@ const UploadWrap = (props: UploadWrapProps) => {
       >
         <img alt='example' style={{ width: '100%' }} src={previewImage} />
       </Modal>
-      {type === UploadType.img ? (
-        <div>
-          <Upload
-            action='https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload'
-            listType='picture-card'
-            defaultFileList={fileList}
-            // fileList={fileList}
-            headers={{
-              authorization: 'authorization-text',
-            }}
-            // onPreview={handlePreview}
-            onChange={async info => {
-              handleChange(info)
-            }}
-          >
-            {/* {imageUrl ? <img src={imageUrl} alt='avatar' style={{ width: '100%' }} /> : uploadButton} */}
-            {fileList.length > 0 ? null : uploadButton}
-          </Upload>
-          <div className='mb-4 -mt-1 text-center'>{fileList[0]?.name}</div>
+      <div>
+        <Upload
+          listType='picture-card'
+          showUploadList={false}
+          action='https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload'
+          beforeUpload={beforeUpload}
+          headers={{
+            authorization: 'authorization-text',
+          }}
+          onPreview={handlePreview}
+          onChange={handleChange}
+        >
+          {imageInfo?.url ? (
+            <>
+              {imageInfo.type === 'image' ? <img src={imageInfo.url} alt='avatar' style={{ width: '100%' }} /> : null}
+              {imageInfo.type === 'video' ? (
+                <video>
+                  <source src={imageInfo.url} type='video/mp4' />
+                </video>
+              ) : null}
+            </>
+          ) : (
+            uploadButton
+          )}
+        </Upload>
+        <div className='mb-4 -mt-1 text-center' style={{ width: 104 }}>
+          {imageInfo?.name}
         </div>
-      ) : null}
+      </div>
     </div>
   )
 }

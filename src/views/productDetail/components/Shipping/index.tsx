@@ -20,17 +20,17 @@ const Shipping = ({ field }: FormProps) => (
     >
       <Col span={12}>
         <Form.Item label='Parcel Size' labelCol={{ span: 10 }} wrapperCol={{ span: 12 }} name='width'>
-          <Input placeholder='please input' addonAfter='cm' />
+          <Input placeholder='W(Integer)' addonAfter='cm' />
         </Form.Item>
       </Col>
       <Col span={5}>
         <Form.Item label='' wrapperCol={{ span: 20 }} name='length'>
-          <Input placeholder='please input' addonAfter='cm' />
+          <Input placeholder='L(Integer)' addonAfter='cm' />
         </Form.Item>
       </Col>
       <Col span={5}>
         <Form.Item label='' wrapperCol={{ span: 20 }} name='height'>
-          <Input placeholder='please input' addonAfter='cm' />
+          <Input placeholder='H(Integer)' addonAfter='cm' />
         </Form.Item>
       </Col>
     </Row>

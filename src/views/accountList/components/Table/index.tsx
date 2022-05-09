@@ -5,11 +5,12 @@ import { Account } from "@/framework/types/wechat";
 import { modifyAccount } from '@/framework/api/wechatSetting'
 import './Style.less'
 
-const Index = ({ accountList, getAccounts, pages, setPages }: { 
+const Index = ({ accountList, getAccounts, pages, setPages, total }: { 
   accountList: Account[], 
   getAccounts: Function,
   setPages: Function,
-  pages: any
+  pages: any,
+  total: number
 }) => {
   const navigator = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -21,7 +22,7 @@ const Index = ({ accountList, getAccounts, pages, setPages }: {
     isDeleted: true
   }
     await modifyAccount(items)
-    await getAccounts()
+    getAccounts&&getAccounts()
     setIsModalVisible(false)
   }
 
@@ -60,24 +61,27 @@ const Index = ({ accountList, getAccounts, pages, setPages }: {
       ),
     },
     {
-      title: "Options",
-      key: "Options",
+      title: "Action",
+      key: "Action",
       render: (text: any, record: any) => (
         <>
           <Tooltip title="Edit">
             <span
-              className="cursor-pointer iconfont icon-a-Group437 text-red-500 text-base"
+              className="cursor-pointer iconfont icon-a-Group437 text-red-500 text-xl"
               onClick={() => {
                 navigator("/account/account-details", { state: record });
                }}
             />
           </Tooltip>
-          <Tooltip title="Delete">
+          {/*避免误删除现在用的accountId*/}
+          {record.id!=='000001'&&(
+            <Tooltip title="Delete">
             <span
               className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl"
               onClick={() => setIsModalVisible(true)}
             />
-          </Tooltip>
+            </Tooltip>
+          )}
           {/* <Tooltip title="View QR Code">
             <span
               className="cursor-pointer ml-2 iconfont icon-Frame-1 text-red-500 text-xl"
@@ -102,7 +106,7 @@ const Index = ({ accountList, getAccounts, pages, setPages }: {
 
   return (
     <>
-      <div className="flex justify-end mb-4">
+      <div className="flex justify-end items-center h-full pb-4 pt-4">
         <Button
           danger
           onClick={() => {
@@ -120,13 +124,13 @@ const Index = ({ accountList, getAccounts, pages, setPages }: {
         pagination={{
           current: pages.page,
           pageSize: pages.limit,
-          total: pages.total,
+          total: total,
           onChange: (page, pageSize) => {
             setPages({
-              ...pages,
               page,
               limit: pageSize
             })
+            getAccounts(page, pageSize)
           }
         }}
       />

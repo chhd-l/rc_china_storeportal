@@ -8,7 +8,6 @@ export const getCategories = async ({ storeId }: { storeId: string }): Promise<C
   try {
     let categoryList = await ApiRoot.products().getProductCategories({ storeId })
     // const cateList: TreeDataProps[] = normaliseCateProps(categoryList.getProductCates)
-    console.info('list', categoryList.getProductCates)
     return categoryList.getProductCates
     // return normalisePets(pets)
   } catch (e) {
@@ -31,28 +30,21 @@ export const createProduct = async (params: any, beforeData?: any) => {
     }
     paramsData = Object.assign({}, diffData, {
       goodsAttributeValueRel,
-      spuNo: paramsData.spuNo,
+      // spuNo: paramsData.spuNo,
       id: paramsData.id,
-      goodsName: paramsData.goodsName,
-      type: paramsData.type,
-      brandId: paramsData.brandId,
-      goodsCategoryId: paramsData.goodsCategoryId,
-      shelvesStatus: paramsData.shelvesStatus,
-      defaultImage: paramsData.defaultImage,
-      salesStatus: paramsData.salesStatus,
+      goodsAsserts: paramsData.goodsAsserts//后面有排序处理，不太好操作先全量
+      // goodsName: paramsData.goodsName,
+      // type: paramsData.type,
+      // brandId: paramsData.brandId,
+      // goodsCategoryId: paramsData.goodsCategoryId,
+      // shelvesStatus: paramsData.shelvesStatus,
+      // defaultImage: paramsData.defaultImage,
+      // salesStatus: paramsData.salesStatus,
     })
   }
   console.info('paramsData', paramsData)
   const data = await ApiRoot.products().createProduct({ body: paramsData })
   console.info('createProduct', data)
-}
-export const getBrands = () => {
-  try {
-    console.info('list', brandList)
-  } catch (e) {
-    console.log(e)
-  }
-  return brandList
 }
 export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categoryId: string }) => {
 
@@ -226,6 +218,22 @@ export const saveShopCategory = async (params: SaveShopCategoryInput): Promise<a
   } catch (e) {
     console.log(e)
   }
+}
+
+
+export const getBundleGoodsvariants = async (params: any) => {
+  // console.info('ApiRoot')
+  let data: any = []
+  try {
+    console.info('params', params)
+    let res = await ApiRoot.products().getBundleGoodsvariants(params)
+    data = res?.findBundleGoodsVariantList || []
+    console.info('.......getBundleGoodsvariants', data)
+  } catch (e) {
+    console.log(e)
+    // return
+  }
+  return data
 }
 
 

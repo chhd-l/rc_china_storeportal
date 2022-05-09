@@ -4,7 +4,13 @@ import React from "react";
 import { Fans } from "@/framework/types/wechat";
 import { handleReturnTime } from "@/utils/utils";
 
-const Index = ({ fanList }: { fanList: Fans[] }) => {
+const Index = ({ fanList, pages, setPages, getFanList, total }: { 
+  fanList: Fans[],
+  pages: any,
+  setPages: Function,
+  getFanList: Function,
+  total: number
+ }) => {
   const navigator = useNavigate();
   const columns = [
     {
@@ -93,6 +99,18 @@ const Index = ({ fanList }: { fanList: Fans[] }) => {
         columns={columns}
         rowKey="id"
         className="rc-table"
+        pagination={{
+          current: pages.page,
+          pageSize: pages.limit,
+          total: total,
+          onChange: (page, pageSize) => {
+            setPages({
+              page,
+              limit: pageSize,
+            })
+            getFanList(page, pageSize)
+          }
+        }}
       />
     </div>
   );

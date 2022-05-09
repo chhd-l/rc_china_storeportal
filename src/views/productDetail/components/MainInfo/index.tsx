@@ -23,7 +23,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
   const { pathname } = useLocation()
   const [form] = Form.useForm()
   const [tipsIdx, setTipsIdx] = useState(0)
-  const { detail } = useContext(DetailContext)
+  const { detail, spuType } = useContext(DetailContext)
   const navigator = useNavigate()
   const [dataTips, setDataTips] = useState('')
   const hanldeTips = (idx: number) => {
@@ -34,7 +34,6 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     document.addEventListener(
       'click',
       e => {
-        console.info('data-tips', e)
         // @ts-ignore
         let str = e?.target?.closest('.tips-wrap')?.dataset?.tips || ''
         if (str) {
@@ -53,38 +52,69 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     console.log(values, detail)
 
     let params = Object.assign({}, detail, values, {
-      type: 'REGULAR',
+      type: spuType,
       shelvesStatus,
     })
-    if (!detail.goodsVariants?.length) {
-      detail.goodsVariants = [
+    let withoutSku = !detail.variationForm?.variationList?.length
+    debugger
+    if (withoutSku) {
+      debugger
+      params.goodsVariantsInput = [
         {
-          skuNo: 'test0001', //to do
+          // skuNo: 'test0001', //to do
           withoutSku: true,
-          subscriptionPrice: detail.subscriptionPrice,
-          subscriptionStatus: detail.subscriptionStatus,
-          stock: detail.stock,
-          listPrice: detail.listPrice,
-          marketingPrice: detail.marketingPrice,
-          feedingDays: detail.feedingDays,
-          isSupport100: detail.isSupport100,
+          subscriptionPrice: values.subscriptionPrice,
+          subscriptionStatus: values.subscriptionStatus,
+          stock: values.stock,
+          listPrice: values.listPrice,
+          marketingPrice: values.marketingPrice,
+          feedingDays: values.feedingDays,
+          isSupport100: values.isSupport100,
+          id: detail.skuId,
           defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
         },
       ]
+      if (detail.goodsVariantBundleInfo?.length) {
+        params.goodsVariantsInput[0].goodsVariantBundleInfo = detail.goodsVariantBundleInfo
+      }
+      if (detail.id) {
+        //编辑
+        if (!detail.editChange.goodsVariants) {
+          detail.editChange.goodsVariants = [
+            {
+              stock: detail.stock,
+              id: detail.skuId,
+              goodsVariantBundleInfo: detail.goodsVariantBundleInfo?.map((el: any) => {
+                let bundleInfo = {
+                  bundleNumber: el.bundleNumber,
+                  id: el.bunldeRelId,
+                  goodsVariantId: el.goodsVariantId,
+                  subGoodsVariantId: el.subGoodsVariantId || detail.skuId,
+                  skuNo: el.skuNo,
+                }
+                if (!el.goodsVariantId) {
+                  delete bundleInfo.goodsVariantId
+                }
+                if (!el.skuNo) {
+                  delete bundleInfo.skuNo
+                }
+                return bundleInfo
+              }),
+            },
+          ]
+        }
+      }
     }
     console.info('.......')
     console.info('params', params)
     let data = await createProduct(params, beforeData)
     console.info('data', data)
-    navigator('/product/product-list')
+    // navigator('/product/product-list')
   }
-  useEffect(() => {
-    console.log('form.122', beforeData.shelvesStatus)
-  }, [])
 
   return (
     <div id={steps[0].anchor}>
-      <div className='flex-1 mr-48 MainInfo'>
+      <div className={!showCatePop ? 'flex-1 MainInfo mr-48' : 'flex-1 MainInfo'}>
         <Form
           form={form}
           onFinish={onFinish}
@@ -129,7 +159,10 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
             {/* </>
             )}
           </Form.List> */}
-            <div className='text-rigth flex justify-end w-full fixed bottom-2 footerBtn'>
+            <div
+              style={{ left: '24px', right: '13.5rem' }}
+              className='text-rigth flex justify-end fixed bottom-2 footerBtn'
+            >
               <Button
                 className='ml-4'
                 onClick={() => {
@@ -138,60 +171,31 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
               >
                 Cancel
               </Button>
-              {
-                  pathname !== '/product/add' ? 
-                    beforeData.shelvesStatus ? (
-                      <Button
-                        className='ml-4'
-                        onClick={() => {
-                          shelvesStatus = false
-                          form.submit()
-                        }}
-                      >
-                        { pathname === '/product/add' ? 'Save and Delish' : 'Delish' }
-                      </Button>
-                    ) : null
-                   : (
-                    <Button
-                      className='ml-4'
-                      onClick={() => {
-                        shelvesStatus = false
-                        form.submit()
-                      }}
-                    >
-                      { pathname === '/product/add' ? 'Save and Delish' : 'Delish' }
-                    </Button>
-                  )
-              }
-              {
-                  pathname !== '/product/add' ? 
-                    beforeData.shelvesStatus ? (
-                      <Button
-                        className='ml-4'
-                        type='primary'
-                        onClick={() => {
-                          shelvesStatus = true
-                          form.submit()
-                        }}
-                      >
-                        { pathname === '/product/add' ? 'Save and Publish' : 'Publish' }
-                      </Button>
-                    ) : null
-                   : (
-                    <Button
-                      className='ml-4'
-                      type='primary'
-                      onClick={() => {
-                        shelvesStatus = true
-                        form.submit()
-                      }}
-                    >
-                      { pathname === '/product/add' ? 'Save and Publish' : 'Publish' }
-                    </Button>
-                  )
-              }
-              {
-                pathname !== '/product/add' ? (
+              {pathname !== '/product/add' ? (
+                beforeData.shelvesStatus ? (
+                  <Button
+                    className='ml-4'
+                    onClick={() => {
+                      shelvesStatus = false
+                      form.submit()
+                    }}
+                  >
+                    {pathname === '/product/add' ? 'Save and Delish' : 'Delish'}
+                  </Button>
+                ) : null
+              ) : (
+                <Button
+                  className='ml-4'
+                  onClick={() => {
+                    shelvesStatus = false
+                    form.submit()
+                  }}
+                >
+                  {pathname === '/product/add' ? 'Save and Delish' : 'Delish'}
+                </Button>
+              )}
+              {pathname !== '/product/add' ? (
+                beforeData.shelvesStatus ? (
                   <Button
                     className='ml-4'
                     type='primary'
@@ -200,15 +204,38 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                       form.submit()
                     }}
                   >
-                    Update
+                    {pathname === '/product/add' ? 'Save and Publish' : 'Publish'}
                   </Button>
                 ) : null
-              }
+              ) : (
+                <Button
+                  className='ml-4'
+                  type='primary'
+                  onClick={() => {
+                    shelvesStatus = true
+                    form.submit()
+                  }}
+                >
+                  {pathname === '/product/add' ? 'Save and Publish' : 'Publish'}
+                </Button>
+              )}
+              {pathname !== '/product/add' ? (
+                <Button
+                  className='ml-4'
+                  type='primary'
+                  onClick={() => {
+                    shelvesStatus = true
+                    form.submit()
+                  }}
+                >
+                  Update
+                </Button>
+              ) : null}
             </div>
           </div>
         </Form>
       </div>
-      <div className={`w-40 fixed right-10 ${showCatePop ? 'hidden' : ''}`} style={{ top: '100px' }}>
+      <div className={`w-36 fixed right-10 ${showCatePop ? 'hidden' : ''}`} style={{ top: '100px' }}>
         <Anchor affix={false} className='rc-anchor' targetOffset={64} style={{ top: '64px' }}>
           {steps.map((step, idx) => (
             <Link key={step.anchor + idx} href={`#${step.anchor}`} title={step.title} />
