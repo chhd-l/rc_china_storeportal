@@ -51,7 +51,6 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
   useEffect(() => {
     if (defaultSelected) {
       setSelectedRowKeys(defaultSelected)
-      debugger
     }
   }, [defaultSelected])
   const columns: ProColumns<any>[] = [
@@ -132,7 +131,6 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
         console.info('allPageList', allPageList)
         let regularChoosed = selectedRowKeys.map((el: string) => {
           let choosedItem = allPageList.find((item: any) => item.id === el)
-          debugger
           if (choosedItem) {
             choosedItem.subGoodsVariantId = choosedItem.id
             return choosedItem

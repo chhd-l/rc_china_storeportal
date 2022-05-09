@@ -56,7 +56,6 @@ const ChooseCate = ({ handleCate, setShowCatePop, detail, setProductName, setSpu
             onFinish={async value => {
               detail.spuType = value.type
               setProductName(value.name || '')
-              debugger
               setSpuType(value.type)
               setShowCatePop(false)
               handleCate(value)

@@ -11,6 +11,7 @@ import BundleSubSKuPop from '../BundleSubSKuPop'
 import { DeleteOutlined } from '@ant-design/icons'
 import { data } from 'browserslist'
 import { debug } from 'console'
+import "./index.less"
 interface ContextProps {
   variationForm: VarationsFormProps
   setVariationForm: () => void
@@ -137,6 +138,7 @@ const SalesInfo = (props: FormProps) => {
   }, [spuType])
   return (
     // <div>test</div>
+    <div className='salesinfo'>
     <VariationosContext.Provider value={{ variationForm, setVariationForm }}>
       <AddVariation />
       <EditVariationList field={props.field} />
@@ -194,6 +196,7 @@ const SalesInfo = (props: FormProps) => {
         </div>
       )}
     </VariationosContext.Provider>
+    </div>
   )
 }
 

@@ -2,6 +2,7 @@ import { useState, useEffect, FC } from 'react'
 import '@wangeditor/editor/dist/css/style.css'
 import { IEditorConfig, DomEditor } from '@wangeditor/editor'
 import { Editor, Toolbar } from '@wangeditor/editor-for-react'
+import "./index.less"
 interface EditorProps {
   onChange?: Function
   defaultValue?: string
@@ -75,12 +76,12 @@ const MyEditor: FC<EditorProps> = ({ defaultValue = '', onChange }) => {
   // console.info('htmlhtmlhtml', html)
   return (
     <>
-      <div style={{ border: '1px solid #ccc', zIndex: 100, marginTop: '15px' }}>
+      <div className="wangeditor">
         <Toolbar
           editor={editor}
           defaultConfig={toolbarConfig}
           mode='default'
-          style={{ borderBottom: '1px solid #ccc' }}
+          style={{ borderBottom: '1px solid #ccc'}}
         />
         <Editor
           defaultConfig={editorConfig}
