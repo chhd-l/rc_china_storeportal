@@ -53,7 +53,7 @@ const TemplateMessage = () => {
             <Button className='mt-8 text-white' type='primary' onClick={handleAdd} ghost>
               + Add
             </Button>,
-            <SyncOutlined className='mt-6 ml-2 mr-8 text-xl ' />,
+            // <SyncOutlined className='mt-6 ml-2 mr-8 text-xl ' />,
           ]}
           columns={columns}
           request={(params, sorter, filter) => {

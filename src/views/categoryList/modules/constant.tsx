@@ -1,9 +1,10 @@
-import { ProColumns } from '@/components/common/ProTable'
-import { LabelOptionProps } from '@/framework/types/common'
-import { AddCateType, CategoryBaseProps } from '@/framework/types/product'
-import { SettingOutlined, DeleteOutlined, FileTextOutlined } from '@ant-design/icons'
-import { Switch } from 'antd'
-import { Link } from 'react-router-dom'
+import IconFont from "@/components/common/IconFont";
+import { ProColumns } from "@/components/common/ProTable";
+import { LabelOptionProps } from "@/framework/types/common";
+import { AddCateType, CategoryBaseProps } from "@/framework/types/product";
+import { Switch } from "antd";
+import { Link } from "react-router-dom";
+
 export const columns: ProColumns<CategoryBaseProps>[] = [
   {
     title: 'Category Display Name',
@@ -38,25 +39,23 @@ export const columns: ProColumns<CategoryBaseProps>[] = [
     render: (_, record) => {
       if (record.productNum <= 0) {
         return [
-          <Link to={`/category/${record.id}`} className='mr-4'>
-            +
+          <Link to={`/category/${record.id}`} className="mr-4 text-xl">
+            <IconFont type='icon-jiahao' />
           </Link>,
           // <a className=" mr-4">
           //   <SettingOutlined />
           // </a>,
-          <a className=' mr-4'>
-            <DeleteOutlined />
-          </a>,
-        ]
+          <Link to='' className="text-xl mr-4">
+            <IconFont type="icon-delete" />
+          </Link>]
       } else {
         return [
-          <Link to={`/category/category-detail/${record.id}`} className='mr-4'>
-            <FileTextOutlined />
+          <Link to={`/category/${record.id}`} className="mr-4 text-xl">
+            <IconFont type="icon-group52" />
           </Link>,
-          <a className=' mr-4'>
-            <DeleteOutlined />
-          </a>,
-        ]
+          <Link to='' className="mr-4 text-xl">
+            <IconFont type="icon-delete" />
+          </Link>,]
       }
     },
   },

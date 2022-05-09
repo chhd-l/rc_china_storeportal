@@ -19,7 +19,7 @@ const FormItem = ({ list, parentName, field, layout, disabled }: FormProps) => {
           <>
             {el.type === 'select' ? (
               <Form.Item className={el.className} {...layout} {...field} label={el.label} name={name} rules={el.rules}>
-                <Select placeholder={'please select ' + el.label} options={el.options} />
+                <Select placeholder={'Please select ' + el.label} options={el.options} />
               </Form.Item>
             ) : null}
             {el.type === 'input' ? (

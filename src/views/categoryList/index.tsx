@@ -3,17 +3,17 @@ import { dataSource } from './modules/mockdata'
 import Mock from 'mockjs'
 import './index.less'
 import AddCate from './components/AddCate'
-import { EyeOutlined, SyncOutlined } from '@ant-design/icons'
+import { EyeOutlined, SwapOutlined } from '@ant-design/icons'
 import ProTable from '@/components/common/ProTable'
 import { columns } from './modules/constant'
 import { useEffect, useState } from 'react'
-import {
-  createShopCategoryGoodsRel,
-  getShopCategories,
-  saveShopCategory,
-  shopCategoryFilterRules,
-  updateShopCategory,
-} from '@/framework/api/get-product'
+// import {
+//   createShopCategoryGoodsRel,
+//   getShopCategories,
+//   saveShopCategory,
+//   shopCategoryFilterRules,
+//   updateShopCategory,
+// } from '@/framework/api/get-product'
 // import 'antd/dist/antd.css';
 const ShopCategories = () => {
   const [addVisible, setAddvisible] = useState(false)
@@ -38,12 +38,12 @@ const ShopCategories = () => {
     <div className='shop-categories bg-gray-50 py-14 px-6 text-left'>
       <div className='bg-white p-6 '>
         <div className='flex justify-between'>
-          <div>My Shop Categories</div>
-          <div>
-            <Button className=' mr-4' icon={<EyeOutlined />}>
+          <div className='text-xl font-semibold'>My Shop Categories</div>
+          <div className='flex'>
+            <Button className='flex items-center mr-4 text-red-400 border-red-400' icon={<EyeOutlined />}>
               Preview
             </Button>
-            <Button className=' mr-4' icon={<SyncOutlined />}>
+            <Button className='flex items-center mr-4 text-red-400 border-red-400' icon={<SwapOutlined />}>
               Adjust Sequence
             </Button>
             <Button

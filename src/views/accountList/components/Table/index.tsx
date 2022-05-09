@@ -14,13 +14,15 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
 }) => {
   const navigator = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const [ID, setID] = useState('')
 
-  const handleOk = async (id: string) => {const items = {
-    account: {
-      id: id,
-    },
-    isDeleted: true
-  }
+  const handleOk = async (id: string) => {
+    const items = {
+      account: {
+        id: id,
+      },
+      isDeleted: true
+    }
     await modifyAccount(items)
     getAccounts&&getAccounts()
     setIsModalVisible(false)
@@ -78,7 +80,10 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
             <Tooltip title="Delete">
             <span
               className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl"
-              onClick={() => setIsModalVisible(true)}
+              onClick={() => {
+                setID(record.id)
+                setIsModalVisible(true)
+              }}
             />
             </Tooltip>
           )}
@@ -88,16 +93,6 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
               onClick={() => { }}
             />
           </Tooltip> */}
-          <Modal
-            className="acconutModal"
-            title='Delete Item'
-            visible={isModalVisible}
-            onOk={() => handleOk(record.id)}
-            onCancel={handleCancel}
-            okText='Confirm'
-          >
-            <div>Are you sure you want to delete the item ?</div>
-          </Modal>
         </>
       ),
     },
@@ -134,6 +129,17 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
           }
         }}
       />
+      <Modal
+        className="acconutModal"
+        title='Delete Item'
+        visible={isModalVisible}
+        onOk={() => handleOk(ID)}
+        onCancel={handleCancel}
+        okText='Confirm'
+        // mask={false}
+      >
+        <div>Are you sure you want to delete the item ?</div>
+      </Modal>
     </>
   );
 };

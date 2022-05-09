@@ -52,7 +52,7 @@ const FanList = () => {
   return (
     <ContentContainer>
       <SearchContainer>
-        <Search query={getFanList} formItems={formItems} />
+        <Search query={getFanList} pages={pages} formItems={formItems} />
       </SearchContainer>
       <DivideArea />
       <TableContainer>
