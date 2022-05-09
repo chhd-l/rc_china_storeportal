@@ -166,7 +166,7 @@ export const getAppQrCodes = async (queryParams: any) => {
     let res = await ApiRoot.wechatSettings().getAppQrCodes({ body: params })
     const findWxAppQRCodePage = res?.findWxAppQRCodePage
     //todo fans manage normalize
-    console.log('get wechat setting fans list view data', findWxAppQRCodePage)
+    console.log('get appQrCode list view data', findWxAppQRCodePage)
     return findWxAppQRCodePage
   } catch (e) {
     console.log(e)
@@ -196,5 +196,32 @@ export const upsertAppQrCodes = async (queryParams: any) => {
   } catch (e) {
     console.log(e)
     return false
+  }
+}
+
+// 查询二维码列表
+export const getQrCodes = async (queryParams: any) => {
+  try {
+    //todo 查询参数处理
+    const params = {
+      offset: 0,
+      limit: 10,
+      accountId:"000001"
+      // sample:{}
+    }
+    let res = await ApiRoot.wechatSettings().getQrCodes({ body: params })
+    const qrCodeList = res?.qrCodeList
+    //todo fans manage normalize
+    console.log('get qrCode list view data', qrCodeList)
+    return {
+      records: qrCodeList.records || [],
+      total: qrCodeList.total || 0,
+    }
+  } catch (e) {
+    console.log(e)
+    return {
+      records: [],
+      total: 0,
+    }
   }
 }
