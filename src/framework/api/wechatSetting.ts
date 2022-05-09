@@ -112,8 +112,8 @@ export const getMedias = async (queryParams: any) => {
   } catch (e) {
     console.log(e)
     return {
-      records:[],
-      total:0
+      records: [],
+      total: 0
     }
   }
 }
@@ -131,9 +131,9 @@ export const createMedia = async (queryParams: any) => {
         },
         queryParams.type === 'video'
           ? {
-              title: queryParams.title,
-              description: queryParams.description,
-            }
+            title: queryParams.title,
+            description: queryParams.description,
+          }
           : {},
       ),
       operator: 'zz',
@@ -186,25 +186,20 @@ export const getBrands = async (storeId: string) => {
 export const getAppQrCodes = async (queryParams: any) => {
   try {
     //todo 查询参数处理
-    const params = {
-      offset: 0,
-      limit: 10,
-      isNeedTotal: true,
-      // sample:{}
-    }
+    const params = queryParams
     let res = await ApiRoot.wechatSettings().getAppQrCodes({ body: params })
     const findWxAppQRCodePage = res?.findWxAppQRCodePage
     //todo fans manage normalize
     console.log('get appQrCode list view data', findWxAppQRCodePage)
     return {
-      records:findWxAppQRCodePage.records||[],
-      total:findWxAppQRCodePage.total||0
+      records: findWxAppQRCodePage.records || [],
+      total: findWxAppQRCodePage.total || 0
     }
   } catch (e) {
     console.log(e)
     return {
-      records:[],
-      total:0
+      records: [],
+      total: 0
     }
   }
 }
@@ -238,12 +233,7 @@ export const upsertAppQrCodes = async (queryParams: any) => {
 export const getQrCodes = async (queryParams: any) => {
   try {
     //todo 查询参数处理
-    const params = {
-      offset: 0,
-      limit: 10,
-      accountId: '000001',
-      // sample:{}
-    }
+    const params = queryParams
     let res = await ApiRoot.wechatSettings().getQrCodes({ body: params })
     const qrCodeList = res?.qrCodeList
     //todo fans manage normalize

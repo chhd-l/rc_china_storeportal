@@ -15,7 +15,10 @@ interface OrderInfoProps {
 
 const OrderInformation = ({ id, customerId }: OrderInfoProps) => {
   const [orderList, setOrderList] = useState<any[]>([])
-  const [pageParams, setPageParams] = useState<PageParamsProps>(initPageParams)
+  const [pageParams, setPageParams] = useState<PageParamsProps>({
+    currentPage: 1,
+    pageSize: 3
+  })
   const [total, setTotal] = useState(0)
   const { currentPage, pageSize } = pageParams
   const [searchParams, setSearchParams] = useState<OrderSearchParamsProps>(initSearchParams)
@@ -36,10 +39,10 @@ const OrderInformation = ({ id, customerId }: OrderInfoProps) => {
   }
 
   const changePage = async (page: any, pageSize: any) => {
-    setPageParams({ currentPage: page, pageSize: pageSize })
+    setPageParams({ currentPage: page, pageSize })
     await getCustomerOrders({
       searchParams,
-      pageParams: { currentPage: page, pageSize: pageSize },
+      pageParams: { currentPage: page, pageSize },
     })
   }
 
@@ -71,7 +74,7 @@ const OrderInformation = ({ id, customerId }: OrderInfoProps) => {
           total={total}
           pageSize={pageSize}
           onChange={changePage}
-          showSizeChanger={true}
+          showSizeChanger={false}
           className="rc-pagination"
         />
       </div>
