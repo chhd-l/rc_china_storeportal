@@ -72,7 +72,7 @@ const MyEditor: FC<EditorProps> = ({ defaultValue = '', onChange }) => {
       setEditor(null)
     }
   }, [editor])
-  console.info('htmlhtmlhtml', html)
+  // console.info('htmlhtmlhtml', html)
   return (
     <>
       <div style={{ border: '1px solid #ccc', zIndex: 100, marginTop: '15px' }}>
@@ -88,7 +88,7 @@ const MyEditor: FC<EditorProps> = ({ defaultValue = '', onChange }) => {
           onCreated={setEditor}
           onChange={editor => {
             let htmls = editor.getHtml()
-            console.info('htmlshtmlshtmlshtmlshtmls', htmls)
+            // console.info('htmlshtmlshtmlshtmlshtmls', htmls)
             setHtml(htmls)
             onChange?.(htmls)
           }}

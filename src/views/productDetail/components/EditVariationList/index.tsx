@@ -6,9 +6,10 @@ import { Button, Col, Form, Input, Popover, Row, Select } from 'antd'
 import { FormProps } from '@/framework/types/common'
 import { ChangeType, SpecificationListProps, VarationProps, VarationsFormProps } from '@/framework/types/product'
 import { headerOrigition } from '../../modules/constant'
-import Upload, { UploadType } from '@/components/common/Upload'
 import { DetailContext } from '../../index'
 import { VerticalAlignBottomOutlined, VerticalAlignTopOutlined } from '@ant-design/icons'
+import BundleSubSKu from '../BundleSubSKu'
+import Upload from '../UploadList'
 export interface VarviationProps {
   defaultImage: string
   skuNo: string
@@ -29,7 +30,7 @@ interface HeaderProps {
 }
 let isInited = false
 const EditVariationList = (props: FormProps) => {
-  const { detail } = useContext(DetailContext)
+  const { detail, spuType } = useContext(DetailContext)
   const { variationForm: cloneVariationForm } = useContext(VariationosContext)
   //changeType操作variation需要做include处理；操作spec需要做===处理
   const [variationList, setVariationList] = useState<VarviationProps[]>([])
@@ -65,6 +66,11 @@ const EditVariationList = (props: FormProps) => {
       let header = { label: el.name || `Varations[${idx}]`, type: 'text', keyVal: el.name }
       return header
     })
+
+    if (spuType === 'REGULAR') {
+      let idx = headerOrigition.findIndex((el: any) => el.keyVal === 'subSku')
+      headerOrigition.splice(idx, 1)
+    }
     const cloneHeaderOrigition = [...headerOrigition]
     cloneHeaderOrigition.splice(1, 0, ...variationHeaders)
     setHeaderList(cloneHeaderOrigition)
@@ -82,6 +88,11 @@ const EditVariationList = (props: FormProps) => {
         detail.editChange.goodsVariants[index].id = tr.id
       }
       detail.editChange.goodsVariants[index][propertyName] = val
+      if (propertyName === 'goodsVariantBundleInfo') {
+        //stock需要同步改变
+        detail.editChange.goodsVariants[index].stock = tr.stock
+      }
+      debugger
       //处理类型转换
       if (
         propertyName === 'stock' ||
@@ -107,6 +118,10 @@ const EditVariationList = (props: FormProps) => {
           }
         })
       }
+    }
+    if (propertyName === 'goodsVariantBundleInfo') {
+      //同步展示库存
+      setVariationList([...variationList])
     }
     detail.goodsVariantsInput = variationList
     detail.goodsSpecificationsInput = variationForm.variationList
@@ -294,23 +309,30 @@ const EditVariationList = (props: FormProps) => {
                             case 'text':
                               return <span className=' inline-block px-4'>{tr[td.keyVal]}</span>
                             case 'upload':
+                              console.info('tr[td.keyVal]', tr[td.keyVal])
                               // return <span>{tr[td.keyVal]}</span>
                               return (
                                 <Upload
-                                  type={UploadType.button}
+                                  size='small'
                                   hideName={true}
-                                  fileList={[{ url: tr[td.keyVal] }]}
+                                  type='image'
+                                  fileList={[{ url: tr[td.keyVal], type: 'image' }]}
                                   showUploadList={false}
-                                  handleImgUrl={() => {
-                                    console.info('...')
+                                  handleImgUrl={(imgInfo: any) => {
+                                    tr[td.keyVal] = imgInfo.url
+                                    console.info('...', imgInfo.url)
+                                    updateVations(imgInfo.url, index, td.keyVal, tr)
                                   }}
                                 />
                               )
                             case 'priceInput':
-                              return (
-                                td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0'?
-                                <Input disabled={td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0'} value=""/>
-                                :<Input
+                              return td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0' ? (
+                                <Input
+                                  disabled={td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0'}
+                                  value=''
+                                />
+                              ) : (
+                                <Input
                                   className='price-input'
                                   disabled={td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0'}
                                   prefix='￥'
@@ -331,7 +353,7 @@ const EditVariationList = (props: FormProps) => {
                                   // defaultValue={tr[td.keyVal]}
                                   onChange={(value, option) => {
                                     tr[td.keyVal] = value
-                                    console.info('valuevalue',tr)
+                                    console.info('valuevalue', tr)
                                     // tr.subscriptionPrice = ''
                                     updateVations(value, index, td.keyVal, tr)
                                     setVariationList([...variationList])
@@ -339,7 +361,10 @@ const EditVariationList = (props: FormProps) => {
                                 ></Select>
                               )
                             case 'number':
-                              return (
+                              console.info('tr[td.keyVal]', tr[td.keyVal])
+                              return td.keyVal === 'stock' && spuType === 'BUNDLE' ? (
+                                <div>{tr[td.keyVal]}</div>
+                              ) : (
                                 <Input
                                   className=''
                                   type='number'
@@ -358,7 +383,14 @@ const EditVariationList = (props: FormProps) => {
                                 </Popover>
                               )
                             case 'subSku':
-                              return <div className=''>test</div>
+                              return (
+                                <BundleSubSKu
+                                  updateVations={updateVations}
+                                  skuItem={tr}
+                                  skuItemIdx={index}
+                                  keyVal={td.keyVal}
+                                />
+                              )
                             case 'shelves':
                               return (
                                 <div className='text-center '>

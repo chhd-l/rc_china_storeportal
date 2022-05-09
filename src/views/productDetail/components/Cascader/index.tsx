@@ -29,14 +29,6 @@ const Cascader = (props: CascaderProps) => {
     if (detail.cateId && list && detail.selectedCateOptions) {
       console.info('detail.cateId', detail.cateId)
       let choosed: any[] = detail.selectedCateOptions
-      // detail.cateId.map((item: any) => {
-      //   let choosedItem = list.find((cate: any) => cate.id === Number(item))
-      //   let normalizedItem = {
-      //     value: choosedItem?.id + '',
-      //     label: choosedItem?.categoryName,
-      //   }
-      //   choosedItem && choosed.push(normalizedItem)
-      // })
       setCategories(choosed)
       console.info(choosed, 'choosedchoosed')
     }

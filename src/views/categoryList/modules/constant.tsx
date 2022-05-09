@@ -7,35 +7,35 @@ import { Link } from "react-router-dom";
 
 export const columns: ProColumns<CategoryBaseProps>[] = [
   {
-    title: "Category Display Name",
-    dataIndex: "displayName",
+    title: 'Category Display Name',
+    dataIndex: 'displayName',
   },
   {
-    title: "Created By",
-    dataIndex: "createdUser",
+    title: 'Created By',
+    dataIndex: 'createdUser',
   },
   {
-    title: "Product(s)",
-    dataIndex: "productNum",
+    title: 'Product(s)',
+    dataIndex: 'productNum',
   },
   {
-    title: "Display On/Off",
-    dataIndex: "isDisplay",
+    title: 'Display On/Off',
+    dataIndex: 'isDisplay',
     render: (_, record) => (
       <Switch
         defaultChecked={record.isDisplay}
         disabled={record.productNum < 1}
         onChange={(checked: boolean) => {
-          console.log(`switch to ${checked}`);
+          console.log(`switch to ${checked}`)
         }}
       />
     ),
   },
   {
-    title: "Operation",
-    key: "option",
+    title: 'Operation',
+    key: 'option',
     width: 180,
-    valueType: "option",
+    valueType: 'option',
     render: (_, record) => {
       if (record.productNum <= 0) {
         return [
@@ -59,22 +59,22 @@ export const columns: ProColumns<CategoryBaseProps>[] = [
       }
     },
   },
-];
+]
 
 export const columnsAdjustSequence: ProColumns<any>[] = [
   {
-    title: "product Name",
-    dataIndex: "productName",
+    title: 'product Name',
+    dataIndex: 'productName',
   },
   {
-    title: "MarketingPrice",
-    dataIndex: "marketingPrice",
+    title: 'MarketingPrice',
+    dataIndex: 'marketingPrice',
   },
   {
-    title: "Stock",
-    dataIndex: "stock",
+    title: 'Stock',
+    dataIndex: 'stock',
   },
-];
+]
 
 export const AddCateOptions: LabelOptionProps[] | string[] = [
   {
@@ -82,9 +82,8 @@ export const AddCateOptions: LabelOptionProps[] | string[] = [
     label: (
       <>
         <div>Manual Selection</div>
-        <div className="text-gray-400">
-          Manually select the products you would like to include in your shop
-          category
+        <div className='text-gray-400'>
+          Manually select the products you would like to include in your shop category
         </div>
       </>
     ),
@@ -94,11 +93,10 @@ export const AddCateOptions: LabelOptionProps[] | string[] = [
     label: (
       <>
         <div>Rule-based Filtering</div>
-        <div className="text-gray-400">
-          Products will be automatically selected based on the filters you have
-          set up
+        <div className='text-gray-400'>
+          Products will be automatically selected based on the filters you have set up
         </div>
       </>
     ),
   },
-];
+]

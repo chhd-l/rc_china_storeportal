@@ -7,14 +7,15 @@ import { VarviationProps } from '@/views/productDetail/components/EditVariationL
 import { ElementFlags } from 'typescript'
 import { specialCharMap } from '@testing-library/user-event/dist/keyboard'
 import { handleObjDataForEdit } from '@/utils/utils'
+import { map } from 'lodash'
 
 export const normaliseDetailforFe = (detail: any) => {
-  let withoutSku = detail.goodsVariants[0]?.spuNo
+  let withoutSku = !detail.goodsVariants[0]?.skuNo
 
   let { variationList, variationLists } = normaliseVariationAndSpecification(detail.goodsSpecifications, detail.goodsVariants)
 
   let choosedCate = normaliseCateIdProps(detail.goodsCategoryId, detail.listCategoryGet, [])
-  let spu = {
+  let spu: any = {
     id: detail.id,
     // age: string
     brandId: detail.brandId,
@@ -30,6 +31,7 @@ export const normaliseDetailforFe = (detail: any) => {
         label: el?.categoryName,
       }
     }),
+    type: detail.type,
     cateId: choosedCate.map((el: any) => el.id + ''),
     categoryList: normaliseCateProps(detail.listCategoryGet),
     // attributeList: normaliseAttrProps(detail.listAttributeGet),
@@ -38,7 +40,7 @@ export const normaliseDetailforFe = (detail: any) => {
     // feedingDays: detail.feedingDays,
     // functions: detail.
     height: detail.parcelSizeHeight,
-    assets: detail.goodsAsserts?.map((el: GoodsAssets) => {
+    goodsAsserts: detail.goodsAsserts?.map((el: GoodsAssets) => {
       return {
         type: el.type,
         storeId: el.storeId,
@@ -84,17 +86,29 @@ export const normaliseDetailforFe = (detail: any) => {
     isSupport100: '',
     defaultImage: '',
   }
+  debugger
   if (withoutSku) {
+    debugger
+    let sku = detail.goodsVariants?.[0]
     // spu.skuNo: 'test0001', //to do
     // withoutSku: true,
-    spu.subscriptionPrice = detail.subscriptionPrice
-    spu.subscriptionStatus = detail.subscriptionStatus
-    spu.stock = detail.stock
-    spu.listPrice = detail.listPrice
-    spu.marketingPrice = detail.marketingPrice
-    spu.feedingDays = detail.feedingDays
-    spu.isSupport100 = detail.isSupport100 ? 'ture' : 'false'
+    spu.subscriptionPrice = sku.subscriptionPrice
+    spu.subscriptionStatus = sku.subscriptionStatus?.toString()
+    spu.stock = sku.stock
+    spu.listPrice = sku.listPrice
+    spu.marketingPrice = sku.marketingPrice
+    spu.feedingDays = sku.feedingDays
+    spu.isSupport100 = sku.isSupport100 ? 'ture' : 'false'
     spu.defaultImage = 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png'
+    spu.skuId = sku.id
+    spu.regularList = sku.goodsVariantBundleInfo?.map((el: any) => {
+      let bundleInfo = {
+        bunldeRelId: el.id,
+        ...el
+      }
+      delete bundleInfo.id
+      return bundleInfo
+    })
   }
   console.info('datasss', choosedCate)
   // debugger
@@ -125,11 +139,11 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     goodsName: data.name,
     cardName: data.cardName,
     goodsDescription: data.goodsDescription,
-    type: data.type || 'REGULAR',
+    type: data.type,
     brandId: data.brandId,
     goodsCategoryId: data.goodsCategoryId || '8',
     shelvesStatus: false,
-    defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
+    // defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',//?干嘛呢
     salesStatus: data.salesStatus === "1",
     weight: data.weight ? Number(data.weight) : 0,
     // weightUnit: 'g',
@@ -142,61 +156,27 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     storeId: '12345678',
     isDeleted: false,
     operator: 'Noah',
-    // goodsVariants: [
-    //   {
-    //     isSupport100: true,
-    //     skuType: 'REGULAR',
-    //     skuNo: '20010201',
-    //     eanCode: '20010201',
-    //     name: '离乳期幼猫全价猫奶糕',
-    //     stock: 100,
-    //     marketingPrice: 159.0,
-    //     listPrice: 189.0,
-    //     shelvesStatus: true,
-    //     shelvesTime: '2021-01-31 10:10:00',
-    //     storeId: '12345678',
-    //     defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
-    //     subscriptionStatus: 1,
-    //     feedingDays: 45,
-    //     subscriptionPrice: 123,
-    //     operator: 'Noah',
-
-    //     goodsVariantSpecifications: [
-    //       {
-    //         specificationNameEn: '规格',
-    //         specificationName: '规格',
-    //         specificationDetailName: '2KG',
-    //         specificationDetailNameEn: '2KG',
-    //       },
-    //     ],
-    //   },
-    // ],
     goodsVariants: data.goodsVariantsInput && normaliseInputVariationProps(data.goodsVariantsInput, data, beforeData),
-    goodsAsserts: [
-      {
-        artworkUrl: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
-        type: 'image',
-        storeId: '12345678',
-      },
-    ],
-    goodsSpecifications: data.id ? data.editChange.variationList : data.goodsSpecificationsInput && normaliseInputSpecificationProps(data.goodsSpecificationsInput),
-
-    // goodsSpecifications: [
+    // goodsAsserts: [
     //   {
-    //     specificationName: '规格',
-    //     specificationNameEn: 'spicification',
-    //     goodsSpecificationDetail: [
-    //       {
-    //         specificationDetailName: '2KG',
-    //         specificationDetailNameEn: '2KG',
-    //       },
-    //       {
-    //         specificationDetailName: '2KG',
-    //         specificationDetailNameEn: '2KG*2包',
-    //       },
-    //     ],
+    //     artworkUrl: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
+    //     type: 'image',
+    //     storeId: '12345678',
     //   },
     // ],
+    goodsAsserts: data.goodsAsserts?.filter((el: any) => el?.url)?.map((el: any) => {
+      let asset = {
+        artworkUrl: el.url,
+        type: el.type,
+        id: el.id,
+        storeId: "12345678"
+      }
+      if (!el.id) {
+        delete asset.id
+      }
+      return asset
+    }),
+    goodsSpecifications: data.id ? data.editChange.variationList : data.goodsSpecificationsInput && normaliseInputSpecificationProps(data.goodsSpecificationsInput),
     goodsAttributeValueRel: data.goodsAttributeValueRelInput && normaliseInputAttrProps(data.goodsAttributeValueRelInput)
   }
   if (data.id) {
@@ -241,24 +221,12 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
           }
           return newRel
         })
-        // goodsVariantSpecifications: data.relArr && Object.keys(data.relArr)?.filter((rel: any) => rel !== 'Variation1').map((rel: any) => {
-        //   let item = {
-        //     specificationNameEn: rel,
-        //     specificationName: rel,
-        //     specificationDetailNameEn: data.relArr[rel],
-        //     specificationDetailName: data.relArr[rel],
-        //   }
-        //   return item
-        //   return {
-        //     specificationNameEn: rel.specificationName,
-        //     specificationName: rel.specificationName,
-        //     specificationDetailNameEn: rel.specificationDetailName,
-        //     specificationDetailName: rel.specificationDetailName,
-        //   }
-        // })
       }
       if (data.id) {
         newVariation.id = data.id
+      }
+      if (data.goodsVariantBundleInfo) {
+        newVariation.goodsVariantBundleInfo = data.goodsVariantBundleInfo
       }
       return newVariation
     })
@@ -280,7 +248,12 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
       feedingDays: spu.feedingDays ? Number(spu.feedingDays) : 0,
       subscriptionPrice: spu.subscriptionPrice ? Number(spu.subscriptionPrice) : 0,
       operator: 'Noah',
+      goodsVariantBundleInfo: spu.goodsVariantBundleInfo
     }]
+    if (!spu.goodsVariantBundleInfo) {
+      delete skuData[0].goodsVariantBundleInfo
+    }
+    editData = skuData
   }
   if (spu.id && beforeData) {
     //编辑 需要检查之前保存后的变更并返回变更
@@ -291,6 +264,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
     let delArr = beforeData.goodsVariants.filter((el: any) => {
       return spu.goodsVariantsInput.every((cel: any) => cel.id !== el.id)
     })
+    debugger
     delArr = delArr.map((el: any) => {
       let newEl = {
         isDeleted: true,
@@ -307,9 +281,9 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
 
       //取到补集
       let deleteComplement = variantInput?.goodsSpecificationRel?.filter((beforeItem: any) => {
-        return variantInput.relArr.findIndex((afterItem: any) => beforeItem.goodsSpecificationDetailId === afterItem.id) === -1
+        return variantInput.relArr?.findIndex((afterItem: any) => beforeItem.goodsSpecificationDetailId === afterItem.id) === -1
       })
-      let addedComplement = variantInput.relArr.filter((beforeItem: any) => {
+      let addedComplement = variantInput.relArr?.filter((beforeItem: any) => {
         return variantInput.goodsSpecificationRel?.findIndex((afterItem: any) => beforeItem.id === afterItem.goodsSpecificationDetailId) === -1
       })
       // let complement = [...complement1, ...complement2]
@@ -317,7 +291,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
       console.info('addedComplement', addedComplement)
       debugger
       //删除的
-      deleteComplement.forEach((item: any) => {
+      deleteComplement?.forEach((item: any) => {
         if (!editData[index]) {
           editData[index] = {
             id: variantInput.id
@@ -332,7 +306,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
         })
       })
       // 新增的
-      addedComplement.forEach((rel: any) => {
+      addedComplement?.forEach((rel: any) => {
         if (!editData[index]) {
           editData[index] = {
             id: variantInput.id
@@ -386,19 +360,6 @@ export const normaliseInputAttrProps = (goodsAttributeValueRel: any) => {
   })
   console.info('newRel', newRel)
   return newRel
-  // return goodsAttributeValueRel.filter((item: any) => item.id).map((el: any) => {
-  //   return {
-  //     attributeId: el.attributeId,
-  //     attributeValueId: el.id
-  //   }
-  // })
-  // return Object.keys(goodsAttributeValueRel)?.map(el => {
-  //   let newItem = {
-  //     attributeId: el,
-  //     attributeValueId: goodsAttributeValueRel[el]
-  //   }
-  //   return newItem
-  // })
 }
 
 export const normaliseVariationAndSpecification = (data: GoodsSpecification[], goodsVariants: GoodsVariants[]): {
@@ -423,7 +384,7 @@ export const normaliseVariationAndSpecification = (data: GoodsSpecification[], g
   let variationLists = goodsVariants.map(el => {
     let newItem = {
       ...el, sortIdx: '', spec: '', skuName: el.name,
-      subscriptionStatus: el.subscriptionStatus.toString(),
+      subscriptionStatus: el.subscriptionStatus?.toString(),
       isSupport100: el.isSupport100 ? 'true' : 'false'
     }
     let name = el.goodsSpecificationRel?.map(elRel => {
@@ -432,6 +393,13 @@ export const normaliseVariationAndSpecification = (data: GoodsSpecification[], g
         let nameVal = cElRel.goodsSpecificationDetail.find(specDetail => specDetail.id === elRel.goodsSpecificationDetailId)?.specificationDetailName
         // @ts-ignore
         newItem[cElRel.specificationName] = nameVal
+      })
+    })
+    el.goodsVariantBundleInfo?.forEach((el: any) => {
+      Object.keys(el).forEach(bundleKey => {
+        if (el[bundleKey] === null) {
+          delete el[bundleKey]
+        }
       })
     })
     // el.goodsSpecificationRel.forEach(el=>{

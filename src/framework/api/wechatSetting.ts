@@ -10,13 +10,13 @@ export const getAccountList = async (queryParams: any) => {
     console.log('get wechat setting account list view data', accounts)
     return {
       total: accounts.total || 0,
-      records: accounts.records || []
+      records: accounts.records || [],
     }
   } catch (e) {
     console.log(e)
     return {
       total: 0,
-      records: []
+      records: [],
     }
   }
 }
@@ -150,5 +150,78 @@ export const getBrands = async (storeId: string) => {
   } catch (e) {
     console.log(e)
     return []
+  }
+}
+
+// 查询 小程序二维码
+export const getAppQrCodes = async (queryParams: any) => {
+  try {
+    //todo 查询参数处理
+    const params = {
+      offset: 0,
+      limit: 10,
+      isNeedTotal: true,
+      // sample:{}
+    }
+    let res = await ApiRoot.wechatSettings().getAppQrCodes({ body: params })
+    const findWxAppQRCodePage = res?.findWxAppQRCodePage
+    //todo fans manage normalize
+    console.log('get appQrCode list view data', findWxAppQRCodePage)
+    return findWxAppQRCodePage
+  } catch (e) {
+    console.log(e)
+    return []
+  }
+}
+
+// 新增、编辑、删除 小程序二维码
+export const upsertAppQrCodes = async (queryParams: any) => {
+  try {
+    //todo 参数处理 编辑参数加id,删除参数加id and isDeleted
+    const params = {
+      accountId: '22c2f601-5a60-8b10-20c1-c56ef0d8bd53',
+      scenarioId: 'mockScenarioId',
+      type: 'mocktype',
+      key: 'MY_QRCODE_HOME',
+      appInternalPath: '/pages/index/index',
+      width: 300,
+      isHyaline: false,
+      imgUrl: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/05774105-6b54-384d-7ce9-5f75fcd1a98c.png',
+      operator: 'zz',
+    }
+    let res = await ApiRoot.wechatSettings().updateAppQrCode({ body: params })
+    const upsertWxAppQRCode = res?.upsertWxAppQRCode
+    console.log('upsert app qrCode view data', upsertWxAppQRCode)
+    return upsertWxAppQRCode || false
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+}
+
+// 查询二维码列表
+export const getQrCodes = async (queryParams: any) => {
+  try {
+    //todo 查询参数处理
+    const params = {
+      offset: 0,
+      limit: 10,
+      accountId: "000001"
+      // sample:{}
+    }
+    let res = await ApiRoot.wechatSettings().getQrCodes({ body: params })
+    const qrCodeList = res?.qrCodeList
+    //todo fans manage normalize
+    console.log('get qrCode list view data', qrCodeList)
+    return {
+      records: qrCodeList.records || [],
+      total: qrCodeList.total || 0,
+    }
+  } catch (e) {
+    console.log(e)
+    return {
+      records: [],
+      total: 0,
+    }
   }
 }
