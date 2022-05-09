@@ -23,9 +23,10 @@ export const verifyMesssage = async ({ userId, code }: { userId: string, code: s
 
 export const login = async ({ username, password }: { username: string, password: string }) => {
   try {
-    const { userInfo } = await ApiRoot.users().login({ username, password })
+    const { userInfo, access_token } = await ApiRoot.users().login({ username, password })
     return {
-      userInfo
+      userInfo,
+      access_token
     }
   } catch (e) {
     console.log(e)

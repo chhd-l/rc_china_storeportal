@@ -1606,17 +1606,17 @@
   resolved "https://registry.npmmirror.com/@qixian.cs/path-to-regexp/-/path-to-regexp-6.1.0.tgz"
   integrity sha512-2jIiLiVZB1jnY7IIRQKtoV8Gnr7XIhk4mC88ONGunZE3hYt5IHUG4BE/6+JiTBjjEWQLBeWnZB8hGpppkufiVw==
 
-"@rc-china-commerce/common@^1.0.41":
-  version "1.0.41"
-  resolved "https://packages.aliyun.com/5f923bdf728df4b180fad101/npm/npm-registry/@rc-china-commerce/common/-/@rc-china-commerce/common-1.0.41.tgz"
-  integrity sha512-nekj2fhIkgAshz9tiaPvDRmQi1hRXm3JZq1va6Q2UInTqqngUNmVzQtQWeFlJF1+C2amDnFsC1C7hC2e9xjMyA==
+"@rc-china-commerce/common@^1.0.64":
+  version "1.0.64"
+  resolved "https://packages.aliyun.com/5f923bdf728df4b180fad101/npm/npm-registry/@rc-china-commerce/common/-/@rc-china-commerce/common-1.0.64.tgz#dd94fbfdee8e402a7074e5e606204cc2fe4231dc"
+  integrity sha512-kcTmpORxEIGnntT01ZmoMsEB211a2HB+12nru4Kc6N3fUftJ+mH5hh53xlHY50h8UNnAxbrBw2etYZXdpDgtMg==
 
-"@rc-china-commerce/fetch@^1.0.36":
-  version "1.0.41"
-  resolved "https://packages.aliyun.com/5f923bdf728df4b180fad101/npm/npm-registry/@rc-china-commerce/fetch/-/@rc-china-commerce/fetch-1.0.41.tgz"
-  integrity sha512-tNM3XZ67MAPrpWsPVRifgoNm6CSnnSQ2SjBN3iHcHULZr6L+F01SMGBUm2H26FZa+jgt7iFef8xHjA+g34Mz8Q==
+"@rc-china-commerce/fetch@^1.0.64":
+  version "1.0.64"
+  resolved "https://packages.aliyun.com/5f923bdf728df4b180fad101/npm/npm-registry/@rc-china-commerce/fetch/-/@rc-china-commerce/fetch-1.0.64.tgz#ef694a04c6ab7ea277f46099bf196effbfaa40cb"
+  integrity sha512-pX3jjjS2kuCcmj+fdQ1ahW5m2pAqBpxmDSM0J+0pGSXB0H5Au0cU6pw3J33cUmkHnJDYjfRbuK/nE553nDlO6Q==
   dependencies:
-    "@rc-china-commerce/common" "^1.0.41"
+    "@rc-china-commerce/common" "^1.0.64"
 
 "@rollup/plugin-babel@^5.2.0":
   version "5.3.1"
