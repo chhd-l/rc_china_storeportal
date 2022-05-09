@@ -7,6 +7,7 @@ import "./index.less";
 import { login } from "@/framework/api/login-user";
 import { useAtom } from "jotai";
 import { userAtom } from "@/store/user.store";
+import axios from "axios";
 
 const formItems: FormItemProps[] = [
   {
@@ -64,6 +65,7 @@ const Login = () => {
                   console.log(res, 're')
                   setUserInfo(res.userInfo)
                   localStorage.setItem("rc-userInfo", JSON.stringify(res.userInfo))
+                  localStorage.setItem("rc-token", JSON.stringify(res.access_token))
                   handleLogin(values)
                 } else {
                   message.error('Login failed！')

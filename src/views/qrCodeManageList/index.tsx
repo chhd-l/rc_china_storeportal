@@ -73,7 +73,7 @@ const QrCodeManage = () => {
               + Add
             </Button>
           </Link>,
-          <SyncOutlined className="mt-6 ml-2 mr-8 text-xl " />,
+          // <SyncOutlined className="mt-6 ml-2 mr-8 text-xl " />,
         ]}
         request={async (params) => {
           // 表单搜索项会从 params 传入，传递给后端接口。

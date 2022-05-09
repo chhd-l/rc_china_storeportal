@@ -30,7 +30,7 @@ const ChooseCate = ({ handleCate, setShowCatePop, detail, setProductName, setSpu
     <div className='bg-gray-50  py-6 px-20 text-left addProduct'>
       <div className='bg-white py-6 px-8'>
         <div>
-          <div className='font-bold text-lg'>Add a New Product</div>
+          <div className='font-black text-lg'>Add a New Product</div>
           <div>Please choose the right category for your product</div>
           <Divider />
           <ProForm
@@ -56,7 +56,6 @@ const ChooseCate = ({ handleCate, setShowCatePop, detail, setProductName, setSpu
             onFinish={async value => {
               detail.spuType = value.type
               setProductName(value.name || '')
-              debugger
               setSpuType(value.type)
               setShowCatePop(false)
               handleCate(value)

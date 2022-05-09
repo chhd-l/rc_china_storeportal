@@ -64,9 +64,9 @@ const MpQrList = () => {
           <Button className="mt-8 text-white" type="primary" ghost>
             + Add
           </Button>,
-          <SyncOutlined className="mt-6 ml-2 mr-8 text-xl " />,
+          // <SyncOutlined className="mt-6 ml-2 mr-8 text-xl " />,
         ]}
-        request={async (params) => {
+        request={async async (params) => {
           // 表单搜索项会从 params 传入，传递给后端接口。
           console.log('params',params)
           let res = await getAppQrCodes({

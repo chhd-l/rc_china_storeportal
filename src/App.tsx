@@ -14,15 +14,16 @@ function App () {
   const location = useLocation()
   const [userInfo] = useAtom(userAtom)
 
-  // useEffect(() => {
-  //   if (location.pathname === '/') {
-  //     if (userInfo?.id) {
-  //       navigate('/shipment-list')
-  //     } else {
-  //       navigate('/login')
-  //     }
-  //   }
-  // }, [location.pathname])
+  useEffect(() => {
+    console.log(process.env.REACT_APP_BESE_URL, 'console.log(process.env.REACT_APP_BASE_URL)')
+    if (location.pathname === '/') {
+      if (userInfo?.id) {
+        navigate('/shipment-list')  
+      } else {
+        navigate('/login')
+      }
+    }
+  }, [location.pathname])
 
   return (
     <div className='App text-center'>

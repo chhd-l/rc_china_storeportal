@@ -58,7 +58,6 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     let withoutSku = !detail.variationForm?.variationList?.length
     debugger
     if (withoutSku) {
-      debugger
       params.goodsVariantsInput = [
         {
           // skuNo: 'test0001', //to do
@@ -82,7 +81,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
         if (!detail.editChange.goodsVariants) {
           detail.editChange.goodsVariants = [
             {
-              stock: detail.stock,
+              stock: Number(values.stock),
               id: detail.skuId,
               goodsVariantBundleInfo: detail.goodsVariantBundleInfo?.map((el: any) => {
                 let bundleInfo = {
@@ -145,7 +144,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                   <div id={idx > 0 ? steps[idx].anchor : 'anchor-1'}>
                     <div className='pb-2'>
                       <div className='flex justify-between  pb-2'>
-                        <div className='font-bold text-lg'>{steps[idx].title}</div>
+                        <div className='font-black text-lg'>{steps[idx].title}</div>
                         <div>{steps[idx].rightSlot}</div>
                       </div>
                       <div className='pb-4'>{steps[idx].subTitle}</div>
