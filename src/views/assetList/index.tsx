@@ -38,12 +38,12 @@ const PetOwnerList = () => {
             setActiveKey(key)
           }}
         >
-          {tabList.map((item, index) => (
-            <Tabs.TabPane tab={item.label} key={index} />
+          {tabList.map((item) => (
+            <Tabs.TabPane tab={item.label} key={item.key}/>
           ))}
         </Tabs>
         {activeKey === 'picture' ? <Picture isReload={isReload} openDelete={openDeleteModal} /> : null}
-        {activeKey === 'graphic' ? <Graphic /> : null}
+        {/*{activeKey === 'graphic' ? <Graphic /> : null}*/}
         {activeKey === 'voice' ? <Voice isReload={isReload} openDelete={openDeleteModal} /> : null}
         {activeKey === 'video' ? <Video isReload={isReload} openDelete={openDeleteModal} /> : null}
       </SearchContainer>
