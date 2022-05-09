@@ -88,6 +88,7 @@ const Cascader = (props: CascaderProps) => {
               open: true,
               placement: 'bottomLeft',
               placeholder: 'Categores Name',
+              displayRender: () => 'Categores Name'
             }}
           />
         ) : null}

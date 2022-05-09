@@ -83,7 +83,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
 
   return (
     <div id={steps[0].anchor}>
-      <div className='flex-1 mr-48 MainInfo'>
+      <div className={!showCatePop ? 'flex-1 MainInfo mr-48' : 'flex-1 MainInfo'}>
         <Form
           form={form}
           onFinish={onFinish}
@@ -201,7 +201,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
           </div>
         </Form>
       </div>
-      <div className={`w-40 fixed right-10 ${showCatePop ? 'hidden' : ''}`} style={{ top: '100px' }}>
+      <div className={`w-36 fixed right-10 ${showCatePop ? 'hidden' : ''}`} style={{ top: '100px' }}>
         <Anchor affix={false} className='rc-anchor' targetOffset={64} style={{ top: '64px' }}>
           {steps.map((step, idx) => (
             <Link key={step.anchor + idx} href={`#${step.anchor}`} title={step.title} />
