@@ -225,3 +225,28 @@ export const getQrCodes = async (queryParams: any) => {
     }
   }
 }
+
+// 新增二维码
+export const createQrCode = async (queryParams: any) => {
+  try {
+    //todo 参数处理 编辑参数加id,删除参数加id and isDeleted
+    const params = {
+      input: {
+        accountId: "000001",
+        name: "111",
+        type: 'QR_LIMIT_STR_SCENE',
+        replyContentId: "111",
+        comment: "cccc",
+        ScenarioStr: "sss",
+      },
+      operator:'zz'
+    }
+    let res = await ApiRoot.wechatSettings().addQrCode(params)
+    const addQrCode = res?.addQrCode
+    console.log('upsert app qrCode view data', addQrCode)
+    return addQrCode
+  } catch (e) {
+    console.log(e)
+    return {}
+  }
+}

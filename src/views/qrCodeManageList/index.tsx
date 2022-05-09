@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import { tableColumns } from "./modules/constant"
 import { ContentContainer } from "@/components/ui"
 import { Link } from "react-router-dom"
-import { getQrCodes } from '@/framework/api/wechatSetting'
+import { createQrCode, getQrCodes } from '@/framework/api/wechatSetting'
 const QrCodeManage = () => {
   const [previewImage, setPreviewImage] = useState("")
   const QRcodeTypeList = Mock.mock(mockOptionsList).list
@@ -22,8 +22,13 @@ const QrCodeManage = () => {
     await getQrCodes({})
   }
 
+  const addQrCode=async ()=>{
+    await createQrCode({})
+  }
+
   useEffect(()=>{
     getQrCodeList()
+    addQrCode()
   },[])
 
   return (
