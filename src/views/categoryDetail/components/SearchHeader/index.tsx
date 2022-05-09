@@ -68,14 +68,14 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
               </Select>
             </Form.Item>
             <Form.Item name="username" className="flex-1">
-              <Input placeholder={`please Input `} />
+              <Input placeholder={`Please Input `} />
             </Form.Item>
           </Input.Group>
         </Col>
 
         <Col span={9}>
           <Form.Item label="Stock" name="stock">
-            <Input placeholder={`please Input stock`} />
+            <Input placeholder={`Please Input stock`} />
           </Form.Item>
         </Col>
         <Col span={14}>

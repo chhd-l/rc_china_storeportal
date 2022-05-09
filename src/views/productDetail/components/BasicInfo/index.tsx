@@ -184,7 +184,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         labelCol={{ span: 4 }}
         rules={[{ required: true }]}
       >
-        <Select placeholder='please select Brand' options={brandList} style={{ width: 195 }} />
+        <Select placeholder='Please select Brand' options={brandList} style={{ width: 195 }} />
       </Form.Item>
       <Form.Item
         label='Sales Status'
@@ -197,7 +197,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         labelCol={{ span: 4 }}
         rules={[{ required: true }]}
       >
-        <Select placeholder='please select Sales Status' options={salesStatusList} style={{ width: 195 }} />
+        <Select placeholder='Please select Sales Status' options={salesStatusList} style={{ width: 195 }} />
       </Form.Item>
     </div>
   )

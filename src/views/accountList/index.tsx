@@ -19,6 +19,7 @@ const AccountList = () => {
   }, [])
 
   const getAccounts= async (offset = pages.page, limit = pages.limit, items = {}) => {
+    console.log('offset',offset)
     const params = Object.assign({ sample: { ...items, storeId: '12345678' } }, {
       offset,
       limit
@@ -31,7 +32,7 @@ const AccountList = () => {
   return (
     <ContentContainer>
       <SearchContainer>
-        <Search state={true} query={getAccounts} formItems={formItems} />
+        <Search state={true} pages={pages} query={getAccounts} formItems={formItems} />
       </SearchContainer>
       <DivideArea />
       <TableContainer>

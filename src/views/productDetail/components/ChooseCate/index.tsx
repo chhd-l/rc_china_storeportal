@@ -26,7 +26,7 @@ const ChooseCate = ({ handleCate, setShowCatePop, detail, setProductName }: Choo
   // };
   // const onSearch = (value: any) => console.log(value);
   return (
-    <div className='bg-gray-50  py-6 text-left addProduct'>
+    <div className='bg-gray-50  py-6 px-20 text-left addProduct'>
       <div className='bg-white py-6 px-8'>
         <div>
           <div className='font-bold text-lg'>Add a New Product</div>

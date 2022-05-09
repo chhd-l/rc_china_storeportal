@@ -12,13 +12,15 @@ const Search = ({
   formItems,
   classes = "",
   style = { width: "320px" },
-  state = false
+  state = false,
+  pages
 }: {
   query: Function;
   formItems: SearchFormItemProps[];
   classes?: string;
   style?: any;
   state?: boolean;
+  pages?: any;
 }) => {
   const [form] = Form.useForm();
 
@@ -29,7 +31,7 @@ const Search = ({
       val.followEndTime = moment(values.followTime[0]._d).format('YYYY-MM-DD')
       delete val.followTime
     }
-    query(val);
+    query(pages.page, pages.limit ,val);
   };
 
   return (
@@ -41,7 +43,7 @@ const Search = ({
         className={`${classes} flex flex-row flex-wrap ${ state ? 'justify-between' : 'justify-start' } items-center`}
         layout={"inline"}
         labelCol={{ span: 12 }}
-        wrapperCol={{ span: 14 }}
+        wrapperCol={{ span: 18 }}
       >
         {formItems.map((item) => (
           <Form.Item
@@ -66,7 +68,8 @@ const Search = ({
               />
             ) : item.type === "dateTime" ? (
               <RangePicker
-                defaultValue={[moment('2021/11/09', dateFormat), moment('2021/11/12', dateFormat)]}
+                className="flex items-center"
+                // defaultValue={[moment('2021/11/09', dateFormat), moment('2021/11/12', dateFormat)]}
                 format={dateFormat}
 
               />
