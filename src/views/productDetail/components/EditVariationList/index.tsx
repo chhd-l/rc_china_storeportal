@@ -92,7 +92,6 @@ const EditVariationList = (props: FormProps) => {
         //stock需要同步改变
         detail.editChange.goodsVariants[index].stock = tr.stock
       }
-      debugger
       //处理类型转换
       if (
         propertyName === 'stock' ||

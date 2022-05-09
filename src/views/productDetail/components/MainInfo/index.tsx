@@ -58,7 +58,6 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     let withoutSku = !detail.variationForm?.variationList?.length
     debugger
     if (withoutSku) {
-      debugger
       params.goodsVariantsInput = [
         {
           // skuNo: 'test0001', //to do
