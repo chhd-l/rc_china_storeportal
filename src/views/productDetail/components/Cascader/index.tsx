@@ -66,7 +66,7 @@ const Cascader = (props: CascaderProps) => {
         {categoryList?.length ? (
           <ProFormCascader
             name='cateId'
-            rules={[{ required: true, message: '这是必填项' }]}
+            rules={[{ required: true, message: 'Categores Name required' }]}
             // request={(params, props) => {
             //   return Promise.resolve(categoryList)
             // }}
@@ -80,7 +80,7 @@ const Cascader = (props: CascaderProps) => {
               open: true,
               placement: 'bottomLeft',
               placeholder: 'Categores Name',
-              displayRender: () => 'Categores Name'
+              displayRender: () => 'Categores Name',
             }}
           />
         ) : null}

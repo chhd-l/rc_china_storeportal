@@ -46,6 +46,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
   }
   const onReset = () => {
     form.resetFields()
+    setTypeSelect(typeForKey[0].value) //恢复第一个选项的选择
   }
   // const handleCateId = (cateIds: any) => {
   //   setCateId(cateIds)
@@ -72,7 +73,11 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
           <Col span={11}>
             <Input.Group compact className='flex'>
               <Form.Item className='rounded-xl ' name='selectName' initialValue={nameForKey[0].value}>
-                <Select style={{ width: 140 }} placeholder='Select a option and change input text above' className='ant-select-left no-border-radius-right'>
+                <Select
+                  style={{ width: 140 }}
+                  placeholder='Select a option and change input text above'
+                  className='ant-select-left no-border-radius-right'
+                >
                   {nameForKey.map((el: any) => (
                     <Option key={el.value} value={el.value}>
                       {el.name}
@@ -166,15 +171,15 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                 <Select placeholder='Choose Product Type' className='no-border-radius-left '>
                   {typeSelect === typeForKey[0].value
                     ? chooseProductType.map((el: any) => (
-                      <Option key={el.value} value={el.value}>
-                        {el.name}
-                      </Option>
-                    ))
+                        <Option key={el.value} value={el.value}>
+                          {el.name}
+                        </Option>
+                      ))
                     : SubscriptionType.map((el: any) => (
-                      <Option key={el.value} value={el.value}>
-                        {el.name}
-                      </Option>
-                    ))}
+                        <Option key={el.value} value={el.value}>
+                          {el.name}
+                        </Option>
+                      ))}
                 </Select>
               </Form.Item>
             </Input.Group>
@@ -184,7 +189,9 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
               <Button htmlType='submit' type='primary' className='mr-4 btn'>
                 Search
               </Button>
-              <Button onClick={onReset} className="btn">Reset</Button>
+              <Button onClick={onReset} className='btn'>
+                Reset
+              </Button>
             </Form.Item>
           </Col>
         </Row>

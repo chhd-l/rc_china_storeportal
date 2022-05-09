@@ -58,7 +58,7 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
         <div>
           <img src={spu.img} className='w-20 h-20' alt={spu.name} />
         </div>
-        <div className='pl-1'>
+        <div className='pl-2'>
           <div className='text-sm mb-1'>{spu.name}</div>
           <div className='text-gray-400'>{spu.no}</div>
         </div>
@@ -108,7 +108,7 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
           </Link>
         </Tooltip>
         <Tooltip title='Delete'>
-          <Link  to=''>
+          <Link to=''>
             <span
               className='icon iconfont icon-delete text-base'
               onClick={() => {

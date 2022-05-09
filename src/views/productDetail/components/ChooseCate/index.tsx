@@ -65,15 +65,20 @@ const ChooseCate = ({ handleCate, setShowCatePop, detail, setProductName, setSpu
             <ProFormText
               fieldProps={{ maxLength: 120, showCount: true, placeholder: 'Please Enter' }}
               name='name'
-              required={true}
+              rules={[{ required: true, message: 'Product Name required' }]}
+              // required={true}
               label='Product Name'
             />
             <ProFormSelect
               width={200}
               name='type'
-              required={true}
+              rules={[{ required: true, message: 'Product Type required' }]}
+              // required={true}
               label='Product Type'
-              valueEnum={ProductType}
+              valueEnum={{
+                REGULAR: 'Regular',
+                BUNDLE: 'Bundle',
+              }}
               placeholder='Please select'
             />
             <div>
