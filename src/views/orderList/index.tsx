@@ -12,7 +12,7 @@ import { PageParamsProps } from '@/framework/types/common'
 import { initPageParams } from '@/lib/constants'
 import './index.less'
 // 引入翻译
-import { ConfigProvider } from 'antd'; 
+import { ConfigProvider } from 'antd';
 import en_US from "antd/lib/locale/en_US"
 
 const PetOwnerList = () => {

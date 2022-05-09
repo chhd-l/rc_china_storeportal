@@ -18,15 +18,15 @@ const FanList = () => {
   const [pages, setPages] = useState({
     page: 1,
     limit: 10,
-    total: 10,
   });
+  const [total, setTotal] = useState(0)
 
   useEffect(() => {
     // setFanList(Mock.mock(fansDetailListSource).array);
     getFanList()
   }, []);
 
-  const getFanList = async (item = {}) => {
+  const getFanList = async (offset = pages.page - 1, limit = pages.limit, item = {}) => {
    let val: {
     offset: number
     limit: number
@@ -34,20 +34,19 @@ const FanList = () => {
     accountId: string
     sample?: any
    } =  {
-    offset: pages.page - 1,
-    limit: pages.limit,
+    offset,
+    limit,
     isNeedTotal: true,
     accountId: '000001'
    }
+
    if(JSON.stringify(item) !== '{}') {
     val.sample = item
   }
+
    let res = await getFansList(val)
    setFanList(res?.records || [])
-   setPages({
-    ...pages,
-     total: res?.total || 10
-   })
+   setTotal(res?.total || 10)
   };
 
   return (
@@ -57,7 +56,7 @@ const FanList = () => {
       </SearchContainer>
       <DivideArea />
       <TableContainer>
-        <Table fanList={fanList} />
+        <Table pages={pages} setPages={setPages} fanList={fanList} getFanList={getFanList} total={total} />
       </TableContainer>
     </ContentContainer>
   );

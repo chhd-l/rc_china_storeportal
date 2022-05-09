@@ -84,7 +84,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                 {/* <SelectKey list={nameForKey} /> */}
               </Form.Item>
               <Form.Item name='goodsName' className='flex-1'>
-                <Input placeholder={`please Input`} />
+                <Input placeholder='Please Input' />
               </Form.Item>
             </Input.Group>
           </Col>
@@ -130,7 +130,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
           </Col>
           <Col span={5}>
             <Form.Item label='Stock' name='startStock' className='mr-0'>
-              <InputNumber min={0} className='w-full' placeholder={`please Input`} />
+              <InputNumber min={0} className='w-full' placeholder={`Please Input`} />
               {/* <Input type='number' placeholder={`please Input startStock`} /> */}
             </Form.Item>
           </Col>
@@ -140,7 +140,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
           </Col>
           <Col span={5}>
             <Form.Item name='endStock'>
-              <InputNumber min={0} className='w-full' placeholder={`please Input`} />
+              <InputNumber min={0} className='w-full' placeholder={`Please Input`} />
               {/* <Input type='number' placeholder={`please Input endStock`} /> */}
             </Form.Item>
           </Col>
@@ -148,7 +148,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
             <Input.Group compact className='flex'>
               <Form.Item name='type' initialValue={typeForKey[0].value}>
                 <Select
-                  style={{ width: 140 }}
+                  style={{ width: 150 }}
                   placeholder='Select a option and change input text above'
                   onChange={v => {
                     form.setFieldsValue({ GoodsType: '' })

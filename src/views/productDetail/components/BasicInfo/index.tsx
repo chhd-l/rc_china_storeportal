@@ -91,7 +91,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
       <Form.Item
         label='Product Image'
         labelCol={{
-          span: 2,
+          span: 3,
         }}
         name='goodsAsserts'
         className='tips-wrap'
@@ -116,7 +116,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
       <Form.Item
         label='Product Video'
         labelCol={{
-          span: 2,
+          span: 3,
         }}
         wrapperCol={{
           span: 22,
@@ -131,7 +131,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         data-tips='SPU:<p>SPU should be unique and conform to coding rules.</p>'
         name='spuNo'
         rules={[{ required: true, message: 'Missing SPU' }]}
-        labelCol={{ span: 2 }}
+        labelCol={{ span: 3 }}
       >
         <Input />
       </Form.Item>
@@ -141,7 +141,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         className='tips-wrap'
         data-tips={`Product Name:<p>Briefly summarize the product</p>`}
         rules={[{ required: true, message: 'Missing Product Name' }]}
-        labelCol={{ span: 2 }}
+        labelCol={{ span: 3 }}
       >
         <Input data-tips='test' showCount maxLength={120} />
       </Form.Item>
@@ -151,7 +151,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         className='tips-wrap'
         data-tips={`Product Card Name:<p>Product Card Name should be set as the display name in the product list</p>`}
         name='cardName'
-        labelCol={{ span: 2 }}
+        labelCol={{ span: 3 }}
       >
         <Input showCount maxLength={120} />
       </Form.Item>
@@ -170,7 +170,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         `}
         // initialValue={detail.goodsDescription}
         rules={[{ required: true, message: 'Missing Product Description' }]}
-        labelCol={{ span: 2 }}
+        labelCol={{ span: 3 }}
       >
         <Wangeditor defaultValue={detail.goodsDescription} onChange={handleEditorChange} />
       </Form.Item>

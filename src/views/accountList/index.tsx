@@ -5,43 +5,37 @@ import { Account } from '@/framework/types/wechat'
 import { formItems } from './modules/form'
 import { ContentContainer, DivideArea, SearchContainer, TableContainer } from '@/components/ui'
 import { getAccountList } from '@/framework/api/wechatSetting'
-import { initPageParams } from '@/lib/constants'
-import { handlePageParams } from '@/utils/utils'
-import { PageParamsProps } from '@/framework/types/common'
 
 const AccountList = () => {
-  const [accountList, setAccountList] = useState<Account[]>([])
-  const [pageParams, setPageParams] = useState<PageParamsProps>(initPageParams)
+  const [accountList, setAccountList] = useState<Account[]>([]);
+  const [pages, setPages] = useState({
+    page: 1,
+    limit: 10,
+  });
   const [total, setTotal] = useState(0)
 
   useEffect(() => {
     getAccounts()
   }, [])
 
-  const getAccounts = async (items = {}) => {
-    const params = Object.assign({ sample: { ...items, storeId: '12345678' } }, handlePageParams(pageParams))
+  const getAccounts= async (offset = pages.page, limit = pages.limit, items = {}) => {
+    const params = Object.assign({ sample: { ...items, storeId: '12345678' } }, {
+      offset,
+      limit
+    })
     let res = await getAccountList(params)
     setAccountList(res.records)
     setTotal(res.total)
-  }
-
-  const setPages = ({ page, pageSize }: { page: number; pageSize: number }) => {
-    setPageParams({ pageSize: pageSize, currentPage: page })
-  }
+  };
 
   return (
     <ContentContainer>
       <SearchContainer>
-        <Search query={getAccounts} formItems={formItems} />
+        <Search state={true} query={getAccounts} formItems={formItems} />
       </SearchContainer>
       <DivideArea />
       <TableContainer>
-        <Table
-          getAccounts={getAccounts}
-          accountList={accountList}
-          pages={{ page: pageParams.currentPage, limit: pageParams.pageSize, total: total }}
-          setPages={setPages}
-        />
+        <Table getAccounts={getAccounts} accountList={accountList} pages={pages} setPages={setPages} total={total} />
       </TableContainer>
     </ContentContainer>
   )

@@ -153,3 +153,90 @@ export const ACCOUNT_FORM: FormItemProps[] = [
     placeholder: "Input",
   },
 ];
+
+export const ACCOUNT_FORM_TWO: FormItemProps[] = [
+  {
+    label: "Account Principal",
+    name: "accountPrincipal",
+    placeholder: "Input",
+    rules: [
+      {
+        required: true,
+        message: "Please input Account Principal!",
+      },
+    ],
+  },
+  {
+    label: "Account Type",
+    name: "accountType",
+    placeholder: "Select",
+    type: "select",
+    rules: [
+      {
+        required: true,
+        message: "Please select account type!",
+      },
+    ],
+    selectList: accountTypeList,
+  },
+  {
+    name: "originalId",
+    label: "Original ID",
+    placeholder: "Input",
+    rules: [
+      {
+        // required: true,
+        message: "Please input Original ID!",
+      },
+    ],
+  },
+  {
+    name: "accountName",
+    label: "Account Name",
+    placeholder: "Input",
+    rules: [
+      {
+        required: true,
+        message: "Please input Account Name!",
+      },
+    ],
+  },
+  {
+    name: "appId",
+    label: "AppId",
+    placeholder: "Input",
+    rules: [
+      {
+        required: true,
+        message: "Please input AppId!",
+      },
+    ],
+  },
+  {
+    name: "merchantId",
+    label: "Merchant ID",
+    placeholder: "Input",
+  },
+  {
+    name: "appSecret",
+    label: "AppSecret",
+    placeholder: "Input",
+    rules: [
+      {
+        required: true,
+        message: "Please input AppSecret!",
+      },
+    ],
+  },
+  {
+    name: "merchantKey",
+    label: "Merchant Key",
+    placeholder: "Input",
+  },
+  {
+    name: "certificatePath",
+    label: "Pertificate Path",
+    placeholder: "Input",
+    type: "upload",
+  },
+];
