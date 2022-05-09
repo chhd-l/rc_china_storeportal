@@ -65,7 +65,7 @@ const MyAddress = ({ id, customerId }: { id: string; customerId: string }) => {
       key: 'isDefault',
       className: 'text-center',
       render: (text: any, record: any) =>
-        text ? <StarFilled style={{ color: 'rgba(239, 68, 68,1)', fontSize: '24px' }} /> : null,
+        text ? <StarFilled style={{ color: 'rgba(239, 68, 68,1)', fontSize: '18px' }} /> : null,
     },
   ]
   return (

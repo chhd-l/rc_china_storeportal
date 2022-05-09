@@ -26,7 +26,7 @@ const AppLayout = () => {
     <Layout >
       <TopHeader userInfo={userInfo} />
       <Layout>
-        {
+        {/* {
           isOpen ? (
             <Sider
               theme="light"
@@ -42,7 +42,20 @@ const AppLayout = () => {
               <Menus />
             </Sider>
           ) : null
-        }
+        } */}
+        <Sider
+          theme="light"
+          style={{
+            overflow: 'auto',
+            height: '100vh',
+            position: 'fixed',
+            left: 0,
+            top: 55,
+            bottom: 0,
+          }}
+        >
+          <Menus />
+        </Sider>
         <Layout style={{ marginLeft: isOpen ? 200 : 0 }} >
           <Content
             className="site-layout-background"
