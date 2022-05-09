@@ -82,7 +82,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
         if (!detail.editChange.goodsVariants) {
           detail.editChange.goodsVariants = [
             {
-              stock: detail.stock,
+              stock: Number(values.stock),
               id: detail.skuId,
               goodsVariantBundleInfo: detail.goodsVariantBundleInfo?.map((el: any) => {
                 let bundleInfo = {
