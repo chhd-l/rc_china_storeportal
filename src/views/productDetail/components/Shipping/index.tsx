@@ -11,7 +11,7 @@ const Shipping = ({ field }: FormProps) => (
       data-tips={`Product Weight:
 <p>Should input the weight when the product is ready to ship, meaning product weight + package weight.</p>`}
     >
-      <Input placeholder='please input' addonAfter='kg' />
+      <Input placeholder='Please input' addonAfter='kg' />
     </Form.Item>
     <Row
       className='tips-wrap'

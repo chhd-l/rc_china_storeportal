@@ -64,7 +64,7 @@ export const modifyAccount = async (queryParams: any) => {
   }
 }
 // 同步粉丝
-export const syncFans = async (accountId: string) => {
+export const syncFans = async () => {
   try {
     let res = await ApiRoot.wechatSettings().syncFans({ accountId: '000001' })
     const syncSuccess = res?.syncFans
@@ -102,9 +102,9 @@ export const createMedia = async (queryParams: any) => {
         },
         queryParams.type === 'video'
           ? {
-              title: queryParams.title,
-              description: queryParams.description,
-            }
+            title: queryParams.title,
+            description: queryParams.description,
+          }
           : {},
       ),
       operator: 'zz',
@@ -206,7 +206,7 @@ export const getQrCodes = async (queryParams: any) => {
     const params = {
       offset: 0,
       limit: 10,
-      accountId:"000001"
+      accountId: "000001"
       // sample:{}
     }
     let res = await ApiRoot.wechatSettings().getQrCodes({ body: params })

@@ -1,4 +1,4 @@
-import { Form, Input, Button, Row, Col, Select, Tooltip, InputNumber, Modal } from 'antd'
+import { Form, Input, Button, Row, Col, Select, InputNumber, Modal } from 'antd'
 import { OptionsProps } from '@/framework/types/common'
 import { SearchContainer } from '@/components/ui/Container'
 import './index.less'
@@ -22,7 +22,6 @@ const typeForKey: OptionsProps[] = [
 const chooseProductType: OptionsProps[] = [
   { name: 'Bundle', value: 'BUNDLE' },
   { name: 'Regular', value: 'REGULAR' },
-  // { name: 'Other', value: 'OTHER' },
 ]
 const SubscriptionType: OptionsProps[] = [
   { name: 'Yes', value: true },
@@ -32,7 +31,6 @@ const SubscriptionType: OptionsProps[] = [
 const SearchHeader = ({ getFormData }: SearchProps) => {
   const [form] = Form.useForm()
   const [typeSelect, setTypeSelect] = useState(typeForKey[0].value)
-  const [selectedCateOptions, setSelectedCateOptions] = useState([])
   const [selectedOptions, setSelectedOptions] = useState([])
   const [cateId, setCateId] = useState<any>([])
   const [showCatePop, setShowCatePop] = useState(false)
@@ -73,8 +71,8 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
         <Row justify='start' gutter={[0, 14]}>
           <Col span={11}>
             <Input.Group compact className='flex'>
-              <Form.Item className='rounded-xl' name='selectName' initialValue={nameForKey[0].value}>
-                <Select style={{ width: 140 }} placeholder='Select a option and change input text above'>
+              <Form.Item className='rounded-xl ' name='selectName' initialValue={nameForKey[0].value}>
+                <Select style={{ width: 140 }} placeholder='Select a option and change input text above' className='ant-select-left no-border-radius-right'>
                   {nameForKey.map((el: any) => (
                     <Option key={el.value} value={el.value}>
                       {el.name}
@@ -83,14 +81,14 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                 </Select>
                 {/* <SelectKey list={nameForKey} /> */}
               </Form.Item>
-              <Form.Item name='goodsName' className='flex-1'>
-                <Input placeholder='Please Input' />
+              <Form.Item name='goodsName' className='flex-1 no-border-radius-left'>
+                <Input placeholder={`Please Input`} />
               </Form.Item>
             </Input.Group>
           </Col>
           <Col span={11} offset={2}>
             <Form.Item label='Category' name='cateId'>
-              <div className='flex cate-box items-center'>
+              <div className='flex cate-box items-center ant-input'>
                 <div className='flex-1 flex'>
                   {cateId?.length ? (
                     cateId.map((cate: any, idx: number) => (
@@ -111,7 +109,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                   />
                 ) : (
                   <EditOutlined
-                    className=''
+                    className='edit'
                     onClick={() => {
                       setShowCatePop(true)
                     }}
@@ -148,6 +146,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
             <Input.Group compact className='flex'>
               <Form.Item name='type' initialValue={typeForKey[0].value}>
                 <Select
+                  className='no-border-radius-right'
                   style={{ width: 150 }}
                   placeholder='Select a option and change input text above'
                   onChange={v => {
@@ -164,28 +163,28 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                 {/* <SelectKey list={typeForKey} /> */}
               </Form.Item>
               <Form.Item className='flex-1' name='GoodsType'>
-                <Select placeholder='Choose Product Type'>
+                <Select placeholder='Choose Product Type' className='no-border-radius-left '>
                   {typeSelect === typeForKey[0].value
                     ? chooseProductType.map((el: any) => (
-                        <Option key={el.value} value={el.value}>
-                          {el.name}
-                        </Option>
-                      ))
+                      <Option key={el.value} value={el.value}>
+                        {el.name}
+                      </Option>
+                    ))
                     : SubscriptionType.map((el: any) => (
-                        <Option key={el.value} value={el.value}>
-                          {el.name}
-                        </Option>
-                      ))}
+                      <Option key={el.value} value={el.value}>
+                        {el.name}
+                      </Option>
+                    ))}
                 </Select>
               </Form.Item>
             </Input.Group>
           </Col>
           <Col span={11} offset={11} className='text-right ml-0'>
             <Form.Item>
-              <Button htmlType='submit' type='primary' className='mr-4'>
+              <Button htmlType='submit' type='primary' className='mr-4 btn'>
                 Search
               </Button>
-              <Button onClick={onReset}>Reset</Button>
+              <Button onClick={onReset} className="btn">Reset</Button>
             </Form.Item>
           </Col>
         </Row>
