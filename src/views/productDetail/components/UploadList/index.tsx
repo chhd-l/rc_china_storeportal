@@ -115,7 +115,6 @@ const UploadWrap = (props: UploadWrapProps) => {
         })
       : []
     if (list) {
-      debugger
       setFileList(list)
     }
     if (list?.[0]) {

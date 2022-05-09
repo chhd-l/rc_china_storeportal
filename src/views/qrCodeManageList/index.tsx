@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import { tableColumns } from "./modules/constant"
 import { ContentContainer } from "@/components/ui"
 import { Link } from "react-router-dom"
-import { getQrCodes } from '@/framework/api/wechatSetting'
+import { createQrCode, getQrCodes } from '@/framework/api/wechatSetting'
 const QrCodeManage = () => {
   const [previewImage, setPreviewImage] = useState("")
   const QRcodeTypeList = Mock.mock(mockOptionsList).list
@@ -22,8 +22,13 @@ const QrCodeManage = () => {
     await getQrCodes({})
   }
 
+  const addQrCode=async ()=>{
+    await createQrCode({})
+  }
+
   useEffect(()=>{
     getQrCodeList()
+    addQrCode()
   },[])
 
   return (
@@ -35,8 +40,9 @@ const QrCodeManage = () => {
               + Add
             </Button>
           </Link>,
-          <SyncOutlined className="mt-6 ml-2 mr-8 text-xl " />,
+          // <SyncOutlined className="mt-6 ml-2 mr-8 text-xl " />,
         ]}
+        search={{ searchText: 'Search' }}
         columns={columns}
         request={(params, sorter, filter) => {
           // 表单搜索项会从 params 传入，传递给后端接口。

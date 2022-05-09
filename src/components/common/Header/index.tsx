@@ -4,6 +4,7 @@ import RouteBreadcrumb from '../Layout/RouteBreadcrumb'
 import userIcon from '@/assets/images/userIcon.svg'
 import { Dropdown, Menu } from "antd";
 import { useNavigate } from "react-router";
+import "./index.less"
 
 const MenuComp = (navigate: Function) => {
   
@@ -27,7 +28,7 @@ const MenuComp = (navigate: Function) => {
 const Header = ({ userInfo }: { userInfo: User | null }) => {
   const navigate = useNavigate();
   return (
-    <header style={{ height: "51px", verticalAlign: 'center',zIndex:"99" }} className="flex bg-white shadow-md w-full items-cente fixed overflow-hidden">
+    <header style={{ height: "51px", verticalAlign: 'center',zIndex:"99" }} className="flex bg-white w-full items-cente fixed overflow-hidden boxShodow">
       <div className="flex flex-row h-1/2 m-auto mr-0 ml-5 flex-none w-28">
         <img src={logo} alt="" className=" w-28 h-4/5 m-auto" />
       </div>

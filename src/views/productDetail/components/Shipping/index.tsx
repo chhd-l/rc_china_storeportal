@@ -1,8 +1,9 @@
 import { Form, Input, Row, Col } from 'antd'
 import { FormProps } from '@/framework/types/common'
+import "./index.less"
 
 const Shipping = ({ field }: FormProps) => (
-  <div>
+  <div className='shipping'>
     {/* test */}
     <Form.Item
       label='Weight'
@@ -11,7 +12,7 @@ const Shipping = ({ field }: FormProps) => (
       data-tips={`Product Weight:
 <p>Should input the weight when the product is ready to ship, meaning product weight + package weight.</p>`}
     >
-      <Input placeholder='please input' addonAfter='kg' />
+      <Input placeholder='Please input' addonAfter='kg' />
     </Form.Item>
     <Row
       className='tips-wrap'

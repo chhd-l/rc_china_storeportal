@@ -34,8 +34,9 @@ const MpQrList = () => {
           <Button className="mt-8 text-white" type="primary" ghost>
             + Add
           </Button>,
-          <SyncOutlined className="mt-6 ml-2 mr-8 text-xl " />,
+          // <SyncOutlined className="mt-6 ml-2 mr-8 text-xl " />,
         ]}
+        search={{ searchText: 'Search' }}
         columns={columns}
         request={(params, sorter, filter) => {
           // 表单搜索项会从 params 传入，传递给后端接口。
