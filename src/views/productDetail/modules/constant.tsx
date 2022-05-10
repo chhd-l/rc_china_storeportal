@@ -209,8 +209,9 @@ export const headerOrigition: any = [
   `,
   },
   {
-    label: 'SKUName',
+    label: 'SKU Name',
     type: 'input',
+    required: true,
     keyVal: 'skuName',
     dataTips: `SKU Name:
   <p>SKU Name should be related to the variation option</p>

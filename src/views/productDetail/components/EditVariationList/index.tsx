@@ -69,11 +69,12 @@ const EditVariationList = (props: FormProps) => {
       return header
     })
 
-    if (spuType === 'REGULAR') {
-      let idx = headerOrigition.findIndex((el: any) => el.keyVal === 'subSku')
-      headerOrigition.splice(idx, 1)
-    }
     const cloneHeaderOrigition = [...headerOrigition]
+
+    if (spuType === 'REGULAR') {
+      let idx = cloneHeaderOrigition.findIndex((el: any) => el.keyVal === 'subSku')
+      cloneHeaderOrigition.splice(idx, 1)
+    }
     debugger
     cloneHeaderOrigition.splice(1, 0, ...variationHeaders)
     setHeaderList(cloneHeaderOrigition)
@@ -312,6 +313,8 @@ const EditVariationList = (props: FormProps) => {
                             case 'input':
                               return (
                                 <Input
+                                  className='text-center'
+                                  placeholder='Input'
                                   onBlur={e => {
                                     tr[td.keyVal] = e.target.value
                                     updateVations(e.target.value, index, td.keyVal, tr)
@@ -320,7 +323,7 @@ const EditVariationList = (props: FormProps) => {
                                 />
                               )
                             case 'text':
-                              return <span className=' inline-block px-4'>{tr[td.keyVal]}</span>
+                              return <span className='text-center inline-block px-4'>{tr[td.keyVal]}</span>
                             case 'upload':
                               console.info('tr[td.keyVal]', tr[td.keyVal])
                               // return <span>{tr[td.keyVal]}</span>
@@ -341,12 +344,14 @@ const EditVariationList = (props: FormProps) => {
                             case 'priceInput':
                               return td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0' ? (
                                 <Input
+                                  className='text-center'
                                   disabled={td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0'}
                                   value=''
                                 />
                               ) : (
                                 <Input
-                                  className='price-input'
+                                  className='price-input text-center'
+                                  placeholder='Input'
                                   disabled={td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0'}
                                   prefix='￥'
                                   onBlur={e => {
@@ -359,9 +364,11 @@ const EditVariationList = (props: FormProps) => {
                             case 'select':
                               return (
                                 <Select
+                                  className='text-center'
                                   defaultValue={tr[td.keyVal]}
                                   // value={tr[td.keyVal]}
                                   style={{ width: 120 }}
+                                  placeholder='Select'
                                   options={td.options}
                                   // defaultValue={tr[td.keyVal]}
                                   onChange={(value, option) => {
@@ -379,8 +386,9 @@ const EditVariationList = (props: FormProps) => {
                                 <div>{tr[td.keyVal]}</div>
                               ) : (
                                 <Input
-                                  className=''
+                                  className='text-center'
                                   type='number'
+                                  placeholder='Input'
                                   onBlur={e => {
                                     tr[td.keyVal] = e.target.value
                                     updateVations(e.target.value, index, td.keyVal, tr)

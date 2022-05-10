@@ -11,7 +11,7 @@ import BundleSubSKuPop from '../BundleSubSKuPop'
 import { DeleteOutlined } from '@ant-design/icons'
 import { data } from 'browserslist'
 import { debug } from 'console'
-import "./index.less"
+import './index.less'
 interface ContextProps {
   variationForm: VarationsFormProps
   setVariationForm: () => void
@@ -139,63 +139,63 @@ const SalesInfo = (props: FormProps) => {
   return (
     // <div>test</div>
     <div className='salesinfo'>
-    <VariationosContext.Provider value={{ variationForm, setVariationForm }}>
-      <AddVariation />
-      <EditVariationList field={props.field} />
-      <BundleSubSKuPop
-        isModalVisible={showBundleChoose}
-        setShowBundleChoose={setShowBundleChoose}
-        handleOk={chooseBundleSku}
-        defaultSelected={regularList?.filter(el => !el.isDeleted)?.map((el: any) => el?.subGoodsVariantId || el)}
-      />
+      <VariationosContext.Provider value={{ variationForm, setVariationForm }}>
+        <AddVariation />
+        <EditVariationList field={props.field} />
+        <BundleSubSKuPop
+          isModalVisible={showBundleChoose}
+          setShowBundleChoose={setShowBundleChoose}
+          handleOk={chooseBundleSku}
+          defaultSelected={regularList?.filter(el => !el.isDeleted)?.map((el: any) => el?.subGoodsVariantId || el)}
+        />
 
-      {variationForm.variationList.filter((el: any) => !el.isDeleted)?.length ? null : (
-        <div>
-          {spuType === 'BUNDLE' ? (
-            // {true ? (
-            <Form.Item {...layout} label='Sub SKU' name='subSku' rules={[{ required: true }]}>
-              <div className='flex'>
-                <div
-                  onClick={() => {
-                    setShowBundleChoose(true)
-                  }}
-                  className='border border-dashed border-primary w-8 h-8 p-1 cursor-pointer'
-                >
-                  <div className='rounded-full border border-solid  border-primary w-full h-full justify-center flex items-center'>
-                    +
+        {variationForm.variationList.filter((el: any) => !el.isDeleted)?.length ? null : (
+          <div>
+            {spuType === 'BUNDLE' ? (
+              // {true ? (
+              <Form.Item {...layout} label='Sub SKU' name='subSku' rules={[{ required: true }]}>
+                <div className='flex justify-center'>
+                  <div
+                    onClick={() => {
+                      setShowBundleChoose(true)
+                    }}
+                    className='border border-dashed border-primary w-8 h-8 p-1 cursor-pointer'
+                  >
+                    <div className='rounded-full border border-solid  border-primary w-full h-full justify-center flex items-center'>
+                      +
+                    </div>
+                  </div>
+                  <div>
+                    {regularList?.map((el: any, index: number) => {
+                      return (
+                        <div className='flex items-center my-1' key={el.subGoodsVariantId}>
+                          <div className='w-20'>{el.skuNo}</div>
+                          <InputNumber
+                            size='small'
+                            min={1}
+                            value={el.bundleNumber}
+                            // max={100}
+                            onChange={val => {
+                              onChange(val, index)
+                            }}
+                          />
+                          <DeleteOutlined
+                            className='ml-2'
+                            onClick={() => {
+                              handleDelete(index)
+                            }}
+                          />
+                        </div>
+                      )
+                    })}
                   </div>
                 </div>
-                <div>
-                  {regularList?.map((el: any, index: number) => {
-                    return (
-                      <div className='flex items-center my-1' key={el.subGoodsVariantId}>
-                        <div className='w-20'>{el.skuNo}</div>
-                        <InputNumber
-                          size='small'
-                          min={1}
-                          value={el.bundleNumber}
-                          // max={100}
-                          onChange={val => {
-                            onChange(val, index)
-                          }}
-                        />
-                        <DeleteOutlined
-                          className='ml-2'
-                          onClick={() => {
-                            handleDelete(index)
-                          }}
-                        />
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-            </Form.Item>
-          ) : null}
-          <FormItem list={noSkuFormList} {...props} layout={layout} />
-        </div>
-      )}
-    </VariationosContext.Provider>
+              </Form.Item>
+            ) : null}
+            <FormItem list={noSkuFormList} {...props} layout={layout} />
+          </div>
+        )}
+      </VariationosContext.Provider>
     </div>
   )
 }

@@ -133,7 +133,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         rules={[{ required: true, message: 'Missing SPU' }]}
         labelCol={{ span: 3 }}
       >
-        <Input className='input-radius' />
+        <Input placeholder='Please input' className='input-radius' />
       </Form.Item>
       <Form.Item
         label='Product Name'
@@ -143,10 +143,10 @@ const BasicInfo = ({ field, form }: FormProps) => {
         rules={[{ required: true, message: 'Missing Product Name' }]}
         labelCol={{ span: 3 }}
       >
-        <Input data-tips='test' showCount maxLength={120} className='input-radius' />
+        <Input data-tips='test' showCount maxLength={120} placeholder='Please input' className='input-radius' />
       </Form.Item>
 
-      <Form.Item
+      {/* <Form.Item
         label='Product Card Name'
         className='tips-wrap'
         data-tips={`Product Card Name:<p>Product Card Name should be set as the display name in the product list</p>`}
@@ -154,13 +154,13 @@ const BasicInfo = ({ field, form }: FormProps) => {
         labelCol={{ span: 3 }}
       >
         <Input showCount maxLength={120} className='input-radius' />
-      </Form.Item>
+      </Form.Item> */}
       <Form.Item
         label='Product Description'
         name='goodsDescription'
         className='tips-wrap'
         data-tips={`Product Description:
-        Should consist of<br/>
+        Should like<br/>
         1. Brand<br/>
         2. Weight<br/>
         3. Benefits<br/>
@@ -207,25 +207,20 @@ const BasicInfo = ({ field, form }: FormProps) => {
         labelCol={{ span: 4 }}
         rules={[{ required: true }]}
       >
-        <Select placeholder='Please select Brand' options={brandList} style={{ width: 195 }} className='input-radius' />
+        <Select placeholder='Please select' options={brandList} style={{ width: 195 }} className='input-radius' />
       </Form.Item>
       <Form.Item
         label='Sales Status'
         className='tips-wrap with-no-margin'
         data-tips={`Sales Status:
-<p>Products that need to be displayed and sold in the store should be set to Y</p>
-<p>Products that are not displayed and sold in the mall should be set to N</p>
+<p>Products that need to be displayed and sold in the store should be set to Saleable</p>
+<p>Products that are not displayed and sold in the mall should be set to Not saleable</p>
 `}
         name='salesStatus'
         labelCol={{ span: 4 }}
         rules={[{ required: true }]}
       >
-        <Select
-          placeholder='Please select Sales Status'
-          options={salesStatusList}
-          style={{ width: 195 }}
-          className='input-radius'
-        />
+        <Select placeholder='Please select' options={salesStatusList} style={{ width: 195 }} className='input-radius' />
       </Form.Item>
     </div>
   )

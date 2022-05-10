@@ -179,7 +179,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                       form.submit()
                     }}
                   >
-                    {pathname === '/product/add' ? 'Save and Delish' : 'Delish'}
+                    {pathname === '/product/add' ? 'Save and Delist' : 'Delist'}
                   </Button>
                 ) : null
               ) : (
@@ -190,11 +190,11 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                     form.submit()
                   }}
                 >
-                  {pathname === '/product/add' ? 'Save and Delish' : 'Delish'}
+                  {pathname === '/product/add' ? 'Save and Delist' : 'Delist'}
                 </Button>
               )}
               {pathname !== '/product/add' ? (
-                beforeData.shelvesStatus ? (
+                !beforeData.shelvesStatus ? (
                   <Button
                     className='ml-4'
                     type='primary'
@@ -234,8 +234,8 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
           </div>
         </Form>
       </div>
-      <div className={`w-36 fixed right-10 ${showCatePop ? 'hidden' : ''}`} style={{ top: '100px' }}>
-        <Anchor affix={false} className='rc-anchor' targetOffset={64} style={{ top: '64px' }}>
+      <div className={`w-48 fixed rc-anchor ${showCatePop ? 'hidden' : ''}`} style={{ top: '100px', right: '8%' }}>
+        <Anchor affix={true} targetOffset={164} style={{ top: '64px' }}>
           {steps.map((step, idx) => (
             <Link key={step.anchor + idx} href={`#${step.anchor}`} title={step.title} />
           ))}
