@@ -91,8 +91,9 @@ const PetOwnerList = () => {
     <ContentContainer>
       <SearchContainer className="order-search-top">
         <Tabs activeKey={activeKey} onChange={changeTab}>
-          {tabList.map((item, idx) => (
-            <Tabs.TabPane tab={item.label} key={idx} />
+          {/*不要把key改成index,不然请求数据有问题！！！！*/}
+          {tabList.map((item) => (
+            <Tabs.TabPane tab={item.label} key={item.key} />
           ))}
         </Tabs>
         <ConfigProvider locale={en_US} >

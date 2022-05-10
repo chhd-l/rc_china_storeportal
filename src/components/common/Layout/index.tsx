@@ -1,21 +1,21 @@
-import { Outlet } from "react-router-dom";
-import Menus from "../Menus";
-import { useLocation } from "react-router-dom";
-import TopHeader from "../Header";
-import { Layout } from "antd";
-import { useAtom } from "jotai";
-import { userAtom } from "@/store/user.store";
-import { useEffect, useState } from "react";
+import { Outlet } from 'react-router-dom'
+import Menus from '../Menus'
+import { useLocation } from 'react-router-dom'
+import TopHeader from '../Header'
+import { Layout } from 'antd'
+import { useAtom } from 'jotai'
+import { userAtom } from '@/store/user.store'
+import { useEffect, useState } from 'react'
 
-const { Content, Sider } = Layout;
+const { Content, Sider } = Layout
 
 const AppLayout = () => {
-  const { pathname } = useLocation();
+  const { pathname } = useLocation()
   const [userInfo] = useAtom(userAtom)
   const [isOpen, setIsOpen] = useState(true)
 
-  useEffect(()=>{
-    if(pathname.split('/').some((path) => path === 'product') && pathname !== '/product/product-list') {
+  useEffect(() => {
+    if (pathname.split('/').some(path => path === 'product') && pathname !== '/product/product-list') {
       setIsOpen(false)
     } else {
       setIsOpen(true)
@@ -23,7 +23,7 @@ const AppLayout = () => {
   }, [pathname])
 
   return (
-    <Layout >
+    <Layout>
       <TopHeader userInfo={userInfo} />
       <Layout>
         {
@@ -58,10 +58,10 @@ const AppLayout = () => {
         </Sider> */}
         <Layout style={{ marginLeft: isOpen ? 200 : 0 }} >
           <Content
-            className="site-layout-background"
+            className='site-layout-background'
             style={{
               // padding: 24,
-              margin: '59px 24px 0 24px',
+              margin: '59px 10% 0',
               // minHeight: 600,
             }}
           >
@@ -70,6 +70,6 @@ const AppLayout = () => {
         </Layout>
       </Layout>
     </Layout>
-  );
-};
-export default AppLayout;
+  )
+}
+export default AppLayout

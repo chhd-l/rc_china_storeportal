@@ -65,7 +65,7 @@ const UploadWrap = (props: UploadWrapProps) => {
       {loading ? (
         <LoadingOutlined />
       ) : (
-        <div className='rounded-full border border-solid p-2  border-primary w-full h-full justify-center flex items-center'>
+        <div className='rounded-full border border-solid p-1  border-primary w-full h-full justify-center flex items-center'>
           <PlusOutlined />
         </div>
       )}
@@ -157,9 +157,11 @@ const UploadWrap = (props: UploadWrapProps) => {
             uploadButton
           )}
         </Upload>
-        <div className='mb-4 -mt-1 text-center' style={{ width: 104 }}>
-          {imageInfo?.name}
-        </div>
+        {imageInfo?.name ? (
+          <div className='mb-4 -mt-1 text-center' style={{ width: 104 }}>
+            {imageInfo?.name}
+          </div>
+        ) : null}
       </div>
     </div>
   )

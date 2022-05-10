@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { searchTypeList, initSearchParams } from '../../modules/constants'
 import { MenuOutlined } from '@ant-design/icons'
 import { OrderSearchParamsProps } from '@/framework/types/order'
-import LatestReports from "../LatestReports/index"
+import LatestReports from '../LatestReports/index'
 
 const OrderSearch = ({ query }: { query: Function }) => {
   const [searchParams, setSearchParams] = useState<OrderSearchParamsProps>(initSearchParams)
@@ -20,24 +20,21 @@ const OrderSearch = ({ query }: { query: Function }) => {
           }}
         />
         <Space direction="vertical">
-          <Dropdown overlay={LatestReports} placement="bottom" >
+          <Dropdown overlay={LatestReports} placement="bottom">
             <Button className="ml-3">Export</Button>
           </Dropdown>
         </Space>
-        <Button
-          className="ml-3"
-          icon={<MenuOutlined style={{ color: "#979797" }} />}
-        />
+        <Button className="ml-3" icon={<MenuOutlined style={{ color: '#979797' }} />} />
       </div>
       <div className="flex flex-row items-center mt-4 text-left">
         <Input.Group compact>
           <Select
             onChange={(value, a) => {
-              setSearchParams({ ...searchParams, searchType: value });
+              setSearchParams({ ...searchParams, searchType: value })
             }}
             getPopupContainer={(trigger: any) => trigger.parentNode}
             value={searchParams.searchType}
-            style={{ width: "20%" }}
+            style={{ width: '20%' }}
           >
             {searchTypeList.map((item, idx) => (
               <Select.Option value={item.key} key={idx}>
@@ -55,6 +52,9 @@ const OrderSearch = ({ query }: { query: Function }) => {
               })
             }}
             placeholder={'Input ' + searchTypeList.filter((item) => item.key === searchParams.searchType)[0].label}
+            onPressEnter={() => {
+              query && query(searchParams)
+            }}
           />
         </Input.Group>
         <Button

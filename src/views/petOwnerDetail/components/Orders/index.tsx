@@ -52,9 +52,9 @@ const OrderInformation = ({ id, customerId }: OrderInfoProps) => {
     }
   }, [customerId])
   return (
-    <div id={id} className="mt-4">
-      <div className="py-4 px-2 border-b text-xl font-medium">Order Information</div>
-      <div className="px-2 py-4 flex flex-row items-center justify-end">
+    <div id={id}>
+      <div className="text-xl font-medium">Order Information</div>
+      <div className="flex flex-row items-center justify-end mb-4">
         <div className="w-auto mr-3">Order Creation Date</div>
         <DatePicker.RangePicker
           style={{ width: '300px' }}
