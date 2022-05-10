@@ -219,7 +219,7 @@ export const upsertAppQrCodes = async (queryParams: any) => {
       imgUrl: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/05774105-6b54-384d-7ce9-5f75fcd1a98c.png',
       operator: 'zz',
     }
-    let res = await ApiRoot.wechatSettings().updateAppQrCode({ body: params })
+    let res = await ApiRoot.wechatSettings().updateAppQrCode({ body: queryParams })
     const upsertWxAppQRCode = res?.upsertWxAppQRCode
     console.log('upsert app qrCode view data', upsertWxAppQRCode)
     return upsertWxAppQRCode || false
@@ -255,18 +255,7 @@ export const getQrCodes = async (queryParams: any) => {
 export const createQrCode = async (queryParams: any) => {
   try {
     //todo 参数处理 编辑参数加id,删除参数加id and isDeleted
-    const params = {
-      input: {
-        accountId: '000001',
-        name: '111',
-        type: 'QR_LIMIT_STR_SCENE',
-        replyContentId: '111',
-        comment: 'cccc',
-        ScenarioStr: 'sss',
-      },
-      operator: 'zz',
-    }
-    let res = await ApiRoot.wechatSettings().addQrCode(params)
+    let res = await ApiRoot.wechatSettings().addQrCode({ input: queryParams })
     const addQrCode = res?.addQrCode
     console.log('upsert app qrCode view data', addQrCode)
     return addQrCode

@@ -56,14 +56,14 @@ const BundleSbuSKu = ({
         return skuStock
       })
       .map(el => el.subSkuStock)
-    debugger
+    // debugger
     let spuStock = Math.min(...stockArr)
     skuItem.stock = spuStock
     setRegularList(cloneDeep(regularList))
     updateBundleInfo(skuItem.goodsVariantBundleInfo)
   }
   const updateBundleInfo = (val: any) => {
-    debugger
+    // debugger
     let bundleInfo = val?.map((el: any) => {
       let info: any = {
         bundleNumber: el.bundleNumber,

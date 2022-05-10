@@ -170,7 +170,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
               >
                 Cancel
               </Button>
-              {pathname !== '/product/add' ? (
+              {pathname !== '/product/product-detail/add' ? (
                 beforeData.shelvesStatus ? (
                   <Button
                     className='ml-4'
@@ -179,7 +179,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                       form.submit()
                     }}
                   >
-                    {pathname === '/product/add' ? 'Save and Delist' : 'Delist'}
+                    {pathname === '/product/product-detail/add' ? 'Save and Delist' : 'Delist'}
                   </Button>
                 ) : null
               ) : (
@@ -190,10 +190,10 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                     form.submit()
                   }}
                 >
-                  {pathname === '/product/add' ? 'Save and Delist' : 'Delist'}
+                  {pathname === '/product/product-detail/add' ? 'Save and Delist' : 'Delist'}
                 </Button>
               )}
-              {pathname !== '/product/add' ? (
+              {pathname !== '/product/product-detail/add' ? (
                 !beforeData.shelvesStatus ? (
                   <Button
                     className='ml-4'
@@ -203,7 +203,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                       form.submit()
                     }}
                   >
-                    {pathname === '/product/add' ? 'Save and Publish' : 'Publish'}
+                    {pathname === '/product/product-detail/add' ? 'Save and Publish' : 'Publish'}
                   </Button>
                 ) : null
               ) : (
@@ -215,10 +215,10 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                     form.submit()
                   }}
                 >
-                  {pathname === '/product/add' ? 'Save and Publish' : 'Publish'}
+                  {pathname === '/product/product-detail/add' ? 'Save and Publish' : 'Publish'}
                 </Button>
               )}
-              {pathname !== '/product/add' ? (
+              {pathname !== '/product/product-detail/add' ? (
                 <Button
                   className='ml-4'
                   type='primary'

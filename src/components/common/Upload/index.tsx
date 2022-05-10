@@ -67,7 +67,7 @@ const UploadWrap = (props: UploadWrapProps) => {
   }
   const handleChange = async (info: UploadChangeParam<UploadFile<any>>) => {
     let list = fileList.length ? fileList : []
-    debugger
+    // debugger
     if (info.file.status === 'uploading') {
       setLoading(true)
     } else if (info.file.status === 'done') {

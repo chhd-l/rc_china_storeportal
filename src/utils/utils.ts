@@ -70,7 +70,7 @@ export const handleArrDataForEdit = (before: any, after: any, diffObj: any, keyN
     return
   }
   if (keyName === 'goodsSpecifications') {
-    debugger
+    // debugger
   }
   if (!diffObj[keyName]) {
     diffObj[keyName] = []
@@ -96,7 +96,7 @@ export const handleArrDataForEdit = (before: any, after: any, diffObj: any, keyN
   //判断有没有新增
   let added = complement.filter((item: any) => !item.id)
   if (deleted?.length || added?.length) {
-    debugger
+    // debugger
     let datas = [...deleted, ...added]
     diffObj[keyName].push(datas)
     // if (diffObj[keyName]) {

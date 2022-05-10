@@ -161,7 +161,7 @@ const AddVariation = ({}: AddVariationProps) => {
     const { variationList } = variationForm
     if (detail.id) {
       //编辑
-      debugger
+      // debugger
     }
     variationList[collection].specificationList = arrayMoveImmutable(
       variationList[collection].specificationList,
