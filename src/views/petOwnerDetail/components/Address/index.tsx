@@ -69,9 +69,9 @@ const MyAddress = ({ id, customerId }: { id: string; customerId: string }) => {
     },
   ]
   return (
-    <div id={id} className="mt-4">
-      <div className="py-4 px-2 border-b text-xl font-medium">My Address</div>
-      <div className="py-4">
+    <div id={id}>
+      <div className="text-xl font-medium">My Address</div>
+      <div className="mt-4">
         <Table dataSource={addressList} columns={columns} pagination={false} rowKey="id" className="rc-table" />
       </div>
     </div>

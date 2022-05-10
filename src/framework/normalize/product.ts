@@ -10,7 +10,7 @@ import { handleObjDataForEdit } from '@/utils/utils'
 import { map } from 'lodash'
 
 export const normaliseDetailforFe = (detail: any) => {
-  let withoutSku = !detail.goodsVariants[0]?.skuNo
+  let withoutSku = !detail.goodsVariants?.[0]?.skuNo
 
   let { variationList, variationLists } = normaliseVariationAndSpecification(detail.goodsSpecifications, detail.goodsVariants)
 

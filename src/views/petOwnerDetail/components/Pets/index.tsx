@@ -23,11 +23,11 @@ const PetInformation = ({ id, customerId }: { customerId: string; id: string }) 
 
   return (
     <div id={id} className="pet-information">
-      <div className="py-4 px-2 border-b text-xl font-medium ">Pet Information</div>
+      <div className="py-4 px-2 border-b text-xl font-medium">Pet Information</div>
       {pets.length > 0 ? (
-        <div className="px-2 py-4 flex flex-row flex-wrap justify-items-center">
-          {pets.map((item: Pet) => (
-            <div className="flex justify-between items-center border p-4 mt-4 ml-2 justify-items-stretch" style={{width:'32%'}} key={item.id}>
+        <div className="grid grid-cols-2 gap-4">
+          {pets.map((item: Pet,index) => (
+            <div className={`flex justify-between items-center border p-4 mt-4 justify-items-stretch w-full`} key={item.id}>
               <div className="flex flex-row">
                 <Avatar shape="square"  icon={<UserOutlined />} />
                 <div className="ml-4">

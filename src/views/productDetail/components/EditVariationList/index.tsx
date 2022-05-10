@@ -1,6 +1,6 @@
 import './index.less'
 import { VariationosContext } from '../SalesInfo'
-import { useContext, useEffect, useState } from 'react'
+import { ReactElement, useContext, useEffect, useState } from 'react'
 import { cloneDeep } from 'lodash'
 import { Button, Col, Form, Input, Popover, Row, Select } from 'antd'
 import { FormProps } from '@/framework/types/common'
@@ -23,14 +23,16 @@ export interface VarviationProps {
 }
 interface HeaderProps {
   type: string
-  label: string
+  label: string | ReactElement
   keyVal: string
   dataTips?: string
   options?: any
+  required?: boolean
 }
-let isInited = false
 const EditVariationList = (props: FormProps) => {
   const { detail, spuType } = useContext(DetailContext)
+  const [isInited, setIsInited] = useState(false)
+  // let isInited = false
   const { variationForm: cloneVariationForm } = useContext(VariationosContext)
   //changeType操作variation需要做include处理；操作spec需要做===处理
   const [variationList, setVariationList] = useState<VarviationProps[]>([])
@@ -67,11 +69,13 @@ const EditVariationList = (props: FormProps) => {
       return header
     })
 
-    if (spuType === 'REGULAR') {
-      let idx = headerOrigition.findIndex((el: any) => el.keyVal === 'subSku')
-      headerOrigition.splice(idx, 1)
-    }
     const cloneHeaderOrigition = [...headerOrigition]
+
+    if (spuType === 'REGULAR') {
+      let idx = cloneHeaderOrigition.findIndex((el: any) => el.keyVal === 'subSku')
+      cloneHeaderOrigition.splice(idx, 1)
+    }
+    debugger
     cloneHeaderOrigition.splice(1, 0, ...variationHeaders)
     setHeaderList(cloneHeaderOrigition)
   }
@@ -152,6 +156,7 @@ const EditVariationList = (props: FormProps) => {
     if (specList?.[0]) {
       let datas = calcDescartes(specList)
       if (detail.variationLists?.length && !isInited) {
+        debugger
         initWithDefault(cloneDeep(datas))
       } else {
         init(cloneDeep(datas), data)
@@ -161,7 +166,10 @@ const EditVariationList = (props: FormProps) => {
     }
   }
   const initWithDefault = (vartions: any) => {
-    isInited = true
+    setIsInited(true)
+    // isInited = true //设置在组件外只能渲染一次，重复进来不会重置初始值
+    debugger
+
     init(vartions, { variationList: detail.variationLists }, true)
   }
   const init = (vartions: any, { variationList: formData, changeType }: any, isDefultData?: boolean) => {
@@ -178,9 +186,9 @@ const EditVariationList = (props: FormProps) => {
         stock: '',
         subSku: '',
         feedingDays: '',
-        isSupport100: '',
+        isSupport100: 'true',
         shelvesStatus: '',
-        subscriptionStatus: '',
+        subscriptionStatus: '1',
         eanCode: '',
         listPrice: '',
         marketingPrice: '',
@@ -281,7 +289,14 @@ const EditVariationList = (props: FormProps) => {
               <tr className='text-center bg-gray-primary h-12'>
                 {headerList.map((th, index) => (
                   <th className='font-normal' key={index}>
-                    {th.label}
+                    {th.required ? (
+                      <span>
+                        <span className='primary-color required-text'>*</span>
+                        {th.label}
+                      </span>
+                    ) : (
+                      th.label
+                    )}
                   </th>
                 ))}
               </tr>
@@ -298,6 +313,8 @@ const EditVariationList = (props: FormProps) => {
                             case 'input':
                               return (
                                 <Input
+                                  className='text-center'
+                                  placeholder='Input'
                                   onBlur={e => {
                                     tr[td.keyVal] = e.target.value
                                     updateVations(e.target.value, index, td.keyVal, tr)
@@ -306,7 +323,7 @@ const EditVariationList = (props: FormProps) => {
                                 />
                               )
                             case 'text':
-                              return <span className=' inline-block px-4'>{tr[td.keyVal]}</span>
+                              return <span className='text-center inline-block px-4'>{tr[td.keyVal]}</span>
                             case 'upload':
                               console.info('tr[td.keyVal]', tr[td.keyVal])
                               // return <span>{tr[td.keyVal]}</span>
@@ -327,12 +344,14 @@ const EditVariationList = (props: FormProps) => {
                             case 'priceInput':
                               return td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0' ? (
                                 <Input
+                                  className='text-center'
                                   disabled={td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0'}
                                   value=''
                                 />
                               ) : (
                                 <Input
-                                  className='price-input'
+                                  className='price-input text-center'
+                                  placeholder='Input'
                                   disabled={td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0'}
                                   prefix='￥'
                                   onBlur={e => {
@@ -345,9 +364,11 @@ const EditVariationList = (props: FormProps) => {
                             case 'select':
                               return (
                                 <Select
+                                  className='text-center'
                                   defaultValue={tr[td.keyVal]}
                                   // value={tr[td.keyVal]}
                                   style={{ width: 120 }}
+                                  placeholder='Select'
                                   options={td.options}
                                   // defaultValue={tr[td.keyVal]}
                                   onChange={(value, option) => {
@@ -365,8 +386,9 @@ const EditVariationList = (props: FormProps) => {
                                 <div>{tr[td.keyVal]}</div>
                               ) : (
                                 <Input
-                                  className=''
+                                  className='text-center'
                                   type='number'
+                                  placeholder='Input'
                                   onBlur={e => {
                                     tr[td.keyVal] = e.target.value
                                     updateVations(e.target.value, index, td.keyVal, tr)

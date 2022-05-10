@@ -50,7 +50,7 @@ const TencentAccounts = ({ id, customerId }: { id: string; customerId: string })
 
   return (
     <div id={id}>
-      <div className="py-4 px-2 border-b text-xl font-medium mb-2">Tencent Account</div>
+      <div className="text-xl font-medium mb-4">Tencent Account</div>
       <Table
         dataSource={tencentAccountList}
         columns={columns}

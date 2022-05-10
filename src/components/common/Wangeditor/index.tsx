@@ -2,7 +2,7 @@ import { useState, useEffect, FC } from 'react'
 import '@wangeditor/editor/dist/css/style.css'
 import { IEditorConfig, DomEditor } from '@wangeditor/editor'
 import { Editor, Toolbar } from '@wangeditor/editor-for-react'
-import "./index.less"
+import './index.less'
 interface EditorProps {
   onChange?: Function
   defaultValue?: string
@@ -53,11 +53,21 @@ const MyEditor: FC<EditorProps> = ({ defaultValue = '', onChange }) => {
     }
   }
   useEffect(() => {
+    setHtml(`<p></p>`)
+  }, [])
+  useEffect(() => {
+    //重新塞进去菜单就会被禁用？注释掉就active?
     if (defaultValue) {
       console.info('goodsDescriptiondefaultValue======', defaultValue)
       setHtml(`<p>${defaultValue}</p>`) //不知道为啥加了标签就可以反显，不加就不行
     }
   }, [defaultValue])
+  // useEffect(() => {
+  //   if (defaultValue) {
+  //     console.info('goodsDescriptiondefaultValue======', defaultValue)
+  //     setHtml(`<p>${defaultValue}</p>`) //不知道为啥加了标签就可以反显，不加就不行
+  //   }
+  // }, [defaultValue])
 
   // 及时销毁 editor
   useEffect(() => {
@@ -76,12 +86,12 @@ const MyEditor: FC<EditorProps> = ({ defaultValue = '', onChange }) => {
   // console.info('htmlhtmlhtml', html)
   return (
     <>
-      <div className="wangeditor">
+      <div className='wangeditor'>
         <Toolbar
           editor={editor}
           defaultConfig={toolbarConfig}
           mode='default'
-          style={{ borderBottom: '1px solid #ccc'}}
+          style={{ borderBottom: '1px solid #ccc' }}
         />
         <Editor
           defaultConfig={editorConfig}

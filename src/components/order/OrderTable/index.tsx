@@ -122,6 +122,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
                   orderState={item.tradeState.orderState}
                   orderId={item.id}
                   orderAddress={item.shippingAddress}
+                  orderBuyer={item.buyer}
                 />
               </Col>
             </Row>

@@ -3,6 +3,7 @@ import ProForm, { ProFormText, ProFormSelect } from '@ant-design/pro-form'
 import Cascader from '../Cascader'
 import { ProductType } from '@/framework/types/product'
 import './style.less'
+import { useEffect, useState } from 'react'
 // import { detail } from '@/framework/mock/productdetail'
 interface ChooseCateProps {
   handleCate: Function
@@ -18,6 +19,7 @@ const formItemLayout = {
 }
 
 const ChooseCate = ({ handleCate, setShowCatePop, detail, setProductName, setSpuType }: ChooseCateProps) => {
+  const [disableType, setDisableType] = useState(false)
   // const onFinish = (values: any) => {
   //   console.log(values);
   // };
@@ -26,6 +28,11 @@ const ChooseCate = ({ handleCate, setShowCatePop, detail, setProductName, setSpu
   //   wrapperCol: { span: 16 },
   // };
   // const onSearch = (value: any) => console.log(value);
+  useEffect(() => {
+    if (detail?.type) {
+      setDisableType(true)
+    }
+  }, [])
   return (
     <div className='bg-gray-50  py-6 px-20 text-left addProduct'>
       <div className='bg-white py-6 px-8'>
@@ -71,6 +78,7 @@ const ChooseCate = ({ handleCate, setShowCatePop, detail, setProductName, setSpu
             <ProFormSelect
               width={200}
               name='type'
+              disabled={disableType}
               rules={[{ required: true, message: 'Product Type required' }]}
               // required={true}
               label='Product Type'
