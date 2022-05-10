@@ -75,7 +75,7 @@ const EditVariationList = (props: FormProps) => {
       let idx = cloneHeaderOrigition.findIndex((el: any) => el.keyVal === 'subSku')
       cloneHeaderOrigition.splice(idx, 1)
     }
-    debugger
+    // debugger
     cloneHeaderOrigition.splice(1, 0, ...variationHeaders)
     setHeaderList(cloneHeaderOrigition)
   }
@@ -156,7 +156,7 @@ const EditVariationList = (props: FormProps) => {
     if (specList?.[0]) {
       let datas = calcDescartes(specList)
       if (detail.variationLists?.length && !isInited) {
-        debugger
+        // debugger
         initWithDefault(cloneDeep(datas))
       } else {
         init(cloneDeep(datas), data)
@@ -168,7 +168,7 @@ const EditVariationList = (props: FormProps) => {
   const initWithDefault = (vartions: any) => {
     setIsInited(true)
     // isInited = true //设置在组件外只能渲染一次，重复进来不会重置初始值
-    debugger
+    // debugger
 
     init(vartions, { variationList: detail.variationLists }, true)
   }
