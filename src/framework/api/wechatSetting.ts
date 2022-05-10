@@ -289,6 +289,18 @@ export const getTemplateItems = async (queryParams: any) => {
   }
 }
 
+export const syncTemplateItem = async () => {
+  try {
+    let res = await ApiRoot.wechatSettings().syncTemplateItem({ accountId: '000001', operator: 'zz' })
+    const syncTemplateItem = res?.syncTemplateItem
+    console.log('sync template item view data', syncTemplateItem)
+    return syncTemplateItem || false
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+}
+
 // 查询
 export const getTemplateMessages = async (queryParams: any) => {
   try {
@@ -313,6 +325,18 @@ export const getTemplateMessages = async (queryParams: any) => {
   }
 }
 
+export const getTemplateDetail = async (id: string) => {
+  try {
+    let res = await ApiRoot.wechatSettings().getTemplateMessageDetail(id)
+    const templateMessageDetails = res?.templateMessageDetails
+    console.log('get template message detail view data', templateMessageDetails)
+    return templateMessageDetails
+  } catch (e) {
+    console.log(e)
+    return {}
+  }
+}
+
 // 新增TemplateMessage
 export const createTemplateMessage = async (queryParams: any) => {
   try {
@@ -329,7 +353,7 @@ export const createTemplateMessage = async (queryParams: any) => {
 // 编辑、删除TemplateMessage
 export const updateTemplateMessage = async (queryParams: any) => {
   try {
-    let res = await ApiRoot.wechatSettings().modifyTemplateMessage({ body: queryParams,operator:"zz" })
+    let res = await ApiRoot.wechatSettings().modifyTemplateMessage({ body: queryParams, operator: 'zz' })
     const modifyTemplateMessage = res?.modifyTemplateMessage
     console.log('get templateItem list view data', modifyTemplateMessage)
     return modifyTemplateMessage || false
