@@ -85,7 +85,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
       })
     }
   }, [detail?.selectedCateOptions])
-  console.info('......detaildetaildetaildetail', initAsserts)
+  console.info('......detaildetaildetaildetail', detail)
   return (
     <div className='basicinfo'>
       <Form.Item
