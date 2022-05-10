@@ -55,7 +55,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
       type: spuType,
       shelvesStatus,
     })
-    let withoutSku = !detail.variationForm?.variationList?.length
+    let withoutSku = !detail.goodsSpecificationsInput?.length
     debugger
     if (withoutSku) {
       params.goodsVariantsInput = [
@@ -144,7 +144,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                   <div id={idx > 0 ? steps[idx].anchor : 'anchor-1'}>
                     <div className='pb-2'>
                       <div className='flex justify-between  pb-2'>
-                        <div className='font-black text-lg'>{steps[idx].title}</div>
+                        <div className='font-black text-lg font-bold'>{steps[idx].title}</div>
                         <div>{steps[idx].rightSlot}</div>
                       </div>
                       <div className='pb-4'>{steps[idx].subTitle}</div>
