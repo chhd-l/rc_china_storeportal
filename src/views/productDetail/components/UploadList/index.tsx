@@ -32,6 +32,7 @@ const UploadWrap = (props: UploadWrapProps) => {
   const [previewVisible, setPreviewVisible] = useState(false)
   const [fileList, setFileList] = useState<any>([])
   const [imageInfo, setImageInfo] = useState<any>({})
+  const [fileName, setFileName] = useState('')
   const uploadProps = {
     name: 'file',
     action: 'https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload',
@@ -77,7 +78,7 @@ const UploadWrap = (props: UploadWrapProps) => {
   }
   const handleChange = async (info: UploadChangeParam<UploadFile<any>>) => {
     let list = fileList.length ? fileList : []
-    debugger
+    // debugger
     if (info.file.status === 'uploading') {
       setLoading(true)
     } else if (info.file.status === 'done') {
@@ -102,21 +103,19 @@ const UploadWrap = (props: UploadWrapProps) => {
           return {
             type: img.type,
             uid: img.id || img.url,
-            name: props.hideName
-              ? ''
-              : props.fileName
-              ? props.fileName
-              : props.idx === 0
-              ? '*Cover Photo'
-              : `Image${props.idx}`,
+            name: props.fileName,
             url: img.url,
             thumbUrl: img.url,
           }
         })
       : []
+    if (props.fileName) {
+      setFileName(props.fileName)
+    }
     if (list) {
       setFileList(list)
     }
+
     if (list?.[0]) {
       setImageInfo(list[0])
     }
@@ -157,9 +156,9 @@ const UploadWrap = (props: UploadWrapProps) => {
             uploadButton
           )}
         </Upload>
-        {imageInfo?.name ? (
+        {fileName ? (
           <div className='mb-4 -mt-1 text-center' style={{ width: 104 }}>
-            {imageInfo?.name}
+            {fileName}
           </div>
         ) : null}
       </div>

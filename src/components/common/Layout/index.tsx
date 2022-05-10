@@ -21,7 +21,7 @@ const AppLayout = () => {
       localStorage.removeItem("rc-token")
       navigate('/login')
     }
-    if (pathname.split('/').some(path => path === 'product') && pathname !== '/product/product-list') {
+    if (pathname.split('/').some(path => path === 'product') && pathname !== '/product/product-list' && pathname !== '/product') {
       setIsOpen(false)
     } else {
       setIsOpen(true)
@@ -32,21 +32,23 @@ const AppLayout = () => {
     <Layout>
       <TopHeader userInfo={userInfo} />
       <Layout>
-        {isOpen ? (
-          <Sider
-            theme='light'
-            style={{
-              overflow: 'auto',
-              height: '100vh',
-              position: 'fixed',
-              left: 0,
-              top: 55,
-              bottom: 0,
-            }}
-          >
-            <Menus />
-          </Sider>
-        ) : null}
+        {
+          isOpen ? (
+            <Sider
+              theme="light"
+              style={{
+                overflow: 'auto',
+                height: '100vh',
+                position: 'fixed',
+                left: 0,
+                top: 55,
+                bottom: 0,
+              }}
+            >
+              <Menus />
+            </Sider>
+          ) : null
+        }
         {/* <Sider
           theme="light"
           style={{
@@ -60,13 +62,11 @@ const AppLayout = () => {
         >
           <Menus />
         </Sider> */}
-        <Layout style={{ marginLeft: isOpen ? 200 : 0 }}>
+        <Layout style={{ marginLeft: isOpen ? 200 : 0 }} >
           <Content
             className='site-layout-background'
             style={{
-              // padding: 24,
-              margin: '59px 10% 0',
-              // minHeight: 600,
+              margin: isOpen ? '59px 2% 0' : '59px 10% 0',
             }}
           >
             <Outlet />

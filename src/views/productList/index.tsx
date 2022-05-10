@@ -107,7 +107,7 @@ const ProductList = () => {
                       type='primary'
                       onClick={() => {
                         // window.open('/product/add')
-                        navigation(`/product/add`)
+                        navigation(`/product/product-detail/add`)
                       }}
                     >
                       + Add a New Product
