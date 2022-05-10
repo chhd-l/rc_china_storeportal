@@ -19,9 +19,7 @@ const MenuManage = () => {
       <ProTable
         search={false}
         toolBarRender={() => [
-          <Button className="mt-8 text-white" type="primary" ghost>
-            + Add
-          </Button>,
+          <Button danger className="mt-6">+ Add</Button>
         ]}
         columns={columns}
         request={(params, sorter, filter) => {

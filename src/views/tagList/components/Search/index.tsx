@@ -9,7 +9,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
   return (
     <div>
       <div className="flex flex-row items-center">
-        <div className="w-auto mr-2 text-left">Tagging Name:</div>
+        <div className="w-28 mr-2 text-left">Tagging Name:</div>
         <Input
           className="w-full"
           placeholder="Enter tagging name"
