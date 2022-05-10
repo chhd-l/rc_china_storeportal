@@ -42,6 +42,12 @@ export const createProduct = async (params: any, beforeData?: any) => {
       // salesStatus: paramsData.salesStatus,
     })
   }
+  paramsData.goodsVariants?.forEach((el: any) => {
+    if (el?.skuName) {
+      el.name = el.skuName
+      delete el.skuName
+    }
+  })
   console.info('paramsData', paramsData)
   const data = await ApiRoot.products().createProduct({ body: paramsData })
   console.info('createProduct', data)

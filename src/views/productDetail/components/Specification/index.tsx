@@ -39,7 +39,7 @@ const Specification = (props: FormProps) => {
         ?.filter((el: GoodsAttributeAndValue) => {
           return el.attributeId === item.id
         })
-        ?.map((el: GoodsAttributeAndValue) => el.attributeValueNameEn)
+        ?.map((el: GoodsAttributeAndValue) => el.attributeValueId)
       // console.info(' item.defaultVal ', item.defaultVal)
       return item
     })
