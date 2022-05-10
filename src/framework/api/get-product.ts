@@ -187,6 +187,7 @@ export const createShopCategoryGoodsRel = async (params: ShopCategoryGoodsRelInp
 export const updateShopCategory = async (params: ShopCategoryUpdateInput): Promise<any> => {
   try {
     let res = await ApiRoot.products().updateShopCategory({ body: params })
+    return res
   } catch (e) {
     console.log(e)
   }

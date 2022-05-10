@@ -56,10 +56,15 @@ const ShopCategories = () => {
       dataIndex: 'isDisplay',
       render: (_, record) => (
         <Switch
-          defaultChecked={record.isDisplay}
+          checked={record.isDisplay}
           disabled={record.productNum < 1}
           onChange={(checked: boolean) => {
-            console.log(`switch to ${checked}`)
+            updateShopCategory({
+              ...record,
+              isDisplay:checked
+            }).then(()=>{
+              ref.current.reload();
+            })
           }}
         />
       ),
@@ -70,20 +75,31 @@ const ShopCategories = () => {
       width: 180,
       valueType: 'option',
       render: (_, record) => {
-        if (record.productNum <= 0) {
-          return [
-            <Link to={`/category/${record.id}`} className='mr-4 text-xl'>
-              <IconFont type='icon-jiahao' />
-            </Link>,
-            // <a className=" mr-4">
-            //   <SettingOutlined />
-            // </a>,
-            <Link to='' className='mr-4 text-xl'>
-              <IconFont type='icon-delete' onClick={()=>{
-                detleShopCateRel([record.id])
-              }}/>
-            </Link>,
-          ]
+        if (!record.productNum) {
+          if(record.categoryType==='MANUAL'){
+            return [
+              <Link to={`/category/category-detail/${record.id}`} className='mr-4 text-xl'>
+                <IconFont type='icon-jiahao' />
+              </Link>,
+              <Link to='' className='mr-4 text-xl'>
+                <IconFont type='icon-delete' onClick={()=>{
+                  detleShopCateRel([record.id])
+                }}/>
+              </Link>,
+            ]
+          }else {
+            return [
+              <Link to={`/category/category-detail/${record.id}`} className='mr-4 text-xl'>
+                <IconFont type='icon-group52' />
+              </Link>,
+              <Link to='' className='mr-4 text-xl'>
+                <IconFont type='icon-delete' onClick={()=>{
+                  detleShopCateRel([record.id])
+                }}/>
+              </Link>,
+            ]
+          }
+
         } else {
           return [
             <Link to={`/category/category-detail/${record.id}`} className='mr-4 text-xl'>

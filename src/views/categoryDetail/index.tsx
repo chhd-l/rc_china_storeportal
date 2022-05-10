@@ -17,8 +17,7 @@ const CategoryDetail = () => {
   const params = useParams();
   const [addCateType, setAddCateType] = useState(AddCateType.ManualSelection);
   const [ruleBasedVisible, setRuleBasedVisible] = useState(false);
-  const [manualSelectionVisible, setManualSelectionVisible] =
-    useState<boolean>(true);
+  const [manualSelectionVisible, setManualSelectionVisible] = useState<boolean>(false);
   useEffect(() => {
     const { id } = params;
     if (id === "add") {
