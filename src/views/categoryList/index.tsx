@@ -137,8 +137,8 @@ const ShopCategories = () => {
             // 表单搜索项会从 params 传入，传递给后端接口。
             console.log('test sort', params, sorter, filter)
             let tableData = await getShopCategories({
-              offset: 0,
-              limit: 10,
+              offset: params.current,
+              limit: params.pageSize,
               isNeedTotal: true,
               sample: {
                 storeId: '12345678',
@@ -146,6 +146,7 @@ const ShopCategories = () => {
             })
             return Promise.resolve({
               data: tableData?.records || [],
+              total:tableData.total,
               success: true,
             })
           }}
