@@ -6,6 +6,7 @@ import ProForm, {
 } from "@ant-design/pro-form";
 import { useNavigate } from "react-router-dom";
 import { AddCateOptions } from "../../modules/constant";
+import { saveShopCategory } from '@/framework/api/get-product'
 interface AddCateProps {
   visible: boolean;
   handleVisible: (a: boolean) => void;
@@ -14,7 +15,8 @@ const AddCate = ({ visible, handleVisible }: AddCateProps) => {
   const navigation = useNavigate();
   const onFinish = async (values: any) => {
     console.info(values);
-    navigation(`/category/category-detail/add`, { state: { addCateType: values.type } });
+    saveShopCategory({storeId: '12345678',displayName:values.displayName,categoryType:values.type==='0'?'MANUAL':'RULE_BASED'})
+    // navigation(`/category/category-detail/add`, { state: { addCateType: values.type } });
     return true;
   };
   return (
