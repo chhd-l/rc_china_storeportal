@@ -299,3 +299,44 @@ export const getTemplateItems = async (queryParams: any) => {
     }
   }
 }
+
+/**
+ * 查询微信公众号菜单列表
+ * @param queryParams 
+ * @returns 
+ */
+export const getWxMenusList = async (queryParams: any) => {
+  try {
+    const params = queryParams
+    let res = await ApiRoot.wechatSettings().getWxMenus({ body: params })
+    const list = res?.findWxMenuPage
+    console.log('get wxmenus view data', list)
+    return {
+      records: list.records || [],
+      total: list.total || 0,
+    }
+  } catch (e) {
+    console.log(e)
+    return {
+      records: [],
+      total: 0,
+    }
+  }
+}
+
+/**
+ * 修改菜单状态
+ * @param queryParams 
+ * @returns 
+ */
+export const updateWxMenu = async (queryParams: any) => {
+  try {
+    let res = await ApiRoot.wechatSettings().upsertWxMenu(queryParams)
+    const updated = res?.upsertWxMenu
+    console.log('create media view data', updated)
+    return updated || false
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+}

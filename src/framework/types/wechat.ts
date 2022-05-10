@@ -73,3 +73,12 @@ export interface TemplateMessageItemProps {
   content?: string,// # 模板内容
   example?: string//  # 例子
 }
+
+export interface WxMenu {
+  id: string
+  accountId: string
+  content: string
+  createdAt: string
+  lastModifiedAt: string
+  isEnabled: boolean
+}
