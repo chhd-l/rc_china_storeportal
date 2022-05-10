@@ -11,7 +11,7 @@ import { getAllProducts, getESProducts, getScProducts } from '@/framework/api/ge
 import { ProductListProps } from '@/framework/types/product'
 import { dataSource } from './modules/mockdata'
 import Mock from 'mockjs'
-import "./index.less"
+import './index.less'
 const { TabPane } = Tabs
 
 const listDatas = Mock.mock(dataSource)
@@ -100,7 +100,7 @@ const ProductList = () => {
               >
                 <div className='flex justify-between items-center py-4'>
                   <div className='total-products'>
-                    <span >{listData.total ? listData.total : 0}</span> Products
+                    <span>{listData.total ? listData.total : 0}</span> Products
                   </div>
                   <div className='flex items-center'>
                     <Button
