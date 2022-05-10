@@ -7,10 +7,11 @@ import { FileSearchOutlined, SyncOutlined } from '@ant-design/icons'
 import { tableColumns } from './modules/constant'
 import { mockOptionsList } from '../qrCodeManageList/modules/mockdata'
 import { ContentContainer } from '@/components/ui'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AddTemplate from './components/AddTemplate'
 import ViewIndustry from './components/ViewIndustry'
 import CardList from './components/CardList'
+import { getTemplateItems } from '@/framework/api/wechatSetting'
 const TemplateMessage = () => {
   const [addVisible, setAddVisible] = useState(false)
   const [industryVisible, setIndustryVisible] = useState(false)
@@ -29,6 +30,15 @@ const TemplateMessage = () => {
     setIndustryVisible(true)
   }
   const Synchronous = () => {}
+
+  const getTemplateItemList=async()=>{
+    await getTemplateItems({})
+  }
+
+  useEffect(()=>{
+    getTemplateItemList()
+  },[])
+
   return (
     <ContentContainer className='template-message'>
       {cardView ? (

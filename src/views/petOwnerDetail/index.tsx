@@ -13,7 +13,7 @@ import {
 } from './components'
 import { useLocation } from 'react-router-dom'
 import './index.less'
-import { ContentContainer, InfoContainer } from '@/components/ui'
+import { ContentContainer, DivideArea, InfoContainer } from '@/components/ui'
 
 const { Link } = Anchor
 
@@ -31,22 +31,52 @@ const PetOwnerList = () => {
       <div className="flex flex-row">
         <div className="w-5/6">
           {petOwnerId ? (
-            <InfoContainer>
-              <BasicInfo id="basic-information" />
+            <>
+              <InfoContainer>
+                <BasicInfo id="basic-information" />
+              </InfoContainer>
+              <DivideArea />
+              <InfoContainer>
               <Tagging id="tagging" customerId={petOwnerId} />
+              </InfoContainer>
+              <DivideArea />
+              <InfoContainer>
               <Pets id="pet-information" customerId={petOwnerId} />
+              </InfoContainer>
+              <DivideArea />
+              <InfoContainer>
               <TencentAccount id="tencent-account" customerId={petOwnerId} />
+              </InfoContainer>
+              <DivideArea />
+              <InfoContainer>
               <Orders id="order-information" customerId={petOwnerId} />
+              </InfoContainer>
+              <DivideArea />
+              {/*<InfoContainer>*/}
               {/*<Subscriptions id="subscription-information" subscriptionList={subscriptionList} />*/}
+              {/*</InfoContainer>*/}
+              {/*<DivideArea />*/}
+              <InfoContainer>
               <Address id="my-address" customerId={petOwnerId} />
+              </InfoContainer>
+              <DivideArea />
+              {/*<InfoContainer>*/}
               {/*<Coupons id="coupon-information" couponCodeList={couponCodeList} />*/}
+              {/*</InfoContainer>*/}
+              {/*<DivideArea />*/}
+              {/*<InfoContainer>*/}
               {/*<SmartDevice id="smart-device" smartDeviceList={smartDeviceList} />*/}
-            </InfoContainer>
+              {/*</InfoContainer>*/}
+              {/*<DivideArea />*/}
+            </>
           ) : null}
         </div>
-        <div className="fixed rc-anchor" style={{
-          right: '50px'
-        }}>
+        <div
+          className="fixed rc-anchor"
+          style={{
+            right: '50px',
+          }}
+        >
           <Anchor affix={true} offsetTop={100} className="petowner-anchor-link">
             <Link href="#basic-information" title="Basic Information" />
             <Link href="#tagging" title="Tagging" />
