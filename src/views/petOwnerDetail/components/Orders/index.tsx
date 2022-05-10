@@ -67,7 +67,7 @@ const OrderInformation = ({ id, customerId }: OrderInfoProps) => {
           }}
         />
       </div>
-      <OrderTable orderList={orderList} />
+      <OrderTable orderList={orderList} shipOrCompleteSuccess={getOrderList}/>
       <div className="flex flex-row justify-end mt-4">
         <Pagination
           current={currentPage}

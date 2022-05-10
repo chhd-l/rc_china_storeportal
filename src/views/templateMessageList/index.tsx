@@ -1,35 +1,48 @@
 import ProTable from '@/components/common/ProTable'
 import './index.less'
-import Mock from 'mockjs'
 import { Button } from 'antd'
 import { FileSearchOutlined } from '@ant-design/icons'
 import { tableColumns } from './modules/constant'
-import { mockOptionsList } from '../qrCodeManageList/modules/mockdata'
 import { ContentContainer } from '@/components/ui'
 import { useEffect, useState } from 'react'
 import AddTemplate from './components/AddTemplate'
 import ViewIndustry from './components/ViewIndustry'
 import CardList from './components/CardList'
-import { getTemplateMessages, updateTemplateMessage } from '@/framework/api/wechatSetting'
+import { getTemplateMessages, syncTemplateItem, updateTemplateMessage } from '@/framework/api/wechatSetting'
 
 const TemplateMessage = () => {
   const [addVisible, setAddVisible] = useState(false)
   const [industryVisible, setIndustryVisible] = useState(false)
   const [cardView, setCardView] = useState(true)
-  const handleDelete = (id: string) => {
+  const [templateMessageList, setTemplateMessageList] = useState<any[]>([])
+
+  const handleDelete = async(id: string) => {
     console.info('handleDelete', id)
+    const res = await updateTemplateMessage({ id, isDeleted:true })
+    if (res) {
+      await getTemplateMessageList()
+    }
   }
 
-  const [templateMessageList, setTemplateMessageList] = useState(Mock.mock(mockOptionsList).list)
+  const modifyTemplateMessage = async (templateMessage: any) => {
+    console.log('1111', templateMessage)
+    const res = await updateTemplateMessage({ id: templateMessage.id, status: !templateMessage.status })
+    if (res) {
+      await getTemplateMessageList()
+    }
+  }
 
-  const columns = tableColumns({ handleDelete, templateTitleList: templateMessageList })
+  const columns = tableColumns({ handleDelete, modifyTemplateMessage,templateTitleList: templateMessageList })
+
   const handleAdd = () => {
     setAddVisible(true)
   }
   const handleIndustires = () => {
     setIndustryVisible(true)
   }
-  const Synchronous = () => {}
+  const Synchronous = async() => {
+    await syncTemplateItem()
+  }
 
   const getTemplateMessageList = async () => {
     const res = await getTemplateMessages({})
@@ -39,14 +52,6 @@ const TemplateMessage = () => {
   useEffect(() => {
     getTemplateMessageList()
   }, [])
-
-  const modifyTemplateMessage = async (templateMessage: any) => {
-    console.log('1111', templateMessage)
-    const res = await updateTemplateMessage({ id: templateMessage.id, status: !templateMessage.status })
-    if (res) {
-      getTemplateMessageList()
-    }
-  }
 
   return (
     <ContentContainer className="template-message">

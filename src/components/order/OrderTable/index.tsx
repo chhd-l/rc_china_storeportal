@@ -15,14 +15,12 @@ const orderStatusType: KeyRules = {
   VOID: 'Cancellation',
 }
 
-const OrderTable = ({ orderList }: { orderList: Order[] }) => {
+const OrderTable = ({ orderList,shipOrCompleteSuccess }: { orderList: Order[],shipOrCompleteSuccess:Function }) => {
   const [carrierTypes, setCarrierTypes] = useState<CarrierType[]>([])
 
   const getExpressCompanys = async () => {
     const res = await getExpressCompanyList()
-    // console.log('res999999999999', res)
     setCarrierTypes(res)
-    // console.log('9999999999999999')
   }
 
   useEffect(() => {
@@ -123,6 +121,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
                   orderId={item.id}
                   orderAddress={item.shippingAddress}
                   orderBuyer={item.buyer}
+                  shipOrCompleteSuccess={shipOrCompleteSuccess}
                 />
               </Col>
             </Row>

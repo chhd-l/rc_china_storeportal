@@ -6,7 +6,7 @@ import { stepList } from '../../modules/constants'
 import { KeyRules } from '@/framework/types/common'
 import { handleReturnTime } from '@/utils/utils'
 
-const LogsAndState:KeyRules = {
+const LogsAndState: KeyRules = {
   UNPAID: 'INITIALIZATION',
   TO_SHIP: 'PAY',
   SHIPPED: 'SHIP',
@@ -20,14 +20,16 @@ const OrderProgress = ({
   subscriptionId,
   orderAddress,
   logs,
-                         buyer
+  buyer,
+  shipOrCompleteSuccess,
 }: {
   orderState: string
   orderId: string
   subscriptionId: string | undefined
   orderAddress: any[]
   logs: any
-  buyer:any
+  buyer: any
+  shipOrCompleteSuccess: Function
 }) => {
   const [currentStep, setCurrentStep] = useState(0)
   const [filterSteps, setFilterSteps] = useState(stepList)
@@ -45,7 +47,7 @@ const OrderProgress = ({
       return item
     })
     setFilterSteps(steps)
-  }, [orderState,logs])
+  }, [orderState, logs])
 
   useEffect(() => {
     filterSteps.map((el, i) => {
@@ -67,7 +69,13 @@ const OrderProgress = ({
           </span>
         </div>
         <div className="justify-items-end">
-          <OrderActions orderState={orderState} orderId={orderId} orderAddress={orderAddress} orderBuyer={buyer}/>
+          <OrderActions
+            orderState={orderState}
+            orderId={orderId}
+            orderAddress={orderAddress}
+            orderBuyer={buyer}
+            shipOrCompleteSuccess={shipOrCompleteSuccess}
+          />
         </div>
       </div>
       <div className="mt-4">

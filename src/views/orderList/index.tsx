@@ -12,8 +12,8 @@ import { PageParamsProps } from '@/framework/types/common'
 import { initPageParams } from '@/lib/constants'
 import './index.less'
 // 引入翻译
-import { ConfigProvider } from 'antd';
-import en_US from "antd/lib/locale/en_US"
+import { ConfigProvider } from 'antd'
+import en_US from 'antd/lib/locale/en_US'
 
 const PetOwnerList = () => {
   const [orderList, setOrderList] = useState<Order[]>([])
@@ -96,35 +96,40 @@ const PetOwnerList = () => {
             <Tabs.TabPane tab={item.label} key={item.key} />
           ))}
         </Tabs>
-        <ConfigProvider locale={en_US} >
-        <Search
-          query={(data: OrderSearchParamsProps) => {
-            setSearchParams(data)
-            setPageParams(initPageParams)
-            getOrderLists({
-              searchParams: data,
-              pageParams,
-              orderState: activeKey,
-              company: carrier,
-            })
-          }}
-        />
+        <ConfigProvider locale={en_US}>
+          <Search
+            query={(data: OrderSearchParamsProps) => {
+              setSearchParams(data)
+              setPageParams(initPageParams)
+              getOrderLists({
+                searchParams: data,
+                pageParams,
+                orderState: activeKey,
+                company: carrier,
+              })
+            }}
+          />
         </ConfigProvider>
       </SearchContainer>
       <TableContainer className="py-0 pb-5">
         <div className="text-left text-xl font-bold">{total} Orders</div>
         <div className="mt-4  text-left">
-          <OrderTable orderList={orderList} />
+          <OrderTable
+            orderList={orderList}
+            shipOrCompleteSuccess={() =>
+              getOrderLists({ searchParams, pageParams, orderState: activeKey, company: carrier })
+            }
+          />
         </div>
         <div className="flex flex-row justify-end mt-4">
-            <Pagination
-              current={currentPage}
-              total={total}
-              pageSize={pageSize}
-              onChange={changePage}
-              showSizeChanger={true}
-              className="rc-pagination"
-            />
+          <Pagination
+            current={currentPage}
+            total={total}
+            pageSize={pageSize}
+            onChange={changePage}
+            showSizeChanger={true}
+            className="rc-pagination"
+          />
         </div>
       </TableContainer>
     </ContentContainer>
