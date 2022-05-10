@@ -4,13 +4,13 @@ import ApiRoot from './fetcher'
 import { orderDetailSource, orderListSource } from '@/views/orderDetail/modules/mockdata'
 import Mock from 'mockjs'
 
-const isMock = false
+const isMock = true
 
 export const getOrderList = async (queryOrderListParams: any): Promise<{ total: number; records: any[] }> => {
   try {
     if (isMock) {
       return {
-        records: Mock.mock(orderListSource('UNPAID')).array,
+        records: Mock.mock(orderListSource('SHIPPED')).array,
         total: 0
       }
     } else {

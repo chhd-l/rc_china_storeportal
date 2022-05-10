@@ -295,7 +295,7 @@ const AddVariation = ({}: AddVariationProps) => {
         ) : null}
       </div> */}
       {variationForm.variationList.filter((el: any) => el.isDeleted).length < 2 ? (
-        <Row className=' py-4'>
+        <Row className=' pb-4'>
           <Col span={4} className='text-right pr-2'>
             Variation
             {variationForm.variationList.filter((el: any) => el.isDeleted).length
