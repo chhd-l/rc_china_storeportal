@@ -94,7 +94,7 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
             <span
               className="cursor-pointer ml-2 iconfont icon-Frame-1 text-red-500 text-xl"
               onClick={() => {
-                setImgUrl('')
+                setImgUrl(record.qrCodePath)
                 setImgModal(true)
               }}
             />

@@ -21,7 +21,9 @@ const RouteBreadcrumb = () => {
     if (path === '') return
     arr.forEach((item): any => {
       if (item.path === path) {
-        breadcrumbItemsaRr.push(item)
+        if(item.breadcrumbName) {
+          breadcrumbItemsaRr.push(item)
+        }
         return item
       } else if (item.children?.length) {
         return depy(item.children, path)
@@ -32,7 +34,7 @@ const RouteBreadcrumb = () => {
 
   useEffect(() => {
     breadcrumbItemsaRr = []
-    if(pathname.split('/').some((path) => path === 'product') && pathname !== '/product/product-list') {
+    if(pathname.split('/').some((path) => path === 'product') && pathname !== '/product/product-list' && pathname !== '/product') {
       if(pathname === '/product/add') {
         setbreadcrumbItems([{
           path: pathname,
@@ -45,8 +47,11 @@ const RouteBreadcrumb = () => {
         }])
       }
     } else {
-      const path = pathname.split('/')[pathname.split('/').length - 1]
-      depy(r, path)
+      // const path = pathname.split('/')[pathname.split('/').length - 1]
+      pathname.split('/').forEach(item => {
+        console.log('item',item)
+        depy(r, item)
+      })
     }
   }, [pathname])
 

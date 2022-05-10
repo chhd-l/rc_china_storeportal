@@ -89,7 +89,8 @@ const MpQrList = () => {
         formRef={formRef}
         columns={columns}
         search= {{
-          labelWidth: 136
+          labelWidth: 136,
+          searchText: 'Search'
         }}
         pagination={{
           showQuickJumper: false
@@ -119,7 +120,7 @@ const MpQrList = () => {
           return Promise.resolve({
             data: res.records,
             success: true,
-            total: res.total
+            total: res.total,
           })
         }}
       />

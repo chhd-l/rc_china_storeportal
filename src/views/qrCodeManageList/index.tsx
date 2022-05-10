@@ -99,7 +99,8 @@ const QrCodeManage = () => {
       <ProTable
         columns={columns}
         search= {{
-          labelWidth: 136
+          labelWidth: 136,
+          searchText: 'Search'
         }}
         rowKey='id'
         toolBarRender={() => [
@@ -117,8 +118,8 @@ const QrCodeManage = () => {
             offset: 0,
             sample: {storeId: "12345678"},
           })
-          console.log('res2',res2)
           depy(res2?.records || [])
+
           let res = await getQrCodes({
             offset: (params.current - 1) * 10,
             limit: params.pageSize,
@@ -132,6 +133,7 @@ const QrCodeManage = () => {
           return Promise.resolve({
             data: res.records,
             success: true,
+            total: res.total
           })
         }}
       />

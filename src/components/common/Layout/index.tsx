@@ -15,7 +15,7 @@ const AppLayout = () => {
   const [isOpen, setIsOpen] = useState(true)
 
   useEffect(() => {
-    if (pathname.split('/').some(path => path === 'product') && pathname !== '/product/product-list') {
+    if (pathname.split('/').some(path => path === 'product') && pathname !== '/product/product-list' && pathname !== '/product') {
       setIsOpen(false)
     } else {
       setIsOpen(true)
@@ -60,9 +60,7 @@ const AppLayout = () => {
           <Content
             className='site-layout-background'
             style={{
-              // padding: 24,
-              margin: '59px 10% 0',
-              // minHeight: 600,
+              margin: isOpen ? '59px 2% 0' : '59px 10% 0',
             }}
           >
             <Outlet />
