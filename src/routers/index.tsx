@@ -64,17 +64,19 @@ let routes: RouteObject[] = [
       { path: 'add-video', element: <AddVideo />, breadcrumbName: 'Add Video' },
       {
         path: 'product',
-        breadcrumbName: 'Product',
+        breadcrumbName: 'My Products',
         children: [
-          { path: 'product-list', index: true, element: <ProductList />, breadcrumbName: 'My Products' },
-          { path: ':id', element: <AddProduct /> },
+          { index: true, element: <ProductList /> },
+          { path: 'product-list', element: <ProductList /> },
+          { path: 'product-detail/:id', element: <AddProduct /> },
         ],
       },
       {
         path: 'petOwner',
-        breadcrumbName: 'PetOwner',
+        breadcrumbName: 'My Pet Owner',
         children: [
-          { path: 'pet-owner-list', index: true, element: <PetOwnerList />, breadcrumbName: 'My Pet Owner' },
+          { index: true, element: <PetOwnerList />},
+          { path: 'pet-owner-list', element: <PetOwnerList />},
           { path: 'pet-owner-detail', element: <PetOwnerDetail />, breadcrumbName: 'Pet Owner Detail' },
           { path: 'pet-detail', element: <PetDetail />, breadcrumbName: 'Pet Detail' },
           { path: 'tag-list', index: true, element: <TagList />, breadcrumbName: 'My Tag' },
@@ -83,56 +85,63 @@ let routes: RouteObject[] = [
       },
       {
         path: 'category',
-        breadcrumbName: 'Category',
+        breadcrumbName: 'My Category',
         children: [
-          { path: 'category-list', index: true, element: <CategoryList />, breadcrumbName: 'My Category' },
+          { index: true, element: <CategoryList />,},
+          { path: 'category-list', element: <CategoryList />,},
           { path: 'category-detail/:id', element: <CategoryDetail />, breadcrumbName: 'Category Detail' },
         ],
       },
       {
         path: 'order',
-        breadcrumbName: 'Order',
+        breadcrumbName: 'My Orders',
         children: [
-          { path: 'order-list', index: true, element: <OrderList />, breadcrumbName: 'My Orders' },
+          { index: true, element: <OrderList />},
+          { path: 'order-list', element: <OrderList />},
           { path: 'order-detail', element: <OrderDetail />, breadcrumbName: 'Order Detail' },
           { path: 'order-setting', element: <OrderSetting />, breadcrumbName: 'Order Setting' },
         ],
       },
       {
         path: 'account',
-        breadcrumbName: 'Account',
+        breadcrumbName: 'Account Management',
         children: [
-          { path: 'account-list', index: true, element: <AccountList />, breadcrumbName: 'Account Management' },
+          { index: true, element: <AccountList />},
+          { path: 'account-list', element: <AccountList />},
           { path: 'add-account', element: <AddAccount />, breadcrumbName: 'Add Account' },
           { path: 'account-details', element: <AccountDetails />, breadcrumbName: 'Account Details' },
         ],
       },
       {
         path: 'fans',
-        breadcrumbName: 'Fans',
+        breadcrumbName: 'Fans Management',
         children: [
-          { path: 'fans-list', index: true, element: <FansList />, breadcrumbName: 'Fans Management' },
+          { index: true, element: <FansList /> },
+          { path: 'fans-list', element: <FansList /> },
           { path: 'fans-detail', element: <FansDetail />, breadcrumbName: 'Fans Detail' },
         ],
       },
       {
         path: 'reply',
-        breadcrumbName: 'Reply',
+        breadcrumbName: 'Reply Contents',
         children: [
-          { path: 'add-auto-reply', index: true, element: <AddAutoReply />, breadcrumbName: 'Add AutoReply' },
-          { path: 'reply-contents', element: <ReplyContents />, breadcrumbName: 'Reply Contents' },
+          { index: true, element: <ReplyContents /> },
+          { path: 'add-auto-reply', element: <AddAutoReply />, breadcrumbName: 'Add AutoReply' },
+          { path: 'reply-contents', element: <ReplyContents /> },
           { path: 'add-reply-content', element: <AddReplyContent />, breadcrumbName: 'Add Reply Content' },
         ],
       },
       {
         path: 'template',
-        breadcrumbName: 'Template',
+        breadcrumbName: 'Template Messag',
         children: [
           {
-            path: 'template-message-list',
             index: true,
             element: <TemplateMessage />,
-            breadcrumbName: 'Template Messag',
+          },
+          {
+            path: 'template-message-list',
+            element: <TemplateMessage />,
           },
           {
             path: 'template-message/:id',
@@ -143,33 +152,37 @@ let routes: RouteObject[] = [
       },
       {
         path: 'mpbanner',
-        breadcrumbName: 'Mpbanner',
+        breadcrumbName: 'Mini Program Banner',
         children: [
-          { path: 'mpbanner-list', index: true, element: <MpBannerList />, breadcrumbName: 'Mini Program Banner' },
+          { index: true, element: <MpBannerList /> },
+          { path: 'mpbanner-list', element: <MpBannerList /> },
           { path: 'mpbanner-detail/:id', element: <MpBannerDetail />, breadcrumbName: 'MpBanner Detail' },
         ],
       },
       {
         path: 'mpqr',
-        breadcrumbName: 'Mpqr',
+        breadcrumbName: 'Mini Program QR Code',
         children: [
-          { path: 'mpqr-list', index: true, element: <MpQRList />, breadcrumbName: 'Mini Program QR Code' },
+          { index: true, element: <MpQRList /> },
+          { path: 'mpqr-list', element: <MpQRList /> },
           { path: 'mpqr-detail/:id', element: <MpQRDetail />, breadcrumbName: 'MpQR Detail' },
         ],
       },
       {
         path: 'menuManagempqr',
-        breadcrumbName: 'MenuManagempqr',
+        breadcrumbName: 'Menu Management',
         children: [
-          { path: 'menu-manage-list', index: true, element: <MenuManage />, breadcrumbName: 'Menu Management' },
+          { index: true, element: <MenuManage />},
+          { path: 'menu-manage-list', element: <MenuManage />},
           { path: 'menu-manage-detail/:id', element: <MenuManageDetail />, breadcrumbName: 'MenuManage Detail' },
         ],
       },
       {
         path: 'QrcodeManage',
-        breadcrumbName: 'QrcodeManage',
+        breadcrumbName: 'QR Code Management',
         children: [
-          { path: 'qrcode-manage-list', index: true, element: <QrCodeManage />, breadcrumbName: 'QR Code Management' },
+          { index: true, element: <QrCodeManage />},
+          { path: 'qrcode-manage-list', element: <QrCodeManage />},
           { path: 'qrcode-manage-detail/:id', element: <QrCodeManageDetail />, breadcrumbName: 'QrCodeManage Detail' },
         ],
       },

@@ -89,7 +89,7 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
           </Link>
         </Tooltip>
         <Tooltip title='Edit'>
-          <Link className='mr-4' to={`/product/${listData[spuIdx]?.id}`}>
+          <Link className='mr-4' to={`/product/product-detail/${listData[spuIdx]?.id}`}>
             <span className='icon iconfont icon-Edit'></span>
           </Link>
         </Tooltip>

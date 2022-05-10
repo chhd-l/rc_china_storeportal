@@ -62,7 +62,7 @@ export const menus = [
       {
         name: 'Add New Product',
         value: 'add_new_product',
-        url: '/product/add',
+        url: '/product/product-detail/add',
         key: 'add_new_product',
       },
     ],
