@@ -3,7 +3,7 @@ import './index.less'
 import { mockList } from './modules/mockdata'
 import Mock from 'mockjs'
 import { Button } from 'antd'
-import { FileSearchOutlined, SyncOutlined } from '@ant-design/icons'
+import { FileSearchOutlined } from '@ant-design/icons'
 import { tableColumns } from './modules/constant'
 import { mockOptionsList } from '../qrCodeManageList/modules/mockdata'
 import { ContentContainer } from '@/components/ui'
@@ -11,7 +11,8 @@ import { useEffect, useState } from 'react'
 import AddTemplate from './components/AddTemplate'
 import ViewIndustry from './components/ViewIndustry'
 import CardList from './components/CardList'
-import { getTemplateItems } from '@/framework/api/wechatSetting'
+import {getTemplateMessages } from '@/framework/api/wechatSetting'
+
 const TemplateMessage = () => {
   const [addVisible, setAddVisible] = useState(false)
   const [industryVisible, setIndustryVisible] = useState(false)
@@ -20,9 +21,9 @@ const TemplateMessage = () => {
     console.info('handleDelete', id)
   }
 
-  const templateTitleList = Mock.mock(mockOptionsList).list
+  const [templateMessageList,setTemplateMessageList] = useState(Mock.mock(mockOptionsList).list)
 
-  const columns = tableColumns({ handleDelete, templateTitleList })
+  const columns = tableColumns({ handleDelete, templateTitleList:templateMessageList })
   const handleAdd = () => {
     setAddVisible(true)
   }
@@ -31,18 +32,19 @@ const TemplateMessage = () => {
   }
   const Synchronous = () => {}
 
-  const getTemplateItemList=async()=>{
-    await getTemplateItems({})
+  const getTemplateMessageList=async()=>{
+    const res=await getTemplateMessages({})
+    setTemplateMessageList(res.records)
   }
 
   useEffect(()=>{
-    getTemplateItemList()
+    getTemplateMessageList()
   },[])
 
   return (
     <ContentContainer className='template-message'>
       {cardView ? (
-        <CardList setCardView={setCardView} />
+        <CardList setCardView={setCardView} templateMessageList={templateMessageList}/>
       ) : (
         <ProTable
           headerTitle={[
@@ -62,15 +64,14 @@ const TemplateMessage = () => {
           toolBarRender={() => [
             <Button className='mt-8 text-white' type='primary' onClick={handleAdd} ghost>
               + Add
-            </Button>,
-            // <SyncOutlined className='mt-6 ml-2 mr-8 text-xl ' />,
+            </Button>
           ]}
           columns={columns}
           request={(params, sorter, filter) => {
             // 表单搜索项会从 params 传入，传递给后端接口。
             console.log('test sort', params, sorter, filter)
             return Promise.resolve({
-              data: Mock.mock(mockList).list,
+              data:templateMessageList,
               success: true,
             })
           }}

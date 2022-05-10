@@ -21,7 +21,7 @@ const AccountList = () => {
   const getAccounts= async (offset = pages.page, limit = pages.limit, items = {}) => {
     console.log('offset',offset)
     const params = Object.assign({ sample: { ...items, storeId: '12345678' } }, {
-      offset,
+      offset: offset - 1,
       limit
     })
     let res = await getAccountList(params)

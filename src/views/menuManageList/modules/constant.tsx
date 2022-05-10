@@ -1,47 +1,71 @@
 import { DeleteOutlined, FormOutlined } from "@ant-design/icons";
-import { ProColumns } from "@ant-design/pro-table";
+import { ColumnProps } from 'antd/es/table';
 import { Switch } from "antd";
 import { Link } from "react-router-dom";
+import moment from 'moment';
+
+export type TWxMenuUpdateParam = {
+  id: string;
+  accountId: string;
+  content: string;
+  isEnabled: boolean;
+  isDeleted: boolean;
+  operator?: string;
+}
+
 interface TableColumns {
-  handleDelete: (e: string) => void;
-  changeStatus: (e: boolean) => void;
+  handleDelete: (e: TWxMenuUpdateParam) => void;
+  changeStatus: (e: TWxMenuUpdateParam) => void;
 }
 interface ColumnsProps {
-  officialAccount: string;
-  createTime: string;
-  updateTime: string;
-  status: boolean;
+  accountId: string;
+  content: string;
+  createdAt: string;
+  lastModifiedAt: string;
+  isEnabled: boolean;
   id: string;
 }
 export const tableColumns = ({ handleDelete, changeStatus }: TableColumns) => {
-  const columns: ProColumns<ColumnsProps>[] = [
+  const columns: ColumnProps<ColumnsProps>[] = [
     {
       title: "Official Account",
-      dataIndex: "officialAccount",
+      dataIndex: "content",
+      key: "contet",
     },
     {
       title: "Create Time",
-      dataIndex: "createTime",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (text) => <div>{moment(text).format('YYYY/MM/DD HH:mm:ss')}</div>
     },
     {
       title: "Update Time",
-      dataIndex: "updateTime",
+      dataIndex: "lastModifiedAt",
+      key: "lastModifiedAt",
+      render: (text) => <div>{moment(text).format('YYYY/MM/DD HH:mm:ss')}</div>
     },
     {
       title: "Status",
-      dataIndex: "status",
+      dataIndex: "isEnabled",
+      key: "isEnabled",
       render: (_, record) => (
         <Switch
-          defaultChecked={record.status}
+          checked={record.isEnabled}
           onChange={() => {
-            changeStatus(record.status);
+            changeStatus({
+              id: record.id,
+              accountId: record.accountId,
+              content: record.content,
+              isDeleted: false,
+              isEnabled: !record.isEnabled
+            });
           }}
         />
       ),
     },
     {
       title: "Action",
-      hideInSearch: true,
+      key: "action",
       render: (_, record) => [
         <Link to={`/menuManagempqr/menu-manage-detail/${record.id}`} className="mr-4">
           <FormOutlined />
@@ -49,7 +73,13 @@ export const tableColumns = ({ handleDelete, changeStatus }: TableColumns) => {
         <a className="mr-4">
           <DeleteOutlined
             onClick={() => {
-              handleDelete(record.id);
+              handleDelete({
+                id: record.id,
+                accountId: record.accountId,
+                content: record.content,
+                isEnabled: record.isEnabled,
+                isDeleted: true
+              });
             }}
           />
         </a>,
