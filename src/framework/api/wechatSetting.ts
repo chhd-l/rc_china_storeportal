@@ -285,3 +285,27 @@ export const createQrCode = async (queryParams: any) => {
     return {}
   }
 }
+
+// 查询
+export const getTemplateItems = async (queryParams: any) => {
+  try {
+    const params = {
+      offset: 0,
+      limit: 10,
+      accountId: '000001',
+    }
+    let res = await ApiRoot.wechatSettings().getTemplateItems({ body: params })
+    const templateItemList = res?.templateItemList
+    console.log('get templateItem list view data', templateItemList)
+    return {
+      records: templateItemList.records || [],
+      total: templateItemList.total || 0,
+    }
+  } catch (e) {
+    console.log(e)
+    return {
+      records: [],
+      total: 0,
+    }
+  }
+}
