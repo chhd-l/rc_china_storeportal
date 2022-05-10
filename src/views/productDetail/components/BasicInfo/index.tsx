@@ -106,6 +106,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
               key={img?.key || `img-${index}`}
               handleImgUrl={handleImgUrl}
               idx={index}
+              fileName={`Image${index + 1}`}
               type='image'
               fileList={[img]}
               showUploadList={false}

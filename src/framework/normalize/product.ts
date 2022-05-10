@@ -517,7 +517,7 @@ export const normaliseAttrProps = (data: GoodsAttribute[]) => {
       attributeName: item.attributeName,
       attributeNameEn: item.attributeNameEn,
       // attributeRank: item.attributeRank,
-      label: item.attributeName,
+      label: item.attributeNameEn,
       name: `attrName-${item.id}`,
       options: item.values.map(citem => {
         return {
@@ -525,7 +525,7 @@ export const normaliseAttrProps = (data: GoodsAttribute[]) => {
           // value: citem.attributeValueName,
           value: citem.id,
           id: citem.id,
-          label: citem.attributeValueName,
+          label: citem.attributeValueNameEn,
           relId: item.id,
           attributeName: item.attributeName,
           attributeNameEn: item.attributeNameEn,
