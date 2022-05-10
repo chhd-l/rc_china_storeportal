@@ -1,4 +1,4 @@
-import { Button, Switch, Table, Tooltip, Modal } from "antd";
+import { Button, Switch, Table, Tooltip, Modal, Image } from "antd";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { Account } from "@/framework/types/wechat";
@@ -14,7 +14,9 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
 }) => {
   const navigator = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const [imgModal, setImgModal] = useState(false)
   const [ID, setID] = useState('')
+  const [imgUrl, setImgUrl] = useState('')
 
   const handleOk = async (id: string) => {
     const items = {
@@ -30,6 +32,7 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
 
   const handleCancel = () => {
     setIsModalVisible(false)
+    setImgModal(false)
   }
 
 
@@ -90,7 +93,10 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
           <Tooltip title="View QR Code">
             <span
               className="cursor-pointer ml-2 iconfont icon-Frame-1 text-red-500 text-xl"
-              onClick={() => { }}
+              onClick={() => {
+                setImgUrl(record.qrCodePath)
+                setImgModal(true)
+              }}
             />
           </Tooltip>
         </>
@@ -140,6 +146,23 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
       >
         <div>Are you sure you want to delete the item ?</div>
       </Modal>
+      {
+        !imgUrl ? (
+          <Modal
+            visible={imgModal}
+            closable={false}
+            onCancel={handleCancel}
+            footer={null}
+          >
+            <Image
+              src={`https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=${imgUrl}`}
+              width='100%'
+              height='100%'
+              preview={false}
+            />
+          </Modal>
+        ) : null
+      }
     </>
   );
 };

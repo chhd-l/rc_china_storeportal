@@ -4,6 +4,7 @@ import { ACCOUNT_FORM, ACCOUNT_FORM_TWO } from "@/views/addAccount/modules/form"
 import { useLocation, useNavigate } from "react-router";
 import { ContentContainer, InfoContainer } from "@/components/ui";
 import { modifyAccount } from '@/framework/api/wechatSetting'
+import './Style.less'
 
 const AccountDetails = () => {
   const [data, setData] = useState<any>();
@@ -36,7 +37,7 @@ const AccountDetails = () => {
   }
 
   return (
-    <ContentContainer>
+    <ContentContainer className="Accountdetails">
       <InfoContainer>
         <div className="text-2xl text-medium mb-4">Account Details</div>
         {
@@ -71,7 +72,7 @@ const AccountDetails = () => {
                           autoSize={{ minRows: 3, maxRows: 5 }}
                         />
                       ) : item.type === "upload" ? (
-                        <Input.Group>
+                        <Input.Group className="flex">
                           <Input
                             placeholder={item.placeholder}
                             style={{ width: "82%" }}
@@ -108,7 +109,7 @@ const AccountDetails = () => {
                           autoSize={{ minRows: 3, maxRows: 5 }}
                         />
                       ) : item.type === "upload" ? (
-                        <Input.Group>
+                        <Input.Group className="flex">
                           <Input
                             placeholder={item.placeholder}
                             style={{ width: "82%" }}
@@ -125,7 +126,7 @@ const AccountDetails = () => {
                 )
               }
               <Form.Item
-                className="w-full flex flex-row justify-end"
+                className="w-full flex flex-row justify-end boyn"
                 wrapperCol={{ span: 4 }}
               >
                 <Button

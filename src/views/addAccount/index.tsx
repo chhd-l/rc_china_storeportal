@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { ContentContainer, InfoContainer } from "@/components/ui";
 import { createAccount } from '@/framework/api/wechatSetting'
 import { useState } from "react";
+import './Style.less'
 
 const AddAccount = () => {
   const navigator = useNavigate();
@@ -21,7 +22,7 @@ const AddAccount = () => {
   }
 
   return (
-    <ContentContainer>
+    <ContentContainer className="addAccount">
       <InfoContainer>
         <div className="text-2xl text-medium mb-4">Add Account</div>
         <Form
@@ -73,7 +74,7 @@ const AddAccount = () => {
                           autoSize={{ minRows: 3, maxRows: 5 }}
                         />
                       ) : item.type === "upload" ? (
-                        <Input.Group>
+                        <Input.Group className="flex">
                           <Input
                             placeholder={item.placeholder}
                             style={{ width: "82%" }}
@@ -127,7 +128,7 @@ const AddAccount = () => {
                           autoSize={{ minRows: 3, maxRows: 5 }}
                         />
                       ) : item.type === "upload" ? (
-                        <Input.Group>
+                        <Input.Group className="flex">
                           <Input
                             placeholder={item.placeholder}
                             style={{ width: "82%" }}
@@ -144,7 +145,7 @@ const AddAccount = () => {
             )
           }
           <Form.Item
-            className="w-full flex flex-row justify-end"
+            className="w-full flex flex-row justify-end boyn"
             wrapperCol={{ span: 4 }}
           >
             <Button

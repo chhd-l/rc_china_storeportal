@@ -3,15 +3,15 @@ import { BaseListProps } from "@/framework/types/common";
 export const officialTypeList: BaseListProps[] = [
   {
     label: "Regular Subscription Account",
-    key: "subscription",
+    key: "Regular Subscription Account",
   },
   {
     label: "Regular Service Account",
-    key: "service",
+    key: "Regular Service Account",
   },
   {
     label: "Authentication Subscription Account",
-    key: "authSubscription",
+    key: "Authentication Subscription Account",
   },
 ];
 

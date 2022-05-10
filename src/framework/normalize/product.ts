@@ -86,9 +86,9 @@ export const normaliseDetailforFe = (detail: any) => {
     isSupport100: '',
     defaultImage: '',
   }
-  debugger
+  // debugger
   if (withoutSku) {
-    debugger
+    // debugger
     let sku = detail.goodsVariants?.[0]
     // spu.skuNo: 'test0001', //to do
     // withoutSku: true,
@@ -263,7 +263,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
     let delArr = beforeData.goodsVariants.filter((el: any) => {
       return spu.goodsVariantsInput.every((cel: any) => cel.id !== el.id)
     })
-    debugger
+    // debugger
     delArr = delArr.map((el: any) => {
       let newEl = {
         isDeleted: true,

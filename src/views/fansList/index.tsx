@@ -26,7 +26,7 @@ const FanList = () => {
     getFanList()
   }, []);
 
-  const getFanList = async (offset = pages.page - 1, limit = pages.limit, item = {}) => {
+  const getFanList = async (offset = pages.page, limit = pages.limit, item = {}) => {
    let val: {
     offset: number
     limit: number
@@ -34,7 +34,7 @@ const FanList = () => {
     accountId: string
     sample?: any
    } =  {
-    offset,
+    offset: (offset - 1) * 10,
     limit,
     isNeedTotal: true,
     accountId: '000001'
