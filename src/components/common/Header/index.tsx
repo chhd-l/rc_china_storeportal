@@ -37,7 +37,7 @@ const Header = ({ userInfo }: { userInfo: User | null }) => {
       </div>
       <div className="h-full flex-none" style={{ lineHeight: "51px", width: "150px" }}>
         <Dropdown overlay={MenuComp(navigate)} placement="bottom" arrow>
-          <span className="h-full inline-block">
+          <span className="h-full inline-block cursor-pointer">
             <img className="inline-block align-middle" src={userIcon}/>
             <span className="align-middle ml-2">{userInfo?.username}</span>
           </span>

@@ -1,18 +1,17 @@
 import ProCard from '@ant-design/pro-card'
 import { ProFormSwitch } from '@ant-design/pro-form'
 import { FC } from 'react'
-import Mock from 'mockjs'
-import { messageList } from '../../modules/mockdata'
 import './index.less'
 import { TemplateMessageItemProps } from '@/framework/types/wechat'
 import { Button } from 'antd'
 import { Link } from 'react-router-dom'
+
 export type Props = {
   setCardView: (val: boolean) => void
+  templateMessageList:any[]
 }
-const templateTitleList = Mock.mock(messageList).list
 
-const CardList: FC<Props> = ({ setCardView }) => {
+const CardList: FC<Props> = ({ setCardView,templateMessageList }) => {
   return (
     <div className='card-list'>
       <ProCard
@@ -28,7 +27,7 @@ const CardList: FC<Props> = ({ setCardView }) => {
           </>
         }
       >
-        {templateTitleList.map((template: TemplateMessageItemProps) => (
+        {templateMessageList.map((template: TemplateMessageItemProps) => (
           <ProCard
             title={template.scenario}
             bordered

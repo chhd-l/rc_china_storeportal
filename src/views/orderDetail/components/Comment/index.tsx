@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 import { Comment } from '@/framework/types/order'
 import { handleReturnTime } from '@/utils/utils'
 import { updateComment } from '@/framework/api/get-order'
+import { useAtom } from 'jotai'
+import { userAtom } from '@/store/user.store'
 
 const OrderComment = ({
   comments,
@@ -15,6 +17,7 @@ const OrderComment = ({
   updateSuccess: Function
 }) => {
   const [form] = Form.useForm()
+  const [userInfo] = useAtom(userAtom)
   const [curType, setCurType] = useState('new')
   const [curComment, setCurComment] = useState<any>(null)
   const [delModalShow, setDelModalShow] = useState(false)
@@ -24,7 +27,8 @@ const OrderComment = ({
       curType == 'new'
         ? {
             content: values.comment,
-            createdBy: 'zz',
+            createdBy: userInfo?.nickname || 'zz',
+            createId: userInfo?.id || '',
           }
         : Object.assign(curComment, {
             content: values.comment,
@@ -65,25 +69,29 @@ const OrderComment = ({
                 <span className="flex items-center">
                   <Avatar size="small" icon={<UserOutlined />} />
                   <span className="ml-2">{item.createdBy}</span>
-                  <Tooltip title="Edit">
-                    <span
-                      className="cursor-pointer iconfont text-sm icon-rc-edit text-black-500 ml-2"
-                      onClick={() => {
-                        setCurType('edit')
-                        setCurComment(item)
-                        form.setFieldsValue({ comment: item.content })
-                      }}
-                    />
-                  </Tooltip>
-                  <Tooltip title="Delete">
-                    <span
-                      className="cursor-pointer iconfont text-sm icon-delete text-black-500 ml-2"
-                      onClick={() => {
-                        setDelModalShow(true)
-                        setCurComment(item)
-                      }}
-                    />
-                  </Tooltip>
+                  {item.createId === userInfo?.id ? (
+                    <>
+                      <Tooltip title="Edit">
+                        <span
+                          className="cursor-pointer iconfont text-sm icon-rc-edit text-black-500 ml-2"
+                          onClick={() => {
+                            setCurType('edit')
+                            setCurComment(item)
+                            form.setFieldsValue({ comment: item.content })
+                          }}
+                        />
+                      </Tooltip>
+                      <Tooltip title="Delete">
+                        <span
+                          className="cursor-pointer iconfont text-sm icon-delete text-black-500 ml-2"
+                          onClick={() => {
+                            setDelModalShow(true)
+                            setCurComment(item)
+                          }}
+                        />
+                      </Tooltip>
+                    </>
+                  ) : null}
                 </span>
                 <span className="text-sm">{handleReturnTime(item.createdAt)}</span>
               </div>
