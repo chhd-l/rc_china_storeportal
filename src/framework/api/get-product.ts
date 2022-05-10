@@ -203,6 +203,7 @@ export const shopCategoryFilterRules = async (params: ShopCategoryFilterRulesInp
 export const saveShopCategory = async (params: SaveShopCategoryInput): Promise<any> => {
   try {
     let res = await ApiRoot.products().saveShopCategory({ body:params })
+    return res
   } catch (e) {
     console.log(e)
   }

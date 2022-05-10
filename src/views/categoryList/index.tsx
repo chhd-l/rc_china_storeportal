@@ -20,11 +20,13 @@ import IconFont from '@/components/common/IconFont'
 // import 'antd/dist/antd.css';
 const ShopCategories = () => {
   const [addVisible, setAddvisible] = useState(false)
+  const ref = useRef<any>()
   const handleAddCate = (visible: boolean) => {
     setAddvisible(visible)
   }
-  const ref = useRef<any>()
-
+  const handleUpdate = (visible: boolean) => {
+    ref.current.reload();
+  }
 
   useEffect(() => {
     // createShopCategoryGoodsRel([{ shopCategoryId: '8', goodsId: 'ea63d308-f451-9899-47d3-14f4a83ff16b' }])
@@ -87,10 +89,10 @@ const ShopCategories = () => {
             <Link to={`/category/category-detail/${record.id}`} className='mr-4 text-xl'>
               <IconFont type='icon-group52' />
             </Link>,
-            <Link to='' className='mr-4 text-xl'>
-              <IconFont type='icon-delete' onClick={()=>{
-                detleShopCateRel([record.id])
-              }}/>
+            <Link to='' className='mr-4 text-xl' onClick={()=>{
+              detleShopCateRel([record.id])
+            }}>
+              <IconFont type='icon-delete' />
             </Link>,
           ]
         }
@@ -149,7 +151,7 @@ const ShopCategories = () => {
           }}
         />
       </div>
-      <AddCate visible={addVisible} handleVisible={handleAddCate} />
+      <AddCate visible={addVisible} handleVisible={handleAddCate} handleUpdate={handleUpdate}/>
     </div>
   )
 }

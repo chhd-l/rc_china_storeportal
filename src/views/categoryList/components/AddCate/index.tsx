@@ -10,14 +10,21 @@ import { saveShopCategory } from '@/framework/api/get-product'
 interface AddCateProps {
   visible: boolean;
   handleVisible: (a: boolean) => void;
+  handleUpdate:(a: boolean)=>void
 }
-const AddCate = ({ visible, handleVisible }: AddCateProps) => {
+const AddCate = ({ visible, handleVisible,handleUpdate }: AddCateProps) => {
   const navigation = useNavigate();
   const onFinish = async (values: any) => {
     console.info(values);
-    saveShopCategory({storeId: '12345678',displayName:values.displayName,categoryType:values.type==='0'?'MANUAL':'RULE_BASED'})
+   let res= await saveShopCategory({storeId: '12345678',displayName:values.displayName,categoryType:values.type==='0'?'MANUAL':'RULE_BASED'})
+    console.log(res)
+    if(res.saveShopCategory.id){
+      handleUpdate(true)
+      return true
+    } else {
+      return false
+    }
     // navigation(`/category/category-detail/add`, { state: { addCateType: values.type } });
-    return true;
   };
   return (
     <ModalForm
