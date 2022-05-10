@@ -142,7 +142,7 @@ export const steps: StepsProps[] = [
     anchor: 'product_basic_infomation',
     subTitle: '',
     tips: 'Basic Infomation',
-    rightSlot: <EyeOutlined />,
+    // rightSlot: <EyeOutlined />,
     render: (field: FormListFieldData, form: any) => <BasicInfo field={field} form={form} />,
   },
   {
