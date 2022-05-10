@@ -36,9 +36,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
       e => {
         // @ts-ignore
         let str = e?.target?.closest('.tips-wrap')?.dataset?.tips || ''
-        if (str) {
-          setDataTips(str)
-        }
+        setDataTips(str)
       },
       false,
     )
@@ -199,6 +197,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                     className='ml-4'
                     type='primary'
                     onClick={() => {
+                      debugger
                       shelvesStatus = true
                       form.submit()
                     }}
@@ -211,6 +210,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                   className='ml-4'
                   type='primary'
                   onClick={() => {
+                    debugger
                     shelvesStatus = true
                     form.submit()
                   }}

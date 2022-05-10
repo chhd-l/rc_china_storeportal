@@ -1,6 +1,6 @@
 import { Form, Input, Row, Col } from 'antd'
 import { FormProps } from '@/framework/types/common'
-import "./index.less"
+import './index.less'
 
 const Shipping = ({ field }: FormProps) => (
   <div className='shipping'>
@@ -26,7 +26,7 @@ const Shipping = ({ field }: FormProps) => (
       </Col>
       <Col span={5}>
         <Form.Item label='' wrapperCol={{ span: 20 }} name='length'>
-          <Input placeholder='L' addonAfter='cm' />
+          <Input placeholder='L(Integer)' addonAfter='cm' />
         </Form.Item>
       </Col>
       <Col span={5}>

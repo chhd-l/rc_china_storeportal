@@ -388,6 +388,7 @@ const EditVariationList = (props: FormProps) => {
                                 <Input
                                   className='text-center'
                                   type='number'
+                                  min={0}
                                   placeholder='Input'
                                   onBlur={e => {
                                     tr[td.keyVal] = e.target.value

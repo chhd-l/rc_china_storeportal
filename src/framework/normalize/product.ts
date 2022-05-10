@@ -142,7 +142,7 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     type: data.type,
     brandId: data.brandId,
     goodsCategoryId: data.goodsCategoryId || '8',
-    shelvesStatus: false,
+    shelvesStatus: data.shelvesStatus,
     // defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',//?干嘛呢
     salesStatus: data.salesStatus === "1",
     weight: data.weight ? Number(data.weight) : 0,
@@ -192,7 +192,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
     skuData = skus.map((data: any) => {
       console.info('data.marketingPrice', data.marketingPrice)
       let newVariation: any = {
-        isSupport100: data.isSupport100 === 'true' ? true : false,
+        isSupport100: data.isSupport100 === 'true',
         skuType: spu.type,
         skuNo: data.skuNo,
         eanCode: data.eanCode,//withoutSku
@@ -200,7 +200,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
         stock: data.stock ? Number(data.stock) : 0,
         marketingPrice: data.marketingPrice ? Number(data.marketingPrice) : 0,
         listPrice: data.listPrice ? Number(data.listPrice) : 0,
-        shelvesStatus: true,
+        shelvesStatus: data.shelvesStatus === 'true',
         // shelvesTime: '2021-01-31 10:10:00',
         storeId: '12345678',
         defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
@@ -239,7 +239,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
       stock: spu.stock ? Number(spu.stock) : 0,
       marketingPrice: spu.marketingPrice ? Number(spu.marketingPrice) : 0,
       listPrice: spu.listPrice ? Number(spu.listPrice) : 0,
-      shelvesStatus: true,
+      // shelvesStatus: true,
       // shelvesTime: '2021-01-31 10:10:00',
       storeId: '12345678',
       defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
