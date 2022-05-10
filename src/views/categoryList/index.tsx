@@ -6,7 +6,7 @@ import './index.less'
 import AddCate from './components/AddCate'
 import { EyeOutlined, SwapOutlined } from '@ant-design/icons'
 import ProTable, { ProColumns } from '@/components/common/ProTable'
-import { useEffect, useState,useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { CategoryBaseProps } from '@/framework/types/product'
 import {
   detleShopCateRel,
@@ -42,7 +42,7 @@ const ShopCategories = () => {
       title: 'Created By',
       dataIndex: 'categoryType',
       render: (_, record) => (
-        <span>{'Seller | '+record.categoryType}</span>
+        <span>{'Seller | ' + record.categoryType}</span>
       ),
     },
     {
@@ -70,24 +70,28 @@ const ShopCategories = () => {
       render: (_, record) => {
         if (record.productNum <= 0) {
           return [
-            <Link to={`/category/${record.id}`} className='mr-4'>
+            <Link to={`/category/${record.id}`} className='mr-4 text-xl'>
               <IconFont type='icon-jiahao' />
             </Link>,
             // <a className=" mr-4">
             //   <SettingOutlined />
             // </a>,
-            <IconFont type="icon-delete cursor-pointer ml-2 text-red-500 text-xl" onClick={()=>{
-              detleShopCateRel([record.id])
-            }}/>,
+            <Link to='' className='mr-4 text-xl'>
+              <IconFont type='icon-delete' onClick={()=>{
+                detleShopCateRel([record.id])
+              }}/>
+            </Link>,
           ]
         } else {
           return [
-            <Link to={`/category/category-detail/${record.id}`} className='mr-4'>
-              <IconFont type="icon-group52" />
+            <Link to={`/category/category-detail/${record.id}`} className='mr-4 text-xl'>
+              <IconFont type='icon-group52' />
             </Link>,
-            <span className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl" onClick={()=>{
-              detleShopCateRel([record.id])
-            }} />
+            <Link to='' className='mr-4 text-xl'>
+              <IconFont type='icon-delete' onClick={()=>{
+                detleShopCateRel([record.id])
+              }}/>
+            </Link>,
           ]
         }
       },
@@ -127,7 +131,7 @@ const ShopCategories = () => {
           actionRef={ref}
           search={false}
           columns={columns}
-          request={async(params, sorter, filter) => {
+          request={async (params, sorter, filter) => {
             // 表单搜索项会从 params 传入，传递给后端接口。
             console.log('test sort', params, sorter, filter)
             let tableData = await getShopCategories({
@@ -139,7 +143,7 @@ const ShopCategories = () => {
               },
             })
             return Promise.resolve({
-              data: tableData?.records||[],
+              data: tableData?.records || [],
               success: true,
             })
           }}
