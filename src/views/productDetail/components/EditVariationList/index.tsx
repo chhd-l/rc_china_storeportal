@@ -187,7 +187,7 @@ const EditVariationList = (props: FormProps) => {
         subSku: '',
         feedingDays: '',
         isSupport100: 'true',
-        shelvesStatus: '',
+        shelvesStatus: 'true',
         subscriptionStatus: '1',
         eanCode: '',
         listPrice: '',
@@ -417,19 +417,19 @@ const EditVariationList = (props: FormProps) => {
                               return (
                                 <div className='text-center '>
                                   {tr[td.keyVal] === 'true' ? (
-                                    <VerticalAlignTopOutlined
+                                    <VerticalAlignBottomOutlined
                                       onClick={() => {
-                                        tr[td.keyVal] = 'flse'
-                                        updateVations('false', index, td.keyVal, tr)
+                                        tr[td.keyVal] = 'false'
                                         setVariationList([...variationList])
+                                        updateVations('false', index, td.keyVal, tr)
                                       }}
                                     />
                                   ) : (
-                                    <VerticalAlignBottomOutlined
+                                    <VerticalAlignTopOutlined
                                       onClick={() => {
                                         tr[td.keyVal] = 'true'
-                                        setVariationList([...variationList])
                                         updateVations('true', index, td.keyVal, tr)
+                                        setVariationList([...variationList])
                                       }}
                                     />
                                   )}

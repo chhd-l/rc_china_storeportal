@@ -274,7 +274,33 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
     if (!spu.editChange.goodsVariants) {
       spu.editChange.goodsVariants = []
     }
-    editData = [...spu.editChange.goodsVariants, ...delArr]
+    //处理规格值转换
+    let editVariationData = spu.editChange.goodsVariants?.map((el: any) => {
+      let normaliseData: any = el ? [...el] : null
+      if (el) {
+        if (el?.shelvesStatus) {
+          normaliseData.shelvesStatus = el.shelvesStatus === 'true'
+        }
+        if (el?.isSupport100) {
+          normaliseData.isSupport100 = el.isSupport100 === 'true'
+        }
+        if (el?.listPrice) {
+          normaliseData.listPrice = Number(el.listPrice)
+        }
+        if (el?.stock) {
+          normaliseData.stock = Number(el.stock)
+        }
+        if (el?.subscriptionStatus) {
+          normaliseData.subscriptionStatus = Number(el.subscriptionStatus)
+        }
+        if (el?.subscriptionPrice) {
+          normaliseData.subscriptionPrice = Number(el.subscriptionPrice)
+        }
+      }
+
+      return normaliseData
+    })
+    editData = [...editVariationData, ...delArr]
     //规格有改变的
     spu.goodsVariantsInput.filter((el: any) => el.id).forEach((variantInput: any, index: number) => {
 

@@ -66,8 +66,11 @@ const UploadWrap = (props: UploadWrapProps) => {
       {loading ? (
         <LoadingOutlined />
       ) : (
-        <div className='rounded-full border border-solid p-1  border-primary w-full h-full justify-center flex items-center'>
-          <PlusOutlined />
+        <div
+          style={{ borderColor: '#51ACF5' }}
+          className='rounded-full border border-solid p-1  border-primary w-full h-full justify-center flex items-center'
+        >
+          <PlusOutlined style={{ color: '#51ACF5' }} color='#51ACF5' />
         </div>
       )}
       {/* <div style={{ marginTop: 8 }}></div> */}
@@ -157,7 +160,7 @@ const UploadWrap = (props: UploadWrapProps) => {
           )}
         </Upload>
         {fileName ? (
-          <div className='mb-4 -mt-1 text-center' style={{ width: 104 }}>
+          <div className='mb-4 -mt-1 text-center' style={{ width: 95 }}>
             {fileName}
           </div>
         ) : null}

@@ -124,7 +124,19 @@ const BasicInfo = ({ field, form }: FormProps) => {
         }}
         name='video'
       >
-        <Upload handleImgUrl={handleVideoUrl} fileName='Cover Video' type='video' idx={0} showUploadList={false} />
+        <div className='flex'>
+          <Upload handleImgUrl={handleVideoUrl} fileName='Cover Video' type='video' idx={0} showUploadList={false} />
+          <div style={{ color: '#C4C4C4' }} className='ml-4'>
+            <div>1. Size: Max 30Mb, resolution should not exceed 1280x1280px</div>
+            <div>2. Duration: 10s-60s</div>
+            <div>3. Format: MP4 </div>
+            <div>
+              {' '}
+              4. Note: You can publish this listing while the video is being processed. Video <br /> will be shown in
+              listing once successfully processed.
+            </div>
+          </div>
+        </div>
       </Form.Item>
       <Form.Item
         label='SPU'
@@ -167,7 +179,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         3. Benefits<br/>
         4. Feeding advice<br/>
         5. Products Recommended<br/>
-        6. Product guarantee"<br/>
+        6. Product guarantee<br/>
         `}
         // initialValue={detail.goodsDescription}
         rules={[{ required: true, message: 'Missing Product Description' }]}

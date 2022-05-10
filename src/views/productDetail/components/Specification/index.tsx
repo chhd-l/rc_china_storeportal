@@ -63,7 +63,7 @@ const Specification = (props: FormProps) => {
               <Col span={16}>
                 <Select
                   className='w-full'
-                  searchValue=''
+                  // searchValue=''
                   labelInValue
                   mode='multiple'
                   allowClear
