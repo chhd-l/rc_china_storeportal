@@ -300,6 +300,30 @@ export const getTemplateItems = async (queryParams: any) => {
   }
 }
 
+// 查询
+export const getTemplateMessages = async (queryParams: any) => {
+  try {
+    const params = {
+      offset: 0,
+      limit: 10,
+      accountId: '000001',
+    }
+    let res = await ApiRoot.wechatSettings().getTemplateMessages({ body: params })
+    const templateMessageList = res?.templateMessageList
+    console.log('get templateItem list view data', templateMessageList)
+    return {
+      records: templateMessageList.records || [],
+      total: templateMessageList.total || 0,
+    }
+  } catch (e) {
+    console.log(e)
+    return {
+      records: [],
+      total: 0,
+    }
+  }
+}
+
 /**
  * 查询微信公众号菜单列表
  * @param queryParams 

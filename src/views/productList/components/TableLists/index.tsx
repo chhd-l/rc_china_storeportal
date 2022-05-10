@@ -9,12 +9,12 @@ import TableHeader from '../TableHeader'
 import TableFooter from '../TableFooter'
 
 interface Pages {
-  page: number | undefined,
+  page: number | undefined
   pageSize: number | undefined
 }
 interface ListTableProps {
-  listData: ProductListProps,
-  handlePagination: any,
+  listData: ProductListProps
+  handlePagination: any
   pages: Pages
   getList: Function
 }
@@ -58,8 +58,8 @@ const ListTable = ({ listData, handlePagination, getList, pages }: ListTableProp
 
   return (
     <div>
-      <div className='border'>
-        <div className='flex py-3 bg-gray1'>
+      <div className='border' style={{ borderRadius: '2px' }}>
+        <div className='flex py-3 bg-gray1  border-b'>
           <div className='px-2 flex items-center'>
             <Checkbox indeterminate={indeterminate} checked={checkedAll} onChange={handleCheckedAll} />
           </div>
@@ -83,22 +83,25 @@ const ListTable = ({ listData, handlePagination, getList, pages }: ListTableProp
           <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
         )}
       </div>
-      {
-        list.length ? (
-          <>
-            <div className='bg-white'>
-              <Pagination className='text-right my-8' showSizeChanger onChange={handlePagination} defaultCurrent={pages.page} total={listData.total} pageSize={pages.pageSize} />
-            </div>
-          </>
-        ) : null
-      }
-      {
-        checkedItem ? (
-          <TableFooter  getList={getList} list={list}>
-            <Checkbox indeterminate={indeterminate} checked={checkedAll} onChange={handleCheckedAll} />
-          </TableFooter>
-        ) : null
-      }
+      {list.length ? (
+        <>
+          <div className='bg-white'>
+            <Pagination
+              className='text-right my-8'
+              showSizeChanger
+              onChange={handlePagination}
+              defaultCurrent={pages.page}
+              total={listData.total}
+              pageSize={pages.pageSize}
+            />
+          </div>
+        </>
+      ) : null}
+      {checkedItem ? (
+        <TableFooter getList={getList} list={list}>
+          <Checkbox indeterminate={indeterminate} checked={checkedAll} onChange={handleCheckedAll} />
+        </TableFooter>
+      ) : null}
     </div>
   )
 }

@@ -11,10 +11,12 @@ const OrderActions = ({
   orderState,
   orderId,
   orderAddress,
+  orderBuyer,
 }: {
   orderState: string
   orderId: string
   orderAddress: any
+  orderBuyer: any
 }) => {
   const [shipModalVisible, setShipModalVisible] = useState(false)
   const [completeModalVisible, setCompleteModalVisible] = useState(false)
@@ -27,6 +29,11 @@ const OrderActions = ({
       address: _.omit(orderAddress, ['isDefault', 'postCode']),
       orderNum: orderId,
       nowOrderState: orderState,
+      wxUserInfo: {
+        openId:orderBuyer.openId,
+        unionId:orderBuyer.unionId,
+        nickName:orderBuyer.nickname
+      },
     }
     const res = await shippedOrder(params)
     if (res) {
@@ -71,11 +78,11 @@ const OrderActions = ({
         </Tooltip>
       )}
       {/*收货*/}
-      {orderState === OrderStatus["Shipped"] && (
+      {orderState === OrderStatus['Shipped'] && (
         <Tooltip title="Completed">
           <span
             className="cursor-pointer ml-2 iconfont icon-Order primary-color"
-            style={{ fontSize: "20px" }}
+            style={{ fontSize: '20px' }}
             onClick={() => setCompleteModalVisible(true)}
           />
         </Tooltip>

@@ -59,7 +59,7 @@ const AppLayout = () => {
             className='site-layout-background'
             style={{
               // padding: 24,
-              margin: '59px 24px 0 24px',
+              margin: '59px 10% 0',
               // minHeight: 600,
             }}
           >

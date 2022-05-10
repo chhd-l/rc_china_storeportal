@@ -20,12 +20,14 @@ const OrderProgress = ({
   subscriptionId,
   orderAddress,
   logs,
+                         buyer
 }: {
   orderState: string
   orderId: string
   subscriptionId: string | undefined
   orderAddress: any[]
   logs: any
+  buyer:any
 }) => {
   const [currentStep, setCurrentStep] = useState(0)
   const [filterSteps, setFilterSteps] = useState(stepList)
@@ -65,7 +67,7 @@ const OrderProgress = ({
           </span>
         </div>
         <div className="justify-items-end">
-          <OrderActions orderState={orderState} orderId={orderId} orderAddress={orderAddress} />
+          <OrderActions orderState={orderState} orderId={orderId} orderAddress={orderAddress} orderBuyer={buyer}/>
         </div>
       </div>
       <div className="mt-4">
