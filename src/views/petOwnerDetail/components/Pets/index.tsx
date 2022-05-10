@@ -22,8 +22,8 @@ const PetInformation = ({ id, customerId }: { customerId: string; id: string }) 
   }, [customerId])
 
   return (
-    <div id={id}>
-      <div className="text-xl font-medium pet-information">Pet Information</div>
+    <div id={id} className="pet-information">
+      <div className="py-4 px-2 border-b text-xl font-medium">Pet Information</div>
       {pets.length > 0 ? (
         <div className="grid grid-cols-2 gap-4">
           {pets.map((item: Pet,index) => (

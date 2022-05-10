@@ -7,7 +7,7 @@ import "./index.less";
 import { login } from "@/framework/api/login-user";
 import { useAtom } from "jotai";
 import { userAtom } from "@/store/user.store";
-import axios from "axios";
+// import axios from "axios";
 
 const formItems: FormItemProps[] = [
   {
@@ -51,10 +51,10 @@ const Login = () => {
   };
 
   return (
-    <div className="h-screen bg-gray1 flex justify-center items-center">
-      <div className="flex flex-row  justify-center">
+    <div className="h-screen bg-gray1 flex justify-center items-center login-content">
+      <div className="flex flex-row  justify-center ">
         <SellerLogoPanel />
-        <div className="bg-white w-80 border p-6">
+        <div className="bg-white border p-6 content ml-24">
           <p className="text-2xl font-medium text-center">Seller Center</p>
           <Form
             form={form}
@@ -101,7 +101,7 @@ const Login = () => {
                 htmlType="submit"
                 loading={loading}
               >
-                Login
+                Log  In
               </Button>
               <p className="text-12 mt-2 text-left">
                 Don't have an account?{" "}

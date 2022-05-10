@@ -18,7 +18,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
     <div>
       <div className="flex flex-row justify-between">
         <div className="flex flex-row items-center">
-          <div className="w-auto mr-2 text-left">WeChat Name:</div>
+          <div className="mr-2 w-24 text-left">WeChat Name:</div>
           <Input
             style={{ width: '200px' }}
             placeholder="Enter WeChat name"
@@ -29,7 +29,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
           />
         </div>
         <div className="flex flex-row items-center">
-          <div className="w-auto mr-2 ml-4">Phone Number:</div>
+          <div className="mr-2 ml-4 w-28">Phone Number:</div>
           <Input
             style={{ width: '200px' }}
             placeholder="Enter phone number"
@@ -40,7 +40,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
           />
         </div>
         <div className="flex flex-row items-center">
-          <div className="mr-2 ml-4">Login Time:</div>
+          <div className="mr-2 ml-4 w-24">Login Time:</div>
           <DatePicker.RangePicker
             style={{ width: '300px' }}
             value={pickValue}
