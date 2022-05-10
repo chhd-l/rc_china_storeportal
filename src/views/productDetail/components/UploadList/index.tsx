@@ -160,7 +160,7 @@ const UploadWrap = (props: UploadWrapProps) => {
           )}
         </Upload>
         {fileName ? (
-          <div className='mb-4 -mt-1 text-center' style={{ width: 95 }}>
+          <div className='mb-4 -mt-1 text-center' style={{ width: 95, color: 'rgb(196, 196, 196)' }}>
             {fileName}
           </div>
         ) : null}

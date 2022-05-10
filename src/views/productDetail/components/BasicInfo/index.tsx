@@ -91,13 +91,13 @@ const BasicInfo = ({ field, form }: FormProps) => {
       <Form.Item
         label='Product Image'
         labelCol={{
-          span: 3,
+          span: 4,
         }}
         name='goodsAsserts'
         className='tips-wrap'
         data-tips={`Product Image:<p>Cover photo should have 1. white background & 2. present obvious product packaging</p><p>Every photos should have fine resolution - pixel doesn't appear breaking when zooming in<p>Product image can add up to 9 photos</p>`}
         wrapperCol={{
-          span: 22,
+          span: 20,
         }}
       >
         <div className='flex flex-wrap'>
@@ -117,10 +117,10 @@ const BasicInfo = ({ field, form }: FormProps) => {
       <Form.Item
         label='Product Video'
         labelCol={{
-          span: 3,
+          span: 4,
         }}
         wrapperCol={{
-          span: 22,
+          span: 20,
         }}
         name='video'
       >
@@ -144,7 +144,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         data-tips='SPU:<p>SPU should be unique and conform to coding rules.</p>'
         name='spuNo'
         rules={[{ required: true, message: 'Missing SPU' }]}
-        labelCol={{ span: 3 }}
+        labelCol={{ span: 4 }}
       >
         <Input placeholder='Please input' className='input-radius' />
       </Form.Item>
@@ -154,7 +154,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         className='tips-wrap'
         data-tips={`Product Name:<p>Briefly summarize the product</p>`}
         rules={[{ required: true, message: 'Missing Product Name' }]}
-        labelCol={{ span: 3 }}
+        labelCol={{ span: 4 }}
       >
         <Input data-tips='test' showCount maxLength={120} placeholder='Please input' className='input-radius' />
       </Form.Item>
@@ -181,9 +181,12 @@ const BasicInfo = ({ field, form }: FormProps) => {
         5. Products Recommended<br/>
         6. Product guarantee<br/>
         `}
+        wrapperCol={{
+          span: 20,
+        }}
         // initialValue={detail.goodsDescription}
         rules={[{ required: true, message: 'Missing Product Description' }]}
-        labelCol={{ span: 3 }}
+        labelCol={{ span: 4 }}
       >
         <Wangeditor defaultValue={detail.goodsDescription} onChange={handleEditorChange} />
       </Form.Item>
@@ -191,7 +194,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         className=' with-no-margin'
         label='Category'
         name='category'
-        labelCol={{ span: 4 }}
+        labelCol={{ span: 7 }}
         rules={[{ required: true }]}
       >
         <div className='flex pr-6'>
@@ -217,7 +220,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         label='Brand'
         className=' with-no-margin'
         name='brandId'
-        labelCol={{ span: 4 }}
+        labelCol={{ span: 7 }}
         rules={[{ required: true }]}
       >
         <Select placeholder='Please select' options={brandList} style={{ width: 195 }} className='input-radius' />
@@ -230,7 +233,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
 <p>Products that are not displayed and sold in the mall should be set to Not saleable</p>
 `}
         name='salesStatus'
-        labelCol={{ span: 4 }}
+        labelCol={{ span: 7 }}
         rules={[{ required: true }]}
       >
         <Select placeholder='Please select' options={salesStatusList} style={{ width: 195 }} className='input-radius' />

@@ -9,6 +9,7 @@ const Shipping = ({ field }: FormProps) => (
       label='Weight'
       name='weight'
       className='tips-wrap'
+      labelCol={{ span: 4 }}
       data-tips={`Product Weight:
 <p>Should input the weight when the product is ready to ship, meaning product weight + package weight.</p>`}
     >
@@ -20,7 +21,7 @@ const Shipping = ({ field }: FormProps) => (
 <p>Should input the parcel size not the product size, so that the system can calculate the pick-up car accurately.</p>`}
     >
       <Col span={12}>
-        <Form.Item label='Parcel Size' labelCol={{ span: 10 }} wrapperCol={{ span: 12 }} name='width'>
+        <Form.Item label='Parcel Size' labelCol={{ span: 8 }} wrapperCol={{ span: 12 }} name='width'>
           <Input placeholder='W(Integer)' addonAfter='cm' />
         </Form.Item>
       </Col>

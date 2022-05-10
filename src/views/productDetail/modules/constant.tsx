@@ -149,7 +149,7 @@ export const steps: StepsProps[] = [
     title: 'Specification',
     anchor: 'product_specification',
     tips: 'Specification',
-    subTitle: 'Complete: Fill in more attributes to boost the exposure of your product.',
+    subTitle: 'Fill in more attributes to boost the exposure of your product.',
     rightSlot: null,
     render: (field: FormListFieldData) => <Specification field={field} />,
   },
