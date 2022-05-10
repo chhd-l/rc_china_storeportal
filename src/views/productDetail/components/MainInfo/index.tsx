@@ -145,7 +145,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                         <div className='font-black text-lg font-bold'>{steps[idx].title}</div>
                         <div>{steps[idx].rightSlot}</div>
                       </div>
-                      <div>{steps[idx].subTitle}</div>
+                      {steps[idx].subTitle ? <div className='pb-4'>{steps[idx].subTitle}</div> : null}
                     </div>
                     {steps[idx].render(field, form)}
                   </div>

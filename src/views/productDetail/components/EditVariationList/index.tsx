@@ -278,8 +278,8 @@ const EditVariationList = (props: FormProps) => {
   return variationList?.length ? (
     <div className='edit-variation-list'>
       <Row>
-        <Col span={4} className='text-right mr-2 pb-4'>
-          Variation List
+        <Col span={4} className='text-right pr-2 pb-4'>
+          {`Variation List `}
         </Col>
       </Row>
       <Row>
