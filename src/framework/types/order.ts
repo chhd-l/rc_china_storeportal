@@ -21,6 +21,7 @@ export interface Comment {
   lastModifiedAt?: string
   createdAt?: string
   createdBy?: string
+  createId?:string
   content?: string
   id?: string
 }
