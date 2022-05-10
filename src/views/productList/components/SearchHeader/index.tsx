@@ -46,6 +46,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
   }
   const onReset = () => {
     form.resetFields()
+    setTypeSelect(typeForKey[0].value) //恢复第一个选项的选择
   }
   // const handleCateId = (cateIds: any) => {
   //   setCateId(cateIds)
@@ -72,7 +73,11 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
           <Col span={11}>
             <Input.Group compact className='flex'>
               <Form.Item className='rounded-xl ' name='selectName' initialValue={nameForKey[0].value}>
-                <Select style={{ width: 140 }} placeholder='Select a option and change input text above' className='ant-select-left no-border-radius-right'>
+                <Select
+                  style={{ width: 140 }}
+                  placeholder='Select a option and change input text above'
+                  className='ant-select-left no-border-radius-right'
+                >
                   {nameForKey.map((el: any) => (
                     <Option key={el.value} value={el.value}>
                       {el.name}
@@ -85,6 +90,58 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                 <Input placeholder={`Please Input`} />
               </Form.Item>
             </Input.Group>
+          </Col>
+          <Col span={11} offset={2}>
+            <Input.Group compact className='flex'>
+              <Form.Item name='type' initialValue={typeForKey[0].value}>
+                <Select
+                  style={{ width: 150 }}
+                  placeholder='Select a option and change input text above'
+                  onChange={v => {
+                    form.setFieldsValue({ GoodsType: '' })
+                    setTypeSelect(v)
+                  }}
+                >
+                  {typeForKey.map((el: any) => (
+                    <Option key={el.value} value={el.value}>
+                      {el.name}
+                    </Option>
+                  ))}
+                </Select>
+                {/* <SelectKey list={typeForKey} /> */}
+              </Form.Item>
+              <Form.Item className='flex-1' name='GoodsType'>
+                <Select placeholder='Choose Product Type'>
+                  {typeSelect === typeForKey[0].value
+                    ? chooseProductType.map((el: any) => (
+                        <Option key={el.value} value={el.value}>
+                          {el.name}
+                        </Option>
+                      ))
+                    : SubscriptionType.map((el: any) => (
+                        <Option key={el.value} value={el.value}>
+                          {el.name}
+                        </Option>
+                      ))}
+                </Select>
+              </Form.Item>
+            </Input.Group>
+          </Col>
+          <Col span={5}>
+            <Form.Item label='Stock' name='startStock' className='mr-0'>
+              <InputNumber min={0} className='w-full' placeholder={`Please Input`} />
+              {/* <Input type='number' placeholder={`please Input startStock`} /> */}
+            </Form.Item>
+          </Col>
+          <Col span={1} className=' flex items-center justify-center'>
+            {' '}
+            -{' '}
+          </Col>
+          <Col span={5}>
+            <Form.Item name='endStock'>
+              <InputNumber min={0} className='w-full' placeholder={`Please Input`} />
+              {/* <Input type='number' placeholder={`please Input endStock`} /> */}
+            </Form.Item>
           </Col>
           <Col span={11} offset={2}>
             <Form.Item label='Category' name='cateId'>
@@ -166,15 +223,15 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                 <Select placeholder='Choose Product Type' className='no-border-radius-left '>
                   {typeSelect === typeForKey[0].value
                     ? chooseProductType.map((el: any) => (
-                      <Option key={el.value} value={el.value}>
-                        {el.name}
-                      </Option>
-                    ))
+                        <Option key={el.value} value={el.value}>
+                          {el.name}
+                        </Option>
+                      ))
                     : SubscriptionType.map((el: any) => (
-                      <Option key={el.value} value={el.value}>
-                        {el.name}
-                      </Option>
-                    ))}
+                        <Option key={el.value} value={el.value}>
+                          {el.name}
+                        </Option>
+                      ))}
                 </Select>
               </Form.Item>
             </Input.Group>
@@ -184,7 +241,9 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
               <Button htmlType='submit' type='primary' className='mr-4 btn'>
                 Search
               </Button>
-              <Button onClick={onReset} className="btn">Reset</Button>
+              <Button onClick={onReset} className='btn'>
+                Reset
+              </Button>
             </Form.Item>
           </Col>
         </Row>

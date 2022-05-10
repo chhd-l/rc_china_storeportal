@@ -159,6 +159,10 @@ const AddVariation = ({}: AddVariationProps) => {
 
   const onSortEnd = ({ oldIndex, newIndex, collection }: { oldIndex: number; newIndex: number; collection: any }) => {
     const { variationList } = variationForm
+    if (detail.id) {
+      //编辑
+      debugger
+    }
     variationList[collection].specificationList = arrayMoveImmutable(
       variationList[collection].specificationList,
       oldIndex,
@@ -227,7 +231,7 @@ const AddVariation = ({}: AddVariationProps) => {
             className={classNames('pt-6 relative', variation.isDeleted ? 'hidden' : '')}
           >
             <Col span={4} className='text-right pr-2'>
-              variation{variationIdx + 1}
+              Variation{variationIdx + 1}
               {` :`}
             </Col>
             <Col span={16} className='pt-6' style={{ background: '#f8f8f8' }}>

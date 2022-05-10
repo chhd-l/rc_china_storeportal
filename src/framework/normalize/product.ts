@@ -327,13 +327,15 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
 }
 
 export const normaliseInputSpecificationProps = (data: any) => {
-  return data.map((spec: any) => {
+  return data.map((spec: any, index: number) => {
     let newSpec = {
+      rank: index,
       specificationName: spec.name,
       specificationNameEn: spec.name,
       id: spec.id,
-      goodsSpecificationDetail: spec.specificationList.map((specDetail: any) => {
+      goodsSpecificationDetail: spec.specificationList.map((specDetail: any, idx: number) => {
         return {
+          rank: idx,
           specificationDetailName: specDetail.option,
           specificationDetailNameEn: specDetail.option,
           id: specDetail.id
@@ -472,7 +474,7 @@ export const normaliseChangedvaration = (beforeData: any, afterData: any) => {
 }
 export const normalizeNullDataRemove = (params: any) => {
   let newData: any = {}
-  Object.keys(params).filter(el => params[el]).forEach(el => {
+  Object.keys(params).filter(el => params[el] !== undefined).forEach(el => {
     newData[el] = params[el]
   }
   )

@@ -1,6 +1,6 @@
 import './index.less'
 import { VariationosContext } from '../SalesInfo'
-import { useContext, useEffect, useState } from 'react'
+import { ReactElement, useContext, useEffect, useState } from 'react'
 import { cloneDeep } from 'lodash'
 import { Button, Col, Form, Input, Popover, Row, Select } from 'antd'
 import { FormProps } from '@/framework/types/common'
@@ -23,14 +23,16 @@ export interface VarviationProps {
 }
 interface HeaderProps {
   type: string
-  label: string
+  label: string | ReactElement
   keyVal: string
   dataTips?: string
   options?: any
+  required?: boolean
 }
-let isInited = false
 const EditVariationList = (props: FormProps) => {
   const { detail, spuType } = useContext(DetailContext)
+  const [isInited, setIsInited] = useState(false)
+  // let isInited = false
   const { variationForm: cloneVariationForm } = useContext(VariationosContext)
   //changeType操作variation需要做include处理；操作spec需要做===处理
   const [variationList, setVariationList] = useState<VarviationProps[]>([])
@@ -72,6 +74,7 @@ const EditVariationList = (props: FormProps) => {
       headerOrigition.splice(idx, 1)
     }
     const cloneHeaderOrigition = [...headerOrigition]
+    debugger
     cloneHeaderOrigition.splice(1, 0, ...variationHeaders)
     setHeaderList(cloneHeaderOrigition)
   }
@@ -152,6 +155,7 @@ const EditVariationList = (props: FormProps) => {
     if (specList?.[0]) {
       let datas = calcDescartes(specList)
       if (detail.variationLists?.length && !isInited) {
+        debugger
         initWithDefault(cloneDeep(datas))
       } else {
         init(cloneDeep(datas), data)
@@ -161,7 +165,10 @@ const EditVariationList = (props: FormProps) => {
     }
   }
   const initWithDefault = (vartions: any) => {
-    isInited = true
+    setIsInited(true)
+    // isInited = true //设置在组件外只能渲染一次，重复进来不会重置初始值
+    debugger
+
     init(vartions, { variationList: detail.variationLists }, true)
   }
   const init = (vartions: any, { variationList: formData, changeType }: any, isDefultData?: boolean) => {
@@ -281,7 +288,14 @@ const EditVariationList = (props: FormProps) => {
               <tr className='text-center bg-gray-primary h-12'>
                 {headerList.map((th, index) => (
                   <th className='font-normal' key={index}>
-                    {th.label}
+                    {th.required ? (
+                      <span>
+                        <span className='primary-color required-text'>*</span>
+                        {th.label}
+                      </span>
+                    ) : (
+                      th.label
+                    )}
                   </th>
                 ))}
               </tr>
