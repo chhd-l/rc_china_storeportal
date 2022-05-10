@@ -183,7 +183,7 @@ const EditVariationList = (props: FormProps) => {
         defaultImage: '',
         skuNo: '',
         skuName: '',
-        stock: '',
+        stock: '0',
         subSku: '',
         feedingDays: '',
         isSupport100: 'true',

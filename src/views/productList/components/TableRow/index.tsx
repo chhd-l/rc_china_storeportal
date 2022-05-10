@@ -45,7 +45,7 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
   }
 
   return (
-    <div className='flex bg-white border-b text-left items-center pt-2 pb-2'>
+    <div className='flex bg-white border-b text-left items-center pt-2 pb-2 productlist-bg'>
       <div className='px-2 py-1'>
         <Checkbox
           checked={spu.checked}
@@ -123,7 +123,9 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
           onOk={() => handleOk(listData[spuIdx]?.id)}
           onCancel={handleCancel}
         >
-          <div style={{ wordBreak:'break-word' }}>Are you sure want to delete the following product ? Warning: You cannot undo this action!</div>
+          <div style={{ wordBreak: 'break-word' }}>
+            Are you sure want to delete the following product ? Warning: You cannot undo this action!
+          </div>
           <p className='flex items-center'>
             <Image width={110} src={listData[spuIdx]?.img} />
             <div className='font-semibold w-full pl-4'>{listData[spuIdx]?.name}</div>

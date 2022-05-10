@@ -55,8 +55,8 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
       type: spuType,
       shelvesStatus,
     })
-    let withoutSku = !detail.variationForm?.variationList?.length
-    // debugger
+    let withoutSku = !detail.goodsSpecificationsInput?.length
+    debugger
     if (withoutSku) {
       params.goodsVariantsInput = [
         {
