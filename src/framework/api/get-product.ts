@@ -100,9 +100,7 @@ export const getAllProducts = async (params: ProductListQueryProps): Promise<Pro
 }
 
 export const getProductBySpuId = async (params: ProductListQueryProps) => {
-  // console.info('ApiRoot')
   const data = await ApiRoot.products().getAllProducts(params)
-  console.info('.......getAllProducts', data)
   try {
   } catch (e) {
     console.log(e)
@@ -115,7 +113,6 @@ export const getProductBySpuId = async (params: ProductListQueryProps) => {
 export const getESProducts = async (params: any): Promise<any> => {
   try {
     const res = await ApiRoot.products().getESProductLists(params)
-    console.info('res', res)
   } catch (e) {
     console.log(e)
   }
@@ -138,7 +135,6 @@ export const getProductDetail = async ({ storeId, goodsId }: { storeId: string, 
 export const deleteProducts = async ({ goodsId }: { goodsId: string[] }) => {
   try {
     const data = await ApiRoot.products().deleteMutation({ goodsId, storeId: "12345678" })
-    console.info('{ goodsId }', goodsId)
   } catch (e) {
     console.log(e)
     return {}
@@ -150,7 +146,6 @@ export const deleteProducts = async ({ goodsId }: { goodsId: string[] }) => {
 export const switchShelves = async ({ goodsId, status }: { goodsId: string[], status: boolean }) => {
   try {
     const data = await ApiRoot.products().switchShelvesMutation({ goodsId, status })
-    console.info('{ goodsId }', goodsId)
   } catch (e) {
     console.log(e)
     return {}
@@ -160,14 +155,11 @@ export const switchShelves = async ({ goodsId, status }: { goodsId: string[], st
 
 export const getScProducts = async (params: ProductListQueryProps): Promise<any> => {
   try {
-    console.info('params', params)
     let sample = normalizeNullDataRemove(params.sample)
     delete params.sample
     params.sample = { ...sample }
-    console.info('paramsparams', JSON.stringify(params))
     const res = await ApiRoot.products().getScProducts(params)
     const data = normaliseScProductsforFe(res.getScProducts)
-    console.info('resgetScProductsresgetScProducts', data)
     return data
   } catch (e) {
     console.log(e)
@@ -178,7 +170,6 @@ export const getScProducts = async (params: ProductListQueryProps): Promise<any>
 export const getShopCategories = async (params: shopCateQuery): Promise<any> => {
   try {
     let res = await ApiRoot.products().getShopCategoryList(params)
-    console.info('getShopCategories', res)
   } catch (e) {
     console.log(e)
   }
@@ -187,7 +178,6 @@ export const getShopCategories = async (params: shopCateQuery): Promise<any> => 
 export const createShopCategoryGoodsRel = async (params: ShopCategoryGoodsRelInput[]): Promise<any> => {
   try {
     let res = await ApiRoot.products().createShopCategoryGoodsRel({ body: params })
-    console.info('createShopCategoryGoodsRel', res)
   } catch (e) {
     console.log(e)
   }
@@ -196,7 +186,6 @@ export const createShopCategoryGoodsRel = async (params: ShopCategoryGoodsRelInp
 export const updateShopCategory = async (params: ShopCategoryUpdateInput): Promise<any> => {
   try {
     let res = await ApiRoot.products().updateShopCategory({ body: params })
-    console.info('updateShopCategory', res)
   } catch (e) {
     console.log(e)
   }
@@ -205,7 +194,6 @@ export const updateShopCategory = async (params: ShopCategoryUpdateInput): Promi
 export const shopCategoryFilterRules = async (params: ShopCategoryFilterRulesInput[]): Promise<any> => {
   try {
     let res = await ApiRoot.products().shopCategoryFilterRules(params)
-    console.info('shopCategoryFilterRules', res)
   } catch (e) {
     console.log(e)
   }
@@ -214,7 +202,6 @@ export const shopCategoryFilterRules = async (params: ShopCategoryFilterRulesInp
 export const saveShopCategory = async (params: SaveShopCategoryInput): Promise<any> => {
   try {
     let res = await ApiRoot.products().saveShopCategory(params)
-    console.info('saveShopCategory', res)
   } catch (e) {
     console.log(e)
   }
@@ -222,13 +209,10 @@ export const saveShopCategory = async (params: SaveShopCategoryInput): Promise<a
 
 
 export const getBundleGoodsvariants = async (params: any) => {
-  // console.info('ApiRoot')
   let data: any = []
   try {
-    console.info('params', params)
     let res = await ApiRoot.products().getBundleGoodsvariants(params)
     data = res?.findBundleGoodsVariantList || []
-    console.info('.......getBundleGoodsvariants', data)
   } catch (e) {
     console.log(e)
     // return

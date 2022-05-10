@@ -201,9 +201,9 @@ export const headerOrigition: any = [
   `,
   },
   {
-    label: '*SKU',
+    label: 'SKU',
     type: 'input',
-    require: true,
+    required: true,
     keyVal: 'skuNo',
     dataTips: `SKU:<p>SKU should be unique and conform to coding rules</p>
   `,
@@ -211,7 +211,6 @@ export const headerOrigition: any = [
   {
     label: 'SKUName',
     type: 'input',
-    require: true,
     keyVal: 'skuName',
     dataTips: `SKU Name:
   <p>SKU Name should be related to the variation option</p>
@@ -226,6 +225,7 @@ export const headerOrigition: any = [
   {
     label: 'EAN',
     type: 'input',
+    required: true,
     keyVal: 'eanCode',
     dataTips: `EAN:
     <p>EAN should be associated with SKUs and conform to coding rules</p>
@@ -234,6 +234,7 @@ export const headerOrigition: any = [
   {
     label: 'Subscription',
     type: 'select',
+    required: true,
     keyVal: 'subscriptionStatus',
     dataTips: `Subscription:<p>Support subscription should configure Y</p>    
     <p>Subscription not supported should be N</p>
@@ -246,6 +247,7 @@ export const headerOrigition: any = [
   {
     label: 'List Price',
     type: 'priceInput',
+    required: true,
     keyVal: 'listPrice',
     dataTips: `List Price:
   <p>List Price should include VAT and remain stable over time.</p>`,
@@ -253,6 +255,7 @@ export const headerOrigition: any = [
   {
     label: 'Marketing Price',
     type: 'priceInput',
+    required: true,
     keyVal: 'marketingPrice',
     dataTips: `Marketing Price:
   <p>Marketing Price should include VAT and remain stable over time.</p>`,
@@ -261,6 +264,7 @@ export const headerOrigition: any = [
   {
     label: 'Subscription Price',
     type: 'priceInput',
+    required: true,
     keyVal: 'subscriptionPrice',
     dataTips: `Subscription Price:
   <p>Subscription price should include VAT and no more than the market price.</p>
@@ -285,9 +289,9 @@ export const headerOrigition: any = [
     `,
   },
   {
-    label: '*Support 100',
+    label: 'Support 100',
     type: 'select',
-    require: true,
+    required: true,
     keyVal: 'isSupport100',
     dataTips: `Support 100:
 <p>Product production date is set to Y within 100 days, and set to N when not within 100 days</p>`,

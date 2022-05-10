@@ -133,7 +133,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         rules={[{ required: true, message: 'Missing SPU' }]}
         labelCol={{ span: 3 }}
       >
-        <Input className='input-radius'/>
+        <Input className='input-radius' />
       </Form.Item>
       <Form.Item
         label='Product Name'
@@ -143,7 +143,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         rules={[{ required: true, message: 'Missing Product Name' }]}
         labelCol={{ span: 3 }}
       >
-        <Input data-tips='test' showCount maxLength={120} className="input-radius"/>
+        <Input data-tips='test' showCount maxLength={120} className='input-radius' />
       </Form.Item>
 
       <Form.Item
@@ -153,7 +153,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         name='cardName'
         labelCol={{ span: 3 }}
       >
-        <Input showCount maxLength={120} className="input-radius"/>
+        <Input showCount maxLength={120} className='input-radius' />
       </Form.Item>
       <Form.Item
         label='Product Description'
@@ -207,7 +207,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         labelCol={{ span: 4 }}
         rules={[{ required: true }]}
       >
-        <Select placeholder='Please select Brand' options={brandList} style={{ width: 195 }} className="input-radius"/>
+        <Select placeholder='Please select Brand' options={brandList} style={{ width: 195 }} className='input-radius' />
       </Form.Item>
       <Form.Item
         label='Sales Status'
@@ -220,7 +220,12 @@ const BasicInfo = ({ field, form }: FormProps) => {
         labelCol={{ span: 4 }}
         rules={[{ required: true }]}
       >
-        <Select placeholder='Please select Sales Status' options={salesStatusList} style={{ width: 195 }} className="input-radius"/>
+        <Select
+          placeholder='Please select Sales Status'
+          options={salesStatusList}
+          style={{ width: 195 }}
+          className='input-radius'
+        />
       </Form.Item>
     </div>
   )
