@@ -156,10 +156,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
             {/* </>
             )}
           </Form.List> */}
-            <div
-              style={{ left: '24px', right: '13.5rem' }}
-              className='text-rigth flex justify-end fixed bottom-2 footerBtn'
-            >
+            <div className='text-rigth flex justify-end fixed bottom-2 footerBtn'>
               <Button
                 className='ml-4'
                 onClick={() => {

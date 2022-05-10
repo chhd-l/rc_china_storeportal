@@ -46,6 +46,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
   }
   const onReset = () => {
     form.resetFields()
+    setCateId([])
     setTypeSelect(typeForKey[0].value) //恢复第一个选项的选择
   }
   // const handleCateId = (cateIds: any) => {
@@ -145,7 +146,12 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
           </Col>
           <Col span={11} offset={2}>
             <Form.Item label='Category' name='cateId'>
-              <div className='flex cate-box items-center ant-input'>
+              <div
+                className='flex cate-box items-center ant-input'
+                onClick={() => {
+                  setShowCatePop(true)
+                }}
+              >
                 <div className='flex-1 flex'>
                   {cateId?.length ? (
                     cateId.map((cate: any, idx: number) => (
@@ -165,12 +171,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                     }}
                   />
                 ) : (
-                  <EditOutlined
-                    className='edit'
-                    onClick={() => {
-                      setShowCatePop(true)
-                    }}
-                  />
+                  <EditOutlined className='edit' />
                 )}
               </div>
               {/* <Input

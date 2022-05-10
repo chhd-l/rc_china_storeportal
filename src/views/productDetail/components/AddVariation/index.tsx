@@ -91,12 +91,14 @@ const AddVariation = ({}: AddVariationProps) => {
           </Col>
           <Col span={4} className='flex items-center'>
             <DragHandle />
-            <DeleteOutlined
-              onClick={() => {
-                handleDelSpecification(variationIdx, specificationIdx)
-              }}
-              className='cursor-pointer'
-            />
+            {specificationIdx === 0 ? null : (
+              <DeleteOutlined
+                onClick={() => {
+                  handleDelSpecification(variationIdx, specificationIdx)
+                }}
+                className='cursor-pointer'
+              />
+            )}
           </Col>
         </Row>
       )
