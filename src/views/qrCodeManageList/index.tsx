@@ -3,17 +3,32 @@ import "./index.less"
 // import { mockList, mockOptionsList } from "./modules/mockdata"
 // import Mock from "mockjs"
 import { Button, Modal, Image } from "antd"
-import { SyncOutlined } from "@ant-design/icons"
 import { useState } from 'react'
 import { ContentContainer } from "@/components/ui"
 import { Link } from "react-router-dom"
-import { getQrCodes } from '@/framework/api/wechatSetting'
+import { getAccountList, getQrCodes } from '@/framework/api/wechatSetting'
+import type { ProColumns } from "@ant-design/pro-table";
 import IconFont from "@/components/common/IconFont"
 // import { tableColumns } from "./modules/constant"
+
+const typeValueEnum = {
+  QR_SCENE : 'QR_SCENE',
+  QR_STR_SCENE : 'QR_STR_SCENE',
+  QR_LIMIT_SCENE : 'QR_LIMIT_SCENE',
+  QR_LIMIT_STR_SCENE : 'QR_LIMIT_STR_SCENE'
+};
+
+
+type ColumnType ={
+  officialAccount:string,
+  type:string;
+  expiredTime:string;
+}
 
 const QrCodeManage = () => {
   const [imgUrl, setImgUrl] = useState("")
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const [list, setList] = useState<any>({})
 
   // const QRcodeTypeList = Mock.mock(mockOptionsList).list
   // const handlePreview = (img: string) => {
@@ -21,15 +36,33 @@ const QrCodeManage = () => {
   //   console.log('img',img)
   // }
 
+  const depy = (arr: any[]) => {
+    if(!arr.length) return
+    const lists: string[] = []
+    arr.forEach((item) => {
+      if(lists.indexOf(item.accountName) === -1 && item.accountType === 'MINi_PROGRAM')
+      lists.push(item.accountName)
+    })
+    const val: any = {}
+    lists.forEach((item: string) => {
+      val[item] = item
+    })
+    setList(val)
+  }
+
   const handleCancel = () => {
+    setImgUrl('')
     setIsModalVisible(false)
   }
+
   // const columns = tableColumns({ handlePreview, QRcodeTypeList })
 
-  const columns = [
+  const columns: ProColumns<ColumnType>[] = [
     {
       title: 'Official Account',
       dataIndex: "officialAccount",
+      valueType: "select",
+      valueEnum: list,
     },
     {
       title: "QR Code Name",
@@ -38,6 +71,8 @@ const QrCodeManage = () => {
     {
       title: "QR Code Type",
       dataIndex: "type",
+      valueType: "select",
+      valueEnum: typeValueEnum,
     },
     {
       title: "Expired Time",
@@ -68,7 +103,7 @@ const QrCodeManage = () => {
         }}
         rowKey='id'
         toolBarRender={() => [
-          <Link to="/qrcode-manage/add">
+          <Link to="/QrcodeManage/qrcode-manage-detail/add">
             <Button className="mt-8 text-white" type="primary" ghost>
               + Add
             </Button>
@@ -77,9 +112,15 @@ const QrCodeManage = () => {
         ]}
         request={async (params) => {
           // 表单搜索项会从 params 传入，传递给后端接口。
-          console.log("test sort", params, columns)
+          let res2 = await getAccountList({
+            limit: 100,
+            offset: 0,
+            sample: {storeId: "12345678"},
+          })
+          console.log('res2',res2)
+          depy(res2?.records || [])
           let res = await getQrCodes({
-            offset: params.current - 1,
+            offset: (params.current - 1) * 10,
             limit: params.pageSize,
             accountId: "000001",
             sample: {
