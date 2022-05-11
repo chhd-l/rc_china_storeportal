@@ -3,6 +3,7 @@ import { getBundleGoodsvariants, getCategories } from '@/framework/api/get-produ
 // import { categoryList } from '@/framework/mock/categorylist'
 import { getTree } from '@/framework/normalize/product'
 import { CateItemProps } from '@/framework/schema/product.schema'
+import { formatMoney } from '@/utils/utils'
 import { ProFormInstance } from '@ant-design/pro-form'
 import { ProColumns } from '@ant-design/pro-table'
 import { Input, Modal, Select, Space } from 'antd'
@@ -94,11 +95,17 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
     {
       dataIndex: 'listPrice',
       title: 'Brand',
+      render: (_, record) => {
+        return formatMoney(record.listPrice)
+      },
     },
 
     {
       dataIndex: 'marketingPrice',
       title: 'Price',
+      render: (_, record) => {
+        return formatMoney(record.marketingPrice)
+      },
       renderFormItem: (_, { type, defaultRender, ...rest }, form) => {
         return (
           <div className='flex'>
