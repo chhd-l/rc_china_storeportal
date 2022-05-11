@@ -101,8 +101,9 @@ const OrderActions = ({
       ) : orderState === OrderStatus['Shipped'] ? (
         <Tooltip title="Completed">
           <Button
-            type="primary"
-            className="cursor-pointer ml-2 text-white rounded"
+            type='primary'
+            className="cursor-pointer ml-2 text-white primary-radius"
+            // style={{ fontSize: '20px' }}
             onClick={() => setCompleteModalVisible(true)}
           >
             Completed

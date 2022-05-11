@@ -82,17 +82,18 @@ export const ACCOUNT_FORM: FormItemProps[] = [
     placeholder: "Input",
   },
   {
+    // 更改成Pertificate Path
     name: "managementMode",
-    label: "Management Mode",
-    placeholder: "select",
-    type: "select",
-    rules: [
-      {
-        required: true,
-        message: "Please select Management Mode!",
-      },
-    ],
-    selectList: manageModeList,
+    label: "Pertificate Path",
+    placeholder: "Input",
+    type: "upload",
+    // rules: [
+    //   {
+    //     required: true,
+    //     message: "Please select Pertificate Path!",
+    //   },
+    // ],
+    // selectList: manageModeList,
   },
   {
     name: "pushServerURL",
@@ -114,12 +115,12 @@ export const ACCOUNT_FORM: FormItemProps[] = [
   },
   {
     name: "messageEncryption",
-    label: "Message Encryption",
+    label: "Message Encryption Url",
     placeholder: "Input",
     rules: [
       {
         required: true,
-        message: "Please input Message Encryption!",
+        message: "Please input Message Encryption Url!",
       },
     ],
   },

@@ -59,22 +59,19 @@ const OrderTable = ({ orderList,shipOrCompleteSuccess }: { orderList: Order[],sh
       {orderList.length > 0 ? (
         orderList.map((item: Order) => (
           <div className="border mt-4" key={item.id}>
-            <Row className="bg-gray1 border-b py-2 px-4">
+            <Row className="bg-gray1 border-b py-2 px-4 content-center justify-between">
               <Col span={12} className="flex items-center">
                 <Avatar icon={<img src={item.buyer.image} alt={''} />} />
                 <span className="ml-2">{item.buyer.name}</span>
               </Col>
-              <Col span={12} className="text-right">
-                <div>
+              <Col span={12} className="text-right" style={{lineHeight:"44px"}}>
                   order ID:{item.id}
-                  <br />
                   {item.subscriptionId ? (
                     <span>
                       <span className="iconfont icon-Frame1 primary-color mr-2" />
                       Subscription ID:{item.id}
                     </span>
                   ) : null}
-                </div>
               </Col>
             </Row>
             <Row className="p-2 flex items-start">
