@@ -41,9 +41,11 @@ const OrderActions = ({
     }
     const res = await shippedOrder(params)
     if (res) {
-      message.success({ className: 'rc-message', content: 'operate success' })
+      message.success({ className: 'rc-message', content: 'Operation success' })
       setShipModalVisible(false)
       shipOrCompleteSuccess && shipOrCompleteSuccess()
+    }else{
+      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
   }
 
@@ -53,15 +55,13 @@ const OrderActions = ({
       nowOrderState: orderState,
     })
     if (res) {
-      message.success({ className: 'rc-message', content: 'operate success' })
+      message.success({ className: 'rc-message', content: 'Operation success' })
       setCompleteModalVisible(false)
       shipOrCompleteSuccess && shipOrCompleteSuccess()
+    }else{
+      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
   }
-
-  useEffect(()=>{
-    message.success({ className: 'rc-message', content: 'operate success',duration:false })
-  },[])
 
   return (
     <div className="flex items-center">
@@ -101,8 +101,9 @@ const OrderActions = ({
       ) : orderState === OrderStatus['Shipped'] ? (
         <Tooltip title="Completed">
           <Button
-            type="primary"
-            className="cursor-pointer ml-2 text-white rounded"
+            type='primary'
+            className="cursor-pointer ml-2 text-white primary-radius"
+            // style={{ fontSize: '20px' }}
             onClick={() => setCompleteModalVisible(true)}
           >
             Completed

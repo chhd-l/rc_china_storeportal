@@ -3,6 +3,9 @@
   --ant-primary-color: #ee4d2d !important;
   // color: #ee4d2d !important;
 }
+.primary-radius {
+  border-radius: 4px !important;
+}
 .primary-color {
   color: #ee4d2d !important;
 }
@@ -297,8 +300,17 @@
 //antd-message
 .rc-message {
   .ant-message-notice-content {
-    background: #e8ffea;
-    border: 1px solid #00ca48;
-    padding-right: 120px;
+    padding: 0;
+    box-shadow: none;
+    .ant-message-success {
+      background: #e8ffea;
+      border: 1px solid #00ca48;
+      padding: 10px 120px 10px 16px;
+    }
+    .ant-message-error {
+      background: #fee9e7;
+      border: 1px solid #f56c6c;
+      padding: 10px 152px 10px 16px;
+    }
   }
 }
