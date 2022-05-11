@@ -14,9 +14,40 @@ const Menus = () => {
     console.log(333333,pathname)
     setSelectKeys(initActive(pathname));
     setOpenKeys([initActive(pathname)[0]])
+    try {
+      pathname.split('/').find(path => {
+        if(path === 'product') {
+          setOpenKeys(['product'])
+          throw new Error('0')
+        } else if (path === 'order') {
+          setOpenKeys(['order'])
+          throw new Error('0')
+        } else if (path === 'shipment-list') {
+          setOpenKeys(['shipment'])
+          throw new Error('0')
+        } else if (path === 'petOwner') {
+          setOpenKeys(['petOwner'])
+          throw new Error('0')
+        } else if (path === 'petOwner') {
+          setOpenKeys(['petOwner'])
+          throw new Error('0')
+        } else if (path === 'petOwner') {
+          setOpenKeys(['petOwner'])
+          throw new Error('0')
+        } else if (path === 'category') {
+          setOpenKeys(["shop"])
+          throw new Error('0')
+        } else {
+          setOpenKeys(["wechat_management"])
+        }
+      })
+    } catch (e) {
+      console.log('e',e)
+    }
   },[pathname])
 
   const onOpenChange=(opens:string[])=>{
+    console.log('opens',opens)
     setOpenKeys(opens)
   }
 
