@@ -161,9 +161,9 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     }
     console.info('.......')
     console.info('params', params)
-    // let data = await createProduct(params, beforeData)
-    // console.info('data', data)
-    // navigator('/product/product-list')
+    let data = await createProduct(params, beforeData)
+    console.info('data', data)
+    navigator('/product/product-list')
   }
 
   return (
