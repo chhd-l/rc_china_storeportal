@@ -426,7 +426,8 @@ export const normaliseVariationAndSpecification = (data: GoodsSpecification[], g
     let newItem = {
       ...el, sortIdx: '', spec: '', skuName: el.name,
       subscriptionStatus: el.subscriptionStatus?.toString(),
-      isSupport100: el.isSupport100 ? 'true' : 'false'
+      isSupport100: el.isSupport100 ? 'true' : 'false',
+      shelvesStatus: el.shelvesStatus ? 'true' : 'false',
     }
     let name = el.goodsSpecificationRel?.map(elRel => {
       let specDetail = data.filter(spec => spec.id === elRel.goodsSpecificationId)
