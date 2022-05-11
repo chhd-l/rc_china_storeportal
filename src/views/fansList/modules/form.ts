@@ -38,20 +38,20 @@ export const formItems: SearchFormItemProps[] = [
     placeholder: "Follow Time",
     type: "dateTime",
   },
-  // {
-  //   label: "Is Member",
-  //   name: "isMember",
-  //   placeholder: "select",
-  //   type: "select",
-  //   selectList: [
-  //     {
-  //       label: "Yes",
-  //       key: "Yes",
-  //     },
-  //     {
-  //       label: "No",
-  //       key: "No",
-  //     },
-  //   ],
-  // },
+  {
+    label: "Is Member",
+    name: "isMember",
+    placeholder: "select",
+    type: "select",
+    selectList: [
+      {
+        label: "Yes",
+        key: "Yes",
+      },
+      {
+        label: "No",
+        key: "No",
+      },
+    ],
+  },
 ];
