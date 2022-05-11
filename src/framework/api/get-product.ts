@@ -49,8 +49,14 @@ export const createProduct = async (params: any, beforeData?: any) => {
     }
   })
   console.info('paramsData', paramsData)
-  const data = await ApiRoot.products().createProduct({ body: paramsData })
-  console.info('createProduct', data)
+  try {
+    const data = await ApiRoot.products().createProduct({ body: paramsData })
+    console.info('createProduct', data)
+    return data?.createProduct
+  } catch (err) {
+    console.info('createProduct err', err)
+    return false
+  }
 }
 export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categoryId: string }) => {
 

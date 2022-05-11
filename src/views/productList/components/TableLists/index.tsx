@@ -7,6 +7,7 @@ import { ProductListItemProps, ProductListProps } from '@/framework/types/produc
 import TableRow from '../TableRow'
 import TableHeader from '../TableHeader'
 import TableFooter from '../TableFooter'
+import { LoadingOutlined } from '@ant-design/icons'
 
 interface Pages {
   page: number | undefined
@@ -17,9 +18,10 @@ interface ListTableProps {
   handlePagination: any
   pages: Pages
   getList: Function
+  setLoading: Function
 }
 
-const ListTable = ({ listData, handlePagination, getList, pages }: ListTableProps) => {
+const ListTable = ({ listData, handlePagination, getList, pages, setLoading }: ListTableProps) => {
   const [list, setList] = useState<ProductListItemProps[]>(cloneDeep(listData.products))
   const [checkedAll, setCheckedAll] = useState(false)
   const [checkedItem, setCheckedItem] = useState(false)
@@ -71,6 +73,7 @@ const ListTable = ({ listData, handlePagination, getList, pages }: ListTableProp
               key={spu.id}
               getList={getList}
               spu={spu}
+              setLoading={setLoading}
               onChange={onChange}
               spuIdx={spuIdx}
               tableHeader={tableHeader}
