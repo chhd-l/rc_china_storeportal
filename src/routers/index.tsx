@@ -174,7 +174,8 @@ let routes: RouteObject[] = [
         children: [
           { index: true, element: <MenuManage />},
           { path: 'menu-manage-list', element: <MenuManage />},
-          { path: 'menu-manage-detail/:id', element: <MenuManageDetail />, breadcrumbName: 'MenuManage Detail' },
+          { path: 'menu-manage-detail/:id', element: <MenuManageDetail pageType="edit" />, breadcrumbName: 'MenuManage Detail' },
+          { path: 'menu-manage-add', element: <MenuManageDetail pageType="add" />, breadcrumbName: 'MenuManage Add' },
         ],
       },
       {

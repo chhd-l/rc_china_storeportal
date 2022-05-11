@@ -346,10 +346,41 @@ export const updateWxMenu = async (queryParams: any) => {
   try {
     let res = await ApiRoot.wechatSettings().upsertWxMenu(queryParams)
     const updated = res?.upsertWxMenu
-    console.log('create media view data', updated)
+    console.log('update wxmenu view data', updated)
     return updated || false
   } catch (e) {
     console.log(e)
     return false
+  }
+}
+
+/**
+ * 创建微信公众号菜单
+ * @param wxMenusContent 
+ * @returns 
+ */
+export const createWxMenu = async (wxMenusContent: string) => {
+  try {
+    let res = await ApiRoot.wechatSettings().createWxMenu({
+      accountId: '000001',
+      content: wxMenusContent,
+      operator: 'zz'
+    })
+    console.log('create wxmenu view data', res)
+    return true
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+}
+
+export const getWxMenuDetail = async (id: string) => {
+  try {
+    let data = await ApiRoot.wechatSettings().getWxMenuDetailById(id)
+    console.log('get wxmenu detail view data', data)
+    return data?.getWxMenuDetailById
+  } catch (e) {
+    console.log(e)
+    return null
   }
 }
