@@ -422,7 +422,7 @@ export const normaliseVariationAndSpecification = (data: GoodsSpecification[], g
     }
     return variation
   })
-  let variationLists = goodsVariants.map(el => {
+  let variationLists = goodsVariants?.map(el => {
     let newItem = {
       ...el, sortIdx: '', spec: '', skuName: el.name,
       subscriptionStatus: el.subscriptionStatus?.toString(),
