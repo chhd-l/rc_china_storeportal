@@ -18,7 +18,7 @@ const OperationLog = ({ logs }: { logs: Log[] }) => {
         <span>Operation log</span>
       </Divider>
       <Steps direction="vertical" current={0}>
-        {logs.reverse().map((item) => (
+        {logs.length>0&&logs.reverse().map((item) => (
           <Steps.Step
             key={item.id}
             title={LogEventEnum[item.event]}

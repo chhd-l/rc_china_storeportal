@@ -31,7 +31,7 @@ const normalisePayInfo = (payInfo: TradePayInfo, orderState: any) => {
 }
 
 export const normaliseOrder = (data: any, expressCompanies: any): any => {
-  const { customerId, nickName, phone, avatarUrl } = data.buyer
+  const { customerId, nickName, phone, avatarUrl, openId, unionId } = data.buyer
   const {
     receiverName,
     id,
@@ -56,6 +56,8 @@ export const normaliseOrder = (data: any, expressCompanies: any): any => {
       name: nickName,
       phone,
       image: avatarUrl,
+      openId,
+      unionId,
     },
     shippingAddress: {
       id,
