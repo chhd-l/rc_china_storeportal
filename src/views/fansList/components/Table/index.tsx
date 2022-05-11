@@ -82,6 +82,7 @@ const Index = ({ fanList, pages, setPages, getFanList, total }: {
       dataIndex: "isMember",
       key: "isMember",
       render: (text: any) => `${text ? "Yes" : "No"}`,
+      // align:"center"
     },
     {
       title: "Follow Time",

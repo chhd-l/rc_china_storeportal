@@ -12,6 +12,7 @@ import { ProductListProps } from '@/framework/types/product'
 import { dataSource } from './modules/mockdata'
 import Mock from 'mockjs'
 import './index.less'
+import { handlePageParams } from '@/utils/utils'
 const { TabPane } = Tabs
 
 const listDatas = Mock.mock(dataSource)
@@ -58,14 +59,13 @@ const ProductList = () => {
 
   const getList = async () => {
     setLoading(true)
-
+    let pageParams = handlePageParams({ currentPage: pages.page, pageSize: pages.pageSize })
     let params: any = {
-      limit: pages.pageSize,
       sample,
       isNeedTotal: true,
       operator: 'sss',
-      offset: pages.page - 1,
     }
+    params = Object.assign({}, params, pageParams)
     if (filterCondition) {
       params.filterCondition = filterCondition
     }

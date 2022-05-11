@@ -11,7 +11,7 @@ const Search = ({
   query,
   formItems,
   classes = "",
-  style = { width: "320px" },
+  // style = { width: "358px" },
   state = false,
   pages
 }: {
@@ -47,7 +47,7 @@ const Search = ({
           <Form.Item
             label={item.label}
             name={item.name}
-            style={style}
+            // style={style}
             key={item.name}
           >
             {item.type === "select" ? (
@@ -68,7 +68,6 @@ const Search = ({
                 className="flex items-center"
                 // defaultValue={[moment('2021/11/09', dateFormat), moment('2021/11/12', dateFormat)]}
                 format={dateFormat}
-
               />
             ) : (
               <Input placeholder={item.placeholder} />

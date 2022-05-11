@@ -15,24 +15,27 @@ const Picture = ({ isReload = false, openDelete }: { isReload: boolean; openDele
       title: 'Picture',
       dataIndex: 'picture',
       key: 'picture',
-      render: (text: any) => <img src={text} className="w-16 h-16 order-img" alt="" />,
+      render: (text: any) => <img src={text} className="order-img h-24 w-28" alt="" />,
+      // width: '20%',
     },
     {
       title: 'Wechat Assets Link',
       dataIndex: 'assetLink',
       key: 'assetLink',
-      width: '40%',
+      width: '50%',
     },
     {
       title: 'Create Time',
       dataIndex: 'createTime',
       key: 'createTime',
       render: (text: any, record: any) => `${record.status === 'synchronized' ? record.syncTime : text}`,
+      width: '15%',
     },
     {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
+      width: '15%',
     },
     {
       title: 'Action',
@@ -57,6 +60,7 @@ const Picture = ({ isReload = false, openDelete }: { isReload: boolean; openDele
           </Tooltip>
         </div>
       ),
+      width: '15%',
     },
   ]
   const [pictureList, setPictureList] = useState<Asset[]>([])

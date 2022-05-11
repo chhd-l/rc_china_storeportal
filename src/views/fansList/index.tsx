@@ -10,6 +10,7 @@ import {
   TableContainer,
 } from "@/components/ui";
 import { getFansList } from '@/framework/api/wechatSetting'
+import "./index.less"
 // import Mock from "mockjs";
 // import { fansDetailListSource } from "@/views/fansDetail/modules/mockdata";
 
@@ -50,7 +51,7 @@ const FanList = () => {
   };
 
   return (
-    <ContentContainer>
+    <ContentContainer className="fans-list">
       <SearchContainer>
         <Search query={getFanList} pages={pages} formItems={formItems} />
       </SearchContainer>

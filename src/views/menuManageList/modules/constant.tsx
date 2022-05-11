@@ -1,6 +1,5 @@
-import { DeleteOutlined, FormOutlined } from "@ant-design/icons";
 import { ColumnProps } from 'antd/es/table';
-import { Switch } from "antd";
+import { Switch, Tooltip } from "antd";
 import { Link } from "react-router-dom";
 import moment from 'moment';
 
@@ -29,8 +28,8 @@ export const tableColumns = ({ handleDelete, changeStatus }: TableColumns) => {
   const columns: ColumnProps<ColumnsProps>[] = [
     {
       title: "Official Account",
-      dataIndex: "content",
-      key: "contet",
+      dataIndex: "accountId",
+      key: "accountId",
     },
     {
       title: "Create Time",
@@ -66,24 +65,29 @@ export const tableColumns = ({ handleDelete, changeStatus }: TableColumns) => {
     {
       title: "Action",
       key: "action",
-      render: (_, record) => [
-        <Link to={`/menuManagempqr/menu-manage-detail/${record.id}`} className="mr-4">
-          <FormOutlined />
-        </Link>,
-        <a className="mr-4">
-          <DeleteOutlined
-            onClick={() => {
-              handleDelete({
-                id: record.id,
-                accountId: record.accountId,
-                content: record.content,
-                isEnabled: record.isEnabled,
-                isDeleted: true
-              });
-            }}
-          />
-        </a>,
-      ],
+      render: (_, record) => (
+        <div className="flex flex-row items-center">
+          <Tooltip title="Edit">
+            <Link to={`/menuManagempqr/menu-manage-detail/${record.id}`} className="mr-4">
+              <i className="cursor-pointer ml-2 iconfont icon-Edit primary-color"></i>
+            </Link>
+          </Tooltip>
+          <Tooltip title="Delete">
+            <span
+              className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl"
+              onClick={() => {
+                handleDelete({
+                  id: record.id,
+                  accountId: record.accountId,
+                  content: record.content,
+                  isEnabled: record.isEnabled,
+                  isDeleted: true
+                });
+              }}
+            />
+          </Tooltip>
+        </div>
+      )
     },
   ];
   return columns;

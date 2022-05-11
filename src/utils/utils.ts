@@ -1,6 +1,6 @@
-
 import { LabelOptionProps, PageParamsProps } from "@/framework/types/common"
 import { ReactNode } from "react"
+import moment from 'moment'
 
 export const getCurrencyCode = () => {
   return "￥"
@@ -31,9 +31,8 @@ export const handlePageParams = (pageParams: PageParamsProps) => {
 }
 
 export const handleReturnTime = (time: any) => {
-  if (time) {
-    const reg = new RegExp('/', 'g')
-    return new Date(time).toLocaleString().replace(reg, '-')
+  if (time !== null && time !== undefined && time !== '') {
+    return moment(new Date(time)).format('YYYY-MM-DD HH:mm:SS')
   } else {
     return ''
   }
@@ -113,5 +112,13 @@ export const handleArrDataForEdit = (before: any, after: any, diffObj: any, keyN
         handleObjDataForEdit(unionItem, item, diffObj[keyName])
       }
     })
+  })
+}
+
+export const uuid = () => {
+  return 'xxxx-xxxx-4xxx-yxxx-xxxx'.replace(/[xy]/g, function (c) {
+    let r = Math.random() * 16 | 0;
+    let v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
   })
 }

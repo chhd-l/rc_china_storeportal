@@ -5,6 +5,7 @@ import { Account } from '@/framework/types/wechat'
 import { formItems } from './modules/form'
 import { ContentContainer, DivideArea, SearchContainer, TableContainer } from '@/components/ui'
 import { getAccountList } from '@/framework/api/wechatSetting'
+import "./index.less"
 
 const AccountList = () => {
   const [accountList, setAccountList] = useState<Account[]>([]);
@@ -30,7 +31,7 @@ const AccountList = () => {
   };
 
   return (
-    <ContentContainer>
+    <ContentContainer className='account-list'>
       <SearchContainer>
         <Search state={true} pages={pages} query={getAccounts} formItems={formItems} />
       </SearchContainer>
