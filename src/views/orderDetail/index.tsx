@@ -30,7 +30,7 @@ const OrderDetail = () => {
     getDetail(state.id)
   }, [])
 
-  const getDetail = async (orderNum: string) => {
+  const getDetail = async (orderNum = orderId) => {
     let data: any = await getOrderDetail({ orderNum })
     console.log('333', data)
     setOrderDetail(data)
@@ -50,6 +50,7 @@ const OrderDetail = () => {
                   orderAddress={shippingAddress}
                   logs={logs}
                   buyer={buyer}
+                  shipOrCompleteSuccess={getDetail}
                 />
               </InfoContainer>
               <DivideArea />

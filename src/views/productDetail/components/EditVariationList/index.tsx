@@ -187,7 +187,7 @@ const EditVariationList = (props: FormProps) => {
         subSku: '',
         feedingDays: '',
         isSupport100: 'true',
-        shelvesStatus: '',
+        shelvesStatus: 'true',
         subscriptionStatus: '1',
         eanCode: '',
         listPrice: '',
@@ -278,8 +278,8 @@ const EditVariationList = (props: FormProps) => {
   return variationList?.length ? (
     <div className='edit-variation-list'>
       <Row>
-        <Col span={4} className='text-right mr-2 pb-4'>
-          Variation List
+        <Col span={4} className='text-right pr-2 pb-4'>
+          {`Variation List `}
         </Col>
       </Row>
       <Row>
@@ -388,6 +388,7 @@ const EditVariationList = (props: FormProps) => {
                                 <Input
                                   className='text-center'
                                   type='number'
+                                  min={0}
                                   placeholder='Input'
                                   onBlur={e => {
                                     tr[td.keyVal] = e.target.value
@@ -416,19 +417,19 @@ const EditVariationList = (props: FormProps) => {
                               return (
                                 <div className='text-center '>
                                   {tr[td.keyVal] === 'true' ? (
-                                    <VerticalAlignTopOutlined
+                                    <VerticalAlignBottomOutlined
                                       onClick={() => {
-                                        tr[td.keyVal] = 'flse'
-                                        updateVations('false', index, td.keyVal, tr)
+                                        tr[td.keyVal] = 'false'
                                         setVariationList([...variationList])
+                                        updateVations('false', index, td.keyVal, tr)
                                       }}
                                     />
                                   ) : (
-                                    <VerticalAlignBottomOutlined
+                                    <VerticalAlignTopOutlined
                                       onClick={() => {
                                         tr[td.keyVal] = 'true'
-                                        setVariationList([...variationList])
                                         updateVations('true', index, td.keyVal, tr)
+                                        setVariationList([...variationList])
                                       }}
                                     />
                                   )}

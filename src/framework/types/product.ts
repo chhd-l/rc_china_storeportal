@@ -11,6 +11,7 @@ export interface TableHeadersItemProps {
 
 // categories
 export interface CategoryBaseProps {
+  categoryType: any,
   displayName: string
   type: number
   createdUser: string

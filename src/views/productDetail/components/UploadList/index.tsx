@@ -32,6 +32,7 @@ const UploadWrap = (props: UploadWrapProps) => {
   const [previewVisible, setPreviewVisible] = useState(false)
   const [fileList, setFileList] = useState<any>([])
   const [imageInfo, setImageInfo] = useState<any>({})
+  const [fileName, setFileName] = useState('')
   const uploadProps = {
     name: 'file',
     action: 'https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload',
@@ -65,8 +66,11 @@ const UploadWrap = (props: UploadWrapProps) => {
       {loading ? (
         <LoadingOutlined />
       ) : (
-        <div className='rounded-full border border-solid p-1  border-primary w-full h-full justify-center flex items-center'>
-          <PlusOutlined />
+        <div
+          style={{ borderColor: '#51ACF5' }}
+          className='rounded-full border border-solid p-1  border-primary w-full h-full justify-center flex items-center'
+        >
+          <PlusOutlined style={{ color: '#51ACF5' }} color='#51ACF5' />
         </div>
       )}
       {/* <div style={{ marginTop: 8 }}></div> */}
@@ -102,21 +106,19 @@ const UploadWrap = (props: UploadWrapProps) => {
           return {
             type: img.type,
             uid: img.id || img.url,
-            name: props.hideName
-              ? ''
-              : props.fileName
-              ? props.fileName
-              : props.idx === 0
-              ? '*Cover Photo'
-              : `Image${props.idx}`,
+            name: props.fileName,
             url: img.url,
             thumbUrl: img.url,
           }
         })
       : []
+    if (props.fileName) {
+      setFileName(props.fileName)
+    }
     if (list) {
       setFileList(list)
     }
+
     if (list?.[0]) {
       setImageInfo(list[0])
     }
@@ -157,9 +159,9 @@ const UploadWrap = (props: UploadWrapProps) => {
             uploadButton
           )}
         </Upload>
-        {imageInfo?.name ? (
-          <div className='mb-4 -mt-1 text-center' style={{ width: 104 }}>
-            {imageInfo?.name}
+        {fileName ? (
+          <div className='mb-4 -mt-1 text-center' style={{ width: 95, color: 'rgb(196, 196, 196)' }}>
+            {fileName}
           </div>
         ) : null}
       </div>

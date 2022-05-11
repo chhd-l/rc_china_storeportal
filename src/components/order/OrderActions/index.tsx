@@ -12,11 +12,13 @@ const OrderActions = ({
   orderId,
   orderAddress,
   orderBuyer,
+  shipOrCompleteSuccess
 }: {
   orderState: string
   orderId: string
   orderAddress: any
   orderBuyer: any
+  shipOrCompleteSuccess:Function
 }) => {
   const [shipModalVisible, setShipModalVisible] = useState(false)
   const [completeModalVisible, setCompleteModalVisible] = useState(false)
@@ -38,6 +40,7 @@ const OrderActions = ({
     const res = await shippedOrder(params)
     if (res) {
       setShipModalVisible(false)
+      shipOrCompleteSuccess&&shipOrCompleteSuccess()
     }
   }
 
@@ -48,6 +51,7 @@ const OrderActions = ({
     })
     if (res) {
       setCompleteModalVisible(false)
+      shipOrCompleteSuccess&&shipOrCompleteSuccess()
     }
   }
 

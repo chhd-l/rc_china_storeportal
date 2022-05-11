@@ -49,11 +49,11 @@ const Product = () => {
 
   const handleCate = (value: any) => {
     console.info('tetstets', value)
-    // if (value) {
-    //   let newDetail = Object.assign({}, detail, cateInfo)
-    //   setDetail(newDetail)
-    //   setCateInfo(value)
-    // }
+    if (value) {
+      let newDetail = Object.assign({}, detail, cateInfo)
+      setDetail(newDetail)
+      setCateInfo(value)
+    }
   }
 
   return (

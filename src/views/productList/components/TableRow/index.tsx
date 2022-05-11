@@ -83,11 +83,11 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
         ) : null}
       </div>
       <div className='w-64 flex text-12'>
-        <Tooltip title='Preview'>
+        {/* <Tooltip title='Preview'>
           <Link to='' className='mr-4'>
             <span className='icon iconfont icon-preview'></span>
           </Link>
-        </Tooltip>
+        </Tooltip> */}
         <Tooltip title='Edit'>
           <Link className='mr-4' to={`/product/product-detail/${listData[spuIdx]?.id}`}>
             <span className='icon iconfont icon-Edit'></span>

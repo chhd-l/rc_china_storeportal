@@ -36,9 +36,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
       e => {
         // @ts-ignore
         let str = e?.target?.closest('.tips-wrap')?.dataset?.tips || ''
-        if (str) {
-          setDataTips(str)
-        }
+        setDataTips(str)
       },
       false,
     )
@@ -142,12 +140,12 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
               >
                 <InfoContainer>
                   <div id={idx > 0 ? steps[idx].anchor : 'anchor-1'}>
-                    <div className='pb-2'>
+                    <div>
                       <div className='flex justify-between  pb-2'>
                         <div className='font-black text-lg font-bold'>{steps[idx].title}</div>
                         <div>{steps[idx].rightSlot}</div>
                       </div>
-                      <div className='pb-4'>{steps[idx].subTitle}</div>
+                      {steps[idx].subTitle ? <div className='pb-4'>{steps[idx].subTitle}</div> : null}
                     </div>
                     {steps[idx].render(field, form)}
                   </div>
@@ -158,10 +156,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
             {/* </>
             )}
           </Form.List> */}
-            <div
-              style={{ left: '24px', right: '13.5rem' }}
-              className='text-rigth flex justify-end fixed bottom-2 footerBtn'
-            >
+            <div className='text-rigth flex justify-end fixed bottom-2 footerBtn'>
               <Button
                 className='ml-4'
                 onClick={() => {
@@ -199,6 +194,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                     className='ml-4'
                     type='primary'
                     onClick={() => {
+                      debugger
                       shelvesStatus = true
                       form.submit()
                     }}
@@ -211,6 +207,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                   className='ml-4'
                   type='primary'
                   onClick={() => {
+                    debugger
                     shelvesStatus = true
                     form.submit()
                   }}

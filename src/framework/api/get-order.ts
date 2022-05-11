@@ -10,7 +10,7 @@ export const getOrderList = async (queryOrderListParams: any): Promise<{ total: 
   try {
     if (isMock) {
       return {
-        records: Mock.mock(orderListSource('UNPAID')).array,
+        records: Mock.mock(orderListSource('SHIPPED')).array,
         total: 0
       }
     } else {

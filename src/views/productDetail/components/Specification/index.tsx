@@ -47,61 +47,52 @@ const Specification = (props: FormProps) => {
   }
 
   return (
-    <div
-      className='overflow-hidden pl-32 tips-wrap'
+    <Row
+      className='overflow-hidden tips-wrap'
       data-tips={`Product Attribute:
     <p>Product attributes should relate to the product name and description</p>
     `}
     >
-      {specificationList?.map(specification => {
-        return (
-          <Row key={specification.id} className='w-1/2 float-left ant-form-item'>
-            <Col className='text-right pr-6' span={5}>
-              {specification.label}
-            </Col>
-            <Col span={16}>
-              <Select
-                className='w-full'
-                searchValue=''
-                labelInValue
-                mode='multiple'
-                allowClear
-                showArrow
-                // defaultValue={['064fe462-a0ac-8f05-a800-8e927781', '4b1c30f4-c38c-b789-92c4-c0790cd1']}
-                defaultValue={specification.defaultVal}
-                placeholder={`Please select`}
-                style={{ width: 120 }}
-                options={specification.options}
-                onChange={(value, option: any) => {
-                  console.info('value, option', value, option)
-                  console.info(option)
-                  if (option[0]?.attributeId) {
-                    let newRel = Object.assign({}, goodsAttributeValueRel, {
-                      // @ts-ignore
-                      [option[0]?.attributeId]: value.map(el => el.value),
-                    })
-                    detail.goodsAttributeValueRelInput = newRel
-                    console.info('newRel', newRel)
-                    setGoodsAttributeValueRel(newRel)
-                  }
-                }}
-              ></Select>
-            </Col>
-          </Row>
-        )
-      })}
-      {/* {specificationList.length ? (
-        <Form.List name='specification'>
-          {fields =>
-            fields.map((field, idx) => (
-              <div className='flex flex-wrap'>
-                <FormItem {...field} parentName={[field.name]} list={specificationList} />
-              </div>
-            ))
-          }
-        </Form.List>
-      ) : null} */}
-    </div>
+      <Col span={24}>
+        {specificationList?.map(specification => {
+          return (
+            <Row key={specification.id} className='w-1/2 float-left ant-form-item'>
+              <Col className='text-right pr-6' span={8}>
+                {specification.label}
+              </Col>
+              <Col span={16}>
+                <Select
+                  className='w-full'
+                  // searchValue=''
+                  labelInValue
+                  mode='multiple'
+                  allowClear
+                  showArrow
+                  // defaultValue={['064fe462-a0ac-8f05-a800-8e927781', '4b1c30f4-c38c-b789-92c4-c0790cd1']}
+                  defaultValue={specification.defaultVal}
+                  placeholder={`Please select`}
+                  style={{ width: 120 }}
+                  options={specification.options}
+                  onChange={(value, option: any) => {
+                    console.info('value, option', value, option)
+                    console.info(option)
+                    if (option[0]?.attributeId) {
+                      let newRel = Object.assign({}, goodsAttributeValueRel, {
+                        // @ts-ignore
+                        [option[0]?.attributeId]: value.map(el => el.value),
+                      })
+                      detail.goodsAttributeValueRelInput = newRel
+                      console.info('newRel', newRel)
+                      setGoodsAttributeValueRel(newRel)
+                    }
+                  }}
+                ></Select>
+              </Col>
+            </Row>
+          )
+        })}
+      </Col>
+    </Row>
   )
 }
 export default Specification
