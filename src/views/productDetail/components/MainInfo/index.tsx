@@ -1,5 +1,5 @@
 import './index.less'
-import { Alert, Anchor } from 'antd'
+import { Alert, Anchor, message } from 'antd'
 import { useLocation } from 'react-router-dom'
 import { Form, Space, Button } from 'antd'
 import { FC, useContext, useEffect, useState } from 'react'
@@ -167,11 +167,13 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     let data = await createProduct(params, beforeData)
     console.info('data', data)
     if (data === true) {
-      setInfo({ message: 'Success', description: '', type: 'success' })
+      message.success({ className: 'rc-message', content: 'Operate success' })
+      // setInfo({ message: 'Success', description: '', type: 'success' })
       navigator('/product/product-list')
     } else {
       setLoading(false)
-      setInfo({ message: 'Error', description: 'err', type: 'error' })
+      message.success({ className: 'rc-message', content: 'Operate success' })
+      // setInfo({ message: 'Error', description: 'err', type: 'error' })
     }
   }
 

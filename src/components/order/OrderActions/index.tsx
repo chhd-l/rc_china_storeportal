@@ -41,11 +41,11 @@ const OrderActions = ({
     }
     const res = await shippedOrder(params)
     if (res) {
-      message.success({ className: 'rc-message', content: 'Operate success' })
+      message.success({ className: 'rc-message', content: 'Operation success' })
       setShipModalVisible(false)
       shipOrCompleteSuccess && shipOrCompleteSuccess()
     }else{
-      message.error({ className: 'rc-message', content: 'Operate failed' })
+      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
   }
 
@@ -55,11 +55,11 @@ const OrderActions = ({
       nowOrderState: orderState,
     })
     if (res) {
-      message.success({ className: 'rc-message', content: 'Operate success' })
+      message.success({ className: 'rc-message', content: 'Operation success' })
       setCompleteModalVisible(false)
       shipOrCompleteSuccess && shipOrCompleteSuccess()
     }else{
-      message.error({ className: 'rc-message', content: 'Operate failed' })
+      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
   }
 
@@ -78,7 +78,7 @@ const OrderActions = ({
         </Tooltip>
       )}
       {/*发货*/}
-      {orderState === OrderStatus['Toship'] && (
+      {orderState === OrderStatus['Toship'] && origin === 'table' ? (
         <Tooltip title="Arrange shipment">
           <span
             className="cursor-pointer ml-2 iconfont icon-dabaodaifahuo primary-color"
@@ -88,7 +88,17 @@ const OrderActions = ({
             }}
           />
         </Tooltip>
-      )}
+      ): orderState === OrderStatus['Toship'] ? (
+        <Tooltip title="Arrange shipment">
+          <Button
+            type='primary'
+            className="cursor-pointer ml-2 text-white primary-radius"
+            onClick={() => setShipModalVisible(true)}
+          >
+            Arrange shipment
+          </Button>
+        </Tooltip>
+      ) :null}
       {/*收货*/}
       {orderState === OrderStatus['Shipped'] && origin === 'table' ? (
         <Tooltip title="Completed">

@@ -54,6 +54,8 @@ export interface PayInfo {
   appId: string
   payTime: string
   outTradeNo: string
+  payWayOrderID?:string
+  payWayCode?:string
 }
 
 export interface TradeState {

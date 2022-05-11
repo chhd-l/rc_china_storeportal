@@ -19,9 +19,10 @@ interface ListTableProps {
   pages: Pages
   getList: Function
   setLoading: Function
+  loading: boolean
 }
 
-const ListTable = ({ listData, handlePagination, getList, pages, setLoading }: ListTableProps) => {
+const ListTable = ({ listData, handlePagination, getList, pages, setLoading, loading }: ListTableProps) => {
   const [list, setList] = useState<ProductListItemProps[]>(cloneDeep(listData.products))
   const [checkedAll, setCheckedAll] = useState(false)
   const [checkedItem, setCheckedItem] = useState(false)
@@ -82,7 +83,7 @@ const ListTable = ({ listData, handlePagination, getList, pages, setLoading }: L
               setList={setList}
             />
           ))
-        ) : (
+        ) : loading ? null : (
           <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
         )}
       </div>

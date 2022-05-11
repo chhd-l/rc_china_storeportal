@@ -127,6 +127,7 @@ const ProductList = () => {
           <Spin spinning={loading}>
             <TableList
               setLoading={setLoading}
+              loading={loading}
               getList={getList}
               listData={listData}
               handlePagination={handlePagination}

@@ -355,6 +355,8 @@ const EditVariationList = (props: FormProps) => {
                                 <Input
                                   className='price-input text-center'
                                   placeholder='Input'
+                                  type='number'
+                                  min={0}
                                   disabled={td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0'}
                                   prefix='￥'
                                   onBlur={e => {

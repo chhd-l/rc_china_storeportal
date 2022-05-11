@@ -18,8 +18,8 @@ const AddTemplate: FC<Props> = ({ visible, handleVisible }) => {
   }
 
   const addTemplateMessage = async (value: any) => {
-    console.log(11122332,value)
-    const selectTemplateItem = templateItems.filter((el) => el.id === value.title)[0]
+    console.log(11122332, value)
+    const selectTemplateItem = templateItems.filter(el => el.id === value.title)[0]
     const res = await createTemplateMessage({
       accountId: '000001',
       scenario: value.useMode,
@@ -36,10 +36,10 @@ const AddTemplate: FC<Props> = ({ visible, handleVisible }) => {
 
   return (
     <ModalForm
-      className="add-template"
-      title="Select Products"
+      className='add-template'
+      title='Select Products'
       visible={visible}
-      onFinish={async (value) => {
+      onFinish={async value => {
         console.info('value', value)
         const res = await addTemplateMessage(value)
         if (res) {
@@ -51,15 +51,15 @@ const AddTemplate: FC<Props> = ({ visible, handleVisible }) => {
     >
       <ProForm.Group>
         <ProFormSelect
-          name="title"
-          width="md"
+          name='title'
+          width='md'
           fieldProps={{ showSearch: true }}
-          label="Select Template"
+          label='Select Template'
           // dependencies 的内容会注入 request 中
           dependencies={['id']}
-          request={async (params) => {
+          request={async params => {
             console.info('params', params)
-            return templateItems.map((item) => {
+            return templateItems.map(item => {
               return { label: item.title, value: item.id }
             })
           }}
@@ -67,15 +67,15 @@ const AddTemplate: FC<Props> = ({ visible, handleVisible }) => {
       </ProForm.Group>
       <ProForm.Group>
         <ProFormSelect
-          width="md"
+          width='md'
           options={[
             {
               value: 'chapter',
               label: '盖章后生效',
             },
           ]}
-          name="useMode"
-          label="Select Scenario"
+          name='useMode'
+          label='Select Scenario'
         />
       </ProForm.Group>
     </ModalForm>

@@ -8,14 +8,19 @@ import { useEffect, useState } from 'react'
 import AddTemplate from './components/AddTemplate'
 import ViewIndustry from './components/ViewIndustry'
 import CardList from './components/CardList'
-import { getTemplateMessages, syncTemplateItem, updateTemplateMessage } from '@/framework/api/wechatSetting'
+import {
+  getTemplateItems,
+  getTemplateMessages,
+  syncTemplateItem,
+  updateTemplateMessage,
+} from '@/framework/api/wechatSetting'
 
 const TemplateMessage = () => {
   const [addVisible, setAddVisible] = useState(false)
   const [industryVisible, setIndustryVisible] = useState(false)
-  const [cardView, setCardView] = useState(true)
+  const [cardView, setCardView] = useState(false)
   const [templateMessageList, setTemplateMessageList] = useState<any[]>([])
-
+  const [templateItems, setTemplateItems] = useState<any[]>([])
   const handleDelete = async (id: string) => {
     console.info('handleDelete', id)
     const res = await updateTemplateMessage({ id, isDeleted: true })
@@ -23,7 +28,11 @@ const TemplateMessage = () => {
       await getTemplateMessageList()
     }
   }
-
+  const getTemplateItemList = async () => {
+    const res = await getTemplateItems({})
+    console.info('res.records', res.records)
+    setTemplateItems(res.records)
+  }
   const modifyTemplateMessage = async (templateMessage: any) => {
     console.log('1111', templateMessage)
     const res = await updateTemplateMessage({ id: templateMessage.id, status: !templateMessage.status })
@@ -32,7 +41,11 @@ const TemplateMessage = () => {
     }
   }
 
-  const columns = tableColumns({ handleDelete, modifyTemplateMessage, templateTitleList: templateMessageList })
+  const columns = tableColumns({
+    handleDelete,
+    modifyTemplateMessage,
+    templateTitleList: templateItems,
+  })
 
   const handleAdd = () => {
     setAddVisible(true)
@@ -51,10 +64,11 @@ const TemplateMessage = () => {
 
   useEffect(() => {
     getTemplateMessageList()
+    getTemplateItemList()
   }, [])
 
   return (
-    <ContentContainer className="template-message">
+    <ContentContainer className='template-message'>
       {cardView ? (
         <CardList
           setCardView={setCardView}
@@ -64,21 +78,21 @@ const TemplateMessage = () => {
       ) : (
         <ProTable
           headerTitle={[
-            <Button className="flex items-center mr-3" onClick={() => handleIndustires()}>
+            <Button className='flex items-center mr-3' onClick={() => handleIndustires()}>
               <FileSearchOutlined />
               View Industries
             </Button>,
-            <Button className="flex items-center  mr-3" onClick={() => Synchronous()}>
-              <span className="iconfont icon-bianzu2 mr-2 text-xl" />
+            <Button className='flex items-center  mr-3' onClick={() => Synchronous()}>
+              <span className='iconfont icon-bianzu2 mr-2 text-xl' />
               Synchronous
             </Button>,
-            <Button className="flex items-center  mr-3" onClick={() => setCardView(true)}>
-              <span className="iconfont icon-bianzu2 mr-2 text-xl" />
+            <Button className='flex items-center  mr-3' onClick={() => setCardView(true)}>
+              <span className='iconfont icon-bianzu2 mr-2 text-xl' />
               Graphical Representation
             </Button>,
           ]}
           toolBarRender={() => [
-            <Button className="mt-8 text-white" type="primary" onClick={handleAdd} ghost>
+            <Button className='mt-8 text-white' type='primary' onClick={handleAdd} ghost>
               + Add
             </Button>,
           ]}
@@ -115,3 +129,6 @@ const TemplateMessage = () => {
 }
 
 export default TemplateMessage
+function useStateuseState<T> (arg0: never[]): [any, any] {
+  throw new Error('Function not implemented.')
+}
