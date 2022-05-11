@@ -16,11 +16,11 @@ const AppLayout = () => {
   const [isOpen, setIsOpen] = useState(true)
 
   useEffect(() => {
-    if (!localStorage.getItem('rc-userInfo') || !localStorage.getItem("rc-token")) {
-      localStorage.removeItem('rc-userInfo')
-      localStorage.removeItem("rc-token")
-      navigate('/login')
-    }
+    // if (!localStorage.getItem('rc-userInfo') || !localStorage.getItem("rc-token")) {
+    //   localStorage.removeItem('rc-userInfo')
+    //   localStorage.removeItem("rc-token")
+    //   navigate('/login')
+    // }
     if (pathname.split('/').some(path => path === 'product') && pathname !== '/product/product-list' && pathname !== '/product') {
       setIsOpen(false)
     } else {
