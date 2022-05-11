@@ -6,6 +6,8 @@ import { OrderStatus } from '@/framework/types/order'
 import { useLocation } from 'react-router-dom'
 import { completedOrder, shippedOrder } from '@/framework/api/get-order'
 import _ from 'lodash'
+import { useAtom } from 'jotai'
+import { userAtom } from '@/store/user.store'
 
 const OrderActions = ({
   orderState,
@@ -26,6 +28,7 @@ const OrderActions = ({
   const [completeModalVisible, setCompleteModalVisible] = useState(false)
   const navigator = useNavigate()
   const location = useLocation()
+  const [userInfo] = useAtom(userAtom)
 
   const shipped = async (tradeShippingInfoInput: any) => {
     const params = {
@@ -36,8 +39,9 @@ const OrderActions = ({
       wxUserInfo: {
         openId: orderBuyer.openId,
         unionId: orderBuyer.unionId,
-        nickName: orderBuyer.nickname,
+        nickName: orderBuyer.name,
       },
+      operator: userInfo?.nickname||'system',
     }
     const res = await shippedOrder(params)
     if (res) {
@@ -53,6 +57,7 @@ const OrderActions = ({
     const res = await completedOrder({
       orderNum: orderId,
       nowOrderState: orderState,
+      operator: userInfo?.nickname||'system',
     })
     if (res) {
       message.success({ className: 'rc-message', content: 'Operation success' })
