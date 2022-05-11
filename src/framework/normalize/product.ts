@@ -141,7 +141,7 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     goodsDescription: data.goodsDescription,
     type: data.type,
     brandId: data.brandId,
-    goodsCategoryId: data.goodsCategoryId || '8',
+    goodsCategoryId: data.cateId ? data.cateId[data.cateId.length - 1] : '8',
     shelvesStatus: data.shelvesStatus,
     // defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',//?干嘛呢
     salesStatus: data.salesStatus === "1",
@@ -260,10 +260,20 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
     spu.variationLists.filter((el: any) => el.id)
     skuData.filter((el: any) => el.id)
     //被删除的
-    let delArr = beforeData.goodsVariants.filter((el: any) => {
-      return spu.goodsVariantsInput.every((cel: any) => cel.id !== el.id)
-    })
-    // debugger
+    debugger
+    let delArr: any = []
+    for (let item in beforeData.goodsVariants) {
+      var found = false
+      for (let citem in spu.goodsVariantsInput) {
+        if (spu.goodsVariantsInput[citem].id === beforeData.goodsVariants[item].id) {
+          found = true
+          break
+        }
+      }
+      if (!found) {
+        delArr.push(beforeData.goodsVariants[item])
+      }
+    }
     delArr = delArr.map((el: any) => {
       let newEl = {
         isDeleted: true,
@@ -351,6 +361,9 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
     })
 
   }
+  console.info('skuData', skuData)
+  debugger
+  // return skuData
   return spu.id ? editData : skuData
 }
 
