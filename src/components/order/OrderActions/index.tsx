@@ -41,9 +41,11 @@ const OrderActions = ({
     }
     const res = await shippedOrder(params)
     if (res) {
-      message.success({ className: 'rc-message', content: 'operate success' })
+      message.success({ className: 'rc-message', content: 'Operate success' })
       setShipModalVisible(false)
       shipOrCompleteSuccess && shipOrCompleteSuccess()
+    }else{
+      message.error({ className: 'rc-message', content: 'Operate failed' })
     }
   }
 
@@ -53,15 +55,13 @@ const OrderActions = ({
       nowOrderState: orderState,
     })
     if (res) {
-      message.success({ className: 'rc-message', content: 'operate success' })
+      message.success({ className: 'rc-message', content: 'Operate success' })
       setCompleteModalVisible(false)
       shipOrCompleteSuccess && shipOrCompleteSuccess()
+    }else{
+      message.error({ className: 'rc-message', content: 'Operate failed' })
     }
   }
-
-  useEffect(()=>{
-    message.success({ className: 'rc-message', content: 'operate success',duration:false })
-  },[])
 
   return (
     <div className="flex items-center">
