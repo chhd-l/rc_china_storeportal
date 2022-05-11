@@ -49,8 +49,14 @@ export const createProduct = async (params: any, beforeData?: any) => {
     }
   })
   console.info('paramsData', paramsData)
-  const data = await ApiRoot.products().createProduct({ body: paramsData })
-  console.info('createProduct', data)
+  try {
+    const data = await ApiRoot.products().createProduct({ body: paramsData })
+    console.info('createProduct', data)
+    return data?.createProduct
+  } catch (err) {
+    console.info('createProduct err', err)
+    return false
+  }
 }
 export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categoryId: string }) => {
 
@@ -116,7 +122,8 @@ export const getProductBySpuId = async (params: ProductListQueryProps) => {
 }
 
 
-export const getESProducts = async (params: any): Promise<any> => {
+export const getESProducts = async (params:
+  any): Promise<any> => {
   try {
     const res = await ApiRoot.products().getESProductLists(params)
   } catch (e) {
@@ -176,6 +183,7 @@ export const getScProducts = async (params: ProductListQueryProps): Promise<any>
 export const getShopCategories = async (params: shopCateQuery): Promise<any> => {
   try {
     let res = await ApiRoot.products().getShopCategoryList(params)
+    return res.getShopCategories
   } catch (e) {
     console.log(e)
   }
@@ -192,6 +200,7 @@ export const createShopCategoryGoodsRel = async (params: ShopCategoryGoodsRelInp
 export const updateShopCategory = async (params: ShopCategoryUpdateInput): Promise<any> => {
   try {
     let res = await ApiRoot.products().updateShopCategory({ body: params })
+    return res
   } catch (e) {
     console.log(e)
   }
@@ -207,7 +216,17 @@ export const shopCategoryFilterRules = async (params: ShopCategoryFilterRulesInp
 
 export const saveShopCategory = async (params: SaveShopCategoryInput): Promise<any> => {
   try {
-    let res = await ApiRoot.products().saveShopCategory(params)
+    let res = await ApiRoot.products().saveShopCategory({ body: params })
+    return res
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const detleShopCateRel = async (id: string[]): Promise<any> => {
+  try {
+    let res = await ApiRoot.products().detleShopCateRel({ id })
+    console.info('detleShopCateRel', res)
   } catch (e) {
     console.log(e)
   }

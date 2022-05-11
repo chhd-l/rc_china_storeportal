@@ -32,7 +32,11 @@ const FormItem = ({ list, parentName, field, layout, disabled }: FormProps) => {
                 disabled={el.disabled || false}
                 rules={el.rules}
               >
-                <Input placeholder={'please input ' + el.label} addonBefore={el.addonBefore} />
+                <Input
+                  disabled={el.disabled || false}
+                  placeholder={'please input ' + el.label}
+                  addonBefore={el.addonBefore}
+                />
               </Form.Item>
             ) : null}
           </>

@@ -110,6 +110,7 @@ const EditVariationList = (props: FormProps) => {
       if (propertyName === 'isSupport100') {
         detail.editChange.goodsVariants[index][propertyName] = val === 'true' ? true : false
       }
+      debugger
       if (!tr.id) {
         //新增的
         detail.editChange.goodsVariants[index].goodsVariantSpecifications = tr.relArr?.map((rel: any) => {
@@ -187,7 +188,7 @@ const EditVariationList = (props: FormProps) => {
         subSku: '',
         feedingDays: '',
         isSupport100: 'true',
-        shelvesStatus: '',
+        shelvesStatus: 'true',
         subscriptionStatus: '1',
         eanCode: '',
         listPrice: '',
@@ -196,7 +197,7 @@ const EditVariationList = (props: FormProps) => {
         sortIdx,
         relArr: [],
       }
-      // debugger
+      debugger
       if (changeType === ChangeType.handleSpec || isDefultData) {
         //spec选择,需要操作====
         // debugger
@@ -278,8 +279,8 @@ const EditVariationList = (props: FormProps) => {
   return variationList?.length ? (
     <div className='edit-variation-list'>
       <Row>
-        <Col span={4} className='text-right mr-2 pb-4'>
-          Variation List
+        <Col span={4} className='text-right pr-2 pb-4'>
+          {`Variation List `}
         </Col>
       </Row>
       <Row>
@@ -328,18 +329,20 @@ const EditVariationList = (props: FormProps) => {
                               console.info('tr[td.keyVal]', tr[td.keyVal])
                               // return <span>{tr[td.keyVal]}</span>
                               return (
-                                <Upload
-                                  size='small'
-                                  hideName={true}
-                                  type='image'
-                                  fileList={[{ url: tr[td.keyVal], type: 'image' }]}
-                                  showUploadList={false}
-                                  handleImgUrl={(imgInfo: any) => {
-                                    tr[td.keyVal] = imgInfo.url
-                                    console.info('...', imgInfo.url)
-                                    updateVations(imgInfo.url, index, td.keyVal, tr)
-                                  }}
-                                />
+                                <div className='px-3'>
+                                  <Upload
+                                    size='small'
+                                    hideName={true}
+                                    type='image'
+                                    fileList={[{ url: tr[td.keyVal], type: 'image' }]}
+                                    showUploadList={false}
+                                    handleImgUrl={(imgInfo: any) => {
+                                      tr[td.keyVal] = imgInfo.url
+                                      console.info('...', imgInfo.url)
+                                      updateVations(imgInfo.url, index, td.keyVal, tr)
+                                    }}
+                                  />
+                                </div>
                               )
                             case 'priceInput':
                               return td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0' ? (
@@ -352,6 +355,8 @@ const EditVariationList = (props: FormProps) => {
                                 <Input
                                   className='price-input text-center'
                                   placeholder='Input'
+                                  type='number'
+                                  min={0}
                                   disabled={td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0'}
                                   prefix='￥'
                                   onBlur={e => {
@@ -388,6 +393,7 @@ const EditVariationList = (props: FormProps) => {
                                 <Input
                                   className='text-center'
                                   type='number'
+                                  min={0}
                                   placeholder='Input'
                                   onBlur={e => {
                                     tr[td.keyVal] = e.target.value
@@ -416,19 +422,22 @@ const EditVariationList = (props: FormProps) => {
                               return (
                                 <div className='text-center '>
                                   {tr[td.keyVal] === 'true' ? (
-                                    <VerticalAlignTopOutlined
+                                    <VerticalAlignBottomOutlined
                                       onClick={() => {
-                                        tr[td.keyVal] = 'flse'
-                                        updateVations('false', index, td.keyVal, tr)
+                                        debugger
+                                        tr[td.keyVal] = 'false'
                                         setVariationList([...variationList])
+                                        updateVations('false', index, td.keyVal, tr)
+                                        debugger
                                       }}
                                     />
                                   ) : (
-                                    <VerticalAlignBottomOutlined
+                                    <VerticalAlignTopOutlined
                                       onClick={() => {
+                                        debugger
                                         tr[td.keyVal] = 'true'
-                                        setVariationList([...variationList])
                                         updateVations('true', index, td.keyVal, tr)
+                                        setVariationList([...variationList])
                                       }}
                                     />
                                   )}

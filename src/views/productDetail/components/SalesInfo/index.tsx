@@ -118,7 +118,7 @@ const SalesInfo = (props: FormProps) => {
       //   el.isDeleted = true
       // })
       // regularData?.push(...deletedBundles)
-      subSku = regularData
+      subSku = 1
     }
     props.form.setFieldsValue({
       subSku,
@@ -127,6 +127,7 @@ const SalesInfo = (props: FormProps) => {
   useEffect(() => {
     if (detail.regularList) {
       setRegularList(detail.regularList)
+      validateNumber(detail.regularList)
     }
   }, [detail.regularList])
   useEffect(() => {
@@ -134,6 +135,7 @@ const SalesInfo = (props: FormProps) => {
       let item: any = Object.assign({}, el, { disabled: el.name === 'stock' && spuType === 'BUNDLE' ? true : false })
       return item
     })
+    console.info('........', formList)
     setNoSkuFormList(formList)
   }, [spuType])
   return (

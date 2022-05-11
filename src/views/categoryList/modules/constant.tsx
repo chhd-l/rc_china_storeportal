@@ -88,15 +88,15 @@ export const AddCateOptions: LabelOptionProps[] | string[] = [
       </>
     ),
   },
-  {
-    value: AddCateType.RuleBasedFiltering,
-    label: (
-      <>
-        <div>Rule-based Filtering</div>
-        <div className='text-gray-400'>
-          Products will be automatically selected based on the filters you have set up
-        </div>
-      </>
-    ),
-  },
+  // {
+  //   value: AddCateType.RuleBasedFiltering,
+  //   label: (
+  //     <>
+  //       <div>Rule-based Filtering</div>
+  //       <div className='text-gray-400'>
+  //         Products will be automatically selected based on the filters you have set up
+  //       </div>
+  //     </>
+  //   ),
+  // },
 ]

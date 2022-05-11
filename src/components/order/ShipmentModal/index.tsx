@@ -2,6 +2,7 @@ import { Modal, Form, Input, Button, Select, DatePicker } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { CarrierType } from '@/framework/types/order'
 import { getExpressCompanyList } from '@/framework/api/get-order'
+import moment from 'moment'
 
 const ShipmentModal = ({
   shipModalVisible,
@@ -17,6 +18,10 @@ const ShipmentModal = ({
   const [form] = Form.useForm()
   const [carrierTypes, setCarrierTypes] = useState<CarrierType[]>([])
   const [shippingTime, setShippingTime] = useState('')
+
+  const disabledDate=(current:any) =>{
+    return current && current < moment().subtract(1,"days");
+  }
 
   const getExpressCompanys = async () => {
     const res = await getExpressCompanyList()
@@ -66,6 +71,7 @@ const ShipmentModal = ({
         <Form.Item label="Shipment Date:" name="shippingTime">
           <DatePicker
             className="w-full"
+            disabledDate={disabledDate}
             onChange={(date, dateString) => {
               console.log(date, dateString)
               setShippingTime(dateString)

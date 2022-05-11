@@ -1,39 +1,120 @@
-import { Button, Alert } from 'antd'
+import { Button, Alert, Switch } from 'antd'
+import { Link } from 'react-router-dom'
 import { dataSource } from './modules/mockdata'
 import Mock from 'mockjs'
 import './index.less'
 import AddCate from './components/AddCate'
 import { EyeOutlined, SwapOutlined } from '@ant-design/icons'
-import ProTable from '@/components/common/ProTable'
-import { columns } from './modules/constant'
-import { useEffect, useState } from 'react'
-// import {
-//   createShopCategoryGoodsRel,
-//   getShopCategories,
-//   saveShopCategory,
-//   shopCategoryFilterRules,
-//   updateShopCategory,
-// } from '@/framework/api/get-product'
+import ProTable, { ProColumns } from '@/components/common/ProTable'
+import { useEffect, useState, useRef } from 'react'
+import { CategoryBaseProps } from '@/framework/types/product'
+import {
+  detleShopCateRel,
+  createShopCategoryGoodsRel,
+  getShopCategories,
+  saveShopCategory,
+  shopCategoryFilterRules,
+  updateShopCategory,
+} from '@/framework/api/get-product'
+import IconFont from '@/components/common/IconFont'
 // import 'antd/dist/antd.css';
 const ShopCategories = () => {
   const [addVisible, setAddvisible] = useState(false)
+  const ref = useRef<any>()
   const handleAddCate = (visible: boolean) => {
     setAddvisible(visible)
   }
+  const handleUpdate = (visible: boolean) => {
+    ref.current.reload();
+  }
+
   useEffect(() => {
-    // getShopCategories({
-    //   offset: 0,
-    //   limit: 10,
-    //   isNeedTotal: true,
-    //   sample: {
-    //     storeId: '12345678',
-    //   },
-    // })
     // createShopCategoryGoodsRel([{ shopCategoryId: '8', goodsId: 'ea63d308-f451-9899-47d3-14f4a83ff16b' }])
     // updateShopCategory({ id: '12316c9e-d151-909b-8256-4cfae4e70213', categoryType: 'RULE_BASED', isDisplay: true })
     // saveShopCategory({})
     // shopCategoryFilterRules({ id: '12316c9e-d151-909b-8256-4cfae4e70213' })
   }, [])
+
+  const columns: ProColumns<CategoryBaseProps>[] = [
+    {
+      title: 'Category Display Name',
+      dataIndex: 'displayName',
+    },
+    {
+      title: 'Created By',
+      dataIndex: 'categoryType',
+      render: (_, record) => (
+        <span>{'Seller | ' + record.categoryType}</span>
+      ),
+    },
+    {
+      title: 'Product(s)',
+      dataIndex: 'productNum',
+    },
+    {
+      title: 'Display On/Off',
+      dataIndex: 'isDisplay',
+      render: (_, record) => (
+        <Switch
+          checked={record.isDisplay}
+          disabled={record.productNum < 1}
+          onChange={(checked: boolean) => {
+            updateShopCategory({
+              ...record,
+              isDisplay:checked
+            }).then(()=>{
+              ref.current.reload();
+            })
+          }}
+        />
+      ),
+    },
+    {
+      title: 'Operation',
+      key: 'option',
+      width: 180,
+      valueType: 'option',
+      render: (_, record) => {
+        if (!record.productNum) {
+          if(record.categoryType==='MANUAL'){
+            return [
+              <Link to={`/category/category-detail/${record.id}`} className='mr-4 text-xl'>
+                <IconFont type='icon-jiahao' />
+              </Link>,
+              <Link to='' className='mr-4 text-xl'>
+                <IconFont type='icon-delete' onClick={()=>{
+                  detleShopCateRel([record.id])
+                }}/>
+              </Link>,
+            ]
+          }else {
+            return [
+              <Link to={`/category/category-detail/${record.id}`} className='mr-4 text-xl'>
+                <IconFont type='icon-group52' />
+              </Link>,
+              <Link to='' className='mr-4 text-xl'>
+                <IconFont type='icon-delete' onClick={()=>{
+                  detleShopCateRel([record.id])
+                }}/>
+              </Link>,
+            ]
+          }
+
+        } else {
+          return [
+            <Link to={`/category/category-detail/${record.id}`} className='mr-4 text-xl'>
+              <IconFont type='icon-group52' />
+            </Link>,
+            <Link to='' className='mr-4 text-xl' onClick={()=>{
+              detleShopCateRel([record.id])
+            }}>
+              <IconFont type='icon-delete' />
+            </Link>,
+          ]
+        }
+      },
+    },
+  ]
   return (
     <div className='shop-categories bg-gray-50 py-14 px-6 text-left'>
       <div className='bg-white p-6 '>
@@ -65,19 +146,29 @@ const ShopCategories = () => {
           type='info'
         />
         <ProTable
+          actionRef={ref}
           search={false}
           columns={columns}
-          request={(params, sorter, filter) => {
+          request={async (params, sorter, filter) => {
             // 表单搜索项会从 params 传入，传递给后端接口。
             console.log('test sort', params, sorter, filter)
+            let tableData = await getShopCategories({
+              offset: params.current,
+              limit: params.pageSize,
+              isNeedTotal: true,
+              sample: {
+                storeId: '12345678',
+              },
+            })
             return Promise.resolve({
-              data: Mock.mock(dataSource).array,
+              data: tableData?.records || [],
+              total:tableData.total,
               success: true,
             })
           }}
         />
       </div>
-      <AddCate visible={addVisible} handleVisible={handleAddCate} />
+      <AddCate visible={addVisible} handleVisible={handleAddCate} handleUpdate={handleUpdate}/>
     </div>
   )
 }

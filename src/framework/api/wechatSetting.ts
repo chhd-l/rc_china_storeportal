@@ -56,6 +56,26 @@ export const createAccount = async (queryParams: any) => {
     return {}
   }
 }
+
+// switch account
+export const syncAccount = async (queryParams: any) => {
+  try {
+    //todo 参数处理
+    const params = {
+      // id,
+      // isActive,
+      // accountType
+    }
+    let res = await ApiRoot.wechatSettings().addAccount(params)
+    const syncAccount = res?.syncAccount
+    console.log('sync account view data', syncAccount)
+    return syncAccount||false
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+}
+
 // 编辑 accon 更新（不传isDeleted） 删除（isDeleted: true）
 export const modifyAccount = async (queryParams: any) => {
   try {
@@ -113,7 +133,7 @@ export const getMedias = async (queryParams: any) => {
     console.log(e)
     return {
       records: [],
-      total: 0
+      total: 0,
     }
   }
 }
@@ -131,9 +151,9 @@ export const createMedia = async (queryParams: any) => {
         },
         queryParams.type === 'video'
           ? {
-            title: queryParams.title,
-            description: queryParams.description,
-          }
+              title: queryParams.title,
+              description: queryParams.description,
+            }
           : {},
       ),
       operator: 'zz',
@@ -193,13 +213,13 @@ export const getAppQrCodes = async (queryParams: any) => {
     console.log('get appQrCode list view data', findWxAppQRCodePage)
     return {
       records: findWxAppQRCodePage.records || [],
-      total: findWxAppQRCodePage.total || 0
+      total: findWxAppQRCodePage.total || 0,
     }
   } catch (e) {
     console.log(e)
     return {
       records: [],
-      total: 0
+      total: 0,
     }
   }
 }
@@ -289,14 +309,24 @@ export const getTemplateItems = async (queryParams: any) => {
   }
 }
 
+export const syncTemplateItem = async () => {
+  try {
+    let res = await ApiRoot.wechatSettings().syncTemplateItem({ accountId: '000001', operator: 'zz' })
+    const syncTemplateItem = res?.syncTemplateItem
+    console.log('sync template item view data', syncTemplateItem)
+    return syncTemplateItem || false
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+}
+
 // 查询
 export const getTemplateMessages = async (queryParams: any) => {
   try {
-    const params = {
-      offset: 0,
-      limit: 10,
+    const params = Object.assign(queryParams, {
       accountId: '000001',
-    }
+    })
     let res = await ApiRoot.wechatSettings().getTemplateMessages({ body: params })
     const templateMessageList = res?.templateMessageList
     console.log('get templateItem list view data', templateMessageList)
@@ -313,10 +343,72 @@ export const getTemplateMessages = async (queryParams: any) => {
   }
 }
 
+export const getTemplateDetail = async (id: string) => {
+  try {
+    let res = await ApiRoot.wechatSettings().getTemplateMessageDetail(id)
+    const templateMessageDetails = res?.templateMessageDetails
+    console.log('get template message detail view data', templateMessageDetails)
+    return templateMessageDetails
+  } catch (e) {
+    console.log(e)
+    return {}
+  }
+}
+
+// 新增TemplateMessage
+export const createTemplateMessage = async (queryParams: any) => {
+  try {
+    let res = await ApiRoot.wechatSettings().createTemplateMessage({ body: queryParams })
+    const createTemplateMessage = res?.createTemplateMessage
+    console.log('get templateItem list view data', createTemplateMessage)
+    return createTemplateMessage || false
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+}
+
+// 编辑、删除TemplateMessage
+export const updateTemplateMessage = async (queryParams: any) => {
+  try {
+    let res = await ApiRoot.wechatSettings().modifyTemplateMessage({ body: queryParams, operator: 'zz' })
+    const modifyTemplateMessage = res?.modifyTemplateMessage
+    console.log('get templateItem list view data', modifyTemplateMessage)
+    return modifyTemplateMessage || false
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+}
+
+export const getIndustry = async () => {
+  try {
+    let res = await ApiRoot.wechatSettings().getAllIndustry('000001')
+    const industry = res?.getIndustry
+    console.log('get industry view data', industry)
+    return industry
+  } catch (e) {
+    console.log(e)
+    return {}
+  }
+}
+
+export const syncIndustry = async () => {
+  try {
+    let res = await ApiRoot.wechatSettings().syncIndustry({ accountId: '000001' })
+    const syncIndustry = res?.syncIndustry
+    console.log('sync industry view data', syncIndustry)
+    return syncIndustry
+  } catch (e) {
+    console.log(e)
+    return {}
+  }
+}
+
 /**
  * 查询微信公众号菜单列表
- * @param queryParams 
- * @returns 
+ * @param queryParams
+ * @returns
  */
 export const getWxMenusList = async (queryParams: any) => {
   try {
@@ -339,8 +431,8 @@ export const getWxMenusList = async (queryParams: any) => {
 
 /**
  * 修改菜单状态
- * @param queryParams 
- * @returns 
+ * @param queryParams
+ * @returns
  */
 export const updateWxMenu = async (queryParams: any) => {
   try {

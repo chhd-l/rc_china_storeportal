@@ -1,6 +1,6 @@
-
 import { LabelOptionProps, PageParamsProps } from "@/framework/types/common"
 import { ReactNode } from "react"
+import moment from 'moment'
 
 export const getCurrencyCode = () => {
   return "￥"
@@ -31,9 +31,8 @@ export const handlePageParams = (pageParams: PageParamsProps) => {
 }
 
 export const handleReturnTime = (time: any) => {
-  if (time) {
-    const reg = new RegExp('/', 'g')
-    return new Date(time).toLocaleString().replace(reg, '-')
+  if (time !== null && time !== undefined && time !== '') {
+    return moment(new Date(time)).format('YYYY-MM-DD HH:mm:SS')
   } else {
     return ''
   }

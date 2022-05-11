@@ -4,7 +4,7 @@ import ApiRoot from './fetcher'
 import { orderDetailSource, orderListSource } from '@/views/orderDetail/modules/mockdata'
 import Mock from 'mockjs'
 
-const isMock = true
+const isMock = false
 
 export const getOrderList = async (queryOrderListParams: any): Promise<{ total: number; records: any[] }> => {
   try {
@@ -82,7 +82,7 @@ export const getExpressCompanyList = async () => {
         session.set('express-company-list', expressCompanyList)
       }
     }
-    return expressCompanyList
+    return expressCompanyList||[]
   } catch (e) {
     console.log(e)
     return []
@@ -93,7 +93,6 @@ export const shippedOrder = async (params: any) => {
   try {
     params = Object.assign(params, {
       storeId: '12345678',
-      operator: 'zz',
     })
     console.info('shipped order view params', params)
     let res = await ApiRoot.orders().shippedOrder({ body: params })
@@ -109,7 +108,6 @@ export const completedOrder = async (params: any) => {
   try {
     params = Object.assign(params, {
       storeId: '12345678',
-      operator: 'zz',
     })
     console.info('completed order view params', params)
     let res = await ApiRoot.orders().completedOrder({ body: params })

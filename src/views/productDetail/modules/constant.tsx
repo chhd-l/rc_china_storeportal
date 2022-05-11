@@ -63,8 +63,8 @@ export const selectList: (InputTextProps | InputSelectProps)[] = [
 export const noSkuForm: (InputTextProps | InputSelectProps | LabelOptionProps)[] = [
   {
     options: [
-      { name: '0', value: '0', label: 'false' },
-      { name: '1', value: '1', label: 'true' },
+      { name: '1', value: '1', label: 'Yes' },
+      { name: '0', value: '0', label: 'No' },
     ],
     name: 'subscriptionStatus',
     label: 'Subscription',
@@ -149,7 +149,7 @@ export const steps: StepsProps[] = [
     title: 'Specification',
     anchor: 'product_specification',
     tips: 'Specification',
-    subTitle: 'Complete: Fill in more attributes to boost the exposure of your product.',
+    subTitle: 'Fill in more attributes to boost the exposure of your product.',
     rightSlot: null,
     render: (field: FormListFieldData) => <Specification field={field} />,
   },
@@ -195,6 +195,7 @@ export const headerOrigition: any = [
     label: 'Image',
     type: 'upload',
     keyVal: 'defaultImage',
+    required: true,
     dataTips: `Variation Image:
   <p>Variation image should be clear and in line with the variation name</p>
   <p>Image for each of the variations should also be in the same format</p>

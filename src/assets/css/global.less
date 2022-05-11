@@ -3,12 +3,15 @@
   --ant-primary-color: #ee4d2d !important;
   // color: #ee4d2d !important;
 }
+.primary-radius {
+  border-radius: 4px !important;
+}
 .primary-color {
   color: #ee4d2d !important;
 }
-.required-text{
+.required-text {
   margin-right: 4px;
-  font-family: SimSun, sans-serif
+  font-family: SimSun, sans-serif;
 }
 .rc-table {
   .ant-table-thead {
@@ -257,12 +260,19 @@
   .ant-modal-header {
     border-bottom: none;
     .ant-modal-title {
-      font-size: 20px;
-      font-weight: bolder;
+      font-size: 16px;
+      font-weight: 700;
+      color: #333333;
+      font-family: 'Roboto';
+      font-style: normal;
     }
   }
   .ant-modal-body {
-    padding: 0 48px 24px 24px;
+    font-family: 'Roboto';
+    font-style: normal;
+    padding: 0 24px 48px 24px;
+    color: #333333;
+    font-size: 16px;
   }
   .ant-modal-footer {
     border-top: none;
@@ -286,3 +296,28 @@
 //   //滚动条凹槽的颜色，还可以设置边框属性
 //   background-color: #f8f8f8;
 // }
+
+//antd-message
+.rc-message {
+  .ant-message-notice-content {
+    padding: 0;
+    box-shadow: none;
+    .ant-message-success {
+      background: #e8ffea;
+      border: 1px solid #00ca48;
+      padding: 10px 120px 10px 16px;
+    }
+    .ant-message-error {
+      background: #fee9e7;
+      border: 1px solid #f56c6c;
+      padding: 10px 152px 10px 16px;
+    }
+  }
+}
+
+//antd-timeline
+.rc-timeline{
+  .ant-timeline-item-head{
+    background-color: var(--ant-primary-color)
+  }
+}

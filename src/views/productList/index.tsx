@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { Button, Tabs } from 'antd'
+import { Button, Spin, Tabs } from 'antd'
 import { useEffect, useState } from 'react'
 import SearchHeader from './components/SearchHeader'
 import TableList from './components/TableLists'
@@ -12,6 +12,7 @@ import { ProductListProps } from '@/framework/types/product'
 import { dataSource } from './modules/mockdata'
 import Mock from 'mockjs'
 import './index.less'
+import { handlePageParams } from '@/utils/utils'
 const { TabPane } = Tabs
 
 const listDatas = Mock.mock(dataSource)
@@ -22,6 +23,7 @@ const ProductList = () => {
   const [filterCondition, setFilterCondition] = useState('')
   const [toolbarList, setToolbarList] = useState<OptionsProps[]>([])
   const navigation = useNavigate()
+  const [loading, setLoading] = useState(false)
   const [listData, setListData] = useState<ProductListProps>({
     products: [],
     all: '0',
@@ -56,17 +58,19 @@ const ProductList = () => {
   }
 
   const getList = async () => {
+    setLoading(true)
+    let pageParams = handlePageParams({ currentPage: pages.page, pageSize: pages.pageSize })
     let params: any = {
-      limit: pages.pageSize,
       sample,
       isNeedTotal: true,
       operator: 'sss',
-      offset: pages.page - 1,
     }
+    params = Object.assign({}, params, pageParams)
     if (filterCondition) {
       params.filterCondition = filterCondition
     }
     let res = await getScProducts(params)
+    setLoading(false)
     setListData(res)
     let newToolbarList = handleTabValue(toolbarInit, res)
     setToolbarList(newToolbarList)
@@ -120,7 +124,16 @@ const ProductList = () => {
               </TabPane>
             ))}
           </Tabs>
-          <TableList getList={getList} listData={listData} handlePagination={handlePagination} pages={pages} />
+          <Spin spinning={loading}>
+            <TableList
+              setLoading={setLoading}
+              loading={loading}
+              getList={getList}
+              listData={listData}
+              handlePagination={handlePagination}
+              pages={pages}
+            />
+          </Spin>
         </TableContainer>
       </div>
     </ContentContainer>
