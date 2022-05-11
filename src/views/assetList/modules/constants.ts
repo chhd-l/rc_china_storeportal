@@ -3,7 +3,7 @@ import { BaseListProps } from "@/framework/types/common";
 export const tabList: any[] = [
   {
     label: "Picture",
-    key: "picture",
+    key: "image",
   },
   // {
   //   label: 'Graphic message',
