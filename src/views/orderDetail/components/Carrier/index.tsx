@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { UpOutlined, DownOutlined } from "@ant-design/icons";
-import { Carrier } from "@/framework/types/order";
+import { useState } from 'react'
+import { UpOutlined, DownOutlined } from '@ant-design/icons'
+import { Carrier } from '@/framework/types/order'
+import { Timeline } from 'antd'
 
 const OrderCarrier = ({ carrier }: { carrier: Carrier[] }) => {
-  const [showMore, setShowMore] = useState(true);
+  const [showMore, setShowMore] = useState(true)
 
   return (
     <div className="flex flex-col justify-start mt-4">
@@ -17,13 +18,13 @@ const OrderCarrier = ({ carrier }: { carrier: Carrier[] }) => {
           {showMore ? (
             <UpOutlined
               onClick={() => {
-                setShowMore(false);
+                setShowMore(false)
               }}
             />
           ) : (
             <DownOutlined
               onClick={() => {
-                setShowMore(true);
+                setShowMore(true)
               }}
             />
           )}
@@ -31,36 +32,25 @@ const OrderCarrier = ({ carrier }: { carrier: Carrier[] }) => {
       </div>
       {showMore
         ? carrier.map((item, index) => (
-            <div
-              className="flex flex-col justify-start items-start pl-8"
-              key={item.packId}
-            >
+            <div className="flex flex-col justify-start items-start pl-10" key={item.packId}>
               <div className="flex flex-row items-center">
-                <span>
-                  Pack{index + 1}:{item.packId}
-                </span>
-                <span className="ml-8">
-                  Carrier company:{item.company}
-                </span>
+                <span>Carrier company:{item.company}</span>
+                <span className="ml-8">Carrier number:{item.packId}</span>
               </div>
-              <div>
-                {/*{item?.tradeItem?.map((el) => (*/}
-                {/*  <div className="flex flex-row items-center" key={el.skuId}>*/}
-                {/*    <img src={el.pic} alt="" className="w-20 h-20" />*/}
-                {/*    <span>{el.skuName}</span>*/}
-                {/*  </div>*/}
-                {/*))}*/}
-                {item?.deliveries?.map((el,index) => (
-                  <div className="flex flex-col mt-2" key={index}>
-                    <span>{el.context}</span>
-                    <span>{el.time}</span>
-                  </div>
-                ))}
+              <div className="mt-4">
+                <Timeline className="rc-timeline">
+                  {item?.deliveries?.map((el, index) => (
+                    <Timeline.Item className="text-gray-500">
+                      <span>{el.context}</span>
+                      <br /> <span>{el.time}</span>
+                    </Timeline.Item>
+                  ))}
+                </Timeline>
               </div>
             </div>
           ))
         : null}
     </div>
-  );
-};
-export default OrderCarrier;
+  )
+}
+export default OrderCarrier
