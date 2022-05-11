@@ -111,7 +111,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
       type: spuType,
       shelvesStatus,
     })
-    let withoutSku = !detail.goodsSpecificationsInput?.length
+    let withoutSku = detail.id ? !detail.variationForm?.variationList?.length : !detail.goodsSpecificationsInput?.length
     debugger
     if (withoutSku) {
       params.goodsVariantsInput = [
@@ -165,15 +165,13 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     setLoading(true)
     debugger
     let data = await createProduct(params, beforeData)
-    console.info('data', data)
+    // console.info('data', data)
     if (data === true) {
       message.success({ className: 'rc-message', content: 'Operate success' })
-      // setInfo({ message: 'Success', description: '', type: 'success' })
       navigator('/product/product-list')
     } else {
       setLoading(false)
       message.success({ className: 'rc-message', content: 'Operate success' })
-      // setInfo({ message: 'Error', description: 'err', type: 'error' })
     }
   }
 
