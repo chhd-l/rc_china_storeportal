@@ -1,6 +1,7 @@
 import { normaliseAttrProps } from './product'
 import { TradeLogs, TradePayInfo } from '../schema/order.schema'
 import { Order } from '../types/order'
+import { handleReturnTime } from '@/utils/utils'
 
 export enum TradeTradeStateOrderStateEnum {
   unpaid = 'UNPAID',
@@ -22,7 +23,7 @@ const normalisePayInfo = (payInfo: TradePayInfo, orderState: any) => {
       : {
           payTypeName: 'Wechat Pay',
           appId: payInfo.payInfoID,
-          payTime: payInfo.payStartTime,
+          payTime: handleReturnTime(payInfo.payStartTime),
           outTradeNo: payInfo.payWayOrderID,
           payWayOrderID: payInfo.payWayOrderID,
           payWayCode: payInfo.payWayCode,
