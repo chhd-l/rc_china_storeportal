@@ -1,38 +1,49 @@
 import { Button, message, Pagination, Table, Tooltip, Upload, Image } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Asset } from '@/framework/types/wechat'
-import { createMedia, getMedias, syncMedias } from '@/framework/api/wechatSetting'
+import { createMedia, getMedias } from '@/framework/api/wechatSetting'
 import { ContentContainer } from '@/components/ui'
 import { PageParamsProps } from '@/framework/types/common'
 import { handlePageParams } from '@/utils/utils'
 import './index.less'
 import { initPageParams } from '@/lib/constants'
 
-const Picture = ({ isReload = false, openDelete }: { isReload: boolean; openDelete: Function }) => {
+const Picture = ({
+  isReload = false,
+  openDelete,
+  openSyncTipModal,
+}: {
+  isReload: boolean
+  openDelete: Function
+  openSyncTipModal: Function
+}) => {
   const [visible, setVisible] = useState(false)
   const column = [
     {
       title: 'Picture',
       dataIndex: 'picture',
       key: 'picture',
-      render: (text: any) => <img src={text} className="w-16 h-16 order-img" alt="" />,
+      render: (text: any) => <img src={text} className="order-img h-24 w-28" alt="" />,
+      // width: '20%',
     },
     {
       title: 'Wechat Assets Link',
       dataIndex: 'assetLink',
       key: 'assetLink',
-      width: '40%',
+      width: '50%',
     },
     {
       title: 'Create Time',
       dataIndex: 'createTime',
       key: 'createTime',
       render: (text: any, record: any) => `${record.status === 'synchronized' ? record.syncTime : text}`,
+      width: '15%',
     },
     {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
+      width: '15%',
     },
     {
       title: 'Action',
@@ -57,6 +68,7 @@ const Picture = ({ isReload = false, openDelete }: { isReload: boolean; openDele
           </Tooltip>
         </div>
       ),
+      width: '15%',
     },
   ]
   const [pictureList, setPictureList] = useState<Asset[]>([])
@@ -111,10 +123,6 @@ const Picture = ({ isReload = false, openDelete }: { isReload: boolean; openDele
     },
   }
 
-  const syncMediaList = async () => {
-    await syncMedias('image')
-  }
-
   return (
     <ContentContainer>
       <div className="flex flex-row mb-4">
@@ -124,7 +132,7 @@ const Picture = ({ isReload = false, openDelete }: { isReload: boolean; openDele
             Upload Local File
           </Button>
         </Upload>
-        <Button className="ml-4 flex items-center" onClick={() => syncMediaList()}>
+        <Button className="ml-4 flex items-center" onClick={() => openSyncTipModal && openSyncTipModal()}>
           <span className="iconfont icon-bianzu2 mr-2 text-xl" />
           Synchronous WeChat Assets
         </Button>

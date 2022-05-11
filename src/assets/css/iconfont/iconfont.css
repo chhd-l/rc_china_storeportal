@@ -1,9 +1,8 @@
 @font-face {
-  font-family: 'iconfont';
-  /* Project id 3298206 */
-  src: url('//at.alicdn.com/t/font_3298206_3z83y5lkv08.woff2?t=1651914475094') format('woff2'),
-    url('//at.alicdn.com/t/font_3298206_3z83y5lkv08.woff?t=1651914475094') format('woff'),
-    url('//at.alicdn.com/t/font_3298206_3z83y5lkv08.ttf?t=1651914475094') format('truetype');
+  font-family: "iconfont"; /* Project id 3298206 */
+  src: url('iconfont.woff2?t=1652269753308') format('woff2'),
+       url('iconfont.woff?t=1652269753308') format('woff'),
+       url('iconfont.ttf?t=1652269753308') format('truetype');
 }
 
 .iconfont {
@@ -12,6 +11,50 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-Frame3:before {
+  content: "\e638";
+}
+
+.icon-Frame-11:before {
+  content: "\e639";
+}
+
+.icon-Frame-3:before {
+  content: "\e63a";
+}
+
+.icon-Frame-5:before {
+  content: "\e63b";
+}
+
+.icon-Frame-2:before {
+  content: "\e63d";
+}
+
+.icon-a-Frame21:before {
+  content: "\e637";
+}
+
+.icon-Lamp:before {
+  content: "\e636";
+}
+
+.icon-morendizhi:before {
+  content: "\e635";
+}
+
+.icon-jiahao:before {
+  content: "\e726";
+}
+
+.icon-group52:before {
+  content: "\e634";
+}
+
+.icon-a-edit:before {
+  content: "\e61a";
 }
 
 .icon-a-bianzu67beifen3:before {
@@ -217,3 +260,4 @@
 .icon-Order:before {
   content: "\e601";
 }
+

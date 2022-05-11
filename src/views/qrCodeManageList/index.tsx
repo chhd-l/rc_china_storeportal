@@ -12,18 +12,11 @@ import IconFont from "@/components/common/IconFont"
 // import { tableColumns } from "./modules/constant"
 
 const typeValueEnum = {
-  QR_SCENE : 'QR_SCENE',
-  QR_STR_SCENE : 'QR_STR_SCENE',
-  QR_LIMIT_SCENE : 'QR_LIMIT_SCENE',
-  QR_LIMIT_STR_SCENE : 'QR_LIMIT_STR_SCENE'
+  QR_SCENE : 'Temporary integer parameter',
+  QR_STR_SCENE : 'Temporary string parameter',
+  QR_LIMIT_SCENE : 'Permanent integer parameter',
+  QR_LIMIT_STR_SCENE : 'Permanent string parameter'
 };
-
-
-type ColumnType ={
-  officialAccount:string,
-  type:string;
-  expiredTime:string;
-}
 
 const QrCodeManage = () => {
   const [imgUrl, setImgUrl] = useState("")
@@ -40,8 +33,8 @@ const QrCodeManage = () => {
     if(!arr.length) return
     const lists: string[] = []
     arr.forEach((item) => {
-      if(lists.indexOf(item.accountName) === -1 && item.accountType === 'MINi_PROGRAM')
-      lists.push(item.accountName)
+      if(lists.indexOf(item.accountName) === -1 && item.accountType === 'ServiceAccount')
+      lists.push(item.accountPrincipal)
     })
     const val: any = {}
     lists.forEach((item: string) => {
@@ -57,10 +50,10 @@ const QrCodeManage = () => {
 
   // const columns = tableColumns({ handlePreview, QRcodeTypeList })
 
-  const columns: ProColumns<ColumnType>[] = [
+  const columns: ProColumns[] = [
     {
       title: 'Official Account',
-      dataIndex: "officialAccount",
+      dataIndex: "accountPrincipal",
       valueType: "select",
       valueEnum: list,
     },
@@ -104,7 +97,7 @@ const QrCodeManage = () => {
         }}
         rowKey='id'
         toolBarRender={() => [
-          <Link to="/QrcodeManage/qrcode-manage-detail/add">
+          <Link to="/QrcodeManage/qrcode-manage-add">
             <Button className="mt-8 text-white" type="primary" ghost>
               + Add
             </Button>
@@ -119,16 +112,15 @@ const QrCodeManage = () => {
             sample: {storeId: "12345678"},
           })
           depy(res2?.records || [])
-
+          const param: any = {}
+          if(params.name) param.name = params.name
+          if(params.accountPrincipal) param.accountPrincipal = params.accountPrincipal
+          if(params.type) param.type = params.type
           let res = await getQrCodes({
             offset: (params.current - 1) * 10,
             limit: params.pageSize,
             accountId: "000001",
-            sample: {
-              name: params.name,
-              accountPrincipal: params.officialAccount,
-              type: params.type
-            }
+            sample: param
           })
           return Promise.resolve({
             data: res.records,

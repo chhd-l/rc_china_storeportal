@@ -2,11 +2,12 @@ import ProTable from "@/components/common/ProTable"
 import "./index.less"
 // import { mockList } from "./modules/mockdata"
 // import Mock from "mockjs"
-import { Button, Image, Modal } from "antd"
+import { Button, Image, Modal, Tooltip } from "antd"
 // import { SyncOutlined } from "@ant-design/icons"
 // import { tableColumns } from "./modules/constant"
 import { ContentContainer } from "@/components/ui"
-import { getAppQrCodes, upsertAppQrCodes } from '@/framework/api/wechatSetting'
+import { getAccountList, getAppQrCodes, upsertAppQrCodes } from '@/framework/api/wechatSetting'
+import type { ProColumns } from "@ant-design/pro-table";
 import { Link } from "react-router-dom"
 import IconFont from "@/components/common/IconFont"
 import { EyeOutlined } from '@ant-design/icons';
@@ -18,6 +19,7 @@ const MpQrList = () => {
   const formRef = useRef<any>();
   const [imgUrl, setImgUrl] = useState("")
   const [ID, setID] = useState('')
+  const [list, setList] = useState<any>([])
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [DeleteModal, setDeleteModal] = useState(false)
 
@@ -26,6 +28,7 @@ const MpQrList = () => {
     setIsModalVisible(false)
     setDeleteModal(false)
   }
+
   const handleOk = async (id: string) => {
     const items = {
       id: id,
@@ -37,21 +40,35 @@ const MpQrList = () => {
     setDeleteModal(false)
   }
 
-  // const createAppQrCode=async ()=>{
-  //   await upsertAppQrCodes({})
-  // }
-  const columns = [
+  const depy = (arr: any[]) => {
+    if(!arr.length) return
+    const lists: any = {}
+    arr.forEach((item) => {
+      if(item.accountType === "MiniProgram") {
+        lists[item.id] = item.accountName
+      }
+    })
+    setList(lists)
+  }
+
+  const columns: ProColumns[] = [
     {
       title: 'Channel',
-      dataIndex: "accountId",
+      dataIndex: "accountName",
+      valueType: "select",
+      valueEnum: list,
     },
     {
       title: "Scenario",
       dataIndex: "scenarioId",
+      valueType: "select",
+      valueEnum: {
+        Normal: 'Normal'
+      },
     },
     {
       title: "QR Code Key Value",
-      dataIndex: "type",
+      dataIndex: "key",
     },
     {
       title: "Mini Program Path",
@@ -63,21 +80,30 @@ const MpQrList = () => {
       hideInSearch: true,
       render: (text: any, record: any) => (
         <div className="flex items-center">
-          <Link to='' onClick={() => {}}>
-          <EyeOutlined />
-          </Link>
-          <Link className="ml-3" to='' onClick={async() => {
-            setID(record.id)
-            setDeleteModal(true)
-          }}>
-            <IconFont type='icon-delete' />
-          </Link>
-          <Link className="ml-3" to='' onClick={() => {
-            setImgUrl(record.imgUrl)
-            setIsModalVisible(true)
-          }}>
-            <IconFont type='icon-Frame-1' />
-          </Link>
+          <Tooltip title='View Details'>
+            <span className="text-red-400 cursor-pointer" onClick={() => {
+              console.log('11111', 11111)
+              navigator(`/mpqr/mpqr-detail`, { state: record })
+            }}>
+              <EyeOutlined />
+            </span>
+          </Tooltip>
+          <Tooltip title='Delete'>
+            <Link className="ml-3" to='' onClick={async () => {
+              setID(record.id)
+              setDeleteModal(true)
+            }}>
+              <IconFont type='icon-delete' />
+            </Link>
+          </Tooltip>
+          <Tooltip title='View QR Code'>
+            <Link className="ml-3" to='' onClick={() => {
+              setImgUrl(record.imgUrl)
+              setIsModalVisible(true)
+            }}>
+              <IconFont type='icon-Frame-1' />
+            </Link>
+          </Tooltip>
         </div>
       )
     }
@@ -88,7 +114,7 @@ const MpQrList = () => {
       <ProTable
         formRef={formRef}
         columns={columns}
-        search= {{
+        search={{
           labelWidth: 136,
           searchText: 'Search'
         }}
@@ -97,7 +123,7 @@ const MpQrList = () => {
         }}
         toolBarRender={() => [
           <Button className="mt-8 text-white" type="primary" ghost onClick={() => {
-            navigator('/mpqr/mpqr-detail/add')
+            navigator('/mpqr/mpqr-add')
           }}>
             + Add
           </Button>,
@@ -105,16 +131,21 @@ const MpQrList = () => {
         ]}
         request={async (params) => {
           // 表单搜索项会从 params 传入，传递给后端接口。
-          console.log('params',params)
+          let val = await getAccountList({
+            limit: 100,
+            offset: 0,
+            sample: {storeId: "12345678"},
+          })
+          depy(val?.records || [])
+          const param: any = {}
+          if(params.accountName) param.accountName = params.accountName
+          if(params.scenarioId) param.scenarioId = params.scenarioId
+          if(params.key) param.key = params.key
           let res = await getAppQrCodes({
             offset: (params.current - 1) * 10,
             limit: params.pageSize,
             isNeedTotal: true,
-            sample: {
-              name: params.name,
-              accountPrincipal: params.officialAccount,
-              type: params.type
-            }
+            sample: param
           })
           // const datas = Mock.mock(mockList).list
           return Promise.resolve({
@@ -148,7 +179,7 @@ const MpQrList = () => {
         onOk={() => handleOk(ID)}
         onCancel={handleCancel}
         okText='Confirm'
-        // mask={false}
+      // mask={false}
       >
         <div>Are you sure you want to delete the item ?</div>
       </Modal>

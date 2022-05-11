@@ -107,7 +107,7 @@ export const syncPartFans = async (syncParams: any) => {
   try {
     const params = {
       accountId: '000001',
-      openIds: [],
+      openIds: syncParams,
     }
     let res = await ApiRoot.wechatSettings().syncPartFans(params)
     const syncSuccess = res?.sycPartFans
@@ -151,9 +151,9 @@ export const createMedia = async (queryParams: any) => {
         },
         queryParams.type === 'video'
           ? {
-              title: queryParams.title,
-              description: queryParams.description,
-            }
+            title: queryParams.title,
+            description: queryParams.description,
+          }
           : {},
       ),
       operator: 'zz',
@@ -275,7 +275,7 @@ export const getQrCodes = async (queryParams: any) => {
 export const createQrCode = async (queryParams: any) => {
   try {
     //todo 参数处理 编辑参数加id,删除参数加id and isDeleted
-    let res = await ApiRoot.wechatSettings().addQrCode({ input: queryParams })
+    let res = await ApiRoot.wechatSettings().addQrCode({ input: queryParams, operator: 'cc' })
     const addQrCode = res?.addQrCode
     console.log('upsert app qrCode view data', addQrCode)
     return addQrCode
@@ -438,10 +438,41 @@ export const updateWxMenu = async (queryParams: any) => {
   try {
     let res = await ApiRoot.wechatSettings().upsertWxMenu(queryParams)
     const updated = res?.upsertWxMenu
-    console.log('create media view data', updated)
+    console.log('update wxmenu view data', updated)
     return updated || false
   } catch (e) {
     console.log(e)
     return false
+  }
+}
+
+/**
+ * 创建微信公众号菜单
+ * @param wxMenusContent 
+ * @returns 
+ */
+export const createWxMenu = async (wxMenusContent: string) => {
+  try {
+    let res = await ApiRoot.wechatSettings().createWxMenu({
+      accountId: '000001',
+      content: wxMenusContent,
+      operator: 'zz'
+    })
+    console.log('create wxmenu view data', res)
+    return true
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+}
+
+export const getWxMenuDetail = async (id: string) => {
+  try {
+    let data = await ApiRoot.wechatSettings().getWxMenuDetailById(id)
+    console.log('get wxmenu detail view data', data)
+    return data?.getWxMenuDetailById
+  } catch (e) {
+    console.log(e)
+    return null
   }
 }

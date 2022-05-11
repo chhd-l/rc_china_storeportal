@@ -3,11 +3,11 @@ import { BaseListProps } from "@/framework/types/common";
 export const accountTypeList: BaseListProps[] = [
   {
     label: "Service Account",
-    key: "serviceAccount",
+    key: "ServiceAccount",
   },
   {
     label: "Mini Program",
-    key: "miniProgram",
+    key: "MiniProgram",
   },
 ];
 
