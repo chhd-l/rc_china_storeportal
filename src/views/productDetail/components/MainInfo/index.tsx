@@ -1,5 +1,5 @@
 import './index.less'
-import { Anchor } from 'antd'
+import { Alert, Anchor } from 'antd'
 import { useLocation } from 'react-router-dom'
 import { Form, Space, Button } from 'antd'
 import { FC, useContext, useEffect, useState } from 'react'
@@ -29,7 +29,8 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
   const hanldeTips = (idx: number) => {
     setTipsIdx(idx)
   }
-
+  const [info, setInfo] = useState<any>()
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     document.addEventListener(
       'click',
@@ -161,9 +162,17 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     }
     console.info('.......')
     console.info('params', params)
+    setLoading(true)
+    debugger
     let data = await createProduct(params, beforeData)
     console.info('data', data)
-    navigator('/product/product-list')
+    if (data === true) {
+      setInfo({ message: 'Success', description: '', type: 'success' })
+      navigator('/product/product-list')
+    } else {
+      setLoading(false)
+      setInfo({ message: 'Error', description: 'err', type: 'error' })
+    }
   }
 
   return (
@@ -215,6 +224,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
           </Form.List> */}
             <div className='text-rigth flex justify-end fixed bottom-2 footerBtn'>
               <Button
+                loading={loading}
                 className='ml-4'
                 onClick={() => {
                   navigator('/product/product-list')
@@ -225,6 +235,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
               {pathname !== '/product/product-detail/add' ? (
                 beforeData.shelvesStatus ? (
                   <Button
+                    loading={loading}
                     className='ml-4'
                     onClick={() => {
                       shelvesStatus = false
@@ -236,6 +247,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                 ) : null
               ) : (
                 <Button
+                  loading={loading}
                   className='ml-4'
                   onClick={() => {
                     shelvesStatus = false
@@ -248,6 +260,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
               {pathname !== '/product/product-detail/add' ? (
                 !beforeData.shelvesStatus ? (
                   <Button
+                    loading={loading}
                     className='ml-4'
                     type='primary'
                     onClick={() => {
@@ -261,6 +274,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                 ) : null
               ) : (
                 <Button
+                  loading={loading}
                   className='ml-4'
                   type='primary'
                   onClick={() => {
@@ -274,6 +288,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
               )}
               {pathname !== '/product/product-detail/add' ? (
                 <Button
+                  loading={loading}
                   className='ml-4'
                   type='primary'
                   onClick={() => {
@@ -288,6 +303,9 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
           </div>
         </Form>
       </div>
+      {info?.description ? (
+        <Alert message={info.message} description={info.description} type={info.type} showIcon />
+      ) : null}
       <div className={`w-48 fixed rc-anchor ${showCatePop ? 'hidden' : ''}`} style={{ top: '100px', right: '8%' }}>
         <Anchor affix={true} targetOffset={164} style={{ top: '64px' }}>
           {steps.map((step, idx) => (
