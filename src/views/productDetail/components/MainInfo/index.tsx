@@ -1,9 +1,9 @@
 import './index.less'
-import { Anchor } from 'antd'
+import { Alert, Anchor } from 'antd'
 import { useLocation } from 'react-router-dom'
 import { Form, Space, Button } from 'antd'
 import { FC, useContext, useEffect, useState } from 'react'
-import { steps } from '../../modules/constant'
+import { headerOrigition, steps } from '../../modules/constant'
 import { InfoContainer, DivideArea } from '@/components/ui'
 import { DetailContext } from '../../index'
 import { createProduct } from '@/framework/api/get-product'
@@ -29,7 +29,8 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
   const hanldeTips = (idx: number) => {
     setTipsIdx(idx)
   }
-
+  const [info, setInfo] = useState<any>()
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     document.addEventListener(
       'click',
@@ -41,14 +42,71 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
       false,
     )
   }, [])
-  // useEffect(()=>{
-
-  // },detail.name)
+  const validateNullData = (data: any, keyLableRel: any) => {
+    // keyLableRel需要校验的字段key和lable数组
+    let nodataKey: any = []
+    let errMsg = ''
+    data?.forEach((el: any) => {
+      if (el) {
+        Object.keys(keyLableRel)?.forEach(keyName => {
+          if (el?.[keyName]) {
+            // console.info('has name', keyName)
+          } else {
+            console.info('no name', keyName)
+            nodataKey.push(keyName)
+          }
+        })
+      }
+    })
+    if (nodataKey.length) {
+      let errKeyname = nodataKey[0]
+      errMsg = `Please input ${keyLableRel[errKeyname]}`
+    }
+    return errMsg
+  }
   const onFinish = async (values: any) => {
     console.info('shelvesStatus', shelvesStatus)
     //组装product数据
     console.log(values, detail)
-
+    //校验规格名字
+    // let errMsg =
+    //   detail.goodsSpecificationsInput?.length &&
+    //   validateNullData(detail.goodsSpecificationsInput, { name: 'Variation Name' })
+    // //校验规格详情
+    // if (!errMsg) {
+    //   errMsg =
+    //     detail.goodsSpecificationsInput?.length &&
+    //     detail.goodsSpecificationsInput.map((el: any) => {
+    //       return validateNullData(el.specificationList, { option: 'Variation Option' })
+    //     })
+    // }
+    // if (detail.id && !errMsg) {
+    //   //校验规格 没同步add的，有问题，先兼容
+    //   errMsg = detail?.editChange?.goodsVariants?.map((el: any) => {
+    //     return validateNullData(el, { specificationName: 'Variation Name' })
+    //   })
+    //   if (!errMsg) {
+    //     errMsg = detail?.editChange?.goodsVariants?.map((el: any) => {
+    //       return el.goodsSpecificationDetail.map((cel: any) =>
+    //         validateNullData(cel, { specificationName: 'Variation Name' }),
+    //       )
+    //     })
+    //   }
+    // }
+    // //校验sku
+    // if (!errMsg) {
+    //   let variantsKeyLableRel: any = {}
+    //   headerOrigition
+    //     .filter((el: any) => el.required)
+    //     .map((el: any) => {
+    //       variantsKeyLableRel[el.keyVal] = el.label
+    //     })
+    //   errMsg = detail.goodsVariantsInput?.length && validateNullData(detail.goodsVariantsInput, variantsKeyLableRel)
+    // }
+    // if (errMsg) {
+    //   console.info('....', errMsg)
+    //   return
+    // }
     let params = Object.assign({}, detail, values, {
       type: spuType,
       shelvesStatus,
@@ -104,9 +162,17 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     }
     console.info('.......')
     console.info('params', params)
+    setLoading(true)
+    debugger
     let data = await createProduct(params, beforeData)
     console.info('data', data)
-    navigator('/product/product-list')
+    if (data === true) {
+      setInfo({ message: 'Success', description: '', type: 'success' })
+      navigator('/product/product-list')
+    } else {
+      setLoading(false)
+      setInfo({ message: 'Error', description: 'err', type: 'error' })
+    }
   }
 
   return (
@@ -156,11 +222,9 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
             {/* </>
             )}
           </Form.List> */}
-            <div
-              style={{ left: '24px', right: '13.5rem' }}
-              className='text-rigth flex justify-end fixed bottom-2 footerBtn'
-            >
+            <div className='text-rigth flex justify-end fixed bottom-2 footerBtn'>
               <Button
+                loading={loading}
                 className='ml-4'
                 onClick={() => {
                   navigator('/product/product-list')
@@ -171,6 +235,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
               {pathname !== '/product/product-detail/add' ? (
                 beforeData.shelvesStatus ? (
                   <Button
+                    loading={loading}
                     className='ml-4'
                     onClick={() => {
                       shelvesStatus = false
@@ -182,6 +247,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                 ) : null
               ) : (
                 <Button
+                  loading={loading}
                   className='ml-4'
                   onClick={() => {
                     shelvesStatus = false
@@ -194,6 +260,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
               {pathname !== '/product/product-detail/add' ? (
                 !beforeData.shelvesStatus ? (
                   <Button
+                    loading={loading}
                     className='ml-4'
                     type='primary'
                     onClick={() => {
@@ -207,6 +274,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                 ) : null
               ) : (
                 <Button
+                  loading={loading}
                   className='ml-4'
                   type='primary'
                   onClick={() => {
@@ -220,6 +288,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
               )}
               {pathname !== '/product/product-detail/add' ? (
                 <Button
+                  loading={loading}
                   className='ml-4'
                   type='primary'
                   onClick={() => {
@@ -234,17 +303,22 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
           </div>
         </Form>
       </div>
+      {info?.description ? (
+        <Alert message={info.message} description={info.description} type={info.type} showIcon />
+      ) : null}
       <div className={`w-48 fixed rc-anchor ${showCatePop ? 'hidden' : ''}`} style={{ top: '100px', right: '8%' }}>
         <Anchor affix={true} targetOffset={164} style={{ top: '64px' }}>
           {steps.map((step, idx) => (
             <Link key={step.anchor + idx} href={`#${step.anchor}`} title={step.title} />
           ))}
         </Anchor>
-        <div className='mt-4 bg-yellow-100 text-yellow-700 px-2 py-4'>
-          <div className='font-bold '>Tips</div>
-          <br />
-          <div dangerouslySetInnerHTML={{ __html: dataTips }}></div>
-        </div>
+        {dataTips ? (
+          <div className='mt-4 bg-yellow-100 text-yellow-700 px-2 py-4'>
+            <div className='font-bold '>Tips</div>
+            <br />
+            <div dangerouslySetInnerHTML={{ __html: dataTips }}></div>
+          </div>
+        ) : null}
       </div>
     </div>
   )

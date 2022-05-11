@@ -221,6 +221,9 @@ const BasicInfo = ({ field, form }: FormProps) => {
         className=' with-no-margin'
         name='brandId'
         labelCol={{ span: 7 }}
+        wrapperCol={{
+          span: 20,
+        }}
         rules={[{ required: true }]}
       >
         <Select placeholder='Please select' options={brandList} style={{ width: 195 }} className='input-radius' />
@@ -233,6 +236,9 @@ const BasicInfo = ({ field, form }: FormProps) => {
 <p>Products that are not displayed and sold in the mall should be set to Not saleable</p>
 `}
         name='salesStatus'
+        wrapperCol={{
+          span: 20,
+        }}
         labelCol={{ span: 7 }}
         rules={[{ required: true }]}
       >

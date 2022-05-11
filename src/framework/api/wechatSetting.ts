@@ -304,11 +304,9 @@ export const syncTemplateItem = async () => {
 // 查询
 export const getTemplateMessages = async (queryParams: any) => {
   try {
-    const params = {
-      offset: 0,
-      limit: 10,
+    const params = Object.assign(queryParams, {
       accountId: '000001',
-    }
+    })
     let res = await ApiRoot.wechatSettings().getTemplateMessages({ body: params })
     const templateMessageList = res?.templateMessageList
     console.log('get templateItem list view data', templateMessageList)

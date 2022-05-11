@@ -99,7 +99,7 @@ export const normaliseDetailforFe = (detail: any) => {
     spu.marketingPrice = sku.marketingPrice
     spu.feedingDays = sku.feedingDays
     spu.isSupport100 = sku.isSupport100 ? 'ture' : 'false'
-    spu.defaultImage = 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png'
+    spu.defaultImage = sku.defaultImage
     spu.skuId = sku.id
     spu.regularList = sku.goodsVariantBundleInfo?.map((el: any) => {
       let bundleInfo = {
@@ -203,7 +203,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
         shelvesStatus: data.shelvesStatus === 'true',
         // shelvesTime: '2021-01-31 10:10:00',
         storeId: '12345678',
-        defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
+        defaultImage: data.defaultImage,
         subscriptionStatus: Number(data.subscriptionStatus),
         feedingDays: data.feedingDays ? Number(data.feedingDays) : 0,
         subscriptionPrice: data.subscriptionPrice ? Number(data.subscriptionPrice) : 0,
@@ -242,7 +242,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
       // shelvesStatus: true,
       // shelvesTime: '2021-01-31 10:10:00',
       storeId: '12345678',
-      defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
+      defaultImage: spu.defaultImage,
       subscriptionStatus: Number(spu.subscriptionStatus),
       feedingDays: spu.feedingDays ? Number(spu.feedingDays) : 0,
       subscriptionPrice: spu.subscriptionPrice ? Number(spu.subscriptionPrice) : 0,
@@ -276,8 +276,9 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
     }
     //处理规格值转换
     let editVariationData = spu.editChange.goodsVariants?.map((el: any) => {
-      let normaliseData: any = el ? [...el] : null
+      let normaliseData: any = null
       if (el) {
+        normaliseData = { ...el }
         if (el?.shelvesStatus) {
           normaliseData.shelvesStatus = el.shelvesStatus === 'true'
         }
@@ -297,9 +298,10 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
           normaliseData.subscriptionPrice = Number(el.subscriptionPrice)
         }
       }
-
+      console.info('normaliseData', normaliseData)
       return normaliseData
-    })
+    }).filter((el: any) => el)
+    console.info('editVariationData', editVariationData)
     editData = [...editVariationData, ...delArr]
     //规格有改变的
     spu.goodsVariantsInput.filter((el: any) => el.id).forEach((variantInput: any, index: number) => {
@@ -520,7 +522,7 @@ export const normaliseProductListSku = (sku: GoodsVariants, goodsSpecifications:
 export const normaliseProductListSpu = (spu: any): any => {
   let listItem = {
     skus: spu.goodsVariants?.map((sku: any) => normaliseProductListSku(sku, spu.goodsSpecifications)),
-    img: spu.defaultImage,
+    img: spu.goodsVariants?.[0]?.defaultImage,
     id: spu.id,
     no: spu.spuNo,
     showAll: false,

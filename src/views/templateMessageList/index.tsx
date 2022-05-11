@@ -16,9 +16,9 @@ const TemplateMessage = () => {
   const [cardView, setCardView] = useState(true)
   const [templateMessageList, setTemplateMessageList] = useState<any[]>([])
 
-  const handleDelete = async(id: string) => {
+  const handleDelete = async (id: string) => {
     console.info('handleDelete', id)
-    const res = await updateTemplateMessage({ id, isDeleted:true })
+    const res = await updateTemplateMessage({ id, isDeleted: true })
     if (res) {
       await getTemplateMessageList()
     }
@@ -32,7 +32,7 @@ const TemplateMessage = () => {
     }
   }
 
-  const columns = tableColumns({ handleDelete, modifyTemplateMessage,templateTitleList: templateMessageList })
+  const columns = tableColumns({ handleDelete, modifyTemplateMessage, templateTitleList: templateMessageList })
 
   const handleAdd = () => {
     setAddVisible(true)
@@ -40,12 +40,12 @@ const TemplateMessage = () => {
   const handleIndustires = () => {
     setIndustryVisible(true)
   }
-  const Synchronous = async() => {
+  const Synchronous = async () => {
     await syncTemplateItem()
   }
 
   const getTemplateMessageList = async () => {
-    const res = await getTemplateMessages({})
+    const res = await getTemplateMessages({ offset: 0, limit: 10 })
     setTemplateMessageList(res.records)
   }
 
@@ -83,12 +83,27 @@ const TemplateMessage = () => {
             </Button>,
           ]}
           columns={columns}
-          request={(params, sorter, filter) => {
+          request={async (params, sorter, filter) => {
             // 表单搜索项会从 params 传入，传递给后端接口。
             console.log('test sort', params, sorter, filter)
+            const { current, pageSize, id, title, scenario } = params
+            const queryParams = Object.assign(
+              {},
+              { offset: current * pageSize - pageSize, limit: pageSize },
+              {
+                sample: Object.assign(
+                  {},
+                  id ? { id } : {},
+                  title ? { title } : {},
+                  scenario !== 'all' ? { scenario } : {},
+                ),
+              },
+            )
+            const res = await getTemplateMessages(queryParams)
             return Promise.resolve({
-              data: templateMessageList,
+              data: res.records,
               success: true,
+              total: res.total,
             })
           }}
         />

@@ -110,6 +110,7 @@ const EditVariationList = (props: FormProps) => {
       if (propertyName === 'isSupport100') {
         detail.editChange.goodsVariants[index][propertyName] = val === 'true' ? true : false
       }
+      debugger
       if (!tr.id) {
         //新增的
         detail.editChange.goodsVariants[index].goodsVariantSpecifications = tr.relArr?.map((rel: any) => {
@@ -196,7 +197,7 @@ const EditVariationList = (props: FormProps) => {
         sortIdx,
         relArr: [],
       }
-      // debugger
+      debugger
       if (changeType === ChangeType.handleSpec || isDefultData) {
         //spec选择,需要操作====
         // debugger
@@ -328,18 +329,20 @@ const EditVariationList = (props: FormProps) => {
                               console.info('tr[td.keyVal]', tr[td.keyVal])
                               // return <span>{tr[td.keyVal]}</span>
                               return (
-                                <Upload
-                                  size='small'
-                                  hideName={true}
-                                  type='image'
-                                  fileList={[{ url: tr[td.keyVal], type: 'image' }]}
-                                  showUploadList={false}
-                                  handleImgUrl={(imgInfo: any) => {
-                                    tr[td.keyVal] = imgInfo.url
-                                    console.info('...', imgInfo.url)
-                                    updateVations(imgInfo.url, index, td.keyVal, tr)
-                                  }}
-                                />
+                                <div className='px-3'>
+                                  <Upload
+                                    size='small'
+                                    hideName={true}
+                                    type='image'
+                                    fileList={[{ url: tr[td.keyVal], type: 'image' }]}
+                                    showUploadList={false}
+                                    handleImgUrl={(imgInfo: any) => {
+                                      tr[td.keyVal] = imgInfo.url
+                                      console.info('...', imgInfo.url)
+                                      updateVations(imgInfo.url, index, td.keyVal, tr)
+                                    }}
+                                  />
+                                </div>
                               )
                             case 'priceInput':
                               return td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0' ? (
@@ -419,14 +422,17 @@ const EditVariationList = (props: FormProps) => {
                                   {tr[td.keyVal] === 'true' ? (
                                     <VerticalAlignBottomOutlined
                                       onClick={() => {
+                                        debugger
                                         tr[td.keyVal] = 'false'
                                         setVariationList([...variationList])
                                         updateVations('false', index, td.keyVal, tr)
+                                        debugger
                                       }}
                                     />
                                   ) : (
                                     <VerticalAlignTopOutlined
                                       onClick={() => {
+                                        debugger
                                         tr[td.keyVal] = 'true'
                                         updateVations('true', index, td.keyVal, tr)
                                         setVariationList([...variationList])
