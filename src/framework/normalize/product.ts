@@ -99,7 +99,7 @@ export const normaliseDetailforFe = (detail: any) => {
     spu.marketingPrice = sku.marketingPrice
     spu.feedingDays = sku.feedingDays
     spu.isSupport100 = sku.isSupport100 ? 'ture' : 'false'
-    spu.defaultImage = 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png'
+    spu.defaultImage = sku.defaultImage
     spu.skuId = sku.id
     spu.regularList = sku.goodsVariantBundleInfo?.map((el: any) => {
       let bundleInfo = {
@@ -141,7 +141,7 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     goodsDescription: data.goodsDescription,
     type: data.type,
     brandId: data.brandId,
-    goodsCategoryId: data.goodsCategoryId || '8',
+    goodsCategoryId: data.cateId ? data.cateId[data.cateId.length - 1] : '8',
     shelvesStatus: data.shelvesStatus,
     // defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',//?干嘛呢
     salesStatus: data.salesStatus === "1",
@@ -203,7 +203,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
         shelvesStatus: data.shelvesStatus === 'true',
         // shelvesTime: '2021-01-31 10:10:00',
         storeId: '12345678',
-        defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
+        defaultImage: data.defaultImage,
         subscriptionStatus: Number(data.subscriptionStatus),
         feedingDays: data.feedingDays ? Number(data.feedingDays) : 0,
         subscriptionPrice: data.subscriptionPrice ? Number(data.subscriptionPrice) : 0,
@@ -242,7 +242,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
       // shelvesStatus: true,
       // shelvesTime: '2021-01-31 10:10:00',
       storeId: '12345678',
-      defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
+      defaultImage: spu.defaultImage,
       subscriptionStatus: Number(spu.subscriptionStatus),
       feedingDays: spu.feedingDays ? Number(spu.feedingDays) : 0,
       subscriptionPrice: spu.subscriptionPrice ? Number(spu.subscriptionPrice) : 0,
@@ -260,10 +260,20 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
     spu.variationLists.filter((el: any) => el.id)
     skuData.filter((el: any) => el.id)
     //被删除的
-    let delArr = beforeData.goodsVariants.filter((el: any) => {
-      return spu.goodsVariantsInput.every((cel: any) => cel.id !== el.id)
-    })
-    // debugger
+    debugger
+    let delArr: any = []
+    for (let item in beforeData.goodsVariants) {
+      var found = false
+      for (let citem in spu.goodsVariantsInput) {
+        if (spu.goodsVariantsInput[citem].id === beforeData.goodsVariants[item].id) {
+          found = true
+          break
+        }
+      }
+      if (!found) {
+        delArr.push(beforeData.goodsVariants[item])
+      }
+    }
     delArr = delArr.map((el: any) => {
       let newEl = {
         isDeleted: true,
@@ -276,8 +286,9 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
     }
     //处理规格值转换
     let editVariationData = spu.editChange.goodsVariants?.map((el: any) => {
-      let normaliseData: any = el ? [...el] : null
+      let normaliseData: any = null
       if (el) {
+        normaliseData = { ...el }
         if (el?.shelvesStatus) {
           normaliseData.shelvesStatus = el.shelvesStatus === 'true'
         }
@@ -297,9 +308,10 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
           normaliseData.subscriptionPrice = Number(el.subscriptionPrice)
         }
       }
-
+      console.info('normaliseData', normaliseData)
       return normaliseData
-    })
+    }).filter((el: any) => el)
+    console.info('editVariationData', editVariationData)
     editData = [...editVariationData, ...delArr]
     //规格有改变的
     spu.goodsVariantsInput.filter((el: any) => el.id).forEach((variantInput: any, index: number) => {
@@ -349,6 +361,9 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
     })
 
   }
+  console.info('skuData', skuData)
+  debugger
+  // return skuData
   return spu.id ? editData : skuData
 }
 
@@ -520,7 +535,7 @@ export const normaliseProductListSku = (sku: GoodsVariants, goodsSpecifications:
 export const normaliseProductListSpu = (spu: any): any => {
   let listItem = {
     skus: spu.goodsVariants?.map((sku: any) => normaliseProductListSku(sku, spu.goodsSpecifications)),
-    img: spu.defaultImage,
+    img: spu.goodsVariants?.[0]?.defaultImage,
     id: spu.id,
     no: spu.spuNo,
     showAll: false,

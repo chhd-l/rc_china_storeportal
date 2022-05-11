@@ -37,7 +37,7 @@ const Video = ({ isReload = false, openDelete }: { isReload: boolean; openDelete
       key: 'action',
       render: (text: any, record: any) => (
         <>
-          <Tooltip title="Delete">
+          <Tooltip title="View Video">
             <span
               className="cursor-pointer ml-2 iconfont icon-a-Frame2 primary-color text-xl"
               onClick={() => window.open(record.assetLink)}

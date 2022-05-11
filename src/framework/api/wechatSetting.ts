@@ -56,6 +56,26 @@ export const createAccount = async (queryParams: any) => {
     return {}
   }
 }
+
+// switch account
+export const syncAccount = async (queryParams: any) => {
+  try {
+    //todo 参数处理
+    const params = {
+      // id,
+      // isActive,
+      // accountType
+    }
+    let res = await ApiRoot.wechatSettings().addAccount(params)
+    const syncAccount = res?.syncAccount
+    console.log('sync account view data', syncAccount)
+    return syncAccount||false
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+}
+
 // 编辑 accon 更新（不传isDeleted） 删除（isDeleted: true）
 export const modifyAccount = async (queryParams: any) => {
   try {
@@ -304,11 +324,9 @@ export const syncTemplateItem = async () => {
 // 查询
 export const getTemplateMessages = async (queryParams: any) => {
   try {
-    const params = {
-      offset: 0,
-      limit: 10,
+    const params = Object.assign(queryParams, {
       accountId: '000001',
-    }
+    })
     let res = await ApiRoot.wechatSettings().getTemplateMessages({ body: params })
     const templateMessageList = res?.templateMessageList
     console.log('get templateItem list view data', templateMessageList)

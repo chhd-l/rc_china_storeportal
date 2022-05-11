@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { Button, Tabs } from 'antd'
+import { Button, Spin, Tabs } from 'antd'
 import { useEffect, useState } from 'react'
 import SearchHeader from './components/SearchHeader'
 import TableList from './components/TableLists'
@@ -22,6 +22,7 @@ const ProductList = () => {
   const [filterCondition, setFilterCondition] = useState('')
   const [toolbarList, setToolbarList] = useState<OptionsProps[]>([])
   const navigation = useNavigate()
+  const [loading, setLoading] = useState(false)
   const [listData, setListData] = useState<ProductListProps>({
     products: [],
     all: '0',
@@ -56,6 +57,8 @@ const ProductList = () => {
   }
 
   const getList = async () => {
+    setLoading(true)
+
     let params: any = {
       limit: pages.pageSize,
       sample,
@@ -67,6 +70,7 @@ const ProductList = () => {
       params.filterCondition = filterCondition
     }
     let res = await getScProducts(params)
+    setLoading(false)
     setListData(res)
     let newToolbarList = handleTabValue(toolbarInit, res)
     setToolbarList(newToolbarList)
@@ -120,7 +124,16 @@ const ProductList = () => {
               </TabPane>
             ))}
           </Tabs>
-          <TableList getList={getList} listData={listData} handlePagination={handlePagination} pages={pages} />
+          <Spin spinning={loading}>
+            <TableList
+              setLoading={setLoading}
+              loading={loading}
+              getList={getList}
+              listData={listData}
+              handlePagination={handlePagination}
+              pages={pages}
+            />
+          </Spin>
         </TableContainer>
       </div>
     </ContentContainer>

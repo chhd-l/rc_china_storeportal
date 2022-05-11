@@ -75,6 +75,7 @@ const OrderProgress = ({
             orderAddress={orderAddress}
             orderBuyer={buyer}
             shipOrCompleteSuccess={shipOrCompleteSuccess}
+            origin={'detail'}
           />
         </div>
       </div>

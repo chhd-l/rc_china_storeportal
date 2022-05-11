@@ -15,9 +15,20 @@ interface TableRowProps {
   list: ProductListItemProps[]
   setList: (list: ProductListItemProps[]) => void
   getList: Function
+  setLoading: Function
 }
 
-const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList, getList }: TableRowProps) => {
+const TableRow = ({
+  spu,
+  onChange,
+  spuIdx,
+  tableHeader,
+  listData,
+  list,
+  setList,
+  getList,
+  setLoading,
+}: TableRowProps) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   const istb = (sku: any) => {
@@ -101,8 +112,14 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
               } text-base`}
               onClick={async () => {
                 let { shelvesStatus } = listData[spuIdx]
-                switchShelves({ goodsId: [listData[spuIdx]?.id], status: !shelvesStatus })
-                getList()
+                try {
+                  setLoading(true)
+                  await switchShelves({ goodsId: [listData[spuIdx]?.id], status: !shelvesStatus })
+                  await getList()
+                } catch (err) {
+                  console.info('err', err)
+                }
+                setLoading(false)
               }}
             ></span>
           </Link>
