@@ -86,7 +86,7 @@ const OrderActions = ({
         <Tooltip title="Completed">
           <Button
             type='primary'
-            className="cursor-pointer ml-2 text-white rounded"
+            className="cursor-pointer ml-2 text-white primary-radius"
             // style={{ fontSize: '20px' }}
             onClick={() => setCompleteModalVisible(true)}
           >Completed</Button>
