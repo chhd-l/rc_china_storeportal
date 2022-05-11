@@ -16,12 +16,18 @@
 .rc-table {
   .ant-table-thead {
     font-size: 14px;
+    border-top-left-radius: 4px !important;
+    border-top-right-radius: 4px !important;
     .ant-table-cell {
       font-weight: normal !important;
     }
     .ant-table-cell::before {
       width: 0 !important;
     }
+  }
+  .ant-table-thead > tr > th {
+    height: 42px;
+    background-color: #e5e5e5;
   }
   .ant-table-cell {
     overflow-wrap: anywhere !important;

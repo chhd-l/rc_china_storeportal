@@ -45,6 +45,7 @@ const Index = ({ fanList, pages, setPages, getFanList, total }: {
       dataIndex: "isMember",
       key: "isMember",
       render: (text: any) => `${text ? "Yes" : "No"}`,
+      // align:"center"
     },
     {
       title: "Follow Time",
@@ -80,7 +81,7 @@ const Index = ({ fanList, pages, setPages, getFanList, total }: {
 
   return (
     <div>
-      <div className="flex flex-row mb-4">
+      <div className="flex flex-row mb-4 pt-6">
         {/* <Button className="mr-4" onClick={() => { }}>
           <span className="iconfont icon-bianzu2 mr-2" />
           Synchronize All Openid

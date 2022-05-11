@@ -73,6 +73,7 @@ const MenuManage = () => {
         columns={columns}
         dataSource={list}
         loading={loading}
+        className="rc-table"
         pagination={{
           current: current,
           pageSize: 10,
