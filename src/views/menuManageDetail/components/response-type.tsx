@@ -37,7 +37,7 @@ const ResponseType = () => {
       </div>
       <div className="p-8 text-center">
         <div className="text-gray-400" style={{display:'inline-block'}} onClick={() => setVisible(true)}>
-          <span className="iconfont icon-a-bianzu14 mb-0.5" style={{fontSize: 30}}></span>
+          <span className="iconfont icon-Frame3 mb-0.5" style={{fontSize: 30}}></span>
           <div>Select from assets</div>
           <div className="uploaded-asset">{activeMenu?.media_id}</div>
         </div>

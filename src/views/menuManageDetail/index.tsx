@@ -4,7 +4,7 @@ import WxMenuContextProvider from './context'
 import WxMenuGraph from './components/graph'
 import WxMenuSetting from './components/setting'
 import { WxMenuItem, WxMenu } from './type'
-import { Button, Spin, message } from 'antd'
+import { Button, message } from 'antd'
 import { createWxMenu, getWxMenuDetail, updateWxMenu } from '@/framework/api/wechatSetting'
 import './index.less';
 
