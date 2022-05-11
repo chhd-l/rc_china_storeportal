@@ -24,7 +24,7 @@ const TableHeader = ({ tableHeader, setTableHeader }: TableHeaderProps) => {
       {tableHeader.map((item, idx) => (
         <div className={`flex items-center ${item.dataIndex === 'name' ? 'w-64' : 'flex-1'}`}>
           <div> {item.title}</div>
-          {item.sortDirection !== undefined ? (
+          {/* {item.sortDirection !== undefined ? (
             <div
               onClick={() => {
                 handleSort(item.dataIndex, idx, item.sortDirection)
@@ -40,7 +40,7 @@ const TableHeader = ({ tableHeader, setTableHeader }: TableHeaderProps) => {
                 <CaretDownFilled className={item.sortDirection === 'descend' ? 'active' : ''} />
               </div>
             </div>
-          ) : null}
+          ) : null} */}
         </div>
       ))}
       <div className='flex justify-left items-center w-64'>
