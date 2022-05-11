@@ -1,4 +1,4 @@
-import { Tooltip, Modal } from 'antd'
+import { Tooltip, Modal, Button } from 'antd'
 import React, { useState } from 'react'
 import ShipmentModal from '../ShipmentModal'
 import { useNavigate } from 'react-router-dom'
@@ -84,11 +84,12 @@ const OrderActions = ({
       {/*收货*/}
       {orderState === OrderStatus['Shipped'] && (
         <Tooltip title="Completed">
-          <span
-            className="cursor-pointer ml-2 iconfont icon-Order primary-color"
-            style={{ fontSize: '20px' }}
+          <Button
+            type='primary'
+            className="cursor-pointer ml-2 text-white rounded"
+            // style={{ fontSize: '20px' }}
             onClick={() => setCompleteModalVisible(true)}
-          />
+          >Completed</Button>
         </Tooltip>
       )}
       <ShipmentModal
