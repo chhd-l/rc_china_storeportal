@@ -1,5 +1,5 @@
-import { Tooltip, Modal, Button } from 'antd'
-import React, { useState } from 'react'
+import { Tooltip, Modal, Button, message } from 'antd'
+import React, { useEffect, useState } from 'react'
 import ShipmentModal from '../ShipmentModal'
 import { useNavigate } from 'react-router-dom'
 import { OrderStatus } from '@/framework/types/order'
@@ -12,13 +12,15 @@ const OrderActions = ({
   orderId,
   orderAddress,
   orderBuyer,
-  shipOrCompleteSuccess
+  shipOrCompleteSuccess,
+  origin = 'table',
 }: {
   orderState: string
   orderId: string
   orderAddress: any
   orderBuyer: any
-  shipOrCompleteSuccess:Function
+  shipOrCompleteSuccess: Function
+  origin?: string
 }) => {
   const [shipModalVisible, setShipModalVisible] = useState(false)
   const [completeModalVisible, setCompleteModalVisible] = useState(false)
@@ -32,15 +34,16 @@ const OrderActions = ({
       orderNum: orderId,
       nowOrderState: orderState,
       wxUserInfo: {
-        openId:orderBuyer.openId,
-        unionId:orderBuyer.unionId,
-        nickName:orderBuyer.nickname
+        openId: orderBuyer.openId,
+        unionId: orderBuyer.unionId,
+        nickName: orderBuyer.nickname,
       },
     }
     const res = await shippedOrder(params)
     if (res) {
+      message.success({ className: 'rc-message', content: 'operate success' })
       setShipModalVisible(false)
-      shipOrCompleteSuccess&&shipOrCompleteSuccess()
+      shipOrCompleteSuccess && shipOrCompleteSuccess()
     }
   }
 
@@ -50,10 +53,15 @@ const OrderActions = ({
       nowOrderState: orderState,
     })
     if (res) {
+      message.success({ className: 'rc-message', content: 'operate success' })
       setCompleteModalVisible(false)
-      shipOrCompleteSuccess&&shipOrCompleteSuccess()
+      shipOrCompleteSuccess && shipOrCompleteSuccess()
     }
   }
+
+  useEffect(()=>{
+    message.success({ className: 'rc-message', content: 'operate success',duration:false })
+  },[])
 
   return (
     <div className="flex items-center">
@@ -82,16 +90,26 @@ const OrderActions = ({
         </Tooltip>
       )}
       {/*收货*/}
-      {orderState === OrderStatus['Shipped'] && (
+      {orderState === OrderStatus['Shipped'] && origin === 'table' ? (
+        <Tooltip title="Completed">
+          <span
+            className="cursor-pointer ml-2 iconfont icon-Order primary-color"
+            style={{ fontSize: '20px' }}
+            onClick={() => setCompleteModalVisible(true)}
+          />
+        </Tooltip>
+      ) : orderState === OrderStatus['Shipped'] ? (
         <Tooltip title="Completed">
           <Button
             type='primary'
             className="cursor-pointer ml-2 text-white primary-radius"
             // style={{ fontSize: '20px' }}
             onClick={() => setCompleteModalVisible(true)}
-          >Completed</Button>
+          >
+            Completed
+          </Button>
         </Tooltip>
-      )}
+      ) : null}
       <ShipmentModal
         shipModalVisible={shipModalVisible}
         orderId={orderId}
@@ -99,7 +117,9 @@ const OrderActions = ({
         shipped={shipped}
       />
       <Modal
+        className="rc-modal"
         title="Order Completed"
+        okText={'Confirm'}
         visible={completeModalVisible}
         onOk={() => completed()}
         onCancel={() => setCompleteModalVisible(false)}
