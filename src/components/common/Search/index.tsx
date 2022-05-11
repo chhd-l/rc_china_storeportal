@@ -40,10 +40,8 @@ const Search = ({
         form={form}
         onFinish={search}
         autoComplete="off"
-        className={`${classes} flex flex-row flex-wrap ${ state ? 'justify-between' : 'justify-start' } items-center`}
+        className={`${classes} flex flex-row flex-wrap ${ state ? 'justify-between' : 'justify-between' } items-center`}
         layout={"inline"}
-        labelCol={{ span: 12 }}
-        wrapperCol={{ span: 18 }}
       >
         {formItems.map((item) => (
           <Form.Item
@@ -51,7 +49,6 @@ const Search = ({
             name={item.name}
             style={style}
             key={item.name}
-            className="mt-4"
           >
             {item.type === "select" ? (
               <Select placeholder={item.placeholder}>
