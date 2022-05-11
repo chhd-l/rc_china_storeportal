@@ -33,6 +33,7 @@ const PetOwnerList = () => {
     <ContentContainer className="assetslist">
       <SearchContainer className="asset-tab-top">
         <Tabs
+          tabBarGutter={19}
           activeKey={activeKey}
           onChange={(key) => {
             setActiveKey(key)

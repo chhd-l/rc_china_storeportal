@@ -22,7 +22,7 @@ export const ContentContainer: FC<Props> = ({ children, className }) => {
 }
 
 export const SearchContainer: FC<Props> = ({ children, className }) => {
-  return <Container className={cn('px-9 py-7   bg-white', className)}>{children}</Container>
+  return <Container className={cn('px-6 py-7   bg-white', className)}>{children}</Container>
 }
 
 export const TableContainer: FC<Props> = ({ children }) => {

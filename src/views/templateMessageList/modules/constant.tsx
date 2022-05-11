@@ -40,7 +40,17 @@ export const tableColumns = ({ handleDelete, templateTitleList, modifyTemplateMe
       dataIndex: 'title',
       order: 3,
       hideInTable: true,
-      valueEnum: handleValueEnum(templateTitleList),
+      valueEnum: () => {
+        let data =
+          templateTitleList?.map((el: any) => {
+            return {
+              value: el.title,
+              label: el.title,
+            }
+          }) || []
+        const res = handleValueEnum(data)
+        return res
+      },
     },
     {
       title: 'Application Scenario',
@@ -74,10 +84,10 @@ export const tableColumns = ({ handleDelete, templateTitleList, modifyTemplateMe
       title: 'Action',
       hideInSearch: true,
       render: (_, record) => [
-        <Link to={`/template/template-message/${record.id}`} className="mr-4">
+        <Link to={`/template/template-message/${record.id}`} className='mr-4'>
           <FormOutlined />
         </Link>,
-        <a className=" mr-4">
+        <a className=' mr-4'>
           <DeleteOutlined
             onClick={() => {
               handleDelete(record.id)

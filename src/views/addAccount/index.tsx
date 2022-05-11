@@ -77,7 +77,7 @@ const AddAccount = () => {
                         <Input.Group className="flex">
                           <Input
                             placeholder={item.placeholder}
-                            style={{ width: "82%" }}
+                            style={{ width: "85%" }}
                           />
                           <Upload name="logo" action="/upload.do" listType="picture">
                             <Button>Select</Button>
@@ -131,7 +131,7 @@ const AddAccount = () => {
                         <Input.Group className="flex">
                           <Input
                             placeholder={item.placeholder}
-                            style={{ width: "82%" }}
+                            style={{ width: "85%" }}
                           />
                           <Upload name="logo" action="/upload.do" listType="picture">
                             <Button>Select</Button>
