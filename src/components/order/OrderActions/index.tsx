@@ -41,11 +41,11 @@ const OrderActions = ({
     }
     const res = await shippedOrder(params)
     if (res) {
-      message.success({ className: 'rc-message', content: 'Operate success' })
+      message.success({ className: 'rc-message', content: 'Operation success' })
       setShipModalVisible(false)
       shipOrCompleteSuccess && shipOrCompleteSuccess()
     }else{
-      message.error({ className: 'rc-message', content: 'Operate failed' })
+      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
   }
 
@@ -55,11 +55,11 @@ const OrderActions = ({
       nowOrderState: orderState,
     })
     if (res) {
-      message.success({ className: 'rc-message', content: 'Operate success' })
+      message.success({ className: 'rc-message', content: 'Operation success' })
       setCompleteModalVisible(false)
       shipOrCompleteSuccess && shipOrCompleteSuccess()
     }else{
-      message.error({ className: 'rc-message', content: 'Operate failed' })
+      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
   }
 
