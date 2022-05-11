@@ -64,7 +64,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
         </Button>
         <Button
           className="w-20"
-          danger
+          // danger
           onClick={(e) => {
             console.log(1111)
             setPickValue(null)
