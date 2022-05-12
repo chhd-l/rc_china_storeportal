@@ -134,6 +134,19 @@ export const normaliseCateIdProps: any = (id: string, list: CateItemProps[], par
   }
 }
 export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
+  debugger
+  let goodsAsserts = (data.goodsAsserts ? [...data.goodsAsserts, data.video] : data.video)?.filter((el: any) => el?.url)?.map((el: any) => {
+    let asset = {
+      artworkUrl: el.url,
+      type: el.type,
+      id: el.id,
+      storeId: "12345678"
+    }
+    if (!el.id) {
+      delete asset.id
+    }
+    return asset
+  })
   let detail: any = {
     spuNo: data.spuNo,
     goodsName: data.name,
@@ -164,18 +177,7 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     //     storeId: '12345678',
     //   },
     // ],
-    goodsAsserts: data.goodsAsserts?.filter((el: any) => el?.url)?.map((el: any) => {
-      let asset = {
-        artworkUrl: el.url,
-        type: el.type,
-        id: el.id,
-        storeId: "12345678"
-      }
-      if (!el.id) {
-        delete asset.id
-      }
-      return asset
-    }),
+    goodsAsserts,
     goodsSpecifications: data.id ? data.editChange.variationList : data.goodsSpecificationsInput && normaliseInputSpecificationProps(data.goodsSpecificationsInput),
     goodsAttributeValueRel: data.goodsAttributeValueRelInput && normaliseInputAttrProps(data.goodsAttributeValueRelInput)
   }
@@ -426,7 +428,8 @@ export const normaliseVariationAndSpecification = (data: GoodsSpecification[], g
     let newItem = {
       ...el, sortIdx: '', spec: '', skuName: el.name,
       subscriptionStatus: el.subscriptionStatus?.toString(),
-      isSupport100: el.isSupport100 ? 'true' : 'false'
+      isSupport100: el.isSupport100 ? 'true' : 'false',
+      shelvesStatus: el.shelvesStatus ? 'true' : 'false',
     }
     let name = el.goodsSpecificationRel?.map(elRel => {
       let specDetail = data.filter(spec => spec.id === elRel.goodsSpecificationId)

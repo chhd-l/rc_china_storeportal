@@ -93,20 +93,73 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     //     })
     //   }
     // }
-    // //校验sku
-    // if (!errMsg) {
-    //   let variantsKeyLableRel: any = {}
-    //   headerOrigition
-    //     .filter((el: any) => el.required)
-    //     .map((el: any) => {
-    //       variantsKeyLableRel[el.keyVal] = el.label
-    //     })
-    //   errMsg = detail.goodsVariantsInput?.length && validateNullData(detail.goodsVariantsInput, variantsKeyLableRel)
-    // }
-    // if (errMsg) {
-    //   console.info('....', errMsg)
-    //   return
-    // }
+    let noDataErrMsg = ''
+    // 校验name
+    let goodsSpecificationsNameArr: any = Array.from(document.getElementsByClassName('get-variation-name'))
+      .filter((el: any) => el.value !== undefined)
+      .map((el: any) => el.value)
+    goodsSpecificationsNameArr?.forEach((el: any) => {
+      if (el === '') {
+        noDataErrMsg = 'Please input Specification Name'
+      }
+    })
+    let goodsSpecificationsDetailArr: any = Array.from(document.getElementsByClassName('get-variation-option'))
+      .filter((el: any) => el.value !== undefined)
+      .map((el: any) => el.value)
+    if (!noDataErrMsg) {
+      // 校验option
+
+      goodsSpecificationsDetailArr?.forEach((el: any) => {
+        if (el === '') {
+          noDataErrMsg = 'Please input Specification Option'
+        }
+      })
+    }
+    //校验sku
+    if (!noDataErrMsg) {
+      let variantsKeyLableRel: any = {}
+      headerOrigition
+        .filter((el: any) => el.required)
+        .map((el: any) => {
+          variantsKeyLableRel[el.keyVal] = el.label
+        })
+      noDataErrMsg =
+        detail.goodsVariantsInput?.length && validateNullData(detail.goodsVariantsInput, variantsKeyLableRel)
+    }
+    if (noDataErrMsg) {
+      message.error({ className: 'rc-message', content: noDataErrMsg })
+      console.info('....', noDataErrMsg)
+      return
+    }
+    let repeatErrMsg = ''
+    let repeatNameArr: any = []
+    let repeatOptionArr: any = []
+    console.info('goodsSpecificationsNameArr', goodsSpecificationsNameArr)
+    console.info('goodsSpecificationsDetailArr', goodsSpecificationsDetailArr)
+    // //校验同一个商品的option需要判断是否重复 不区分大小写，规格名称不能重复
+    goodsSpecificationsNameArr?.forEach((el: any) => {
+      let name = el?.toLowerCase()
+      if (repeatNameArr.includes(name)) {
+        repeatErrMsg = 'Name repeat'
+        return
+      }
+      repeatNameArr.push(name)
+    })
+    if (!repeatErrMsg) {
+      goodsSpecificationsDetailArr?.forEach((el: any) => {
+        let name = el?.toLowerCase()
+        if (repeatOptionArr.includes(name)) {
+          repeatErrMsg = 'Option repeat'
+          return
+        }
+        repeatOptionArr.push(name)
+      })
+    }
+    if (repeatErrMsg) {
+      message.error({ className: 'rc-message', content: repeatErrMsg })
+      console.info('....', repeatErrMsg)
+      return
+    }
     let params = Object.assign({}, detail, values, {
       type: spuType,
       shelvesStatus,
@@ -171,7 +224,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
       navigator('/product/product-list')
     } else {
       setLoading(false)
-      message.success({ className: 'rc-message', content: 'Operate success' })
+      message.error({ className: 'rc-message', content: 'Operate failed' })
     }
   }
 

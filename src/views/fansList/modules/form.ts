@@ -46,11 +46,11 @@ export const formItems: SearchFormItemProps[] = [
     selectList: [
       {
         label: "Yes",
-        key: "Yes",
+        key: true,
       },
       {
         label: "No",
-        key: "No",
+        key: false,
       },
     ],
   },

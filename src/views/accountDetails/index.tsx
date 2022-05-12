@@ -10,7 +10,7 @@ const AccountDetails = () => {
   const [data, setData] = useState<any>();
   const location = useLocation();
   const navigator = useNavigate();
-  const [serviceAccount, setServiceAccount] = useState('serviceAccount')
+  const [ServiceAccount, setServiceAccount] = useState('ServiceAccount')
 
   useEffect(() => {
     const state: any = location.state;
@@ -22,7 +22,8 @@ const AccountDetails = () => {
   const editAccount = async (values: any) => {
     let val = {
       ...data,
-      ...values
+      ...values,
+      storeId: '12345678'
     }
     delete val.messageEncryptionURL
     await modifyAccount({
@@ -49,7 +50,7 @@ const AccountDetails = () => {
               autoComplete="off"
               className="flex flex-row flex-wrap justify-start pr-4"
             > {
-                serviceAccount === 'serviceAccount' ? (
+                ServiceAccount === 'ServiceAccount' ? (
                   ACCOUNT_FORM.map((item) => (
                     <Form.Item
                       label={item.label}

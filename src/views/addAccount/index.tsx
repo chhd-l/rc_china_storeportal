@@ -8,11 +8,11 @@ import './Style.less'
 
 const AddAccount = () => {
   const navigator = useNavigate();
-  const [serviceAccount, setServiceAccount] = useState('serviceAccount')
+  const [ServiceAccount, setServiceAccount] = useState('ServiceAccount')
 
   const addAccount = async (values: any) => {
     //新增
-    await createAccount(values).then(() => {
+    await createAccount({...values, storeId: '12345678'}).then(() => {
       navigator("/account/account-list")
     })
   };
@@ -26,14 +26,14 @@ const AddAccount = () => {
       <InfoContainer>
         <div className="text-2xl text-medium mb-4">Add Account</div>
         <Form
-          initialValues={{ type: "serviceAccount" }}
+          initialValues={{ type: "ServiceAccount" }}
           // onValuesChange={formValuesChange}
           onFinish={addAccount}
           autoComplete="off"
           className="flex flex-row flex-wrap justify-start pr-4"
         > 
           {
-            serviceAccount === 'serviceAccount' ? (
+            ServiceAccount === 'ServiceAccount' ? (
               ACCOUNT_FORM.map((item) => {
                   return item.name === 'accountType' ? (
                     <Form.Item
@@ -44,9 +44,9 @@ const AddAccount = () => {
                       className={`${item.type === "textarea" ? "w-full" : "w-1/2"}`}
                       labelCol={{ span: item.type === "textarea" ? 4 : 8 }}
                       wrapperCol={{ span: item.type === "textarea" ? 20 : 16 }}
-                      initialValue={serviceAccount}
+                      initialValue={ServiceAccount}
                     >
-                      <Select value={serviceAccount} onChange={onChange} placeholder={item.placeholder}>
+                      <Select value={ServiceAccount} onChange={onChange} placeholder={item.placeholder}>
                           {(item.selectList || []).map((el) => (
                             <Select.Option value={el.key}>{el.label}</Select.Option>
                           ))}
@@ -100,7 +100,7 @@ const AddAccount = () => {
                       labelCol={{ span: item.type === "textarea" ? 4 : 8 }}
                       wrapperCol={{ span: item.type === "textarea" ? 20 : 16 }}
                     >
-                      <Select value={serviceAccount} onChange={onChange} placeholder={item.placeholder}>
+                      <Select value={ServiceAccount} onChange={onChange} placeholder={item.placeholder}>
                           {(item.selectList || []).map((el) => (
                             <Select.Option value={el.key}>{el.label}</Select.Option>
                           ))}

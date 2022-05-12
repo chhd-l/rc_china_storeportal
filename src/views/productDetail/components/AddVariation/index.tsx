@@ -50,7 +50,7 @@ const AddVariation = ({}: AddVariationProps) => {
           }
           if (variationForm.variationList[variationIdx].id) {
             variationData[variationIdx].id = variationForm.variationList[variationIdx].id
-          } else {
+            // } else {
             variationData[variationIdx].specificationName = variationForm.variationList[variationIdx].name
             variationData[variationIdx].specificationNameEn = variationForm.variationList[variationIdx].name
           }
@@ -81,6 +81,7 @@ const AddVariation = ({}: AddVariationProps) => {
               defaultValue={specification.option}
               // value={specification.option}
               onBlur={handleOption}
+              className='get-variation-option'
               onChange={() => {
                 console.info('....', specification.option)
               }}
@@ -246,6 +247,7 @@ const AddVariation = ({}: AddVariationProps) => {
                 </Col>
                 <Col span={15}>
                   <Input
+                    className='get-variation-name'
                     defaultValue={variation.name}
                     onBlur={e => {
                       handleName(e, variationIdx)

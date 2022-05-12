@@ -48,17 +48,23 @@ const BasicInfo = ({ field, form }: FormProps) => {
     console.info('setAssetsUrl', newAssets)
   }
   const handleVideoUrl = ({ url, idx, type, id }: uploadHandleProps) => {
-    // setvideoUrl({ url, idx, type, id })
-    // form.setFieldsValue({
-    //   goodsDescription: html,
-    // })
+    if (url) {
+      setvideoUrl({ url, idx, type, id })
+      form.setFieldsValue({
+        video: { url, type, id },
+      })
+    }
   }
   useEffect(() => {
     if (detail?.goodsAsserts) {
       let newAssets = [...initAsserts]
-      detail?.goodsAsserts.forEach((img: any, idx: number) => {
-        newAssets[idx] = { url: img.url, id: img.id, type: img.type || 'image', key: img.id }
-      })
+      detail?.goodsAsserts
+        ?.filter((el: any) => el.type === 'image')
+        .forEach((img: any, idx: number) => {
+          newAssets[idx] = { url: img.url, id: img.id, type: img.type || 'image', key: img.id }
+        })
+      let videoUrl = detail?.goodsAsserts?.find((el: any) => el.type === 'video')
+      handleVideoUrl(videoUrl)
       setInitAsserts(newAssets)
     }
   }, [detail?.goodsAsserts])
@@ -125,7 +131,14 @@ const BasicInfo = ({ field, form }: FormProps) => {
         name='video'
       >
         <div className='flex'>
-          <Upload handleImgUrl={handleVideoUrl} fileName='Cover Video' type='video' idx={0} showUploadList={false} />
+          <Upload
+            handleImgUrl={handleVideoUrl}
+            fileList={[videoUrl]}
+            fileName='Cover Video'
+            type='video'
+            idx={0}
+            showUploadList={false}
+          />
           <div style={{ color: '#C4C4C4' }} className='ml-4'>
             <div>1. Size: Max 30Mb, resolution should not exceed 1280x1280px</div>
             <div>2. Duration: 10s-60s</div>

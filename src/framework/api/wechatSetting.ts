@@ -107,7 +107,7 @@ export const syncPartFans = async (syncParams: any) => {
   try {
     const params = {
       accountId: '000001',
-      openIds: [],
+      openIds: syncParams,
     }
     let res = await ApiRoot.wechatSettings().syncPartFans(params)
     const syncSuccess = res?.sycPartFans
@@ -151,9 +151,9 @@ export const createMedia = async (queryParams: any) => {
         },
         queryParams.type === 'video'
           ? {
-              title: queryParams.title,
-              description: queryParams.description,
-            }
+            title: queryParams.title,
+            description: queryParams.description,
+          }
           : {},
       ),
       operator: queryParams.operator||'system',
@@ -263,7 +263,7 @@ export const getQrCodes = async (queryParams: any) => {
 export const createQrCode = async (queryParams: any) => {
   try {
     //todo 参数处理 编辑参数加id,删除参数加id and isDeleted
-    let res = await ApiRoot.wechatSettings().addQrCode({ input: queryParams })
+    let res = await ApiRoot.wechatSettings().addQrCode({ input: queryParams, operator: 'cc' })
     const addQrCode = res?.addQrCode
     console.log('upsert app qrCode view data', addQrCode)
     return addQrCode
