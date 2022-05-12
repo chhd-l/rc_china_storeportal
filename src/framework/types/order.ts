@@ -24,6 +24,7 @@ export interface Comment {
   createId?:string
   content?: string
   id?: string
+  avatarUrl?:string
 }
 
 export interface Log {
