@@ -113,15 +113,19 @@ const Index = ({ accountList, getAccounts, pages, setPages, total, loading, setL
               />
             </Tooltip>
           )}
-          <Tooltip title="View QR Code">
-            <span
-              className="cursor-pointer ml-2 iconfont icon-Frame-1 text-red-500 text-xl"
-              onClick={() => {
-                setImgUrl(record.qrCodePath)
-                setImgModal(true)
-              }}
-            />
-          </Tooltip>
+          {
+            record.qrCodePath ? (
+              <Tooltip title="View QR Code">
+                <span
+                  className="cursor-pointer ml-2 iconfont icon-Frame-1 text-red-500 text-xl"
+                  onClick={() => {
+                    setImgUrl(record.qrCodePath)
+                    setImgModal(true)
+                  }}
+                />
+              </Tooltip>
+            ) : null
+          }
         </>
       ),
     },
