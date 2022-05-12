@@ -19,7 +19,18 @@ const WxMenuSetting = () => {
 
   const changeMenuType = (e: RadioChangeEvent, key: string) => {
     const newWxMenus = setWxMenu(wxMenus || [], key, {
-      type: e.target.value
+      type: e.target.value,
+      ...(e.target.value === "media_id" ? {
+        url: undefined,
+        appid: undefined,
+        pagepath: undefined
+      } : e.target.value === "view" ? {
+        media_id: undefined,
+        appid: undefined,
+        pagepath: undefined
+      } : {
+        media_id: undefined
+      })
     });
     setWxMenus && setWxMenus(_.cloneDeep(newWxMenus));
   }
@@ -67,12 +78,12 @@ const WxMenuSetting = () => {
           {activeMenu?.sub_button?.length ? null : <React.Fragment>
             <Form.Item label="Content">
               <Radio.Group value={activeMenu.type} onChange={(e) => changeMenuType(e, activeMenu.key)}>
-                <Radio value="click">Send response message</Radio>
+                <Radio value="media_id">Send response message</Radio>
                 <Radio value="view">Web redirection</Radio>
                 <Radio value="miniprogram">Joint with Miniprogram</Radio>
               </Radio.Group>
             </Form.Item>
-            {activeMenu.type === 'click' ? <ResponseType /> : activeMenu.type === 'view' ? <RedirectionType /> : <MiniProgramType />}
+            {activeMenu.type === 'media_id' ? <ResponseType /> : activeMenu.type === 'view' ? <RedirectionType /> : <MiniProgramType />}
           </React.Fragment>}
         </Form>
       </div>}

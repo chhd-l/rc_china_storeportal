@@ -53,8 +53,8 @@ const MpQrList = () => {
 
   const columns: ProColumns[] = [
     {
-      title: 'Channel',
-      dataIndex: "accountName",
+      title: 'Official Name',
+      dataIndex: "accountPrincipal",
       valueType: "select",
       valueEnum: list,
     },
