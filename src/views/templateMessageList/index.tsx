@@ -101,6 +101,7 @@ const TemplateMessage = () => {
             </Button>,
           ]}
           columns={columns}
+          search={{searchText:"Search"}}
           request={async (params, sorter, filter) => {
             // 表单搜索项会从 params 传入，传递给后端接口。
             console.log('test sort', params, sorter, filter)

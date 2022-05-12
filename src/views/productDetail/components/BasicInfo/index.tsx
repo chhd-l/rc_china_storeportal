@@ -99,7 +99,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         }}
         name='goodsAsserts'
         className='tips-wrap'
-        data-tips={`Product Image:<p>Cover photo should have 1. white background & 2. present obvious product packaging</p><p>Every photos should have fine resolution - pixel doesn't appear breaking when zooming in<p>Product image can add up to 9 photos</p>`}
+        data-tips={`Product Image:<p>Every photos should have fine resolution - pixel doesn't appear breaking when zooming in<p>Product image can add up to 9 photos</p>`}
         wrapperCol={{
           span: 20,
         }}

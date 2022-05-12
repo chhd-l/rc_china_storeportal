@@ -87,13 +87,13 @@ const MpQrDetail = () => {
               message: "Please select Channel Type!",
             },
           ]}>
-            <Select placeholder='select' options={list} />
+            <Select placeholder='Select' options={list} />
           </Form.Item>
           <Form.Item label='QR Code Type' name='type'>
-            <Select placeholder='select' options={typeValueEnum} />
+            <Select placeholder='Select' options={typeValueEnum} />
           </Form.Item>
           <Form.Item label='Scenario Type' name='scenarioId'>
-            <Select placeholder='select' options={[
+            <Select placeholder='Select' options={[
               {label: 'Normal', value: 'Normal'}
             ]} />
           </Form.Item>
@@ -103,10 +103,10 @@ const MpQrDetail = () => {
               message: "Please input",
             },
           ]}>
-            <Input placeholder='input' />
+            <Input placeholder='Input' />
           </Form.Item>
           <Form.Item label='Mini Program Path' name='appInternalPath'>
-            <Input placeholder='input' />
+            <Input placeholder='Input' />
           </Form.Item>
           <Form.Item label='QR Code Size' name='width'>
             <InputNumber style={{ width: '100%' }} max={1280} min={280} placeholder='Minimun280,Maximun1280' />
@@ -123,7 +123,7 @@ const MpQrDetail = () => {
             </Input.Group>
           </Form.Item> */}
           <Form.Item label='Transparent background' name='isHyaline'>
-            <Select placeholder='select' options={[
+            <Select placeholder='Select' options={[
               { label: 'Yes', value: true },
               { label: 'No', value: false },
             ]} />

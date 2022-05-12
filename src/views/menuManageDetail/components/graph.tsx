@@ -12,7 +12,7 @@ const WxMenuGraph = () => {
     newWxMenus.push({
       key: newWxMenuKey,
       name: 'Menu Name',
-      type: 'click',
+      type: 'media_id',
       sub_button: []
     });
     setWxMenus && setWxMenus(setActiveWxMenu(newWxMenus, newWxMenuKey));
@@ -28,7 +28,7 @@ const WxMenuGraph = () => {
         subMenus.push({
           key: newSubMenuKey,
           name: 'Menu Name',
-          type: 'click'
+          type: 'media_id'
         });
         item.sub_button = setActiveWxMenu(subMenus, newSubMenuKey)
       }
@@ -60,7 +60,7 @@ const WxMenuGraph = () => {
       <div className="wx-header">App</div>
       <div className="wx-menus flex">
         {wxMenus?.map((item, idx) => (
-          <div key={idx} className={`wx-menu-item flex-grow ${item.active ? 'active' : ''}`} onClick={() => chooseFirstMenu(item.key)}>
+          <div key={idx} className={`wx-menu-item flex-grow ${item.active && (item.sub_button || []).findIndex(item => item.active) < 0 ? 'active' : ''}`} onClick={() => chooseFirstMenu(item.key)}>
             <div className="truncate px-4">{item.name}</div>
             {item.active ? <div className="wx-submenu">
               {(item.sub_button || []).map((sitem, sidx) => (

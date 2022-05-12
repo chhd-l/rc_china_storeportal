@@ -31,6 +31,11 @@ const Search = ({
       val.followEndTime = moment(values.followTime[0]._d).utc().format()
       delete val.followTime
     }
+    Object.keys(val).forEach((k) => {
+      if (val[k] === "") {
+        val[k] = undefined
+      }
+    });
     query(pages.page, pages.limit ,val);
   };
 
