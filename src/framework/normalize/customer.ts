@@ -1,5 +1,5 @@
 import { Pet } from '@/api/types/pet'
-import { handleReturnTime } from '@/utils/utils'
+import { getAge, handleReturnTime } from '@/utils/utils'
 
 export const normalisePet = (pet: any) => {
   //todo
@@ -12,8 +12,8 @@ export const normalisePet = (pet: any) => {
     gender: pet.gender,
     type: pet.type,
     isSterilized: pet.isSterilized,
-    age: 1,
-    birthday: pet.birthday,
+    age: getAge(pet.birthday),
+    birthday: handleReturnTime(pet.birthday),
   }
 }
 

@@ -2,17 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Avatar } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
+import { ContentContainer } from '@/components/ui'
 
 const PetDetail = () => {
   const location = useLocation()
   const [pet, setPet] = useState({
-    name:'',
-    type:'',
-    gender:'',
-    breed:'',
-    birthday:'',
-    age:'',
-    isSterilized:''
+    image: '',
+    name: '',
+    type: '',
+    gender: '',
+    breed: '',
+    birthday: '',
+    age: '',
+    isSterilized: '',
   })
 
   useEffect(() => {
@@ -22,12 +24,12 @@ const PetDetail = () => {
   }, [])
 
   return (
-    <>
-      <div className="bg-gray1 p-4 flex flex-row">
-        <div className="bg-white p-4 flex items-center">
+    <ContentContainer className="h-full">
+      <div className="h-full bg-white p-8">
+        <div className="flex items-center">
           <div className="flex flex-col items-center">
-            <Avatar shape="square" size="large" icon={<UserOutlined />} />
-            <div>Profile Photo</div>
+            <Avatar shape="square" size={64} icon={pet?.image ? <img src={pet.image} alt={''} /> : <UserOutlined />} />
+            <div className="mt-4">Profile Photo</div>
           </div>
           <div className="ml-4 flex flex-row flex-wrap">
             <div className="w-1/2 flex flex-row mb-4">
@@ -52,16 +54,17 @@ const PetDetail = () => {
             </div>{' '}
             <div className="w-1/2 flex flex-row mb-4">
               <div className="w-1/2 text-right mr-2">Age:</div>
-              <div className="text-gray-400">{pet.age}</div>
+              <div className="text-gray-400">{pet.age} months</div>
             </div>
             <div className="w-1/2 flex flex-row mb-4">
               <div className="w-1/2 text-right mr-2">Sterillized Status:</div>
-              <div className="text-gray-400">{pet.isSterilized}</div>
+              <div className="text-gray-400">{pet.isSterilized ? 'Sterilized' : 'Unsterilized'}</div>
             </div>
           </div>
         </div>
+
       </div>
-    </>
+    </ContentContainer>
   )
 }
 export default PetDetail

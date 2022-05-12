@@ -122,3 +122,25 @@ export const uuid = () => {
     return v.toString(16);
   })
 }
+
+export const getAge = (birthdayStr:any) => {
+  if (!birthdayStr) {
+    return ''
+  }
+  let birthday = birthdayStr.split('-')
+  // 新建日期对象
+  let date = new Date()
+  // 今天日期，数组，同 birthday
+  let today = [date.getFullYear(), date.getMonth() + 1, date.getDate()]
+  // 分别计算年月日差值
+  let age = today.map((value, index) => {
+    return value - birthday[index]
+  })
+  if (age[0] > 0) {
+    return age[0]*12
+  } else if (age[1] > 0) {
+    return age[1]
+  } else {
+    return 1
+  }
+}
