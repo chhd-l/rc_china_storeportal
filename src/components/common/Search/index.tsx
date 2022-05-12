@@ -27,8 +27,8 @@ const Search = ({
   const search = (values: any) => {
     const val = {...values}
     if(values?.followTime) {
-      val.followStartTime = moment(values.followTime[1]._d).format('YYYY-MM-DD')
-      val.followEndTime = moment(values.followTime[0]._d).format('YYYY-MM-DD')
+      val.followStartTime = moment(values.followTime[1]._d).utc().format()
+      val.followEndTime = moment(values.followTime[0]._d).utc().format()
       delete val.followTime
     }
     query(pages.page, pages.limit ,val);
