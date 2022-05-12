@@ -23,8 +23,8 @@ const Voice = ({
       title: 'Voice',
       dataIndex: 'voice',
       key: 'voice',
-      render: (text: any) => (
-        <audio controls style={{ height: '40px' }}>
+      render: (text: any,record: any) => (
+        <audio controls style={{ height: '40px' }} id={record.id} onPlay={()=>audioPlay(record.id)}>
           <source src={text} type="video/mp4" />
         </audio>
       ),
@@ -58,7 +58,10 @@ const Voice = ({
   const [pageParams, setPageParams] = useState<PageParamsProps>(initPageParams)
   const [total, setTotal] = useState(0)
   const { currentPage, pageSize } = pageParams
-
+  const audioPlay=(playIdaudioId:string)=>{
+    const stopAudioIds = pictureList.map(pic=>pic.id).filter(audioId=>audioId!==playIdaudioId)
+    stopAudioIds.forEach(stopAudioId=>(document.getElementById(stopAudioId) as HTMLAudioElement).pause())
+  }
   const changePage = async (page: any, pageSize: any) => {
     await setPageParams({ currentPage: page, pageSize: pageSize })
     await getMediaList({ currentPage: page, pageSize: pageSize })
@@ -74,6 +77,7 @@ const Voice = ({
     getMediaList()
   }, [])
 
+
   const getMediaList = async (curPageParams = pageParams) => {
     const queryParams = Object.assign(
       {
@@ -86,26 +90,31 @@ const Voice = ({
     setPictureList(res.records)
   }
 
+
   const uploadProps = {
     name: 'file',
+    accept: 'audio/*',
     action: 'https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload',
     headers: {
       authorization: 'authorization-text',
     },
     onChange: async (info: any) => {
-      if (info.file.status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully`)
+      const { file } = info
+      const { name } = file
+      console.log('upload file', file)
+      if (file.status === 'done') {
+        message.success(`${name} file uploaded successfully`)
         const res = await createMedia({
           type: 'voice',
-          url: info.file.response.url,
-          fileExtension: 'mp3',
+          url: file.response.url,
+          fileExtension: name.substr(name.lastIndexOf('.') + 1),
           operator: userName,
         })
         if (res) {
           await getMediaList()
         }
-      } else if (info.file.status === 'error') {
-        message.error(`${info.file.name} file upload failed.`)
+      } else if (file.status === 'error') {
+        message.error(`${name} file upload failed.`)
       }
     },
   }
@@ -139,3 +148,11 @@ const Voice = ({
   )
 }
 export default Voice
+function pauseAll(mparr: any, index: any) {
+  throw new Error('Function not implemented.')
+}
+
+function index(mparr: any, index: any) {
+  throw new Error('Function not implemented.')
+}
+
