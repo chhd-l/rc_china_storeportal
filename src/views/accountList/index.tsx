@@ -9,6 +9,7 @@ import "./index.less"
 
 const AccountList = () => {
   const [accountList, setAccountList] = useState<Account[]>([]);
+  const [loading, setLoading] = useState<boolean>(false)
   const [pages, setPages] = useState({
     page: 1,
     limit: 10,
@@ -25,9 +26,11 @@ const AccountList = () => {
       offset: offset - 1,
       limit
     })
+    setLoading(true);
     let res = await getAccountList(params)
     setAccountList(res.records)
     setTotal(res.total)
+    setLoading(false)
   };
 
   return (
@@ -37,7 +40,7 @@ const AccountList = () => {
       </SearchContainer>
       <DivideArea />
       <TableContainer>
-        <Table getAccounts={getAccounts} accountList={accountList} pages={pages} setPages={setPages} total={total} />
+        <Table getAccounts={getAccounts} accountList={accountList} pages={pages} setPages={setPages} total={total} loading={loading} setLoading={setLoading} />
       </TableContainer>
     </ContentContainer>
   )

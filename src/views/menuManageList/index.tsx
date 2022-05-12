@@ -21,7 +21,7 @@ const MenuManage = () => {
 
   const getList = async (pageNumber: number) => {
     const param: PageProps = {
-      offset: pageNumber - 1,
+      offset: pageNumber * 10 - 10,
       limit: 10,
       isNeedTotal: true
     }
@@ -69,7 +69,7 @@ const MenuManage = () => {
   return (
     <ContentContainer className="menu-manage bg-white">
       <div className="btn-area">
-        <Button type="primary" size="large" onClick={() => navigator('/menuManagempqr/menu-manage-add')}>+ Add</Button>
+        <Button className="mt-8 text-white" type="primary" ghost onClick={() => navigator('/menuManagempqr/menu-manage-add')}>+ Add</Button>
       </div>
       <Table
         columns={columns}

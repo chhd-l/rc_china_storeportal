@@ -93,24 +93,28 @@ const Voice = ({
 
   const uploadProps = {
     name: 'file',
+    accept: 'audio/*',
     action: 'https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload',
     headers: {
       authorization: 'authorization-text',
     },
     onChange: async (info: any) => {
-      if (info.file.status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully`)
+      const { file } = info
+      const { name } = file
+      console.log('upload file', file)
+      if (file.status === 'done') {
+        message.success(`${name} file uploaded successfully`)
         const res = await createMedia({
           type: 'voice',
-          url: info.file.response.url,
-          fileExtension: 'mp3',
+          url: file.response.url,
+          fileExtension: name.substr(name.lastIndexOf('.') + 1),
           operator: userName,
         })
         if (res) {
           await getMediaList()
         }
-      } else if (info.file.status === 'error') {
-        message.error(`${info.file.name} file upload failed.`)
+      } else if (file.status === 'error') {
+        message.error(`${name} file upload failed.`)
       }
     },
   }
