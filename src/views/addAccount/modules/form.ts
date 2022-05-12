@@ -84,7 +84,7 @@ export const ACCOUNT_FORM: FormItemProps[] = [
   {
     name: "managementMode",
     label: "Management Mode",
-    placeholder: "select",
+    placeholder: "Select",
     type: "select",
     rules: [
       {
@@ -102,7 +102,7 @@ export const ACCOUNT_FORM: FormItemProps[] = [
   {
     name: "officialAccountType",
     label: "Official Account Type",
-    placeholder: "select",
+    placeholder: "Select",
     type: "select",
     rules: [
       {
@@ -137,13 +137,13 @@ export const ACCOUNT_FORM: FormItemProps[] = [
   {
     name: "certificatePath",
     label: "Pertificate Path",
-    placeholder: "Input",
+    placeholder: "Click to select",
     type: "upload",
   },
   {
     name: "qrCodePath",
     label: "QR Code Path",
-    placeholder: "Input",
+    placeholder: "Click to select",
     type: "upload",
   },
   {
@@ -236,7 +236,7 @@ export const ACCOUNT_FORM_TWO: FormItemProps[] = [
   {
     name: "certificatePath",
     label: "Pertificate Path",
-    placeholder: "Input",
+    placeholder: "Click to select",
     type: "upload",
   },
 ];

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Table, Modal } from "antd"
+import { Button, Table, Modal, message } from "antd"
 import { useNavigate } from 'react-router-dom'
 import "./index.less"
 import { tableColumns, TWxMenuUpdateParam } from "./modules/constant"
@@ -41,14 +41,12 @@ const MenuManage = () => {
     setLoading(true)
     const updated = await updateWxMenu(updateParam)
     if (updated) {
-      setList(list.map((curr) => {
-        if (curr.id === updateParam.id) {
-          curr.isEnabled = updateParam.isEnabled
-        }
-        return curr
-      }))
+      setCurrent(1)
+      getList(1)
+    } else {
+      setLoading(false);
+      message.error({ className: "rc-message", content: "Status update failed" })
     }
-    setLoading(false)
   }
   const handleDelete = (updateParam: TWxMenuUpdateParam) => {
     setIsModalVisible(true)
@@ -61,8 +59,10 @@ const MenuManage = () => {
       setIsModalVisible(false)
       setCurrent(1)
       getList(1)
+    } else {
+      setLoading(false)
+      message.error({ className: "rc-message", content: "Delete failed" })
     }
-    setLoading(false)
   }
   const columns = tableColumns({ changeStatus, handleDelete })
   console.info("sdsd")

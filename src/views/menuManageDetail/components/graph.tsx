@@ -60,7 +60,7 @@ const WxMenuGraph = () => {
       <div className="wx-header">App</div>
       <div className="wx-menus flex">
         {wxMenus?.map((item, idx) => (
-          <div key={idx} className={`wx-menu-item flex-grow ${item.active ? 'active' : ''}`} onClick={() => chooseFirstMenu(item.key)}>
+          <div key={idx} className={`wx-menu-item flex-grow ${item.active && (item.sub_button || []).findIndex(item => item.active) < 0 ? 'active' : ''}`} onClick={() => chooseFirstMenu(item.key)}>
             <div className="truncate px-4">{item.name}</div>
             {item.active ? <div className="wx-submenu">
               {(item.sub_button || []).map((sitem, sidx) => (

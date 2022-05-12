@@ -23,8 +23,8 @@ const Voice = ({
       title: 'Voice',
       dataIndex: 'voice',
       key: 'voice',
-      render: (text: any) => (
-        <audio controls style={{ height: '40px' }}>
+      render: (text: any,record: any) => (
+        <audio controls style={{ height: '40px' }} id={record.id} onPlay={()=>audioPlay(record.id)}>
           <source src={text} type="video/mp4" />
         </audio>
       ),
@@ -58,7 +58,10 @@ const Voice = ({
   const [pageParams, setPageParams] = useState<PageParamsProps>(initPageParams)
   const [total, setTotal] = useState(0)
   const { currentPage, pageSize } = pageParams
-
+  const audioPlay=(playIdaudioId:string)=>{
+    const stopAudioIds = pictureList.map(pic=>pic.id).filter(audioId=>audioId!==playIdaudioId)
+    stopAudioIds.forEach(stopAudioId=>(document.getElementById(stopAudioId) as HTMLAudioElement).pause())
+  }
   const changePage = async (page: any, pageSize: any) => {
     await setPageParams({ currentPage: page, pageSize: pageSize })
     await getMediaList({ currentPage: page, pageSize: pageSize })
@@ -74,6 +77,7 @@ const Voice = ({
     getMediaList()
   }, [])
 
+
   const getMediaList = async (curPageParams = pageParams) => {
     const queryParams = Object.assign(
       {
@@ -85,6 +89,7 @@ const Voice = ({
     setTotal(res.total)
     setPictureList(res.records)
   }
+
 
   const uploadProps = {
     name: 'file',
@@ -143,3 +148,11 @@ const Voice = ({
   )
 }
 export default Voice
+function pauseAll(mparr: any, index: any) {
+  throw new Error('Function not implemented.')
+}
+
+function index(mparr: any, index: any) {
+  throw new Error('Function not implemented.')
+}
+
