@@ -23,15 +23,15 @@ const ResponseType = () => {
     <div className="response-type-container bg-white border border-gray-200">
       <div className="p-2 bg-gray-300 text-gray-400 flex space-x-8">
         <div className={`response-type-item cursor-pointer ${assetType === 'image' ? 'active' : ''}`} onClick={() => setAssetType('image')}>
-          <i className="iconfont icon-Frame-5"></i>
+          <i className="iconfont icon-Frame-5 mr-1"></i>
           <span>Picture</span>
         </div>
         <div className={`response-type-item cursor-pointer ${assetType === 'voice' ? 'active' : ''}`} onClick={() => setAssetType('voice')}>
-          <i className="iconfont icon-Frame-2"></i>
+          <i className="iconfont icon-Frame-2 mr-1"></i>
           <span>Voice</span>
         </div>
         <div className={`response-type-item cursor-pointer ${assetType === 'video' ? 'active' : ''}`} onClick={() => setAssetType('video')}>
-          <i className="iconfont icon-Frame-11"></i>
+          <i className="iconfont icon-Frame-11 mr-1"></i>
           <span>Video</span>
         </div>
       </div>

@@ -11,10 +11,12 @@ const Voice = ({
   isReload = false,
   openDelete,
   openSyncTipModal,
+  userName,
 }: {
   isReload: boolean
   openDelete: Function
   openSyncTipModal: Function
+  userName: string
 }) => {
   const column = [
     {
@@ -93,7 +95,12 @@ const Voice = ({
     onChange: async (info: any) => {
       if (info.file.status === 'done') {
         message.success(`${info.file.name} file uploaded successfully`)
-        const res = await createMedia({ type: 'voice', url: info.file.response.url, fileExtension: 'mp3' })
+        const res = await createMedia({
+          type: 'voice',
+          url: info.file.response.url,
+          fileExtension: 'mp3',
+          operator: userName,
+        })
         if (res) {
           await getMediaList()
         }

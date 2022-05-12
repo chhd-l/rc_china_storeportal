@@ -22,7 +22,7 @@ export const tableColumns = ({ handleDelete, templateTitleList, modifyTemplateMe
   const columns: ProColumns<ColumnsProps>[] = [
     {
       title: 'Template ID',
-      dataIndex: 'id',
+      dataIndex: 'templateId',
       order: 4,
     },
     {
@@ -53,7 +53,7 @@ export const tableColumns = ({ handleDelete, templateTitleList, modifyTemplateMe
       },
     },
     {
-      title: 'Application Scenario',
+      title: 'Scenario',
       dataIndex: 'scenario',
       initialValue: 'all',
       order: 2,

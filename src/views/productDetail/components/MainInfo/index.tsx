@@ -180,36 +180,31 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
           isSupport100: values.isSupport100,
           id: detail.skuId,
           defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
+          goodsVariantBundleInfo: detail.goodsVariantBundleInfo?.map((el: any) => {
+            let bundleInfo = {
+              bundleNumber: el.bundleNumber,
+              id: el.bunldeRelId,
+              goodsVariantId: el.goodsVariantId,
+              subGoodsVariantId: el.subGoodsVariantId || detail.skuId,
+              skuNo: el.skuNo,
+            }
+            if (!el.goodsVariantId) {
+              delete bundleInfo.goodsVariantId
+            }
+            if (!el.skuNo) {
+              delete bundleInfo.skuNo
+            }
+            return bundleInfo
+          }),
         },
       ]
       if (detail.goodsVariantBundleInfo?.length) {
         params.goodsVariantsInput[0].goodsVariantBundleInfo = detail.goodsVariantBundleInfo
       }
       if (detail.id) {
-        //编辑
+        //编辑 全量
         if (!detail.editChange.goodsVariants) {
-          detail.editChange.goodsVariants = [
-            {
-              stock: Number(values.stock),
-              id: detail.skuId,
-              goodsVariantBundleInfo: detail.goodsVariantBundleInfo?.map((el: any) => {
-                let bundleInfo = {
-                  bundleNumber: el.bundleNumber,
-                  id: el.bunldeRelId,
-                  goodsVariantId: el.goodsVariantId,
-                  subGoodsVariantId: el.subGoodsVariantId || detail.skuId,
-                  skuNo: el.skuNo,
-                }
-                if (!el.goodsVariantId) {
-                  delete bundleInfo.goodsVariantId
-                }
-                if (!el.skuNo) {
-                  delete bundleInfo.skuNo
-                }
-                return bundleInfo
-              }),
-            },
-          ]
+          detail.editChange.goodsVariants = params.goodsVariantsInput
         }
       }
     }
