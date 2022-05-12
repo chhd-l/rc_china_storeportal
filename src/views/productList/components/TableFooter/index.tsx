@@ -1,6 +1,6 @@
 import { deleteProducts, getScProducts, switchShelves } from '@/framework/api/get-product'
 import { ProductListItemProps } from '@/framework/types/product'
-import { Button, message } from 'antd'
+import { Button, message, Modal } from 'antd'
 import { cloneDeep } from 'lodash'
 import { FC, ReactElement, useEffect, useState } from 'react'
 import './index.less'
@@ -13,6 +13,7 @@ export type Props = {
 }
 const TableFooter: FC<Props> = ({ children, list, getList, setLoading, loading }) => {
   const [checkedAll, setCheckedAll] = useState(0)
+  const [showDeletePop, setShowDeletePop] = useState(false)
 
   useEffect(() => {
     const arr = list.filter(item => item.checked === true)
@@ -31,7 +32,23 @@ const TableFooter: FC<Props> = ({ children, list, getList, setLoading, loading }
       }
     }
   }, [list])
-
+  const comfirmDelete = async () => {
+    setShowDeletePop(false)
+    let goodsId = list.filter(el => el.checked)?.map(el => el.id)
+    if (!goodsId?.length) {
+      return
+    }
+    setLoading(true)
+    let res = await deleteProducts({ goodsId })
+    // listData[spuIdx].shelvesStatus = !shelvesStatus
+    if (res) {
+      message.success({ className: 'rc-message', content: 'Operation success' })
+    } else {
+      message.error({ className: 'rc-message', content: 'Operation failed' })
+    }
+    getList()
+    setLoading(false)
+  }
   return (
     <div className='table-footer flex justify-between items-center fixed bottom-2'>
       <div>{children}</div>
@@ -39,21 +56,8 @@ const TableFooter: FC<Props> = ({ children, list, getList, setLoading, loading }
         <span className='mr-4'>{list.filter(el => el.checked)?.length || 0} products selected</span>
         <Button
           className='mr-4'
-          onClick={async () => {
-            let goodsId = list.filter(el => el.checked)?.map(el => el.id)
-            if (!goodsId?.length) {
-              return
-            }
-            setLoading(true)
-            let res = await deleteProducts({ goodsId })
-            // listData[spuIdx].shelvesStatus = !shelvesStatus
-            if (res) {
-              message.success({ className: 'rc-message', content: 'Operation success' })
-            } else {
-              message.error({ className: 'rc-message', content: 'Operation failed' })
-            }
-            getList()
-            setLoading(false)
+          onClick={() => {
+            setShowDeletePop(true)
           }}
         >
           Delete
@@ -108,6 +112,16 @@ const TableFooter: FC<Props> = ({ children, list, getList, setLoading, loading }
           </Button>
         ) : null}
       </div>
+      <Modal
+        className='rc-modal'
+        title='Delete Product'
+        okText={'Delete'}
+        visible={showDeletePop}
+        onOk={() => comfirmDelete()}
+        onCancel={() => setShowDeletePop(false)}
+      >
+        <p>Are you sure want to delete the product(s) ? Warning: You cannot undo this action!</p>
+      </Modal>
     </div>
   )
 }
