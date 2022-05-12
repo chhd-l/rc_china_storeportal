@@ -7,6 +7,8 @@ export type WxMenuItem = {
   pagepath?: string
   active?: boolean
   media_id?: string
+  rc_preview_type?: "image" | "voice" | "video"
+  rc_preview_url?: string
   sub_button?: WxMenuItem[]
 }
 
