@@ -150,9 +150,11 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
       hideInTable: true,
       dataIndex: 'brand',
       fieldProps: {
-        options: [],
+        options: [
+          {value:'B1',label:'Royal Canin'},
+          {value:'B2',label:'Eukanuba'},
+        ],
         fieldNames: {
-          children: 'children',
           label: 'label',
           value: 'value',
         },
