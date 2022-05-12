@@ -1,14 +1,14 @@
 import './index.less'
-import { message, Input, Form, Select, Col,Button  } from 'antd'
+import { message, Input, Form, Select, Col, Button } from 'antd'
 import { ModalForm, ProFormMoney } from '@ant-design/pro-form'
 import { useParams } from 'react-router-dom'
-import { useState, useEffect,useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import ProTable from '@/components/common/ProTable'
 import { ProColumns } from '@ant-design/pro-table'
 import {
   createShopCategoryGoodsRel,
   getCategories,
-  getESProducts
+  getESProducts,
 } from '@/framework/api/get-product'
 import { formatMoney, handlePageParams } from '@/utils/utils'
 import { OptionsProps } from '@/framework/types/common'
@@ -18,27 +18,27 @@ const { Option } = Select
 export type ManualSelectionProps = {
   visible: boolean;
   handleVisible: (visible: boolean) => void;
+  handleUpdate: (visible: boolean) => void;
 };
 const nameForKey: OptionsProps[] = [
   { name: 'Product Name', value: '1' },
   { name: 'SKU', value: '2' },
   { name: 'SPU', value: '3' },
 ]
-
-const ManualSelection = ({ visible, handleVisible }: ManualSelectionProps) => {
+const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectionProps) => {
   const params = useParams()
   const [mockOptions, setMockOptions] = useState<Array<any>>([])
   const [selectedRowKeys, setSelectedRowKeys] = useState([''])
   const [saveList, setSaveList] = useState([])
   const ref = useRef<any>()
-  const onSelectChange = (selectedRowKeys: any,selectedRows:any) => {
-    const {id} = params
-    console.log('selectedRowKeys changed: ', selectedRowKeys,selectedRows)
-   let data= selectedRows.map((item:any)=>{
-      return{
+  const onSelectChange = (selectedRowKeys: any, selectedRows: any) => {
+    const { id } = params
+    console.log('selectedRowKeys changed: ', selectedRowKeys, selectedRows)
+    let data = selectedRows.map((item: any) => {
+      return {
         goodsId: item.id,
         shopCategoryId: id,
-        storeId: item.storeId
+        storeId: item.storeId,
       }
     })
     setSaveList(data)
@@ -58,15 +58,17 @@ const ManualSelection = ({ visible, handleVisible }: ManualSelectionProps) => {
   const manualColumns: ProColumns<any>[] = [
     {
       title: 'products',
-      dataIndex: 'cardName',
+      dataIndex: 'goodsName',
       hideInSearch: true,
       render: (_, record) => {
         return (
           <div className='flex al-cneter'>
-            <img src={record.defaultImage} alt='' style={{ width: '50px', marginRight: '10px' }} />
+            <img
+              src={record.defaultImage ? record.defaultImage : record.goodsVariants?.length > 0 ? record.goodsVariants[0].defaultImage : ''}
+              alt='' style={{ width: '50px', marginRight: '10px' }} />
             <div>
-              <div>{record.cardName}</div>
-              <div>SPU:{record.spuNo}</div>
+              <div>{record.goodsName}</div>
+              <div>{record.spuNo}</div>
             </div>
           </div>
         )
@@ -76,6 +78,11 @@ const ManualSelection = ({ visible, handleVisible }: ManualSelectionProps) => {
       title: 'Brand',
       dataIndex: 'brandId',
       hideInSearch: true,
+      render: (_, record)=>{
+        return(
+          <span>{record.brandId==='b1'?'Royal Canin':'Eukanuba'}</span>
+        )
+      }
     },
     {
       title: 'Price(s)',
@@ -119,6 +126,7 @@ const ManualSelection = ({ visible, handleVisible }: ManualSelectionProps) => {
             <Input.Group compact className='flex'>
               <Form.Item name='selectName'>
                 <Select
+                  defaultValue="1"
                   style={{ width: 140 }}
                   placeholder='Select a option and change input text above'
                 >
@@ -142,7 +150,7 @@ const ManualSelection = ({ visible, handleVisible }: ManualSelectionProps) => {
       hideInTable: true,
       dataIndex: 'brand',
       fieldProps: {
-        options: mockOptions,
+        options: [],
         fieldNames: {
           children: 'children',
           label: 'label',
@@ -172,16 +180,16 @@ const ManualSelection = ({ visible, handleVisible }: ManualSelectionProps) => {
               label='Markting Price'
               name='startPrice'
               customSymbol='￥'
+              min='0'
             />
             <span> - </span>
-            <ProFormMoney name='endPrice' customSymbol='￥' />
+            <ProFormMoney min='0' name='endPrice' customSymbol='￥' />
           </div>
         )
       },
     },
   ]
   useEffect(() => {
-    // getList()
     getCategoriesList()
   }, [])
   return (
@@ -192,8 +200,9 @@ const ManualSelection = ({ visible, handleVisible }: ManualSelectionProps) => {
       title='Select Products'
       visible={visible}
       onFinish={async () => {
-        if(saveList.length>0){
+        if (saveList.length > 0) {
           createShopCategoryGoodsRel(saveList)
+          handleUpdate(true)
           message.success('提交成功')
           return true
         } else {
@@ -262,17 +271,17 @@ const ManualSelection = ({ visible, handleVisible }: ManualSelectionProps) => {
           labelWidth: 'auto',
           searchText: 'Search',
           className: 'my-search',
-          optionRender:({ searchText, resetText },{form},dom)=>[
-            <Button  type="primary"
-            onClick={()=>{
-              form?.submit()
-            }}
+          optionRender: ({ searchText, resetText }, { form }, dom) => [
+            <Button type='primary'
+                    onClick={() => {
+                      form?.submit()
+                    }}
             >{searchText}</Button>,
-            <Button onClick={()=>{
+            <Button onClick={() => {
               form?.resetFields()
               form?.submit()
             }}>{resetText}</Button>,
-          ]
+          ],
         }}
       />
     </ModalForm>

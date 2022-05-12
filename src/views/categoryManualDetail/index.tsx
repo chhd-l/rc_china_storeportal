@@ -88,8 +88,10 @@ const CategoryDetail = () => {
     const { id } = params
   }, [])
   const handleManualVisible = (visible: boolean) => {
-    ref.current.reload()
     setManualSelectionVisible(visible)
+  }
+  const handleUpdate = (visible: boolean) => {
+    ref.current.reload()
   }
   const columns: ProColumns<any>[] = [
     {
@@ -288,6 +290,7 @@ const CategoryDetail = () => {
       <ManualSelection
         visible={manualSelectionVisible}
         handleVisible={handleManualVisible}
+        handleUpdate={handleUpdate}
       />
       <Modal
         className='rc-modal'
