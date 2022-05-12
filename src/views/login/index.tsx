@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input, Button, Checkbox, Form, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { SellerLogoPanel } from "@/components/auth";
@@ -7,6 +7,7 @@ import "./index.less";
 import { login } from "@/framework/api/login-user";
 import { useAtom } from "jotai";
 import { userAtom } from "@/store/user.store";
+import { getCookie, setCookie } from "@/utils/utils";
 // import axios from "axios";
 
 const formItems: FormItemProps[] = [
@@ -37,6 +38,7 @@ const formItems: FormItemProps[] = [
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const [loginError, setLoginError] = useState("");
+  const [isRemember, setIsRemember] = useState(false)
   const [,setUserInfo] = useAtom(userAtom)
   const navigate = useNavigate();
   const [form] = Form.useForm();
@@ -49,6 +51,22 @@ const Login = () => {
       setLoginError("error");
     }
   };
+
+  useEffect(() => {
+    let rememberUsername = getCookie('username')
+    let rememberPassword = getCookie('password')
+    let isRemember = getCookie('isRemember')
+    
+    if (isRemember && rememberUsername && rememberPassword) {
+      console.log('console.log(isRemember)',isRemember)
+      form.setFields([{ name: 'account', value: rememberUsername }, { name: 'password', value: rememberPassword }, {name:'remember', value: isRemember === '1'}])  
+      setIsRemember(isRemember === '1')
+    }
+  }, [])
+
+  useEffect(() => {
+    console.log('isRemember', isRemember)
+  }, [isRemember])
 
   return (
     <div className="h-screen bg-gray1 flex justify-center items-center login-content">
@@ -66,6 +84,15 @@ const Login = () => {
                   setUserInfo(res.userInfo)
                   localStorage.setItem("rc-userInfo", JSON.stringify(res.userInfo))
                   localStorage.setItem("rc-token", JSON.stringify(res.access_token))
+                  if (isRemember) {
+                    setCookie('username', values.account, 30)
+                    setCookie('password', values.password, 30)
+                    setCookie('isRemember', '1', 30)
+                  } else {
+                    setCookie('username', '', 30)
+                    setCookie('password', '', 30)
+                    setCookie('isRemember', '0', 30)
+                  }
                   handleLogin(values)
                 } else {
                   message.error('Login failed！')
@@ -81,7 +108,10 @@ const Login = () => {
             ))}
             <Form.Item className="login-remember">
               <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox>Remember me</Checkbox>
+                <Checkbox onChange={(e) => {
+                  setIsRemember(e.target.checked)
+                  console.log('isRemember', e.target.checked)
+                }}>Remember me</Checkbox>
               </Form.Item>
               <a
                 className="primary-color font-medium text-12"
