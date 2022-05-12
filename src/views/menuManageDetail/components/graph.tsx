@@ -12,7 +12,7 @@ const WxMenuGraph = () => {
     newWxMenus.push({
       key: newWxMenuKey,
       name: 'Menu Name',
-      type: 'click',
+      type: 'media_id',
       sub_button: []
     });
     setWxMenus && setWxMenus(setActiveWxMenu(newWxMenus, newWxMenuKey));
@@ -28,7 +28,7 @@ const WxMenuGraph = () => {
         subMenus.push({
           key: newSubMenuKey,
           name: 'Menu Name',
-          type: 'click'
+          type: 'media_id'
         });
         item.sub_button = setActiveWxMenu(subMenus, newSubMenuKey)
       }
