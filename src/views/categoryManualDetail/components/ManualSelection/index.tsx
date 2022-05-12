@@ -13,6 +13,7 @@ import {
 import { formatMoney, handlePageParams } from '@/utils/utils'
 import { OptionsProps } from '@/framework/types/common'
 import { getTree } from '@/framework/normalize/product'
+import { getBrands } from '@/framework/api/wechatSetting'
 
 const { Option } = Select
 export type ManualSelectionProps = {
@@ -27,6 +28,7 @@ const nameForKey: OptionsProps[] = [
 ]
 const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectionProps) => {
   const params = useParams()
+  const [brandList, setBrandList] = useState([])
   const [mockOptions, setMockOptions] = useState<Array<any>>([])
   const [selectedRowKeys, setSelectedRowKeys] = useState([''])
   const [saveList, setSaveList] = useState([])
@@ -150,10 +152,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
       hideInTable: true,
       dataIndex: 'brand',
       fieldProps: {
-        options: [
-          {value:'B1',label:'Royal Canin'},
-          {value:'B2',label:'Eukanuba'},
-        ],
+        options: brandList,
         fieldNames: {
           label: 'label',
           value: 'value',
@@ -191,7 +190,12 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
       },
     },
   ]
+  const getBrandList = async () => {
+    let list = await getBrands('12345678')
+    setBrandList(list)
+  }
   useEffect(() => {
+    getBrandList()
     getCategoriesList()
   }, [])
   return (
