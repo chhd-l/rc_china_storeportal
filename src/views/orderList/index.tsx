@@ -1,4 +1,4 @@
-import { Tabs, Pagination } from 'antd'
+import { Tabs, Pagination, message } from 'antd'
 import React, { useEffect, useState } from 'react'
 import OrderTable from '@/components/order/OrderTable'
 import { Order, OrderStatus, OrderSearchParamsProps } from '@/framework/types/order'
@@ -22,7 +22,7 @@ const PetOwnerList = () => {
   const [pageParams, setPageParams] = useState<PageParamsProps>(initPageParams)
   const [total, setTotal] = useState(0)
   const { currentPage, pageSize } = pageParams
-  const [carrier] = useState('')
+  const [carrier,setCarrier] = useState('')
   const location = useLocation()
   const navigator = useNavigate()
 
@@ -87,6 +87,11 @@ const PetOwnerList = () => {
     })
   }
 
+  // useEffect(()=>{
+  //   message.success({ className: 'rc-message', content: 'Operation success',duration:false })
+  //   message.error({ className: 'rc-message', content: 'Operation success',duration:false })
+  // },[])
+
   return (
     <ContentContainer>
       <SearchContainer className="order-search-top">
@@ -119,6 +124,10 @@ const PetOwnerList = () => {
             shipOrCompleteSuccess={() =>
               getOrderLists({ searchParams, pageParams, orderState: activeKey, company: carrier })
             }
+            changeCarrier={(value:string)=>{
+              setCarrier(value)
+              getOrderLists({ searchParams, pageParams, orderState: activeKey, company: value })
+            }}
           />
         </div>
         <div className="flex flex-row justify-end mt-4">

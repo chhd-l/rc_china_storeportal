@@ -27,7 +27,7 @@ export const handleQueryParams = ({
     orderState !== '' ? { orderState } : {},
     startTime !== '' ? { startDate: new Date(startTime).toISOString() } : {},
     endTime !== '' ? { endDate: new Date(endTime).toISOString() } : {},
-    shoppingCompany !== '' ? { shoppingCompany } : {},
+    shoppingCompany !== '' ? { shippingCompany:shoppingCompany } : {},
   )
   let params = Object.assign(
     {

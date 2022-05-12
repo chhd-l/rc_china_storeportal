@@ -1,6 +1,6 @@
 import React from 'react'
-import { WxMenuContext, getActiveWxMenu, setWxMenu } from '../context'
-import { Input, Form, Radio, RadioChangeEvent } from 'antd'
+import { WxMenuContext, getActiveWxMenu, setWxMenu, delWxMenu, moveWxMenu } from '../context'
+import { Input, Form, Radio, RadioChangeEvent, Tooltip } from 'antd'
 import _ from 'lodash'
 import ResponseType from './response-type'
 import RedirectionType from './redirection-type'
@@ -24,10 +24,40 @@ const WxMenuSetting = () => {
     setWxMenus && setWxMenus(_.cloneDeep(newWxMenus));
   }
 
+  const deleteWxMenu = (key: string) => {
+    const newWxMenus = delWxMenu(wxMenus || [], key);
+    setWxMenus && setWxMenus(_.cloneDeep(newWxMenus));
+  }
+
+  const moveWxMenuInOrder = (key: string, direction: 'forward' | 'backward') => {
+    const newWxMenus = moveWxMenu(wxMenus || [], key, direction);
+    setWxMenus && setWxMenus(_.cloneDeep(newWxMenus));
+  }
+
   return (
     <div className="bg-gray-primary">
-      <div className="p-4 border-b border-gray-200 flex">
+      <div className="p-4 border-b border-gray-200 flex justify-between">
         <span className="text-lg">Menu Name</span>
+        {activeMenu && <div className="space-x-4">
+          <Tooltip title="Delete">
+            <span className="iconfont icon-delete primary-color cursor-pointer" onClick={() => deleteWxMenu(activeMenu.key)}></span>
+          </Tooltip>
+          {(wxMenus || []).findIndex(item => item.key === activeMenu.key) > -1 ? <>
+            <Tooltip title="Move Left">
+              <span className="iconfont icon-Frame5 primary-color cursor-pointer" onClick={() => moveWxMenuInOrder(activeMenu.key, 'forward')}></span>
+            </Tooltip>
+            <Tooltip title="Move right">
+              <span className="iconfont icon-Frame-12 primary-color cursor-pointer" onClick={() => moveWxMenuInOrder(activeMenu.key, 'backward')}></span>
+            </Tooltip>
+          </> : <>
+            <Tooltip title="Move Up">
+              <span className="iconfont icon-Frame-21 primary-color cursor-pointer" onClick={() => moveWxMenuInOrder(activeMenu.key, 'forward')}></span>
+            </Tooltip>
+            <Tooltip title="Move Down">
+              <span className="iconfont icon-Frame-31 primary-color cursor-pointer" onClick={() => moveWxMenuInOrder(activeMenu.key, 'backward')}></span>
+            </Tooltip>
+          </>}
+        </div>}
       </div>
       {activeMenu && <div className="p-8">
         <Form layout="horizontal">

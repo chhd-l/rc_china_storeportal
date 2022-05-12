@@ -97,12 +97,12 @@ export interface OrderSearchParamsProps {
 }
 
 export interface CarrierType {
-  id: string
-  name: string
-  nameEn: string
-  code: string
-  isChecked: boolean
-  isDeleted: boolean
-  isEnabled: boolean
-  storeId: string
+  id?: string
+  name?: string
+  nameEn?: string
+  code?: string
+  isChecked?: boolean
+  isDeleted?: boolean
+  isEnabled?: boolean
+  storeId?: string
 }
