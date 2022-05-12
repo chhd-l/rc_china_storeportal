@@ -12,10 +12,12 @@ const Picture = ({
   isReload = false,
   openDelete,
   openSyncTipModal,
+                   userName
 }: {
   isReload: boolean
   openDelete: Function
   openSyncTipModal: Function
+  userName:string
 }) => {
   const [visible, setVisible] = useState(false)
   const column = [
@@ -30,7 +32,7 @@ const Picture = ({
       title: 'Wechat Assets Link',
       dataIndex: 'assetLink',
       key: 'assetLink',
-      width: '50%',
+      width: '45%',
     },
     {
       title: 'Create Time',
@@ -113,7 +115,7 @@ const Picture = ({
     onChange: async (info: any) => {
       if (info.file.status === 'done') {
         message.success(`${info.file.name} file uploaded successfully`)
-        const res = await createMedia({ type: 'image', url: info.file.response.url, fileExtension: 'png' })
+        const res = await createMedia({ type: 'image', url: info.file.response.url, fileExtension: 'png',operator:userName })
         if (res) {
           await getMediaList()
         }

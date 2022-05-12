@@ -156,7 +156,7 @@ export const createMedia = async (queryParams: any) => {
           }
           : {},
       ),
-      operator: 'zz',
+      operator: queryParams.operator||'system',
     })
     const addMedia = res?.addMedia
     console.log('create media view data', addMedia)
@@ -227,18 +227,6 @@ export const getAppQrCodes = async (queryParams: any) => {
 // 新增、编辑、删除 小程序二维码
 export const upsertAppQrCodes = async (queryParams: any) => {
   try {
-    //todo 参数处理 编辑参数加id,删除参数加id and isDeleted
-    const params = {
-      accountId: '22c2f601-5a60-8b10-20c1-c56ef0d8bd53',
-      scenarioId: 'mockScenarioId',
-      type: 'mocktype',
-      key: 'MY_QRCODE_HOME',
-      appInternalPath: '/pages/index/index',
-      width: 300,
-      isHyaline: false,
-      imgUrl: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/05774105-6b54-384d-7ce9-5f75fcd1a98c.png',
-      operator: 'zz',
-    }
     let res = await ApiRoot.wechatSettings().updateAppQrCode({ body: queryParams })
     const upsertWxAppQRCode = res?.upsertWxAppQRCode
     console.log('upsert app qrCode view data', upsertWxAppQRCode)
@@ -309,9 +297,9 @@ export const getTemplateItems = async (queryParams: any) => {
   }
 }
 
-export const syncTemplateItem = async () => {
+export const syncTemplateItem = async (params:{operator:string}) => {
   try {
-    let res = await ApiRoot.wechatSettings().syncTemplateItem({ accountId: '000001', operator: 'zz' })
+    let res = await ApiRoot.wechatSettings().syncTemplateItem(Object.assign(params,{ accountId: '000001'}))
     const syncTemplateItem = res?.syncTemplateItem
     console.log('sync template item view data', syncTemplateItem)
     return syncTemplateItem || false
@@ -448,8 +436,8 @@ export const updateWxMenu = async (queryParams: any) => {
 
 /**
  * 创建微信公众号菜单
- * @param wxMenusContent 
- * @returns 
+ * @param wxMenusContent
+ * @returns
  */
 export const createWxMenu = async (wxMenusContent: string) => {
   try {
