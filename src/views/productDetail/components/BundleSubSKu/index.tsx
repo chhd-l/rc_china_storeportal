@@ -26,9 +26,7 @@ const BundleSbuSKu = ({
     } else {
       regularList.splice(idx, 1)
     }
-    console.info('regularList', regularList)
-    updateBundleInfo(regularList)
-    setRegularList([...regularList])
+    caclNum(regularList)
   }
   const onChange = (val: number, idx: number) => {
     if (!skuItem.goodsVariantBundleInfo) {
@@ -47,17 +45,28 @@ const BundleSbuSKu = ({
       skuItem.goodsVariantBundleInfo[idx].subGoodsVariantId = regularList[idx].id
       skuItem.goodsVariantBundleInfo[idx].skuNo = regularList[idx].skuNo
     }
+    caclNum(regularList)
+  }
+  // 计算数量
+  const caclNum = (regularList: any) => {
     let stockArr = regularList
-      ?.filter((el, idx) => {
+      ?.filter((el: any, idx: number) => {
+        debugger
         let skuStock = el.bundleNumber || 0
+        console.info(el.stock, skuStock, 'skuStockskuStockskuStock')
         if (skuStock) {
           el.subSkuStock = Math.floor(el.stock / skuStock)
+          console.info('........', skuStock)
         }
+        console.info('....skuStock', skuStock)
+        debugger
         return skuStock
       })
-      .map(el => el.subSkuStock)
-    // debugger
-    let spuStock = Math.min(...stockArr)
+      .map((el: any) => el.subSkuStock)
+    console.info('subSkuStock', JSON.stringify(stockArr))
+    debugger
+    let spuStock = stockArr?.length ? Math.min(...stockArr) : ''
+    console.info('spuStock', spuStock)
     skuItem.stock = spuStock
     setRegularList(cloneDeep(regularList))
     updateBundleInfo(skuItem.goodsVariantBundleInfo)
@@ -65,6 +74,7 @@ const BundleSbuSKu = ({
   const updateBundleInfo = (val: any) => {
     // debugger
     let bundleInfo = val?.map((el: any) => {
+      debugger
       let info: any = {
         bundleNumber: el.bundleNumber,
         skuNo: el.skuNo,
@@ -100,10 +110,11 @@ const BundleSbuSKu = ({
         }
       })
     })
+    debugger
     //把删除的也存起来
     choosedSku.push(...deletedBundles)
-    updateBundleInfo(choosedSku)
-    setRegularList(choosedSku)
+    skuItem.goodsVariantBundleInfo = choosedSku
+    caclNum(choosedSku)
   }
   useEffect(() => {
     console.info('testtest', skuItem?.goodsVariantBundleInfo)
@@ -112,7 +123,7 @@ const BundleSbuSKu = ({
     }
   }, [skuItem?.goodsVariantBundleInfo])
   return (
-    <div className='flex'>
+    <div className='flex items-center'>
       <div
         onClick={() => {
           console.info('regularList', regularList)

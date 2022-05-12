@@ -47,6 +47,13 @@ export const createProduct = async (params: any, beforeData?: any) => {
       el.name = el.skuName
       delete el.skuName
     }
+    if (el?.goodsVariantBundleInfo) {
+      el.goodsVariantBundleInfo?.forEach((cel: any) => {
+        if (typeof cel.subSkuStock !== undefined) {
+          delete cel.subSkuStock
+        }
+      })
+    }
   })
   console.info('paramsData', paramsData)
   try {

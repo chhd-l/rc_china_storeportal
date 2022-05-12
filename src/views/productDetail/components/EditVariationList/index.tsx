@@ -388,7 +388,7 @@ const EditVariationList = (props: FormProps) => {
                             case 'number':
                               console.info('tr[td.keyVal]', tr[td.keyVal])
                               return td.keyVal === 'stock' && spuType === 'BUNDLE' ? (
-                                <div>{tr[td.keyVal]}</div>
+                                <div className='text-center'>{tr[td.keyVal]}</div>
                               ) : (
                                 <Input
                                   className='text-center'
