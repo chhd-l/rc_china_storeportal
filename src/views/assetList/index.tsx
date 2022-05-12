@@ -5,6 +5,8 @@ import { Picture, Graphic, Video, Voice } from './components'
 import { ContentContainer, SearchContainer } from '@/components/ui'
 import './index.less'
 import { syncMedias, updateMedia } from '@/framework/api/wechatSetting'
+import { useAtom } from 'jotai'
+import { userAtom } from '@/store/user.store'
 
 const PetOwnerList = () => {
   const [activeKey, setActiveKey] = useState('image')
@@ -12,6 +14,7 @@ const PetOwnerList = () => {
   const [isSyncTipModalVisible, setIsSyncModalVisible] = useState(false)
   const [curAssetId, setCurAssetId] = useState('')
   const [isReload, setIsReload] = useState(false)
+  const [userInfo] = useAtom(userAtom)
 
   const confirmDelete = async () => {
     const res = await updateMedia({
@@ -63,6 +66,7 @@ const PetOwnerList = () => {
             isReload={isReload}
             openDelete={openDeleteModal}
             openSyncTipModal={() => setIsSyncModalVisible(true)}
+            userName={userInfo?.username||''}
           />
         ) : null}
         {/*{activeKey === 'graphic' ? <Graphic /> : null}*/}
@@ -71,6 +75,7 @@ const PetOwnerList = () => {
             isReload={isReload}
             openDelete={openDeleteModal}
             openSyncTipModal={() => setIsSyncModalVisible(true)}
+            userName={userInfo?.username||''}
           />
         ) : null}
         {activeKey === 'video' ? (
