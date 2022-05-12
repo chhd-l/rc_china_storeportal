@@ -77,7 +77,6 @@ const AddAccount = () => {
                         <Input.Group className="flex w-full">
                           <Input
                             placeholder={item.placeholder}
-                            // style={{ width: "85%" }}
                           />
                           <Upload name="logo" action="/upload.do" listType="picture">
                             <Button>Select</Button>
@@ -128,10 +127,9 @@ const AddAccount = () => {
                           autoSize={{ minRows: 3, maxRows: 5 }}
                         />
                       ) : item.type === "upload" ? (
-                        <Input.Group className="flex">
+                        <Input.Group className="flex w-full">
                           <Input
                             placeholder={item.placeholder}
-                            style={{ width: "85%" }}
                           />
                           <Upload name="logo" action="/upload.do" listType="picture">
                             <Button>Select</Button>
