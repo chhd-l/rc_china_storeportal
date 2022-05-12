@@ -1,6 +1,6 @@
 import { useState, useEffect, FC } from 'react'
 import '@wangeditor/editor/dist/css/style.css'
-import { IEditorConfig, DomEditor } from '@wangeditor/editor'
+import { IEditorConfig, DomEditor, i18nChangeLanguage } from '@wangeditor/editor'
 import { Editor, Toolbar } from '@wangeditor/editor-for-react'
 import './index.less'
 interface EditorProps {
@@ -8,6 +8,10 @@ interface EditorProps {
   defaultValue?: string
 }
 type InsertFnType = (url: string) => void
+
+
+i18nChangeLanguage('en')
+
 const MyEditor: FC<EditorProps> = ({ defaultValue = '', onChange }) => {
   const [editor, setEditor] = useState<any>(null) // 存储 editor 实例
   const [html, setHtml] = useState('')

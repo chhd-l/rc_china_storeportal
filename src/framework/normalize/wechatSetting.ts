@@ -6,7 +6,7 @@ export const normaliseMedia = (media: any) => {
     id: media.id,
     picture: media.url,
     assetId: media.mediaId,
-    assetLink: media.url,
+    assetLink: media.wxUrl,
     createTime: handleReturnTime(media.createdAt),
     status: media.status ? 'Synchronized' : 'Not Synchronized',
     video: media.url,

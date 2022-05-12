@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Asset } from '@/framework/types/wechat'
 import AssetsModal from '@/components/common/AssetsModal'
+import { Image } from 'antd'
 import { WxMenuContext, setWxMenu, getActiveWxMenu } from '../context'
 import _ from 'lodash'
 
 const ResponseType = () => {
   const [visible, setVisible] = useState<boolean>(false)
   const [assetType, setAssetType] = useState<'image' | 'voice' | 'video'>('image')
+  const [asset, setAsset] = useState<Asset>()
   const { wxMenus, setWxMenus } = React.useContext(WxMenuContext)
 
   const activeMenu = getActiveWxMenu(wxMenus || [])
@@ -14,6 +16,10 @@ const ResponseType = () => {
   const handleConfirm = (asset: Asset) => {
     const newWxMenus = setWxMenu(wxMenus || [], activeMenu?.key || '', {
       media_id: asset.assetId
+    })
+    setAsset({
+      ...asset,
+      ...(assetType === "image" ? { voice: '', video: ''} : assetType === "voice" ? { picture: "", video: "" } : { picture: "", voice: "" })
     })
     setWxMenus && setWxMenus(_.cloneDeep(newWxMenus))
     setVisible(false)
@@ -39,7 +45,19 @@ const ResponseType = () => {
         <div className="text-gray-400" style={{display:'inline-block'}} onClick={() => setVisible(true)}>
           <span className="iconfont icon-Frame3 mb-0.5" style={{fontSize: 30}}></span>
           <div>Select from assets</div>
-          <div className="uploaded-asset">{activeMenu?.media_id}</div>
+        </div>
+        <div className="mt-4">
+          {asset && asset.id ? <div>
+            {assetType === "image" && asset.picture
+             ? <Image width={80} src={asset.picture} />
+             : assetType === "voice" && asset.voice
+             ? <audio controls style={{ height: '40px' }} id={asset.id}>
+                <source src={asset.voice} type="video/mp4" />
+               </audio>
+             : assetType === "video" && asset.video
+             ? <div className="uploaded-asset">{asset.assetId}</div>
+             : null}
+          </div> : null}
         </div>
       </div>
       {visible ? <AssetsModal assetType={assetType} visible={visible} onlySync={true} onConfirm={handleConfirm} onCancel={() => setVisible(false)} /> : null}

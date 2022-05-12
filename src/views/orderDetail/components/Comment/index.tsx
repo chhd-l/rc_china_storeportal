@@ -72,9 +72,9 @@ const OrderComment = ({
         {comments.map((item, index) => {
           return (
             <div className={`mb-2 pb-2 ${index !== comments.length - 1 ? 'border-b' : ''}`}>
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <span className="flex items-center">
-                  <img className="inline-block align-middle" src={userIcon} alt={''} />
+                  <img className="w-10 h-10 rounded-full" src={item?.avatarUrl||userIcon} alt={''} />
                   <span className="ml-2">
                     {item.createdBy}
                     <br />

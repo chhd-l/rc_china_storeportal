@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom'
 import { initOrderDetail } from './modules/constants'
 import { ContentContainer, InfoContainer, DivideArea } from '@/components/ui'
 import { getOrderDetail } from '@/framework/api/get-order'
+import { Empty } from 'antd'
 
 const OrderDetail = () => {
   const [orderId, setOrderId] = useState('')
@@ -38,7 +39,7 @@ const OrderDetail = () => {
 
   return (
     <>
-      {orderDetail ? (
+      {orderDetail?.id ? (
         <ContentContainer>
           <div className="flex flex-row">
             <div className="mr-4 w-3/4">
@@ -77,7 +78,7 @@ const OrderDetail = () => {
             </div>
           </div>
         </ContentContainer>
-      ) : null}
+      ) : <Empty className='mt-48' image={Empty.PRESENTED_IMAGE_SIMPLE}/>}
     </>
   )
 }

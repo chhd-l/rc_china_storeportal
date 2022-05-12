@@ -19,7 +19,7 @@ const Index = ({ accountList, getAccounts, pages, setPages, total, loading, setL
   const [imgModal, setImgModal] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [ID, setID] = useState('')
-  const [item, setItem] = useState({})
+  const [item, setItem] = useState<any>({})
   const [imgUrl, setImgUrl] = useState('')
 
   const handleOk = async (id: string) => {
@@ -176,7 +176,7 @@ const Index = ({ accountList, getAccounts, pages, setPages, total, loading, setL
       </Modal>
       <Modal
         className="rc-modal"
-        title='Enable/Disable Item'
+        title={item?.isActive ? "Enable Item" : "Disable Item"}
         visible={isOpen}
         confirmLoading={loading}
         onOk={() => handleOpenOk(item)}
@@ -184,7 +184,7 @@ const Index = ({ accountList, getAccounts, pages, setPages, total, loading, setL
         okText='Confirm'
       // mask={false}
       >
-        <div>Are you sure you want to enable/disable the item ?</div>
+        <div>Are you sure you want to {item.isActive ? "enable" : "disable"} the item ?</div>
       </Modal>
       <Modal
         visible={imgModal}
