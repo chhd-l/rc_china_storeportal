@@ -1,23 +1,29 @@
 import './index.less'
-import { Button, Switch, Space, Input } from 'antd'
-import { EditOutlined, PlusOutlined } from '@ant-design/icons'
+import { Button, Switch, Space, Input,Checkbox,Modal } from 'antd'
+import { CheckOutlined, CloseOutlined, EditOutlined,PlusOutlined } from '@ant-design/icons'
 import ProTable from '@/components/common/ProTable'
-import { useEffect, useState } from 'react'
+import { useEffect, useState,useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { ProColumns } from '@ant-design/pro-table'
-import { useLocation, useParams } from 'react-router-dom'
-import { ProductForCateProps } from '@/framework/types/product'
+import {  useParams } from 'react-router-dom'
 import ManualSelection from './components/ManualSelection'
-import { getFindShopCategoryGoodsPage } from '@/framework/api/get-product'
+import { detleShopCateRel, getFindShopCategoryGoodsPage, updateShopCategory } from '@/framework/api/get-product'
+import { ContentContainer, SearchContainer, TableContainer } from '@/components/ui'
 import { formatMoney, handlePageParams } from '@/utils/utils'
 import IconFont from '@/components/common/IconFont'
-
 const { Search } = Input
 
 const CategoryDetail = () => {
-  const location = useLocation()
   const params = useParams()
+  const [indeterminate, setIndeterminate] = useState(false);
+  const [checkAll, setCheckAll] = useState(false);
+  const [curAssetId, setCurAssetId] = useState('')
+  const [show, setShow] = useState(false)
+  const [name, setName] = useState('')
+  const [selectedRowKeys, setSelectedRowKeys] = useState([''])
   const [manualSelectionVisible, setManualSelectionVisible] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
+  const [isModalVisible, setIsModalVisible] = useState(false)
   const [cateInfos, setCateInfos] = useState({
     categoryType: '',
     displayName: '',
@@ -25,6 +31,33 @@ const CategoryDetail = () => {
     name: null,
     rank: null,
   })
+  const ref = useRef<any>()
+  const onCheckAllChange = (e:any) => {
+    setIndeterminate(false);
+    setCheckAll(e.target.checked);
+  };
+  const onSelectChange = (selectedRowKeys: any,selectedRows:any) => {
+    const {id} = params
+    // let data= selectedRows.map((item:any)=>{
+    //   return{
+    //     goodsId: item.id,
+    //     shopCategoryId: id,
+    //     storeId: item.storeId
+    //   }
+    // })
+    setSelectedRowKeys(selectedRowKeys)
+  }
+  const confirmDelete = async () => {
+    setLoading(true)
+    detleShopCateRel([curAssetId]).then((res) => {
+      if (res) {
+        setIsModalVisible(false)
+        ref.current.reload()
+      }
+    })
+    setLoading(false)
+  }
+
   const setNum = (arr: any) => {
     let result = 0
     for (let i = 0; i < arr.length; i++) {
@@ -41,9 +74,10 @@ const CategoryDetail = () => {
       isNeedTotal: true,
       sample: {
         shopCategoryId: id,
+        goodsName:page.goodsName
       },
     })
-    let meta = res?.findShopCategoryGoodsPage.meta
+    let meta = res?.findShopCategoryGoodsPage?.meta
     if (meta?.id) {
       setCateInfos(meta)
     }
@@ -54,21 +88,24 @@ const CategoryDetail = () => {
     const { id } = params
   }, [])
   const handleManualVisible = (visible: boolean) => {
+    ref.current.reload()
     setManualSelectionVisible(visible)
-  }
-  const hanleChangeVisble = (visible: boolean) => {
-    console.info(visible)
   }
   const columns: ProColumns<any>[] = [
     {
       title: 'product Name',
       dataIndex: 'goodsName',
       hideInSearch: true,
-      render:(_,record)=>{
-        return(
-          <span>{record.goodsName}</span>
+      render: (_, record) => {
+        return (
+          <div className='flex al-cneter'>
+            <img src={record.goodsVariants[0]?.defaultImage} alt='' style={{ width: '50px', marginRight: '10px' }} />
+            <div>
+              <div>{record.goodsName}</div>
+            </div>
+          </div>
         )
-      }
+      },
     },
     {
       title: 'Price',
@@ -109,7 +146,8 @@ const CategoryDetail = () => {
       render: (_, record) => {
         return (
           <Link to='' className='mr-4 text-xl' onClick={() => {
-
+            setCurAssetId(record.shopCategoryGoodsRelationId)
+            setIsModalVisible(true)
           }}>
             <IconFont type='icon-delete' />
           </Link>
@@ -117,7 +155,8 @@ const CategoryDetail = () => {
       },
     },
     {
-      dataIndex: 'productName',
+      dataIndex: 'goodsName',
+      hideInTable: true,
       renderFormItem: (_, { type, defaultRender, ...rest }, form) => {
         return (
           <Space direction='vertical' className='search-input'>
@@ -131,18 +170,57 @@ const CategoryDetail = () => {
   ]
 
   return (
-    <div className='category-detail  bg-gray-50 py-14 px-20 text-left'>
+    <ContentContainer>
+    <div className='category-detail'>
       <div className='bg-white mb-8 px-6 py-4'>
         <div className='flex justify-between'>
           <div className='font-bold text-lg'>
-            {cateInfos.displayName} <EditOutlined />
+            {
+              show?<div>
+                <Input.Group compact>
+                  <Input style={{ width: '200px' }} defaultValue={cateInfos.displayName} onChange={(e) => {
+                    setName(e.target.value)
+                  }} />
+                  <Button icon={<CheckOutlined />} onClick={() => {
+                    const {id} = params
+                    updateShopCategory({
+                      id,
+                      displayName: name
+                    }).then((res) => {
+                      if (res) {
+                        setShow(false)
+                        ref.current.reload()
+                      }
+                    })
+                  }} />
+                  <Button icon={<CloseOutlined />} onClick={() => {
+                    setName('')
+                    setShow(false)
+                  }} />
+                </Input.Group>
+              </div>:
+                <div className='edit-name'>
+                <span className='edit-display-name'>{cateInfos.displayName}</span>
+                <EditOutlined onClick={() => {
+                  setShow(true)
+                  setName(cateInfos.displayName)
+                }} style={{ fontSize: '16px', color: '#ee4d2d' }} />
+              </div>
+            }
           </div>
           <div>
-            Activate the category make it visible
             <Switch
               className='ml-3'
               checked={cateInfos.isDisplay}
-              onChange={hanleChangeVisble}
+              onChange={(checked: boolean) => {
+                const {id} = params
+                updateShopCategory({
+                  id,
+                  isDisplay: checked,
+                }).then(() => {
+                  ref.current.reload()
+                })
+              }}
             />
           </div>
         </div>
@@ -170,7 +248,14 @@ const CategoryDetail = () => {
           </Button>
         </div>
         <ProTable
+          actionRef={ref}
           columns={columns}
+          toolBarRender={false}
+          // rowSelection={{ selectedRowKeys, onChange: onSelectChange }}
+          tableAlertRender={() => false}
+          pagination={{
+            showTotal: (total: number) => ``,
+          }}
           search={{
             optionRender: false,
             collapsed: false,
@@ -183,11 +268,12 @@ const CategoryDetail = () => {
               currentPage: params.current,
               pageSize: params.pageSize,
             })
-            let tableData = await getList(page)
+            let tableData = await getList({ ...page,goodsName:params.goodsName })
             if (tableData === undefined && page.offset >= 10) {
               tableData = await getList({
                 offset: page.offset - 10,
                 limit: page.limit,
+                goodsName:params.goodsName
               })
             }
             console.log(tableData,99)
@@ -203,7 +289,22 @@ const CategoryDetail = () => {
         visible={manualSelectionVisible}
         handleVisible={handleManualVisible}
       />
+      <Modal
+        className='rc-modal'
+        title='Delete Item'
+        okText='Confirm'
+        visible={isModalVisible}
+        onOk={confirmDelete}
+        confirmLoading={loading}
+        onCancel={() => setIsModalVisible(false)}
+      >
+        <p>Are you sure you want to delete the item?</p>
+      </Modal>
+      {/*<Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>*/}
+      {/*  Check all*/}
+      {/*</Checkbox>*/}
     </div>
+    </ContentContainer>
   )
 }
 

@@ -1,5 +1,5 @@
 import './index.less'
-import { message, Input, Form, Select, Col } from 'antd'
+import { message, Input, Form, Select, Col,Button  } from 'antd'
 import { ModalForm, ProFormMoney } from '@ant-design/pro-form'
 import { useParams } from 'react-router-dom'
 import { useState, useEffect,useRef } from 'react'
@@ -253,12 +253,26 @@ const ManualSelection = ({ visible, handleVisible }: ManualSelectionProps) => {
         rowKey={({ id }) => id}
         className='pt-4 bg-white'
         dateFormatter='string'
+        pagination={{
+          showTotal: (total: number) => ``,
+        }}
         search={{
           defaultCollapsed: false,
           span: 12,
           labelWidth: 'auto',
           searchText: 'Search',
           className: 'my-search',
+          optionRender:({ searchText, resetText },{form},dom)=>[
+            <Button  type="primary"
+            onClick={()=>{
+              form?.submit()
+            }}
+            >{searchText}</Button>,
+            <Button onClick={()=>{
+              form?.resetFields()
+              form?.submit()
+            }}>{resetText}</Button>,
+          ]
         }}
       />
     </ModalForm>

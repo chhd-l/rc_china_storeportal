@@ -230,7 +230,7 @@ export const createShopCategoryGoodsRel = async (params: ShopCategoryGoodsRelInp
   }
 }
 
-export const updateShopCategory = async (params: ShopCategoryUpdateInput): Promise<any> => {
+export const updateShopCategory = async (params: any): Promise<any> => {
   try {
     let res = await ApiRoot.products().updateShopCategory({ body: params })
     return res
@@ -259,8 +259,7 @@ export const saveShopCategory = async (params: SaveShopCategoryInput): Promise<a
 
 export const detleShopCateRel = async (id: string[]): Promise<any> => {
   try {
-    let res = await ApiRoot.products().detleShopCateRel({ id })
-    console.info('detleShopCateRel', res)
+    return await ApiRoot.products().detleShopCateRel({ id })
   } catch (e) {
     console.log(e)
   }

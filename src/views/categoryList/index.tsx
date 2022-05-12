@@ -4,6 +4,7 @@ import { CheckOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons'
 import './index.less'
 import AddCate from './components/AddCate'
 import ProTable, { ProColumns } from '@/components/common/ProTable'
+import { ContentContainer } from '@/components/ui'
 import { useEffect, useRef, useState } from 'react'
 import { CategoryBaseProps } from '@/framework/types/product'
 import { getShopCategories, updateShopCategory } from '@/framework/api/get-product'
@@ -18,6 +19,8 @@ const ShopCategories = () => {
   const [name, setName] = useState('')
   const [curAssetId, setCurAssetId] = useState('')
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const [isSwithVisible, setIsSwithVisible] = useState(false)
+  const [status, setStatus] = useState(false)
   const [show, setShow] = useState(false)
   const ref = useRef<any>()
   const handleAddCate = (visible: boolean) => {
@@ -25,9 +28,6 @@ const ShopCategories = () => {
   }
   const handleUpdate = (visible: boolean) => {
     ref.current.reload()
-  }
-  const onRow = () => {
-    console.log(1)
   }
   const getList = async (page: any) => {
     return await getShopCategories({
@@ -48,6 +48,19 @@ const ShopCategories = () => {
     }).then((res) => {
       if (res) {
         setIsModalVisible(false)
+        ref.current.reload()
+      }
+    })
+    setLoading(false)
+  }
+  const confirmSwitch = async () => {
+    setLoading(true)
+    updateShopCategory({
+      id: curAssetId,
+      isDisplay:status,
+    }).then((res) => {
+      if (res) {
+        setIsSwithVisible(false)
         ref.current.reload()
       }
     })
@@ -128,12 +141,9 @@ const ShopCategories = () => {
           checked={record.isDisplay}
           disabled={record.productNum < 1}
           onChange={(checked: boolean) => {
-            updateShopCategory({
-              ...record,
-              isDisplay: checked,
-            }).then(() => {
-              ref.current.reload()
-            })
+            setStatus(!record.isDisplay)
+            setCurAssetId(record.id)
+            setIsSwithVisible(true)
           }}
         />
       ),
@@ -189,7 +199,8 @@ const ShopCategories = () => {
     },
   ]
   return (
-    <div className='shop-categories bg-gray-50 py-14 px-6 text-left'>
+    <ContentContainer>
+    <div className='shop-categories'>
       <div className='bg-white p-6 '>
         <div className='flex justify-between'>
           <div className='text-xl font-semibold'>My Shop Categories</div>
@@ -255,6 +266,9 @@ const ShopCategories = () => {
               success: true,
             })
           }}
+          pagination={{
+            showTotal: (total: number) => ``,
+          }}
         />
       </div>
       <AddCate visible={addVisible} handleVisible={handleAddCate} handleUpdate={handleUpdate} />
@@ -269,7 +283,19 @@ const ShopCategories = () => {
       >
         <p>Are you sure you want to delete the item?</p>
       </Modal>
+      <Modal
+        className='rc-modal'
+        title='Notice'
+        okText='Confirm'
+        visible={isSwithVisible}
+        onOk={confirmSwitch}
+        confirmLoading={loading}
+        onCancel={() => setIsSwithVisible(false)}
+      >
+        <p>{status?'Are you sure you want to enable the item ?':'Are you sure you want to disable the item ?'}</p>
+      </Modal>
     </div>
+    </ContentContainer>
   )
 }
 
