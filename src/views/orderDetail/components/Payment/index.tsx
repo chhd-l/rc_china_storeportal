@@ -12,9 +12,10 @@ const PaymentInformation = ({ payInfo }: { payInfo: PayInfo | any }) => {
         {payTypeName ? (
           <div className="flex flex-row flex-wrap justify-start text-left text-gray-400">
             <div className="w-1/2">Payment method:{payTypeName}</div>
-            <div className="w-1/2">payWayCode:{payWayCode}</div>
+            <div className="w-1/2">Transaction id:{payWayOrderID}</div>
+            {/*<div className="w-1/2">payWayCode:{payWayCode}</div>*/}
             <div className="w-1/2">Payment time:{payTime}</div>
-            <div className="w-1/2">payWayOrderId:{payWayOrderID}</div>
+
           </div>
         ) : null}
       </div>

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import OrderTable from '@/components/order/OrderTable'
 import { getOrderList } from '@/framework/api/get-order'
 import { PageParamsProps } from '@/framework/types/common'
-import { initPageParams } from '@/lib/constants'
 import { handleQueryParams } from '@/views/orderList/modules/handle-query-params'
 import { OrderSearchParamsProps } from '@/framework/types/order'
 import { initSearchParams } from '@/views/orderList/modules/constants'
@@ -17,20 +16,23 @@ const OrderInformation = ({ id, customerId }: OrderInfoProps) => {
   const [orderList, setOrderList] = useState<any[]>([])
   const [pageParams, setPageParams] = useState<PageParamsProps>({
     currentPage: 1,
-    pageSize: 3
+    pageSize: 3,
   })
   const [total, setTotal] = useState(0)
   const { currentPage, pageSize } = pageParams
   const [searchParams, setSearchParams] = useState<OrderSearchParamsProps>(initSearchParams)
+  const [carrier, setCarrier] = useState('')
 
   const getCustomerOrders = async ({
     searchParams,
     pageParams,
+    carrier,
   }: {
     searchParams: OrderSearchParamsProps
     pageParams: PageParamsProps
+    carrier: string
   }) => {
-    let params = handleQueryParams({ searchParams, pageParams, orderState: '', shoppingCompany: '' })
+    let params = handleQueryParams({ searchParams, pageParams, orderState: '', shoppingCompany: carrier })
     console.log('query orders view params', params)
     const res = await getOrderList({ ...params, sample: { ...params.sample, customerId } })
     console.log('res', res)
@@ -43,12 +45,13 @@ const OrderInformation = ({ id, customerId }: OrderInfoProps) => {
     await getCustomerOrders({
       searchParams,
       pageParams: { currentPage: page, pageSize },
+      carrier,
     })
   }
 
   useEffect(() => {
     if (customerId !== '') {
-      getCustomerOrders({ searchParams, pageParams })
+      getCustomerOrders({ searchParams, pageParams, carrier })
     }
   }, [customerId])
   return (
@@ -63,21 +66,35 @@ const OrderInformation = ({ id, customerId }: OrderInfoProps) => {
             getCustomerOrders({
               searchParams: { ...searchParams, startTime: dateString[0], endTime: dateString[1] },
               pageParams,
+              carrier,
             })
           }}
         />
       </div>
-      <OrderTable orderList={orderList} shipOrCompleteSuccess={getOrderList}/>
-      <div className="flex flex-row justify-end mt-4">
-        <Pagination
-          current={currentPage}
-          total={total}
-          pageSize={pageSize}
-          onChange={changePage}
-          showSizeChanger={false}
-          className="rc-pagination"
-        />
-      </div>
+      <OrderTable
+        orderList={orderList}
+        shipOrCompleteSuccess={getOrderList}
+        changeCarrier={(value: string) => {
+          setCarrier(value)
+          getCustomerOrders({
+            searchParams,
+            pageParams,
+            carrier,
+          })
+        }}
+      />
+      {total > 0 && (
+        <div className="flex flex-row justify-end mt-4">
+          <Pagination
+            current={currentPage}
+            total={total}
+            pageSize={pageSize}
+            onChange={changePage}
+            showSizeChanger={false}
+            className="rc-pagination"
+          />
+        </div>
+      )}
     </div>
   )
 }
