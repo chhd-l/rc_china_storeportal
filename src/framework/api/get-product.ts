@@ -180,9 +180,10 @@ export const getProductDetail = async ({ storeId, goodsId }: { storeId: string, 
 export const deleteProducts = async ({ goodsId }: { goodsId: string[] }) => {
   try {
     const data = await ApiRoot.products().deleteMutation({ goodsId, storeId: '12345678' })
+    return true
   } catch (e) {
     console.log(e)
-    return {}
+    return false
   }
 
 }
@@ -191,9 +192,10 @@ export const deleteProducts = async ({ goodsId }: { goodsId: string[] }) => {
 export const switchShelves = async ({ goodsId, status }: { goodsId: string[], status: boolean }) => {
   try {
     const data = await ApiRoot.products().switchShelvesMutation({ goodsId, status })
+    return true
   } catch (e) {
     console.log(e)
-    return {}
+    return false
   }
 
 }

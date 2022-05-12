@@ -102,7 +102,7 @@ const ListTable = ({ listData, handlePagination, getList, pages, setLoading, loa
         </>
       ) : null}
       {checkedItem ? (
-        <TableFooter getList={getList} list={list}>
+        <TableFooter getList={getList} list={list} setLoading={setLoading} loading={loading}>
           <Checkbox indeterminate={indeterminate} checked={checkedAll} onChange={handleCheckedAll} />
         </TableFooter>
       ) : null}
