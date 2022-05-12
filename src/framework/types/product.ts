@@ -216,8 +216,8 @@ export interface ShopCategoryFilterRulesInput {
 export interface ShopCategoryUpdateInput {
   id: string
   name?: string
-  categoryType: string
-  isDisplay: boolean
+  categoryType?: string
+  isDisplay?: boolean
   displayName?: string
   storeId?: string
   rank?: number
