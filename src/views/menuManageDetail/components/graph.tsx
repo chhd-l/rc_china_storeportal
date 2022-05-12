@@ -64,7 +64,7 @@ const WxMenuGraph = () => {
   return (<div className="wx-container">
     <div className="wx-graph bg-white">
       <div className="wx-header">App</div>
-      <div className="wx-json-data">{jsonData}</div>
+      <div className="wx-json-data text-gray-400 text-sm">{jsonData}</div>
       <div className="wx-menus flex">
         {wxMenus?.map((item, idx) => (
           <div key={idx} className={`wx-menu-item flex-grow ${item.active && (item.sub_button || []).findIndex(item => item.active) < 0 ? 'active' : ''}`} onClick={() => chooseFirstMenu(item.key)}>
