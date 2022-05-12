@@ -14,6 +14,8 @@ import {
   syncTemplateItem,
   updateTemplateMessage,
 } from '@/framework/api/wechatSetting'
+import { useAtom } from 'jotai'
+import { userAtom } from '@/store/user.store'
 
 const TemplateMessage = () => {
   const [addVisible, setAddVisible] = useState(false)
@@ -21,6 +23,8 @@ const TemplateMessage = () => {
   const [cardView, setCardView] = useState(false)
   const [templateMessageList, setTemplateMessageList] = useState<any[]>([])
   const [templateItems, setTemplateItems] = useState<any[]>([])
+  const [userInfo] = useAtom(userAtom)
+
   const handleDelete = async (id: string) => {
     console.info('handleDelete', id)
     const res = await updateTemplateMessage({ id, isDeleted: true })
@@ -54,7 +58,7 @@ const TemplateMessage = () => {
     setIndustryVisible(true)
   }
   const Synchronous = async () => {
-    await syncTemplateItem()
+    await syncTemplateItem({operator:userInfo?.username||'system'})
   }
 
   const getTemplateMessageList = async () => {
