@@ -68,7 +68,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
               alt='' style={{ width: '50px', marginRight: '10px' }} />
             <div>
               <div>{record.goodsName}</div>
-              <div>{record.spuNo}</div>
+              <div className='text-gray-400'>{record.spuNo}</div>
             </div>
           </div>
         )
@@ -242,13 +242,13 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
           if (params.brand) {
             data.sample.brand = params.brand
           }
-          if (params.selectName && params.username) {
-            if (params.selectName === '1') {
-              data.sample.goodsName = params.username
+          if (params.username) {
+            if (params.selectName === '3') {
+              data.sample.spu = params.username
             } else if (params.selectName === '2') {
               data.sample.sku = params.username
             } else {
-              data.sample.spu = params.username
+              data.sample.goodsName = params.username
             }
           }
           let tableData = await getESProducts(data)
