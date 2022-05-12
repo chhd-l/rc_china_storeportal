@@ -1,4 +1,4 @@
-import { Button, Form, Input, Select, Upload } from "antd";
+import { Button, Form, Input, Select, Upload, message } from "antd";
 import { ACCOUNT_FORM, ACCOUNT_FORM_TWO } from "@/views/addAccount/modules/form";
 import { useNavigate } from "react-router";
 import { ContentContainer, InfoContainer } from "@/components/ui";
@@ -7,8 +7,12 @@ import { useState } from "react";
 import './Style.less'
 
 const AddAccount = () => {
+
   const navigator = useNavigate();
+  const [form] = Form.useForm();
   const [ServiceAccount, setServiceAccount] = useState('ServiceAccount')
+  const [qrCodePath, setQrCodePath] = useState('');
+  const [pertificatePath, setPertificatePah] = useState('');
 
   const addAccount = async (values: any) => {
     //新增
@@ -21,12 +25,26 @@ const AddAccount = () => {
     setServiceAccount(v)
   }
 
+  const onUploadChange = (field: string, info: any) => {
+    if (info.file.status === 'done') {
+      form.setFieldsValue({ [field]: info.file.response.url })
+      if (field === 'qrCodePath') {
+        setQrCodePath(info.file.response.url)
+      } else {
+        setPertificatePah(info.file.response.url)
+      }
+    } else if (info.file.status === 'error') {
+      message.error({ className: "rc-message", content: `${info.file.name} file upload failed.`})
+    }
+  }
+
   return (
     <ContentContainer className="addAccount">
       <InfoContainer>
         <div className="text-2xl text-medium mb-4">Add Account</div>
         <Form
           initialValues={{ type: "ServiceAccount" }}
+          form={form}
           // onValuesChange={formValuesChange}
           onFinish={addAccount}
           autoComplete="off"
@@ -74,15 +92,14 @@ const AddAccount = () => {
                           autoSize={{ minRows: 3, maxRows: 5 }}
                         />
                       ) : item.type === "upload" ? (
-                        <Input.Group className="flex w-full">
+                        <Upload name="file" action="https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload" headers={{authorization: 'authorization-text'}} showUploadList={false} onChange={(info: any) => onUploadChange(item.name, info)}>
                           <Input
+                            value={item.name === "qrCodePath" ? qrCodePath : pertificatePath}
                             placeholder={item.placeholder}
-                            // style={{ width: "85%" }}
+                            suffix={<i className="iconfont icon-Frame3"></i>}
+                            readOnly
                           />
-                          <Upload name="logo" action="/upload.do" listType="picture">
-                            <Button>Select</Button>
-                          </Upload>
-                        </Input.Group>
+                        </Upload>
                       ) : (
                         <Input placeholder={item.placeholder} />
                       )}
@@ -128,15 +145,14 @@ const AddAccount = () => {
                           autoSize={{ minRows: 3, maxRows: 5 }}
                         />
                       ) : item.type === "upload" ? (
-                        <Input.Group className="flex">
+                        <Upload name="file" action="https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload" headers={{authorization: 'authorization-text'}} showUploadList={false} onChange={(info: any) => onUploadChange(item.name, info)}>
                           <Input
+                            value={item.name === "qrCodePath" ? qrCodePath : pertificatePath}
                             placeholder={item.placeholder}
-                            style={{ width: "85%" }}
+                            suffix={<i className="iconfont icon-Frame3"></i>}
+                            readOnly
                           />
-                          <Upload name="logo" action="/upload.do" listType="picture">
-                            <Button>Select</Button>
-                          </Upload>
-                        </Input.Group>
+                        </Upload>
                       ) : (
                         <Input placeholder={item.placeholder} />
                       )}
