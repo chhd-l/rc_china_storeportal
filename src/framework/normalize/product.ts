@@ -225,21 +225,24 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
       if (data.id) {
         newVariation.id = data.id
       }
+      debugger
       if (data.goodsVariantBundleInfo) {
-        newVariation.goodsVariantBundleInfo = data.goodsVariantBundleInfo
-        // goodsVariantBundleInfo?.map(el => {
-        //   return {
-        //     id: el.id
-        //     goodsVariantId: el.id
-        //     subGoodsVariantId: String
-        //     bundleNumber: el.bundleNumber,
-        //     skuNo: el.skuNo,
-        //     stock: el.stock,
-        //     storeId: String
-        //     operator: String
-        //     isDeleted: Boolean
-        //   }
-        // })
+        newVariation.goodsVariantBundleInfo = data.goodsVariantBundleInfo?.map((el: any) => {
+          let bundleInfo = {
+            bundleNumber: el.bundleNumber,
+            id: el.bunldeRelId,
+            goodsVariantId: el.goodsVariantId,
+            subGoodsVariantId: el.subGoodsVariantId || data.id,
+            skuNo: el.skuNo,
+          }
+          if (!el.goodsVariantId) {
+            delete bundleInfo.goodsVariantId
+          }
+          if (!el.skuNo) {
+            delete bundleInfo.skuNo
+          }
+          return bundleInfo
+        })
       }
       return newVariation
     })
@@ -320,6 +323,16 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
         }
         if (el?.subscriptionPrice) {
           normaliseData.subscriptionPrice = Number(el.subscriptionPrice)
+        }
+        if (el?.marketingPrice) {
+          normaliseData.subscriptionPrice = Number(el.marketingPrice)
+        }
+        if (el?.goodsVariantBundleInfo?.length) {
+          el?.goodsVariantBundleInfo?.forEach((bundleInfo: any) => {
+            if (bundleInfo.stock) {
+              delete bundleInfo.stock
+            }
+          })
         }
       }
       console.info('normaliseData', normaliseData)
