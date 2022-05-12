@@ -134,7 +134,7 @@ export const normaliseCateIdProps: any = (id: string, list: CateItemProps[], par
   }
 }
 export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
-  let goodsAsserts = (data.goodsAsserts ? [...data.goodsAsserts, data.video] : data.video)?.filter((el: any) => el?.url)?.map((el: any) => {
+  let goodsAsserts = (data.goodsAsserts ? [...data.goodsAsserts, data.video] : [data.video])?.filter((el: any) => el?.url)?.map((el: any) => {
     let asset = {
       artworkUrl: el.url,
       type: el.type,
@@ -227,6 +227,19 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
       }
       if (data.goodsVariantBundleInfo) {
         newVariation.goodsVariantBundleInfo = data.goodsVariantBundleInfo
+        // goodsVariantBundleInfo?.map(el => {
+        //   return {
+        //     id: el.id
+        //     goodsVariantId: el.id
+        //     subGoodsVariantId: String
+        //     bundleNumber: el.bundleNumber,
+        //     skuNo: el.skuNo,
+        //     stock: el.stock,
+        //     storeId: String
+        //     operator: String
+        //     isDeleted: Boolean
+        //   }
+        // })
       }
       return newVariation
     })

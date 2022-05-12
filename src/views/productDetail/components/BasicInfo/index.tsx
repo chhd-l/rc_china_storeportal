@@ -48,12 +48,10 @@ const BasicInfo = ({ field, form }: FormProps) => {
     console.info('setAssetsUrl', newAssets)
   }
   const handleVideoUrl = ({ url, idx, type, id }: uploadHandleProps) => {
-    if (url) {
-      setvideoUrl({ url, idx, type, id })
-      form.setFieldsValue({
-        video: { url, type, id },
-      })
-    }
+    setvideoUrl({ url, idx, type, id })
+    form.setFieldsValue({
+      video: { url, type, id },
+    })
   }
   useEffect(() => {
     if (detail?.goodsAsserts) {
@@ -64,7 +62,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
           newAssets[idx] = { url: img.url, id: img.id, type: img.type || 'image', key: img.id }
         })
       let videoUrl = detail?.goodsAsserts?.find((el: any) => el.type === 'video')
-      handleVideoUrl(videoUrl)
+      videoUrl && handleVideoUrl(videoUrl)
       setInitAsserts(newAssets)
     }
   }, [detail?.goodsAsserts])
