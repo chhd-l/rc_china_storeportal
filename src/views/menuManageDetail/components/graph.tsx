@@ -1,10 +1,12 @@
 import React from 'react'
+import { Button } from 'antd'
 import { WxMenuContext, setActiveWxMenu } from '../context'
 import { uuid } from '@/utils/utils'
 import _ from 'lodash';
 
 const WxMenuGraph = () => {
   const { wxMenus, setWxMenus } = React.useContext(WxMenuContext)
+  const [jsonData, setJsonData] = React.useState<string>("")
 
   const addNewMainMenu = () => {
     const newWxMenus = _.cloneDeep(wxMenus) || [];
@@ -55,9 +57,14 @@ const WxMenuGraph = () => {
     setWxMenus && setWxMenus(_.cloneDeep(newWxMenus))
   }
 
+  const genWxMenuData = () => {
+    setJsonData(JSON.stringify({button: wxMenus || []}))
+  }
+
   return (<div className="wx-container">
     <div className="wx-graph bg-white">
       <div className="wx-header">App</div>
+      <div className="wx-json-data text-gray-400 text-sm">{jsonData}</div>
       <div className="wx-menus flex">
         {wxMenus?.map((item, idx) => (
           <div key={idx} className={`wx-menu-item flex-grow ${item.active && (item.sub_button || []).findIndex(item => item.active) < 0 ? 'active' : ''}`} onClick={() => chooseFirstMenu(item.key)}>
@@ -74,6 +81,9 @@ const WxMenuGraph = () => {
         ))}
         {(wxMenus ?? []).length < 3 ? <div key="main-add" className="wx-menu-item flex-grow" onClick={() => addNewMainMenu()}>+ Menu</div> : null}
       </div>
+    </div>
+    <div className="my-8 text-center">
+      <Button type="primary" onClick={genWxMenuData}>Generate menu data</Button>
     </div>
   </div>)
 }
