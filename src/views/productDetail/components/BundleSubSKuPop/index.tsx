@@ -3,7 +3,7 @@ import { getBundleGoodsvariants, getCategories } from '@/framework/api/get-produ
 // import { categoryList } from '@/framework/mock/categorylist'
 import { getTree } from '@/framework/normalize/product'
 import { CateItemProps } from '@/framework/schema/product.schema'
-import { formatMoney } from '@/utils/utils'
+import { formatMoney, handlePageParams } from '@/utils/utils'
 import { ProFormInstance } from '@ant-design/pro-form'
 import { ProColumns } from '@ant-design/pro-table'
 import { Input, Modal, Select, Space } from 'antd'
@@ -166,9 +166,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
         request={async (params, sorter, filter) => {
           // 表单搜索项会从 params 传入，传递给后端接口。
           console.log('test sort', params, sorter, filter)
-
-          let limit = params.pageSize
-          let offset = params.current - 1
+          let pageParams = handlePageParams({ currentPage: params.current, pageSize: params.pageSize })
           delete params.current
           delete params.pageSize
           let sample: any = {
@@ -182,13 +180,14 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
             sample.startPrice = startPrice
           }
           delete sample.search
-          console.info('sample', sample)
-          let res = await getBundleGoodsvariants({
-            limit,
+          console.info('pageParams', pageParams)
+          let paramsData = {
+            ...pageParams,
             isNeedTotal: true,
-            offset,
             sample,
-          })
+          }
+          let res = await getBundleGoodsvariants(paramsData)
+
           let list = res.records || []
           allPageList.unshift(...list)
           console.info('allPageList', allPageList)

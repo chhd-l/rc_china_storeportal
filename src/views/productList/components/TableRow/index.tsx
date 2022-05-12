@@ -1,11 +1,11 @@
 import { ProductListItemProps, TableHeadersItemProps } from '@/framework/types/product'
 import { DownOutlined, UpOutlined } from '@ant-design/icons'
-import { Checkbox, Tooltip, Modal, Image } from 'antd'
+import { Checkbox, Tooltip, Modal, Image, message } from 'antd'
 import ShowMoreButton from '../ShowMoreButton'
 import { Link } from 'react-router-dom'
 import { deleteProducts, switchShelves } from '@/framework/api/get-product'
 import { useState } from 'react'
-import "./index.less"
+import './index.less'
 
 interface TableRowProps {
   spu: ProductListItemProps
@@ -115,7 +115,12 @@ const TableRow = ({
                 let { shelvesStatus } = listData[spuIdx]
                 try {
                   setLoading(true)
-                  await switchShelves({ goodsId: [listData[spuIdx]?.id], status: !shelvesStatus })
+                  let res = await switchShelves({ goodsId: [listData[spuIdx]?.id], status: !shelvesStatus })
+                  if (res) {
+                    message.success({ className: 'rc-message', content: 'Operation success' })
+                  } else {
+                    message.error({ className: 'rc-message', content: 'Operation failed' })
+                  }
                   await getList()
                 } catch (err) {
                   console.info('err', err)
@@ -138,7 +143,7 @@ const TableRow = ({
         <Modal
           title='Delete Product'
           visible={isModalVisible}
-          okText="Delete"
+          okText='Delete'
           onOk={() => handleOk(listData[spuIdx]?.id)}
           onCancel={handleCancel}
         >
@@ -146,7 +151,7 @@ const TableRow = ({
             Are you sure want to delete the following product ? Warning: You cannot undo this action!
           </div>
           <p className='flex items-center'>
-            <Image width={110}  className="img" src={listData[spuIdx]?.img} />
+            <Image width={110} className='img' src={listData[spuIdx]?.img} />
             <div className='font-semibold w-full pl-4'>{listData[spuIdx]?.name}</div>
           </p>
         </Modal>
