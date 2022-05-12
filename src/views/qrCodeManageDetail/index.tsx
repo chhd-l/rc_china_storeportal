@@ -9,6 +9,7 @@ import "./index.less"
 import { createQrCode } from "@/framework/api/wechatSetting";
 import { useNavigate } from "react-router";
 import { useState } from "react";
+import moment from "moment";
 // const mockData = Mock.mock(mockList).list[0]
 // mockData.img = [{ url: mockData.img }] //单独处理图片数据
 
@@ -43,6 +44,13 @@ const QRCodeType = (v: string) => {
   setIsOpen(v)
 }
 
+const disabledDate = (cut: any) => {
+  const time = 30*24*60*60*1000
+  const pickTime = new Date(cut._d).getTime()
+  const dateTime = new Date().getTime() - 24*60*60*1000
+  return !((pickTime > dateTime) && ((pickTime - dateTime < time) && (pickTime - dateTime >= 0)))
+}
+
   return (
     <ContentContainer className="qr-code-manage-detail">
       <InfoContainer title="Add QR Code">
@@ -51,6 +59,9 @@ const QRCodeType = (v: string) => {
           className="w-1/2 "
           layout="horizontal"
           onFinish={async (values) => {
+            if(values.expiredTime) {
+              values.expiredTime = moment(values.expiredTime).utc().format()
+            }
             await createQrCode({...values, accountId: "000001"}).then(() => {
               navigator("/QrcodeManage/qrcode-manage-list");
             })
@@ -78,7 +89,7 @@ const QRCodeType = (v: string) => {
               message: "Please select QR Code Type!",
             },
           ]}>
-            <InputNumber min={0} controls={false} style={{width: '100%'}} placeholder='input' />
+            <DatePicker disabledDate={disabledDate} style={{width: '100%'}} placeholder='select' />
           </Form.Item>
           {
             (isOpen === 'QR_SCENE' || isOpen === 'QR_LIMIT_SCENE') ? (
@@ -88,7 +99,7 @@ const QRCodeType = (v: string) => {
                   message: "Please input Scenario ID!",
                 },
               ]}>
-                <InputNumber min={0} controls={false} style={{width: '100%'}} placeholder='input' />
+                <InputNumber min={0} style={{width: '100%'}} placeholder='input'/>
               </Form.Item>
             ) : (
               <Form.Item label='Scenario STR' name='scenarioStr' key='scenarioStr' rules={[

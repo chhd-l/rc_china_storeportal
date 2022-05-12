@@ -108,6 +108,7 @@ const TemplateMessageDetail = () => {
                   name="templateId"
                   label="Template ID"
                   placeholder="Please input Template ID"
+                  disabled 
                 />
                 <ProFormSelect
                   colProps={{ span: 12 }}
@@ -128,12 +129,14 @@ const TemplateMessageDetail = () => {
                   name="title"
                   label="Template Name"
                   placeholder="Please input Template Name"
+                  disabled 
                 />
                 <ProFormText
                   colProps={{ span: 12 }}
                   name="primaryIndustry"
                   label="Primary Industry"
                   placeholder="Please input Primary Industry"
+                  disabled
                 />
               </ProForm.Group>
               <ProForm.Group>
@@ -142,6 +145,7 @@ const TemplateMessageDetail = () => {
                   name="deputyIndustry"
                   label="Secondary Industry"
                   placeholder="Please input Secondary Industry"
+                  disabled
                 />
                 <ProFormText
                   colProps={{ span: 12 }}
