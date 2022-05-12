@@ -122,3 +122,47 @@ export const uuid = () => {
     return v.toString(16);
   })
 }
+
+
+// 获取cookie
+export const getCookie = (key: string) => {
+  if (document.cookie.length > 0) {
+    var start = document.cookie.indexOf(key + '=')
+    if (start !== -1) {
+      start = start + key.length + 1
+      var end = document.cookie.indexOf(';', start)
+      if (end === -1) end = document.cookie.length
+      return unescape(document.cookie.substring(start, end))
+    }
+  }
+  return ''
+}
+// 保存cookie
+export const setCookie = (cName: string, value: string, expiredays: number) => {
+  var exdate = new Date()
+  exdate.setDate(exdate.getDate() + expiredays)
+  // @ts-ignore
+  document.cookie = cName + '=' + decodeURIComponent(value) + ((expiredays == null) ? '' : ';expires=' + exdate.toGMTString())
+}
+
+export const getAge = (birthdayStr:any) => {
+  if (!birthdayStr) {
+    return ''
+  }
+  let birthday = birthdayStr.split('-')
+  // 新建日期对象
+  let date = new Date()
+  // 今天日期，数组，同 birthday
+  let today = [date.getFullYear(), date.getMonth() + 1, date.getDate()]
+  // 分别计算年月日差值
+  let age = today.map((value, index) => {
+    return value - birthday[index]
+  })
+  if (age[0] > 0) {
+    return age[0]*12
+  } else if (age[1] > 0) {
+    return age[1]
+  } else {
+    return 1
+  }
+}

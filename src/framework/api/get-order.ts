@@ -3,6 +3,7 @@ import { normaliseOrder } from '../normalize/order'
 import ApiRoot from './fetcher'
 import { orderDetailSource, orderListSource } from '@/views/orderDetail/modules/mockdata'
 import Mock from 'mockjs'
+import { initOrderDetail } from '@/views/orderDetail/modules/constants'
 
 const isMock = false
 
@@ -11,7 +12,7 @@ export const getOrderList = async (queryOrderListParams: any): Promise<{ total: 
     if (isMock) {
       return {
         records: Mock.mock(orderListSource('SHIPPED')).array,
-        total: 0
+        total: 0,
       }
     } else {
       let expressCompanies = await getExpressCompanyList()
@@ -48,15 +49,15 @@ export const getOrderDetail = async ({ orderNum }: { orderNum: string }) => {
       return Mock.mock(orderDetailSource('UNPAID'))
     } else {
       let expressCompanies = await getExpressCompanyList()
-      let { getOrder } = await ApiRoot.orders().getOrder({ storeId: '12345678', orderNum })
-      console.info('res', getOrder)
-      const detail = normaliseOrder(getOrder, expressCompanies)
+      let data = await ApiRoot.orders().getOrder({ storeId: '12345678', orderNum })
+      console.info('res', data)
+      const detail = data?.getOrder ? normaliseOrder(data.getOrder, expressCompanies) : initOrderDetail
       console.info('list', detail)
       return detail
     }
   } catch (e) {
     console.log(e)
-    return {}
+    return initOrderDetail
   }
 }
 
@@ -82,7 +83,7 @@ export const getExpressCompanyList = async () => {
         session.set('express-company-list', expressCompanyList)
       }
     }
-    return expressCompanyList||[]
+    return expressCompanyList || []
   } catch (e) {
     console.log(e)
     return []

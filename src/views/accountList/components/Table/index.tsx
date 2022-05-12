@@ -5,19 +5,21 @@ import { Account } from "@/framework/types/wechat";
 import { modifyAccount } from '@/framework/api/wechatSetting'
 import './Style.less'
 
-const Index = ({ accountList, getAccounts, pages, setPages, total }: {
+const Index = ({ accountList, getAccounts, pages, setPages, total, loading, setLoading }: {
   accountList: Account[],
   getAccounts: Function,
   setPages: Function,
   pages: any,
-  total: number
+  total: number,
+  loading: boolean,
+  setLoading: Function
 }) => {
   const navigator = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [imgModal, setImgModal] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [ID, setID] = useState('')
-  const [item, setItem] = useState({})
+  const [item, setItem] = useState<any>({})
   const [imgUrl, setImgUrl] = useState('')
 
   const handleOk = async (id: string) => {
@@ -27,6 +29,7 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
       },
       isDeleted: true
     }
+    setLoading(true)
     await modifyAccount(items)
     getAccounts && getAccounts()
     setIsModalVisible(false)
@@ -36,9 +39,10 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
     const items = {
       account: item,
     }
+    setLoading(true)
     await modifyAccount(items)
     getAccounts && getAccounts()
-    setIsModalVisible(false)
+    setIsOpen(false)
   }
 
   const handleCancel = () => {
@@ -109,15 +113,19 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
               />
             </Tooltip>
           )}
-          <Tooltip title="View QR Code">
-            <span
-              className="cursor-pointer ml-2 iconfont icon-Frame-1 text-red-500 text-xl"
-              onClick={() => {
-                setImgUrl(record.qrCodePath)
-                setImgModal(true)
-              }}
-            />
-          </Tooltip>
+          {
+            record.qrCodePath ? (
+              <Tooltip title="View QR Code">
+                <span
+                  className="cursor-pointer ml-2 iconfont icon-Frame-1 text-red-500 text-xl"
+                  onClick={() => {
+                    setImgUrl(record.qrCodePath)
+                    setImgModal(true)
+                  }}
+                />
+              </Tooltip>
+            ) : null
+          }
         </>
       ),
     },
@@ -127,7 +135,7 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
     <>
       <div className="flex justify-end items-center h-full pb-4 pt-4">
         <Button
-          danger
+          type="primary"
           onClick={() => {
             navigator("/account/add-account");
           }}
@@ -137,6 +145,7 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
       </div>
       <Table
         dataSource={accountList}
+        loading={loading}
         columns={columns}
         rowKey="id"
         className="rc-table"
@@ -154,10 +163,11 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
         }}
       />
       <Modal
-        className="acconutModal"
+        className="rc-modal"
         title='Delete Item'
         visible={isModalVisible}
         onOk={() => handleOk(ID)}
+        confirmLoading={loading}
         onCancel={handleCancel}
         okText='Confirm'
       // mask={false}
@@ -165,15 +175,16 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
         <div>Are you sure you want to delete the item ?</div>
       </Modal>
       <Modal
-        className="acconutModal"
-        title='Delete Item'
+        className="rc-modal"
+        title={item?.isActive ? "Enable Item" : "Disable Item"}
         visible={isOpen}
+        confirmLoading={loading}
         onOk={() => handleOpenOk(item)}
         onCancel={() => setIsOpen(false)}
         okText='Confirm'
       // mask={false}
       >
-        <div>Are you sure you want to delete the item ?</div>
+        <div>Are you sure you want to {item.isActive ? "enable" : "disable"} the item ?</div>
       </Modal>
       <Modal
         visible={imgModal}

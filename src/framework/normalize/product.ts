@@ -134,7 +134,7 @@ export const normaliseCateIdProps: any = (id: string, list: CateItemProps[], par
   }
 }
 export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
-  let goodsAsserts = (data.goodsAsserts ? [...data.goodsAsserts, data.video] : data.video)?.filter((el: any) => el?.url)?.map((el: any) => {
+  let goodsAsserts = (data.goodsAsserts ? [...data.goodsAsserts, data.video] : [data.video])?.filter((el: any) => el?.url)?.map((el: any) => {
     let asset = {
       artworkUrl: el.url,
       type: el.type,
@@ -225,8 +225,24 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
       if (data.id) {
         newVariation.id = data.id
       }
+      debugger
       if (data.goodsVariantBundleInfo) {
-        newVariation.goodsVariantBundleInfo = data.goodsVariantBundleInfo
+        newVariation.goodsVariantBundleInfo = data.goodsVariantBundleInfo?.map((el: any) => {
+          let bundleInfo = {
+            bundleNumber: el.bundleNumber,
+            id: el.bunldeRelId,
+            goodsVariantId: el.goodsVariantId,
+            subGoodsVariantId: el.subGoodsVariantId || data.id,
+            skuNo: el.skuNo,
+          }
+          if (!el.goodsVariantId) {
+            delete bundleInfo.goodsVariantId
+          }
+          if (!el.skuNo) {
+            delete bundleInfo.skuNo
+          }
+          return bundleInfo
+        })
       }
       return newVariation
     })
@@ -307,6 +323,16 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
         }
         if (el?.subscriptionPrice) {
           normaliseData.subscriptionPrice = Number(el.subscriptionPrice)
+        }
+        if (el?.marketingPrice) {
+          normaliseData.subscriptionPrice = Number(el.marketingPrice)
+        }
+        if (el?.goodsVariantBundleInfo?.length) {
+          el?.goodsVariantBundleInfo?.forEach((bundleInfo: any) => {
+            if (bundleInfo.stock) {
+              delete bundleInfo.stock
+            }
+          })
         }
       }
       console.info('normaliseData', normaliseData)

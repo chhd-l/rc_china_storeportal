@@ -1,10 +1,11 @@
 import { ProductListItemProps, TableHeadersItemProps } from '@/framework/types/product'
 import { DownOutlined, UpOutlined } from '@ant-design/icons'
-import { Checkbox, Tooltip, Modal, Image } from 'antd'
+import { Checkbox, Tooltip, Modal, Image, message } from 'antd'
 import ShowMoreButton from '../ShowMoreButton'
 import { Link } from 'react-router-dom'
 import { deleteProducts, switchShelves } from '@/framework/api/get-product'
 import { useState } from 'react'
+import './index.less'
 
 interface TableRowProps {
   spu: ProductListItemProps
@@ -37,8 +38,10 @@ const TableRow = ({
       if (item.dataIndex !== 'name') {
         return (
           <div className='flex-1 flex h-full'>
-            {item.dataIndex === 'price' ? <span className='font-extralight'>￥</span> : ''}
-            {sku[item.dataIndex]}
+            <div className='truncate pr-2'>
+              {item.dataIndex === 'price' ? <span className='font-extralight'>￥</span> : ''}
+              {sku[item.dataIndex]}
+            </div>
           </div>
         )
       }
@@ -65,16 +68,16 @@ const TableRow = ({
           }}
         />
       </div>
-      <div className='w-64 flex py-1'>
-        <div>
+      <div className='w-64 flex py-1 pr-2 overflow-hidden'>
+        <div className='w-20 h-20'>
           <img src={spu.img} className='w-20 h-20' alt={spu.name} />
         </div>
-        <div className='pl-2'>
-          <div className='text-sm mb-1'>{spu.name}</div>
+        <div className='pl-2 flex-1'>
+          <div className='text-sm mb-1 two-lines'>{spu.name}</div>
           <div className='text-gray-400'>{spu.no}</div>
         </div>
       </div>
-      <div className=' w-3/5'>
+      <div className=' w-3/5 overflow-hidden'>
         {spu?.skus?.map((sku: any, index: number) => (
           <div className='flex py-1 justify-stretch items-baseline'>{istb(sku)}</div>
         ))}
@@ -114,7 +117,12 @@ const TableRow = ({
                 let { shelvesStatus } = listData[spuIdx]
                 try {
                   setLoading(true)
-                  await switchShelves({ goodsId: [listData[spuIdx]?.id], status: !shelvesStatus })
+                  let res = await switchShelves({ goodsId: [listData[spuIdx]?.id], status: !shelvesStatus })
+                  if (res) {
+                    message.success({ className: 'rc-message', content: 'Operation success' })
+                  } else {
+                    message.error({ className: 'rc-message', content: 'Operation failed' })
+                  }
                   await getList()
                 } catch (err) {
                   console.info('err', err)
@@ -137,6 +145,7 @@ const TableRow = ({
         <Modal
           title='Delete Product'
           visible={isModalVisible}
+          okText='Delete'
           onOk={() => handleOk(listData[spuIdx]?.id)}
           onCancel={handleCancel}
         >
@@ -144,7 +153,7 @@ const TableRow = ({
             Are you sure want to delete the following product ? Warning: You cannot undo this action!
           </div>
           <p className='flex items-center'>
-            <Image width={110} src={listData[spuIdx]?.img} />
+            <Image width={110} className='img' src={listData[spuIdx]?.img} />
             <div className='font-semibold w-full pl-4'>{listData[spuIdx]?.name}</div>
           </p>
         </Modal>

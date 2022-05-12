@@ -48,12 +48,10 @@ const BasicInfo = ({ field, form }: FormProps) => {
     console.info('setAssetsUrl', newAssets)
   }
   const handleVideoUrl = ({ url, idx, type, id }: uploadHandleProps) => {
-    if (url) {
-      setvideoUrl({ url, idx, type, id })
-      form.setFieldsValue({
-        video: { url, type, id },
-      })
-    }
+    setvideoUrl({ url, idx, type, id })
+    form.setFieldsValue({
+      video: { url, type, id },
+    })
   }
   useEffect(() => {
     if (detail?.goodsAsserts) {
@@ -64,7 +62,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
           newAssets[idx] = { url: img.url, id: img.id, type: img.type || 'image', key: img.id }
         })
       let videoUrl = detail?.goodsAsserts?.find((el: any) => el.type === 'video')
-      handleVideoUrl(videoUrl)
+      videoUrl && handleVideoUrl(videoUrl)
       setInitAsserts(newAssets)
     }
   }, [detail?.goodsAsserts])
@@ -101,7 +99,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         }}
         name='goodsAsserts'
         className='tips-wrap'
-        data-tips={`Product Image:<p>Cover photo should have 1. white background & 2. present obvious product packaging</p><p>Every photos should have fine resolution - pixel doesn't appear breaking when zooming in<p>Product image can add up to 9 photos</p>`}
+        data-tips={`Product Image:<p>Every photos should have fine resolution - pixel doesn't appear breaking when zooming in<p>Product image can add up to 9 photos</p>`}
         wrapperCol={{
           span: 20,
         }}

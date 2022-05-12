@@ -42,7 +42,7 @@ const ViewIndustry: FC<Props> = ({ visible, handleVisible }) => {
         title="View Industry"
         className="view-industry"
         onCancel={closeModal}
-        footer={[<Button onClick={closeModal}>close</Button>]}
+        footer={[<Button onClick={closeModal}>Close</Button>]}
         visible={visible}
       >
         <Button className="flex items-center" onClick={() => Synchronous()}>

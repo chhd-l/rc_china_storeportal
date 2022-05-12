@@ -14,7 +14,7 @@ const ProTableWrap = (props: ProTableProps<any, any>) => {
       pageSize: 10,
       size: 'default',
       showQuickJumper: true,
-      showTotal: (total: number) => `共 ${total} 条`,
+      showTotal: (total: number) => ``,
     },
     headerTitle: '',
     search: {

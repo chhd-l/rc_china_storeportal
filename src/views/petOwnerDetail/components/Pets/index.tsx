@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Pet } from '@/framework/types/customer'
 import React, { useEffect, useState } from 'react'
 import { getPetList } from '@/framework/api/get-pet'
-import "./index.less"
+import './index.less'
 
 const PetInformation = ({ id, customerId }: { customerId: string; id: string }) => {
   const navigator = useNavigate()
@@ -26,10 +26,13 @@ const PetInformation = ({ id, customerId }: { customerId: string; id: string }) 
       <div className="py-4 px-2 border-b text-xl font-medium">Pet Information</div>
       {pets.length > 0 ? (
         <div className="grid grid-cols-2 gap-4">
-          {pets.map((item: Pet,index) => (
-            <div className={`flex justify-between items-center border p-4 mt-4 justify-items-stretch w-full`} key={item.id}>
+          {pets.map((item: Pet, index) => (
+            <div
+              className={`flex justify-between items-center border p-4 mt-4 justify-items-stretch w-full`}
+              key={item.id}
+            >
               <div className="flex flex-row">
-                <Avatar shape="square"  icon={<UserOutlined />} />
+                <Avatar shape="square" icon={item?.image ? <img src={item.image} alt={''} /> : <UserOutlined />} />
                 <div className="ml-4">
                   <div>{item.name}</div>
                   <div className="flex flex-row">

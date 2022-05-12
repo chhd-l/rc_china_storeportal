@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Table, Modal } from "antd"
+import { Button, Table, Modal, message } from "antd"
 import { useNavigate } from 'react-router-dom'
 import "./index.less"
 import { tableColumns, TWxMenuUpdateParam } from "./modules/constant"
@@ -21,7 +21,7 @@ const MenuManage = () => {
 
   const getList = async (pageNumber: number) => {
     const param: PageProps = {
-      offset: pageNumber - 1,
+      offset: pageNumber * 10 - 10,
       limit: 10,
       isNeedTotal: true
     }
@@ -41,14 +41,12 @@ const MenuManage = () => {
     setLoading(true)
     const updated = await updateWxMenu(updateParam)
     if (updated) {
-      setList(list.map((curr) => {
-        if (curr.id === updateParam.id) {
-          curr.isEnabled = updateParam.isEnabled
-        }
-        return curr
-      }))
+      setCurrent(1)
+      getList(1)
+    } else {
+      setLoading(false);
+      message.error({ className: "rc-message", content: "Status update failed" })
     }
-    setLoading(false)
   }
   const handleDelete = (updateParam: TWxMenuUpdateParam) => {
     setIsModalVisible(true)
@@ -61,15 +59,17 @@ const MenuManage = () => {
       setIsModalVisible(false)
       setCurrent(1)
       getList(1)
+    } else {
+      setLoading(false)
+      message.error({ className: "rc-message", content: "Delete failed" })
     }
-    setLoading(false)
   }
   const columns = tableColumns({ changeStatus, handleDelete })
   console.info("sdsd")
   return (
     <ContentContainer className="menu-manage bg-white">
       <div className="btn-area">
-        <Button type="primary" size="large" onClick={() => navigator('/menuManagempqr/menu-manage-add')}>+ Add</Button>
+        <Button className="mt-8 text-white" type="primary" ghost onClick={() => navigator('/menuManagempqr/menu-manage-add')}>+ Add</Button>
       </div>
       <Table
         columns={columns}

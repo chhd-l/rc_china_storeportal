@@ -10,6 +10,7 @@ export interface Account {
 export interface Fans {
   id: string
   account: string
+  accountPrincipal: string
   avatar: string
   name: string
   sex: string

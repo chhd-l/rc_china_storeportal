@@ -53,8 +53,8 @@ const MpQrList = () => {
 
   const columns: ProColumns[] = [
     {
-      title: 'Channel',
-      dataIndex: "accountName",
+      title: 'Official Name',
+      dataIndex: "accountPrincipal",
       valueType: "select",
       valueEnum: list,
     },
@@ -115,7 +115,7 @@ const MpQrList = () => {
         formRef={formRef}
         columns={columns}
         search={{
-          labelWidth: 136,
+          labelWidth: 'auto',
           searchText: 'Search'
         }}
         pagination={{
@@ -138,7 +138,7 @@ const MpQrList = () => {
           })
           depy(val?.records || [])
           const param: any = {}
-          if(params.accountName) param.accountName = params.accountName
+          if(params.accountName) param.accountId = params.accountName
           if(params.scenarioId) param.scenarioId = params.scenarioId
           if(params.key) param.key = params.key
           let res = await getAppQrCodes({

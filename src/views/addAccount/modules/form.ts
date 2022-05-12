@@ -82,18 +82,17 @@ export const ACCOUNT_FORM: FormItemProps[] = [
     placeholder: "Input",
   },
   {
-    // 更改成Pertificate Path
     name: "managementMode",
-    label: "Pertificate Path",
-    placeholder: "Input",
-    type: "upload",
-    // rules: [
-    //   {
-    //     required: true,
-    //     message: "Please select Pertificate Path!",
-    //   },
-    // ],
-    // selectList: manageModeList,
+    label: "Management Mode",
+    placeholder: "Select",
+    type: "select",
+    rules: [
+      {
+        required: true,
+        message: "Please select Management Mode!",
+      },
+    ],
+    selectList: manageModeList,
   },
   {
     name: "pushServerURL",
@@ -103,7 +102,7 @@ export const ACCOUNT_FORM: FormItemProps[] = [
   {
     name: "officialAccountType",
     label: "Official Account Type",
-    placeholder: "select",
+    placeholder: "Select",
     type: "select",
     rules: [
       {
@@ -138,13 +137,13 @@ export const ACCOUNT_FORM: FormItemProps[] = [
   {
     name: "certificatePath",
     label: "Pertificate Path",
-    placeholder: "Input",
+    placeholder: "Click to select",
     type: "upload",
   },
   {
     name: "qrCodePath",
     label: "QR Code Path",
-    placeholder: "Input",
+    placeholder: "Click to select",
     type: "upload",
   },
   {
@@ -237,7 +236,7 @@ export const ACCOUNT_FORM_TWO: FormItemProps[] = [
   {
     name: "certificatePath",
     label: "Pertificate Path",
-    placeholder: "Input",
+    placeholder: "Click to select",
     type: "upload",
   },
 ];

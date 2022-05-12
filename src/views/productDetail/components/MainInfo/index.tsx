@@ -42,6 +42,19 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
       false,
     )
   }, [])
+  const validateRepeat = (data: any, keyVal: string, errMsg: string) => {
+    let repeatErrMsg = ''
+    let repeatArr: any = []
+    data?.forEach((el: any) => {
+      let name = el?.[keyVal]?.toLowerCase()
+      if (repeatArr.includes(name)) {
+        repeatErrMsg = errMsg
+        return
+      }
+      repeatArr.push(name)
+    })
+    return repeatErrMsg
+  }
   const validateNullData = (data: any, keyLableRel: any) => {
     // keyLableRel需要校验的字段key和lable数组
     let nodataKey: any = []
@@ -155,6 +168,19 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
         repeatOptionArr.push(name)
       })
     }
+    // 同一spu下，sku丶sku name丶ean需要唯一
+    if (detail.goodsVariantsInput) {
+      if (!repeatErrMsg) {
+        repeatErrMsg = validateRepeat(detail.goodsVariantsInput, 'skuNo', 'SkuNo repeat')
+      }
+      if (!repeatErrMsg) {
+        repeatErrMsg = validateRepeat(detail.goodsVariantsInput, 'skuName', 'SkuName repeat')
+      }
+      if (!repeatErrMsg) {
+        repeatErrMsg = validateRepeat(detail.goodsVariantsInput, 'eanCode', 'EanCode repeat')
+      }
+    }
+
     if (repeatErrMsg) {
       message.error({ className: 'rc-message', content: repeatErrMsg })
       console.info('....', repeatErrMsg)
@@ -170,46 +196,41 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
       params.goodsVariantsInput = [
         {
           // skuNo: 'test0001', //to do
-          withoutSku: true,
+          // isWithoutSku: true,
           subscriptionPrice: values.subscriptionPrice,
           subscriptionStatus: values.subscriptionStatus,
           stock: values.stock,
-          listPrice: values.listPrice,
-          marketingPrice: values.marketingPrice,
-          feedingDays: values.feedingDays,
+          listPrice: Number(values.listPrice),
+          marketingPrice: Number(values.marketingPrice),
+          feedingDays: Number(values.feedingDays),
           isSupport100: values.isSupport100,
           id: detail.skuId,
-          defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
+          // defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
+          goodsVariantBundleInfo: detail.goodsVariantBundleInfo?.map((el: any) => {
+            let bundleInfo = {
+              bundleNumber: el.bundleNumber,
+              id: el.bunldeRelId,
+              goodsVariantId: el.goodsVariantId,
+              subGoodsVariantId: el.subGoodsVariantId || detail.skuId,
+              skuNo: el.skuNo,
+            }
+            if (!el.goodsVariantId) {
+              delete bundleInfo.goodsVariantId
+            }
+            if (!el.skuNo) {
+              delete bundleInfo.skuNo
+            }
+            return bundleInfo
+          }),
         },
       ]
       if (detail.goodsVariantBundleInfo?.length) {
         params.goodsVariantsInput[0].goodsVariantBundleInfo = detail.goodsVariantBundleInfo
       }
       if (detail.id) {
-        //编辑
+        //编辑 全量
         if (!detail.editChange.goodsVariants) {
-          detail.editChange.goodsVariants = [
-            {
-              stock: Number(values.stock),
-              id: detail.skuId,
-              goodsVariantBundleInfo: detail.goodsVariantBundleInfo?.map((el: any) => {
-                let bundleInfo = {
-                  bundleNumber: el.bundleNumber,
-                  id: el.bunldeRelId,
-                  goodsVariantId: el.goodsVariantId,
-                  subGoodsVariantId: el.subGoodsVariantId || detail.skuId,
-                  skuNo: el.skuNo,
-                }
-                if (!el.goodsVariantId) {
-                  delete bundleInfo.goodsVariantId
-                }
-                if (!el.skuNo) {
-                  delete bundleInfo.skuNo
-                }
-                return bundleInfo
-              }),
-            },
-          ]
+          detail.editChange.goodsVariants = params.goodsVariantsInput
         }
       }
     }

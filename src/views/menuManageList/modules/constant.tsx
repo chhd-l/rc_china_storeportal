@@ -28,8 +28,8 @@ export const tableColumns = ({ handleDelete, changeStatus }: TableColumns) => {
   const columns: ColumnProps<ColumnsProps>[] = [
     {
       title: "Official Account",
-      dataIndex: "accountId",
-      key: "accountId",
+      dataIndex: "accountPrincipal",
+      key: "accountPrincipal",
     },
     {
       title: "Create Time",

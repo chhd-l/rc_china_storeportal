@@ -27,7 +27,7 @@
   }
   .ant-table-thead > tr > th {
     height: 42px;
-    background-color: #F6F6F6;
+    background-color: #f6f6f6;
   }
   .ant-table-cell {
     overflow-wrap: anywhere !important;
@@ -191,6 +191,9 @@
   margin-left: 0 !important;
   padding-left: 0 !important;
 }
+.ant-upload-list {
+  display: none !important;
+}
 
 .ant-menu-inline,
 .ant-menu-item,
@@ -269,12 +272,12 @@
       font-size: 16px;
       font-weight: 700;
       color: #333333;
-      font-family: 'Roboto';
+      font-family: Roboto-Bold !important;
       font-style: normal;
     }
   }
   .ant-modal-body {
-    font-family: 'Roboto';
+    font-family: Roboto-Regular !important;
     font-style: normal;
     padding: 0 24px 48px 24px;
     color: #333333;
@@ -308,6 +311,13 @@
   .ant-message-notice-content {
     padding: 0;
     box-shadow: none;
+    .ant-message-custom-content{
+      display: inline-flex;
+      align-items: center;
+      .anticon{
+        top:0;
+      }
+    }
     .ant-message-success {
       background: #e8ffea;
       border: 1px solid #00ca48;
@@ -322,8 +332,8 @@
 }
 
 //antd-timeline
-.rc-timeline{
-  .ant-timeline-item-head{
-    background-color: var(--ant-primary-color)
+.rc-timeline {
+  .ant-timeline-item-head {
+    background-color: var(--ant-primary-color);
   }
 }

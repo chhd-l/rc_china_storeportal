@@ -27,10 +27,15 @@ const Search = ({
   const search = (values: any) => {
     const val = {...values}
     if(values?.followTime) {
-      val.followStartTime = moment(values.followTime[1]._d).format('YYYY-MM-DD')
-      val.followEndTime = moment(values.followTime[0]._d).format('YYYY-MM-DD')
+      val.followStartTime = moment(values.followTime[1]._d).utc().format()
+      val.followEndTime = moment(values.followTime[0]._d).utc().format()
       delete val.followTime
     }
+    Object.keys(val).forEach((k) => {
+      if (val[k] === "") {
+        val[k] = undefined
+      }
+    });
     query(pages.page, pages.limit ,val);
   };
 
@@ -47,7 +52,7 @@ const Search = ({
           <Form.Item
             label={item.label}
             name={item.name}
-            // style={style}
+            className='mt-4'
             key={item.name}
           >
             {item.type === "select" ? (

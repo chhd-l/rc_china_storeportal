@@ -100,9 +100,9 @@ export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categ
 }
 
 export const getProduct = async ({
-                                   storeId,
-                                   goodsId,
-                                 }: { storeId: string, goodsId: string }): Promise<ProductDetailProps> => {
+  storeId,
+  goodsId,
+}: { storeId: string, goodsId: string }): Promise<ProductDetailProps> => {
   // debugger
   try {
     const detailinfo = await ApiRoot.products().getProductBySpu({ storeId, goodsId })
@@ -181,9 +181,10 @@ export const getProductDetail = async ({ storeId, goodsId }: { storeId: string, 
 export const deleteProducts = async ({ goodsId }: { goodsId: string[] }) => {
   try {
     const data = await ApiRoot.products().deleteMutation({ goodsId, storeId: '12345678' })
+    return true
   } catch (e) {
     console.log(e)
-    return {}
+    return false
   }
 
 }
@@ -192,9 +193,10 @@ export const deleteProducts = async ({ goodsId }: { goodsId: string[] }) => {
 export const switchShelves = async ({ goodsId, status }: { goodsId: string[], status: boolean }) => {
   try {
     const data = await ApiRoot.products().switchShelvesMutation({ goodsId, status })
+    return true
   } catch (e) {
     console.log(e)
-    return {}
+    return false
   }
 
 }
@@ -230,7 +232,7 @@ export const createShopCategoryGoodsRel = async (params: ShopCategoryGoodsRelInp
   }
 }
 
-export const updateShopCategory = async (params: any): Promise<any> => {
+export const updateShopCategory = async (params: ShopCategoryUpdateInput): Promise<any> => {
   try {
     let res = await ApiRoot.products().updateShopCategory({ body: params })
     return res
@@ -240,7 +242,7 @@ export const updateShopCategory = async (params: any): Promise<any> => {
 }
 
 export const shopCategoryFilterRules = async (params: ShopCategoryFilterRulesInput[]): Promise<any> => {
-  console.log(params,2222222)
+  console.log(params, 2222222)
   try {
     let res = await ApiRoot.products().shopCategoryFilterRules({ body: params })
   } catch (e) {

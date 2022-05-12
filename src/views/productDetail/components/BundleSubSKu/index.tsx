@@ -29,9 +29,13 @@ const BundleSbuSKu = ({
     caclNum(regularList)
   }
   const onChange = (val: number, idx: number) => {
+    debugger
+
     if (!skuItem.goodsVariantBundleInfo) {
       skuItem.goodsVariantBundleInfo = []
     }
+    debugger
+
     if (!skuItem.goodsVariantBundleInfo[idx]) {
       skuItem.goodsVariantBundleInfo[idx] = {}
     }
@@ -48,13 +52,15 @@ const BundleSbuSKu = ({
     caclNum(regularList)
   }
   // 计算数量
-  const caclNum = (regularList: any) => {
+  const caclNum = (regularList: any, isAll?: boolean) => {
     let stockArr = regularList
       ?.filter((el: any, idx: number) => {
         debugger
+        console.info('regularListregularListregularListregularList', regularList)
         let skuStock = el.bundleNumber || 0
+        console.info(el, 'elelelel')
         console.info(el.stock, skuStock, 'skuStockskuStockskuStock')
-        if (skuStock) {
+        if (skuStock && el.stock) {
           el.subSkuStock = Math.floor(el.stock / skuStock)
           console.info('........', skuStock)
         }
@@ -69,9 +75,9 @@ const BundleSbuSKu = ({
     console.info('spuStock', spuStock)
     skuItem.stock = spuStock
     setRegularList(cloneDeep(regularList))
-    updateBundleInfo(skuItem.goodsVariantBundleInfo)
+    updateBundleInfo(regularList, isAll)
   }
-  const updateBundleInfo = (val: any) => {
+  const updateBundleInfo = (val: any, isAll?: boolean) => {
     // debugger
     let bundleInfo = val?.map((el: any) => {
       debugger
@@ -79,6 +85,7 @@ const BundleSbuSKu = ({
         bundleNumber: el.bundleNumber,
         skuNo: el.skuNo,
         subGoodsVariantId: el.subGoodsVariantId,
+        stock: el.stock,
       }
       if (el.id) {
         info.id = el.id
@@ -86,6 +93,10 @@ const BundleSbuSKu = ({
       }
       return info
     })
+    debugger
+    if (isAll) {
+      skuItem.goodsVariantBundleInfo = bundleInfo
+    }
     updateVations(bundleInfo, skuItemIdx, 'goodsVariantBundleInfo', skuItem)
   }
   const chooseBundleSku = (choosedSku: any) => {
@@ -113,8 +124,7 @@ const BundleSbuSKu = ({
     debugger
     //把删除的也存起来
     choosedSku.push(...deletedBundles)
-    skuItem.goodsVariantBundleInfo = choosedSku
-    caclNum(choosedSku)
+    caclNum(choosedSku, true)
   }
   useEffect(() => {
     console.info('testtest', skuItem?.goodsVariantBundleInfo)

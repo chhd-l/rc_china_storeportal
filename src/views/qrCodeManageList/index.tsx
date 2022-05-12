@@ -9,6 +9,7 @@ import { Link } from "react-router-dom"
 import { getAccountList, getQrCodes } from '@/framework/api/wechatSetting'
 import type { ProColumns } from "@ant-design/pro-table";
 import IconFont from "@/components/common/IconFont"
+import moment from "moment"
 // import { tableColumns } from "./modules/constant"
 
 const typeValueEnum = {
@@ -52,7 +53,7 @@ const QrCodeManage = () => {
 
   const columns: ProColumns[] = [
     {
-      title: 'Official Account',
+      title: 'Official Name',
       dataIndex: "accountPrincipal",
       valueType: "select",
       valueEnum: list,
@@ -71,6 +72,7 @@ const QrCodeManage = () => {
       title: "Expired Time",
       dataIndex: "expiredTime",
       hideInSearch: true,
+      render: (text: any) => moment(text).format('YYYY-MM-DD')
     },
     {
       title: "Action",
@@ -92,7 +94,7 @@ const QrCodeManage = () => {
       <ProTable
         columns={columns}
         search= {{
-          labelWidth: 136,
+          labelWidth: 'auto',
           searchText: 'Search'
         }}
         rowKey='id'
@@ -112,16 +114,19 @@ const QrCodeManage = () => {
             sample: {storeId: "12345678"},
           })
           depy(res2?.records || [])
+          const item: any = {
+            offset: (params.current - 1) * 10,
+            limit: params.pageSize,
+            accountId: "000001",
+          }
           const param: any = {}
           if(params.name) param.name = params.name
           if(params.accountPrincipal) param.accountPrincipal = params.accountPrincipal
           if(params.type) param.type = params.type
-          let res = await getQrCodes({
-            offset: (params.current - 1) * 10,
-            limit: params.pageSize,
-            accountId: "000001",
-            sample: param
-          })
+          if(JSON.stringify(param) !== '{}') {
+            item.sample = param
+          }
+          let res = await getQrCodes(item)
           return Promise.resolve({
             data: res.records,
             success: true,
