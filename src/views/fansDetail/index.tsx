@@ -43,7 +43,7 @@ const FansDetail = () => {
                   className="w-1/2"
                   key={item.name}
                 >
-                  <Input disabled value={val} className="bg-white text-black" />
+                  <div className="truncate text-gray-500">{val}</div>
                 </Form.Item>
                 )
             })}

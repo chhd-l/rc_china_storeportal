@@ -3,11 +3,12 @@ import { ADD_VIDEO_FORM } from './modules/form'
 import { useNavigate } from 'react-router'
 import { ContentContainer, InfoContainer } from '@/components/ui'
 import { createMedia } from '@/framework/api/wechatSetting'
-import React from 'react'
+import React, { useState } from 'react'
 
 const AddAccount = () => {
   const navigator = useNavigate()
   const [form] = Form.useForm()
+  const [fileExtension,setFileExtension]=useState('mp4')
 
   const formValuesChange = (changedValues: any, allValues: any) => {
     console.log(changedValues, allValues)
@@ -18,7 +19,7 @@ const AddAccount = () => {
     const res = await createMedia({
       type: 'video',
       url: values.url,
-      fileExtension: 'mp4',
+      fileExtension: fileExtension,
       title: values.title,
       description: values.description,
     })
@@ -29,20 +30,21 @@ const AddAccount = () => {
 
   const uploadProps = {
     name: 'file',
+    accept: 'video/*',
     action: 'https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload',
     headers: {
       authorization: 'authorization-text',
     },
     onChange: async (info: any) => {
-      if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList)
-      }
-      if (info.file.status === 'done') {
-        console.log('success', info.file.response)
-        message.success(`${info.file.name} file uploaded successfully`)
-        form.setFieldsValue({ url: info.file.response.url })
-      } else if (info.file.status === 'error') {
-        message.error(`${info.file.name} file upload failed.`)
+      const { file } = info
+      const { name } = file
+      console.log('upload file', file)
+      if (file.status === 'done') {
+        message.success(`${name} file uploaded successfully`)
+        form.setFieldsValue({ url: file.response.url })
+        setFileExtension(name.substr(name.lastIndexOf('.') + 1))
+      } else if (file.status === 'error') {
+        message.error(`${name} file upload failed.`)
       }
     },
   }
