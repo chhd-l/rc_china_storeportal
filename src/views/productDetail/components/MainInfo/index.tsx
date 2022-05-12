@@ -42,6 +42,19 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
       false,
     )
   }, [])
+  const validateRepeat = (data: any, keyVal: string, errMsg: string) => {
+    let repeatErrMsg = ''
+    let repeatArr: any = []
+    data?.forEach((el: any) => {
+      let name = el?.[keyVal]?.toLowerCase()
+      if (repeatArr.includes(name)) {
+        repeatErrMsg = errMsg
+        return
+      }
+      repeatArr.push(name)
+    })
+    return repeatErrMsg
+  }
   const validateNullData = (data: any, keyLableRel: any) => {
     // keyLableRel需要校验的字段key和lable数组
     let nodataKey: any = []
@@ -155,6 +168,19 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
         repeatOptionArr.push(name)
       })
     }
+    // 同一spu下，sku丶sku name丶ean需要唯一
+    if (detail.goodsVariantsInput) {
+      if (!repeatErrMsg) {
+        repeatErrMsg = validateRepeat(detail.goodsVariantsInput, 'skuNo', 'SkuNo repeat')
+      }
+      if (!repeatErrMsg) {
+        repeatErrMsg = validateRepeat(detail.goodsVariantsInput, 'skuName', 'SkuName repeat')
+      }
+      if (!repeatErrMsg) {
+        repeatErrMsg = validateRepeat(detail.goodsVariantsInput, 'eanCode', 'EanCode repeat')
+      }
+    }
+
     if (repeatErrMsg) {
       message.error({ className: 'rc-message', content: repeatErrMsg })
       console.info('....', repeatErrMsg)
