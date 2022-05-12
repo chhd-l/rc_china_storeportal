@@ -53,7 +53,7 @@ export const tableColumns = ({ handleDelete, templateTitleList, modifyTemplateMe
       },
     },
     {
-      title: 'Application Scenario',
+      title: 'Scenario',
       dataIndex: 'scenario',
       initialValue: 'all',
       order: 2,
