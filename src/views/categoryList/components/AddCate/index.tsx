@@ -4,7 +4,8 @@ import ProForm, {
   ProFormRadio,
   ProFormText,
 } from "@ant-design/pro-form";
-import { useNavigate } from "react-router-dom";
+import { useRef } from 'react'
+import type { ProFormInstance } from '@ant-design/pro-form';
 import { AddCateOptions } from "../../modules/constant";
 import { saveShopCategory } from '@/framework/api/get-product'
 interface AddCateProps {
@@ -13,7 +14,7 @@ interface AddCateProps {
   handleUpdate:(a: boolean)=>void
 }
 const AddCate = ({ visible, handleVisible,handleUpdate }: AddCateProps) => {
-  const navigation = useNavigate();
+  const formRef = useRef<ProFormInstance>();
   const onFinish = async (values: any) => {
    let res= await saveShopCategory({
      storeId: '12345678',
@@ -21,22 +22,23 @@ const AddCate = ({ visible, handleVisible,handleUpdate }: AddCateProps) => {
      categoryType:values.type==='0'?'MANUAL':'RULE_BASED',
      isDisplay:false
    })
-    console.log(res)
     if(res.saveShopCategory.id){
+      formRef?.current?.resetFields()
       handleUpdate(true)
       return true
     } else {
       return false
     }
-    // navigation(`/category/category-detail/add`, { state: { addCateType: values.type } });
   };
   return (
     <ModalForm
       title="Add Category"
       visible={visible}
       onFinish={onFinish}
+      formRef={formRef}
       onVisibleChange={(value) => {
         handleVisible(value);
+        formRef?.current?.resetFields()
       }}
       modalProps={{ width: 520, okText: "Confirm", cancelText: "Cancel" }}
     >
