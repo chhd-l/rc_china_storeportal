@@ -115,7 +115,7 @@ const MpQrList = () => {
         formRef={formRef}
         columns={columns}
         search={{
-          labelWidth: 136,
+          labelWidth: 'auto',
           searchText: 'Search'
         }}
         pagination={{

@@ -47,7 +47,7 @@ const Search = ({
           <Form.Item
             label={item.label}
             name={item.name}
-            // style={style}
+            className='mt-4'
             key={item.name}
           >
             {item.type === "select" ? (
