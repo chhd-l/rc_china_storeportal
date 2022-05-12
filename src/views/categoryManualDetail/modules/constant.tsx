@@ -2,6 +2,8 @@ import { ProductForCateProps } from '@/framework/types/product'
 import { ProColumns } from '@ant-design/pro-table'
 import { Button,Input,Space } from 'antd'
 import { formatMoney } from '@/utils/utils'
+import { Link } from 'react-router-dom'
+import IconFont from '@/components/common/IconFont'
 const {Search} = Input
 export const columns: ProColumns<ProductForCateProps>[] = [
   {
@@ -10,7 +12,7 @@ export const columns: ProColumns<ProductForCateProps>[] = [
     hideInSearch: true,
   },
   {
-    title: 'MarketingPrice',
+    title: 'Price',
     dataIndex: 'marketingPrice',
     hideInSearch: true,
   },
@@ -18,6 +20,21 @@ export const columns: ProColumns<ProductForCateProps>[] = [
     title: 'Stock',
     dataIndex: 'stock',
     hideInSearch: true,
+  },
+  {
+    title: 'Actions',
+    key: 'option',
+    width: 180,
+    valueType: 'option',
+    render: (_, record) => {
+      return(
+        <Link to='' className='mr-4 text-xl' onClick={() => {
+
+        }}>
+          <IconFont type='icon-delete' />
+        </Link>
+      )
+    }
   },
   {
     dataIndex: 'productName',

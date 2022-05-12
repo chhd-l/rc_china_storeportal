@@ -9,27 +9,29 @@ import {
   ShopCategoryGoodsRelInput,
   ShopCategoryUpdateInput,
   shopCateQuery,
-  TreeDataProps,
 } from '../types/product'
 import {
   normaliseAttrProps,
-  normaliseCateProps,
   normaliseDetailforFe,
+  normaliseEditPDP,
   normaliseProductCreatFor,
   normaliseProductListSpu,
   normaliseScProductsforFe,
   normalizeNullDataRemove,
-  normaliseEditPDP,
-  getTree,
 } from '../normalize/product'
-import { brandList } from '../mock/brands'
 
 export const getCategories = async ({ storeId }: { storeId: string }): Promise<CateItemProps[]> => {
   try {
     let categoryList = await ApiRoot.products().getProductCategories({ storeId })
-    // const cateList: TreeDataProps[] = normaliseCateProps(categoryList.getProductCates)
-    return getTree(categoryList.getProductCates, null, 0)
-    // return normalisePets(pets)
+    return categoryList.getProductCates
+  } catch (e) {
+    console.log(e)
+    return []
+  }
+}
+export const getFindShopCategoryGoodsPage = async (params: any): Promise<any> => {
+  try {
+    return await ApiRoot.products().findShopCategoryGoodsPage(params)
   } catch (e) {
     console.log(e)
     return []

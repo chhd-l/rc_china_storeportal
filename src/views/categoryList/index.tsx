@@ -13,6 +13,7 @@ import { handlePageParams } from '@/utils/utils'
 const ShopCategories = () => {
   const [addVisible, setAddvisible] = useState(false)
   const [editIndex, setEditIndex] = useState<number | undefined>()
+  const [editClickIndex, setEditClickIndex] = useState<number | undefined>()
   const [loading, setLoading] = useState<boolean>(false)
   const [name, setName] = useState('')
   const [curAssetId, setCurAssetId] = useState('')
@@ -64,7 +65,7 @@ const ShopCategories = () => {
       title: 'Category Display Name',
       dataIndex: 'displayName',
       render: (_, record, index) => {
-        if (index === editIndex && show) {
+        if (editClickIndex===index && show) {
           return (
             <Input.Group compact>
               <Input style={{ width: '200px' }} defaultValue={record.displayName} onChange={(e) => {
@@ -89,11 +90,12 @@ const ShopCategories = () => {
               }} />
             </Input.Group>
           )
-        } else if (index === editIndex) {
+          } else if (index === editIndex) {
           return (
             <div className='edit-name'>
               <span className='edit-display-name'>{record.displayName}</span>
               <EditOutlined onClick={() => {
+                setEditClickIndex(index)
                 setEditIndex(index)
                 setShow(true)
                 setName(record.displayName)
@@ -228,7 +230,6 @@ const ShopCategories = () => {
                 setEditIndex(index)
               }, // 鼠标移入行
               onMouseLeave: event => {
-                setShow(false)
                 setEditIndex(undefined)
               },
             }
@@ -247,6 +248,7 @@ const ShopCategories = () => {
                 limit: page.limit,
               })
             }
+
             return Promise.resolve({
               data: tableData?.records || [],
               total: tableData.total,

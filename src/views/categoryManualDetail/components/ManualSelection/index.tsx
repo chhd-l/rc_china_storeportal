@@ -12,6 +12,7 @@ import {
 } from '@/framework/api/get-product'
 import { formatMoney, handlePageParams } from '@/utils/utils'
 import { OptionsProps } from '@/framework/types/common'
+import { getTree } from '@/framework/normalize/product'
 
 const { Option } = Select
 export type ManualSelectionProps = {
@@ -35,8 +36,8 @@ const ManualSelection = ({ visible, handleVisible }: ManualSelectionProps) => {
     console.log('selectedRowKeys changed: ', selectedRowKeys,selectedRows)
    let data= selectedRows.map((item:any)=>{
       return{
-        goodsId: id,
-        shopCategoryId: item.id,
+        goodsId: item.id,
+        shopCategoryId: id,
         storeId: item.storeId
       }
     })
@@ -52,15 +53,7 @@ const ManualSelection = ({ visible, handleVisible }: ManualSelectionProps) => {
   }
   const getCategoriesList = async () => {
     let res = await getCategories({ storeId: '12345678' })
-    console.log(res, 'getCategories')
-    setMockOptions(res)
-  }
-  const getList = async () => {
-    let res = await getESProducts({
-      offset: 1,
-      limit: 10,
-      hasTotal: true,
-    })
+    setMockOptions(getTree(res, null, 0))
   }
   const manualColumns: ProColumns<any>[] = [
     {
@@ -88,7 +81,7 @@ const ManualSelection = ({ visible, handleVisible }: ManualSelectionProps) => {
       title: 'Price(s)',
       dataIndex: 'marketingPrice',
       hideInSearch: true,
-      sorter: (a, b) => a.lowestPrice - b.lowestPrice,
+      // sorter: (a, b) => a.lowestPrice - b.lowestPrice,
       render: (_, record) => {
         if (record.goodsVariants?.length <= 1) {
           return (
