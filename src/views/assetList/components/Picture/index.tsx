@@ -20,6 +20,8 @@ const Picture = ({
   userName: string
 }) => {
   const [visible, setVisible] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const column = [
     {
       title: 'Picture',
@@ -101,9 +103,11 @@ const Picture = ({
       },
       handlePageParams(curPageParams),
     )
+    setLoading(true)
     const res = await getMedias(queryParams)
     setTotal(res.total)
     setPictureList(res.records)
+    setLoading(false)
   }
 
   const uploadProps = {
@@ -117,6 +121,7 @@ const Picture = ({
       const { file } = info
       const { name } = file
       console.log('upload file',file)
+      setUploading(true)
       if (file.status === 'done') {
         message.success(`${name} file uploaded successfully`)
         const res = await createMedia({
@@ -125,10 +130,12 @@ const Picture = ({
           fileExtension: name.substr(name.lastIndexOf('.') + 1),
           operator: userName,
         })
+        setUploading(false)
         if (res) {
           await getMediaList()
         }
       } else if (file.status === 'error') {
+        setUploading(false)
         message.error(`${name} file upload failed.`)
       }
     },
@@ -138,7 +145,7 @@ const Picture = ({
     <ContentContainer>
       <div className="flex flex-row mb-4">
         <Upload {...uploadProps}>
-          <Button className="flex items-center">
+          <Button className="flex items-center" loading={uploading}>
             <span className="iconfont icon-a-bianzu67beifen3 mr-2 text-xl" />
             Upload Local File
           </Button>
@@ -148,7 +155,7 @@ const Picture = ({
           Synchronous WeChat Assets
         </Button>
       </div>
-      <Table columns={column} dataSource={pictureList} pagination={false} rowKey="id" className="rc-table w-full" />
+      <Table columns={column} loading={loading} dataSource={pictureList} pagination={false} rowKey="id" className="rc-table w-full" />
       <div className="flex flex-row justify-end mt-4">
         <Pagination
           className="rc-pagination"

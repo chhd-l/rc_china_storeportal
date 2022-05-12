@@ -65,6 +65,7 @@ const Video = ({
   const [pictureList, setPictureList] = useState<Asset[]>([])
   const [pageParams, setPageParams] = useState<PageParamsProps>(initPageParams)
   const [total, setTotal] = useState(0)
+  const [loading, setLoading] = useState(false)
   const { currentPage, pageSize } = pageParams
   const initSearchParams = {
     description: '',
@@ -101,9 +102,11 @@ const Video = ({
       },
       handlePageParams(curPageParams),
     )
+    setLoading(true)
     const res = await getMedias(queryParams)
     setTotal(res.total)
     setPictureList(res.records)
+    setLoading(false)
   }
 
   return (
@@ -166,7 +169,7 @@ const Video = ({
           + Add
         </Button>
       </div>
-      <Table columns={column} dataSource={pictureList} pagination={false} rowKey="skuId" className="rc-table w-full" />
+      <Table columns={column} loading={loading} dataSource={pictureList} pagination={false} rowKey="skuId" className="rc-table w-full" />
       <div className="flex flex-row justify-end mt-4">
         <Pagination
           className="rc-pagination"

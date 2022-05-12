@@ -24,7 +24,7 @@ const AddAccount = () => {
       description: values.description,
     })
     if (res) {
-      navigator('/assets-management')
+      navigator('/assets-management', { state: 'video' })
     }
   }
 
@@ -86,7 +86,7 @@ const AddAccount = () => {
               danger
               className="mr-4"
               onClick={() => {
-                navigator('/assets-management')
+                navigator('/assets-management', { state: 'video' })
               }}
             >
               Cancel

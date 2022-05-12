@@ -1,5 +1,6 @@
 import { message, Modal, Tabs } from 'antd'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import { tabList } from './modules/constants'
 import { Picture, Graphic, Video, Voice } from './components'
 import { ContentContainer, SearchContainer } from '@/components/ui'
@@ -14,9 +15,19 @@ const PetOwnerList = () => {
   const [isSyncTipModalVisible, setIsSyncModalVisible] = useState(false)
   const [curAssetId, setCurAssetId] = useState('')
   const [isReload, setIsReload] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [userInfo] = useAtom(userAtom)
 
+  const location = useLocation()
+
+  useEffect(() => {
+    if (location.state) {
+      setActiveKey(location.state as string || 'image')
+    }
+  }, [])
+
   const confirmDelete = async () => {
+    setLoading(true)
     const res = await updateMedia({
       id: curAssetId,
       isDeleted: true,
@@ -28,6 +39,7 @@ const PetOwnerList = () => {
     }else{
       message.error({ className: 'rc-message', content: 'Operation failed' })
     }
+    setLoading(false)
   }
 
   const openDeleteModal = (id: string) => {
@@ -37,6 +49,7 @@ const PetOwnerList = () => {
   }
 
   const syncMediaList = async () => {
+    setLoading(true)
     const res=await syncMedias(activeKey)
     if(res){
       message.success({ className: 'rc-message', content: 'Operation success' })
@@ -45,6 +58,7 @@ const PetOwnerList = () => {
     }else{
       message.error({ className: 'rc-message', content: 'Operation failed' })
     }
+    setLoading(false)
   }
 
   return (
@@ -93,6 +107,7 @@ const PetOwnerList = () => {
         okText="Confirm"
         visible={isModalVisible}
         onOk={confirmDelete}
+        confirmLoading={loading}
         onCancel={() => setIsModalVisible(false)}
       >
         <p>Are you sure you want to delete the item?</p>
@@ -102,6 +117,7 @@ const PetOwnerList = () => {
         className="rc-modal"
         title="Confirm Synchronize?"
         okText="Confirm"
+        confirmLoading={loading}
         visible={isSyncTipModalVisible}
         onOk={syncMediaList}
         onCancel={() => setIsSyncModalVisible(false)}
