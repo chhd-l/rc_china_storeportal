@@ -127,7 +127,7 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
     <>
       <div className="flex justify-end items-center h-full pb-4 pt-4">
         <Button
-          danger
+          type="primary"
           onClick={() => {
             navigator("/account/add-account");
           }}

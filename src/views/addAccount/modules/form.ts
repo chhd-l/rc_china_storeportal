@@ -82,18 +82,17 @@ export const ACCOUNT_FORM: FormItemProps[] = [
     placeholder: "Input",
   },
   {
-    // 更改成Pertificate Path
     name: "managementMode",
-    label: "Pertificate Path",
-    placeholder: "Input",
-    type: "upload",
-    // rules: [
-    //   {
-    //     required: true,
-    //     message: "Please select Pertificate Path!",
-    //   },
-    // ],
-    // selectList: manageModeList,
+    label: "Management Mode",
+    placeholder: "select",
+    type: "select",
+    rules: [
+      {
+        required: true,
+        message: "Please select Management Mode!",
+      },
+    ],
+    selectList: manageModeList,
   },
   {
     name: "pushServerURL",
