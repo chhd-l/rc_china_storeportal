@@ -157,7 +157,7 @@ const Video = ({
           Synchronous WeChat Assets
         </Button>
         <Button
-          danger
+          type='primary'
           className="ml-4 flex items-center"
           onClick={() => {
             navigator('/add-video')

@@ -31,6 +31,33 @@ export const setActiveWxMenu: (wxMenus: WxMenuItem[], key: string) => WxMenuItem
   })
 }
 
+export const delWxMenu: (wxMenus: WxMenuItem[], key: string) => WxMenuItem[] = (wxMenus: WxMenuItem[], key: string) => {
+  return wxMenus.reduce((prev: WxMenuItem[], curr: WxMenuItem) => {
+    if (curr.key !== key) {
+      curr.sub_button = delWxMenu(curr.sub_button || [], key)
+      prev.push(curr);
+    }
+    return prev;
+  }, []);
+}
+
+export const moveWxMenu: (wxMenus: WxMenuItem[], key: string, direction: 'forward' | 'backward') => WxMenuItem[] = (wxMenus, key, direction) => {
+  const targetMenuIdx = wxMenus.findIndex(item => item.key === key);
+  if ((targetMenuIdx === wxMenus.length - 1 && direction === 'backward') || (targetMenuIdx === 0 && direction === 'forward')) {
+    return wxMenus;
+  } else if (targetMenuIdx < 0) {
+    return wxMenus.map(item => {
+      item.sub_button = moveWxMenu(item.sub_button || [], key, direction);
+      return item;
+    });
+  } else {
+    const targetMenu = wxMenus[targetMenuIdx];
+    wxMenus.splice(targetMenuIdx, 1);
+    wxMenus.splice(direction === 'forward' ? targetMenuIdx - 1 : targetMenuIdx + 1, 0, targetMenu);
+    return wxMenus;
+  }
+}
+
 export const setWxMenu = (wxMenus: WxMenuItem[], key: string, activeMenu: any) => {
   wxMenus.forEach(item => {
     if (item.key === key) {

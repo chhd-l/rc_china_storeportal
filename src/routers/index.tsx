@@ -13,6 +13,8 @@ const OrderList = lazy(() => import('@/views/orderList'))
 const OrderDetail = lazy(() => import('@/views/orderDetail'))
 const CategoryList = lazy(() => import('@/views/categoryList'))
 const CategoryDetail = lazy(() => import('@/views/categoryDetail'))
+const CategoryManualDetail = lazy(() => import('@/views/categoryManualDetail'))
+const CategoryListSort = lazy(() => import('@/views/categoryListSort'))
 const ShippingSetting = lazy(() => import('@/views/shippingSetting'))
 const OrderSetting = lazy(() => import('@/views/orderSetting'))
 const AccountList = lazy(() => import('@/views/accountList'))
@@ -90,6 +92,8 @@ let routes: RouteObject[] = [
           { index: true, element: <CategoryList />,},
           { path: 'category-list', element: <CategoryList />,},
           { path: 'category-detail/:id', element: <CategoryDetail />, breadcrumbName: 'Category Detail' },
+          { path: 'category-manual-detail/:id', element: <CategoryManualDetail />, breadcrumbName: 'Category Detail' },
+          { path: 'category-list-sort', element: <CategoryListSort />, breadcrumbName: 'Category Detail' },
         ],
       },
       {
