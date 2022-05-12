@@ -57,13 +57,13 @@ const Specification = (props: FormProps) => {
         {specificationList?.map(specification => {
           return (
             <Row key={specification.id} className='w-1/2 float-left ant-form-item'>
-              <Col className='text-right pr-6' span={5}>
+              <Col className='text-right pr-6' span={8}>
                 {specification.label}
               </Col>
               <Col span={16}>
                 <Select
                   className='w-full'
-                  searchValue=''
+                  // searchValue=''
                   labelInValue
                   mode='multiple'
                   allowClear

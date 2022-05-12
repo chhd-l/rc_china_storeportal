@@ -46,6 +46,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
             value={pickValue}
             onChange={(date, dateString) => {
               console.log(date, dateString)
+              setPickValue(date)
               setSearchParams({ ...searchParams, loginStartTime: dateString[0], loginEndTime: dateString[1] })
             }}
           />
@@ -64,10 +65,10 @@ const OrderSearch = ({ query }: { query: Function }) => {
         </Button>
         <Button
           className="w-20"
-          danger
+          // danger
           onClick={(e) => {
             console.log(1111)
-            setPickValue(null)
+            setPickValue(['',''])
             setSearchParams(initSearchParams)
             query &&query(initSearchParams)
           }}

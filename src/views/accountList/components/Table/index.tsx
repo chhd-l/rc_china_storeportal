@@ -5,8 +5,8 @@ import { Account } from "@/framework/types/wechat";
 import { modifyAccount } from '@/framework/api/wechatSetting'
 import './Style.less'
 
-const Index = ({ accountList, getAccounts, pages, setPages, total }: { 
-  accountList: Account[], 
+const Index = ({ accountList, getAccounts, pages, setPages, total }: {
+  accountList: Account[],
   getAccounts: Function,
   setPages: Function,
   pages: any,
@@ -15,7 +15,9 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
   const navigator = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [imgModal, setImgModal] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   const [ID, setID] = useState('')
+  const [item, setItem] = useState({})
   const [imgUrl, setImgUrl] = useState('')
 
   const handleOk = async (id: string) => {
@@ -26,7 +28,16 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
       isDeleted: true
     }
     await modifyAccount(items)
-    getAccounts&&getAccounts()
+    getAccounts && getAccounts()
+    setIsModalVisible(false)
+  }
+
+  const handleOpenOk = async (item: any) => {
+    const items = {
+      account: item,
+    }
+    await modifyAccount(items)
+    getAccounts && getAccounts()
     setIsModalVisible(false)
   }
 
@@ -59,11 +70,19 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
     },
     {
       title: "Status",
-      dataIndex: "status",
-      key: "status",
-      render: (text: any) => (
-        <Switch checked={text} onChange={() => changeAccountStatus()} />
-      ),
+      dataIndex: "isActive",
+      key: "isActive",
+      render: (text: any, record: any) => {
+        return (
+          <Switch checked={text} onChange={(v) => {
+            setItem({
+              isActive: v,
+              id: record.id
+            })
+            setIsOpen(true)
+          }} />
+        )
+      }
     },
     {
       title: "Action",
@@ -75,19 +94,19 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
               className="cursor-pointer iconfont icon-a-Group437 text-red-500 text-xl"
               onClick={() => {
                 navigator("/account/account-details", { state: record });
-               }}
+              }}
             />
           </Tooltip>
           {/*避免误删除现在用的accountId*/}
-          {record.id!=='000001'&&(
+          {record.id !== '000001' && (
             <Tooltip title="Delete">
-            <span
-              className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl"
-              onClick={() => {
-                setID(record.id)
-                setIsModalVisible(true)
-              }}
-            />
+              <span
+                className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl"
+                onClick={() => {
+                  setID(record.id)
+                  setIsModalVisible(true)
+                }}
+              />
             </Tooltip>
           )}
           <Tooltip title="View QR Code">
@@ -103,7 +122,6 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
       ),
     },
   ];
-  const changeAccountStatus = () => { };
 
   return (
     <>
@@ -142,27 +160,34 @@ const Index = ({ accountList, getAccounts, pages, setPages, total }: {
         onOk={() => handleOk(ID)}
         onCancel={handleCancel}
         okText='Confirm'
-        // mask={false}
+      // mask={false}
       >
         <div>Are you sure you want to delete the item ?</div>
       </Modal>
-      {
-        !imgUrl ? (
-          <Modal
-            visible={imgModal}
-            closable={false}
-            onCancel={handleCancel}
-            footer={null}
-          >
-            <Image
-              src={`https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=${imgUrl}`}
-              width='100%'
-              height='100%'
-              preview={false}
-            />
-          </Modal>
-        ) : null
-      }
+      <Modal
+        className="acconutModal"
+        title='Delete Item'
+        visible={isOpen}
+        onOk={() => handleOpenOk(item)}
+        onCancel={() => setIsOpen(false)}
+        okText='Confirm'
+      // mask={false}
+      >
+        <div>Are you sure you want to delete the item ?</div>
+      </Modal>
+      <Modal
+        visible={imgModal}
+        closable={false}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <Image
+          src={imgUrl}
+          width='100%'
+          height='100%'
+          preview={false}
+        />
+      </Modal>
     </>
   );
 };

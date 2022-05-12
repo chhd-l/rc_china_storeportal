@@ -169,7 +169,8 @@ let routes: RouteObject[] = [
         children: [
           { index: true, element: <MpQRList /> },
           { path: 'mpqr-list', element: <MpQRList /> },
-          { path: 'mpqr-detail/:id', element: <MpQRDetail />, breadcrumbName: 'MpQR Detail' },
+          { path: 'mpqr-detail', element: <MpQRDetail />, breadcrumbName: 'MpQR Detail' },
+          { path: 'mpqr-add', element: <MpQRDetail />, breadcrumbName: 'Add New MpQR' },
         ],
       },
       {
@@ -178,7 +179,8 @@ let routes: RouteObject[] = [
         children: [
           { index: true, element: <MenuManage />},
           { path: 'menu-manage-list', element: <MenuManage />},
-          { path: 'menu-manage-detail/:id', element: <MenuManageDetail />, breadcrumbName: 'MenuManage Detail' },
+          { path: 'menu-manage-detail/:id', element: <MenuManageDetail pageType="edit" />, breadcrumbName: 'MenuManage Detail' },
+          { path: 'menu-manage-add', element: <MenuManageDetail pageType="add" />, breadcrumbName: 'MenuManage Add' },
         ],
       },
       {
@@ -187,7 +189,7 @@ let routes: RouteObject[] = [
         children: [
           { index: true, element: <QrCodeManage />},
           { path: 'qrcode-manage-list', element: <QrCodeManage />},
-          { path: 'qrcode-manage-detail/:id', element: <QrCodeManageDetail />, breadcrumbName: 'QrCodeManage Detail' },
+          { path: 'qrcode-manage-add', element: <QrCodeManageDetail />, breadcrumbName: 'Add New QrCodeManage' },
         ],
       },
     ],

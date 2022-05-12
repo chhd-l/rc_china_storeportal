@@ -11,7 +11,7 @@ const Search = ({
   query,
   formItems,
   classes = "",
-  style = { width: "320px" },
+  // style = { width: "358px" },
   state = false,
   pages
 }: {
@@ -40,18 +40,15 @@ const Search = ({
         form={form}
         onFinish={search}
         autoComplete="off"
-        className={`${classes} flex flex-row flex-wrap ${ state ? 'justify-between' : 'justify-start' } items-center`}
+        className={`${classes} flex flex-row flex-wrap ${ state ? 'justify-between' : 'justify-between' } items-center`}
         layout={"inline"}
-        labelCol={{ span: 12 }}
-        wrapperCol={{ span: 18 }}
       >
         {formItems.map((item) => (
           <Form.Item
             label={item.label}
             name={item.name}
-            style={style}
+            // style={style}
             key={item.name}
-            className="mt-4"
           >
             {item.type === "select" ? (
               <Select placeholder={item.placeholder}>
@@ -71,7 +68,6 @@ const Search = ({
                 className="flex items-center"
                 // defaultValue={[moment('2021/11/09', dateFormat), moment('2021/11/12', dateFormat)]}
                 format={dateFormat}
-
               />
             ) : (
               <Input placeholder={item.placeholder} />

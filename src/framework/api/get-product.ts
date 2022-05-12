@@ -67,10 +67,23 @@ export const createProduct = async (params: any, beforeData?: any) => {
       el.name = el.skuName
       delete el.skuName
     }
+    if (el?.goodsVariantBundleInfo) {
+      el.goodsVariantBundleInfo?.forEach((cel: any) => {
+        if (typeof cel.subSkuStock !== undefined) {
+          delete cel.subSkuStock
+        }
+      })
+    }
   })
   console.info('paramsData', paramsData)
-  const data = await ApiRoot.products().createProduct({ body: paramsData })
-  console.info('createProduct', data)
+  try {
+    const data = await ApiRoot.products().createProduct({ body: paramsData })
+    console.info('createProduct', data)
+    return data?.createProduct
+  } catch (err) {
+    console.info('createProduct err', err)
+    return false
+  }
 }
 export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categoryId: string }) => {
 
@@ -139,7 +152,8 @@ export const getProductBySpuId = async (params: ProductListQueryProps) => {
 }
 
 
-export const getESProducts = async (params: any): Promise<any> => {
+export const getESProducts = async (params:
+  any): Promise<any> => {
   try {
     const res = await ApiRoot.products().getESProductLists(params)
     return res.getEsProducts

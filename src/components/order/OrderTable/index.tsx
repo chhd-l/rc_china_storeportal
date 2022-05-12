@@ -15,22 +15,29 @@ const orderStatusType: KeyRules = {
   VOID: 'Cancellation',
 }
 
-const OrderTable = ({ orderList }: { orderList: Order[] }) => {
+const OrderTable = ({
+  orderList,
+  shipOrCompleteSuccess,
+  changeCarrier,
+}: {
+  orderList: Order[]
+  shipOrCompleteSuccess: Function
+  changeCarrier: Function
+}) => {
   const [carrierTypes, setCarrierTypes] = useState<CarrierType[]>([])
+  const selectRef = React.useRef<any>(null);
 
-  const getExpressCompanys = async () => {
+  const getExpressCompanies = async () => {
     const res = await getExpressCompanyList()
-    // console.log('res999999999999', res)
     setCarrierTypes(res)
-    // console.log('9999999999999999')
   }
 
   useEffect(() => {
-    getExpressCompanys()
+    getExpressCompanies()
   }, [])
 
   return (
-    <div className='order-list-page'>
+    <div className="order-list-page">
       <Row className="bg-gray1 border py-2 px-4">
         <Col span={10}>Product(s)</Col>
         <Col span={4} className="text-left">
@@ -41,17 +48,25 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
         </Col>
         <Col span={4} className="text-left">
           <Select
-            onChange={(val, a) => { }}
+            ref={selectRef}
+            onChange={(val, a) => {
+              console.log(val)
+              selectRef.current!.blur()
+              changeCarrier && changeCarrier(val)
+            }}
             getPopupContainer={(trigger: any) => trigger.parentNode}
             value="Carrier"
             className="order-table-select"
-            style={{width:"150px"}}
+            style={{ width: '150px' }}
           >
-            {carrierTypes.map((item) => (
-              <Select.Option value={item.code} key={item.code}>
-                {item.nameEn}
-              </Select.Option>
-            ))}
+            {carrierTypes
+              .concat([{ nameEn: 'All', code: '' }])
+              .reverse()
+              .map((item) => (
+                <Select.Option value={item.code} key={item.code}>
+                  {item.nameEn}
+                </Select.Option>
+              ))}
           </Select>
         </Col>
         <Col span={2} className="text-left">
@@ -61,35 +76,36 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
       {orderList.length > 0 ? (
         orderList.map((item: Order) => (
           <div className="border mt-4" key={item.id}>
-            <Row className="bg-gray1 border-b py-2 px-4">
+            <Row className="bg-gray1 border-b py-2 px-4 content-center justify-between">
               <Col span={12} className="flex items-center">
                 <Avatar icon={<img src={item.buyer.image} alt={''} />} />
                 <span className="ml-2">{item.buyer.name}</span>
               </Col>
-              <Col span={12} className="text-right">
-                <div>
-                  order ID:{item.id}
-                  <br />
-                  {item.subscriptionId ? (
-                    <span>
-                      <span className="iconfont icon-Frame1 primary-color mr-2" />
-                      Subscription ID:{item.id}
-                    </span>
-                  ) : null}
-                </div>
+              <Col span={12} className="text-right" style={{ lineHeight: '44px' }}>
+                Order ID:{item.id}
+                {item.subscriptionId ? (
+                  <span>
+                    <span className="iconfont icon-Frame1 primary-color mr-2" />
+                    Subscription ID:{item.id}
+                  </span>
+                ) : null}
               </Col>
             </Row>
             <Row className="p-2 flex items-start">
               <Col span={10} className="flex flex-col justify-start">
                 {item.tradeItem.map((product: OrderTradeItem, index: number) => (
-                  <Row className={`${index !== item.tradeItem.length - 1 ? ' mb-1 pb-2' : ''} items-start`} key={product.skuId}>
+                  <Row
+                    className={`${index !== item.tradeItem.length - 1 ? ' mb-1 pb-2' : ''} items-start`}
+                    key={product.skuId}
+                  >
                     <Col span={6}>
-                      <img src={product.pic} className="w-16 h-16 order-img" alt='' />
+                      <img src={product.pic} className="w-16 h-16 order-img" alt="" />
                     </Col>
                     <Col span={16}>
                       <Row
-                        className={`${item.tradeItem.length > 1 && index !== item.tradeItem.length - 1 ? 'border-b h-20 pb-2' : ''
-                          }`}
+                        className={`${
+                          item.tradeItem.length > 1 && index !== item.tradeItem.length - 1 ? 'border-b h-20 pb-2' : ''
+                        }`}
                       >
                         <Col span={20}>
                           <span>{product.skuName}</span>
@@ -123,6 +139,7 @@ const OrderTable = ({ orderList }: { orderList: Order[] }) => {
                   orderId={item.id}
                   orderAddress={item.shippingAddress}
                   orderBuyer={item.buyer}
+                  shipOrCompleteSuccess={shipOrCompleteSuccess}
                 />
               </Col>
             </Row>

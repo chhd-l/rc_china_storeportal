@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import { Button, Table, Modal } from "antd"
+import { useNavigate } from 'react-router-dom'
 import "./index.less"
 import { tableColumns, TWxMenuUpdateParam } from "./modules/constant"
 import { ContentContainer } from "@/components/ui"
@@ -15,6 +16,8 @@ const MenuManage = () => {
   const [total, setTotal] = useState<number>(0)
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
   const [pendingToDelete, setPendingToDelete] = useState<any>({})
+
+  const navigator = useNavigate()
 
   const getList = async (pageNumber: number) => {
     const param: PageProps = {
@@ -66,13 +69,13 @@ const MenuManage = () => {
   return (
     <ContentContainer className="menu-manage bg-white">
       <div className="btn-area">
-        <Button danger size="large">+ Add</Button>
+        <Button type="primary" size="large" onClick={() => navigator('/menuManagempqr/menu-manage-add')}>+ Add</Button>
       </div>
       <Table
-        bordered
         columns={columns}
         dataSource={list}
         loading={loading}
+        className="rc-table"
         pagination={{
           current: current,
           pageSize: 10,

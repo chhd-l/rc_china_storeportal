@@ -7,6 +7,7 @@ import LatestReports from '../LatestReports/index'
 
 const OrderSearch = ({ query }: { query: Function }) => {
   const [searchParams, setSearchParams] = useState<OrderSearchParamsProps>(initSearchParams)
+  const inputRef = React.useRef<any>(null);
 
   return (
     <div>
@@ -44,6 +45,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
           </Select>
           <Input
             style={{ width: '80%' }}
+            ref={inputRef}
             value={searchParams.searchTypeValue}
             onChange={(e) => {
               setSearchParams({
@@ -53,6 +55,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
             }}
             placeholder={'Input ' + searchTypeList.filter((item) => item.key === searchParams.searchType)[0].label}
             onPressEnter={() => {
+              inputRef.current!.blur()
               query && query(searchParams)
             }}
           />

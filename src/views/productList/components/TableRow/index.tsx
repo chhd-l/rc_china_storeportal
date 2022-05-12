@@ -15,9 +15,20 @@ interface TableRowProps {
   list: ProductListItemProps[]
   setList: (list: ProductListItemProps[]) => void
   getList: Function
+  setLoading: Function
 }
 
-const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList, getList }: TableRowProps) => {
+const TableRow = ({
+  spu,
+  onChange,
+  spuIdx,
+  tableHeader,
+  listData,
+  list,
+  setList,
+  getList,
+  setLoading,
+}: TableRowProps) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   const istb = (sku: any) => {
@@ -83,11 +94,11 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
         ) : null}
       </div>
       <div className='w-64 flex text-12'>
-        <Tooltip title='Preview'>
+        {/* <Tooltip title='Preview'>
           <Link to='' className='mr-4'>
             <span className='icon iconfont icon-preview'></span>
           </Link>
-        </Tooltip>
+        </Tooltip> */}
         <Tooltip title='Edit'>
           <Link className='mr-4' to={`/product/product-detail/${listData[spuIdx]?.id}`}>
             <span className='icon iconfont icon-Edit'></span>
@@ -101,8 +112,14 @@ const TableRow = ({ spu, onChange, spuIdx, tableHeader, listData, list, setList,
               } text-base`}
               onClick={async () => {
                 let { shelvesStatus } = listData[spuIdx]
-                switchShelves({ goodsId: [listData[spuIdx]?.id], status: !shelvesStatus })
-                getList()
+                try {
+                  setLoading(true)
+                  await switchShelves({ goodsId: [listData[spuIdx]?.id], status: !shelvesStatus })
+                  await getList()
+                } catch (err) {
+                  console.info('err', err)
+                }
+                setLoading(false)
               }}
             ></span>
           </Link>

@@ -1,12 +1,16 @@
 import { ContentContainer, InfoContainer } from '@/components/ui'
 import { TemplateMessageItemProps } from '@/framework/types/wechat'
 import ProForm, { ProFormInstance, ProFormSelect, ProFormText, ProFormTextArea } from '@ant-design/pro-form'
-import { Button, Col, message, Row } from 'antd'
+import { Button, message } from 'antd'
 import Mock from 'mockjs'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { messageList, templateContent } from '../templateMessageList/modules/mockdata'
 import './index.less'
+import { getTemplateDetail, updateTemplateMessage } from '@/framework/api/wechatSetting'
+import { useParams } from 'react-router-dom'
+import _ from 'lodash'
+
 const templateTitleList = Mock.mock(messageList).list
 const templateContentMock = Mock.mock(templateContent).list
 interface TemplateContentProps {
@@ -14,35 +18,50 @@ interface TemplateContentProps {
   display?: string
   keywordDefault?: string
 }
+
 const TemplateMessageDetail = () => {
   const navigation = useNavigate()
   const [templateInfo, setTemplateInfo] = useState<TemplateMessageItemProps>({})
   const [contentList, setContentList] = useState<TemplateContentProps[]>(templateContentMock)
   const formRef = useRef<ProFormInstance>()
+  const params = useParams()
   const contentListTitle = ['keyword name', 'Display', 'keyword default']
   let formItemLayout = { labelCol: { span: 6 }, wrapperCol: { span: 16 } }
+
+  const getTemplateDetailInfo = async () => {
+    let { id } = params
+    const res = await getTemplateDetail(id || '')
+    setTemplateInfo(res)
+  }
+
+  const modifyTemplateMessage = async (value: any) => {
+    console.log('1111', value)
+    const params=_.omit(value,['title','primaryIndustry','deputyIndustry'])
+    const res = await updateTemplateMessage(Object.assign(params,{id:templateInfo.id}))
+    if (res) {
+     navigation('/template/template-message-list')
+    }
+  }
+
   useEffect(() => {
-    setTimeout(() => {
-      let info = templateTitleList[0]
-      setTemplateInfo(info)
-      console.info('info', info)
-    }, 1000)
+    getTemplateDetailInfo()
   }, [])
-  console.info('contentList', contentList)
+
   return (
     <>
-      <ContentContainer className='template-message-detail pr-6'>
-        <InfoContainer className=''>
+      <ContentContainer className="template-message-detail pr-6">
+        <InfoContainer className="">
           {' '}
           {templateInfo.id ? (
             <ProForm
-              className='text-right'
+              className="text-right"
               grid={true}
               initialValues={templateInfo}
-              layout='horizontal'
+              layout="horizontal"
               {...formItemLayout}
-              onFinish={async values => {
+              onFinish={async (values) => {
                 console.log(values)
+                await modifyTemplateMessage(values)
                 // const val1 = await formRef.current?.validateFields()
                 // console.log('validateFields:', val1)
                 // const val2 = await formRef.current?.validateFieldsReturnFormatValue?.()
@@ -56,14 +75,14 @@ const TemplateMessageDetail = () => {
                     <Button
                       // className=' text-white'
                       // type='primary'
-                      key='rest'
+                      key="rest"
                       onClick={() => {
                         navigation(`/template/template-message-list`)
                       }}
                     >
                       Cancel
                     </Button>,
-                    <Button type='primary' key='submit' onClick={() => props.form?.submit?.()}>
+                    <Button type="primary" key="submit" onClick={() => props.form?.submit?.()}>
                       Confirm
                     </Button>,
                   ]
@@ -86,9 +105,9 @@ const TemplateMessageDetail = () => {
               <ProForm.Group>
                 <ProFormText
                   colProps={{ span: 12 }}
-                  name='templateId'
-                  label='Template ID'
-                  placeholder='Please input Template ID'
+                  name="templateId"
+                  label="Template ID"
+                  placeholder="Please input Template ID"
                 />
                 <ProFormSelect
                   colProps={{ span: 12 }}
@@ -98,51 +117,51 @@ const TemplateMessageDetail = () => {
                       label: '履行完终止',
                     },
                   ]}
-                  name='scenario'
-                  label='Select Scenario'
+                  name="scenario"
+                  label="Select Scenario"
                 />
               </ProForm.Group>
 
               <ProForm.Group>
                 <ProFormText
                   colProps={{ span: 12 }}
-                  name='title'
-                  label='Template Name'
-                  placeholder='Please input Template Name'
+                  name="title"
+                  label="Template Name"
+                  placeholder="Please input Template Name"
                 />
                 <ProFormText
                   colProps={{ span: 12 }}
-                  name='primaryIndustry'
-                  label='Primary Industry'
-                  placeholder='Please input Primary Industry'
-                />
-              </ProForm.Group>
-              <ProForm.Group>
-                <ProFormText
-                  colProps={{ span: 12 }}
-                  name='deputyIndustry'
-                  label='Secondary Industry'
-                  placeholder='Please input Secondary Industry'
-                />
-                <ProFormText
-                  colProps={{ span: 12 }}
-                  name='url'
-                  label='H5 jump path'
-                  placeholder='Please input H5 jump path'
+                  name="primaryIndustry"
+                  label="Primary Industry"
+                  placeholder="Please input Primary Industry"
                 />
               </ProForm.Group>
               <ProForm.Group>
                 <ProFormText
                   colProps={{ span: 12 }}
-                  name='appId'
-                  label='Mini Program appid'
-                  placeholder='Please input Mini Program appid'
+                  name="deputyIndustry"
+                  label="Secondary Industry"
+                  placeholder="Please input Secondary Industry"
                 />
                 <ProFormText
                   colProps={{ span: 12 }}
-                  name='pagepath'
-                  label='Mini Program Jump Path'
-                  placeholder='Please input Mini Program Jump Path'
+                  name="url"
+                  label="H5 jump path"
+                  placeholder="Please input H5 jump path"
+                />
+              </ProForm.Group>
+              <ProForm.Group>
+                <ProFormText
+                  colProps={{ span: 12 }}
+                  name="appId"
+                  label="Mini Program appid"
+                  placeholder="Please input Mini Program appid"
+                />
+                <ProFormText
+                  colProps={{ span: 12 }}
+                  name="pagepath"
+                  label="Mini Program Jump Path"
+                  placeholder="Please input Mini Program Jump Path"
                 />
               </ProForm.Group>
               <ProForm.Group>
@@ -150,17 +169,17 @@ const TemplateMessageDetail = () => {
                   labelCol={{ span: 3 }}
                   wrapperCol={{ span: 20 }}
                   colProps={{ span: 24 }}
-                  name='description'
-                  label='Description'
-                  placeholder='Please input Description'
+                  name="description"
+                  label="Description"
+                  placeholder="Please input Description"
                 />
               </ProForm.Group>
             </ProForm>
           ) : null}
         </InfoContainer>
       </ContentContainer>
-      <InfoContainer className='mb-7'>
-        <div className='bg-white'>
+      <InfoContainer className="mb-7">
+        <div className="bg-white">
           示例：
           {`${templateInfo.example}`}
         </div>

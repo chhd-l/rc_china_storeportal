@@ -1,13 +1,23 @@
 import { Button, message, Pagination, Table, Tooltip, Upload } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Asset } from '@/framework/types/wechat'
-import { createMedia, getMedias, syncMedias, updateMedia } from '@/framework/api/wechatSetting'
+import { createMedia, getMedias } from '@/framework/api/wechatSetting'
 import { ContentContainer } from '@/components/ui'
 import { PageParamsProps } from '@/framework/types/common'
 import { handlePageParams } from '@/utils/utils'
 import { initPageParams } from '@/lib/constants'
 
-const Voice = ({ isReload = false, openDelete }: { isReload: boolean; openDelete: Function }) => {
+const Voice = ({
+  isReload = false,
+  openDelete,
+  openSyncTipModal,
+  userName,
+}: {
+  isReload: boolean
+  openDelete: Function
+  openSyncTipModal: Function
+  userName: string
+}) => {
   const column = [
     {
       title: 'Voice',
@@ -85,18 +95,19 @@ const Voice = ({ isReload = false, openDelete }: { isReload: boolean; openDelete
     onChange: async (info: any) => {
       if (info.file.status === 'done') {
         message.success(`${info.file.name} file uploaded successfully`)
-        const res=await createMedia({ type: 'voice', url: info.file.response.url, fileExtension: 'mp3' })
-        if(res){
+        const res = await createMedia({
+          type: 'voice',
+          url: info.file.response.url,
+          fileExtension: 'mp3',
+          operator: userName,
+        })
+        if (res) {
           await getMediaList()
         }
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} file upload failed.`)
       }
     },
-  }
-
-  const syncMediaList = async () => {
-    await syncMedias('voice')
   }
 
   return (
@@ -108,7 +119,7 @@ const Voice = ({ isReload = false, openDelete }: { isReload: boolean; openDelete
             Upload Local File
           </Button>
         </Upload>
-        <Button className="ml-4 flex items-center" onClick={() => syncMediaList()}>
+        <Button className="ml-4 flex items-center" onClick={() => openSyncTipModal && openSyncTipModal()}>
           <span className="iconfont icon-bianzu2 mr-2 text-xl" />
           Synchronous WeChat Assets
         </Button>

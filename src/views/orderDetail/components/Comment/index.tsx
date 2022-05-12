@@ -1,11 +1,11 @@
-import { UserOutlined } from '@ant-design/icons'
-import { Avatar, Button, Form, Input, Modal, Tooltip } from 'antd'
+import { Button, Form, Input, message, Modal, Tooltip } from 'antd'
 import React, { useState } from 'react'
 import { Comment } from '@/framework/types/order'
 import { handleReturnTime } from '@/utils/utils'
 import { updateComment } from '@/framework/api/get-order'
 import { useAtom } from 'jotai'
 import { userAtom } from '@/store/user.store'
+import userIcon from '@/assets/images/userIcon.svg'
 
 const OrderComment = ({
   comments,
@@ -39,9 +39,12 @@ const OrderComment = ({
     }
     const res = await updateComment(params)
     if (res) {
+      message.success({ className: 'rc-message', content: 'Operation success' })
       form.resetFields()
       setCurType('new')
       updateSuccess && updateSuccess()
+    } else {
+      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
   }
 
@@ -54,48 +57,55 @@ const OrderComment = ({
       },
     })
     if (res) {
+      message.success({ className: 'rc-message', content: 'Operation success' })
       setDelModalShow(false)
       updateSuccess && updateSuccess()
+    } else {
+      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
   }
 
   return (
     <div className="bg-white p-4">
-      <div className="h-80 border-b-2">
-        {comments.map((item) => {
+      <div className="text-base font-medium pb-2 border-b mb-4">Remark</div>
+      <div className="max-h-96 overflow-y-scroll">
+        {comments.map((item, index) => {
           return (
-            <div className="mb-2">
+            <div className={`mb-2 pb-2 ${index !== comments.length - 1 ? 'border-b' : ''}`}>
               <div className="flex justify-between">
                 <span className="flex items-center">
-                  <Avatar size="small" icon={<UserOutlined />} />
-                  <span className="ml-2">{item.createdBy}</span>
-                  {item.createId === userInfo?.id ? (
-                    <>
-                      <Tooltip title="Edit">
-                        <span
-                          className="cursor-pointer iconfont text-sm icon-rc-edit text-black-500 ml-2"
-                          onClick={() => {
-                            setCurType('edit')
-                            setCurComment(item)
-                            form.setFieldsValue({ comment: item.content })
-                          }}
-                        />
-                      </Tooltip>
-                      <Tooltip title="Delete">
-                        <span
-                          className="cursor-pointer iconfont text-sm icon-delete text-black-500 ml-2"
-                          onClick={() => {
-                            setDelModalShow(true)
-                            setCurComment(item)
-                          }}
-                        />
-                      </Tooltip>
-                    </>
-                  ) : null}
+                  <img className="inline-block align-middle" src={userIcon} alt={''} />
+                  <span className="ml-2">
+                    {item.createdBy}
+                    <br />
+                    <span className="text-sm text-gray-400">{handleReturnTime(item.createdAt)}</span>
+                  </span>
                 </span>
-                <span className="text-sm">{handleReturnTime(item.createdAt)}</span>
+                {item.createId === userInfo?.id ? (
+                  <span>
+                    <Tooltip title="Edit">
+                      <span
+                        className="cursor-pointer iconfont text-sm icon-Edit text-red-500 ml-2"
+                        onClick={() => {
+                          setCurType('edit')
+                          setCurComment(item)
+                          form.setFieldsValue({ comment: item.content })
+                        }}
+                      />
+                    </Tooltip>
+                    <Tooltip title="Delete">
+                      <span
+                        className="cursor-pointer iconfont text-sm icon-delete text-red-500 ml-2"
+                        onClick={() => {
+                          setDelModalShow(true)
+                          setCurComment(item)
+                        }}
+                      />
+                    </Tooltip>
+                  </span>
+                ) : null}
               </div>
-              <div className="text-left pl-8">{item.content}</div>
+              <div className="text-left text-gray-400">{item.content}</div>
             </div>
           )
         })}
@@ -110,20 +120,26 @@ const OrderComment = ({
             },
           ]}
         >
-          <Input.TextArea
-            style={{ border: 'none' }}
-            autoSize={{ minRows: 3, maxRows: 5 }}
-            placeholder="Input Enter,quickly save comment"
-          />
+          <Input.TextArea autoSize={{ minRows: 5, maxRows: 7 }} placeholder="Input comment" />
         </Form.Item>
-        <Form.Item style={{ marginBottom: 0 }} wrapperCol={{ span: 24, offset: 18 }}>
-          <Button type="text" danger htmlType="submit">
+        <Form.Item
+          style={{ marginBottom: 0, marginTop: '-10px', marginRight: '-10px' }}
+          wrapperCol={{ span: 24, offset: 18 }}
+        >
+          <Button danger htmlType="submit">
             Save
           </Button>
         </Form.Item>
       </Form>
-      <Modal title="提示" visible={delModalShow} onOk={() => deleteComment()} onCancel={() => setDelModalShow(false)}>
-        <p>是否删除该评论？</p>
+      <Modal
+        className="rc-modal"
+        title="Delete Comment"
+        visible={delModalShow}
+        okText={'Confirm'}
+        onOk={() => deleteComment()}
+        onCancel={() => setDelModalShow(false)}
+      >
+        <p>Are you sure you want to delete this comment?</p>
       </Modal>
     </div>
   )

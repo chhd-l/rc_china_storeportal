@@ -50,7 +50,7 @@ const AddVariation = ({}: AddVariationProps) => {
           }
           if (variationForm.variationList[variationIdx].id) {
             variationData[variationIdx].id = variationForm.variationList[variationIdx].id
-          } else {
+            // } else {
             variationData[variationIdx].specificationName = variationForm.variationList[variationIdx].name
             variationData[variationIdx].specificationNameEn = variationForm.variationList[variationIdx].name
           }
@@ -74,13 +74,14 @@ const AddVariation = ({}: AddVariationProps) => {
       return (
         <Row className={classNames('pt-3', specification.isDeleted ? 'hidden' : '')}>
           <Col span={4} className='text-right  mr-2'>
-            Option:
+            <span className='primary-color required-text'>*</span> Option:
           </Col>
           <Col span={15}>
             <Input
               defaultValue={specification.option}
               // value={specification.option}
               onBlur={handleOption}
+              className='get-variation-option'
               onChange={() => {
                 console.info('....', specification.option)
               }}
@@ -91,12 +92,16 @@ const AddVariation = ({}: AddVariationProps) => {
           </Col>
           <Col span={4} className='flex items-center'>
             <DragHandle />
-            <DeleteOutlined
-              onClick={() => {
-                handleDelSpecification(variationIdx, specificationIdx)
-              }}
-              className='cursor-pointer'
-            />
+            {specificationIdx === 0 &&
+            variationForm.variationList[variationIdx].specificationList?.filter((el: any) => !el.isDeleted)?.length <
+              2 ? null : (
+              <DeleteOutlined
+                onClick={() => {
+                  handleDelSpecification(variationIdx, specificationIdx)
+                }}
+                className='cursor-pointer'
+              />
+            )}
           </Col>
         </Row>
       )
@@ -213,6 +218,7 @@ const AddVariation = ({}: AddVariationProps) => {
     }
     updateVations(variationForm)
     setVariationForm(cloneDeep(variationForm))
+    debugger
   }
   return (
     <div
@@ -237,10 +243,11 @@ const AddVariation = ({}: AddVariationProps) => {
             <Col span={16} className='pt-6' style={{ background: '#f8f8f8' }}>
               <Row>
                 <Col span={4} className='text-right  mr-2'>
-                  Name:
+                  <span className='primary-color required-text'>*</span>Name:
                 </Col>
                 <Col span={15}>
                   <Input
+                    className='get-variation-name'
                     defaultValue={variation.name}
                     onBlur={e => {
                       handleName(e, variationIdx)

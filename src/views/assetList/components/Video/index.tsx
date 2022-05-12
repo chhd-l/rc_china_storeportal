@@ -1,14 +1,22 @@
 import { Button, DatePicker, Input, Pagination, Table, Tooltip } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Asset } from '@/framework/types/wechat'
-import { getMedias, syncMedias } from '@/framework/api/wechatSetting'
+import { getMedias } from '@/framework/api/wechatSetting'
 import { ContentContainer } from '@/components/ui'
 import { PageParamsProps } from '@/framework/types/common'
 import { handlePageParams } from '@/utils/utils'
 import { useNavigate } from 'react-router'
 import { initPageParams } from '@/lib/constants'
 
-const Video = ({ isReload = false, openDelete }: { isReload: boolean; openDelete: Function }) => {
+const Video = ({
+  isReload = false,
+  openDelete,
+  openSyncTipModal,
+}: {
+  isReload: boolean
+  openDelete: Function
+  openSyncTipModal: Function
+}) => {
   const column = [
     {
       title: 'Title',
@@ -37,7 +45,7 @@ const Video = ({ isReload = false, openDelete }: { isReload: boolean; openDelete
       key: 'action',
       render: (text: any, record: any) => (
         <>
-          <Tooltip title="Delete">
+          <Tooltip title="View Video">
             <span
               className="cursor-pointer ml-2 iconfont icon-a-Frame2 primary-color text-xl"
               onClick={() => window.open(record.assetLink)}
@@ -98,10 +106,6 @@ const Video = ({ isReload = false, openDelete }: { isReload: boolean; openDelete
     setPictureList(res.records)
   }
 
-  const syncMediaList = async () => {
-    await syncMedias('video')
-  }
-
   return (
     <ContentContainer>
       <div className="mb-8">
@@ -118,12 +122,13 @@ const Video = ({ isReload = false, openDelete }: { isReload: boolean; openDelete
             />
           </div>
           <div className="flex flex-row items-center">
-            <div className="mr-2 ml-4">Login Time:</div>
+            <div className="mr-2 ml-4">Create Time</div>
             <DatePicker.RangePicker
               style={{ width: '300px' }}
               value={pickValue}
               onChange={(date, dateString) => {
                 console.log(date, dateString)
+                setPickValue(date)
                 setSearchParams({ ...searchParams, startTime: dateString[0], endTime: dateString[1] })
               }}
             />
@@ -135,9 +140,9 @@ const Video = ({ isReload = false, openDelete }: { isReload: boolean; openDelete
           </Button>
           <Button
             className="w-20"
-            danger
+            // danger
             onClick={(e) => {
-              setPickValue(null)
+              setPickValue(['', ''])
               setSearchParams(initSearchParams)
               getMediaList({ curSearchParams: initSearchParams })
             }}
@@ -147,7 +152,7 @@ const Video = ({ isReload = false, openDelete }: { isReload: boolean; openDelete
         </div>
       </div>
       <div className="flex flex-row justify-between mb-4">
-        <Button className="flex items-center" onClick={() => syncMediaList()}>
+        <Button className="flex items-center" onClick={() => openSyncTipModal && openSyncTipModal()}>
           <span className="iconfont icon-bianzu2 mr-2 text-xl" />
           Synchronous WeChat Assets
         </Button>

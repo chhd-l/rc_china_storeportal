@@ -25,20 +25,20 @@ function App () {
     }
   }, [location.pathname])
   
-  // useEffect(() => {
-  //   // if (!localStorage.getItem('rc_access_token')) {
-  //   //   localStorage.removeItem('rc-userInfo')
-  //   //   localStorage.removeItem("rc-token")
-  //   //   navigate('/login')
-  //   // }
-  //   function fn() {
-  //     console.log('touch')
-  //   }
-  //   window.addEventListener('storage', fn)
-  //   return () => {
-  //     window.removeEventListener('storage', fn)
-  //   }
-  // }, [])
+  useEffect(() => {
+    if (!localStorage.getItem('rc_access_token')) {
+      localStorage.removeItem('rc-userInfo')
+      localStorage.removeItem("rc-token")
+      navigate('/login')
+    }
+    // function fn() {
+    //   console.log('touch')
+    // }
+    // window.addEventListener('storage', fn)
+    // return () => {
+    //   window.removeEventListener('storage', fn)
+    // }
+  }, [])
 
   return (
     <div className='App text-center'>
