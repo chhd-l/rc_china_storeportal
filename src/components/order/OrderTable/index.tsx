@@ -65,7 +65,7 @@ const OrderTable = ({ orderList,shipOrCompleteSuccess }: { orderList: Order[],sh
                 <span className="ml-2">{item.buyer.name}</span>
               </Col>
               <Col span={12} className="text-right" style={{lineHeight:"44px"}}>
-                  order ID:{item.id}
+                  Order ID:{item.id}
                   {item.subscriptionId ? (
                     <span>
                       <span className="iconfont icon-Frame1 primary-color mr-2" />
