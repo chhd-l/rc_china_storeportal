@@ -1,78 +1,76 @@
-import { ProductForCateProps } from "@/framework/types/product";
-import { ProColumns } from "@ant-design/pro-table";
-import { Button } from "antd";
-
+import { ProductForCateProps } from '@/framework/types/product'
+import { ProColumns } from '@ant-design/pro-table'
+import { Button,Input,Space } from 'antd'
+import { formatMoney } from '@/utils/utils'
+const {Search} = Input
 export const columns: ProColumns<ProductForCateProps>[] = [
   {
-    title: "product Name",
-    dataIndex: "productName",
+    title: 'product Name',
+    dataIndex: 'productName',
+    hideInSearch: true,
   },
   {
-    title: "MarketingPrice",
-    dataIndex: "marketingPrice",
+    title: 'MarketingPrice',
+    dataIndex: 'marketingPrice',
+    hideInSearch: true,
   },
   {
-    title: "Stock",
-    dataIndex: "stock",
+    title: 'Stock',
+    dataIndex: 'stock',
+    hideInSearch: true,
   },
-];
+  {
+    dataIndex: 'productName',
+    renderFormItem: (_, { type, defaultRender, ...rest }, form) => {
+      return (
+        <Space direction="vertical" className='search-input'>
+          <Search placeholder="Search Products" onSearch={()=>{
+            form.submit()
+          }} size="large" style={{ width: 400 }} />
+        </Space>
+      )
+    },
+  },
+]
 
 export const restSearchButtons = {
   render: (props: any) => {
-    const { submit, resetFields } = props.form;
-    console.log(props);
+    const { submit, resetFields } = props.form
+    console.log(props)
     return [
-      <Button key="submit" type="primary" onClick={() => submit?.()}>
+      <Button key='submit' type='primary' onClick={() => submit?.()}>
         Search
       </Button>,
-      <Button key="rest" onClick={() => resetFields()}>
+      <Button key='rest' onClick={() => resetFields()}>
         Reset
       </Button>,
-    ];
+    ]
   },
-};
+}
+const setNum = (arr:any) => {
+  let result = 0
+  for (let i = 0; i < arr.length; i++) {
+    result += Number(arr[i].stock)// 点开看 有两个值
+  }
+  return result
+}
 
 export const restWrapButtons = (
   renderProps: any,
   productNum: number,
-  closeModal: (visible: boolean) => void
+  closeModal: (visible: boolean) => void,
 ) => {
   const setting = (props: any) => {
-    const { submit } = props.form;
+    const { submit } = props.form
     return [
-      <div className="pr-4 text-gryy-400"> {productNum} product(s) found</div>,
-      <Button key="cancel" onClick={() => closeModal(false)}>
+      <div className='pr-4 text-gryy-400'> {productNum} product(s) found</div>,
+      <Button key='cancel' onClick={() => closeModal(false)}>
         Cancel
       </Button>,
-      <Button key="submit" type="primary" onClick={() => submit?.()}>
+      <Button key='submit' type='primary' onClick={() => submit?.()}>
         Comfirm
       </Button>,
-    ];
-  };
-  return setting(renderProps);
-};
-
-export const manualColumns: ProColumns<any>[] = [
-  {
-    title: "products",
-    dataIndex: "name",
-  },
-  {
-    title: "Brand",
-    dataIndex: "brand",
-  },
-  {
-    title: "Price(s)",
-    dataIndex: "marketingPrice",
-    sorter: (a, b) => a.lowestPrice - b.lowestPrice,
-    render: (_, record) => (
-      <>
-        {record.lowestPrice}-{record.highestPrice}
-      </>
-    ),
-  },
-  {
-    title: "Stock",
-    dataIndex: "stock",
-  },
-];
+    ]
+  }
+  return setting(renderProps)
+}

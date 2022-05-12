@@ -1,26 +1,18 @@
-import { Button, Alert, Switch, Input, Popconfirm, Modal } from 'antd'
+import { Alert, Button, Input, Modal, Switch } from 'antd'
 import { Link } from 'react-router-dom'
-import { EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons'
+import { CheckOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons'
 import './index.less'
 import AddCate from './components/AddCate'
-import { EyeOutlined, SwapOutlined } from '@ant-design/icons'
 import ProTable, { ProColumns } from '@/components/common/ProTable'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { CategoryBaseProps } from '@/framework/types/product'
-import {
-  detleShopCateRel,
-  createShopCategoryGoodsRel,
-  getShopCategories,
-  saveShopCategory,
-  shopCategoryFilterRules,
-  updateShopCategory,
-} from '@/framework/api/get-product'
+import { getShopCategories, updateShopCategory } from '@/framework/api/get-product'
 import IconFont from '@/components/common/IconFont'
-import { updateMedia } from '@/framework/api/wechatSetting'
+import { handlePageParams } from '@/utils/utils'
 // import 'antd/dist/antd.css';
 const ShopCategories = () => {
   const [addVisible, setAddvisible] = useState(false)
-  const [editIndex, setEditIndex] = useState(0)
+  const [editIndex, setEditIndex] = useState<number | undefined>()
   const [loading, setLoading] = useState<boolean>(false)
   const [name, setName] = useState('')
   const [curAssetId, setCurAssetId] = useState('')
@@ -33,6 +25,20 @@ const ShopCategories = () => {
   const handleUpdate = (visible: boolean) => {
     ref.current.reload()
   }
+  const onRow = () => {
+    console.log(1)
+  }
+  const getList = async (page: any) => {
+    return await getShopCategories({
+      offset: page.offset,
+      limit: page.limit,
+      isNeedTotal: true,
+      sample: {
+        storeId: '12345678',
+      },
+    })
+  }
+
   const confirmDelete = async () => {
     setLoading(true)
     updateShopCategory({
@@ -83,16 +89,20 @@ const ShopCategories = () => {
               }} />
             </Input.Group>
           )
-        } else {
+        } else if (index === editIndex) {
           return (
-            <div>
-              <span>{record.displayName}</span>
+            <div className='edit-name'>
+              <span className='edit-display-name'>{record.displayName}</span>
               <EditOutlined onClick={() => {
                 setEditIndex(index)
                 setShow(true)
                 setName(record.displayName)
-              }} />
+              }} style={{ fontSize: '16px', color: '#ee4d2d' }} />
             </div>
+          )
+        } else {
+          return (
+            <span>{record.displayName}</span>
           )
         }
       },
@@ -138,7 +148,7 @@ const ShopCategories = () => {
               <Link to={`/category/category-manual-detail/${record.id}`} className='mr-4 text-xl'>
                 <IconFont type='icon-jiahao' />
               </Link>,
-              <Link to='' className='mr-4 text-xl' onClick={()=>{
+              <Link to='' className='mr-4 text-xl' onClick={() => {
                 setIsModalVisible(true)
                 setCurAssetId(record.id)
               }}>
@@ -150,7 +160,8 @@ const ShopCategories = () => {
               <Link to={`/category/category-manual-detail/${record.id}`} className='mr-4 text-xl'>
                 <IconFont type='icon-group52' />
               </Link>,
-              <Link to='' className='mr-4 text-xl' onClick={()=>{
+              <Link to='' className='mr-4 text-xl' onClick={() => {
+
                 setIsModalVisible(true)
                 setCurAssetId(record.id)
               }}>
@@ -165,7 +176,8 @@ const ShopCategories = () => {
               <IconFont type='icon-group52' />
             </Link>,
             <Link to='' className='mr-4 text-xl' onClick={() => {
-              detleShopCateRel([record.id])
+              setIsModalVisible(true)
+              setCurAssetId(record.id)
             }}>
               <IconFont type='icon-delete' />
             </Link>,
@@ -180,14 +192,14 @@ const ShopCategories = () => {
         <div className='flex justify-between'>
           <div className='text-xl font-semibold'>My Shop Categories</div>
           <div className='flex'>
-            <Button className='flex items-center mr-4 text-red-400 border-red-400' icon={<EyeOutlined />}>
-              Preview
-            </Button>
-            <Link to='/category/category-list-sort'>
-              <Button className='flex items-center mr-4 text-red-400 border-red-400' icon={<SwapOutlined />}>
-                Adjust Sequence
-              </Button>
-            </Link>
+            {/*<Button className='flex items-center mr-4 text-red-400 border-red-400' icon={<EyeOutlined />}>*/}
+            {/*  Preview*/}
+            {/*</Button>*/}
+            {/*<Link to='/category/category-list-sort'>*/}
+            {/*  <Button className='flex items-center mr-4 text-red-400 border-red-400' icon={<SwapOutlined />}>*/}
+            {/*    Adjust Sequence*/}
+            {/*  </Button>*/}
+            {/*</Link>*/}
             <Button
               className=' mr-4'
               onClick={() => {
@@ -210,17 +222,31 @@ const ShopCategories = () => {
           actionRef={ref}
           search={false}
           columns={columns}
+          onRow={(record, index) => {
+            return {
+              onMouseEnter: event => {
+                setEditIndex(index)
+              }, // 鼠标移入行
+              onMouseLeave: event => {
+                setShow(false)
+                setEditIndex(undefined)
+              },
+            }
+          }}
           request={async (params, sorter, filter) => {
             // 表单搜索项会从 params 传入，传递给后端接口。
             console.log('test sort', params, sorter, filter)
-            let tableData = await getShopCategories({
-              offset: params.current,
-              limit: params.pageSize,
-              isNeedTotal: true,
-              sample: {
-                storeId: '12345678',
-              },
+            let page = handlePageParams({
+              currentPage: params.current,
+              pageSize: params.pageSize,
             })
+            let tableData = await getList(page)
+            if (tableData === undefined && page.offset >= 10) {
+              tableData = await getList({
+                offset: page.offset - 10,
+                limit: page.limit,
+              })
+            }
             return Promise.resolve({
               data: tableData?.records || [],
               total: tableData.total,

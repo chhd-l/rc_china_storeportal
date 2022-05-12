@@ -1,13 +1,14 @@
-import { Form, Input, Button, Row, Col, Select } from "antd";
+import { Form, Input, Button, Row, Col, Select,Cascader } from "antd";
 import type { OptionsProps } from "@/framework/types/common";
 import Mock from "mockjs";
 import { mockOption } from "../../modules/mockdata";
 import { ProFormMoney } from "@ant-design/pro-form";
+import { getCategories } from '@/framework/api/get-product'
+import { useState, useEffect } from 'react'
 const { Option } = Select;
 interface SearchProps {
   getFormData: Function;
 }
-const mockOptions = Mock.mock(mockOption).options;
 
 const nameForKey: OptionsProps[] = [
   { name: "Product Name", value: "ProductName" },
@@ -15,6 +16,18 @@ const nameForKey: OptionsProps[] = [
   { name: "SPU", value: "SPU" },
 ];
 const SearchHeader = ({ getFormData }: SearchProps) => {
+  const [mockOptions, setMockOptions] = useState<Array<any>>([])
+
+  const getList = async() => {
+   let res= await getCategories({storeId:'12345678'})
+    setMockOptions(res)
+  }
+  const onChange = () => {
+    
+  }
+  useEffect(() => {
+    getList()
+  }, [])
   const [form] = Form.useForm();
   const onFinish = (values: any) => {
     console.log("Finish??:", values);
@@ -32,25 +45,13 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
       layout={"inline"}
       className="py-6 px-3 bg-white mb-3"
       form={form}
-      initialValues={{
-        selectName: nameForKey[0].value,
-        category: mockOptions[0].value,
-      }}
+      initialValues={{}}
       onFinish={onFinish}
     >
       <Row justify="start" gutter={[0, 14]}>
         <Col span={9}>
           <Form.Item label="Category" name="category">
-            <Select
-              placeholder="Select a category"
-              defaultValue={mockOptions[0].value}
-            >
-              {mockOptions.map((el: any) => (
-                <Option key={el.value} value={el.value}>
-                  {el.name}
-                </Option>
-              ))}
-            </Select>
+            <Cascader options={mockOptions} onChange={onChange} placeholder="Select a category" />
           </Form.Item>
         </Col>
         <Col span={14}>

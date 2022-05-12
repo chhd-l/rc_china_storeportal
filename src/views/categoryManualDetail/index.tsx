@@ -1,5 +1,5 @@
 import './index.less'
-import { Button, Switch, Tag } from 'antd'
+import { Button, Switch, Tag,Input,Space } from 'antd'
 import { EditOutlined, PlusOutlined } from '@ant-design/icons'
 import ProTable from '@/components/common/ProTable'
 import { useEffect, useState } from 'react'
@@ -7,15 +7,24 @@ import { columns } from './modules/constant'
 import { CategoryProductProps } from '@/framework/types/product'
 import { useLocation, useParams } from 'react-router-dom'
 import { AddCateType } from '@/framework/types/product'
-import RuleBasedFilteringProps from './components/RuleBasedFiltering'
 import ManualSelection from './components/ManualSelection'
+import { AudioOutlined } from '@ant-design/icons';
+import { getESProducts,createShopCategoryGoodsRel } from '@/framework/api/get-product'
 
+const { Search } = Input;
 const CategoryDetail = () => {
   const location = useLocation()
   const params = useParams()
   const [addCateType, setAddCateType] = useState(AddCateType.ManualSelection)
-  const [ruleBasedVisible, setRuleBasedVisible] = useState(false)
+  const [productsLsit, setProductsLsit] = useState([])
   const [manualSelectionVisible, setManualSelectionVisible] = useState<boolean>(false)
+  const [cateInfos, setCateInfos] = useState({
+    displayName:'',
+    createdUser:'',
+    productNum:'',
+    type:''
+  })
+
   useEffect(() => {
     const { id } = params
     if (id === 'add') {
@@ -23,22 +32,15 @@ const CategoryDetail = () => {
       setAddCateType(type)
     }
   }, [])
-  const handleRuleBaseVisible = (visible: boolean) => {
-    setRuleBasedVisible(visible)
-  }
   const handleManualVisible = (visible: boolean) => {
     setManualSelectionVisible(visible)
   }
   const hanleChangeVisble = (visible: boolean) => {
     console.info(visible)
   }
-  const [cateInfos, setCateInfos] = useState({
-    displayName:'',
-    createdUser:'',
-    productNum:'',
-    type:''
-  })
-  console.info('cateInfos', cateInfos)
+  const onSearch = () => {
+    
+  }
   return (
     <div className='category-detail  bg-gray-50 py-14 px-20 text-left'>
       <div className='bg-white mb-8 px-6 py-4'>
@@ -65,8 +67,8 @@ const CategoryDetail = () => {
       </div>
       <div className='bg-white px-6 py-4'>
         <div className='flex justify-between'>
-          <div>
-            <div>Product List</div>
+          <div className='search-title'>
+            <div className="text-xl font-semibold list-title">Product List</div>
           </div>
           <Button
             type='primary'
@@ -80,7 +82,11 @@ const CategoryDetail = () => {
         </div>
         <ProTable
           columns={columns}
-          search={false}
+          search={{
+            optionRender: false,
+            collapsed: false,
+            className: 'my-searchs',
+          }}
           request={(params, sorter, filter) => {
             // 表单搜索项会从 params 传入，传递给后端接口。
             console.info('cateInfos.productList')
@@ -92,10 +98,6 @@ const CategoryDetail = () => {
           }}
         />
       </div>
-      <RuleBasedFilteringProps
-        visible={ruleBasedVisible}
-        handleVisible={handleRuleBaseVisible}
-      />
       <ManualSelection
         visible={manualSelectionVisible}
         handleVisible={handleManualVisible}
