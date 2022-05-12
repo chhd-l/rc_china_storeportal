@@ -6,12 +6,14 @@ import { handleReturnTime } from "@/utils/utils";
 import { syncFans, syncPartFans } from "@/framework/api/wechatSetting";
 import './Style.less'
 
-const Index = ({ fanList, pages, setPages, getFanList, total }: {
+const Index = ({ fanList, pages, setPages, getFanList, total, loading, setLoading }: {
   fanList: Fans[],
   pages: any,
   setPages: Function,
   getFanList: Function,
-  total: number
+  total: number,
+  loading: boolean,
+  setLoading: Function
 }) => {
   const navigator = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -24,6 +26,7 @@ const Index = ({ fanList, pages, setPages, getFanList, total }: {
 
   const handlOk = async () => {
     message.warning('Fans Synchronizing')
+    setLoading(true)
     if (!ListChek.length) {
       syncFans().then(() => {
         message.success('Fans Synchronization succeeded')
@@ -53,36 +56,13 @@ const Index = ({ fanList, pages, setPages, getFanList, total }: {
   const columns = [
     {
       title: "Wechat Account",
-      dataIndex: "accountId",
-      key: "accountId",
+      dataIndex: "accountPrincipal",
+      key: "accountPrincipal",
     },
-    // {
-    //   title: "Avatar",
-    //   dataIndex: "headimgurl",
-    //   key: "headimgurl",
-    // },
-    // {
-    //   title: "Nickname",
-    //   dataIndex: "nickname",
-    //   key: "name",
-    // },
     {
-      title: "Sex",
-      dataIndex: "sex",
-      key: "sex",
-      render: (sex: string) => sex === '0' ? 'Male' : 'Female'
-    },
-    // {
-    //   title: "Address",
-    //   dataIndex: "province",
-    //   key: "province",
-    // },
-    {
-      title: "Is Member",
-      dataIndex: "isMember",
-      key: "isMember",
-      render: (text: any) => `${text ? "Yes" : "No"}`,
-      // align:"center"
+      title: "Open ID",
+      dataIndex: "openId",
+      key: "openId"
     },
     {
       title: "Follow Time",
@@ -114,7 +94,7 @@ const Index = ({ fanList, pages, setPages, getFanList, total }: {
 
   return (
     <div>
-      <div className="flex flex-row mb-4 fansTable pt-10">
+      <div className="flex flex-row mb-4 fansTable pt-4">
         {/* <Button className="mr-4" onClick={() => { }}>
           <span className="iconfont icon-bianzu2 mr-2" />
           Synchronize All Openid
@@ -135,6 +115,7 @@ const Index = ({ fanList, pages, setPages, getFanList, total }: {
         </Button>
         <Modal
           visible={isModalVisible}
+          className="rc-modal"
           title={!ListChek.length ? 'Synchronize All Fan Information' : 'Synchronize All Openid'}
           closable={false}
           width={400}
@@ -151,6 +132,7 @@ const Index = ({ fanList, pages, setPages, getFanList, total }: {
       </div>
       <Table
         rowSelection={{ onChange: changeSelect }}
+        loading={loading}
         dataSource={fanList}
         columns={columns}
         rowKey="id"

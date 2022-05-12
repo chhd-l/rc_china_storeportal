@@ -26,6 +26,9 @@ const OrderSearch = ({ query }: { query: Function }) => {
             onChange={(e) => {
               updateSearchParams(e.target.value, 'name')
             }}
+            onPressEnter={() => {
+              query && query(searchParams)
+            }}
           />
         </div>
         <div className="flex flex-row items-center">
@@ -36,6 +39,9 @@ const OrderSearch = ({ query }: { query: Function }) => {
             value={searchParams.phone}
             onChange={(e) => {
               updateSearchParams(e.target.value, 'phone')
+            }}
+            onPressEnter={() => {
+              query && query(searchParams)
             }}
           />
         </div>
@@ -48,6 +54,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
               console.log(date, dateString)
               setPickValue(date)
               setSearchParams({ ...searchParams, loginStartTime: dateString[0], loginEndTime: dateString[1] })
+              query && query(searchParams)
             }}
           />
         </div>

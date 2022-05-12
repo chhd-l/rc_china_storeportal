@@ -16,6 +16,7 @@ import "./index.less"
 
 const FanList = () => {
   const [fanList, setFanList] = useState<Fans[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const [pages, setPages] = useState({
     page: 1,
     limit: 10,
@@ -44,10 +45,11 @@ const FanList = () => {
    if(JSON.stringify(item) !== '{}') {
     val.sample = item
   }
-
+   setLoading(true);
    let res = await getFansList(val)
    setFanList(res?.records || [])
    setTotal(res?.total || 10)
+   setLoading(false);
   };
 
   return (
@@ -57,7 +59,7 @@ const FanList = () => {
       </SearchContainer>
       <DivideArea />
       <TableContainer>
-        <Table pages={pages} setPages={setPages} fanList={fanList} getFanList={getFanList} total={total} />
+        <Table pages={pages} setPages={setPages} fanList={fanList} getFanList={getFanList} total={total} loading={loading} setLoading={setLoading} />
       </TableContainer>
     </ContentContainer>
   );
