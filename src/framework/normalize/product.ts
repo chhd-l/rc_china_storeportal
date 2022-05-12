@@ -321,6 +321,9 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
         if (el?.subscriptionPrice) {
           normaliseData.subscriptionPrice = Number(el.subscriptionPrice)
         }
+        if (el?.marketingPrice) {
+          normaliseData.subscriptionPrice = Number(el.marketingPrice)
+        }
       }
       console.info('normaliseData', normaliseData)
       return normaliseData
