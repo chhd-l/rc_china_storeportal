@@ -75,7 +75,7 @@ const SalesInfo = (props: FormProps) => {
     regularList[idx].bundleNumber = val
     if (regularList[idx].bunldeRelId) {
       //编辑
-      detail.goodsVariantBundleInfo[idx].bunldeRelId = regularList[idx].bunldeRelId
+      detail.goodsVariantBundleInfo[idx].id = regularList[idx].bunldeRelId
       detail.goodsVariantBundleInfo[idx].goodsVariantId = detail.skuId
     } else {
       //新增

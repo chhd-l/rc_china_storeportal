@@ -28,7 +28,8 @@ export const getCategories = async ({ storeId }: { storeId: string }): Promise<C
   try {
     let categoryList = await ApiRoot.products().getProductCategories({ storeId })
     // const cateList: TreeDataProps[] = normaliseCateProps(categoryList.getProductCates)
-    return getTree(categoryList.getProductCates, null, 0)
+    return categoryList.getProductCates
+    // return getTree(categoryList.getProductCates, null, 0)
     // return normalisePets(pets)
   } catch (e) {
     console.log(e)
@@ -98,9 +99,9 @@ export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categ
 }
 
 export const getProduct = async ({
-                                   storeId,
-                                   goodsId,
-                                 }: { storeId: string, goodsId: string }): Promise<ProductDetailProps> => {
+  storeId,
+  goodsId,
+}: { storeId: string, goodsId: string }): Promise<ProductDetailProps> => {
   // debugger
   try {
     const detailinfo = await ApiRoot.products().getProductBySpu({ storeId, goodsId })
@@ -238,7 +239,7 @@ export const updateShopCategory = async (params: ShopCategoryUpdateInput): Promi
 }
 
 export const shopCategoryFilterRules = async (params: ShopCategoryFilterRulesInput[]): Promise<any> => {
-  console.log(params,2222222)
+  console.log(params, 2222222)
   try {
     let res = await ApiRoot.products().shopCategoryFilterRules({ body: params })
   } catch (e) {

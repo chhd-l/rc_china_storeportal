@@ -170,16 +170,16 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
       params.goodsVariantsInput = [
         {
           // skuNo: 'test0001', //to do
-          withoutSku: true,
+          // isWithoutSku: true,
           subscriptionPrice: values.subscriptionPrice,
           subscriptionStatus: values.subscriptionStatus,
           stock: values.stock,
-          listPrice: values.listPrice,
-          marketingPrice: values.marketingPrice,
-          feedingDays: values.feedingDays,
+          listPrice: Number(values.listPrice),
+          marketingPrice: Number(values.marketingPrice),
+          feedingDays: Number(values.feedingDays),
           isSupport100: values.isSupport100,
           id: detail.skuId,
-          defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
+          // defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
           goodsVariantBundleInfo: detail.goodsVariantBundleInfo?.map((el: any) => {
             let bundleInfo = {
               bundleNumber: el.bundleNumber,
