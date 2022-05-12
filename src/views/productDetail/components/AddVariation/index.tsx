@@ -273,6 +273,7 @@ const AddVariation = ({}: AddVariationProps) => {
               <Row className='py-3'>
                 <Col span={15} offset={4}>
                   <Button
+                    type='dashed'
                     className='w-full ml-2'
                     onClick={() => {
                       handleAddSpecification(variationIdx)

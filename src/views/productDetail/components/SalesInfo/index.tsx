@@ -8,7 +8,7 @@ import { DetailContext } from '../../index'
 import { VarationsFormProps } from '@/framework/types/product'
 import { Form, Input, InputNumber } from 'antd'
 import BundleSubSKuPop from '../BundleSubSKuPop'
-import { DeleteOutlined } from '@ant-design/icons'
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import { data } from 'browserslist'
 import { debug } from 'console'
 import './index.less'
@@ -161,10 +161,13 @@ const SalesInfo = (props: FormProps) => {
                     onClick={() => {
                       setShowBundleChoose(true)
                     }}
-                    className='border border-dashed border-primary w-8 h-8 p-1 cursor-pointer'
+                    className=' w-8 h-8 p-1 cursor-pointer'
                   >
-                    <div className='rounded-full border border-solid  border-primary w-full h-full justify-center flex items-center'>
-                      +
+                    <div
+                      className='rounded-full border border-solid p-1 border-primary w-full h-full justify-center flex items-center'
+                      style={{ borderColor: 'rgb(81, 172, 245)', color: 'rgb(81, 172, 245)' }}
+                    >
+                      <PlusOutlined style={{ color: '#51ACF5' }} color='#51ACF5' />
                     </div>
                   </div>
                   <div>

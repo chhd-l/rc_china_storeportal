@@ -133,6 +133,27 @@ export const normaliseCateIdProps: any = (id: string, list: CateItemProps[], par
     return parentNode
   }
 }
+export const normaliseDeletedData: any | GoodsAssets = (data: any, beforeData: any) => {
+  if (!data?.length || !beforeData?.length) {
+    return
+  }
+  let newData = [...data]
+
+  for (let item in beforeData) {
+    var found = false
+    for (let citem in data) {
+      if (data[citem].id === beforeData[item].id) {
+        found = true
+        break
+      }
+    }
+    if (!found) {
+      beforeData[item].isDeleted = true
+      newData.push(beforeData[item])
+    }
+  }
+  return newData
+}
 export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
   let goodsAsserts = (data.goodsAsserts ? [...data.goodsAsserts, data.video] : [data.video])?.filter((el: any) => el?.url)?.map((el: any) => {
     let asset = {
@@ -146,6 +167,7 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     }
     return asset
   })
+  goodsAsserts = normaliseDeletedData(goodsAsserts, beforeData.goodsAsserts)
   let detail: any = {
     spuNo: data.spuNo,
     goodsName: data.name,

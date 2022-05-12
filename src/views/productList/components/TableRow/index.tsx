@@ -69,8 +69,8 @@ const TableRow = ({
         />
       </div>
       <div className='w-64 flex py-1 pr-2 overflow-hidden'>
-        <div className='w-20 h-20'>
-          <img src={spu.img} className='w-20 h-20' alt={spu.name} />
+        <div className='w-20 h-20 flex justify-center items-center'>
+          <img src={spu.img} alt={spu.name} />
         </div>
         <div className='pl-2 flex-1'>
           <div className='text-sm mb-1 two-lines'>{spu.name}</div>

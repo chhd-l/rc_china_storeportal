@@ -316,6 +316,15 @@ const EditVariationList = (props: FormProps) => {
                                 <Input
                                   className='text-center'
                                   placeholder='Input'
+                                  // onInput={e => {
+                                  //   console.info('....', e)
+                                  //   tr[td.keyVal] = e.currentTarget.value?.replace(/[^\a-\z\A-\Z]/g, '')
+                                  //   debugger
+                                  // }}
+                                  // onChange={(e: any) => {
+                                  //   debugger
+                                  //   return e.target.value.replace(/[\W]/g, '')
+                                  // }}
                                   onBlur={e => {
                                     tr[td.keyVal] = e.target.value
                                     updateVations(e.target.value, index, td.keyVal, tr)
@@ -324,7 +333,9 @@ const EditVariationList = (props: FormProps) => {
                                 />
                               )
                             case 'text':
-                              return <span className='text-center inline-block px-4'>{tr[td.keyVal]}</span>
+                              return (
+                                <span className='text-center inline-block px-4 whitespace-nowrap'>{tr[td.keyVal]}</span>
+                              )
                             case 'upload':
                               console.info('tr[td.keyVal]', tr[td.keyVal])
                               // return <span>{tr[td.keyVal]}</span>
@@ -339,6 +350,7 @@ const EditVariationList = (props: FormProps) => {
                                     handleImgUrl={(imgInfo: any) => {
                                       tr[td.keyVal] = imgInfo.url
                                       console.info('...', imgInfo.url)
+                                      debugger
                                       updateVations(imgInfo.url, index, td.keyVal, tr)
                                     }}
                                   />
