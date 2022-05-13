@@ -59,7 +59,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
   }
   const manualColumns: ProColumns<any>[] = [
     {
-      title: 'products',
+      title: 'Products',
       dataIndex: 'goodsName',
       hideInSearch: true,
       render: (_, record) => {
@@ -161,7 +161,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
       valueType: 'select',
     },
     {
-      title: 'Stock:',
+      title: 'Stock',
       width: 100,
       dataIndex: 'stock',
       hideInSearch: true,
@@ -209,10 +209,10 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
         if (saveList.length > 0) {
           createShopCategoryGoodsRel(saveList)
           handleUpdate(true)
-          message.success('提交成功')
+          message.success('Operate success')
           return true
         } else {
-          message.warning('请选择添加产品')
+          message.warning('Operation failed')
           return false
         }
 
