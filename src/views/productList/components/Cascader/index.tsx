@@ -1,13 +1,13 @@
 import './index.less'
 import { ProFormCascader } from '@ant-design/pro-form'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { mock } from 'mockjs'
 import { TreeDataProps } from '@/framework/types/product'
 import { getCategories } from '@/framework/api/get-product'
 import { CateItemProps } from '@/framework/schema/product.schema'
 import { useParams } from 'react-router-dom'
 import { getTree } from '@/framework/normalize/product'
-import { Modal } from 'antd'
+import { Input, Modal } from 'antd'
 
 interface CascaderProps {
   cateId: any[]
@@ -18,13 +18,16 @@ const Cascader = (props: CascaderProps) => {
   const [categories, setCategories] = useState<any>([])
   const [categoryList, setCategoryList] = useState<TreeDataProps[]>([])
   const params = useParams()
+  const InputRef = useRef<any>(null)
 
   const onChange = (value: any, selectedOptions: any) => {
+    InputRef.current.focus()
     console.info('selectedOptions', selectedOptions)
     console.info('value', value)
     // detail.selectedCateOptions = selectedOptions
     props.handleCateId(selectedOptions)
     setCategories(selectedOptions)
+    console.info('cascaderRef.current', InputRef)
   }
   const getCate = async () => {
     let list: CateItemProps[] = await getCategories({ storeId: '12345678' })
@@ -55,9 +58,11 @@ const Cascader = (props: CascaderProps) => {
 
   return (
     <div className='cate-cascader'>
-      <div className='p-6 bg-gray-50'>
+      <div className='p-6 bg-gray-50 relative'>
+        <Input ref={InputRef} style={{ position: 'absolute', left: -10000 }} />
         {categoryList?.length ? (
           <ProFormCascader
+            // ref={}
             name='cateId'
             rules={[{ required: true, message: '这是必填项' }]}
             // request={(params, props) => {
@@ -68,6 +73,7 @@ const Cascader = (props: CascaderProps) => {
               changeOnSelect: true,
               onChange: onChange,
               options: categoryList,
+              getPopupContainer: triggerNode => triggerNode.parentNode,
               showSearch: true,
               dropdownClassName: 'productlist-choose-cate common-dropdown-cascader',
               open: true,

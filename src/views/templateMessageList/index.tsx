@@ -62,7 +62,11 @@ const TemplateMessage = () => {
     })
     if (res) {
       message.success({ className: 'rc-message', content: 'Operation success' })
-      tableRef.current.reload()
+      if (cardView) {
+        await getTemplateMessageList()
+      } else {
+        tableRef.current.reload()
+      }
     } else {
       message.error({ className: 'rc-message', content: 'Operation failed' })
     }
@@ -125,16 +129,14 @@ const TemplateMessage = () => {
             </Button>,
           ]}
           columns={columns}
-          search={{ 
+          search={{
             searchText: 'Search',
-            optionRender: (searchConfig,formProps,dom) => {
+            optionRender: (searchConfig, formProps, dom) => {
               return dom.map((item: any) => {
-                return (
-                  <Button {...item.props} loading={false} />
-                )
+                return <Button {...item.props} loading={false} />
               })
-            }
-           }}
+            },
+          }}
           request={async (params, sorter, filter) => {
             // 表单搜索项会从 params 传入，传递给后端接口。
             console.log('test sort', params, sorter, filter)
