@@ -59,7 +59,7 @@ const Picture = ({
             <span
               className="cursor-pointer ml-2 iconfont icon-bianzu3 primary-color"
               onClick={() => {
-                setPreviewImg(record.assetLink)
+                setPreviewImg(record.picture)
                 setVisible(true)
               }}
             />
