@@ -77,6 +77,7 @@ const ShopCategories = () => {
     {
       title: 'Category Display Name',
       dataIndex: 'displayName',
+      width: 400,
       render: (_, record, index) => {
         if (editClickIndex===index && show) {
           return (
