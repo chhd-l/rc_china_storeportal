@@ -72,7 +72,7 @@ const QrCodeManage = () => {
       title: "Expired Time",
       dataIndex: "expiredTime",
       hideInSearch: true,
-      render: (text: any) => moment(text).format('YYYY-MM-DD')
+      render: (text: any) => text === '-' || !text ? '-' : moment(text).format('YYYY-MM-DD')
     },
     {
       title: "Action",
