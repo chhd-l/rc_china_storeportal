@@ -19,18 +19,7 @@ const WxMenuSetting = () => {
 
   const changeMenuType = (e: RadioChangeEvent, key: string) => {
     const newWxMenus = setWxMenu(wxMenus || [], key, {
-      type: e.target.value,
-      ...(e.target.value === "media_id" ? {
-        appid: undefined,
-        pagepath: undefined,
-        url: undefined
-      } : e.target.value === "view" ? {
-        appid: undefined,
-        pagepath: undefined,
-        media_id: undefined
-      } : {
-        media_id: undefined
-      })
+      type: e.target.value
     });
     setWxMenus && setWxMenus(_.cloneDeep(newWxMenus));
   }
