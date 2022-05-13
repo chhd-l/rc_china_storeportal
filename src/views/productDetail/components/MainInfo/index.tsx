@@ -248,7 +248,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
       message.error({ className: 'rc-message', content: 'Operate failed' })
     }
   }
-
+  console.info('shelvesStatusshelvesStatus', beforeData)
   return (
     <div id={steps[0].anchor}>
       <div className={!showCatePop ? 'flex-1 MainInfo mr-48' : 'flex-1 MainInfo'}>
@@ -306,20 +306,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
               >
                 Cancel
               </Button>
-              {pathname !== '/product/product-detail/add' ? (
-                beforeData.shelvesStatus ? (
-                  <Button
-                    loading={loading}
-                    className='ml-4'
-                    onClick={() => {
-                      shelvesStatus = false
-                      form.submit()
-                    }}
-                  >
-                    {pathname === '/product/product-detail/add' ? 'Save and Delist' : 'Delist'}
-                  </Button>
-                ) : null
-              ) : (
+              {(beforeData.id && beforeData.shelvesStatus) || !beforeData.id ? (
                 <Button
                   loading={loading}
                   className='ml-4'
@@ -328,25 +315,11 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                     form.submit()
                   }}
                 >
-                  {pathname === '/product/product-detail/add' ? 'Save and Delist' : 'Delist'}
+                  {beforeData.id && beforeData.shelvesStatus && 'Delist'}
+                  {!beforeData.id && 'Save and Delist'}
                 </Button>
-              )}
-              {pathname !== '/product/product-detail/add' ? (
-                !beforeData.shelvesStatus ? (
-                  <Button
-                    loading={loading}
-                    className='ml-4'
-                    type='primary'
-                    onClick={() => {
-                      debugger
-                      shelvesStatus = true
-                      form.submit()
-                    }}
-                  >
-                    {pathname === '/product/product-detail/add' ? 'Save and Publish' : 'Publish'}
-                  </Button>
-                ) : null
-              ) : (
+              ) : null}
+              {(beforeData.id && !beforeData.shelvesStatus) || !beforeData.id ? (
                 <Button
                   loading={loading}
                   className='ml-4'
@@ -357,10 +330,11 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                     form.submit()
                   }}
                 >
-                  {pathname === '/product/product-detail/add' ? 'Save and Publish' : 'Publish'}
+                  {beforeData.id && !beforeData.shelvesStatus && 'Publish'}
+                  {!beforeData.id && 'Save and Publish'}
                 </Button>
-              )}
-              {pathname !== '/product/product-detail/add' ? (
+              ) : null}
+              {beforeData.id ? (
                 <Button
                   loading={loading}
                   className='ml-4'
