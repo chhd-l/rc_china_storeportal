@@ -35,6 +35,7 @@ const typeValueEnum = [
 const QrCodeManageDetail = () => {
   const navigator = useNavigate();
   const [isOpen, setIsOpen] = useState('')
+  const [isRequset, setIsRequset] = useState(true)
   const layout = {
     labelCol: { span: 6 },
     wrapperCol: { span: 16 },
@@ -59,12 +60,16 @@ const disabledDate = (cut: any) => {
           className="w-1/2 "
           layout="horizontal"
           onFinish={async (values) => {
-            if(values.expiredTime) {
-              values.expiredTime = moment(values.expiredTime).utc().format()
+            if(isRequset) {
+              setIsRequset(false)
+              if(values.expiredTime) {
+                values.expiredTime = moment(values.expiredTime).utc().format()
+              }
+              await createQrCode({...values, accountId: "000001"}).then(() => {
+                navigator("/QrcodeManage/qrcode-manage-list");
+              })
+              setIsRequset(true)
             }
-            await createQrCode({...values, accountId: "000001"}).then(() => {
-              navigator("/QrcodeManage/qrcode-manage-list");
-            })
           }}
         >
           <Form.Item label='QR Code Name' name='name' rules={[
@@ -75,6 +80,7 @@ const disabledDate = (cut: any) => {
           ]}>
             <Input placeholder='input' />
           </Form.Item>
+
           <Form.Item label='QR Code Type' name='type' rules={[
             {
               required: true,
@@ -83,14 +89,21 @@ const disabledDate = (cut: any) => {
           ]}>
             <Select onChange={QRCodeType} placeholder='select' options={typeValueEnum} />
           </Form.Item>
-          <Form.Item label='Expired Time' name='expiredTime' rules={[
-            {
-              required: (isOpen === 'QR_SCENE' || isOpen ==='QR_STR_SCENE') ? true : false,
-              message: "Please select QR Code Type!",
-            },
-          ]}>
-            <DatePicker disabledDate={disabledDate} style={{width: '100%'}} placeholder='select' />
-          </Form.Item>
+
+          {
+            isOpen === 'QR_SCENE' || isOpen ==='QR_STR_SCENE' ? (
+              <Form.Item label='Expired Time' name='expiredTime' rules={[
+                {
+                  required: true,
+                  message: "Please select QR Code Type!",
+                },
+              ]}>
+                <DatePicker disabledDate={disabledDate} style={{width: '100%'}} placeholder='select' />
+              </Form.Item>
+            ) : null
+          }
+
+
           {
             (isOpen === 'QR_SCENE' || isOpen === 'QR_LIMIT_SCENE') ? (
               <Form.Item label='Scenario ID' name='scenarioId' key='scenarioId' rules={[
@@ -112,6 +125,7 @@ const disabledDate = (cut: any) => {
               </Form.Item>
             )
           }
+
           {/* <Form.Item label='Response Content' name='url'>
             <Input.Group>
               <Input
@@ -126,6 +140,7 @@ const disabledDate = (cut: any) => {
           <Form.Item label='Comment' name='comment'>
             <Input placeholder='input' />
           </Form.Item>
+
           <Form.Item
           >
             <div style={{width: '70vw'}} className="flex justify-end">
