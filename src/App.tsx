@@ -14,23 +14,23 @@ function App () {
   const location = useLocation()
   const [userInfo] = useAtom(userAtom)
 
+  // useEffect(() => {
+  //   console.log(process.env.REACT_APP_BESE_URL, 'console.log(process.env.REACT_APP_BASE_URL)')
+  //   if (location.pathname === '/') {
+  //     if (userInfo?.id) {
+  //       navigate('/shipment-list')
+  //     } else {
+  //       navigate('/login')
+  //     }
+  //   }
+  // }, [location.pathname])
+
   useEffect(() => {
-    console.log(process.env.REACT_APP_BESE_URL, 'console.log(process.env.REACT_APP_BASE_URL)')
-    if (location.pathname === '/') {
-      if (userInfo?.id) {
-        navigate('/shipment-list')  
-      } else {
-        navigate('/login')
-      }
-    }
-  }, [location.pathname])
-  
-  useEffect(() => {
-    if (!localStorage.getItem('rc_access_token')) {
-      localStorage.removeItem('rc-userInfo')
-      localStorage.removeItem("rc-token")
-      navigate('/login')
-    }
+    // if (!localStorage.getItem('rc_access_token')) {
+    //   localStorage.removeItem('rc-userInfo')
+    //   localStorage.removeItem('rc-token')
+    //   navigate('/login')
+    // }
     // function fn() {
     //   console.log('touch')
     // }
