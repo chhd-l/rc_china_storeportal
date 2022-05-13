@@ -1,13 +1,13 @@
 import { Button, Form, Input, Select, Upload, message } from "antd";
 import { ACCOUNT_FORM, ACCOUNT_FORM_TWO } from "@/views/addAccount/modules/form";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { ContentContainer, InfoContainer } from "@/components/ui";
-import { createAccount } from '@/framework/api/wechatSetting'
+import { createAccount, modifyAccount } from '@/framework/api/wechatSetting'
 import { useState } from "react";
 import './Style.less'
 
 const AddAccount = () => {
-
+  const { state }: any = useLocation();
   const navigator = useNavigate();
   const [form] = Form.useForm();
   const [ServiceAccount, setServiceAccount] = useState('ServiceAccount')
@@ -15,10 +15,23 @@ const AddAccount = () => {
   const [pertificatePath, setPertificatePah] = useState('');
 
   const addAccount = async (values: any) => {
-    //新增
-    await createAccount({...values, storeId: '12345678'}).then(() => {
-      navigator("/account/account-list")
-    })
+    if(state) {
+      let val = {
+        ...state,
+        ...values,
+        storeId: '12345678'
+      }
+      delete val.messageEncryptionURL
+      await modifyAccount({
+        account: val,
+      })
+    } else {
+      //新增
+      await createAccount({...values, storeId: '12345678'}).then(() => {
+        navigator("/account/account-list")
+      })
+    }
+    navigator('/account/account-list')
   };
 
   const onChange = (v: any) => {
@@ -43,7 +56,7 @@ const AddAccount = () => {
       <InfoContainer>
         <div className="text-2xl text-medium mb-4">Add Account</div>
         <Form
-          initialValues={{ type: "ServiceAccount" }}
+          initialValues={ state ? state : { type: "ServiceAccount" }}
           form={form}
           // onValuesChange={formValuesChange}
           onFinish={addAccount}

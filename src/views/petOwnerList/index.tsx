@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Customer } from '@/framework/types/customer'
 import Search from './components/Search'
 import { ContentContainer, SearchContainer, TableContainer } from '@/components/ui'
-import { Divider, Pagination } from 'antd'
+import { Divider, Pagination, Spin } from 'antd'
 import { getPetOwnerList } from '@/framework/api/customer'
 import { SearchParamsProps } from '@/framework/types/customer'
 import { initSearchParams } from '@/views/petOwnerList/modules/constants'
@@ -19,17 +19,20 @@ const PetOwnerList = () => {
   })
   const [total, setTotal] = useState(0)
   const { currentPage, pageSize } = pageParams
+  const [loading, setLoading] = useState(false)
 
   const changePage = (page: any, pageSize: any) => {
     setPageParams({ currentPage: page, pageSize: pageSize })
   }
 
   const getCustomers = async () => {
+    setLoading(true)
     let params = handleQueryParams({ searchParams, pageParams })
     console.log(params)
     const res = await getPetOwnerList(params)
     setPetOwnerList(res.records)
     setTotal(res.total)
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -48,17 +51,25 @@ const PetOwnerList = () => {
         />
       </SearchContainer>
       <TableContainer>
-        <Table petOwnerList={petOwnerList} />
-        <div className="flex flex-row justify-end mt-4">
-          <Pagination
-            className="rc-pagination"
-            current={currentPage}
-            total={total}
-            pageSize={pageSize}
-            onChange={changePage}
-            showSizeChanger={true}
-          />
-        </div>
+        {loading ? (
+          <div className="flex justify-center items-center h-80">
+            <Spin />
+          </div>
+        ) : (
+          <Table petOwnerList={petOwnerList} />
+        )}
+        {total > 0 && (
+          <div className="flex flex-row justify-end mt-4">
+            <Pagination
+              className="rc-pagination"
+              current={currentPage}
+              total={total}
+              pageSize={pageSize}
+              onChange={changePage}
+              showSizeChanger={true}
+            />
+          </div>
+        )}
       </TableContainer>
     </ContentContainer>
   )
