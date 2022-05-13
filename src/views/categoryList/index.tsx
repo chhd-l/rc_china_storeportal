@@ -26,12 +26,15 @@ const ShopCategories = () => {
   const [status, setStatus] = useState(false)
   const [show, setShow] = useState(false)
   const ref = useRef<any>()
+
   const handleAddCate = (visible: boolean) => {
     setAddvisible(visible)
   }
+
   const handleUpdate = (visible: boolean) => {
     ref.current.reload()
   }
+
   const getList = async (page: any) => {
     return await getShopCategories({
       offset: page.offset,
@@ -56,11 +59,12 @@ const ShopCategories = () => {
     })
     setLoading(false)
   }
+
   const confirmSwitch = async () => {
     setLoading(true)
     updateShopCategory({
       id: curAssetId,
-      isDisplay:status,
+      isDisplay: status,
     }).then((res) => {
       if (res) {
         setIsSwithVisible(false)
@@ -69,11 +73,8 @@ const ShopCategories = () => {
     })
     setLoading(false)
   }
+
   useEffect(() => {
-    // createShopCategoryGoodsRel([{ shopCategoryId: '8', goodsId: 'ea63d308-f451-9899-47d3-14f4a83ff16b' }])
-    // updateShopCategory({ id: '12316c9e-d151-909b-8256-4cfae4e70213', categoryType: 'RULE_BASED', isDisplay: true })
-    // saveShopCategory({})
-    // shopCategoryFilterRules({ id: '12316c9e-d151-909b-8256-4cfae4e70213' })
   }, [])
 
   const columns: ProColumns<CategoryBaseProps>[] = [
@@ -82,7 +83,7 @@ const ShopCategories = () => {
       dataIndex: 'displayName',
       width: 400,
       render: (_, record, index) => {
-        if (editClickIndex===index && show) {
+        if (editClickIndex === index && show) {
           return (
             <Input.Group compact>
               <Input style={{ width: '200px' }} defaultValue={record.displayName} onChange={(e) => {
@@ -91,7 +92,7 @@ const ShopCategories = () => {
               <Button icon={<CheckOutlined />} onClick={() => {
                 console.log(name)
                 updateShopCategory({
-                  id:record.id,
+                  id: record.id,
                   displayName: name,
                   isDisplay: record.isDisplay ? record.isDisplay : false,
                 }).then((res) => {
@@ -107,7 +108,7 @@ const ShopCategories = () => {
               }} />
             </Input.Group>
           )
-          } else if (index === editIndex) {
+        } else if (index === editIndex) {
           return (
             <div className='edit-name'>
               <span className='edit-display-name'>{record.displayName}</span>
@@ -130,7 +131,7 @@ const ShopCategories = () => {
       title: 'Created By',
       dataIndex: 'categoryType',
       render: (_, record) => (
-        <span>{record.name+' | ' + record.categoryType}</span>
+        <span>{record.name + ' | ' + record.categoryType}</span>
       ),
     },
     {
@@ -143,7 +144,7 @@ const ShopCategories = () => {
       render: (_, record) => (
         <Switch
           checked={record.isDisplay}
-          disabled={record?.total <1}
+          disabled={record?.total < 1}
           onChange={(checked: boolean) => {
             setStatus(!record.isDisplay)
             setCurAssetId(record.id)
@@ -204,101 +205,101 @@ const ShopCategories = () => {
   ]
   return (
     <ContentContainer>
-    <div className='shop-categories'>
-      <div className='bg-white p-6 '>
-        <div className='flex justify-between'>
-          <div className='text-xl font-semibold'>My Shop Categories</div>
-          <div className='flex'>
-            {/*<Button className='flex items-center mr-4 text-red-400 border-red-400' icon={<EyeOutlined />}>*/}
-            {/*  Preview*/}
-            {/*</Button>*/}
-            {/*<Link to='/category/category-list-sort'>*/}
-            {/*  <Button className='flex items-center mr-4 text-red-400 border-red-400' icon={<SwapOutlined />}>*/}
-            {/*    Adjust Sequence*/}
-            {/*  </Button>*/}
-            {/*</Link>*/}
-            <Button
-              className=' mr-4'
-              onClick={() => {
-                handleAddCate(true)
-              }}
-              type='primary'
-            >
-              + Add Category
-            </Button>
+      <div className='shop-categories'>
+        <div className='bg-white p-6 '>
+          <div className='flex justify-between'>
+            <div className='text-xl font-semibold'>My Shop Categories</div>
+            <div className='flex'>
+              {/*<Button className='flex items-center mr-4 text-red-400 border-red-400' icon={<EyeOutlined />}>*/}
+              {/*  Preview*/}
+              {/*</Button>*/}
+              {/*<Link to='/category/category-list-sort'>*/}
+              {/*  <Button className='flex items-center mr-4 text-red-400 border-red-400' icon={<SwapOutlined />}>*/}
+              {/*    Adjust Sequence*/}
+              {/*  </Button>*/}
+              {/*</Link>*/}
+              <Button
+                className=' mr-4'
+                onClick={() => {
+                  handleAddCate(true)
+                }}
+                type='primary'
+              >
+                + Add Category
+              </Button>
+            </div>
           </div>
-        </div>
-        <Alert
-          className='my-6 alert'
-          showIcon
-          // icon={<InfoCircleTwoTone />}
-          message='Your edits will be displayed in your Shop Page within 30 minutes'
-          type='info'
-        />
-        <ProTable
-          actionRef={ref}
-          search={false}
-          columns={columns}
-          onRow={(record, index) => {
-            return {
-              onMouseEnter: event => {
-                setEditIndex(index)
-              }, // 鼠标移入行
-              onMouseLeave: event => {
-                setEditIndex(undefined)
-              },
-            }
-          }}
-          request={async (params, sorter, filter) => {
-            // 表单搜索项会从 params 传入，传递给后端接口。
-            console.log('test sort', params, sorter, filter)
-            let page = handlePageParams({
-              currentPage: params.current,
-              pageSize: params.pageSize,
-            })
-            let tableData = await getList(page)
-            if (tableData === undefined && page.offset >= 10) {
-              tableData = await getList({
-                offset: page.offset - 10,
-                limit: page.limit,
+          <Alert
+            className='my-6 alert'
+            showIcon
+            // icon={<InfoCircleTwoTone />}
+            message='Your edits will be displayed in your Shop Page within 30 minutes'
+            type='info'
+          />
+          <ProTable
+            actionRef={ref}
+            search={false}
+            columns={columns}
+            onRow={(record, index) => {
+              return {
+                onMouseEnter: event => {
+                  setEditIndex(index)
+                }, // 鼠标移入行
+                onMouseLeave: event => {
+                  setEditIndex(undefined)
+                },
+              }
+            }}
+            request={async (params, sorter, filter) => {
+              // 表单搜索项会从 params 传入，传递给后端接口。
+              console.log('test sort', params, sorter, filter)
+              let page = handlePageParams({
+                currentPage: params.current,
+                pageSize: params.pageSize,
               })
-            }
+              let tableData = await getList(page)
+              if (tableData === undefined && page.offset >= 10) {
+                tableData = await getList({
+                  offset: page.offset - 10,
+                  limit: page.limit,
+                })
+              }
 
-            return Promise.resolve({
-              data: tableData?.records || [],
-              total: tableData.total,
-              success: true,
-            })
-          }}
-          pagination={{
-            showTotal: (total: number) => ``,
-          }}
-        />
+              return Promise.resolve({
+                data: tableData?.records || [],
+                total: tableData.total,
+                success: true,
+              })
+            }}
+            pagination={{
+              showTotal: (total: number) => ``,
+            }}
+          />
+        </div>
+        <AddCate visible={addVisible} handleVisible={handleAddCate} handleUpdate={handleUpdate} />
+        <Modal
+          className='rc-modal'
+          title='Delete Item'
+          okText='Confirm'
+          visible={isModalVisible}
+          onOk={confirmDelete}
+          confirmLoading={loading}
+          onCancel={() => setIsModalVisible(false)}
+        >
+          <p>Are you sure you want to delete the item?</p>
+        </Modal>
+        <Modal
+          className='rc-modal'
+          title='Notice'
+          okText='Confirm'
+          visible={isSwithVisible}
+          onOk={confirmSwitch}
+          confirmLoading={loading}
+          onCancel={() => setIsSwithVisible(false)}
+        >
+          <p>{status ? 'Are you sure you want to enable the item ?' : 'Are you sure you want to disable the item ?'}</p>
+        </Modal>
       </div>
-      <AddCate visible={addVisible} handleVisible={handleAddCate} handleUpdate={handleUpdate} />
-      <Modal
-        className='rc-modal'
-        title='Delete Item'
-        okText='Confirm'
-        visible={isModalVisible}
-        onOk={confirmDelete}
-        confirmLoading={loading}
-        onCancel={() => setIsModalVisible(false)}
-      >
-        <p>Are you sure you want to delete the item?</p>
-      </Modal>
-      <Modal
-        className='rc-modal'
-        title='Notice'
-        okText='Confirm'
-        visible={isSwithVisible}
-        onOk={confirmSwitch}
-        confirmLoading={loading}
-        onCancel={() => setIsSwithVisible(false)}
-      >
-        <p>{status?'Are you sure you want to enable the item ?':'Are you sure you want to disable the item ?'}</p>
-      </Modal>
-    </div>
     </ContentContainer>
   )
 }
