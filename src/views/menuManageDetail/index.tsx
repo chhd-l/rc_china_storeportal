@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'
-import WxMenuContextProvider, { filterWxMenus } from './context'
+import WxMenuContextProvider, { filterWxMenus, checkWxMenus } from './context'
 import WxMenuGraph from './components/graph'
 import WxMenuSetting from './components/setting'
 import { WxMenuItem, WxMenu } from './type'
 import { Button, message } from 'antd'
 import { createWxMenu, getWxMenuDetail, updateWxMenu } from '@/framework/api/wechatSetting'
+import _ from 'lodash'
 import './index.less';
 
 interface IProps {
@@ -47,16 +48,19 @@ const MenuManageDetail = (props: IProps) => {
       message.error({ className: 'rc-message', content: 'Please add menu' })
       return;
     }
+    if (!checkWxMenus(wxMenus)) {
+      return;
+    }
     setLoading(true)
     let success = false;
     if (props.pageType === 'edit') {
       success = await updateWxMenu({
         id: wxMenuItem.id,
         accountId: wxMenuItem.accountId,
-        content: JSON.stringify({button: filterWxMenus(wxMenus || [], [])})
+        content: JSON.stringify({button: filterWxMenus(_.cloneDeep(wxMenus || []))})
       });
     } else {
-      success = await createWxMenu(JSON.stringify({button: filterWxMenus(wxMenus || [], [])}))
+      success = await createWxMenu(JSON.stringify({button: filterWxMenus(_.cloneDeep(wxMenus || []))}))
     }
     setLoading(false)
     if (success) {

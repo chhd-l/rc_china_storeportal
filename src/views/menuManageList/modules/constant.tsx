@@ -72,7 +72,7 @@ export const tableColumns = ({ handleDelete, changeStatus }: TableColumns) => {
               <i className="cursor-pointer ml-2 iconfont icon-Edit primary-color"></i>
             </Link>
           </Tooltip>
-          <Tooltip title="Delete">
+          {record.isEnabled ? null : <Tooltip title="Delete">
             <span
               className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl"
               onClick={() => {
@@ -85,7 +85,7 @@ export const tableColumns = ({ handleDelete, changeStatus }: TableColumns) => {
                 });
               }}
             />
-          </Tooltip>
+          </Tooltip>}
         </div>
       )
     },

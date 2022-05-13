@@ -115,7 +115,7 @@ const PetOwnerList = () => {
       <Modal
         key="syncTip"
         className="rc-modal"
-        title="Confirm Synchronize?"
+        title="Confirm Synchronize"
         okText="Confirm"
         confirmLoading={loading}
         visible={isSyncTipModalVisible}
