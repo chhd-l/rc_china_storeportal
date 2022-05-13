@@ -37,7 +37,7 @@ const AddTemplate: FC<Props> = ({ visible, handleVisible }) => {
   return (
     <ModalForm
       className='add-template'
-      title='Select Products'
+      title='Add New Template'
       visible={visible}
       onFinish={async value => {
         console.info('value', value)
@@ -70,8 +70,12 @@ const AddTemplate: FC<Props> = ({ visible, handleVisible }) => {
           width='md'
           options={[
             {
-              value: 'chapter',
-              label: '盖章后生效',
+              value: 'SHIPPED',
+              label: 'SHIPPED',
+            },
+            {
+              value: 'CANCEL REMINDER',
+              label: 'CANCEL REMINDER',
             },
           ]}
           name='useMode'

@@ -1,6 +1,6 @@
 import './index.less'
 import { Form, Input, Button, Col, Row } from 'antd'
-import { CloseOutlined, DeleteOutlined, DragOutlined } from '@ant-design/icons'
+import { CloseOutlined, DeleteOutlined, DragOutlined, PlusOutlined } from '@ant-design/icons'
 import { cloneDeep } from 'lodash'
 import { useContext } from 'react'
 import { arrayMoveImmutable } from 'array-move'
@@ -273,11 +273,20 @@ const AddVariation = ({}: AddVariationProps) => {
               <Row className='py-3'>
                 <Col span={15} offset={4}>
                   <Button
-                    className='w-full ml-2'
+                    type='dashed'
+                    className='w-full ml-2  flex justify-center'
                     onClick={() => {
                       handleAddSpecification(variationIdx)
                     }}
                   >
+                    <div className=' w-6 h-6 p-1 cursor-pointer justify-center flex  mr-1'>
+                      <div
+                        className='rounded-full border border-solid p-1 border-primary w-full h-full justify-center flex items-center'
+                        style={{ borderColor: 'rgb(81, 172, 245)', color: 'rgb(81, 172, 245)' }}
+                      >
+                        <PlusOutlined style={{ color: '#51ACF5', fontSize: 12 }} color='#51ACF5' />
+                      </div>
+                    </div>
                     Add Option
                   </Button>
                 </Col>
@@ -313,7 +322,16 @@ const AddVariation = ({}: AddVariationProps) => {
           <Col span={16}>
             {/* <Row>
             <Col> */}
-            <Button type='dashed' className='w-full' onClick={handleAddVariation}>
+
+            <Button type='dashed' className='w-full flex justify-center items-center' onClick={handleAddVariation}>
+              <div className=' w-8 h-8 p-1 cursor-pointer  items-center mr-1'>
+                <div
+                  className='rounded-full border border-solid p-1 border-primary w-full h-full justify-center flex items-center'
+                  style={{ borderColor: 'rgb(81, 172, 245)', color: 'rgb(81, 172, 245)' }}
+                >
+                  <PlusOutlined style={{ color: '#51ACF5' }} color='#51ACF5' />
+                </div>
+              </div>
               Add Variation
             </Button>
             {/* </Col>

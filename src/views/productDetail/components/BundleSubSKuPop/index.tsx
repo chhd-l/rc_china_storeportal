@@ -73,8 +73,11 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
       render: (_, record) => {
         return (
           <div className='flex items-center'>
-            <div className='border border-solid p-1' style={{ borderColor: '#f8f8f8' }}>
-              <img className='h-8 w-auto' src={record.defaultImage} alt='' />
+            <div
+              className='border border-solid p-1 w-8 h-8 flex  justify-center items-center'
+              style={{ borderColor: '#f8f8f8' }}
+            >
+              <img src={record.defaultImage} alt='' />
             </div>
             <div className='text-xs'>
               <div>{record.name}</div>
@@ -93,11 +96,11 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
       },
     },
     {
-      dataIndex: 'listPrice',
+      dataIndex: 'brandName',
       title: 'Brand',
-      render: (_, record) => {
-        return formatMoney(record.listPrice)
-      },
+      // render: (_, record) => {
+      //   return formatMoney(record.listPrice)
+      // },
     },
 
     {
@@ -152,8 +155,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
       <ProTable
         columns={columns}
         formRef={ref}
-        search={{ span: 12, labelWidth: 60 }}
-        rowKey='id'
+        search={{ span: 12, labelWidth: 60, searchText: 'Search' }}
         pagination={{
           pageSize: 5,
         }}
@@ -188,7 +190,12 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
           }
           let res = await getBundleGoodsvariants(paramsData)
 
-          let list = res.records || []
+          let list = (res.records || []).map((el: any) => {
+            return {
+              ...el,
+              brandName: '',
+            }
+          })
           allPageList.unshift(...list)
           console.info('allPageList', allPageList)
           setRegularList(list)

@@ -1,10 +1,10 @@
 import ProTable from '@/components/common/ProTable'
 import './index.less'
-import { Button } from 'antd'
+import { Button, message, Modal } from 'antd'
 import { FileSearchOutlined } from '@ant-design/icons'
 import { tableColumns } from './modules/constant'
 import { ContentContainer } from '@/components/ui'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AddTemplate from './components/AddTemplate'
 import ViewIndustry from './components/ViewIndustry'
 import CardList from './components/CardList'
@@ -23,30 +23,48 @@ const TemplateMessage = () => {
   const [cardView, setCardView] = useState(false)
   const [templateMessageList, setTemplateMessageList] = useState<any[]>([])
   const [templateItems, setTemplateItems] = useState<any[]>([])
+  const [isModalVisible, setIsModalVisible] = useState(false)
   const [userInfo] = useAtom(userAtom)
+  const [curSelectId,setCurSelectId]=useState('')
+  const [loading, setLoading] = useState(false)
 
-  const handleDelete = async (id: string) => {
-    console.info('handleDelete', id)
-    const res = await updateTemplateMessage({ id, isDeleted: true })
+  const confirmDelete = async () => {
+    setLoading(true)
+    const res = await updateTemplateMessage({ id:curSelectId, isDeleted: true })
     if (res) {
+      setIsModalVisible(false)
+      message.success({ className: 'rc-message', content: 'Operation success' })
       await getTemplateMessageList()
+    }else{
+      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
+    setLoading(false)
   }
+
+  const openDelTipModal=(id:string)=>{
+    setCurSelectId(id)
+    setIsModalVisible(true)
+  }
+
   const getTemplateItemList = async () => {
     const res = await getTemplateItems({})
     console.info('res.records', res.records)
     setTemplateItems(res.records)
   }
+
   const modifyTemplateMessage = async (templateMessage: any) => {
     console.log('1111', templateMessage)
     const res = await updateTemplateMessage({ id: templateMessage.id, status: !templateMessage.status })
     if (res) {
+      message.success({ className: 'rc-message', content: 'Operation success' })
       await getTemplateMessageList()
+    }else{
+      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
   }
 
   const columns = tableColumns({
-    handleDelete,
+    openDelTipModal,
     modifyTemplateMessage,
     templateTitleList: templateItems,
   })
@@ -129,6 +147,18 @@ const TemplateMessage = () => {
       )}
       <AddTemplate visible={addVisible} handleVisible={setAddVisible} />
       <ViewIndustry visible={industryVisible} handleVisible={setIndustryVisible} />
+      <Modal
+        key="assetDelete"
+        className="rc-modal"
+        title="Delete Item"
+        okText="Confirm"
+        visible={isModalVisible}
+        onOk={confirmDelete}
+        confirmLoading={loading}
+        onCancel={() => setIsModalVisible(false)}
+      >
+        <p>Are you sure you want to delete the item?</p>
+      </Modal>
     </ContentContainer>
   )
 }

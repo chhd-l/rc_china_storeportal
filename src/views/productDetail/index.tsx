@@ -5,6 +5,7 @@ import { ContentContainer } from '@/components/ui'
 import { getProductDetail } from '@/framework/api/get-product'
 import { useParams } from 'react-router-dom'
 import { cloneDeep } from 'lodash'
+import './index.less'
 export const DetailContext = createContext(null as any)
 
 const Product = () => {
@@ -57,7 +58,7 @@ const Product = () => {
   }
 
   return (
-    <ContentContainer>
+    <ContentContainer className='product-detail-info'>
       <DetailContext.Provider value={{ detail, setShowCatePop, setProductName, spuType, ProductName }}>
         {showMain ? (
           <MainInfo details={detail} beforeData={beforeData} showCatePop={showCatePop}>

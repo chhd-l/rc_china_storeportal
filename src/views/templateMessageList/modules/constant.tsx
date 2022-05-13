@@ -1,12 +1,12 @@
 import { ProColumns } from '@/components/common/ProTable'
-import { Switch } from 'antd'
+import { Switch, Tooltip } from 'antd'
 import { Link } from 'react-router-dom'
-import { DeleteOutlined, FormOutlined } from '@ant-design/icons'
 import { handleValueEnum } from '@/utils/utils'
 import { LabelOptionProps } from '@/framework/types/common'
+import React from 'react'
 
 interface TableColumnsProps {
-  handleDelete: (e: string) => void
+  openDelTipModal: (e: string) => void
   modifyTemplateMessage: (e: any) => void
   templateTitleList: LabelOptionProps[]
 }
@@ -18,7 +18,7 @@ interface ColumnsProps {
   title: string
   status: boolean
 }
-export const tableColumns = ({ handleDelete, templateTitleList, modifyTemplateMessage }: TableColumnsProps) => {
+export const tableColumns = ({ openDelTipModal, templateTitleList, modifyTemplateMessage }: TableColumnsProps) => {
   const columns: ProColumns<ColumnsProps>[] = [
     {
       title: 'Template ID',
@@ -60,10 +60,8 @@ export const tableColumns = ({ handleDelete, templateTitleList, modifyTemplateMe
       hideInTable: true,
       valueEnum: {
         all: { text: 'All', status: 'Default' },
-        close: { text: 'Turn Off', status: 'Default' },
-        running: { text: 'Operation', status: 'Processing' },
-        online: { text: 'Launched', status: 'Success' },
-        error: { text: 'Abnormal', status: 'Error' },
+        SHIPPED: { text: 'SHIPPED', status: 'Default' },
+        'CANCEL REMINDER': { text: 'CANCEL REMINDER', status: 'Processing' },
       },
     },
     {
@@ -84,16 +82,19 @@ export const tableColumns = ({ handleDelete, templateTitleList, modifyTemplateMe
       title: 'Action',
       hideInSearch: true,
       render: (_, record) => [
-        <Link to={`/template/template-message/${record.id}`} className='mr-4'>
-          <FormOutlined />
-        </Link>,
-        <a className=' mr-4'>
-          <DeleteOutlined
+        <Tooltip title="Edit">
+          <Link to={`/template/template-message/${record.id}`}>
+            <span className="cursor-pointer iconfont text-sm icon-Edit text-red-500" />
+          </Link>
+        </Tooltip>,
+        <Tooltip title="Delete">
+          <span
+            className="cursor-pointer iconfont text-sm icon-delete text-red-500 ml-2"
             onClick={() => {
-              handleDelete(record.id)
+              openDelTipModal(record.id)
             }}
           />
-        </a>,
+        </Tooltip>,
       ],
     },
   ]

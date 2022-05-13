@@ -46,7 +46,7 @@ const TableFooter: FC<Props> = ({ children, list, getList, setLoading, loading }
     } else {
       message.error({ className: 'rc-message', content: 'Operation failed' })
     }
-    getList()
+    await getList()
     setLoading(false)
   }
   return (
@@ -79,7 +79,7 @@ const TableFooter: FC<Props> = ({ children, list, getList, setLoading, loading }
               }
               // listData[spuIdx].shelvesStatus = !shelvesStatus
               // setList(cloneDeep(listData))
-              getList()
+              await getList()
               setLoading(false)
             }}
           >

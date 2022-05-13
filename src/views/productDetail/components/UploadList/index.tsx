@@ -87,7 +87,9 @@ const UploadWrap = (props: UploadWrapProps) => {
     } else if (info.file.status === 'done') {
       console.log('success', info.file.response)
       list = []
-      let imgInfo = { url: info.file.response?.url, idx: props.idx, type: props.type }
+      let imgInfo = { url: info.file.response?.url, idx: props.idx, type: props.type, id: imageInfo.id }
+      console.info(imgInfo)
+      console.info(imageInfo)
       props.handleImgUrl?.(imgInfo)
       setImageInfo(imgInfo)
     }
@@ -109,6 +111,7 @@ const UploadWrap = (props: UploadWrapProps) => {
             name: props.fileName,
             url: img.url,
             thumbUrl: img.url,
+            id: img.id,
           }
         })
       : []
@@ -143,12 +146,38 @@ const UploadWrap = (props: UploadWrapProps) => {
           headers={{
             authorization: 'authorization-text',
           }}
+          accept={imageInfo.type === 'video' ? 'video/*' : 'image/*'}
           onPreview={handlePreview}
           onChange={handleChange}
+          className='upload-wrap-self'
         >
           {imageInfo?.url ? (
             <>
-              {imageInfo.type === 'image' ? <img src={imageInfo.url} alt='avatar' style={{ width: '100%' }} /> : null}
+              {imageInfo.type === 'image' ? (
+                <>
+                  <div className='relative img-wrap h-full flex  justify-center flex items-center'>
+                    <img src={imageInfo.url} alt='avatar' style={{ width: '100%' }} />
+                    <div className='absolute bottom-0 right-0 left-0  option-icon'>
+                      <span
+                        className='icon iconfont icon-delete text-base text-white'
+                        onClick={e => {
+                          let deletInfo = {
+                            url: '',
+                            idx: props.idx,
+                            type: props.type,
+                            id: imageInfo.id,
+                          }
+                          setImageInfo(deletInfo)
+                          props.handleImgUrl?.(deletInfo)
+                          setLoading(false)
+                          e.stopPropagation()
+                          console.info('...')
+                        }}
+                      ></span>
+                    </div>
+                  </div>
+                </>
+              ) : null}
               {imageInfo.type === 'video' ? (
                 <video>
                   <source src={imageInfo.url} type='video/mp4' />

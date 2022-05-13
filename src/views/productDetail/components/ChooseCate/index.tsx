@@ -1,9 +1,10 @@
-import { Divider } from 'antd'
+import { Button, Divider } from 'antd'
 import ProForm, { ProFormText, ProFormSelect } from '@ant-design/pro-form'
 import Cascader from '../Cascader'
 import { ProductType } from '@/framework/types/product'
 import './style.less'
 import { useEffect, useState } from 'react'
+import { setActiveWxMenu } from '@/views/menuManageDetail/context'
 // import { detail } from '@/framework/mock/productdetail'
 interface ChooseCateProps {
   handleCate: Function
@@ -20,6 +21,7 @@ const formItemLayout = {
 
 const ChooseCate = ({ handleCate, setShowCatePop, detail, setProductName, setSpuType }: ChooseCateProps) => {
   const [disableType, setDisableType] = useState(false)
+  const [activeBtn, setActiveBtn] = useState(false)
   // const onFinish = (values: any) => {
   //   console.log(values);
   // };
@@ -31,6 +33,7 @@ const ChooseCate = ({ handleCate, setShowCatePop, detail, setProductName, setSpu
   useEffect(() => {
     if (detail?.type) {
       setDisableType(true)
+      setActiveBtn(true)
     }
   }, [])
   return (
@@ -42,23 +45,50 @@ const ChooseCate = ({ handleCate, setShowCatePop, detail, setProductName, setSpu
           <Divider />
           <ProForm
             submitter={{
+              render: (props, doms) => {
+                console.log(props)
+                return [
+                  <Button
+                    type='primary'
+                    className={`pramry ${activeBtn ? '' : 'opacity-50'}`}
+                    key='submit'
+                    onClick={() => {
+                      if (activeBtn) {
+                        props.form?.submit?.()
+                      }
+                    }}
+                  >
+                    Next
+                  </Button>,
+                ]
+              },
               // 配置按钮文本
-              searchConfig: {
-                submitText: 'Next',
-              },
-              // 配置按钮的属性
-              resetButtonProps: {
-                style: {
-                  // 隐藏重置按钮
-                  display: 'none',
-                },
-              },
+              // searchConfig: {
+              //   submitText: 'Next',
+              // },
+              // // 配置按钮的属性
+              // resetButtonProps: {
+              //   style: {
+              //     // 隐藏重置按钮
+              //     display: 'none',
+              //   },
+              // },
             }}
             initialValues={detail}
             layout='horizontal'
             name='validate_other'
             onValuesChange={(_, values) => {
-              // console.log(values)
+              console.log(_, values)
+              if (values.name && values.type && values.cateId) {
+                //都填了
+                if (values.cateId.length === 3) {
+                  setActiveBtn(true)
+                } else {
+                  setActiveBtn(false)
+                }
+              } else {
+                setActiveBtn(false)
+              }
             }}
             onFinish={async value => {
               detail.spuType = value.type

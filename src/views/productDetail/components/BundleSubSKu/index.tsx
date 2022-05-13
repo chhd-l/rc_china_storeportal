@@ -1,4 +1,4 @@
-import { DeleteOutlined } from '@ant-design/icons'
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import { InputNumber } from 'antd'
 import { cloneDeep } from 'lodash'
 import { useContext, useEffect, useState } from 'react'
@@ -139,10 +139,13 @@ const BundleSbuSKu = ({
           console.info('regularList', regularList)
           setShowBundleChoose(true)
         }}
-        className='border border-dashed border-primary w-8 h-8 p-1 cursor-pointer'
+        className=' w-8 h-8 p-1 cursor-pointer m-auto'
       >
-        <div className='rounded-full border border-solid  border-primary w-full h-full justify-center flex items-center'>
-          +
+        <div
+          className='rounded-full border border-solid p-1 border-primary w-full h-full justify-center flex items-center'
+          style={{ borderColor: 'rgb(81, 172, 245)', color: 'rgb(81, 172, 245)' }}
+        >
+          <PlusOutlined style={{ color: '#51ACF5' }} color='#51ACF5' />
         </div>
       </div>
       <div>

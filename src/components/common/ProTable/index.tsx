@@ -25,6 +25,6 @@ const ProTableWrap = (props: ProTableProps<any, any>) => {
   }
 
   const mergeProps = defaultsDeep(moreProps, defaultProps)
-  return <ProTable {...mergeProps} className={cn('pro-table-diy', props.className)} />
+  return <ProTable {...mergeProps} className={cn('pro-table-diy rc-table', props.className)} />
 }
 export default ProTableWrap
