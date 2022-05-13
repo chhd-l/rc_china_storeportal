@@ -1,4 +1,4 @@
-import { Tabs, Pagination, message } from 'antd'
+import { Tabs, Pagination, message, Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
 import OrderTable from '@/components/order/OrderTable'
 import { Order, OrderStatus, OrderSearchParamsProps } from '@/framework/types/order'
@@ -25,6 +25,7 @@ const PetOwnerList = () => {
   const [carrier,setCarrier] = useState('')
   const location = useLocation()
   const navigator = useNavigate()
+  const [loading, setLoading] = useState(false)
 
   const getOrderLists = async ({
     searchParams,
@@ -37,12 +38,14 @@ const PetOwnerList = () => {
     orderState: string
     company: string
   }) => {
+    setLoading(true)
     let params = handleQueryParams({ searchParams, pageParams, orderState, shoppingCompany: company })
     console.log('query orders view params', params)
     const res = await getOrderList(params)
     console.log('res', res)
     setOrderList(res.records)
     setTotal(res.total)
+    setLoading(false)
   }
 
   const changePage = (page: any, pageSize: any) => {
@@ -118,28 +121,37 @@ const PetOwnerList = () => {
       </SearchContainer>
       <TableContainer className="py-0 pb-5">
         <div className="text-left text-xl font-bold">{total} Orders</div>
-        <div className="mt-4  text-left">
-          <OrderTable
-            orderList={orderList}
-            shipOrCompleteSuccess={() =>
-              getOrderLists({ searchParams, pageParams, orderState: activeKey, company: carrier })
-            }
-            changeCarrier={(value:string)=>{
-              setCarrier(value)
-              getOrderLists({ searchParams, pageParams, orderState: activeKey, company: value })
-            }}
-          />
-        </div>
-        <div className="flex flex-row justify-end mt-4">
-          <Pagination
-            current={currentPage}
-            total={total}
-            pageSize={pageSize}
-            onChange={changePage}
-            showSizeChanger={true}
-            className="rc-pagination"
-          />
-        </div>
+        {loading ? (
+            <div className="flex justify-center items-center h-80">
+              <Spin />
+            </div>
+          ) :(
+          <div className="mt-4  text-left">
+            <OrderTable
+              orderList={orderList}
+              shipOrCompleteSuccess={() =>
+                getOrderLists({ searchParams, pageParams, orderState: activeKey, company: carrier })
+              }
+              changeCarrier={(value:string)=>{
+                setCarrier(value)
+                getOrderLists({ searchParams, pageParams, orderState: activeKey, company: value })
+              }}
+            />
+          </div>
+        )}
+        {total>0&&(
+          <div className="flex flex-row justify-end mt-4">
+            <Pagination
+              current={currentPage}
+              total={total}
+              pageSize={pageSize}
+              onChange={changePage}
+              showSizeChanger={true}
+              className="rc-pagination"
+            />
+          </div>
+        )}
+
       </TableContainer>
     </ContentContainer>
   )

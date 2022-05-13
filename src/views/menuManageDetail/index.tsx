@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'
-import WxMenuContextProvider from './context'
+import WxMenuContextProvider, { filterWxMenus } from './context'
 import WxMenuGraph from './components/graph'
 import WxMenuSetting from './components/setting'
 import { WxMenuItem, WxMenu } from './type'
@@ -53,10 +53,10 @@ const MenuManageDetail = (props: IProps) => {
       success = await updateWxMenu({
         id: wxMenuItem.id,
         accountId: wxMenuItem.accountId,
-        content: JSON.stringify({button: wxMenus})
+        content: JSON.stringify({button: filterWxMenus(wxMenus || [], [])})
       });
     } else {
-      success = await createWxMenu(JSON.stringify({button: wxMenus}))
+      success = await createWxMenu(JSON.stringify({button: filterWxMenus(wxMenus || [], [])}))
     }
     setLoading(false)
     if (success) {
