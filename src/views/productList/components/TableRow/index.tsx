@@ -50,8 +50,14 @@ const TableRow = ({
 
   const handleOk = async (id: string) => {
     setIsModalVisible(false)
-    deleteProducts({ goodsId: [id] })
-    getList()
+    setLoading(true)
+    try {
+      await deleteProducts({ goodsId: [id] })
+      await getList()
+      setLoading(false)
+    } catch (err) {
+      setLoading(false)
+    }
   }
 
   const handleCancel = () => {

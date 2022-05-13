@@ -581,7 +581,7 @@ export const normaliseProductListSku = (sku: GoodsVariants, goodsSpecifications:
 export const normaliseProductListSpu = (spu: any): any => {
   let listItem = {
     skus: spu.goodsVariants?.map((sku: any) => normaliseProductListSku(sku, spu.goodsSpecifications)),
-    img: spu.goodsVariants?.[0]?.defaultImage,
+    img: spu.goodsVariants?.[0]?.defaultImage || spu.goodsAsserts?.[0]?.artworkUrl,
     id: spu.id,
     no: spu.spuNo,
     showAll: false,
