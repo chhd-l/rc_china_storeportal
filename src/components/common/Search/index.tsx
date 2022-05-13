@@ -28,7 +28,7 @@ const Search = ({
     const val = {...values, followTime: undefined}
     if(values?.followTime) {
       val.followStartTime = moment(values.followTime[0]._d).utc().startOf('day').format()
-      val.followEndTime = moment(values.followTime[1]._d).utc().startOf('day').format()
+      val.followEndTime = moment(values.followTime[1]._d).utc().endOf('day').format()
     }
     Object.keys(val).forEach((k) => {
       if (val[k] === "") {
