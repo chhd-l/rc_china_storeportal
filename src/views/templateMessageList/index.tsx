@@ -55,7 +55,11 @@ const TemplateMessage = () => {
 
   const modifyTemplateMessage = async (templateMessage: any) => {
     console.log('1111', templateMessage)
-    const res = await updateTemplateMessage({ id: templateMessage.id, status: !templateMessage.status })
+    const res = await updateTemplateMessage({
+      id: templateMessage.id,
+      status: !templateMessage.status,
+      templateId: templateMessage.templateId,
+    })
     if (res) {
       message.success({ className: 'rc-message', content: 'Operation success' })
       tableRef.current.reload()
@@ -121,7 +125,16 @@ const TemplateMessage = () => {
             </Button>,
           ]}
           columns={columns}
-          search={{ searchText: 'Search' }}
+          search={{ 
+            searchText: 'Search',
+            optionRender: (searchConfig,formProps,dom) => {
+              return dom.map((item: any) => {
+                return (
+                  <Button {...item.props} loading={false} />
+                )
+              })
+            }
+           }}
           request={async (params, sorter, filter) => {
             // 表单搜索项会从 params 传入，传递给后端接口。
             console.log('test sort', params, sorter, filter)
@@ -132,7 +145,7 @@ const TemplateMessage = () => {
               {
                 sample: Object.assign(
                   {},
-                  templateId ? { id:templateId } : {},
+                  templateId ? { id: templateId } : {},
                   title ? { title } : {},
                   scenario !== 'all' ? { scenario } : {},
                 ),
