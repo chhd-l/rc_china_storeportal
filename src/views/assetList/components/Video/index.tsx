@@ -48,7 +48,7 @@ const Video = ({
           <Tooltip title="View Video">
             <span
               className="cursor-pointer ml-2 iconfont icon-a-Frame2 primary-color text-xl"
-              onClick={() => window.open(record.assetLink)}
+              onClick={() => record.video && window.open(record.video)}
             />
           </Tooltip>
           <Tooltip title="Delete">
