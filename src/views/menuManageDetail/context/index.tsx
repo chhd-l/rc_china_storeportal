@@ -1,4 +1,5 @@
 import React from 'react';
+import { message } from 'antd';
 import { WxMenuItem } from '../type';
 
 interface IWxMenuContext {
@@ -58,10 +59,54 @@ export const moveWxMenu: (wxMenus: WxMenuItem[], key: string, direction: 'forwar
   }
 }
 
-export const filterWxMenus: (wxMenus: WxMenuItem[], filterFields: string[]) => WxMenuItem[] = (wxMenus, filterFields) => {
+const checkWxMenuItem: (wxMenu: WxMenuItem) => boolean = (wxMenu) => {
+  if (wxMenu.type === "media_id" && !wxMenu.media_id) {
+    return false;
+  } else if (wxMenu.type === "view" && !wxMenu.url) {
+    return false;
+  } else if (wxMenu.type === "miniprogram" && (!wxMenu.url || !wxMenu.appid || !wxMenu.pagepath)) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+export const checkWxMenus: (wxMenus: WxMenuItem[]) => boolean = (wxMenus) => {
+  let ret = true;
+  wxMenus.forEach(item => {
+    if ((item.sub_button || []).length) {
+      item.sub_button?.forEach(sitem => {
+        if (!checkWxMenuItem(sitem)) {
+          ret = false;
+        }
+      })
+    } else if (!checkWxMenuItem(item)) {
+      ret = false;
+    }
+  });
+  if (!ret) {
+    message.error({ className: "rc-message", content: "Please complete setting first" });
+  }
+  return ret;
+}
+
+export const filterWxMenus: (wxMenus: WxMenuItem[]) => WxMenuItem[] = (wxMenus) => {
   wxMenus.forEach(item => {
     item.active = undefined;
-    item.sub_button = filterWxMenus(item.sub_button || [], filterFields)
+    item.rc_preview_type = undefined;
+    item.rc_preview_url = undefined;
+    if (item.type === "media_id") {
+      item.url = undefined;
+      item.appid = undefined;
+      item.pagepath = undefined;
+    } else if (item.type === "view") {
+      item.media_id = undefined;
+      item.appid = undefined;
+      item.pagepath = undefined;
+    } else {
+      item.media_id = undefined;
+    }
+    item.sub_button = filterWxMenus(item.sub_button || [])
   })
   return wxMenus
 }

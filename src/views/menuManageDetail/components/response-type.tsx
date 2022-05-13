@@ -7,17 +7,15 @@ import _ from 'lodash'
 
 const ResponseType = () => {
   const [visible, setVisible] = useState<boolean>(false)
-  const [assetType, setAssetType] = useState<'image' | 'voice' | 'video'>('image')
-  const [asset, setAsset] = useState<Asset | undefined>()
   const { wxMenus, setWxMenus } = React.useContext(WxMenuContext)
 
   const activeMenu = getActiveWxMenu(wxMenus || [])
   
   const handleConfirm = (asset: Asset) => {
     const newWxMenus = setWxMenu(wxMenus || [], activeMenu?.key || '', {
-      media_id: asset.assetId
+      media_id: asset.assetId,
+      rc_preview_url: activeMenu?.rc_preview_type === "image" ? asset.picture : activeMenu?.rc_preview_type === "voice" ? asset.voice : asset.video
     })
-    setAsset({...asset, ...(assetType === "image" ? {voice: '',video:''} : assetType === "voice" ? {picture:'',video:''} : {picture:'',voice:''})})
     setWxMenus && setWxMenus(_.cloneDeep(newWxMenus))
     setVisible(false)
   }
@@ -33,15 +31,15 @@ const ResponseType = () => {
   return (
     <div className="response-type-container bg-white border border-gray-200">
       <div className="p-2 bg-gray-300 text-gray-400 flex space-x-8">
-        <div className={`response-type-item cursor-pointer ${assetType === 'image' ? 'active' : ''}`} onClick={() => setAssetType('image')}>
+        <div className={`response-type-item cursor-pointer ${activeMenu?.rc_preview_type === 'image' ? 'active' : ''}`} onClick={() => handleChangeResponseType('image')}>
           <i className="iconfont icon-Frame-5 mr-1"></i>
           <span>Picture</span>
         </div>
-        <div className={`response-type-item cursor-pointer ${assetType === 'voice' ? 'active' : ''}`} onClick={() => setAssetType('voice')}>
+        <div className={`response-type-item cursor-pointer ${activeMenu?.rc_preview_type === 'voice' ? 'active' : ''}`} onClick={() => handleChangeResponseType('voice')}>
           <i className="iconfont icon-Frame-2 mr-1"></i>
           <span>Voice</span>
         </div>
-        <div className={`response-type-item cursor-pointer ${assetType === 'video' ? 'active' : ''}`} onClick={() => setAssetType('video')}>
+        <div className={`response-type-item cursor-pointer ${activeMenu?.rc_preview_type === 'video' ? 'active' : ''}`} onClick={() => handleChangeResponseType('video')}>
           <i className="iconfont icon-Frame-11 mr-1"></i>
           <span>Video</span>
         </div>
@@ -50,17 +48,17 @@ const ResponseType = () => {
         <div className="text-gray-400" style={{display:'inline-block'}} onClick={() => setVisible(true)}>
           <span className="iconfont icon-Frame3 mb-0.5" style={{fontSize: 30}}></span>
           <div>Select from assets</div>
-          <div className="uploaded-asset">{activeMenu?.media_id ?? ''}</div>
+          <div className="uploaded-asset">{activeMenu?.media_id}</div>
         </div>
         <div className="mt-4">
-          {asset ? <div className="inline-block">
-            {asset.picture
-             ? <Image width={80} src={asset.picture} />
-             : <div className="uploaded-asset"><a href={asset.voice || asset.video} target="_blank">{asset.voice || asset.video}</a></div>}
+          {activeMenu ? <div className="inline-block">
+            {activeMenu.rc_preview_type === "image"
+             ? <Image width={80} src={activeMenu.rc_preview_url} />
+             : activeMenu.rc_preview_type ? <div className="uploaded-asset"><a href={activeMenu.rc_preview_url} target="_blank">{activeMenu.rc_preview_url}</a></div> : null}
           </div> : null}
         </div>
       </div>
-      {visible ? <AssetsModal assetType={assetType} visible={visible} onlySync={true} onConfirm={handleConfirm} onCancel={() => setVisible(false)} /> : null}
+      {visible ? <AssetsModal assetType={activeMenu?.rc_preview_type ?? "image"} visible={visible} onlySync={true} onConfirm={handleConfirm} onCancel={() => setVisible(false)} /> : null}
     </div>
   )
 }
