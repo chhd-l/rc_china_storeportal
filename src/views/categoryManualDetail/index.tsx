@@ -25,6 +25,7 @@ const CategoryDetail = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [cateInfos, setCateInfos] = useState({
+    total:null,
     categoryType: '',
     displayName: '',
     isDisplay: false,
@@ -79,7 +80,7 @@ const CategoryDetail = () => {
     })
     let meta = res?.findShopCategoryGoodsPage?.meta
     if (meta?.id) {
-      setCateInfos(meta)
+      setCateInfos({ ...meta,total:res?.findShopCategoryGoodsPage?.total })
     }
     return res
   }
@@ -171,6 +172,7 @@ const CategoryDetail = () => {
     },
   ]
 
+  // @ts-ignore
   return (
     <ContentContainer>
     <div className='category-detail'>
@@ -214,6 +216,7 @@ const CategoryDetail = () => {
             <Switch
               className='ml-3'
               checked={cateInfos.isDisplay}
+              disabled={!cateInfos?.total}
               onChange={(checked: boolean) => {
                 const {id} = params
                 updateShopCategory({
@@ -229,9 +232,9 @@ const CategoryDetail = () => {
         <div className='text-gray-400 mt-4'>
           Created By:{' '}
           <span className='text-black mx-2'>
-            {cateInfos.name} | {'Seller | ' +cateInfos.categoryType}
+            {cateInfos.name} {' | ' +cateInfos.categoryType}
           </span>{' '}
-          Product(s):{}
+          Product(s): <span className='text-black mx-2'>{cateInfos.total}</span>
         </div>
       </div>
       <div className='bg-white px-6 py-4'>
@@ -244,9 +247,8 @@ const CategoryDetail = () => {
             onClick={() => {
               setManualSelectionVisible(true)
             }}
-            icon={<PlusOutlined />}
           >
-            Add Products
+            + Add Category
           </Button>
         </div>
         <ProTable

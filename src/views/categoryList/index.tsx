@@ -10,8 +10,11 @@ import { CategoryBaseProps } from '@/framework/types/product'
 import { getShopCategories, updateShopCategory } from '@/framework/api/get-product'
 import IconFont from '@/components/common/IconFont'
 import { handlePageParams } from '@/utils/utils'
+import { useAtom } from 'jotai'
+import { userAtom } from '@/store/user.store'
 // import 'antd/dist/antd.css';
 const ShopCategories = () => {
+  const [userInfo] = useAtom(userAtom)
   const [addVisible, setAddvisible] = useState(false)
   const [editIndex, setEditIndex] = useState<number | undefined>()
   const [editClickIndex, setEditClickIndex] = useState<number | undefined>()
@@ -127,12 +130,12 @@ const ShopCategories = () => {
       title: 'Created By',
       dataIndex: 'categoryType',
       render: (_, record) => (
-        <span>{'Seller | ' + record.categoryType}</span>
+        <span>{record.name+' | ' + record.categoryType}</span>
       ),
     },
     {
       title: 'Product(s)',
-      dataIndex: 'productNum',
+      dataIndex: 'total',
     },
     {
       title: 'Display On/Off',
@@ -140,7 +143,7 @@ const ShopCategories = () => {
       render: (_, record) => (
         <Switch
           checked={record.isDisplay}
-          disabled={record.productNum < 1}
+          disabled={record?.total <1}
           onChange={(checked: boolean) => {
             setStatus(!record.isDisplay)
             setCurAssetId(record.id)
@@ -155,7 +158,7 @@ const ShopCategories = () => {
       width: 180,
       valueType: 'option',
       render: (_, record) => {
-        if (!record.productNum) {
+        if (!record.total) {
           if (record.categoryType === 'MANUAL') {
             return [
               <Link to={`/category/category-manual-detail/${record.id}`} className='mr-4 text-xl'>
@@ -185,7 +188,7 @@ const ShopCategories = () => {
 
         } else {
           return [
-            <Link to={`/category/category-detail/${record.id}`} className='mr-4 text-xl'>
+            <Link to={`/category/category-manual-detail/${record.id}`} className='mr-4 text-xl'>
               <IconFont type='icon-group52' />
             </Link>,
             <Link to='' className='mr-4 text-xl' onClick={() => {
