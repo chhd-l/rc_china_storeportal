@@ -88,8 +88,10 @@ const CategoryDetail = () => {
     const { id } = params
   }, [])
   const handleManualVisible = (visible: boolean) => {
-    ref.current.reload()
     setManualSelectionVisible(visible)
+  }
+  const handleUpdate = (visible: boolean) => {
+    ref.current.reload()
   }
   const columns: ProColumns<any>[] = [
     {
@@ -227,7 +229,7 @@ const CategoryDetail = () => {
         <div className='text-gray-400 mt-4'>
           Created By:{' '}
           <span className='text-black mx-2'>
-            {cateInfos.name} | {cateInfos.categoryType}
+            {cateInfos.name} | {'Seller | ' +cateInfos.categoryType}
           </span>{' '}
           Product(s):{}
         </div>
@@ -288,6 +290,7 @@ const CategoryDetail = () => {
       <ManualSelection
         visible={manualSelectionVisible}
         handleVisible={handleManualVisible}
+        handleUpdate={handleUpdate}
       />
       <Modal
         className='rc-modal'

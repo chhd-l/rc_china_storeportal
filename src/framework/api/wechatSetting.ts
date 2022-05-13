@@ -347,7 +347,7 @@ export const getTemplateDetail = async (id: string) => {
 export const createTemplateMessage = async (queryParams: any) => {
   try {
     let res = await ApiRoot.wechatSettings().createTemplateMessage({ body: queryParams })
-    const createTemplateMessage = res?.createTemplateMessage
+    const createTemplateMessage = res?.addTemplateMessage
     console.log('get templateItem list view data', createTemplateMessage)
     return createTemplateMessage || false
   } catch (e) {
