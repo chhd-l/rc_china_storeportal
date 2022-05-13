@@ -59,7 +59,7 @@ export const createProduct = async (params: any, beforeData?: any) => {
       // type: paramsData.type,
       // brandId: paramsData.brandId,
       // goodsCategoryId: paramsData.goodsCategoryId,
-      // shelvesStatus: paramsData.shelvesStatus,
+      shelvesStatus: params.shelvesStatus,
       // defaultImage: paramsData.defaultImage,
       // salesStatus: paramsData.salesStatus,
     })
