@@ -70,7 +70,8 @@ export const tableColumns = ({ openDelTipModal, templateTitleList, modifyTemplat
       hideInSearch: true,
       render: (_, record) => (
         <Switch
-          defaultChecked={record.status}
+          key={record.id}
+          checked={record.status}
           onChange={(checked: boolean) => {
             console.log(`switch to ${checked}`)
             modifyTemplateMessage && modifyTemplateMessage(record)
