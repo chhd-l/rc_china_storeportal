@@ -95,13 +95,15 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
         return <Input addonBefore={selectBefore} />
       },
     },
-    {
-      dataIndex: 'brandName',
-      title: 'Brand',
-      // render: (_, record) => {
-      //   return formatMoney(record.listPrice)
-      // },
-    },
+    // {
+    //   dataIndex: 'brandName',
+    //   title: 'Brand',
+    //   hideInTable: true,
+
+    //   // render: (_, record) => {
+    //   //   return formatMoney(record.listPrice)
+    //   // },
+    // },
 
     {
       dataIndex: 'marketingPrice',
