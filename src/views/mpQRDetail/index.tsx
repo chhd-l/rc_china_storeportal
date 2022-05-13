@@ -87,29 +87,56 @@ const MpQrDetail = () => {
               message: "Please select Channel Type!",
             },
           ]}>
-            <Select placeholder='Select' options={list} />
+            <Select disabled={state} placeholder='Select' options={list} />
           </Form.Item>
-          <Form.Item label='QR Code Type' name='type'>
-            <Select placeholder='Select' options={typeValueEnum} />
-          </Form.Item>
-          <Form.Item label='Scenario Type' name='scenarioId'>
-            <Select placeholder='Select' options={[
+
+          <Form.Item label='QR Code Style' name='type' rules={[
+            {
+              required: true,
+              message: "Please select QR Code Style!",
+            },
+          ]}>
+            <Select disabled={state} placeholder='Select' options={[
               {label: 'Normal', value: 'Normal'}
             ]} />
           </Form.Item>
+
+          <Form.Item label='Scenario Type' name='scenarioId' rules={[
+            {
+              required: true,
+              message: "Please select Channel Type!",
+            },
+          ]}>
+            <Select disabled={state} placeholder='Select' options={[
+              {label: 'Campaign QR code', value: 'CampaignQRcode'}
+            ]} />
+          </Form.Item>
+
           <Form.Item label='QR Code Key Value' name='key' rules={[
             {
               required: true,
-              message: "Please input",
+              message: "Please input QR Code Key Value",
             },
           ]}>
-            <Input placeholder='Input' />
+            <Input disabled={state} placeholder='Input' />
           </Form.Item>
-          <Form.Item label='Mini Program Path' name='appInternalPath'>
-            <Input placeholder='Input' />
+
+          <Form.Item label='Mini Program Path' name='appInternalPath' rules={[
+            {
+              required: true,
+              message: "Please input Mini Program Path!",
+            },
+          ]}>
+            <Input disabled={state} placeholder='Input' />
           </Form.Item>
-          <Form.Item label='QR Code Size' name='width'>
-            <InputNumber style={{ width: '100%' }} max={1280} min={280} placeholder='Minimun280,Maximun1280' />
+
+          <Form.Item label='QR Code Size' name='width' rules={[
+            {
+              required: true,
+              message: "Please input QR Code Size",
+            },
+          ]}>
+            <InputNumber disabled={state} style={{ width: '100%' }} max={1280} min={280} placeholder='Minimun280,Maximun1280' />
           </Form.Item>
           {/* <Form.Item label='Response Content' name='url'>
             <Input.Group>
@@ -122,8 +149,13 @@ const MpQrDetail = () => {
               </Upload>
             </Input.Group>
           </Form.Item> */}
-          <Form.Item label='Transparent background' name='isHyaline'>
-            <Select placeholder='Select' options={[
+          <Form.Item label='Transparent background' name='isHyaline' rules={[
+            {
+              required: true,
+              message: "Please select Transparent background!",
+            },
+          ]}>
+            <Select disabled={state} placeholder='Select' options={[
               { label: 'Yes', value: true },
               { label: 'No', value: false },
             ]} />
@@ -140,9 +172,13 @@ const MpQrDetail = () => {
             >
               Cancel
             </Button>
-            <Button type="primary" htmlType="submit" danger>
-              Confirm
-            </Button>
+            {
+               state ? null : (
+                <Button type="primary" htmlType="submit" danger>
+                  Confirm
+                </Button>
+               )
+            }
             </div>
           </Form.Item>
           {/* <input type="color" name="bgColor" /> */}
