@@ -3,7 +3,7 @@ import { SearchFormItemProps } from "@/framework/types/common";
 export const fansDetailForm: SearchFormItemProps[] = [
   {
     label: "Wechat Account",
-    name: "accountId",
+    name: "accountPrincipal",
   },
   {
     label: "Nickname",
