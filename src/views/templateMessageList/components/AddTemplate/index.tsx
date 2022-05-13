@@ -7,9 +7,10 @@ import { createTemplateMessage, getTemplateItems } from '@/framework/api/wechatS
 export type Props = {
   visible: boolean
   handleVisible: (visible: boolean) => void
+  addSuccess: Function
 }
 
-const AddTemplate: FC<Props> = ({ visible, handleVisible }) => {
+const AddTemplate: FC<Props> = ({ visible, handleVisible, addSuccess }) => {
   const [templateItems, setTemplateItems] = useState<any[]>([])
 
   const getTemplateItemList = async () => {
@@ -19,7 +20,7 @@ const AddTemplate: FC<Props> = ({ visible, handleVisible }) => {
 
   const addTemplateMessage = async (value: any) => {
     console.log(11122332, value)
-    const selectTemplateItem = templateItems.filter(el => el.id === value.title)[0]
+    const selectTemplateItem = templateItems.filter((el) => el.id === value.title)[0]
     const res = await createTemplateMessage({
       accountId: '000001',
       scenario: value.useMode,
@@ -27,7 +28,12 @@ const AddTemplate: FC<Props> = ({ visible, handleVisible }) => {
       numbering: selectTemplateItem.numbering,
       isSynchronous: selectTemplateItem.isSynchronous,
     })
-    return res
+    if (res) {
+      addSuccess && addSuccess()
+      message.success({ className: 'rc-message', content: 'Operation success' })
+    } else {
+      message.error({ className: 'rc-message', content: 'Operation failed' })
+    }
   }
 
   useEffect(() => {
@@ -36,30 +42,27 @@ const AddTemplate: FC<Props> = ({ visible, handleVisible }) => {
 
   return (
     <ModalForm
-      className='add-template'
-      title='Add New Template'
+      className="add-template"
+      title="Add New Template"
       visible={visible}
-      onFinish={async value => {
+      onFinish={async (value) => {
         console.info('value', value)
-        const res = await addTemplateMessage(value)
-        if (res) {
-          message.success('提交成功')
-        }
+        await addTemplateMessage(value)
         return true
       }}
       onVisibleChange={handleVisible}
     >
       <ProForm.Group>
         <ProFormSelect
-          name='title'
-          width='md'
+          name="title"
+          width="md"
           fieldProps={{ showSearch: true }}
-          label='Select Template'
+          label="Select Template"
           // dependencies 的内容会注入 request 中
           dependencies={['id']}
-          request={async params => {
+          request={async (params) => {
             console.info('params', params)
-            return templateItems.map(item => {
+            return templateItems.map((item) => {
               return { label: item.title, value: item.id }
             })
           }}
@@ -67,7 +70,7 @@ const AddTemplate: FC<Props> = ({ visible, handleVisible }) => {
       </ProForm.Group>
       <ProForm.Group>
         <ProFormSelect
-          width='md'
+          width="md"
           options={[
             {
               value: 'SHIPPED',
@@ -78,8 +81,8 @@ const AddTemplate: FC<Props> = ({ visible, handleVisible }) => {
               label: 'CANCEL REMINDER',
             },
           ]}
-          name='useMode'
-          label='Select Scenario'
+          name="useMode"
+          label="Select Scenario"
         />
       </ProForm.Group>
     </ModalForm>

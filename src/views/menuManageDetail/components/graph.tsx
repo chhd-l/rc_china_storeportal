@@ -15,7 +15,6 @@ const WxMenuGraph = () => {
       key: newWxMenuKey,
       name: 'Menu Name',
       type: 'media_id',
-      rc_preview_type: "image",
       sub_button: []
     });
     setWxMenus && setWxMenus(setActiveWxMenu(newWxMenus, newWxMenuKey));
@@ -32,7 +31,6 @@ const WxMenuGraph = () => {
           key: newSubMenuKey,
           name: 'Menu Name',
           type: 'media_id',
-          rc_preview_type: "image"
         });
         item.sub_button = setActiveWxMenu(subMenus, newSubMenuKey)
       }

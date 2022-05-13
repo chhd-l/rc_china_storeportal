@@ -45,14 +45,14 @@ const ViewIndustry: FC<Props> = ({ visible, handleVisible }) => {
         footer={[<Button onClick={closeModal}>Close</Button>]}
         visible={visible}
       >
-        <Button className="flex items-center" onClick={() => Synchronous()}>
-          <span className="iconfont icon-bianzu2 mr-2 text-xl" />
-          Synchronous
-        </Button>
+        {/*<Button className="flex items-center" onClick={() => Synchronous()}>*/}
+        {/*  <span className="iconfont icon-bianzu2 mr-2 text-xl" />*/}
+        {/*  Synchronous*/}
+        {/*</Button>*/}
         <div className="border mt-3">
           <div className="px-4 py-2 bg-gray1 flex flex justify-between">
             <div>Industry</div>
-            <div>Action</div>
+            {/*<div>Action</div>*/}
           </div>
           <div className="px-2 py-2 flex flex justify-between">
             <div>{industry?.primaryIndustry} - {industry?.secondaryIndustry}</div>
