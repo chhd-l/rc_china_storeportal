@@ -27,7 +27,10 @@ const TemplateMessageDetail = () => {
     const params = _.omit(value, ['title', 'primaryIndustry', 'deputyIndustry'])
     const res = await updateTemplateMessage(Object.assign(params, { id: templateInfo.id }))
     if (res) {
+      message.success({ className: 'rc-message', content: 'Operation success' })
       navigation('/template/template-message-list')
+    } else {
+      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
   }
 
@@ -37,133 +40,133 @@ const TemplateMessageDetail = () => {
 
   return (
     <>
-      <ContentContainer className="template-message-detail pr-6">
-        <InfoContainer className="">
-          {templateInfo.id ? (
-            <ProForm
-              className="text-right"
-              grid={true}
-              initialValues={templateInfo}
-              layout="horizontal"
-              {...formItemLayout}
-              onFinish={async (values) => {
-                console.log(values)
-                await modifyTemplateMessage(values)
-                message.success('提交成功')
-              }}
-              submitter={{
-                render: (props, doms) => {
-                  console.log(props)
-                  return [
-                    <Button
-                      key="rest"
-                      onClick={() => {
-                        navigation(`/template/template-message-list`)
-                      }}
-                    >
-                      Cancel
-                    </Button>,
-                    <Button type="primary" key="submit" onClick={() => props.form?.submit?.()}>
-                      Confirm
-                    </Button>,
-                  ]
-                },
-              }}
-              formRef={formRef}
-              request={async () => {
-                return {
-                  name: '蚂蚁设计有限公司',
-                  useMode: 'chapter',
-                }
-              }}
-              autoFocusFirstInput
-            >
-              <ProForm.Group>
-                <ProFormText
-                  colProps={{ span: 12 }}
-                  name="templateId"
-                  label="Template ID"
-                  placeholder="Please input Template ID"
-                  disabled
-                />
-                <ProFormSelect
-                  colProps={{ span: 12 }}
-                  options={[
-                    {
-                      value: 'time',
-                      label: '履行完终止',
-                    },
-                  ]}
-                  name="scenario"
-                  label="Select Scenario"
-                />
-              </ProForm.Group>
+      {templateInfo.id ? (
+        <>
+          <ContentContainer className="template-message-detail pr-6">
+            <InfoContainer className="">
+              <ProForm
+                className="text-right"
+                grid={true}
+                initialValues={templateInfo}
+                layout="horizontal"
+                {...formItemLayout}
+                onFinish={async (values) => {
+                  await modifyTemplateMessage(values)
+                }}
+                submitter={{
+                  render: (props, doms) => {
+                    console.log(props)
+                    return [
+                      <Button
+                        key="rest"
+                        onClick={() => {
+                          navigation(`/template/template-message-list`)
+                        }}
+                      >
+                        Cancel
+                      </Button>,
+                      <Button type="primary" key="submit" onClick={() => props.form?.submit?.()}>
+                        Confirm
+                      </Button>,
+                    ]
+                  },
+                }}
+                formRef={formRef}
+                request={async () => {
+                  return {
+                    name: '蚂蚁设计有限公司',
+                    useMode: 'chapter',
+                  }
+                }}
+                autoFocusFirstInput
+              >
+                <ProForm.Group>
+                  <ProFormText
+                    colProps={{ span: 12 }}
+                    name="templateId"
+                    label="Template ID"
+                    placeholder="Please input Template ID"
+                    disabled
+                  />
+                  <ProFormSelect
+                    colProps={{ span: 12 }}
+                    options={[
+                      {
+                        value: 'time',
+                        label: '履行完终止',
+                      },
+                    ]}
+                    name="scenario"
+                    label="Select Scenario"
+                  />
+                </ProForm.Group>
 
-              <ProForm.Group>
-                <ProFormText
-                  colProps={{ span: 12 }}
-                  name="title"
-                  label="Template Name"
-                  placeholder="Please input Template Name"
-                  disabled
-                />
-                <ProFormText
-                  colProps={{ span: 12 }}
-                  name="primaryIndustry"
-                  label="Primary Industry"
-                  placeholder="Please input Primary Industry"
-                  disabled
-                />
-              </ProForm.Group>
-              <ProForm.Group>
-                <ProFormText
-                  colProps={{ span: 12 }}
-                  name="deputyIndustry"
-                  label="Secondary Industry"
-                  placeholder="Please input Secondary Industry"
-                  disabled
-                />
-                <ProFormText
-                  colProps={{ span: 12 }}
-                  name="url"
-                  label="H5 jump path"
-                  placeholder="Please input H5 jump path"
-                />
-              </ProForm.Group>
-              <ProForm.Group>
-                <ProFormText
-                  colProps={{ span: 12 }}
-                  name="appId"
-                  label="Mini Program appid"
-                  placeholder="Please input Mini Program appid"
-                />
-                <ProFormText
-                  colProps={{ span: 12 }}
-                  name="pagepath"
-                  label="Jump Path"
-                  placeholder="Please input Mini Program Jump Path"
-                />
-              </ProForm.Group>
-              <ProForm.Group>
-                <ProFormTextArea
-                  labelCol={{ span: 3 }}
-                  wrapperCol={{ span: 20 }}
-                  colProps={{ span: 24 }}
-                  name="description"
-                  label="Description"
-                  placeholder="Please input Description"
-                />
-              </ProForm.Group>
-            </ProForm>
-          ) : null}
-        </InfoContainer>
-      </ContentContainer>
-      <InfoContainer className="mb-7">
-        <div className="bg-white">
-          示例：
-          {`${templateInfo.example}`}
-        </div>
-      </InfoContainer>
+                <ProForm.Group>
+                  <ProFormText
+                    colProps={{ span: 12 }}
+                    name="title"
+                    label="Template Name"
+                    placeholder="Please input Template Name"
+                    disabled
+                  />
+                  <ProFormText
+                    colProps={{ span: 12 }}
+                    name="primaryIndustry"
+                    label="Primary Industry"
+                    placeholder="Please input Primary Industry"
+                    disabled
+                  />
+                </ProForm.Group>
+                <ProForm.Group>
+                  <ProFormText
+                    colProps={{ span: 12 }}
+                    name="deputyIndustry"
+                    label="Secondary Industry"
+                    placeholder="Please input Secondary Industry"
+                    disabled
+                  />
+                  <ProFormText
+                    colProps={{ span: 12 }}
+                    name="url"
+                    label="H5 jump path"
+                    placeholder="Please input H5 jump path"
+                  />
+                </ProForm.Group>
+                <ProForm.Group>
+                  <ProFormText
+                    colProps={{ span: 12 }}
+                    name="appId"
+                    label="Mini Program appid"
+                    placeholder="Please input Mini Program appid"
+                  />
+                  <ProFormText
+                    colProps={{ span: 12 }}
+                    name="pagepath"
+                    label="Jump Path"
+                    placeholder="Please input Mini Program Jump Path"
+                  />
+                </ProForm.Group>
+                <ProForm.Group>
+                  <ProFormTextArea
+                    labelCol={{ span: 3 }}
+                    wrapperCol={{ span: 20 }}
+                    colProps={{ span: 24 }}
+                    name="description"
+                    label="Description"
+                    placeholder="Please input Description"
+                  />
+                </ProForm.Group>
+              </ProForm>
+            </InfoContainer>
+          </ContentContainer>
+          <InfoContainer className="mb-7">
+            <div className="bg-white">
+              示例：
+              {`${templateInfo.example}`}
+            </div>
+          </InfoContainer>
+        </>
+      ) : null}
     </>
   )
 }
