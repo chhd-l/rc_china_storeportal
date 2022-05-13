@@ -121,7 +121,16 @@ const TemplateMessage = () => {
             </Button>,
           ]}
           columns={columns}
-          search={{ searchText: 'Search' }}
+          search={{ 
+            searchText: 'Search',
+            optionRender: (searchConfig,formProps,dom) => {
+              return dom.map((item: any) => {
+                return (
+                  <Button {...item.props} loading={false} />
+                )
+              })
+            }
+           }}
           request={async (params, sorter, filter) => {
             // 表单搜索项会从 params 传入，传递给后端接口。
             console.log('test sort', params, sorter, filter)
