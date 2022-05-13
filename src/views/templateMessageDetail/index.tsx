@@ -1,7 +1,7 @@
 import { ContentContainer, InfoContainer } from '@/components/ui'
 import { TemplateMessageItemProps } from '@/framework/types/wechat'
 import ProForm, { ProFormInstance, ProFormSelect, ProFormText, ProFormTextArea } from '@ant-design/pro-form'
-import { Button, message } from 'antd'
+import { Button, message, Spin } from 'antd'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router'
 import './index.less'
@@ -15,11 +15,14 @@ const TemplateMessageDetail = () => {
   const formRef = useRef<ProFormInstance>()
   const params = useParams()
   let formItemLayout = { labelCol: { span: 6 }, wrapperCol: { span: 16 } }
+  const [loading, setLoading] = useState(false)
 
   const getTemplateDetailInfo = async () => {
     let { id } = params
+    setLoading(true)
     const res = await getTemplateDetail(id || '')
     setTemplateInfo(res)
+    setLoading(false)
   }
 
   const modifyTemplateMessage = async (value: any) => {
@@ -40,7 +43,11 @@ const TemplateMessageDetail = () => {
 
   return (
     <>
-      {templateInfo.id ? (
+      {loading ? (
+        <div className="flex justify-center items-center h-full">
+          <Spin />
+        </div>
+      ) : templateInfo.id ? (
         <>
           <ContentContainer className="template-message-detail pr-6">
             <InfoContainer className="">
