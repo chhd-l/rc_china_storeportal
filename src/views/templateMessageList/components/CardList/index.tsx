@@ -38,14 +38,20 @@ const CardList: FC<Props> = ({ setCardView, templateMessageList, modifyTemplateM
               <ProFormSwitch
                 name="status"
                 label=""
-                fieldProps={{ onChange: () => modifyTemplateMessage && modifyTemplateMessage(template),checked:template.status }}
+                fieldProps={{
+                  onChange: () => modifyTemplateMessage && modifyTemplateMessage(template),
+                  checked: template.status,
+                }}
               />
             }
             headerBordered
           >
             <div className="template-content">
-              <div>{`${template.content}`}</div>
-
+              <div>
+                {template.example?.split('\r\n')?.map((item: string) => (
+                  <div>{item}</div>
+                ))}
+              </div>
               <div className="modify-btn">
                 <Link to={`/template/template-message/${template.id}`} className="mr-4">
                   Modify
