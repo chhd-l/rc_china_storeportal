@@ -1,4 +1,4 @@
-import { Button, Form, Input, Select, Upload } from "antd";
+import { Button, Form, Input, Select, Upload, message } from "antd";
 import { useEffect, useState } from "react";
 import { ACCOUNT_FORM, ACCOUNT_FORM_TWO } from "@/views/addAccount/modules/form";
 import { useLocation, useNavigate } from "react-router";
@@ -10,11 +10,17 @@ const AccountDetails = () => {
   const [data, setData] = useState<any>();
   const location = useLocation();
   const navigator = useNavigate();
+  const [form] = Form.useForm();
   const [ServiceAccount, setServiceAccount] = useState('ServiceAccount')
+  const [qrCodePath, setQrCodePath] = useState('');
+  const [pertificatePath, setPertificatePah] = useState('');
 
   useEffect(() => {
     const state: any = location.state;
+    console.log('account entity:', state)
     setData(state)
+    setQrCodePath(state?.qrCodePath ?? '')
+    setPertificatePah(state?.certificatePath ?? '')
     // setFormItems(state)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -26,6 +32,7 @@ const AccountDetails = () => {
       storeId: '12345678'
     }
     delete val.messageEncryptionURL
+    console.log('request entity:', val)
     await modifyAccount({
       account: val,
     }).then(() => {
@@ -37,6 +44,19 @@ const AccountDetails = () => {
     setServiceAccount(v)
   }
 
+  const onUploadChange = (field: string, info: any) => {
+    if (info.file.status === 'done') {
+      form.setFieldsValue({ [field]: info.file.response.url })
+      if (field === 'qrCodePath') {
+        setQrCodePath(info.file.response.url)
+      } else {
+        setPertificatePah(info.file.response.url)
+      }
+    } else if (info.file.status === 'error') {
+      message.error({ className: "rc-message", content: `${info.file.name} file upload failed.`})
+    }
+  }
+
   return (
     <ContentContainer className="Accountdetails">
       <InfoContainer>
@@ -45,13 +65,32 @@ const AccountDetails = () => {
           data ? (
             <Form
               initialValues={data}
+              form={form}
               // onValuesChange={formValuesChange}
               onFinish={editAccount}
               autoComplete="off"
               className="flex flex-row flex-wrap justify-start pr-4"
             > {
                 ServiceAccount === 'ServiceAccount' ? (
-                  ACCOUNT_FORM.map((item) => (
+                ACCOUNT_FORM.map((item) => {
+                  return item.name === 'accountType' ? (
+                    <Form.Item
+                      label={item.label}
+                      key={item.name}
+                      name={item.name}
+                      rules={item.rules}
+                      className={`${item.type === "textarea" ? "w-full" : "w-1/2"}`}
+                      labelCol={{ span: item.type === "textarea" ? 4 : 8 }}
+                      wrapperCol={{ span: item.type === "textarea" ? 20 : 16 }}
+                      initialValue={ServiceAccount}
+                    >
+                      <Select value={ServiceAccount} onChange={onChange} placeholder={item.placeholder}>
+                          {(item.selectList || []).map((el) => (
+                            <Select.Option value={el.key}>{el.label}</Select.Option>
+                          ))}
+                      </Select>
+                    </Form.Item>
+                  ) : (
                     <Form.Item
                       label={item.label}
                       key={item.name}
@@ -73,22 +112,38 @@ const AccountDetails = () => {
                           autoSize={{ minRows: 3, maxRows: 5 }}
                         />
                       ) : item.type === "upload" ? (
-                        <Input.Group className="flex">
+                        <Upload name="file" action="https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload" headers={{authorization: 'authorization-text'}} showUploadList={false} onChange={(info: any) => onUploadChange(item.name, info)}>
                           <Input
+                            value={item.name === "qrCodePath" ? qrCodePath : pertificatePath}
                             placeholder={item.placeholder}
-                            style={{ width: "82%" }}
+                            suffix={<i className="iconfont icon-Frame3"></i>}
+                            readOnly
                           />
-                          <Upload name="logo" action="/upload.do" listType="picture">
-                            <Button>Select</Button>
-                          </Upload>
-                        </Input.Group>
+                        </Upload>
                       ) : (
                         <Input placeholder={item.placeholder} />
                       )}
                     </Form.Item>
-                  ))
+                  )})
                 ) : (
-                  ACCOUNT_FORM_TWO.map((item) => (
+                ACCOUNT_FORM_TWO.map((item) => {
+                  return item.name === 'accountType' ? (
+                      <Form.Item
+                        label={item.label}
+                        key={item.name}
+                        name={item.name}
+                        rules={item.rules}
+                        className={`${item.type === "textarea" ? "w-full" : "w-1/2"}`}
+                        labelCol={{ span: item.type === "textarea" ? 4 : 8 }}
+                        wrapperCol={{ span: item.type === "textarea" ? 20 : 16 }}
+                      >
+                        <Select value={ServiceAccount} onChange={onChange} placeholder={item.placeholder}>
+                            {(item.selectList || []).map((el) => (
+                              <Select.Option value={el.key}>{el.label}</Select.Option>
+                            ))}
+                        </Select>
+                      </Form.Item>
+                    ) : (
                     <Form.Item
                       label={item.label}
                       key={item.name}
@@ -110,20 +165,19 @@ const AccountDetails = () => {
                           autoSize={{ minRows: 3, maxRows: 5 }}
                         />
                       ) : item.type === "upload" ? (
-                        <Input.Group className="flex">
+                        <Upload name="file" action="https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload" headers={{authorization: 'authorization-text'}} showUploadList={false} onChange={(info: any) => onUploadChange(item.name, info)}>
                           <Input
+                            value={item.name === "qrCodePath" ? qrCodePath : pertificatePath}
                             placeholder={item.placeholder}
-                            style={{ width: "82%" }}
+                            suffix={<i className="iconfont icon-Frame3"></i>}
+                            readOnly
                           />
-                          <Upload name="logo" action="/upload.do" listType="picture">
-                            <Button>Select</Button>
-                          </Upload>
-                        </Input.Group>
+                        </Upload>
                       ) : (
                         <Input placeholder={item.placeholder} />
                       )}
                     </Form.Item>
-                  ))
+                  )})
                 )
               }
               <Form.Item

@@ -4,6 +4,7 @@ import { CheckOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons'
 import './index.less'
 import AddCate from './components/AddCate'
 import ProTable, { ProColumns } from '@/components/common/ProTable'
+import { ContentContainer } from '@/components/ui'
 import { useEffect, useRef, useState } from 'react'
 import { CategoryBaseProps } from '@/framework/types/product'
 import { getShopCategories, updateShopCategory } from '@/framework/api/get-product'
@@ -13,10 +14,13 @@ import { handlePageParams } from '@/utils/utils'
 const ShopCategories = () => {
   const [addVisible, setAddvisible] = useState(false)
   const [editIndex, setEditIndex] = useState<number | undefined>()
+  const [editClickIndex, setEditClickIndex] = useState<number | undefined>()
   const [loading, setLoading] = useState<boolean>(false)
   const [name, setName] = useState('')
   const [curAssetId, setCurAssetId] = useState('')
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const [isSwithVisible, setIsSwithVisible] = useState(false)
+  const [status, setStatus] = useState(false)
   const [show, setShow] = useState(false)
   const ref = useRef<any>()
   const handleAddCate = (visible: boolean) => {
@@ -24,9 +28,6 @@ const ShopCategories = () => {
   }
   const handleUpdate = (visible: boolean) => {
     ref.current.reload()
-  }
-  const onRow = () => {
-    console.log(1)
   }
   const getList = async (page: any) => {
     return await getShopCategories({
@@ -52,6 +53,19 @@ const ShopCategories = () => {
     })
     setLoading(false)
   }
+  const confirmSwitch = async () => {
+    setLoading(true)
+    updateShopCategory({
+      id: curAssetId,
+      isDisplay:status,
+    }).then((res) => {
+      if (res) {
+        setIsSwithVisible(false)
+        ref.current.reload()
+      }
+    })
+    setLoading(false)
+  }
   useEffect(() => {
     // createShopCategoryGoodsRel([{ shopCategoryId: '8', goodsId: 'ea63d308-f451-9899-47d3-14f4a83ff16b' }])
     // updateShopCategory({ id: '12316c9e-d151-909b-8256-4cfae4e70213', categoryType: 'RULE_BASED', isDisplay: true })
@@ -64,7 +78,7 @@ const ShopCategories = () => {
       title: 'Category Display Name',
       dataIndex: 'displayName',
       render: (_, record, index) => {
-        if (index === editIndex && show) {
+        if (editClickIndex===index && show) {
           return (
             <Input.Group compact>
               <Input style={{ width: '200px' }} defaultValue={record.displayName} onChange={(e) => {
@@ -89,11 +103,12 @@ const ShopCategories = () => {
               }} />
             </Input.Group>
           )
-        } else if (index === editIndex) {
+          } else if (index === editIndex) {
           return (
             <div className='edit-name'>
               <span className='edit-display-name'>{record.displayName}</span>
               <EditOutlined onClick={() => {
+                setEditClickIndex(index)
                 setEditIndex(index)
                 setShow(true)
                 setName(record.displayName)
@@ -126,12 +141,9 @@ const ShopCategories = () => {
           checked={record.isDisplay}
           disabled={record.productNum < 1}
           onChange={(checked: boolean) => {
-            updateShopCategory({
-              ...record,
-              isDisplay: checked,
-            }).then(() => {
-              ref.current.reload()
-            })
+            setStatus(!record.isDisplay)
+            setCurAssetId(record.id)
+            setIsSwithVisible(true)
           }}
         />
       ),
@@ -187,7 +199,8 @@ const ShopCategories = () => {
     },
   ]
   return (
-    <div className='shop-categories bg-gray-50 py-14 px-6 text-left'>
+    <ContentContainer>
+    <div className='shop-categories'>
       <div className='bg-white p-6 '>
         <div className='flex justify-between'>
           <div className='text-xl font-semibold'>My Shop Categories</div>
@@ -228,7 +241,6 @@ const ShopCategories = () => {
                 setEditIndex(index)
               }, // 鼠标移入行
               onMouseLeave: event => {
-                setShow(false)
                 setEditIndex(undefined)
               },
             }
@@ -247,11 +259,15 @@ const ShopCategories = () => {
                 limit: page.limit,
               })
             }
+
             return Promise.resolve({
               data: tableData?.records || [],
               total: tableData.total,
               success: true,
             })
+          }}
+          pagination={{
+            showTotal: (total: number) => ``,
           }}
         />
       </div>
@@ -267,7 +283,19 @@ const ShopCategories = () => {
       >
         <p>Are you sure you want to delete the item?</p>
       </Modal>
+      <Modal
+        className='rc-modal'
+        title='Notice'
+        okText='Confirm'
+        visible={isSwithVisible}
+        onOk={confirmSwitch}
+        confirmLoading={loading}
+        onCancel={() => setIsSwithVisible(false)}
+      >
+        <p>{status?'Are you sure you want to enable the item ?':'Are you sure you want to disable the item ?'}</p>
+      </Modal>
     </div>
+    </ContentContainer>
   )
 }
 
