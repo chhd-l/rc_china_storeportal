@@ -21,6 +21,7 @@ const AccountDetails = () => {
     setData(state)
     setQrCodePath(state?.qrCodePath ?? '')
     setPertificatePah(state?.certificatePath ?? '')
+    setServiceAccount(state?.accountType ?? 'ServiceAccount')
     // setFormItems(state)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -60,9 +60,9 @@ const Index = ({ fanList, pages, setPages, getFanList, total, loading, setLoadin
       key: "accountPrincipal",
     },
     {
-      title: "Open ID",
-      dataIndex: "openId",
-      key: "openId"
+      title: "Union ID",
+      dataIndex: "unionId",
+      key: "unionId"
     },
     {
       title: "Follow Time",

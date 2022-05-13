@@ -48,7 +48,7 @@ const Video = ({
           <Tooltip title="View Video">
             <span
               className="cursor-pointer ml-2 iconfont icon-a-Frame2 primary-color text-xl"
-              onClick={() => window.open(record.assetLink)}
+              onClick={() => record.video && window.open(record.video)}
             />
           </Tooltip>
           <Tooltip title="Delete">
@@ -97,7 +97,9 @@ const Video = ({
         sample: Object.assign(
           { type: 'video' },
           description !== '' ? { description } : {},
-          startTime !== '' ? { startTime, endTime } : {},
+          startTime !== ''
+            ? { startTime: new Date(startTime).toISOString(), endTime: new Date(endTime).toISOString() }
+            : {},
         ),
       },
       handlePageParams(curPageParams),
@@ -160,7 +162,7 @@ const Video = ({
           Synchronous WeChat Assets
         </Button>
         <Button
-          type='primary'
+          type="primary"
           className="ml-4 flex items-center"
           onClick={() => {
             navigator('/add-video')
@@ -169,7 +171,14 @@ const Video = ({
           + Add
         </Button>
       </div>
-      <Table columns={column} loading={loading} dataSource={pictureList} pagination={false} rowKey="skuId" className="rc-table w-full" />
+      <Table
+        columns={column}
+        loading={loading}
+        dataSource={pictureList}
+        pagination={false}
+        rowKey="skuId"
+        className="rc-table w-full"
+      />
       <div className="flex flex-row justify-end mt-4">
         <Pagination
           className="rc-pagination"
