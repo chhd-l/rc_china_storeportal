@@ -58,6 +58,14 @@ export const moveWxMenu: (wxMenus: WxMenuItem[], key: string, direction: 'forwar
   }
 }
 
+export const filterWxMenus: (wxMenus: WxMenuItem[], filterFields: string[]) => WxMenuItem[] = (wxMenus, filterFields) => {
+  wxMenus.forEach(item => {
+    item.active = undefined;
+    item.sub_button = filterWxMenus(item.sub_button || [], filterFields)
+  })
+  return wxMenus
+}
+
 export const setWxMenu = (wxMenus: WxMenuItem[], key: string, activeMenu: any) => {
   wxMenus.forEach(item => {
     if (item.key === key) {
