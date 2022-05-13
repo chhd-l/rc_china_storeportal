@@ -72,7 +72,7 @@ const QrCodeManage = () => {
       title: "Expired Time",
       dataIndex: "expiredTime",
       hideInSearch: true,
-      render: (text: any) => moment(text).format('YYYY-MM-DD')
+      render: (text: any) => text === '-' || !text ? '-' : moment(text).format('YYYY-MM-DD')
     },
     {
       title: "Action",
@@ -95,7 +95,14 @@ const QrCodeManage = () => {
         columns={columns}
         search= {{
           labelWidth: 'auto',
-          searchText: 'Search'
+          searchText: 'Search',
+          optionRender: (searchConfig,formProps,dom) => {
+            return dom.map((item: any) => {
+              return (
+                <Button {...item.props} loading={false} />
+              )
+            })
+          }
         }}
         rowKey='id'
         toolBarRender={() => [

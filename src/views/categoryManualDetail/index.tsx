@@ -95,7 +95,7 @@ const CategoryDetail = () => {
   }
   const columns: ProColumns<any>[] = [
     {
-      title: 'product Name',
+      title: 'Product Name',
       dataIndex: 'goodsName',
       hideInSearch: true,
       render: (_, record) => {
