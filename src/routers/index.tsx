@@ -19,7 +19,6 @@ const ShippingSetting = lazy(() => import('@/views/shippingSetting'))
 const OrderSetting = lazy(() => import('@/views/orderSetting'))
 const AccountList = lazy(() => import('@/views/accountList'))
 const AddAccount = lazy(() => import('@/views/addAccount'))
-const AccountDetails = lazy(() => import('@/views/accountDetails'))
 const FansList = lazy(() => import('@/views/fansList'))
 const FansDetail = lazy(() => import('@/views/fansDetail'))
 const AutoReplyList = lazy(() => import('@/views/autoReplyList'))
@@ -113,7 +112,7 @@ let routes: RouteObject[] = [
           { index: true, element: <AccountList />},
           { path: 'account-list', element: <AccountList />},
           { path: 'add-account', element: <AddAccount />, breadcrumbName: 'Add Account' },
-          { path: 'account-details', element: <AccountDetails />, breadcrumbName: 'Account Details' },
+          { path: 'account-details', element: <AddAccount />, breadcrumbName: 'Account Details' },
         ],
       },
       {
