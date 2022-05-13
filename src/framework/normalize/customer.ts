@@ -8,12 +8,12 @@ export const normalisePet = (pet: any) => {
     id: pet.id,
     image: pet.image,
     name: pet.name,
-    breed: pet.breedCode,
+    breed: pet.breedName,
     gender: pet.gender,
     type: pet.type,
     isSterilized: pet.isSterilized,
     age: getAge(pet.birthday),
-    birthday: handleReturnTime(pet.birthday),
+    birthday: handleReturnTime(pet.birthday).split(' ')?.[0],
   }
 }
 
