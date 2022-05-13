@@ -116,7 +116,14 @@ const MpQrList = () => {
         columns={columns}
         search={{
           labelWidth: 'auto',
-          searchText: 'Search'
+          searchText: 'Search',
+          optionRender: (searchConfig,formProps,dom) => {
+            return dom.map((item: any) => {
+              return (
+                <Button {...item.props} loading={false} />
+              )
+            })
+          }
         }}
         pagination={{
           showQuickJumper: false
