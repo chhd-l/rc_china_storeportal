@@ -2,8 +2,6 @@ import { Pet } from '@/api/types/pet'
 import { getAge, handleReturnTime } from '@/utils/utils'
 
 export const normalisePet = (pet: any) => {
-  //todo
-  //1、获取breedList进行breed匹配  2、根据birthday计算age
   return {
     id: pet.id,
     image: pet.image,
