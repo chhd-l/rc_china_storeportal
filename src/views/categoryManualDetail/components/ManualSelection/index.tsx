@@ -82,7 +82,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
       hideInSearch: true,
       render: (_, record)=>{
         return(
-          <span>{record.brandId==='b1'?'Royal Canin':'Eukanuba'}</span>
+          <span>{record.brandId==='B1'?'Royal Canin':'Eukanuba'}</span>
         )
       }
     },
