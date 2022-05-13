@@ -182,7 +182,7 @@ export const updateMedia = async (queryParams: any) => {
 export const syncMedias = async (type: string) => {
   try {
     let res = await ApiRoot.wechatSettings().syncMedia({ accountId: '000001', type })
-    const syncSuccess = res?.data?.syncMedia
+    const syncSuccess = res?.syncMedia
     console.log('sync media view data', syncSuccess)
     return syncSuccess || false
   } catch (e) {
@@ -347,7 +347,7 @@ export const getTemplateDetail = async (id: string) => {
 export const createTemplateMessage = async (queryParams: any) => {
   try {
     let res = await ApiRoot.wechatSettings().createTemplateMessage({ body: queryParams })
-    const createTemplateMessage = res?.createTemplateMessage
+    const createTemplateMessage = res?.addTemplateMessage
     console.log('get templateItem list view data', createTemplateMessage)
     return createTemplateMessage || false
   } catch (e) {

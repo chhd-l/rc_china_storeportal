@@ -166,8 +166,9 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                 </div>
                 {cateId?.length ? (
                   <CloseCircleOutlined
-                    onClick={() => {
+                    onClick={(e: any) => {
                       setCateId([])
+                      e.stopPropagation()
                     }}
                   />
                 ) : (

@@ -67,12 +67,12 @@ const WxMenuSetting = () => {
           {activeMenu?.sub_button?.length ? null : <React.Fragment>
             <Form.Item label="Content">
               <Radio.Group value={activeMenu.type} onChange={(e) => changeMenuType(e, activeMenu.key)}>
-                <Radio value="click">Send response message</Radio>
+                <Radio value="media_id">Send response message</Radio>
                 <Radio value="view">Web redirection</Radio>
                 <Radio value="miniprogram">Joint with Miniprogram</Radio>
               </Radio.Group>
             </Form.Item>
-            {activeMenu.type === 'click' ? <ResponseType /> : activeMenu.type === 'view' ? <RedirectionType /> : <MiniProgramType />}
+            {activeMenu.type === 'media_id' ? <ResponseType /> : activeMenu.type === 'view' ? <RedirectionType /> : <MiniProgramType />}
           </React.Fragment>}
         </Form>
       </div>}

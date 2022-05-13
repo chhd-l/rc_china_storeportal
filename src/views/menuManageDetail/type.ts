@@ -1,5 +1,5 @@
 export type WxMenuItem = {
-  type: "click" | "view" | "miniprogram"
+  type: "media_id" | "view" | "miniprogram"
   name: string
   key: string
   url?: string
@@ -7,12 +7,16 @@ export type WxMenuItem = {
   pagepath?: string
   active?: boolean
   media_id?: string
+  rc_preview_type?: "image" | "voice" | "video"
+  rc_preview_url?: string
   sub_button?: WxMenuItem[]
 }
 
 export type WxMenu = {
   id?: string
   accountId?: string
+  accountPrincipal?: string
+  accountName?: string
   content?: string
   isEnabled?: boolean
   createdAt?: string

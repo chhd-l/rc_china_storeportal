@@ -3,7 +3,7 @@ import { getBundleGoodsvariants, getCategories } from '@/framework/api/get-produ
 // import { categoryList } from '@/framework/mock/categorylist'
 import { getTree } from '@/framework/normalize/product'
 import { CateItemProps } from '@/framework/schema/product.schema'
-import { formatMoney } from '@/utils/utils'
+import { formatMoney, handlePageParams } from '@/utils/utils'
 import { ProFormInstance } from '@ant-design/pro-form'
 import { ProColumns } from '@ant-design/pro-table'
 import { Input, Modal, Select, Space } from 'antd'
@@ -73,8 +73,11 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
       render: (_, record) => {
         return (
           <div className='flex items-center'>
-            <div className='border border-solid p-1' style={{ borderColor: '#f8f8f8' }}>
-              <img className='h-8 w-auto' src={record.defaultImage} alt='' />
+            <div
+              className='border border-solid p-1 w-8 h-8 flex  justify-center items-center'
+              style={{ borderColor: '#f8f8f8' }}
+            >
+              <img src={record.defaultImage} alt='' />
             </div>
             <div className='text-xs'>
               <div>{record.name}</div>
@@ -93,11 +96,11 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
       },
     },
     {
-      dataIndex: 'listPrice',
+      dataIndex: 'brandName',
       title: 'Brand',
-      render: (_, record) => {
-        return formatMoney(record.listPrice)
-      },
+      // render: (_, record) => {
+      //   return formatMoney(record.listPrice)
+      // },
     },
 
     {
@@ -152,8 +155,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
       <ProTable
         columns={columns}
         formRef={ref}
-        search={{ span: 12, labelWidth: 60 }}
-        rowKey='id'
+        search={{ span: 12, labelWidth: 60, searchText: 'Search' }}
         pagination={{
           pageSize: 5,
         }}
@@ -166,9 +168,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
         request={async (params, sorter, filter) => {
           // 表单搜索项会从 params 传入，传递给后端接口。
           console.log('test sort', params, sorter, filter)
-
-          let limit = params.pageSize
-          let offset = params.current - 1
+          let pageParams = handlePageParams({ currentPage: params.current, pageSize: params.pageSize })
           delete params.current
           delete params.pageSize
           let sample: any = {
@@ -182,14 +182,20 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
             sample.startPrice = startPrice
           }
           delete sample.search
-          console.info('sample', sample)
-          let res = await getBundleGoodsvariants({
-            limit,
+          console.info('pageParams', pageParams)
+          let paramsData = {
+            ...pageParams,
             isNeedTotal: true,
-            offset,
             sample,
+          }
+          let res = await getBundleGoodsvariants(paramsData)
+
+          let list = (res.records || []).map((el: any) => {
+            return {
+              ...el,
+              brandName: '',
+            }
           })
-          let list = res.records || []
           allPageList.unshift(...list)
           console.info('allPageList', allPageList)
           setRegularList(list)

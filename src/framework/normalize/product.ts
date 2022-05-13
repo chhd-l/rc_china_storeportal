@@ -133,6 +133,23 @@ export const normaliseCateIdProps: any = (id: string, list: CateItemProps[], par
     return parentNode
   }
 }
+export const normaliseDeletedData: any | GoodsAssets = (data: any = [], beforeData: any = []) => {
+  let newData = [...data]
+  for (let item in beforeData) {
+    var found = false
+    for (let citem in data) {
+      if (data[citem].id === beforeData[item].id) {
+        found = true
+        break
+      }
+    }
+    if (!found) {
+      beforeData[item].isDeleted = true
+      newData.push(beforeData[item])
+    }
+  }
+  return newData
+}
 export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
   let goodsAsserts = (data.goodsAsserts ? [...data.goodsAsserts, data.video] : [data.video])?.filter((el: any) => el?.url)?.map((el: any) => {
     let asset = {
@@ -146,6 +163,7 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     }
     return asset
   })
+  goodsAsserts = data.id ? normaliseDeletedData(goodsAsserts, beforeData.goodsAsserts) : goodsAsserts
   let detail: any = {
     spuNo: data.spuNo,
     goodsName: data.name,
@@ -563,7 +581,7 @@ export const normaliseProductListSku = (sku: GoodsVariants, goodsSpecifications:
 export const normaliseProductListSpu = (spu: any): any => {
   let listItem = {
     skus: spu.goodsVariants?.map((sku: any) => normaliseProductListSku(sku, spu.goodsSpecifications)),
-    img: spu.goodsVariants?.[0]?.defaultImage,
+    img: spu.goodsVariants?.[0]?.defaultImage || spu.goodsAsserts?.[0]?.artworkUrl,
     id: spu.id,
     no: spu.spuNo,
     showAll: false,

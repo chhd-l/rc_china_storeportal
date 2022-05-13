@@ -1,10 +1,10 @@
 import ProTable from '@/components/common/ProTable'
 import './index.less'
-import { Button } from 'antd'
+import { Button, message, Modal } from 'antd'
 import { FileSearchOutlined } from '@ant-design/icons'
 import { tableColumns } from './modules/constant'
 import { ContentContainer } from '@/components/ui'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import AddTemplate from './components/AddTemplate'
 import ViewIndustry from './components/ViewIndustry'
 import CardList from './components/CardList'
@@ -23,30 +23,49 @@ const TemplateMessage = () => {
   const [cardView, setCardView] = useState(false)
   const [templateMessageList, setTemplateMessageList] = useState<any[]>([])
   const [templateItems, setTemplateItems] = useState<any[]>([])
+  const [isModalVisible, setIsModalVisible] = useState(false)
   const [userInfo] = useAtom(userAtom)
+  const [curSelectId, setCurSelectId] = useState('')
+  const [loading, setLoading] = useState(false)
+  const tableRef = useRef<any>()
 
-  const handleDelete = async (id: string) => {
-    console.info('handleDelete', id)
-    const res = await updateTemplateMessage({ id, isDeleted: true })
+  const confirmDelete = async () => {
+    setLoading(true)
+    const res = await updateTemplateMessage({ id: curSelectId, isDeleted: true })
     if (res) {
-      await getTemplateMessageList()
+      setIsModalVisible(false)
+      message.success({ className: 'rc-message', content: 'Operation success' })
+      tableRef.current.reload()
+    } else {
+      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
+    setLoading(false)
   }
+
+  const openDelTipModal = (id: string) => {
+    setCurSelectId(id)
+    setIsModalVisible(true)
+  }
+
   const getTemplateItemList = async () => {
     const res = await getTemplateItems({})
     console.info('res.records', res.records)
     setTemplateItems(res.records)
   }
+
   const modifyTemplateMessage = async (templateMessage: any) => {
     console.log('1111', templateMessage)
     const res = await updateTemplateMessage({ id: templateMessage.id, status: !templateMessage.status })
     if (res) {
-      await getTemplateMessageList()
+      message.success({ className: 'rc-message', content: 'Operation success' })
+      tableRef.current.reload()
+    } else {
+      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
   }
 
   const columns = tableColumns({
-    handleDelete,
+    openDelTipModal,
     modifyTemplateMessage,
     templateTitleList: templateItems,
   })
@@ -58,7 +77,7 @@ const TemplateMessage = () => {
     setIndustryVisible(true)
   }
   const Synchronous = async () => {
-    await syncTemplateItem({operator:userInfo?.username||'system'})
+    await syncTemplateItem({ operator: userInfo?.username || 'system' })
   }
 
   const getTemplateMessageList = async () => {
@@ -72,7 +91,7 @@ const TemplateMessage = () => {
   }, [])
 
   return (
-    <ContentContainer className='template-message'>
+    <ContentContainer className="template-message">
       {cardView ? (
         <CardList
           setCardView={setCardView}
@@ -81,37 +100,39 @@ const TemplateMessage = () => {
         />
       ) : (
         <ProTable
+          actionRef={tableRef}
           headerTitle={[
-            <Button className='flex items-center mr-3' onClick={() => handleIndustires()}>
+            <Button className="flex items-center mr-3" onClick={() => handleIndustires()}>
               <FileSearchOutlined />
               View Industries
             </Button>,
-            <Button className='flex items-center  mr-3' onClick={() => Synchronous()}>
-              <span className='iconfont icon-bianzu2 mr-2 text-xl' />
+            <Button className="flex items-center  mr-3" onClick={() => Synchronous()}>
+              <span className="iconfont icon-bianzu2 mr-2 text-xl" />
               Synchronous
             </Button>,
-            <Button className='flex items-center  mr-3' onClick={() => setCardView(true)}>
-              <span className='iconfont icon-bianzu2 mr-2 text-xl' />
+            <Button className="flex items-center  mr-3" onClick={() => setCardView(true)}>
+              <span className="iconfont icon-bianzu2 mr-2 text-xl" />
               Graphical Representation
             </Button>,
           ]}
           toolBarRender={() => [
-            <Button className='mt-8 text-white' type='primary' onClick={handleAdd} ghost>
+            <Button className="mt-8 text-white" type="primary" onClick={handleAdd} ghost>
               + Add
             </Button>,
           ]}
           columns={columns}
+          search={{ searchText: 'Search' }}
           request={async (params, sorter, filter) => {
             // 表单搜索项会从 params 传入，传递给后端接口。
             console.log('test sort', params, sorter, filter)
-            const { current, pageSize, id, title, scenario } = params
+            const { current, pageSize, templateId, title, scenario } = params
             const queryParams = Object.assign(
               {},
               { offset: current * pageSize - pageSize, limit: pageSize },
               {
                 sample: Object.assign(
                   {},
-                  id ? { id } : {},
+                  templateId ? { id:templateId } : {},
                   title ? { title } : {},
                   scenario !== 'all' ? { scenario } : {},
                 ),
@@ -126,13 +147,31 @@ const TemplateMessage = () => {
           }}
         />
       )}
-      <AddTemplate visible={addVisible} handleVisible={setAddVisible} />
+      <AddTemplate
+        visible={addVisible}
+        handleVisible={setAddVisible}
+        addSuccess={() => {
+          tableRef.current.reload()
+        }}
+      />
       <ViewIndustry visible={industryVisible} handleVisible={setIndustryVisible} />
+      <Modal
+        key="assetDelete"
+        className="rc-modal"
+        title="Delete Item"
+        okText="Confirm"
+        visible={isModalVisible}
+        onOk={confirmDelete}
+        confirmLoading={loading}
+        onCancel={() => setIsModalVisible(false)}
+      >
+        <p>Are you sure you want to delete the item?</p>
+      </Modal>
     </ContentContainer>
   )
 }
 
 export default TemplateMessage
-function useStateuseState<T> (arg0: never[]): [any, any] {
+function useStateuseState<T>(arg0: never[]): [any, any] {
   throw new Error('Function not implemented.')
 }

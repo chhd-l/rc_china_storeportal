@@ -4,6 +4,11 @@
       width: 2.5rem;
       height: 2.5rem;
       margin: 0 auto;
+      .option-icon{
+      .icon{
+        font-size: 12px!important;
+      }
+      }
     }
   }
   .ant-upload.ant-upload-select-picture-card{
@@ -11,5 +16,22 @@
     background: #fff;
     width: 95px;
     height: 95px;
+    margin-right: 20px;
+  }
+  .ant-upload.ant-upload-select.ant-upload-select-picture-card{
+    overflow: hidden;
+  }
+  .img-wrap{
+    &:hover{
+    .option-icon{
+      opacity: 1;
+          }
+    }
+    .option-icon{
+      background-color: #00000080;
+      opacity: 0;
+    transition: all .3s;
+    }
+
   }
 }

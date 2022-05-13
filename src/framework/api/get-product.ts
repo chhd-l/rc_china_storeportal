@@ -9,28 +9,29 @@ import {
   ShopCategoryGoodsRelInput,
   ShopCategoryUpdateInput,
   shopCateQuery,
-  TreeDataProps,
 } from '../types/product'
 import {
   normaliseAttrProps,
-  normaliseCateProps,
   normaliseDetailforFe,
+  normaliseEditPDP,
   normaliseProductCreatFor,
   normaliseProductListSpu,
   normaliseScProductsforFe,
   normalizeNullDataRemove,
-  normaliseEditPDP,
-  getTree,
 } from '../normalize/product'
-import { brandList } from '../mock/brands'
 
 export const getCategories = async ({ storeId }: { storeId: string }): Promise<CateItemProps[]> => {
   try {
     let categoryList = await ApiRoot.products().getProductCategories({ storeId })
-    // const cateList: TreeDataProps[] = normaliseCateProps(categoryList.getProductCates)
     return categoryList.getProductCates
-    // return getTree(categoryList.getProductCates, null, 0)
-    // return normalisePets(pets)
+  } catch (e) {
+    console.log(e)
+    return []
+  }
+}
+export const getFindShopCategoryGoodsPage = async (params: any): Promise<any> => {
+  try {
+    return await ApiRoot.products().findShopCategoryGoodsPage(params)
   } catch (e) {
     console.log(e)
     return []
@@ -180,9 +181,10 @@ export const getProductDetail = async ({ storeId, goodsId }: { storeId: string, 
 export const deleteProducts = async ({ goodsId }: { goodsId: string[] }) => {
   try {
     const data = await ApiRoot.products().deleteMutation({ goodsId, storeId: '12345678' })
+    return true
   } catch (e) {
     console.log(e)
-    return {}
+    return false
   }
 
 }
@@ -191,9 +193,10 @@ export const deleteProducts = async ({ goodsId }: { goodsId: string[] }) => {
 export const switchShelves = async ({ goodsId, status }: { goodsId: string[], status: boolean }) => {
   try {
     const data = await ApiRoot.products().switchShelvesMutation({ goodsId, status })
+    return true
   } catch (e) {
     console.log(e)
-    return {}
+    return false
   }
 
 }
@@ -229,7 +232,7 @@ export const createShopCategoryGoodsRel = async (params: ShopCategoryGoodsRelInp
   }
 }
 
-export const updateShopCategory = async (params: ShopCategoryUpdateInput): Promise<any> => {
+export const updateShopCategory = async (params: any): Promise<any> => {
   try {
     let res = await ApiRoot.products().updateShopCategory({ body: params })
     return res
@@ -258,8 +261,7 @@ export const saveShopCategory = async (params: SaveShopCategoryInput): Promise<a
 
 export const detleShopCateRel = async (id: string[]): Promise<any> => {
   try {
-    let res = await ApiRoot.products().detleShopCateRel({ id })
-    console.info('detleShopCateRel', res)
+    return await ApiRoot.products().detleShopCateRel({ id })
   } catch (e) {
     console.log(e)
   }

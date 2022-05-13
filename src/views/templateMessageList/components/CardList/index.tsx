@@ -37,7 +37,7 @@ const CardList: FC<Props> = ({ setCardView, templateMessageList, modifyTemplateM
             extra={
               <ProFormSwitch
                 name="status"
-                label="Switch"
+                label=""
                 fieldProps={{ onChange: () => modifyTemplateMessage && modifyTemplateMessage(template),checked:template.status }}
               />
             }
