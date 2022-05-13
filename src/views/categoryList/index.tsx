@@ -91,7 +91,7 @@ const ShopCategories = () => {
               <Button icon={<CheckOutlined />} onClick={() => {
                 console.log(name)
                 updateShopCategory({
-                  ...record,
+                  id:record.id,
                   displayName: name,
                   isDisplay: record.isDisplay ? record.isDisplay : false,
                 }).then((res) => {
