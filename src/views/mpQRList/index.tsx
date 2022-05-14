@@ -44,8 +44,8 @@ const MpQrList = () => {
     if(!arr.length) return
     const lists: any = {}
     arr.forEach((item) => {
-      if(item.accountType === "MiniProgram") {
-        lists[item.id] = item.accountName
+      if(item.accountType === 'MiniProgram') {
+        lists[item.id] = { text: item.accountPrincipal, status: "Success"}
       }
     })
     setList(lists)
@@ -145,7 +145,7 @@ const MpQrList = () => {
           })
           depy(val?.records || [])
           const param: any = {}
-          if(params.accountName) param.accountId = params.accountName
+          if(params.accountPrincipal) param.accountId = params.accountPrincipal
           if(params.scenarioId) param.scenarioId = params.scenarioId
           if(params.key) param.key = params.key
           let res = await getAppQrCodes({
