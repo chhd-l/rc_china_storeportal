@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from 'antd'
-import { WxMenuContext, setActiveWxMenu } from '../context'
+import { WxMenuContext, setActiveWxMenu, filterWxMenus } from '../context'
 import { uuid } from '@/utils/utils'
 import _ from 'lodash';
 
@@ -60,7 +60,7 @@ const WxMenuGraph = () => {
   }
 
   const genWxMenuData = () => {
-    setJsonData(JSON.stringify({button: wxMenus || []}))
+    setJsonData(JSON.stringify({button: filterWxMenus(_.cloneDeep(wxMenus || []))}))
   }
 
   return (<div className="wx-container">

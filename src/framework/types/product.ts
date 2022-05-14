@@ -11,6 +11,8 @@ export interface TableHeadersItemProps {
 
 // categories
 export interface CategoryBaseProps {
+  total: number,
+  name: string,
   categoryType: any,
   displayName: string
   type: number

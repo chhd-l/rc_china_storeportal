@@ -1,30 +1,32 @@
 import './index.less'
-import { Button, Switch, Space, Input,Checkbox,Modal } from 'antd'
-import { CheckOutlined, CloseOutlined, EditOutlined,PlusOutlined } from '@ant-design/icons'
+import { Button, Switch, Space, Input, Checkbox, Modal } from 'antd'
+import { CheckOutlined, CloseOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons'
 import ProTable from '@/components/common/ProTable'
-import { useEffect, useState,useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { ProColumns } from '@ant-design/pro-table'
-import {  useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import ManualSelection from './components/ManualSelection'
 import { detleShopCateRel, getFindShopCategoryGoodsPage, updateShopCategory } from '@/framework/api/get-product'
 import { ContentContainer, SearchContainer, TableContainer } from '@/components/ui'
 import { formatMoney, handlePageParams } from '@/utils/utils'
 import IconFont from '@/components/common/IconFont'
+
 const { Search } = Input
 
 const CategoryDetail = () => {
   const params = useParams()
-  const [indeterminate, setIndeterminate] = useState(false);
-  const [checkAll, setCheckAll] = useState(false);
+  const [indeterminate, setIndeterminate] = useState(false)
+  const [checkAll, setCheckAll] = useState(false)
   const [curAssetId, setCurAssetId] = useState('')
   const [show, setShow] = useState(false)
   const [name, setName] = useState('')
-  const [selectedRowKeys, setSelectedRowKeys] = useState([''])
+  const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const [manualSelectionVisible, setManualSelectionVisible] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [cateInfos, setCateInfos] = useState({
+    total: null,
     categoryType: '',
     displayName: '',
     isDisplay: false,
@@ -32,12 +34,12 @@ const CategoryDetail = () => {
     rank: null,
   })
   const ref = useRef<any>()
-  const onCheckAllChange = (e:any) => {
-    setIndeterminate(false);
-    setCheckAll(e.target.checked);
-  };
-  const onSelectChange = (selectedRowKeys: any,selectedRows:any) => {
-    const {id} = params
+  const onCheckAllChange = (e: any) => {
+    setIndeterminate(false)
+    setCheckAll(e.target.checked)
+  }
+  const onSelectChange = (selectedRowKeys: any, selectedRows: any) => {
+    const { id } = params
     // let data= selectedRows.map((item:any)=>{
     //   return{
     //     goodsId: item.id,
@@ -74,12 +76,12 @@ const CategoryDetail = () => {
       isNeedTotal: true,
       sample: {
         shopCategoryId: id,
-        goodsName:page.goodsName
+        goodsName: page.goodsName,
       },
     })
     let meta = res?.findShopCategoryGoodsPage?.meta
     if (meta?.id) {
-      setCateInfos(meta)
+      setCateInfos({ ...meta, total: res?.findShopCategoryGoodsPage?.total })
     }
     return res
   }
@@ -171,142 +173,162 @@ const CategoryDetail = () => {
     },
   ]
 
+  // @ts-ignore
   return (
     <ContentContainer>
-    <div className='category-detail'>
-      <div className='bg-white mb-8 px-6 py-4'>
-        <div className='flex justify-between'>
-          <div className='font-bold text-lg'>
-            {
-              show?<div>
-                <Input.Group compact>
-                  <Input style={{ width: '200px' }} defaultValue={cateInfos.displayName} onChange={(e) => {
-                    setName(e.target.value)
-                  }} />
-                  <Button icon={<CheckOutlined />} onClick={() => {
-                    const {id} = params
-                    updateShopCategory({
-                      id,
-                      displayName: name
-                    }).then((res) => {
-                      if (res) {
+      <div className='category-detail'>
+        <div className='bg-white mb-8 px-6 py-4'>
+          <div className='flex justify-between'>
+            <div className='font-bold text-lg'>
+              {
+                show ? <div>
+                    <Input.Group compact>
+                      <Input style={{ width: '200px' }} defaultValue={cateInfos.displayName} onChange={(e) => {
+                        setName(e.target.value)
+                      }} />
+                      <Button icon={<CheckOutlined />} onClick={() => {
+                        const { id } = params
+                        updateShopCategory({
+                          id,
+                          displayName: name,
+                        }).then((res) => {
+                          if (res) {
+                            setShow(false)
+                            ref.current.reload()
+                          }
+                        })
+                      }} />
+                      <Button icon={<CloseOutlined />} onClick={() => {
+                        setName('')
                         setShow(false)
-                        ref.current.reload()
-                      }
-                    })
-                  }} />
-                  <Button icon={<CloseOutlined />} onClick={() => {
-                    setName('')
-                    setShow(false)
-                  }} />
-                </Input.Group>
-              </div>:
-                <div className='edit-name'>
-                <span className='edit-display-name'>{cateInfos.displayName}</span>
-                <EditOutlined onClick={() => {
-                  setShow(true)
-                  setName(cateInfos.displayName)
-                }} style={{ fontSize: '16px', color: '#ee4d2d' }} />
-              </div>
-            }
+                      }} />
+                    </Input.Group>
+                  </div> :
+                  <div className='edit-name'>
+                    <span className='edit-display-name'>{cateInfos.displayName}</span>
+                    <EditOutlined onClick={() => {
+                      setShow(true)
+                      setName(cateInfos.displayName)
+                    }} style={{ fontSize: '16px', color: '#ee4d2d' }} />
+                  </div>
+              }
+            </div>
+            <div>
+              <Switch
+                className='ml-3'
+                checked={cateInfos.isDisplay}
+                disabled={!cateInfos?.total}
+                onChange={(checked: boolean) => {
+                  const { id } = params
+                  updateShopCategory({
+                    id,
+                    isDisplay: checked,
+                  }).then(() => {
+                    ref.current.reload()
+                  })
+                }}
+              />
+            </div>
           </div>
-          <div>
-            <Switch
-              className='ml-3'
-              checked={cateInfos.isDisplay}
-              onChange={(checked: boolean) => {
-                const {id} = params
-                updateShopCategory({
-                  id,
-                  isDisplay: checked,
-                }).then(() => {
-                  ref.current.reload()
-                })
-              }}
-            />
-          </div>
-        </div>
-        <div className='text-gray-400 mt-4'>
-          Created By:{' '}
-          <span className='text-black mx-2'>
-            {cateInfos.name} | {'Seller | ' +cateInfos.categoryType}
+          <div className='text-gray-400 mt-4'>
+            Created By:{' '}
+            <span className='text-black mx-2'>
+            {cateInfos.name} {' | ' + cateInfos.categoryType}
           </span>{' '}
-          Product(s):{}
-        </div>
-      </div>
-      <div className='bg-white px-6 py-4'>
-        <div className='flex justify-between'>
-          <div className='search-title'>
-            <div className='text-xl font-semibold list-title'>Product List</div>
+            Product(s): <span className='text-black mx-2'>{cateInfos.total}</span>
           </div>
-          <Button
-            type='primary'
-            onClick={() => {
-              setManualSelectionVisible(true)
-            }}
-            icon={<PlusOutlined />}
-          >
-            Add Products
-          </Button>
         </div>
-        <ProTable
-          actionRef={ref}
-          columns={columns}
-          toolBarRender={false}
-          // rowSelection={{ selectedRowKeys, onChange: onSelectChange }}
-          tableAlertRender={() => false}
-          pagination={{
-            showTotal: (total: number) => ``,
-          }}
-          search={{
-            optionRender: false,
-            collapsed: false,
-            className: 'my-searchs',
-          }}
-          request={async (params, sorter, filter) => {
-            // 表单搜索项会从 params 传入，传递给后端接口。
-            console.log('test sort', params, sorter, filter)
-            let page = handlePageParams({
-              currentPage: params.current,
-              pageSize: params.pageSize,
-            })
-            let tableData = await getList({ ...page,goodsName:params.goodsName })
-            if (tableData === undefined && page.offset >= 10) {
-              tableData = await getList({
-                offset: page.offset - 10,
-                limit: page.limit,
-                goodsName:params.goodsName
+        <div className='bg-white px-6 py-4'>
+          <div className='flex justify-between'>
+            <div className='search-title'>
+              <div className='text-xl font-semibold list-title'>Product List</div>
+            </div>
+            <Button
+              type='primary'
+              onClick={() => {
+                setManualSelectionVisible(true)
+              }}
+            >
+              + Add Category
+            </Button>
+          </div>
+          <ProTable
+            className='set-delete-box'
+            actionRef={ref}
+            columns={columns}
+            toolBarRender={false}
+            // rowSelection={{ selectedRowKeys, onChange: onSelectChange }}
+            rowKey='goodsId'
+          //   tableAlertRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => {
+          //     console.log(selectedRowKeys, selectedRows)
+          //     return (
+          //       <span>
+          //   <a style={{ marginLeft: 8 }} onClick={onCleanSelected}>
+          //     取消选择
+          //   </a>
+          // </span>
+          //     )
+          //   }}
+          //   tableAlertOptionRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => {
+          //     return (
+          //       <Space size={16}>
+          //         <span>{selectedRowKeys.length}products selected</span>
+          //         <Button>Delete</Button>
+          //       </Space>
+          //     )
+          //   }}
+            pagination={{
+              showTotal: (total: number) => ``,
+            }}
+            search={{
+              optionRender: false,
+              collapsed: false,
+              className: 'my-searchs',
+            }}
+            request={async (params, sorter, filter) => {
+              // 表单搜索项会从 params 传入，传递给后端接口。
+              console.log('test sort', params, sorter, filter)
+              let page = handlePageParams({
+                currentPage: params.current,
+                pageSize: params.pageSize,
               })
-            }
-            console.log(tableData,99)
-            return Promise.resolve({
-              data: tableData?.findShopCategoryGoodsPage?.records || [],
-              total: tableData?.findShopCategoryGoodsPage.total,
-              success: true,
-            })
-          }}
+              let tableData = await getList({ ...page, goodsName: params.goodsName })
+              if (tableData === undefined && page.offset >= 10) {
+                tableData = await getList({
+                  offset: page.offset - 10,
+                  limit: page.limit,
+                  goodsName: params.goodsName,
+                })
+              }
+              console.log(tableData, 99)
+              return Promise.resolve({
+                data: tableData?.findShopCategoryGoodsPage?.records || [],
+                total: tableData?.findShopCategoryGoodsPage.total,
+                success: true,
+              })
+            }}
+          />
+        </div>
+        <ManualSelection
+          visible={manualSelectionVisible}
+          handleVisible={handleManualVisible}
+          handleUpdate={handleUpdate}
         />
+        <Modal
+          className='rc-modal'
+          title='Delete Item'
+          okText='Confirm'
+          visible={isModalVisible}
+          onOk={confirmDelete}
+          confirmLoading={loading}
+          onCancel={() => setIsModalVisible(false)}
+        >
+          <p>Are you sure you want to delete the item?</p>
+        </Modal>
+        {/*<Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>*/}
+        {/*  Check all*/}
+        {/*</Checkbox>*/}
       </div>
-      <ManualSelection
-        visible={manualSelectionVisible}
-        handleVisible={handleManualVisible}
-        handleUpdate={handleUpdate}
-      />
-      <Modal
-        className='rc-modal'
-        title='Delete Item'
-        okText='Confirm'
-        visible={isModalVisible}
-        onOk={confirmDelete}
-        confirmLoading={loading}
-        onCancel={() => setIsModalVisible(false)}
-      >
-        <p>Are you sure you want to delete the item?</p>
-      </Modal>
-      {/*<Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>*/}
-      {/*  Check all*/}
-      {/*</Checkbox>*/}
-    </div>
     </ContentContainer>
   )
 }
