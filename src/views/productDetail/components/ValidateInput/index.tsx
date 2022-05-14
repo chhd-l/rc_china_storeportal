@@ -1,4 +1,4 @@
-import { FC, FocusEventHandler, useRef, useState } from 'react'
+import { FC, FocusEventHandler, useEffect, useRef, useState } from 'react'
 import { Input } from 'antd'
 interface Props {
   defaultValue: string
@@ -22,6 +22,10 @@ const ValidateInput: FC<Props> = ({ defaultValue, className, placeholder, onBlur
       }
     }, 0)
   }
+  // useEffect(() => {
+  //   // @ts-ignore
+  //   inputRef.current.input.value = defaultValue
+  // }, [defaultValue])
   const handleComposition = (evt: any) => {
     console.info(evt.type, '..........................')
     if (evt.type === 'compositionend') {
@@ -38,6 +42,7 @@ const ValidateInput: FC<Props> = ({ defaultValue, className, placeholder, onBlur
       ref={inputRef}
       className={className}
       placeholder={placeholder}
+      defaultValue={defaultValue}
       onCompositionStart={handleComposition}
       onCompositionUpdate={handleComposition}
       onCompositionEnd={handleComposition}
