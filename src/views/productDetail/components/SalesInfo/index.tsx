@@ -132,12 +132,68 @@ const SalesInfo = (props: FormProps) => {
   }, [detail.regularList])
   useEffect(() => {
     let formList: any = noSkuForm.map((el: any) => {
-      let item: any = Object.assign({}, el, { disabled: el.name === 'stock' && spuType === 'BUNDLE' ? true : false })
+      if (el.name === 'subscriptionStatus') {
+        el.rules.push(({ getFieldValue }: { getFieldValue: any }) => ({
+          validator (_: any, value: any) {
+            console.info('......', _, value === '0')
+            let list = formatSubscription(value)
+            console.info('........', list)
+            setNoSkuFormList(list)
+            return Promise.resolve()
+          },
+        }))
+      }
+      return el
+    })
+    debugger
+
+    setNoSkuFormList(formList)
+  }, [])
+
+  const formatSubscription = (value: any) => {
+    let formList: any = noSkuFormList.map((el: any) => {
+      let item: any = Object.assign({}, el, {
+        disabled: el.name === 'subscriptionPrice' && value == 0 ? true : false,
+      })
+      if (item.name === 'subscriptionPrice') {
+        if (value == 0) {
+          props.form.setFieldsValue({
+            subscriptionPrice: '',
+          })
+          if (item.rules) {
+            delete item.rules
+          }
+        } else {
+          if (!item.rules.length) {
+            item.rules.push({ required: true })
+          }
+        }
+      }
       return item
     })
-    console.info('........', formList)
+    return formList
+  }
+  useEffect(() => {
+    let formList: any = noSkuFormList.map((el: any) => {
+      let item: any = { ...el }
+      if (el.name === 'stock') {
+        el.disabled = spuType === 'BUNDLE'
+      }
+      return item
+    })
     setNoSkuFormList(formList)
   }, [spuType])
+  useEffect(() => {
+    let formList: any = formatSubscription(detail.subscriptionPrice)
+    let list: any = formList.map((el: any) => {
+      let item: any = { ...el }
+      if (el.name === 'stock') {
+        el.disabled = spuType === 'BUNDLE'
+      }
+      return item
+    })
+    setNoSkuFormList(list)
+  }, [detail.subscriptionPrice])
   return (
     // <div>test</div>
     <div className='salesinfo'>
@@ -197,7 +253,7 @@ const SalesInfo = (props: FormProps) => {
                 </div>
               </Form.Item>
             ) : null}
-            <FormItem list={noSkuFormList} {...props} layout={layout} />
+            {noSkuFormList?.length ? <FormItem list={noSkuFormList} {...props} layout={layout} /> : null}
           </div>
         )}
       </VariationosContext.Provider>

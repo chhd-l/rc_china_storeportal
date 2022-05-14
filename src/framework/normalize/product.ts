@@ -85,9 +85,7 @@ export const normaliseDetailforFe = (detail: any) => {
     isSupport100: '',
     defaultImage: '',
   }
-  // debugger
   if (withoutSku) {
-    // debugger
     let sku = detail.goodsVariants?.[0]
     // spu.skuNo: 'test0001', //to do
     // withoutSku: true,
@@ -110,7 +108,6 @@ export const normaliseDetailforFe = (detail: any) => {
     })
   }
   console.info('datasss', choosedCate)
-  // debugger
   console.info('spu', spu)
   return spu
 }
@@ -206,6 +203,7 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
 export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: any) => {
   let skuData = []
   let editData: any = []
+
   if (skus) {
     skuData = skus.map((data: any) => {
       console.info('data.marketingPrice', data.marketingPrice)
@@ -242,7 +240,6 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
       if (data.id) {
         newVariation.id = data.id
       }
-      debugger
       if (data.goodsVariantBundleInfo) {
         newVariation.goodsVariantBundleInfo = data.goodsVariantBundleInfo?.map((el: any) => {
           let bundleInfo = {
@@ -294,7 +291,6 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
     spu.variationLists.filter((el: any) => el.id)
     skuData.filter((el: any) => el.id)
     //被删除的
-    debugger
     let delArr: any = []
     for (let item in beforeData.goodsVariants) {
       var found = false
@@ -338,11 +334,11 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
         if (el?.subscriptionStatus) {
           normaliseData.subscriptionStatus = Number(el.subscriptionStatus)
         }
-        if (el?.subscriptionPrice) {
+        if (el?.subscriptionPrice !== undefined) {
           normaliseData.subscriptionPrice = Number(el.subscriptionPrice)
         }
         if (el?.marketingPrice) {
-          normaliseData.subscriptionPrice = Number(el.marketingPrice)
+          normaliseData.marketingPrice = Number(el.marketingPrice)
         }
         if (el?.goodsVariantBundleInfo?.length) {
           el?.goodsVariantBundleInfo?.forEach((bundleInfo: any) => {
@@ -353,9 +349,9 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
         }
       }
       console.info('normaliseData', normaliseData)
+      debugger
       return normaliseData
     }).filter((el: any) => el)
-    console.info('editVariationData', editVariationData)
     editData = [...editVariationData, ...delArr]
     //规格有改变的
     spu.goodsVariantsInput.filter((el: any) => el.id).forEach((variantInput: any, index: number) => {
@@ -406,7 +402,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
 
   }
   console.info('skuData', skuData)
-  debugger
+  console.info('editData', JSON.stringify(editData))
   // return skuData
   return spu.id ? editData : skuData
 }
@@ -509,7 +505,6 @@ export const normaliseVariationAndSpecification = (data: GoodsSpecification[], g
 export const normalizeSpecText = (goodsSpecificationRel: any, goodsSpecifications: any): string[] => {
   // console.info('goodsSpecificationRel', goodsSpecificationRel)
   return goodsSpecificationRel?.map((el: any) => {
-    // debugger
     let specObj = goodsSpecifications.find((spec: any) => spec.id === el.goodsSpecificationId)
     let specDetailName = specObj?.goodsSpecificationDetail?.find(
       (specDetail: any) => specDetail.id === el.goodsSpecificationDetailId,
