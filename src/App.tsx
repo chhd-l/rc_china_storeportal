@@ -26,18 +26,12 @@ function App () {
   // }, [location.pathname])
 
   useEffect(() => {
-    // if (!localStorage.getItem('rc_access_token')) {
-    //   localStorage.removeItem('rc-userInfo')
-    //   localStorage.removeItem('rc-token')
-    //   navigate('/login')
-    // }
-    // function fn() {
-    //   console.log('touch')
-    // }
-    // window.addEventListener('storage', fn)
-    // return () => {
-    //   window.removeEventListener('storage', fn)
-    // }
+    if (!localStorage.getItem('rc_access_token')) {
+      localStorage.setItem('rc_access_token', '')
+      localStorage.removeItem('rc-userInfo')
+      localStorage.removeItem('rc-token')
+      navigate('/login')
+    }
   }, [])
 
   return (

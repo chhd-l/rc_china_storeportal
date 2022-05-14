@@ -13,7 +13,8 @@ const MenuComp = (navigate: Function) => {
     {/* <Menu.Item key={"Manage Account"}>
       Manage Account
     </Menu.Item> */}
-    <Menu.Item key={"Logout"} onClick={() => {
+      <Menu.Item key={"Logout"} onClick={() => {
+        localStorage.setItem('rc_access_token', '')
         localStorage.removeItem('rc-userInfo')
         localStorage.removeItem("rc-token")
       navigate('/login')
