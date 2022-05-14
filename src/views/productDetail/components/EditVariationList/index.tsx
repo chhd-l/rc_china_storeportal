@@ -10,7 +10,7 @@ import { DetailContext } from '../../index'
 import { VerticalAlignBottomOutlined, VerticalAlignTopOutlined } from '@ant-design/icons'
 import BundleSubSKu from '../BundleSubSKu'
 import Upload from '../UploadList'
-// import ValidateInput from '../ValidateInput'
+import ValidateInput from '../ValidateInput'
 export interface VarviationProps {
   defaultImage: string
   skuNo: string
@@ -342,7 +342,7 @@ const EditVariationList = (props: FormProps) => {
                               )
                             case 'validateInput':
                               return (
-                                <Input
+                                <ValidateInput
                                   className='text-center'
                                   placeholder='Input'
                                   // onInput={e => {
@@ -360,7 +360,7 @@ const EditVariationList = (props: FormProps) => {
                                     updateVations(e.target.value, index, td.keyVal, tr)
                                   }}
                                   defaultValue={tr[td.keyVal]}
-                                />
+                                ></ValidateInput>
                               )
                             case 'text':
                               return (
