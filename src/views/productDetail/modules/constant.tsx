@@ -203,7 +203,7 @@ export const headerOrigition: any = [
   },
   {
     label: 'SKU',
-    type: 'input',
+    type: 'validateInput',
     required: true,
     keyVal: 'skuNo',
     dataTips: `SKU:<p>SKU should be unique and conform to coding rules</p>
@@ -226,7 +226,7 @@ export const headerOrigition: any = [
   },
   {
     label: 'EAN',
-    type: 'input',
+    type: 'validateInput',
     required: true,
     keyVal: 'eanCode',
     dataTips: `EAN:

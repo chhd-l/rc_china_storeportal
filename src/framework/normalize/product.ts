@@ -205,8 +205,9 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
   let editData: any = []
 
   if (skus) {
-    skuData = skus.map((data: any) => {
+    skuData = skus.map((data: any, skuIdx: number) => {
       console.info('data.marketingPrice', data.marketingPrice)
+
       let newVariation: any = {
         isSupport100: data.isSupport100 === 'true',
         skuType: spu.type,
@@ -290,6 +291,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
     beforeData.goodsVariants.filter((el: any) => el.id)
     spu.variationLists.filter((el: any) => el.id)
     skuData.filter((el: any) => el.id)
+
     //被删除的
     let delArr: any = []
     for (let item in beforeData.goodsVariants) {
@@ -314,16 +316,22 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
     if (!spu.editChange.goodsVariants) {
       spu.editChange.goodsVariants = []
     }
+    //无规格变有规格的情况，sku编辑有默认值，但是默认增量，需要处理
+    let addDefault = spu.id && !beforeData.goodsVariants?.[0].skuNo && skus[0]?.skuNo
     //处理规格值转换
-    let editVariationData = spu.editChange.goodsVariants?.map((el: any) => {
+    let editVariationData = spu.editChange.goodsVariants?.map((el: any, elIdx: number) => {
       let normaliseData: any = null
       if (el) {
         normaliseData = { ...el }
         if (el?.shelvesStatus) {
           normaliseData.shelvesStatus = el.shelvesStatus === 'true'
+        } else if (elIdx === 0 && addDefault) {
+          normaliseData.shelvesStatus = true
         }
         if (el?.isSupport100) {
           normaliseData.isSupport100 = el.isSupport100 === 'true'
+        } else if (elIdx === 0 && addDefault) {
+          normaliseData.isSupport100 = true
         }
         if (el?.listPrice) {
           normaliseData.listPrice = Number(el.listPrice)
@@ -333,6 +341,8 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
         }
         if (el?.subscriptionStatus) {
           normaliseData.subscriptionStatus = Number(el.subscriptionStatus)
+        } else if (elIdx === 0 && addDefault) {
+          normaliseData.subscriptionStatus = 1
         }
         if (el?.subscriptionPrice !== undefined) {
           normaliseData.subscriptionPrice = Number(el.subscriptionPrice)
@@ -352,6 +362,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
       debugger
       return normaliseData
     }).filter((el: any) => el)
+
     editData = [...editVariationData, ...delArr]
     //规格有改变的
     spu.goodsVariantsInput.filter((el: any) => el.id).forEach((variantInput: any, index: number) => {
@@ -446,16 +457,16 @@ export const normaliseInputAttrProps = (goodsAttributeValueRel: any) => {
 export const normaliseVariationAndSpecification = (data: GoodsSpecification[], goodsVariants: GoodsVariants[]): {
   variationList: VarationProps[], variationLists: any[]
 } => {
-  let variationList = data.map((el, idx) => {
+  let variationList = data?.filter(el => el.goodsSpecificationDetail).map((el, idx) => {
     let variation = {
       name: el.specificationName,
       sortIdx: idx,
       id: el.id,
-      specificationList: el.goodsSpecificationDetail.map((spe, cidx) => {
+      specificationList: el.goodsSpecificationDetail?.map((spe, cidx) => {
         let newSpe = {
           option: spe.specificationDetailName,
           id: spe.id,
-          sortIdx: `${idx}-${cidx}`,
+          sortIdx: `${100 + idx}-${cidx}`,
         }
         return newSpe
       })

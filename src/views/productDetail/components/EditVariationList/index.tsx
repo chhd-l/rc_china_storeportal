@@ -10,6 +10,7 @@ import { DetailContext } from '../../index'
 import { VerticalAlignBottomOutlined, VerticalAlignTopOutlined } from '@ant-design/icons'
 import BundleSubSKu from '../BundleSubSKu'
 import Upload from '../UploadList'
+// import ValidateInput from '../ValidateInput'
 export interface VarviationProps {
   defaultImage: string
   skuNo: string
@@ -174,11 +175,13 @@ const EditVariationList = (props: FormProps) => {
     init(vartions, { variationList: detail.variationLists }, true)
   }
   const init = (vartions: any, { variationList: formData, changeType }: any, isDefultData?: boolean) => {
-    let lastData = isDefultData ? detail.variationLists : variationList
+    let lastData = isDefultData ? cloneDeep(detail.variationLists) : cloneDeep(variationList)
     let list = vartions.map((vartion: any) => {
       console.info('variationListvariationList', JSON.stringify(lastData))
       // console.info('vartionvartionvartionvartion', JSON.stringify(vartion), vartion)
+      debugger
       let sortIdx = vartion.map?.((el: any) => el.sortIdx).join('^') || vartion.sortIdx
+      debugger
       let newEl: any = {
         spec: vartion.length ? vartion.map((el: any) => el.option).join(',') : vartion.option,
         defaultImage: '',
@@ -200,7 +203,7 @@ const EditVariationList = (props: FormProps) => {
       debugger
       if (changeType === ChangeType.handleSpec || isDefultData) {
         //spec选择,需要操作====
-        // debugger
+        debugger
         let oldData = lastData.find((el: any) => el.sortIdx === sortIdx)
         console.info('oldData', oldData)
         newEl = Object.assign({}, newEl, oldData, {
@@ -209,16 +212,21 @@ const EditVariationList = (props: FormProps) => {
         })
       }
       if (changeType === ChangeType.handleVariation) {
+        debugger
         //variation选择，需要操作include
-        let oldData = lastData
+        let lastIdx = lastData
           // .filter((el: any) => el.choosed)
-          .find((el: any) => {
+          .findIndex((el: any) => {
             return sortIdx.includes(el.sortIdx)
           })
+        let oldData = lastData[lastIdx]
         newEl = Object.assign({}, newEl, oldData, {
           spec: vartion.length ? vartion.map((el: any) => el.option).join(',') : vartion.option,
           key: Math.random(),
         })
+        if (lastIdx > -1) {
+          lastData.splice(lastIdx, 1)
+        }
       }
       console.info('vartioneditChange.variationList', detail?.editChange?.variationList)
 
@@ -326,6 +334,28 @@ const EditVariationList = (props: FormProps) => {
                                   //   return e.target.value.replace(/[\W]/g, '')
                                   // }}
                                   onBlur={e => {
+                                    tr[td.keyVal] = e.target.value
+                                    updateVations(e.target.value, index, td.keyVal, tr)
+                                  }}
+                                  defaultValue={tr[td.keyVal]}
+                                />
+                              )
+                            case 'validateInput':
+                              return (
+                                <Input
+                                  className='text-center'
+                                  placeholder='Input'
+                                  // onInput={e => {
+                                  //   console.info('....', e)
+                                  //   tr[td.keyVal] = e.currentTarget.value?.replace(/[^\a-\z\A-\Z]/g, '')
+                                  //   debugger
+                                  // }}
+                                  // onChange={(e: any) => {
+                                  //   debugger
+                                  //   return e.target.value.replace(/[\W]/g, '')
+                                  // }}
+                                  onBlur={(e: any) => {
+                                    console.info('./.......', e.target.value)
                                     tr[td.keyVal] = e.target.value
                                     updateVations(e.target.value, index, td.keyVal, tr)
                                   }}
