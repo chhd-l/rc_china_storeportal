@@ -1,4 +1,3 @@
-import { detail } from './../mock/productdetail'
 import { categoryList } from './../mock/categorylist'
 import { ChangeType, ProductListQueryProps, VarationProps, VarationsFormProps } from '../types/product'
 import { CateItemProps, Goods, GoodsAssets, GoodsAttribute, GoodsSpecification, GoodsVariants } from '../schema/product.schema'
@@ -496,20 +495,14 @@ export const normaliseVariationAndSpecification = (data: GoodsSpecification[], g
       return variationList.find(variation => variation.id === cel.goodsSpecificationId)?.specificationList.filter(specification => {
         return specification.id === cel.goodsSpecificationDetailId
       }).map(ccel => {
-        //多规格有问题
-        newItem.sortIdx = ccel.sortIdx
-        // @ts-ignore
-        console.info('el.sortIdxArr', newItem.sortIdxArr)
         return ccel.sortIdx
       })
-    })
+    })?.sort()
+    // @ts-ignore
+    let sortIdx: string = sortIdxArr.length > 1 ? sortIdxArr?.join('^') : sortIdxArr?.join('')
+    newItem.sortIdx = sortIdx
     console.info('newItem', newItem)
     return newItem
-    // @ts-ignore
-    // let sortIdx: string = sortIdxArr.map(sortIdxItem => {
-    //   debugger
-    //   return sortIdxItem?.join('^')
-    // })
   })
   return { variationList, variationLists }
 }
