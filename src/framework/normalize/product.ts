@@ -11,7 +11,7 @@ import { map } from 'lodash'
 export const normaliseDetailforFe = (detail: any) => {
   let withoutSku = !detail.goodsVariants?.[0]?.skuNo
 
-  let { variationList, variationLists } = normaliseVariationAndSpecification(detail.goodsSpecifications, detail.goodsVariants)
+  let { variationList, variationLists } = detail.goodsSpecifications?.length && normaliseVariationAndSpecification(detail.goodsSpecifications, detail.goodsVariants)
 
   let choosedCate = normaliseCateIdProps(detail.goodsCategoryId, detail.listCategoryGet, [])
   let spu: any = {
@@ -497,7 +497,7 @@ export const normaliseVariationAndSpecification = (data: GoodsSpecification[], g
       }).map(ccel => {
         return ccel.sortIdx
       })
-    })?.sort()
+    })?.sort() || []
     // @ts-ignore
     let sortIdx: string = sortIdxArr.length > 1 ? sortIdxArr?.join('^') : sortIdxArr?.join('')
     newItem.sortIdx = sortIdx
