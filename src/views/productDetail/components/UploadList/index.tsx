@@ -1,6 +1,6 @@
 import { Upload, message, Button, Modal } from 'antd'
-import { LoadingOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons'
-import { useEffect, useState } from 'react'
+import { EyeOutlined, LoadingOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons'
+import { FC, useEffect, useState } from 'react'
 import { UploadProps } from 'antd'
 import { UploadChangeParam, UploadFile } from 'antd/lib/upload/interface'
 import classNames from 'classnames'
@@ -9,6 +9,7 @@ export enum UploadType {
   button = 'BUTTON',
   img = 'IMG',
 }
+interface HandleProps {}
 interface UploadWrapProps {
   size?: string
   className?: string
@@ -28,7 +29,6 @@ function getBase64 (img: any, callback: Function) {
 
 const UploadWrap = (props: UploadWrapProps) => {
   const [loading, setLoading] = useState(false)
-  const [previewImage, setPreviewImage] = useState('')
   const [previewVisible, setPreviewVisible] = useState(false)
   const [fileList, setFileList] = useState<any>([])
   const [imageInfo, setImageInfo] = useState<any>({})
@@ -49,6 +49,40 @@ const UploadWrap = (props: UploadWrapProps) => {
         message.error(`${info.file.name} file upload failed.`)
       }
     },
+  }
+
+  const Hanldes: FC<HandleProps> = ({ children }) => {
+    return (
+      <div className='relative img-wrap h-full  justify-center flex items-center'>
+        {children}
+        <div className='absolute bottom-0 right-0 left-0  option-icon flex  justify-center items-center'>
+          <EyeOutlined
+            onClick={e => {
+              console.info(imageInfo)
+              handlePreview(imageInfo.url)
+              e.stopPropagation()
+            }}
+            className='text-white'
+          />
+          <span
+            className='icon ml-2 iconfont icon-delete text-base text-white'
+            onClick={e => {
+              let deletInfo = {
+                url: '',
+                idx: props.idx,
+                type: props.type,
+                id: imageInfo.id,
+              }
+              setImageInfo(deletInfo)
+              props.handleImgUrl?.(deletInfo)
+              setLoading(false)
+              e.stopPropagation()
+              console.info('...')
+            }}
+          ></span>
+        </div>
+      </div>
+    )
   }
   const beforeUpload = (file: any) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || props.type === 'video'
@@ -99,7 +133,6 @@ const UploadWrap = (props: UploadWrapProps) => {
     // if (!file.url && !file.preview) {
     //   file.preview = await getBase64(file.originFileObj);
     // }
-    setPreviewImage(file.url)
     setPreviewVisible(true)
   }
   useEffect(() => {
@@ -126,7 +159,6 @@ const UploadWrap = (props: UploadWrapProps) => {
       setImageInfo(list[0])
     }
   }, [props.fileList])
-  console.info("imageInfo.type === 'image'", imageInfo.type === 'image')
   return (
     <div className={classNames(props.className, props.size, 'upload-list-wrap')}>
       <Modal
@@ -135,7 +167,13 @@ const UploadWrap = (props: UploadWrapProps) => {
         footer={null}
         onCancel={handleCancel}
       >
-        <img alt='example' style={{ width: '100%' }} src={previewImage} />
+        {imageInfo.type === 'image' ? (
+          <img alt='example' style={{ width: '100%' }} src={imageInfo.url} />
+        ) : (
+          <video controls>
+            <source src={imageInfo.url} type='video/mp4' />
+          </video>
+        )}
       </Modal>
       <div>
         <Upload
@@ -146,7 +184,7 @@ const UploadWrap = (props: UploadWrapProps) => {
           headers={{
             authorization: 'authorization-text',
           }}
-          accept={imageInfo.type === 'video' ? 'video/*' : 'image/*'}
+          accept={props.type === 'video' ? 'video/*' : 'image/*'}
           onPreview={handlePreview}
           onChange={handleChange}
           className='upload-wrap-self'
@@ -154,34 +192,16 @@ const UploadWrap = (props: UploadWrapProps) => {
           {imageInfo?.url ? (
             <>
               {imageInfo.type === 'image' ? (
-                <>
-                  <div className='relative img-wrap h-full flex  justify-center flex items-center'>
-                    <img src={imageInfo.url} alt='avatar' style={{ width: '100%' }} />
-                    <div className='absolute bottom-0 right-0 left-0  option-icon'>
-                      <span
-                        className='icon iconfont icon-delete text-base text-white'
-                        onClick={e => {
-                          let deletInfo = {
-                            url: '',
-                            idx: props.idx,
-                            type: props.type,
-                            id: imageInfo.id,
-                          }
-                          setImageInfo(deletInfo)
-                          props.handleImgUrl?.(deletInfo)
-                          setLoading(false)
-                          e.stopPropagation()
-                          console.info('...')
-                        }}
-                      ></span>
-                    </div>
-                  </div>
-                </>
+                <Hanldes>
+                  <img src={imageInfo.url} alt='avatar' style={{ width: '100%' }} />
+                </Hanldes>
               ) : null}
               {imageInfo.type === 'video' ? (
-                <video>
-                  <source src={imageInfo.url} type='video/mp4' />
-                </video>
+                <Hanldes>
+                  <video>
+                    <source src={imageInfo.url} type='video/mp4' />
+                  </video>
+                </Hanldes>
               ) : null}
             </>
           ) : (
