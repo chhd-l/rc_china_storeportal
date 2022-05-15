@@ -201,6 +201,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
         {
           // skuNo: 'test0001', //to do
           // isWithoutSku: true,
+          shelvesStatus: 'true', //没有sku默认上架
           subscriptionPrice: values.subscriptionPrice,
           subscriptionStatus: values.subscriptionStatus,
           stock: values.stock,
