@@ -276,6 +276,7 @@ export const headerOrigition: any = [
   {
     label: 'Stock',
     type: 'number',
+    required: true,
     keyVal: 'stock',
     dataTips: `Stock:
     <p>Number of stocks should reflect the actual stock that is ready to ship.</p>
