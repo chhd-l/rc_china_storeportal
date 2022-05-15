@@ -66,7 +66,11 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
             // console.info('has name', keyName)
           } else {
             console.info('no name', keyName)
-            nodataKey.push(keyName)
+            if (keyName === 'subscriptionPrice' && el.subscriptionStatus === '0') {
+              //特殊处理:订阅是no的时候，订阅价格非必填
+            } else {
+              nodataKey.push(keyName)
+            }
           }
         })
       }
@@ -239,7 +243,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     setLoading(true)
     debugger
     let data = await createProduct(params, beforeData)
-    // console.info('data', data)
+    console.info('data', data)
     if (data === true) {
       message.success({ className: 'rc-message', content: 'Operate success' })
       navigator('/product/product-list')

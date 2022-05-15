@@ -92,6 +92,10 @@ const EditVariationList = (props: FormProps) => {
       if (tr.id) {
         detail.editChange.goodsVariants[index].id = tr.id
       }
+      if (propertyName === 'subscriptionStatus' && val === '0') {
+        //处理订阅状态为no的时候订阅价格为0
+        detail.editChange.goodsVariants[index].subscriptionPrice = ''
+      }
       detail.editChange.goodsVariants[index][propertyName] = val
       if (propertyName === 'goodsVariantBundleInfo') {
         //stock需要同步改变
@@ -284,6 +288,13 @@ const EditVariationList = (props: FormProps) => {
     setVariationList(cloneDeep(list))
     // return list
   }
+  console.info(
+    '++++++++++++',
+    variationList.every(el => {
+      console.info('？？？？？', el.subscriptionStatus, typeof el.subscriptionStatus)
+      return el.subscriptionStatus === '0'
+    }),
+  )
   return variationList?.length ? (
     <div className='edit-variation-list'>
       <Row>
@@ -298,13 +309,18 @@ const EditVariationList = (props: FormProps) => {
               <tr className='text-center bg-gray-primary h-12'>
                 {headerList.map((th, index) => (
                   <th className='font-normal' key={index}>
-                    {th.required ? (
+                    {!th.required ||
+                    (variationList.every(el => {
+                      console.info('aiaiaiai？', el.subscriptionStatus, typeof el.subscriptionStatus)
+                      return el.subscriptionStatus === '0'
+                    }) &&
+                      th.keyVal === 'subscriptionPrice') ? (
+                      th.label
+                    ) : (
                       <span>
                         <span className='primary-color required-text'>*</span>
                         {th.label}
                       </span>
-                    ) : (
-                      th.label
                     )}
                   </th>
                 ))}
@@ -421,7 +437,9 @@ const EditVariationList = (props: FormProps) => {
                                   onChange={(value, option) => {
                                     tr[td.keyVal] = value
                                     console.info('valuevalue', tr)
-                                    // tr.subscriptionPrice = ''
+                                    if (td.keyVal === 'subscriptionStatus' && value === '0') {
+                                      tr.subscriptionPrice = ''
+                                    }
                                     updateVations(value, index, td.keyVal, tr)
                                     setVariationList([...variationList])
                                   }}
