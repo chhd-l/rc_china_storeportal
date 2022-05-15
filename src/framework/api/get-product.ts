@@ -19,7 +19,7 @@ import {
   normaliseScProductsforFe,
   normalizeNullDataRemove,
 } from '../normalize/product'
-import { detailMock } from '../mock/productdetail'
+// import { detailMock } from '../mock/productdetail'
 
 export const getCategories = async ({ storeId }: { storeId: string }): Promise<CateItemProps[]> => {
   try {
