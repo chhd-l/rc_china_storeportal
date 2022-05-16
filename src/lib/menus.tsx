@@ -62,7 +62,7 @@ export const menus = [
       {
         name: 'Add New Product',
         value: 'add_new_product',
-        url: '/product/product-detail/add',
+        url: '/product/product-add',
         key: 'add_new_product',
       },
     ],
@@ -86,6 +86,21 @@ export const menus = [
       //   url: '/petOwner/tag-list',
       //   key: 'tagging_setting',
       // },
+    ],
+  },
+  {
+    name: 'Marketing Centres',
+    value: 'marketing_centres',
+    url: '',
+    key: 'marketing_centres',
+    icon: <span className='icon iconfont icon-a-bianzu13' />,
+    children: [
+      {
+        name: 'Marketing Centre',
+        value: 'MarketingCentres',
+        url: '/marketingCentre/marketingCentre-list',
+        key: 'MarketingCentres',
+      },
     ],
   },
   {

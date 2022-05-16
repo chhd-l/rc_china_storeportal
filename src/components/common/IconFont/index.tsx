@@ -8,6 +8,6 @@ const Iconfont = createFromIconfontCN({
     scriptUrl: '//at.alicdn.com/t/font_3298206_90dnu4xa0a.js',
   });
 
- const IconFont: React.FC<IconFontProps<string>> = ({ type= '' }, props: any) => <Iconfont type={type} {...props} />
+ const IconFont: React.FC<IconFontProps<string>> = (props: any) => <Iconfont {...props} />
 
 export default IconFont

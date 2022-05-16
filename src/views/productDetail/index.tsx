@@ -3,7 +3,7 @@ import MainInfo from './components/MainInfo'
 import { createContext, useEffect, useState } from 'react'
 import { ContentContainer } from '@/components/ui'
 import { getProductDetail } from '@/framework/api/get-product'
-import { useParams } from 'react-router-dom'
+import { useLocation } from "react-router";
 import { cloneDeep } from 'lodash'
 import './index.less'
 export const DetailContext = createContext(null as any)
@@ -16,11 +16,10 @@ const Product = () => {
   const [detail, setDetail] = useState({})
   const [showMain, setShowMain] = useState(false)
   const [beforeData, setBeforeData] = useState({})
-  const params = useParams()
+  const { state }: any = useLocation();
   useEffect(() => {
-    let { id } = params
-    if (id !== 'add' && id) {
-      getDetail(id)
+    if (state) {
+      getDetail(state)
     } else {
       setShowMain(true)
       setShowCatePop(true)
