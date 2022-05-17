@@ -181,7 +181,7 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     // parcelSizeWidthUnit: 'cm',
     storeId: '12345678',
     isDeleted: false,
-    operator: 'Noah',
+    operator: data.operator,
     goodsVariants: data.goodsVariantsInput && normaliseInputVariationProps(data.goodsVariantsInput, data, beforeData),
     // goodsAsserts: [
     //   {
@@ -224,7 +224,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
         subscriptionStatus: Number(data.subscriptionStatus),
         feedingDays: data.feedingDays ? Number(data.feedingDays) : 0,
         subscriptionPrice: data.subscriptionPrice ? Number(data.subscriptionPrice) : 0,
-        operator: 'Noah',
+        operator: spu.operator,
         goodsVariantSpecifications: data.relArr?.map((rel: any) => {
           let newRel: any = {
             specificationNameEn: rel.specificationName,
@@ -278,7 +278,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
       subscriptionStatus: Number(spu.subscriptionStatus),
       feedingDays: spu.feedingDays ? Number(spu.feedingDays) : 0,
       subscriptionPrice: spu.subscriptionPrice ? Number(spu.subscriptionPrice) : 0,
-      operator: 'Noah',
+      operator: spu.operator,
       goodsVariantBundleInfo: spu.goodsVariantBundleInfo
     }]
     if (!spu.goodsVariantBundleInfo) {

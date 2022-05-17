@@ -2,7 +2,7 @@ import './index.less'
 import { VariationosContext } from '../SalesInfo'
 import { ReactElement, useContext, useEffect, useState } from 'react'
 import { cloneDeep } from 'lodash'
-import { Button, Col, Form, Input, Popover, Row, Select } from 'antd'
+import { Button, Col, Form, Input, InputNumber, Popover, Row, Select } from 'antd'
 import { FormProps } from '@/framework/types/common'
 import { ChangeType, SpecificationListProps, VarationProps, VarationsFormProps } from '@/framework/types/product'
 import { headerOrigition } from '../../modules/constant'
@@ -410,16 +410,19 @@ const EditVariationList = (props: FormProps) => {
                                   value=''
                                 />
                               ) : (
-                                <Input
+                                <InputNumber
                                   className='price-input text-center'
                                   placeholder='Input'
                                   type='number'
-                                  min={0}
+                                  min={'0'}
                                   disabled={td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0'}
                                   prefix='￥'
+                                  precision={2}
+                                  // formatter={value => Number(value)?.toFixed(2)}
                                   onBlur={e => {
-                                    tr[td.keyVal] = e.target.value
-                                    updateVations(e.target.value, index, td.keyVal, tr)
+                                    let price = Number(e.target.value).toFixed(2)
+                                    tr[td.keyVal] = price
+                                    updateVations(price, index, td.keyVal, tr)
                                   }}
                                   defaultValue={tr[td.keyVal]}
                                 />

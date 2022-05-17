@@ -8,6 +8,8 @@ import { InfoContainer, DivideArea } from '@/components/ui'
 import { DetailContext } from '../../index'
 import { createProduct } from '@/framework/api/get-product'
 import { useNavigate } from 'react-router-dom'
+import { useAtom } from 'jotai'
+import { userAtom } from '@/store/user.store'
 interface MainInfoProps {
   details: any
   beforeData: any
@@ -23,6 +25,8 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
   const { pathname } = useLocation()
   const [form] = Form.useForm()
   const [tipsIdx, setTipsIdx] = useState(0)
+  const [userInfo] = useAtom(userAtom)
+
   const { detail, spuType } = useContext(DetailContext)
   const navigator = useNavigate()
   const [dataTips, setDataTips] = useState('')
@@ -193,6 +197,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     let params = Object.assign({}, detail, values, {
       type: spuType,
       shelvesStatus,
+      operator: userInfo?.username || 'system',
     })
     let withoutSku = detail.id ? !detail.variationForm?.variationList?.length : !detail.goodsSpecificationsInput?.length
     debugger
