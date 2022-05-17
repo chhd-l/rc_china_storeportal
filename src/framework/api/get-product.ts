@@ -87,7 +87,7 @@ export const createProduct = async (params: any, beforeData?: any) => {
     return false
   }
 }
-export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categoryId: any }) => {
+export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categoryId: string }) => {
   try {
     let data = []
     if(categoryId){

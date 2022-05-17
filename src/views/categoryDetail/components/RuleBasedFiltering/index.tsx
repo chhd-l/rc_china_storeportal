@@ -1,5 +1,5 @@
 import './index.less'
-import { message, Tag,Button } from 'antd'
+import { message, Tag, Button } from 'antd'
 import ProForm, {
   ModalForm,
   ProFormSelect,
@@ -15,6 +15,7 @@ import { getAttrs, getCategories, getESProducts } from '@/framework/api/get-prod
 import { getTree } from '@/framework/normalize/product'
 import { getBrands } from '@/framework/api/wechatSetting'
 import { GoodsAttributeAndValue } from '@/framework/schema/product.schema'
+import { handleValueEnum } from '@/utils/utils'
 
 interface ProductItemProps {
   name: string;
@@ -28,32 +29,34 @@ export interface RuleBasedFilteringProps {
 }
 
 const mockOptions = Mock.mock(mockOption).options
-console.info('mockOptions', mockOptions)
-const RuleBasedFiltering = ({ visible, handleVisible, }: RuleBasedFilteringProps) => {
+const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps) => {
   const formRef = useRef<ProFormInstance>()
   const [filterTags, setFilterTags] = useState<string[]>([])
   const [productList, setProductList] = useState<ProductItemProps[]>([])
   const [mockOptions, setMockOptions] = useState<Array<any>>([])
   const [brandList, setBrandList] = useState([])
   const [speciList, setSpeciList] = useState([])
+  const [list, setList] = useState<any>()
   const getBrandList = async () => {
     let list = await getBrands('12345678')
-    getAttrList('')
+    getAttrList('8')
     setBrandList(list)
   }
   const getCategoriesList = async () => {
     let res = await getCategories({ storeId: '12345678' })
-    console.log(getTree(res, null, 0))
+    setList(res)
     setMockOptions(getTree(res, null, 0))
   }
   const onChange = (value: any, selectedOptions: any) => {
     console.log(value, selectedOptions)
   }
-  const getAttrList = async (categoryId:any) => {
-    let data = await getAttrs({ storeId: '123456781',categoryId})
-    console.log(data,9999)
+  const getAttrList = async (categoryId: any) => {
+    let data = await getAttrs({ storeId: '12345678', categoryId})
+    console.log(data)
+    // @ts-ignore
+    setSpeciList(data)
   }
-  const getList = async()=>{
+  const getList = async () => {
     let res = await getESProducts({})
   }
 
@@ -61,20 +64,21 @@ const RuleBasedFiltering = ({ visible, handleVisible, }: RuleBasedFilteringProps
     getBrandList()
     getCategoriesList()
   }, [])
+
   const restSearchButtons = {
     render: (props: any) => {
-      const { submit, resetFields } = props.form;
-      console.log(props);
+      const { submit, resetFields } = props.form
       return [
-        <Button key="submit" type="primary" onClick={() => submit?.()}>
+        <Button key='submit' type='primary' onClick={() => submit?.()}>
           Search
         </Button>,
-        <Button key="rest" onClick={() => resetFields()}>
+        <Button key='rest' onClick={() => resetFields()}>
           Reset
         </Button>,
-      ];
+      ]
     },
-  };
+  }
+  // @ts-ignore
   return (
     <ModalForm
       className='rule-based-filtering'
@@ -115,22 +119,37 @@ const RuleBasedFiltering = ({ visible, handleVisible, }: RuleBasedFilteringProps
             submitter={restSearchButtons}
             onValuesChange={() => {
               let selected = { ...formRef.current?.getFieldsFormatValue?.() }
+              if (selected?.category?.length >= 1) {
+                selected.category = selected.category[selected.category.length - 1]
+              }
               let tagArr: string[] = []
               delete selected.lowestPrice
               delete selected.highestPrice
               if (selected) {
                 tagArr = Object.values(selected)
+                if (tagArr[0] && tagArr[0] !== 'All Categories') {
+                  tagArr[0] = list.filter((item: { id: string }) => item.id == tagArr[0])[0].categoryName
+                }
+                if (tagArr[1] && tagArr[1] !== 'All Brands') {
+                  let obj = brandList.filter((item: { value: string }) => item.value === tagArr[1])[0]
+                  // @ts-ignore
+                  tagArr[1] = obj.label
+                }
               }
               setFilterTags(tagArr)
               console.info('formRef.current?.getFieldsFormatValue')
             }}
             layout='horizontal'
             onFinish={async (values) => {
-              let list = Mock.mock(productLists).list
-              setProductList(list)
-              console.info(list)
-              console.log(values)
-              message.success('提交成功')
+              if (values.category?.length >= 1) {
+                values.category = values.category[values.category.length - 1]
+              }
+              console.log(values, 99999)
+              // let list = Mock.mock(productLists).list
+              // setProductList(list)
+              // console.info(list)
+              // console.log(values)
+              // message.success('提交成功')
             }}
             params={{}}
           >
@@ -145,7 +164,6 @@ const RuleBasedFiltering = ({ visible, handleVisible, }: RuleBasedFilteringProps
                 getPopupContainer: triggerNode => triggerNode.parentNode,
                 dropdownClassName: 'productlist-choose-cate common-dropdown-cascader',
                 placeholder: 'Categores Name',
-                placement: 'bottomLeft',
               }}
               name='category'
               label='Category'
@@ -153,7 +171,7 @@ const RuleBasedFiltering = ({ visible, handleVisible, }: RuleBasedFilteringProps
             />
             <ProFormSelect
               className='text-left'
-              options={[{label: "All Brands", name: "All", value: "All Brands"},...brandList]}
+              options={[{ label: 'All Brands', name: 'All', value: 'All Brands' }, ...brandList]}
               name='brand'
               label='Brand'
               initialValue={'All Brands'}
@@ -163,6 +181,7 @@ const RuleBasedFiltering = ({ visible, handleVisible, }: RuleBasedFilteringProps
               options={speciList}
               name='specification'
               label='Specification'
+              mode='multiple'
             />
             <div className='flex'>
               <ProFormMoney
