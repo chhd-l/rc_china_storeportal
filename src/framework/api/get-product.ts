@@ -87,11 +87,16 @@ export const createProduct = async (params: any, beforeData?: any) => {
     return false
   }
 }
-export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categoryId: string }) => {
-
+export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categoryId: any }) => {
   try {
-    const { getAttributes: attributeList } = await ApiRoot.products().getAttrList({ storeId, categoryId })
-    let data = normaliseAttrProps(attributeList)
+    let data = []
+    if(categoryId){
+      const { getAttributes: attributeList } = await ApiRoot.products().getAttrList({ storeId, categoryId })
+       data = normaliseAttrProps(attributeList)
+    } else {
+      const { getAttributes: attributeList } = await ApiRoot.products().getAttrList({ storeId })
+       data = normaliseAttrProps(attributeList)
+    }
     return data
   } catch (e) {
     console.log(e)
@@ -259,7 +264,7 @@ export const saveShopCategory = async (params: SaveShopCategoryInput): Promise<a
   }
 }
 
-export const detleShopCateRel = async (id: string[]): Promise<any> => {
+export const detleShopCateRel = async (id: (string|number)[]): Promise<any> => {
   try {
     return await ApiRoot.products().detleShopCateRel({ id })
   } catch (e) {

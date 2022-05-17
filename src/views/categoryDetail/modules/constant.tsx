@@ -1,6 +1,7 @@
 import { ProductForCateProps } from "@/framework/types/product";
 import { ProColumns } from "@ant-design/pro-table";
 import { Button } from "antd";
+import { getESProducts } from '@/framework/api/get-product'
 
 export const columns: ProColumns<ProductForCateProps>[] = [
   {
@@ -17,20 +18,7 @@ export const columns: ProColumns<ProductForCateProps>[] = [
   },
 ];
 
-export const restSearchButtons = {
-  render: (props: any) => {
-    const { submit, resetFields } = props.form;
-    console.log(props);
-    return [
-      <Button key="submit" type="primary" onClick={() => submit?.()}>
-        Search
-      </Button>,
-      <Button key="rest" onClick={() => resetFields()}>
-        Reset
-      </Button>,
-    ];
-  },
-};
+
 
 export const restWrapButtons = (
   renderProps: any,

@@ -174,11 +174,10 @@ const ShopCategories = () => {
             ]
           } else {
             return [
-              <Link to={`/category/category-manual-detail/${record.id}`} className='mr-4 text-xl'>
+              <Link to={`/category/category-detail/${record.id}`} className='mr-4 text-xl'>
                 <IconFont type='icon-group52' />
               </Link>,
               <Link to='' className='mr-4 text-xl' onClick={() => {
-
                 setIsModalVisible(true)
                 setCurAssetId(record.id)
               }}>
@@ -188,17 +187,31 @@ const ShopCategories = () => {
           }
 
         } else {
-          return [
-            <Link to={`/category/category-manual-detail/${record.id}`} className='mr-4 text-xl'>
-              <IconFont type='icon-group52' />
-            </Link>,
-            <Link to='' className='mr-4 text-xl' onClick={() => {
-              setIsModalVisible(true)
-              setCurAssetId(record.id)
-            }}>
-              <IconFont type='icon-delete' />
-            </Link>,
-          ]
+          if (record.categoryType === 'MANUAL') {
+            return [
+              <Link to={`/category/category-manual-detail/${record.id}`} className='mr-4 text-xl'>
+                <IconFont type='icon-group52' />
+              </Link>,
+              <Link to='' className='mr-4 text-xl' onClick={() => {
+                setIsModalVisible(true)
+                setCurAssetId(record.id)
+              }}>
+                <IconFont type='icon-delete' />
+              </Link>,
+            ]
+          } else {
+            return [
+              <Link to={`/category/category-detail/${record.id}`} className='mr-4 text-xl'>
+                <IconFont type='icon-group52' />
+              </Link>,
+              <Link to='' className='mr-4 text-xl' onClick={() => {
+                setIsModalVisible(true)
+                setCurAssetId(record.id)
+              }}>
+                <IconFont type='icon-delete' />
+              </Link>,
+            ]
+          }
         }
       },
     },
