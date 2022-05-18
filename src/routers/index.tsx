@@ -39,6 +39,7 @@ const TemplateMessageDetail = lazy(() => import('@/views/templateMessageDetail')
 const TagList = lazy(() => import('@/views/tagList'))
 const EditTag = lazy(() => import('@/views/editTag'))
 const AddVideo = lazy(() => import('@/views/addVideo'))
+const SubscriptionList = lazy(() => import('@/views/subscriptionList'))
 
 interface RouteObject {
   caseSensitive?: boolean
@@ -103,6 +104,14 @@ let routes: RouteObject[] = [
           { path: 'order-list', element: <OrderList />},
           { path: 'order-detail', element: <OrderDetail />, breadcrumbName: 'Order Detail' },
           { path: 'order-setting', element: <OrderSetting />, breadcrumbName: 'Order Setting' },
+        ],
+      },
+      {
+        path: 'subscription',
+        breadcrumbName: 'My subscriptions',
+        children: [
+          { index: true, element: <SubscriptionList /> },
+          { path: 'subscription-list', element: <SubscriptionList /> },
         ],
       },
       {
