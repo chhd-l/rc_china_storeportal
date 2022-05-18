@@ -1,7 +1,12 @@
 import React from 'react'
-import { Row, Col, Avatar } from 'antd'
+import { Row, Col, Avatar, Tooltip } from 'antd'
+import { Link } from 'react-router-dom'
 
-const TableRow: React.FC<{}> = ({}) => {
+interface IProps {
+  handlePauseOrRestart: Function
+}
+
+const TableRow: React.FC<IProps> = ({ handlePauseOrRestart }) => {
   return (
     <div className="border mt-4">
       <Row className="bg-gray1 border-b px-4 content-center justify-between">
@@ -43,6 +48,21 @@ const TableRow: React.FC<{}> = ({}) => {
           Quater
         </Col>
         <Col span={2} className="text-left">
+          <div className="space-x-2">
+            <Tooltip title="View">
+              <Link to="/subscription/subscription-detail/123" className="cursor-pointer iconfont icon-kjafg primary-color" />
+            </Tooltip>
+            <Tooltip title="Restart">
+              <span
+                className="cursor-pointer iconfont icon-Frame-11 primary-color"
+                onClick={() => handlePauseOrRestart({
+                  visible: true,
+                  title: 'Restart Subscription',
+                  content: 'Are you sure you want to restart the subscription?'
+                })}
+              />
+            </Tooltip>
+          </div>
         </Col>
       </Row>
     </div>
