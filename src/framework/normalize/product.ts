@@ -171,7 +171,7 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     shelvesStatus: data.shelvesStatus,
     // defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',//?干嘛呢
     salesStatus: data.salesStatus === "1",
-    weight: data.weight ? Number(data.weight) : 0,
+    weight: data.weight && Number(data.weight),
     // weightUnit: 'g',
     parcelSizeLong: data.length,
     // parcelSizeLongUnit: 'cm',
@@ -600,6 +600,7 @@ export const normaliseAttrProps = (data: GoodsAttribute[]) => {
   let attrList = data.map(item => {
     let newItem = {
       id: item.id,
+      value: item.id,
       attributeName: item.attributeName,
       attributeNameEn: item.attributeNameEn,
       // attributeRank: item.attributeRank,
