@@ -1,5 +1,5 @@
 import './index.less'
-import { message, Tag, Button } from 'antd'
+import { message, Tag, Button, Select } from 'antd'
 import ProForm, {
   ModalForm,
   ProFormSelect,
@@ -17,6 +17,8 @@ import { getBrands } from '@/framework/api/wechatSetting'
 import { GoodsAttributeAndValue } from '@/framework/schema/product.schema'
 import { handleValueEnum } from '@/utils/utils'
 
+const { Option, OptGroup } = Select
+
 interface ProductItemProps {
   name: string;
   img: string;
@@ -28,10 +30,10 @@ export interface RuleBasedFilteringProps {
   handleVisible: (visible: boolean) => void;
 }
 
-const mockOptions = Mock.mock(mockOption).options
 const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps) => {
   const formRef = useRef<ProFormInstance>()
   const [filterTags, setFilterTags] = useState<string[]>([])
+  const [filterTagsTwo, setFilterTagsTwo] = useState<string[]>([])
   const [productList, setProductList] = useState<ProductItemProps[]>([])
   const [mockOptions, setMockOptions] = useState<Array<any>>([])
   const [brandList, setBrandList] = useState([])
@@ -49,10 +51,21 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
   }
   const onChange = (value: any, selectedOptions: any) => {
     console.log(value, selectedOptions)
+    if(value){
+      if(value[value.length-1]==='All Categories'){
+        getAttrList('')
+      } else {
+        getAttrList(value[value.length-1])
+      }
+    }
   }
   const getAttrList = async (categoryId: any) => {
-    let data = await getAttrs({ storeId: '12345678', categoryId})
+    let data = await getAttrs({ storeId: '12345678', categoryId })
     console.log(data)
+    if(data.length===0){
+      setFilterTagsTwo([])
+      formRef?.current?.setFieldsValue({specification:[]})
+    }
     // @ts-ignore
     setSpeciList(data)
   }
@@ -64,6 +77,13 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
     getBrandList()
     getCategoriesList()
   }, [])
+  const handleChange = async (value: any,option:any) => {
+    if(option.length>0){
+      let arr = option.map((item: { label: any })=>item.label)
+      setFilterTagsTwo(arr)
+    }
+    console.log(`selected ${value}`,option)
+  }
 
   const restSearchButtons = {
     render: (props: any) => {
@@ -72,12 +92,16 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
         <Button key='submit' type='primary' onClick={() => submit?.()}>
           Search
         </Button>,
-        <Button key='rest' onClick={() => resetFields()}>
+        <Button key='rest' onClick={() => {
+          setFilterTags(['All Categories', 'All Brands'])
+          resetFields()
+        }}>
           Reset
         </Button>,
       ]
     },
   }
+  // @ts-ignore
   // @ts-ignore
   return (
     <ModalForm
@@ -125,10 +149,12 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
               let tagArr: string[] = []
               delete selected.lowestPrice
               delete selected.highestPrice
+              delete selected.specification
+              console.log(selected)
               if (selected) {
                 tagArr = Object.values(selected)
                 if (tagArr[0] && tagArr[0] !== 'All Categories') {
-                  tagArr[0] = list.filter((item: { id: string }) => item.id == tagArr[0])[0].categoryName
+                  tagArr[0] = list.filter((item: { id: string }) => item.id == tagArr[0])[0]?.categoryName||''
                 }
                 if (tagArr[1] && tagArr[1] !== 'All Brands') {
                   let obj = brandList.filter((item: { value: string }) => item.value === tagArr[1])[0]
@@ -154,6 +180,7 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
             params={{}}
           >
             <ProFormCascader
+              allowClear={false}
               fieldProps={{
                 changeOnSelect: true,
                 onChange: onChange,
@@ -170,19 +197,28 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
               initialValue={['All Categories']}
             />
             <ProFormSelect
+              allowClear={false}
               className='text-left'
               options={[{ label: 'All Brands', name: 'All', value: 'All Brands' }, ...brandList]}
               name='brand'
               label='Brand'
               initialValue={'All Brands'}
             />
-            <ProFormSelect
-              className='text-left'
-              options={speciList}
-              name='specification'
-              label='Specification'
-              mode='multiple'
-            />
+            <ProForm.Group>
+
+            </ProForm.Group>
+            <ProForm.Item label="specification" name="specification">
+              <Select
+                showArrow
+                className='text-left'
+                style={{ width: '100%' }}
+                onChange={handleChange}
+                options={speciList}
+                mode='multiple'
+                placeholder='Please select'
+              >
+              </Select>
+            </ProForm.Item>
             <div className='flex'>
               <ProFormMoney
                 labelCol={{ span: 10 }}
@@ -210,6 +246,11 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
             <div className='mb-3'>Set Filtering Rules</div>
             {filterTags.map((el) => (
               <Tag className='ml-2' key={el}>
+                {el}
+              </Tag>
+            ))}
+            {filterTagsTwo.map((el) => (
+              <Tag className='ml-2 mt-2' key={el}>
                 {el}
               </Tag>
             ))}
