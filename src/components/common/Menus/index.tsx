@@ -22,6 +22,9 @@ const Menus = () => {
         } else if (path === 'order') {
           setOpenKeys(['order'])
           throw new Error('0')
+        } else if (path === 'subscription') {
+          setOpenKeys(['subscription'])
+          throw new Error('0')
         } else if (path === 'shipment-list') {
           setOpenKeys(['shipment'])
           throw new Error('0')

@@ -15,7 +15,7 @@ import classNames from 'classnames'
 export type AddVariationProps = {}
 const initVaration = {
   name: '',
-  sortIdx: 0, //为了匹配
+  sortIdx: 100, //为了匹配
   specificationList: [{ option: '', sortIdx: '0-0' }],
 }
 const initSpec = { option: '', sortIdx: '0-0' }
@@ -180,10 +180,10 @@ const AddVariation = ({}: AddVariationProps) => {
     let initVarationData = cloneDeep(initVaration)
     let { variationList } = variationForm
     let variationIdx = variationList.length //varation  sortidx
-    initVaration.sortIdx = variationIdx
+    initVaration.sortIdx = 100 + variationIdx
     let specificationIdx = 0 // spec sortidx
-    initVarationData.sortIdx = variationIdx
-    initVarationData.specificationList[0].sortIdx = `${variationIdx}-${specificationIdx}`
+    initVarationData.sortIdx = 100 + variationIdx
+    initVarationData.specificationList[0].sortIdx = `${100 + variationIdx}-${specificationIdx}`
     variationForm.changeType = ChangeType.handleVariation
     variationForm.variationList = [...variationList, initVarationData]
     setVariationForm(cloneDeep(variationForm))
@@ -194,8 +194,12 @@ const AddVariation = ({}: AddVariationProps) => {
 
   const handleAddSpecification = (variationIdx: number) => {
     let specificationSortIdx = variationForm.variationList[variationIdx].specificationList.length
-    initSpec.sortIdx = `${variationIdx}-${specificationSortIdx}`
+    debugger
+    initSpec.sortIdx = `${100 + variationIdx}-${specificationSortIdx}`
     variationForm.changeType = ChangeType.handleSpec
+    if (variationForm.variationList?.length > 1 && specificationSortIdx >= 1) {
+      variationForm.changeType = ChangeType.handleVariation
+    }
     variationForm.variationList[variationIdx].specificationList.push(initSpec)
     setVariationForm(cloneDeep(variationForm))
   }
