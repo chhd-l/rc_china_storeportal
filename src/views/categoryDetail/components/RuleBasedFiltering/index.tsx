@@ -51,38 +51,62 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
   }
   const onChange = (value: any, selectedOptions: any) => {
     console.log(value, selectedOptions)
-    if(value){
-      if(value[value.length-1]==='All Categories'){
+    if (value) {
+      if (value[value.length - 1] === 'All Categories') {
         getAttrList('')
       } else {
-        getAttrList(value[value.length-1])
+        getAttrList(value[value.length - 1])
       }
     }
   }
   const getAttrList = async (categoryId: any) => {
     let data = await getAttrs({ storeId: '12345678', categoryId })
     console.log(data)
-    if(data.length===0){
+    if (data.length === 0) {
       setFilterTagsTwo([])
-      formRef?.current?.setFieldsValue({specification:[]})
+      formRef?.current?.setFieldsValue({ attributeValueIds: [] })
     }
     // @ts-ignore
     setSpeciList(data)
+    formRef?.current?.setFieldsValue({
+      attributeValueIds: ['19591683-b307-883d-c28b-18ac92f3']
+    })
   }
-  const getList = async () => {
-    let res = await getESProducts({})
+  const getList = async (params: any) => {
+    console.log(params)
+    let data: any = {
+      hasTotal: true,
+      sample: {},
+    }
+    if (params.goodsCategoryId && params.goodsCategoryId !== 'All Categories') {
+      data.sample.goodsCategoryId = params.goodsCategoryId
+    }
+    if (params.brand && params.brand !== 'All Brands') {
+      data.sample.brand = params.brand
+    }
+    if (params.attributeValueIds) {
+      data.sample.attributeValueIds = params.attributeValueIds
+    }
+    if (params.startPrice) {
+      data.sample.startPrice = params.startPrice
+    }
+    if (params.endPrice) {
+      data.sample.endPrice = params.endPrice
+    }
+    let res = await getESProducts(data)
   }
 
   useEffect(() => {
     getBrandList()
     getCategoriesList()
   }, [])
-  const handleChange = async (value: any,option:any) => {
-    if(option.length>0){
-      let arr = option.map((item: { label: any })=>item.label)
+  const handleChange = async (value: any, option: any) => {
+    console.log(value,option,9999)
+    if (option.length > 0) {
+      let arr = option.map((item: { label: any }) => item.label)
       setFilterTagsTwo(arr)
     }
-    console.log(`selected ${value}`,option)
+    console.log(`selected ${value}`, option)
   }
 
   const restSearchButtons = {
@@ -134,7 +158,7 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
       onVisibleChange={handleVisible}
     >
       <div className='flex'>
-        <div className='flex-1 bg-gray-200 mr-4'>
+        <div className='flex-1 mr-4 bg-gray-primary'>
           <ProForm
             formRef={formRef}
             className='py-3 pl-4 text-center'
@@ -143,18 +167,18 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
             submitter={restSearchButtons}
             onValuesChange={() => {
               let selected = { ...formRef.current?.getFieldsFormatValue?.() }
-              if (selected?.category?.length >= 1) {
-                selected.category = selected.category[selected.category.length - 1]
+              if (selected?.goodsCategoryId?.length >= 1) {
+                selected.goodsCategoryId = selected.goodsCategoryId[selected.goodsCategoryId.length - 1]
               }
               let tagArr: string[] = []
-              delete selected.lowestPrice
-              delete selected.highestPrice
-              delete selected.specification
+              delete selected.startPrice
+              delete selected.endPrice
+              delete selected.attributeValueIds
               console.log(selected)
               if (selected) {
                 tagArr = Object.values(selected)
                 if (tagArr[0] && tagArr[0] !== 'All Categories') {
-                  tagArr[0] = list.filter((item: { id: string }) => item.id == tagArr[0])[0]?.categoryName||''
+                  tagArr[0] = list.filter((item: { id: string }) => item.id == tagArr[0])[0]?.categoryName || ''
                 }
                 if (tagArr[1] && tagArr[1] !== 'All Brands') {
                   let obj = brandList.filter((item: { value: string }) => item.value === tagArr[1])[0]
@@ -167,9 +191,11 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
             }}
             layout='horizontal'
             onFinish={async (values) => {
-              if (values.category?.length >= 1) {
-                values.category = values.category[values.category.length - 1]
+              if (values.goodsCategoryId?.length >= 1) {
+                values.goodsCategoryId = values.goodsCategoryId[values.goodsCategoryId.length - 1]
               }
+
+              getList(values)
               console.log(values, 99999)
               // let list = Mock.mock(productLists).list
               // setProductList(list)
@@ -192,7 +218,7 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
                 dropdownClassName: 'productlist-choose-cate common-dropdown-cascader',
                 placeholder: 'Categores Name',
               }}
-              name='category'
+              name='goodsCategoryId'
               label='Category'
               initialValue={['All Categories']}
             />
@@ -204,10 +230,7 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
               label='Brand'
               initialValue={'All Brands'}
             />
-            <ProForm.Group>
-
-            </ProForm.Group>
-            <ProForm.Item label="specification" name="specification">
+            <ProForm.Item label='specification' name='attributeValueIds'>
               <Select
                 showArrow
                 className='text-left'
@@ -224,7 +247,7 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
                 labelCol={{ span: 10 }}
                 wrapperCol={{ span: 12 }}
                 label='Markting Price'
-                name='lowestPrice'
+                name='startPrice'
                 customSymbol='￥'
                 min={0}
               />
@@ -234,7 +257,7 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
               <ProFormMoney
                 labelCol={{ span: 4 }}
                 wrapperCol={{ span: 18 }}
-                name='highestPrice'
+                name='endPrice'
                 customSymbol='￥'
                 min={0}
               />
