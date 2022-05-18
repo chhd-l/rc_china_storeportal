@@ -41,6 +41,7 @@ const EditTag = lazy(() => import('@/views/editTag'))
 const AddVideo = lazy(() => import('@/views/addVideo'))
 const MarketingCentreList = lazy(() => import('@/views/MarketingCentreList'))
 const Vouchers = lazy(() => import('@/views/Vouchers'))
+const CreateNewVoucher = lazy(() => import('@/views/CreateNewVoucher'))
 
 interface RouteObject {
   caseSensitive?: boolean
@@ -114,7 +115,14 @@ let routes: RouteObject[] = [
         children: [
           { index: true, element: <MarketingCentreList />},
           { path: 'marketingCentre-list', element: <MarketingCentreList />},
-          { path: 'Vouchers', element: <Vouchers />, breadcrumbName: 'Vouchers'},
+          { 
+            path: 'Vouchers', 
+            breadcrumbName: 'Vouchers',
+            children: [
+              { index: true, element: <Vouchers />, },
+              { path: 'CreateNewVoucher', element: <CreateNewVoucher />, breadcrumbName: 'CreateNewVoucher'},
+            ]
+          },
         ],
       },
       {

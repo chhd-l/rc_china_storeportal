@@ -25,7 +25,7 @@ const MarketingCentreList = () => {
                     <Card
                         title='Live Streaming'
                         span='Connect Live with your audience and answer shopper questions easily'
-                        icon='icon-a-Frame2'
+                        icon='icon-a-LiveStreaming'
                         backColor='#E5F5F4'
                     />
                 </div>
