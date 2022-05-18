@@ -81,7 +81,8 @@ const Index = ({ accountList, getAccounts, pages, setPages, total, loading, setL
           <Switch checked={text} onChange={(v) => {
             setItem({
               isActive: v,
-              id: record.id
+              id: record.id,
+              type: record.accountType
             })
             setIsOpen(true)
           }} />
@@ -184,7 +185,10 @@ const Index = ({ accountList, getAccounts, pages, setPages, total, loading, setL
         okText='Confirm'
       // mask={false}
       >
-        <div>Are you sure you want to {item.isActive ? "enable" : "disable"} the item ?</div>
+        {item.isActive 
+          ? (item.type === 'ServiceAccount' ? <div>Are you sure that you want to enable the official account? If yes, the other modules of Wechat Management（Fans managment, Assets management, Medule management...) would only be associated with the activied account.</div> : <div>Are you sure you want to enable this account?</div>)
+          : (item.type === 'ServiceAccount' ? <div>Are you sure that you want to disable the official account? If yes, the other modules of Wechat Management（Fans managment, Assets management, Medule management...) would only be associated with the activied account.</div> : <div>Are you sure you want to disable this account?</div>)
+        }
       </Modal>
       <Modal
         visible={imgModal}
