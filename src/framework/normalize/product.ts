@@ -167,21 +167,21 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     goodsDescription: data.goodsDescription,
     type: data.type,
     brandId: data.brandId,
-    goodsCategoryId: data.cateId ? data.cateId[data.cateId.length - 1] : '8',
+    goodsCategoryId: data.cateId[data.cateId.length - 1],
     shelvesStatus: data.shelvesStatus,
     // defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',//?干嘛呢
     salesStatus: data.salesStatus === "1",
     weight: data.weight ? Number(data.weight) : 0,
     // weightUnit: 'g',
-    parcelSizeLong: data.length || '1',
+    parcelSizeLong: data.length,
     // parcelSizeLongUnit: 'cm',
-    parcelSizeHeight: data.height || '2',
+    parcelSizeHeight: data.height,
     // parcelSizeHeightUnit: 'cm',
-    parcelSizeWidth: data.width || '3',
+    parcelSizeWidth: data.width,
     // parcelSizeWidthUnit: 'cm',
     storeId: '12345678',
     isDeleted: false,
-    operator: 'Noah',
+    operator: data.operator,
     goodsVariants: data.goodsVariantsInput && normaliseInputVariationProps(data.goodsVariantsInput, data, beforeData),
     // goodsAsserts: [
     //   {
@@ -224,7 +224,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
         subscriptionStatus: Number(data.subscriptionStatus),
         feedingDays: data.feedingDays ? Number(data.feedingDays) : 0,
         subscriptionPrice: data.subscriptionPrice ? Number(data.subscriptionPrice) : 0,
-        operator: 'Noah',
+        operator: spu.operator,
         goodsVariantSpecifications: data.relArr?.map((rel: any) => {
           let newRel: any = {
             specificationNameEn: rel.specificationName,
@@ -278,7 +278,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
       subscriptionStatus: Number(spu.subscriptionStatus),
       feedingDays: spu.feedingDays ? Number(spu.feedingDays) : 0,
       subscriptionPrice: spu.subscriptionPrice ? Number(spu.subscriptionPrice) : 0,
-      operator: 'Noah',
+      operator: spu.operator,
       goodsVariantBundleInfo: spu.goodsVariantBundleInfo
     }]
     if (!spu.goodsVariantBundleInfo) {
