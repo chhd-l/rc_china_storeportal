@@ -8,6 +8,8 @@ import { InfoContainer, DivideArea } from '@/components/ui'
 import { DetailContext } from '../../index'
 import { createProduct } from '@/framework/api/get-product'
 import { useNavigate } from 'react-router-dom'
+import { useAtom } from 'jotai'
+import { userAtom } from '@/store/user.store'
 interface MainInfoProps {
   details: any
   beforeData: any
@@ -23,6 +25,8 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
   const { pathname } = useLocation()
   const [form] = Form.useForm()
   const [tipsIdx, setTipsIdx] = useState(0)
+  const [userInfo] = useAtom(userAtom)
+
   const { detail, spuType } = useContext(DetailContext)
   const navigator = useNavigate()
   const [dataTips, setDataTips] = useState('')
@@ -66,7 +70,11 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
             // console.info('has name', keyName)
           } else {
             console.info('no name', keyName)
-            nodataKey.push(keyName)
+            if (keyName === 'subscriptionPrice' && el.subscriptionStatus === '0') {
+              //特殊处理:订阅是no的时候，订阅价格非必填
+            } else {
+              nodataKey.push(keyName)
+            }
           }
         })
       }
@@ -189,6 +197,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     let params = Object.assign({}, detail, values, {
       type: spuType,
       shelvesStatus,
+      operator: userInfo?.username || 'system',
     })
     let withoutSku = detail.id ? !detail.variationForm?.variationList?.length : !detail.goodsSpecificationsInput?.length
     debugger
@@ -197,6 +206,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
         {
           // skuNo: 'test0001', //to do
           // isWithoutSku: true,
+          shelvesStatus: 'true', //没有sku默认上架
           subscriptionPrice: values.subscriptionPrice,
           subscriptionStatus: values.subscriptionStatus,
           stock: values.stock,
@@ -239,7 +249,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     setLoading(true)
     debugger
     let data = await createProduct(params, beforeData)
-    // console.info('data', data)
+    console.info('data', data)
     if (data === true) {
       message.success({ className: 'rc-message', content: 'Operate success' })
       navigator('/product/product-list')

@@ -2,7 +2,7 @@ import './index.less'
 import { VariationosContext } from '../SalesInfo'
 import { ReactElement, useContext, useEffect, useState } from 'react'
 import { cloneDeep } from 'lodash'
-import { Button, Col, Form, Input, Popover, Row, Select } from 'antd'
+import { Button, Col, Form, Input, InputNumber, Popover, Row, Select } from 'antd'
 import { FormProps } from '@/framework/types/common'
 import { ChangeType, SpecificationListProps, VarationProps, VarationsFormProps } from '@/framework/types/product'
 import { headerOrigition } from '../../modules/constant'
@@ -10,6 +10,7 @@ import { DetailContext } from '../../index'
 import { VerticalAlignBottomOutlined, VerticalAlignTopOutlined } from '@ant-design/icons'
 import BundleSubSKu from '../BundleSubSKu'
 import Upload from '../UploadList'
+import ValidateInput from '../ValidateInput'
 export interface VarviationProps {
   defaultImage: string
   skuNo: string
@@ -90,6 +91,10 @@ const EditVariationList = (props: FormProps) => {
       }
       if (tr.id) {
         detail.editChange.goodsVariants[index].id = tr.id
+      }
+      if (propertyName === 'subscriptionStatus' && val === '0') {
+        //处理订阅状态为no的时候订阅价格为0
+        detail.editChange.goodsVariants[index].subscriptionPrice = ''
       }
       detail.editChange.goodsVariants[index][propertyName] = val
       if (propertyName === 'goodsVariantBundleInfo') {
@@ -174,11 +179,13 @@ const EditVariationList = (props: FormProps) => {
     init(vartions, { variationList: detail.variationLists }, true)
   }
   const init = (vartions: any, { variationList: formData, changeType }: any, isDefultData?: boolean) => {
-    let lastData = isDefultData ? detail.variationLists : variationList
+    let lastData = isDefultData ? cloneDeep(detail.variationLists) : cloneDeep(variationList)
     let list = vartions.map((vartion: any) => {
       console.info('variationListvariationList', JSON.stringify(lastData))
       // console.info('vartionvartionvartionvartion', JSON.stringify(vartion), vartion)
+      debugger
       let sortIdx = vartion.map?.((el: any) => el.sortIdx).join('^') || vartion.sortIdx
+      debugger
       let newEl: any = {
         spec: vartion.length ? vartion.map((el: any) => el.option).join(',') : vartion.option,
         defaultImage: '',
@@ -200,7 +207,7 @@ const EditVariationList = (props: FormProps) => {
       debugger
       if (changeType === ChangeType.handleSpec || isDefultData) {
         //spec选择,需要操作====
-        // debugger
+        debugger
         let oldData = lastData.find((el: any) => el.sortIdx === sortIdx)
         console.info('oldData', oldData)
         newEl = Object.assign({}, newEl, oldData, {
@@ -209,16 +216,21 @@ const EditVariationList = (props: FormProps) => {
         })
       }
       if (changeType === ChangeType.handleVariation) {
+        debugger
         //variation选择，需要操作include
-        let oldData = lastData
+        let lastIdx = lastData
           // .filter((el: any) => el.choosed)
-          .find((el: any) => {
+          .findIndex((el: any) => {
             return sortIdx.includes(el.sortIdx)
           })
+        let oldData = lastData[lastIdx]
         newEl = Object.assign({}, newEl, oldData, {
           spec: vartion.length ? vartion.map((el: any) => el.option).join(',') : vartion.option,
           key: Math.random(),
         })
+        if (lastIdx > -1) {
+          lastData.splice(lastIdx, 1)
+        }
       }
       console.info('vartioneditChange.variationList', detail?.editChange?.variationList)
 
@@ -276,6 +288,13 @@ const EditVariationList = (props: FormProps) => {
     setVariationList(cloneDeep(list))
     // return list
   }
+  console.info(
+    '++++++++++++',
+    variationList.every(el => {
+      console.info('？？？？？', el.subscriptionStatus, typeof el.subscriptionStatus)
+      return el.subscriptionStatus === '0'
+    }),
+  )
   return variationList?.length ? (
     <div className='edit-variation-list'>
       <Row>
@@ -290,13 +309,18 @@ const EditVariationList = (props: FormProps) => {
               <tr className='text-center bg-gray-primary h-12'>
                 {headerList.map((th, index) => (
                   <th className='font-normal' key={index}>
-                    {th.required ? (
+                    {!th.required ||
+                    (variationList.every(el => {
+                      console.info('aiaiaiai？', el.subscriptionStatus, typeof el.subscriptionStatus)
+                      return el.subscriptionStatus === '0'
+                    }) &&
+                      th.keyVal === 'subscriptionPrice') ? (
+                      th.label
+                    ) : (
                       <span>
                         <span className='primary-color required-text'>*</span>
                         {th.label}
                       </span>
-                    ) : (
-                      th.label
                     )}
                   </th>
                 ))}
@@ -332,6 +356,28 @@ const EditVariationList = (props: FormProps) => {
                                   defaultValue={tr[td.keyVal]}
                                 />
                               )
+                            case 'validateInput':
+                              return (
+                                <ValidateInput
+                                  className='text-center'
+                                  placeholder='Input'
+                                  // onInput={e => {
+                                  //   console.info('....', e)
+                                  //   tr[td.keyVal] = e.currentTarget.value?.replace(/[^\a-\z\A-\Z]/g, '')
+                                  //   debugger
+                                  // }}
+                                  // onChange={(e: any) => {
+                                  //   debugger
+                                  //   return e.target.value.replace(/[\W]/g, '')
+                                  // }}
+                                  onBlur={(e: any) => {
+                                    console.info('./.......', e.target.value)
+                                    tr[td.keyVal] = e.target.value
+                                    updateVations(e.target.value, index, td.keyVal, tr)
+                                  }}
+                                  defaultValue={tr[td.keyVal]}
+                                ></ValidateInput>
+                              )
                             case 'text':
                               return (
                                 <span className='text-center inline-block px-4 whitespace-nowrap'>{tr[td.keyVal]}</span>
@@ -364,16 +410,19 @@ const EditVariationList = (props: FormProps) => {
                                   value=''
                                 />
                               ) : (
-                                <Input
+                                <InputNumber
                                   className='price-input text-center'
                                   placeholder='Input'
                                   type='number'
-                                  min={0}
+                                  min={'0'}
                                   disabled={td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0'}
                                   prefix='￥'
+                                  precision={2}
+                                  // formatter={value => Number(value)?.toFixed(2)}
                                   onBlur={e => {
-                                    tr[td.keyVal] = e.target.value
-                                    updateVations(e.target.value, index, td.keyVal, tr)
+                                    let price = Number(e.target.value).toFixed(2)
+                                    tr[td.keyVal] = price
+                                    updateVations(price, index, td.keyVal, tr)
                                   }}
                                   defaultValue={tr[td.keyVal]}
                                 />
@@ -391,7 +440,9 @@ const EditVariationList = (props: FormProps) => {
                                   onChange={(value, option) => {
                                     tr[td.keyVal] = value
                                     console.info('valuevalue', tr)
-                                    // tr.subscriptionPrice = ''
+                                    if (td.keyVal === 'subscriptionStatus' && value === '0') {
+                                      tr.subscriptionPrice = ''
+                                    }
                                     updateVations(value, index, td.keyVal, tr)
                                     setVariationList([...variationList])
                                   }}

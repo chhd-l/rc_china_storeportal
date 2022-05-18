@@ -19,6 +19,7 @@ import {
   normaliseScProductsforFe,
   normalizeNullDataRemove,
 } from '../normalize/product'
+// import { detailMock } from '../mock/productdetail'
 
 export const getCategories = async ({ storeId }: { storeId: string }): Promise<CateItemProps[]> => {
   try {
@@ -73,6 +74,9 @@ export const createProduct = async (params: any, beforeData?: any) => {
       el.goodsVariantBundleInfo?.forEach((cel: any) => {
         if (typeof cel.subSkuStock !== undefined) {
           delete cel.subSkuStock
+        }
+        if (typeof cel.stock !== undefined) {
+          delete cel.stock
         }
       })
     }
@@ -173,6 +177,7 @@ export const getProductDetail = async ({ storeId, goodsId }: { storeId: string, 
   let info: any = {}
   try {
     const { productDetail } = await ApiRoot.products().getProductDetail({ storeId, goodsId })
+    // const { productDetail } = detailMock.data
     const { listAttributeGet, listCategoryGet, findGoodsByGoodsId } = productDetail
     let detail = Object.assign({}, findGoodsByGoodsId, { listAttributeGet, listCategoryGet })
     info = normaliseDetailforFe(detail)
