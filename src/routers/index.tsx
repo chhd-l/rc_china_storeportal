@@ -39,6 +39,9 @@ const TemplateMessageDetail = lazy(() => import('@/views/templateMessageDetail')
 const TagList = lazy(() => import('@/views/tagList'))
 const EditTag = lazy(() => import('@/views/editTag'))
 const AddVideo = lazy(() => import('@/views/addVideo'))
+const MarketingCentreList = lazy(() => import('@/views/MarketingCentreList'))
+const Vouchers = lazy(() => import('@/views/Vouchers'))
+const CreateNewVoucher = lazy(() => import('@/views/CreateNewVoucher'))
 const SubscriptionList = lazy(() => import('@/views/subscriptionList'))
 const SubscriptionDetail = lazy(() => import('@/views/subscriptionDetail'))
 
@@ -71,7 +74,8 @@ let routes: RouteObject[] = [
         children: [
           { index: true, element: <ProductList /> },
           { path: 'product-list', element: <ProductList /> },
-          { path: 'product-detail/:id', element: <AddProduct /> },
+          { path: 'product-detail', element: <AddProduct />, breadcrumbName: 'Product Detail' },
+          { path: 'product-add', element: <AddProduct />, breadcrumbName: 'AddProduct' },
         ],
       },
       {
@@ -106,6 +110,22 @@ let routes: RouteObject[] = [
           { path: 'order-detail', element: <OrderDetail />, breadcrumbName: 'Order Detail' },
           { path: 'order-setting', element: <OrderSetting />, breadcrumbName: 'Order Setting' },
         ],
+      },
+      {
+        path: 'marketingCentre',
+        breadcrumbName: 'Marketing Centres',
+        children: [
+          { index: true, element: <MarketingCentreList />},
+          { path: 'marketingCentre-list', element: <MarketingCentreList />},
+          { 
+            path: 'vouchers',
+            breadcrumbName: 'Vouchers',
+            children: [
+              { index: true, element: <Vouchers />, },
+              { path: 'CreateNewVoucher', element: <CreateNewVoucher />, breadcrumbName: 'CreateNewVoucher'},
+            ]
+          },
+        ]
       },
       {
         path: 'subscription',

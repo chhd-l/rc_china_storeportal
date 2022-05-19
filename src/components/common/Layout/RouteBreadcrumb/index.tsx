@@ -34,31 +34,36 @@ const RouteBreadcrumb = () => {
 
   useEffect(() => {
     breadcrumbItemsaRr = []
-    if(pathname.split('/').some((path) => path === 'product') && pathname !== '/product/product-list' && pathname !== '/product') {
-      if(pathname === '/product/product-detail/add') {
-        setbreadcrumbItems([{
-          path: '/product/product-list',
-          breadcrumbName: 'My Products'
-        },{
-          path: pathname,
-          breadcrumbName: 'Add New Product'
-        }])
-      } else {
-        setbreadcrumbItems([{
-          path: '/product/product-list',
-          breadcrumbName: 'My Products'
-        },{
-          path: pathname,
-          breadcrumbName: 'Product Details'
-        }])
-      }
-    } else {
-      // const path = pathname.split('/')[pathname.split('/').length - 1]
-      pathname.split('/').forEach(item => {
-        console.log('item',item)
-        depy(r, item)
-      })
-    }
+    // if(pathname.split('/').some((path) => path === 'product') && pathname !== '/product/product-list' && pathname !== '/product') {
+    //   if(pathname === '/product/product-detail/add') {
+    //     setbreadcrumbItems([{
+    //       path: '/product/product-list',
+    //       breadcrumbName: 'My Products'
+    //     },{
+    //       path: pathname,
+    //       breadcrumbName: 'Add New Product'
+    //     }])
+    //   } else {
+    //     setbreadcrumbItems([{
+    //       path: '/product/product-list',
+    //       breadcrumbName: 'My Products'
+    //     },{
+    //       path: pathname,
+    //       breadcrumbName: 'Product Details'
+    //     }])
+    //   }
+    // } else {
+    //   // const path = pathname.split('/')[pathname.split('/').length - 1]
+    //   pathname.split('/').forEach(item => {
+    //     console.log('item',item)
+    //     depy(r, item)
+    //   })
+    // }
+    // const path = pathname.split('/')[pathname.split('/').length - 1]
+    pathname.split('/').forEach(item => {
+      console.log('item',item)
+      depy(r, item)
+    })
   }, [pathname])
 
   return (
@@ -70,11 +75,15 @@ const RouteBreadcrumb = () => {
               <Link className="hover:text-gray-400" to='/Home'>Seller Center</Link>
             </Breadcrumb.Item>
             {
-              breadcrumbItems.map((breadcrumbItem, index) => (
-                <Breadcrumb.Item key={index}>
-                  <Link className={`${index === breadcrumbItems.length-1 ? '' : "hover:text-gray-400"}`} to={breadcrumbItem.path}>{breadcrumbItem.breadcrumbName}</Link>
-                </Breadcrumb.Item>
-              ))
+              breadcrumbItems.map((breadcrumbItem, index) => {
+                const indx = pathname.indexOf(breadcrumbItem.path) + breadcrumbItem.path.length
+                const path = pathname.slice(0, indx)
+                return (
+                  <Breadcrumb.Item key={index}>
+                    <Link className={`${index === breadcrumbItems.length-1 ? '' : "hover:text-gray-400"}`} to={path}>{breadcrumbItem.breadcrumbName}</Link>
+                  </Breadcrumb.Item>
+                )
+              })
             }
           </>
         ) : null
