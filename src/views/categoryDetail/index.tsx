@@ -17,7 +17,10 @@ const CategoryDetail = () => {
   const [show, setShow] = useState(false)
   const [name, setName] = useState('')
   const [productList, setProductList] = useState('')
-  const [editParams, setEditParams] = useState({})
+  const [editParams, setEditParams] = useState({
+    filterTags:[],
+    filterTagsTwo:[]
+  })
   useEffect(() => {
     const { id } = params
   }, [])
@@ -57,8 +60,10 @@ const CategoryDetail = () => {
         'goodsCategoryId': shopCategoryFilterRules[0].value?.split(','),
         'brand': shopCategoryFilterRules[1].value,
         'attributeValueIds': shopCategoryFilterRules[2]?.value?.split(','),
-        'startPrice': shopCategoryFilterRules[3]?.value,
-        'endPrice': shopCategoryFilterRules[4]?.value,
+        'startPrice': shopCategoryFilterRules[3]?.value?parseFloat(shopCategoryFilterRules[3]?.value):null,
+        'endPrice': shopCategoryFilterRules[4]?.value?parseFloat(shopCategoryFilterRules[4]?.value) :null ,
+        'filterTags':shopCategoryFilterRules[5]?.value?.split(','),
+        'filterTagsTwo':shopCategoryFilterRules[6]?.value?.split(','),
       }
       setEditParams(obj)
       getProductList(obj)
@@ -164,9 +169,16 @@ const CategoryDetail = () => {
               </div>
               <div>
                 Set Filtering Rules:
-                {/*{cateInfos.rules.map((el) => (*/}
-                {/*  <Tag className='ml-2'>{el.name}</Tag>*/}
-                {/*))}*/}
+                {editParams?.filterTags?.map((el: any) => (
+                  <Tag className='ml-2' key={el}>
+                    {el}
+                  </Tag>
+                ))}
+                {editParams?.filterTagsTwo?.map((el: any) => (
+                  <Tag className='ml-2 mt-2' key={el}>
+                    {el}
+                  </Tag>
+                ))}
               </div>
             </div>
             <Button

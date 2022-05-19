@@ -106,7 +106,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
     if(visible){
       getBrandList()
       getCategoriesList()
-      if(productLists.length>0){
+      if(productLists?.length>0){
         setProductList(productLists)
       }
       init()
@@ -114,6 +114,9 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
   }, [productLists,visible])
 
   const init = () => {
+    setSaveParams({...saveParams,...editParams })
+    setFilterTags(editParams.filterTags)
+    setFilterTagsTwo(editParams.filterTagsTwo)
     formRef?.current?.setFieldsValue(editParams)
   }
   const handleChange = async (value: any, option: any) => {
@@ -183,7 +186,6 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
             value: saveParams?.brand,
             rank:2
           },
-
           {
             shopCategoryId: id,
             name: 'attributeValueIds',
@@ -193,13 +195,13 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
           {
             shopCategoryId: id,
             name: 'startPrice',
-            value: saveParams?.startPrice,
+            value: saveParams?.startPrice?saveParams?.startPrice.toString():'',
             rank:4
           },
           {
             shopCategoryId: id,
             name: 'endPrice',
-            value: saveParams?.endPrice,
+            value: saveParams?.endPrice?saveParams?.endPrice.toString():'',
             rank:5
           },
           {
