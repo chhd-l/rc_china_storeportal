@@ -5,6 +5,7 @@ import ShowMoreButton from '../ShowMoreButton'
 import { Link } from 'react-router-dom'
 import { deleteProducts, switchShelves } from '@/framework/api/get-product'
 import { useState } from 'react'
+import { useNavigate } from "react-router";
 import './index.less'
 
 interface TableRowProps {
@@ -31,6 +32,7 @@ const TableRow = ({
   setLoading,
 }: TableRowProps) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const navigator = useNavigate();
 
   const istb = (sku: any) => {
     if (!tableHeader.length) return
@@ -109,9 +111,12 @@ const TableRow = ({
           </Link>
         </Tooltip> */}
         <Tooltip title='Edit'>
-          <Link className='mr-4' to={`/product/product-detail/${listData[spuIdx]?.id}`}>
+          <a className='mr-4' onClick={(e) => {
+            e.stopPropagation()
+            navigator('/product/product-detail', {state: listData[spuIdx]?.id})
+          }} >
             <span className='icon iconfont icon-Edit'></span>
-          </Link>
+          </a>
         </Tooltip>
         <Tooltip title={`${listData[spuIdx]?.shelvesStatus ? 'Delist' : 'Publish'}`}>
           <Link to='' className='mr-4'>
