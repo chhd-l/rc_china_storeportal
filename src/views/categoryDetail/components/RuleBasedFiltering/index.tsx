@@ -55,7 +55,6 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
     setMockOptions(getTree(res, null, 0))
   }
   const onChange = (value: any, selectedOptions: any) => {
-    console.log(value)
     if (value) {
       if (value[value.length - 1] === 'All Categories') {
         getAttrList('')
@@ -66,7 +65,6 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
   }
   const getAttrList = async (categoryId: any) => {
     let data = await getAttrs({ storeId: '12345678', categoryId })
-    console.log(data)
     if (data.length === 0) {
       setFilterTagsTwo([])
       formRef?.current?.setFieldsValue({ attributeValueIds: [] })
@@ -82,7 +80,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
       hasTotal: true,
       sample: {},
     }
-    if (params.goodsCategoryId && params.goodsCategoryId !== 'All Categories') {
+    if (params.goodsCategoryIds && params.goodsCategoryIds !== 'All Categories') {
       data.sample.goodsCategoryId = params.goodsCategoryIds
     }
     if (params.brand && params.brand !== 'All Brands') {
@@ -124,7 +122,6 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
       let arr = option.map((item: { label: any }) => item.label)
       setFilterTagsTwo(arr)
     }
-    console.log(`selected ${value}`, option)
   }
 
   const restSearchButtons = {
@@ -170,7 +167,6 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
       layout='horizontal'
       visible={visible}
       onFinish={async (values) => {
-        console.log(1,saveParams)
         // 用productList直接传值操作
         const { id } = params
         let obj = [
@@ -217,7 +213,6 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
             rank:7
           },
         ]
-        console.log(obj)
         shopCategoryFilterRules(obj)
         if(productList.length>0){
           let data = productList.map((item: any) => {
@@ -252,7 +247,6 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
               delete selected.startPrice
               delete selected.endPrice
               delete selected.attributeValueIds
-              console.log(selected)
               if (selected) {
                 tagArr = Object.values(selected)
                 if (tagArr[0] && tagArr[0] !== 'All Categories') {
@@ -265,7 +259,6 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
                 }
               }
               setFilterTags(tagArr)
-              // console.info('formRef.current?.getFieldsFormatValue')
             }}
             layout='horizontal'
             onFinish={async (values) => {
@@ -339,12 +332,12 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
         <div className='w-2/5'>
           <div>
             <div className='mb-3'>Set Filtering Rules</div>
-            {filterTags.map((el: any) => (
+            {filterTags?.length>0&&filterTags.map((el: any) => (
               <Tag className='ml-2' key={el}>
                 {el}
               </Tag>
             ))}
-            {filterTagsTwo.map((el: any) => (
+            {filterTagsTwo?.length>0&&filterTagsTwo.map((el: any) => (
               <Tag className='ml-2 mt-2' key={el}>
                 {el}
               </Tag>

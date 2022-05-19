@@ -59,11 +59,11 @@ const CategoryDetail = () => {
       let obj = {
         'goodsCategoryId': shopCategoryFilterRules[0].value?.split(','),
         'brand': shopCategoryFilterRules[1].value,
-        'attributeValueIds': shopCategoryFilterRules[2]?.value?.split(','),
+        'attributeValueIds': shopCategoryFilterRules[2].value!==''?shopCategoryFilterRules[2]?.value.split(','):[],
         'startPrice': shopCategoryFilterRules[3]?.value?parseFloat(shopCategoryFilterRules[3]?.value):null,
         'endPrice': shopCategoryFilterRules[4]?.value?parseFloat(shopCategoryFilterRules[4]?.value) :null ,
-        'filterTags':shopCategoryFilterRules[5]?.value?.split(','),
-        'filterTagsTwo':shopCategoryFilterRules[6]?.value?.split(','),
+        'filterTags':shopCategoryFilterRules[5]?.value!==''?shopCategoryFilterRules[5]?.value.split(','):[],
+        'filterTagsTwo':shopCategoryFilterRules[6]?.value!==''?shopCategoryFilterRules[6]?.value.split(','):[],
       }
       setEditParams(obj)
       getProductList(obj)
@@ -71,7 +71,6 @@ const CategoryDetail = () => {
     return res
   }
   const getProductList = async (params: any) => {
-    console.log(params)
     let data: any = {
       hasTotal: true,
       sample: {},
@@ -203,7 +202,6 @@ const CategoryDetail = () => {
             }}
             request={async (params, sorter, filter) => {
               // 表单搜索项会从 params 传入，传递给后端接口。
-              console.log('test sort', params, sorter, filter)
               let page = handlePageParams({
                 currentPage: params.current,
                 pageSize: params.pageSize,
