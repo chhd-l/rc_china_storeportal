@@ -21,7 +21,7 @@ const CreateNewVoucher = () => {
             >
                 <BasicInformation VoucherType={VoucherType} setVoucherType={setVoucherType} />
                 <RuleSettings />
-                <ApplicableProducts />
+                <ApplicableProducts VoucherType={VoucherType} />
                 <Form.Item className="w-full flex items-center justify-end pr-4 py-8">
                     <Button htmlType="button" onClick={() => { }}>
                         Reset

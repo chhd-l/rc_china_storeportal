@@ -11,7 +11,6 @@
   }
   .Selectborder .ant-select-selector {
     border: 0;
-    border-right: 1px solid #d9d9d9;
   }
   .Notreceived {
     background: url(../../assets/images/Received.png) no-repeat center;
@@ -29,5 +28,30 @@
   .CoilingCenter {
     background: url(../../assets//images/CoilingCenter.png) no-repeat center;
     background-size: 100%;
+  }
+}
+
+.SelectProducts {
+  .ant-row-start .ant-col-12:last-child {
+    flex: 0 0 100%;
+    max-width: 100%;
+    transform: translateY(-10%);
+  }
+}
+
+.ApplicableProducts {
+  .ant-pro-table-list-toolbar-container {
+    padding-top: 0;
+  }
+  .ant-pro-table-list-toolbar-right {
+    width: 100%;
+    > div {
+      width: 100%;
+      .ant-space-align-center {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
+    }
   }
 }

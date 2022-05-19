@@ -1,19 +1,12 @@
 import { ContentContainer } from "@/components/ui"
-import ProTable from "@ant-design/pro-table"
+import ProTable, { ProColumns } from "@ant-design/pro-table"
 
 type VouchersListType = {
-    columns: any[];
+    columns: ProColumns<any, string>[];
+    getList: Function;
 }
 
-const VouchersList = ({ columns }: VouchersListType) => {
-    const getList= (param: any) => {
-        console.log('param',param)
-        return Promise.resolve({
-          data: [],
-          success: true,
-          total: 10
-        })
-      }
+const VouchersList = ({ columns, getList }: VouchersListType) => {
     return (
         <ContentContainer className="bg-white px-4 VouchersList">
             <ProTable

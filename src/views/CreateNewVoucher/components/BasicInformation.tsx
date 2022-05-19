@@ -65,21 +65,39 @@ const BasicInformation = ({ VoucherType, setVoucherType }: BasicInformationType)
                     </div>
                 </div>
             </Form.Item>
-            <Form.Item label='Voucher Name' name='Name' required>
+            <Form.Item label='Voucher Name' name='Name' rules={[{
+                required: true,
+                message: 'Pless Input'
+            }]}>
                 <Input placeholder='Input' maxLength={20} />
             </Form.Item>
-            <Form.Item label='Voucher Description' name='Description' required>
+            <Form.Item label='Voucher Description' name='Description' rules={[{
+                required: true,
+                message: 'Pless Input'
+            }]}>
                 <Input placeholder='Input' maxLength={35} />
             </Form.Item>
             <Form.Item label='Voucher Code' name='Code'>
                 <Input placeholder='Input' />
             </Form.Item>
-            <Form.Item label='Voucher Usage Period' name='Usage' required>
+            <Form.Item label='Voucher Usage Period' name='Usage' rules={[{
+                required: true,
+                message: 'Pless Select'
+            }]}>
                 <RangePicker />
             </Form.Item>
-            <Form.Item className='Uploader' label='Voucher Image' name='Image' required>
+            <Form.Item
+                className='Uploader'
+                label='Voucher Image'
+                name='Image' 
+                rules={[{
+                    required: true,
+                    message: 'Pless Select'
+                }]}
+            >
                 <Upload
                     listType="picture-card"
+                    accept='image/*'
                     showUploadList={false}
                     action="https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload"
                     headers={{
