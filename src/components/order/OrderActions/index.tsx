@@ -73,7 +73,7 @@ const OrderActions = ({
       {location.pathname !== '/order/order-detail' && (
         <Tooltip title="View order details">
           <span
-            className="cursor-pointer iconfont icon-kjafg primary-color"
+            className="cursor-pointer iconfont icon-kjafg text-theme-red"
             onClick={() => {
               navigator('/order/order-detail', {
                 state: { id: orderId, status: orderState },
@@ -86,7 +86,7 @@ const OrderActions = ({
       {orderState === OrderStatus['Toship'] && origin === 'table' ? (
         <Tooltip title="Arrange shipment">
           <span
-            className="cursor-pointer ml-2 iconfont icon-dabaodaifahuo primary-color"
+            className="cursor-pointer ml-2 iconfont icon-dabaodaifahuo text-theme-red"
             style={{ fontSize: '20px' }}
             onClick={() => {
               setShipModalVisible(true)
@@ -97,7 +97,7 @@ const OrderActions = ({
         <Tooltip title="Arrange shipment">
           <Button
             type='primary'
-            className="cursor-pointer ml-2 text-white primary-radius"
+            className="cursor-pointer ml-2 text-white rounded-4"
             onClick={() => setShipModalVisible(true)}
           >
             Arrange shipment
@@ -108,7 +108,7 @@ const OrderActions = ({
       {orderState === OrderStatus['Shipped'] && origin === 'table' ? (
         <Tooltip title="Completed">
           <span
-            className="cursor-pointer ml-2 iconfont icon-Order primary-color"
+            className="cursor-pointer ml-2 iconfont icon-Order text-theme-red"
             style={{ fontSize: '20px' }}
             onClick={() => setCompleteModalVisible(true)}
           />
@@ -117,7 +117,7 @@ const OrderActions = ({
         <Tooltip title="Completed">
           <Button
             type='primary'
-            className="cursor-pointer ml-2 text-white primary-radius"
+            className="cursor-pointer ml-2 text-white rounded-4"
             // style={{ fontSize: '20px' }}
             onClick={() => setCompleteModalVisible(true)}
           >

@@ -5,6 +5,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      borderRadius:{
+        '4':'4px'
+      },
+      spacing:{
+        sm: '8px',
+        md: '16px',
+        lg: '24px',
+        xl: '48px',
+      },
       lineHeight:{
         '14':'14px',
       },

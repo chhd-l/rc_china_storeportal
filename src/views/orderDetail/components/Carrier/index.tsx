@@ -10,7 +10,7 @@ const OrderCarrier = ({ carrier }: { carrier: Carrier[] }) => {
     <div className="flex flex-col justify-start mt-4">
       <div className="flex flex-row justify-between">
         <div>
-          <span className="iconfont icon-a-xingzhuangjiehe3 primary-color text-xl" />
+          <span className="iconfont icon-a-xingzhuangjiehe3 text-theme-red text-xl" />
           <span className="ml-4 text-black text-base">Carrier information</span>
         </div>
         <div className="flex flex-row items-center">
