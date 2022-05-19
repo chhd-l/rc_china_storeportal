@@ -25,21 +25,21 @@ const Index = ({ fanList, pages, setPages, getFanList, total, loading, setLoadin
   }
 
   const handlOk = async () => {
-    message.warning('Fans Synchronizing')
+    message.info({ className: 'rc-message', content: 'Fans Synchronizing',duration:false })
     setLoading(true)
     if (!ListChek.length) {
       syncFans().then(() => {
-        message.success('Fans Synchronization succeeded')
+        message.success({ className: 'rc-message', content: 'Fans Synchronization succeeded' })
         getFanList()
       }).catch(() => {
-        message.error('Fans Synchronization failed')
+        message.error({ className: 'rc-message', content: 'Fans Synchronization failed' })
       })
     } else {
       syncPartFans(ListChek).then(() => {
-        message.success('Fans Synchronization succeeded')
+        message.success({ className: 'rc-message', content: 'Fans Synchronization succeeded' })
         getFanList()
       }).catch(() => {
-        message.error('Fans Synchronization failed')
+        message.error({ className: 'rc-message', content: 'Fans Synchronization failed' })
       })
     }
     setIsModalVisible(false)
@@ -107,7 +107,7 @@ const Index = ({ fanList, pages, setPages, getFanList, total, loading, setLoadin
           if (ListChek.length) {
             setIsModalVisible(true)
           } else {
-            message.warning('Please select at least one follower')
+            message.warning({ className: 'rc-message', content: 'Please select at least one follower' })
           }}
           }>
           <span className="iconfont icon-bianzu2 mr-2" />
