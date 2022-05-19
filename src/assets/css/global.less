@@ -1,11 +1,21 @@
 :root {
   --gray1: #f6f6f6;
+  --gray2: #f9fafb;
+  --theme-red: #ee4d2d;
+  --link: #2673dd;
+  --success: #00ca48;
+  --warning: #ffbf00;
+  --fail: #f56c6c;
+  --title: #333333;
+  --text: #666666;
+  --auxiliary: #99999;
+  --tip: #bbbbbb;
+  --divider: #e5e5e5;
+  --disable: #e5e5e5;
+  --tableBg: #f6f6f6;
   --ant-primary-color: #ee4d2d !important;
-  // color: #ee4d2d !important;
 }
-.primary-radius {
-  border-radius: 4px !important;
-}
+
 .primary-color {
   color: #ee4d2d !important;
 }
@@ -265,7 +275,8 @@
   border-color: #dcdcdc !important;
   box-shadow: none !important;
 }
-.rc-modal {
+.ant-modal.rc-modal {
+  min-width: 520px;
   .ant-modal-header {
     border-bottom: none;
     .ant-modal-title {
@@ -285,6 +296,32 @@
   }
   .ant-modal-footer {
     border-top: none;
+    padding: 0 24px 24px;
+  }
+}
+// 使用Modal.confirm快捷弹出框的样式
+.ant-modal.ant-modal-confirm.rc-modal {
+  .ant-modal-body {
+    padding: 0 24px 24px;
+  }
+  .ant-modal-confirm-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #333333;
+    font-family: Roboto-Bold !important;
+    font-style: normal;
+    margin: 16px 0;
+  }
+  .ant-modal-confirm-content {
+    font-family: Roboto-Regular !important;
+    font-style: normal;
+    padding: 0 0 48px;
+    color: #333333;
+    font-size: 16px;
+    margin: 0;
+  }
+  .ant-modal-confirm-btns {
+    margin-top: 0;
   }
 }
 // ::-webkit-scrollbar {
@@ -311,11 +348,11 @@
   .ant-message-notice-content {
     padding: 0;
     box-shadow: none;
-    .ant-message-custom-content{
+    .ant-message-custom-content {
       display: inline-flex;
       align-items: center;
-      .anticon{
-        top:0;
+      .anticon {
+        top: 0;
       }
     }
     .ant-message-success {
@@ -327,6 +364,16 @@
       background: #fee9e7;
       border: 1px solid #f56c6c;
       padding: 10px 152px 10px 16px;
+    }
+    .ant-message-warning {
+      background: #fff7e0;
+      border: 1px solid #ffce3d;
+      padding: 10px 120px 10px 16px;
+    }
+    .ant-message-info{
+      background: #E8F3FF;
+      border: 1px solid #2673DD;
+      padding: 10px 120px 10px 16px;
     }
   }
 }

@@ -30,7 +30,7 @@ function App () {
       localStorage.setItem('rc_access_token', '')
       localStorage.removeItem('rc-userInfo')
       localStorage.removeItem('rc-token')
-      navigate('/login')
+      // navigate('/login')
     }
   }, [])
 

@@ -1,21 +1,29 @@
-import { Button, Table, Tooltip, Modal, message } from "antd";
-import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
-import { Fans } from "@/framework/types/wechat";
-import { handleReturnTime } from "@/utils/utils";
-import { syncFans, syncPartFans } from "@/framework/api/wechatSetting";
+import { Button, Table, Tooltip, Modal, message } from 'antd'
+import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Fans } from '@/framework/types/wechat'
+import { handleReturnTime } from '@/utils/utils'
+import { syncFans, syncPartFans } from '@/framework/api/wechatSetting'
 import './Style.less'
 
-const Index = ({ fanList, pages, setPages, getFanList, total, loading, setLoading }: {
-  fanList: Fans[],
-  pages: any,
-  setPages: Function,
-  getFanList: Function,
-  total: number,
-  loading: boolean,
+const Index = ({
+  fanList,
+  pages,
+  setPages,
+  getFanList,
+  total,
+  loading,
+  setLoading,
+}: {
+  fanList: Fans[]
+  pages: any
+  setPages: Function
+  getFanList: Function
+  total: number
+  loading: boolean
   setLoading: Function
 }) => {
-  const navigator = useNavigate();
+  const navigator = useNavigate()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [ListChek, setListChek] = useState<React.Key[]>([])
 
@@ -25,72 +33,79 @@ const Index = ({ fanList, pages, setPages, getFanList, total, loading, setLoadin
   }
 
   const handlOk = async () => {
-    message.warning('Fans Synchronizing')
+    message.info({
+      className: 'rc-message',
+      content: 'The fans information is synchronizing. Once finished, the information will be updated automatically.'
+    })
     setLoading(true)
     if (!ListChek.length) {
-      syncFans().then(() => {
-        message.success('Fans Synchronization succeeded')
-        getFanList()
-      }).catch(() => {
-        message.error('Fans Synchronization failed')
-      })
+      syncFans()
+        .then(() => {
+          message.success({ className: 'rc-message', content: 'Fans Synchronization succeeded' })
+          getFanList()
+        })
+        .catch(() => {
+          message.error({ className: 'rc-message', content: 'Fans Synchronization failed' })
+        })
     } else {
-      syncPartFans(ListChek).then(() => {
-        message.success('Fans Synchronization succeeded')
-        getFanList()
-      }).catch(() => {
-        message.error('Fans Synchronization failed')
-      })
+      syncPartFans(ListChek)
+        .then(() => {
+          message.success({ className: 'rc-message', content: 'Fans Synchronization succeeded' })
+          getFanList()
+        })
+        .catch(() => {
+          message.error({ className: 'rc-message', content: 'Fans Synchronization failed' })
+        })
     }
     setIsModalVisible(false)
   }
 
   const changeSelect = (selectedRowKeys: React.Key[], selectRowKeysAll: any[]) => {
-    const arr: React.Key[]= []
-    selectRowKeysAll.forEach(item => {
+    const arr: React.Key[] = []
+    selectRowKeysAll.forEach((item) => {
       arr.push(item.openId)
     })
     setListChek(arr)
-  };
+  }
 
   const columns = [
     {
-      title: "Wechat Account",
-      dataIndex: "accountPrincipal",
-      key: "accountPrincipal",
+      title: 'Wechat Account',
+      dataIndex: 'accountPrincipal',
+      key: 'accountPrincipal',
     },
     {
-      title: "Union ID",
-      dataIndex: "unionId",
-      key: "unionId"
+      title: 'Union ID',
+      dataIndex: 'unionId',
+      key: 'unionId',
     },
     {
-      title: "Follow Time",
-      dataIndex: "subscribeTime",
-      key: "subscribeTime",
-      render: (text: any) => handleReturnTime(text)
+      title: 'Follow Time',
+      dataIndex: 'subscribeTime',
+      key: 'subscribeTime',
+      render: (text: any) => handleReturnTime(text),
     },
     {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      render: () => 'Normal'
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      render: () => 'Normal',
     },
     {
-      title: "Action",
-      key: "Action",
+      title: 'Action',
+      key: 'Action',
       render: (text: any, record: any) => (
         <Tooltip title="View Details">
           <span
             className="cursor-pointer iconfont icon-kjafg primary-color"
             onClick={() => {
-              navigator("/fans/fans-detail", { state: record });
+              navigator('/fans/fans-detail', { state: record })
             }}
           />
         </Tooltip>
       ),
     },
-  ];
+  ]
 
   return (
     <div>
@@ -103,13 +118,15 @@ const Index = ({ fanList, pages, setPages, getFanList, total, loading, setLoadin
           <span className="iconfont icon-bianzu2 mr-2" />
           Synchronize All Fan Information
         </Button>
-        <Button onClick={() => { 
-          if (ListChek.length) {
-            setIsModalVisible(true)
-          } else {
-            message.warning('Please select at least one follower')
+        <Button
+          onClick={() => {
+            if (ListChek.length) {
+              setIsModalVisible(true)
+            } else {
+              message.warning({ className: 'rc-message', content: 'Please select at least one follower' })
+            }
           }}
-          }>
+        >
           <span className="iconfont icon-bianzu2 mr-2" />
           Partial sync
         </Button>
@@ -121,13 +138,13 @@ const Index = ({ fanList, pages, setPages, getFanList, total, loading, setLoadin
           width={400}
           onCancel={handleCancel}
           onOk={handlOk}
-          okText='Confirm'
+          okText="Confirm"
         >
-          <div>{
-            !ListChek.length ?
-              'Are you sure you want to sync ? The number of fans islarge, please wait'
-              : 'Are you sure you want yo sync ?'
-          }</div>
+          <div>
+            {!ListChek.length
+              ? 'Are you sure you want to sync ? The number of fans islarge, please wait'
+              : 'Are you sure you want yo sync ?'}
+          </div>
         </Modal>
       </div>
       <Table
@@ -147,10 +164,10 @@ const Index = ({ fanList, pages, setPages, getFanList, total, loading, setLoadin
               limit: pageSize,
             })
             getFanList(page, pageSize)
-          }
+          },
         }}
       />
     </div>
-  );
-};
-export default Index;
+  )
+}
+export default Index

@@ -49,7 +49,7 @@ const OrderInformation = ({ tradeItem, tradePrice }: { tradeItem: OrderTradeItem
 
   return (
     <div className="flex justify-start">
-      <span className="iconfont icon-bianzu-1 primary-color text-lg" />
+      <span className="iconfont icon-bianzu-1 text-theme-red text-lg" />
       <div className="ml-4 w-full">
         <div className="text-left text-base">Order Information</div>
         <div className="mt-4">
@@ -84,7 +84,7 @@ const OrderInformation = ({ tradeItem, tradePrice }: { tradeItem: OrderTradeItem
                 <span>{formatMoney(goodsPrice)}</span>
                 <span>{formatMoney(discountsPrice)}</span>
                 <span>{formatMoney(deliveryPrice)}</span>
-                <span className="primary-color">{formatMoney(totalPrice)}</span>
+                <span className="text-theme-red">{formatMoney(totalPrice)}</span>
               </div>
             </div>
           ) : null}

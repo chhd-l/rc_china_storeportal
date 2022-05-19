@@ -1,129 +1,237 @@
-import "./index.less";
-import { Button, Switch, Tag } from "antd";
-import { EditOutlined } from "@ant-design/icons";
-import { dataSource } from "./modules/mockdata";
-import Mock from "mockjs";
-import ProTable from "@/components/common/ProTable";
-import { useEffect, useState } from "react";
-import { columns } from "./modules/constant";
-import { CategoryProductProps } from "@/framework/types/product";
-import { useLocation, useParams } from "react-router-dom";
-import { AddCateType } from "@/framework/types/product";
-import RuleBasedFilteringProps from "./components/RuleBasedFiltering";
-import ManualSelection from "./components/ManualSelection";
-const detailData = Mock.mock(dataSource);
+import './index.less'
+import { Button, Switch, Tag, Input } from 'antd'
+import { EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons'
+import ProTable from '@/components/common/ProTable'
+import { useEffect, useState, useRef } from 'react'
+import { columns } from './modules/constant'
+import { useParams } from 'react-router-dom'
+import RuleBasedFilteringProps from './components/RuleBasedFiltering'
+import { handlePageParams } from '@/utils/utils'
+import { getESProducts, getFindShopCategoryGoodsPage, updateShopCategory } from '@/framework/api/get-product'
+import { ContentContainer, SearchContainer, TableContainer } from '@/components/ui'
+
 const CategoryDetail = () => {
-  const location = useLocation();
-  const params = useParams();
-  const [addCateType, setAddCateType] = useState(AddCateType.ManualSelection);
-  const [ruleBasedVisible, setRuleBasedVisible] = useState(false);
-  const [manualSelectionVisible, setManualSelectionVisible] = useState<boolean>(true);
+  const ref = useRef<any>()
+  const params = useParams()
+  const [ruleBasedVisible, setRuleBasedVisible] = useState(false)
+  const [show, setShow] = useState(false)
+  const [name, setName] = useState('')
+  const [productList, setProductList] = useState('')
+  const [editParams, setEditParams] = useState({
+    filterTags:[],
+    filterTagsTwo:[]
+  })
   useEffect(() => {
-    const { id } = params;
-    if (id === "add") {
-      let type = (location.state as any)?.addCateType;
-      setAddCateType(type);
-    }
-  }, []);
+    const { id } = params
+  }, [])
   const handleRuleBaseVisible = (visible: boolean) => {
-    setRuleBasedVisible(visible);
-  };
-  const handleManualVisible = (visible: boolean) => {
-    setManualSelectionVisible(visible);
-  };
-  const hanleChangeVisble = (visible: boolean) => {
-    console.info(visible);
-  };
-  const [cateInfos, setCateInfos] = useState<CategoryProductProps>(
-    detailData.cateInfos
-  );
-  console.info("cateInfos", cateInfos);
+    ref?.current?.reload()
+    setRuleBasedVisible(visible)
+  }
+  const handleSucces = (visible: boolean) => {
+    ref?.current?.reload()
+  }
+  const [cateInfos, setCateInfos] = useState({
+    total: null,
+    categoryType: '',
+    displayName: '',
+    isDisplay: false,
+    name: null,
+    rank: null,
+  })
+  const getList = async (page: any) => {
+    const { id } = params
+    let res = await getFindShopCategoryGoodsPage({
+      offset: page.offset,
+      limit: page.limit,
+      isNeedTotal: true,
+      sample: {
+        shopCategoryId: id,
+        goodsName: page.goodsName,
+      },
+    })
+    let meta = res?.findShopCategoryGoodsPage?.meta
+    if (meta?.id) {
+      setCateInfos({ ...meta, total: res?.findShopCategoryGoodsPage?.total })
+    }
+    let shopCategoryFilterRules =res?.findShopCategoryGoodsPage?.shopCategoryFilterRules
+    if(shopCategoryFilterRules?.length>0){
+      let obj = {
+        'goodsCategoryId': shopCategoryFilterRules[0].value?.split(','),
+        'brand': shopCategoryFilterRules[1].value,
+        'attributeValueIds': shopCategoryFilterRules[2].value!==''?shopCategoryFilterRules[2]?.value.split(','):[],
+        'startPrice': shopCategoryFilterRules[3]?.value?parseFloat(shopCategoryFilterRules[3]?.value):null,
+        'endPrice': shopCategoryFilterRules[4]?.value?parseFloat(shopCategoryFilterRules[4]?.value) :null ,
+        'filterTags':shopCategoryFilterRules[5]?.value!==''?shopCategoryFilterRules[5]?.value.split(','):[],
+        'filterTagsTwo':shopCategoryFilterRules[6]?.value!==''?shopCategoryFilterRules[6]?.value.split(','):[],
+      }
+      setEditParams(obj)
+      getProductList(obj)
+    }
+    return res
+  }
+  const getProductList = async (params: any) => {
+    let data: any = {
+      hasTotal: true,
+      sample: {},
+    }
+    if (params.goodsCategoryId.length > 0 && params.goodsCategoryId[params.goodsCategoryId.length - 1] !== 'All Categories') {
+      data.sample.goodsCategoryId = params.goodsCategoryId[params.goodsCategoryId.length - 1]
+    }
+    if (params.brand && params.brand !== 'All Brands') {
+      data.sample.brand = params.brand
+    }
+    if (params.attributeValueIds) {
+      data.sample.attributeValueIds = params.attributeValueIds
+    }
+    if (params.startPrice) {
+      data.sample.startPrice = params.startPrice
+    }
+    if (params.endPrice) {
+      data.sample.endPrice = params.endPrice
+    }
+    let res = await getESProducts(data)
+    setProductList(res.records)
+  }
+
   return (
-    <div className="category-detail  bg-gray-50 py-14 px-20 text-left">
-      <div className="bg-white mb-8 px-6 py-4">
-        <div className="flex justify-between">
-          <div className="font-bold text-lg">
-            {cateInfos.displayName} <EditOutlined />
-          </div>
-          <div>
-            Activate the category make it visible
-            <Switch
-              className="ml-3"
-              defaultChecked
-              onChange={hanleChangeVisble}
-            />
-          </div>
-        </div>
-        <div className="text-gray-400 mt-4">
-          Created By:{" "}
-          <span className="text-black mx-2">
-            {cateInfos.createdUser} | {cateInfos.type}
-          </span>{" "}
-          Product(s):{cateInfos.productNum}
-        </div>
-      </div>
-      <div className="bg-white px-6 py-4">
-        <div className="flex justify-between">
-          <div>
-            <div>Product List</div>
-            <div className="text-gray-400 py-2">
-              If your products meet the filtering rule criteria,they will
-              automatically be added into your shop category
+    <ContentContainer>
+      <div className='category-detail'>
+        <div className='bg-white mb-8 px-6 py-4'>
+          <div className='flex justify-between'>
+            <div className='font-bold text-lg'>
+              {
+                show ? <div>
+                    <Input.Group compact>
+                      <Input style={{ width: '200px' }} defaultValue={cateInfos.displayName} onChange={(e) => {
+                        setName(e.target.value)
+                      }} />
+                      <Button icon={<CheckOutlined />} onClick={() => {
+                        const { id } = params
+                        updateShopCategory({
+                          id,
+                          displayName: name,
+                        }).then((res) => {
+                          if (res) {
+                            setShow(false)
+                            ref.current.reload()
+                          }
+                        })
+                      }} />
+                      <Button icon={<CloseOutlined />} onClick={() => {
+                        setName('')
+                        setShow(false)
+                      }} />
+                    </Input.Group>
+                  </div> :
+                  <div className='edit-name'>
+                    <span className='edit-display-name'>{cateInfos.displayName}</span>
+                    <EditOutlined onClick={() => {
+                      setShow(true)
+                      setName(cateInfos.displayName)
+                    }} style={{ fontSize: '16px', color: '#ee4d2d' }} />
+                  </div>
+              }
             </div>
             <div>
-              Set Filtering Rules:
-              {cateInfos.rules.map((el) => (
-                <Tag className="ml-2">{el.name}</Tag>
-              ))}
+              <Switch
+                className='ml-3'
+                checked={cateInfos.isDisplay}
+                disabled={!cateInfos?.total}
+                onChange={(checked: boolean) => {
+                  const { id } = params
+                  updateShopCategory({
+                    id,
+                    isDisplay: checked,
+                  }).then(() => {
+                    ref.current.reload()
+                  })
+                }}
+              />
             </div>
           </div>
-          {addCateType === AddCateType.RuleBasedFiltering && (
+          <div className='text-gray-400 mt-4'>
+            Created By:{' '}
+            <span className='text-black mx-2'>
+            {cateInfos.name} {' | ' + cateInfos.categoryType}
+          </span>{' '}
+            Product(s): <span className='text-black mx-2'>{cateInfos.total}</span>
+          </div>
+        </div>
+        <div className='bg-white px-6 py-4'>
+          <div className='flex justify-between'>
+            <div>
+              <div>Product List</div>
+              <div className='text-gray-400 py-2'>
+                If your products meet the filtering rule criteria,they will
+                automatically be added into your shop category
+              </div>
+              <div>
+                Set Filtering Rules:
+                {editParams?.filterTags?.map((el: any) => (
+                  <Tag className='ml-2' key={el}>
+                    {el}
+                  </Tag>
+                ))}
+                {editParams?.filterTagsTwo?.map((el: any) => (
+                  <Tag className='ml-2 mt-2' key={el}>
+                    {el}
+                  </Tag>
+                ))}
+              </div>
+            </div>
             <Button
-              type="primary"
+              type='primary'
               onClick={() => {
-                handleRuleBaseVisible(true);
+                handleRuleBaseVisible(true)
               }}
               icon={<EditOutlined />}
             >
               Edit Filtering Rules
             </Button>
-          )}
-          {addCateType === AddCateType.ManualSelection && (
-            <Button
-              type="primary"
-              onClick={() => {
-                setManualSelectionVisible(true);
-              }}
-              icon={<EditOutlined />}
-            >
-              Edit Manual Selection
-            </Button>
-          )}
+          </div>
+          <ProTable
+            style={{ padding: 0 }}
+            className='my-table'
+            actionRef={ref}
+            columns={columns}
+            search={{
+              optionRender: false,
+              collapsed: false,
+              className: 'my-searchs',
+            }}
+            request={async (params, sorter, filter) => {
+              // 表单搜索项会从 params 传入，传递给后端接口。
+              let page = handlePageParams({
+                currentPage: params.current,
+                pageSize: params.pageSize,
+              })
+              let tableData = await getList({ ...page, goodsName: params.goodsName })
+              if (tableData === undefined && page.offset >= 10) {
+                tableData = await getList({
+                  offset: page.offset - 10,
+                  limit: page.limit,
+                  goodsName: params.goodsName,
+                })
+              }
+              return Promise.resolve({
+                data: tableData?.findShopCategoryGoodsPage?.records || [],
+                total: tableData?.findShopCategoryGoodsPage.total,
+                success: true,
+              })
+            }}
+          />
         </div>
-        <ProTable
-          columns={columns}
-          search={false}
-          request={(params, sorter, filter) => {
-            // 表单搜索项会从 params 传入，传递给后端接口。
-            console.info("cateInfos.productList", cateInfos.productList);
-            console.log("test sort", params, sorter, filter);
-            return Promise.resolve({
-              data: cateInfos.productList,
-              success: true,
-            });
-          }}
+        <RuleBasedFilteringProps
+          visible={ruleBasedVisible}
+          handleVisible={handleRuleBaseVisible}
+          handleSucces={handleSucces}
+          productLists={productList}
+          editParams={editParams}
         />
       </div>
-      <RuleBasedFilteringProps
-        visible={ruleBasedVisible}
-        handleVisible={handleRuleBaseVisible}
-      />
-      <ManualSelection
-        visible={manualSelectionVisible}
-        handleVisible={handleManualVisible}
-      />
-    </div>
-  );
-};
+    </ContentContainer>
+  )
+}
 
-export default CategoryDetail;
+export default CategoryDetail
