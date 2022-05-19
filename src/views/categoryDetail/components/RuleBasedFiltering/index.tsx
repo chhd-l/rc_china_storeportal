@@ -7,36 +7,41 @@ import ProForm, {
   ProFormInstance,
   ProFormCascader,
 } from '@ant-design/pro-form'
-import { mockOption, productLists } from '../../modules/mockdata'
-import Mock from 'mockjs'
+import { useParams } from 'react-router-dom'
 import { useRef, useState, useEffect } from 'react'
 import { restWrapButtons } from '../../modules/constant'
-import { getAttrs, getCategories, getESProducts } from '@/framework/api/get-product'
+import {
+  createShopCategoryGoodsRel,
+  getAttrs,
+  getCategories,
+  getESProducts,
+  shopCategoryFilterRules,
+} from '@/framework/api/get-product'
 import { getTree } from '@/framework/normalize/product'
 import { getBrands } from '@/framework/api/wechatSetting'
 import { GoodsAttributeAndValue } from '@/framework/schema/product.schema'
-import { handleValueEnum } from '@/utils/utils'
 
-const { Option, OptGroup } = Select
-
-interface ProductItemProps {
-  name: string;
-  img: string;
-  id: string;
-}
 
 export interface RuleBasedFilteringProps {
   visible: boolean;
   handleVisible: (visible: boolean) => void;
+  handleSucces: (visible: boolean) => void;
+  productLists: any;
+  editParams: any;
 }
 
-const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps) => {
+const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,editParams }: RuleBasedFilteringProps) => {
+  const params = useParams()
   const formRef = useRef<ProFormInstance>()
   const [filterTags, setFilterTags] = useState<string[]>([])
   const [filterTagsTwo, setFilterTagsTwo] = useState<string[]>([])
-  const [productList, setProductList] = useState<ProductItemProps[]>([])
+  const [productList, setProductList] = useState([])
   const [mockOptions, setMockOptions] = useState<Array<any>>([])
   const [brandList, setBrandList] = useState([])
+  const [saveParams, setSaveParams] = useState<any>({
+    goodsCategoryId:'All Categories',
+    brand:'All Brands'
+  })
   const [speciList, setSpeciList] = useState([])
   const [list, setList] = useState<any>()
   const getBrandList = async () => {
@@ -50,7 +55,7 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
     setMockOptions(getTree(res, null, 0))
   }
   const onChange = (value: any, selectedOptions: any) => {
-    console.log(value, selectedOptions)
+    console.log(value)
     if (value) {
       if (value[value.length - 1] === 'All Categories') {
         getAttrList('')
@@ -68,18 +73,17 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
     }
     // @ts-ignore
     setSpeciList(data)
-    formRef?.current?.setFieldsValue({
-      attributeValueIds: ['19591683-b307-883d-c28b-18ac92f3']
-    })
+    // formRef?.current?.setFieldsValue({
+    //   attributeValueIds: ['19591683-b307-883d-c28b-18ac92f3']
+    // })
   }
   const getList = async (params: any) => {
-    console.log(params)
     let data: any = {
       hasTotal: true,
       sample: {},
     }
     if (params.goodsCategoryId && params.goodsCategoryId !== 'All Categories') {
-      data.sample.goodsCategoryId = params.goodsCategoryId
+      data.sample.goodsCategoryId = params.goodsCategoryIds
     }
     if (params.brand && params.brand !== 'All Brands') {
       data.sample.brand = params.brand
@@ -94,14 +98,25 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
       data.sample.endPrice = params.endPrice
     }
     let res = await getESProducts(data)
+    setProductList(res.records)
+
   }
 
   useEffect(() => {
-    getBrandList()
-    getCategoriesList()
-  }, [])
+    if(visible){
+      getBrandList()
+      getCategoriesList()
+      if(productLists.length>0){
+        setProductList(productLists)
+      }
+      init()
+    }
+  }, [productLists,visible])
+
+  const init = () => {
+    formRef?.current?.setFieldsValue(editParams)
+  }
   const handleChange = async (value: any, option: any) => {
-    console.log(value,option,9999)
     if (option.length > 0) {
       let arr = option.map((item: { label: any }) => item.label)
       setFilterTagsTwo(arr)
@@ -118,6 +133,8 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
         </Button>,
         <Button key='rest' onClick={() => {
           setFilterTags(['All Categories', 'All Brands'])
+          setFilterTagsTwo([])
+          setProductList([])
           resetFields()
         }}>
           Reset
@@ -150,8 +167,67 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
       layout='horizontal'
       visible={visible}
       onFinish={async (values) => {
+        console.log(1,saveParams)
         // 用productList直接传值操作
-        console.log(productList, '......')
+        const { id } = params
+        let obj = [
+          {
+            shopCategoryId: id,
+            name: 'goodsCategoryId',
+            value: saveParams?.goodsCategoryId.length>0?saveParams?.goodsCategoryId.join():'',
+            rank:1
+          },
+          {
+            shopCategoryId: id,
+            name: 'brand',
+            value: saveParams?.brand,
+            rank:2
+          },
+
+          {
+            shopCategoryId: id,
+            name: 'attributeValueIds',
+            value: saveParams?.attributeValueIds?.length>0?saveParams.attributeValueIds.join():'',
+            rank:3
+          },
+          {
+            shopCategoryId: id,
+            name: 'startPrice',
+            value: saveParams?.startPrice,
+            rank:4
+          },
+          {
+            shopCategoryId: id,
+            name: 'endPrice',
+            value: saveParams?.endPrice,
+            rank:5
+          },
+          {
+            shopCategoryId: id,
+            name: 'filterTags',
+            value: filterTags.length>0?filterTags.join():'',
+            rank:6
+          },
+          {
+            shopCategoryId: id,
+            name: 'filterTagsTwo',
+            value: filterTagsTwo.length>0?filterTagsTwo.join():'',
+            rank:7
+          },
+        ]
+        console.log(obj)
+        shopCategoryFilterRules(obj)
+        if(productList.length>0){
+          let data = productList.map((item: any) => {
+            return {
+              goodsId: item.id,
+              shopCategoryId: id,
+              storeId: item.storeId,
+            }
+          })
+          createShopCategoryGoodsRel(data)
+        }
+        handleSucces(true)
         message.success('提交成功')
         return true
       }}
@@ -187,21 +263,15 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
                 }
               }
               setFilterTags(tagArr)
-              console.info('formRef.current?.getFieldsFormatValue')
+              // console.info('formRef.current?.getFieldsFormatValue')
             }}
             layout='horizontal'
             onFinish={async (values) => {
               if (values.goodsCategoryId?.length >= 1) {
-                values.goodsCategoryId = values.goodsCategoryId[values.goodsCategoryId.length - 1]
+                values.goodsCategoryIds = values.goodsCategoryId[values.goodsCategoryId.length - 1]
               }
-
+              setSaveParams(values)
               getList(values)
-              console.log(values, 99999)
-              // let list = Mock.mock(productLists).list
-              // setProductList(list)
-              // console.info(list)
-              // console.log(values)
-              // message.success('提交成功')
             }}
             params={{}}
           >
@@ -267,12 +337,12 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
         <div className='w-2/5'>
           <div>
             <div className='mb-3'>Set Filtering Rules</div>
-            {filterTags.map((el) => (
+            {filterTags.map((el: any) => (
               <Tag className='ml-2' key={el}>
                 {el}
               </Tag>
             ))}
-            {filterTagsTwo.map((el) => (
+            {filterTagsTwo.map((el: any) => (
               <Tag className='ml-2 mt-2' key={el}>
                 {el}
               </Tag>
@@ -280,21 +350,21 @@ const RuleBasedFiltering = ({ visible, handleVisible }: RuleBasedFilteringProps)
           </div>
           <div>
             <div className='my-3'>Filtering Results</div>
-            <div className='flex flex-wrap'>
-              {productList.map((el) => (
+            <div className='flex flex-wrap' style={{ maxHeight: '250px', overflow: 'scroll' }}>
+              {productList?.map((el: any) => (
                 <div key={el.id} style={{ width: 60 }} className='mb-3 mr-3'>
                   <div
                     style={{ height: 60 }}
                     className='border border-solid border-gray-200 flex'
                   >
                     <img
-                      src={el.img}
+                      src={el.goodsVariants[0].defaultImage}
                       className='m-auto '
                       style={{ maxHeight: 60, maxWidth: 60 }}
                     />
                   </div>
                   <div className='overflow-ellipsis overflow-hidden whitespace-nowrap'>
-                    {el.name}
+                    {el.goodsName}
                   </div>
                 </div>
               ))}

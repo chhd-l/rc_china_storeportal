@@ -169,7 +169,7 @@ export const getESProducts = async (params:
     const res = await ApiRoot.products().getESProductLists(params)
     return res.getEsProducts
   } catch (e) {
-    console.log(e)
+    return []
   }
 }
 
