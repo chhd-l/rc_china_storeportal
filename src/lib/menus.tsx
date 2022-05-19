@@ -47,6 +47,21 @@ export const menus = [
     ],
   },
   {
+    name: 'Subscription',
+    value: 'subscription',
+    url: '',
+    key: 'subscription',
+    icon: <span className='icon iconfont icon-a-bianzu11-1' />,
+    children: [
+      {
+        name: 'My subscriptions',
+        value: 'my_subscriptions',
+        url: '/subscription/subscription-list',
+        key: 'my_subscriptions',
+      }
+    ]
+  },
+  {
     name: 'Product',
     value: 'product',
     url: '',
