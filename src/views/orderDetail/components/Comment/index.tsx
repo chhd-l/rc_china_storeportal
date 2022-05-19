@@ -85,7 +85,7 @@ const OrderComment = ({
                   <span>
                     <Tooltip title="Edit">
                       <span
-                        className="cursor-pointer iconfont text-sm icon-Edit text-red-500 ml-2"
+                        className="cursor-pointer iconfont text-sm icon-Edit text-theme-red ml-2"
                         onClick={() => {
                           setCurType('edit')
                           setCurComment(item)
@@ -95,7 +95,7 @@ const OrderComment = ({
                     </Tooltip>
                     <Tooltip title="Delete">
                       <span
-                        className="cursor-pointer iconfont text-sm icon-delete text-red-500 ml-2"
+                        className="cursor-pointer iconfont text-sm icon-delete text-theme-red ml-2"
                         onClick={() => {
                           setDelModalShow(true)
                           setCurComment(item)

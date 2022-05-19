@@ -25,7 +25,7 @@ const OrderTable = ({
   changeCarrier: Function
 }) => {
   const [carrierTypes, setCarrierTypes] = useState<CarrierType[]>([])
-  const selectRef = React.useRef<any>(null);
+  const selectRef = React.useRef<any>(null)
 
   const getExpressCompanies = async () => {
     const res = await getExpressCompanyList()
@@ -81,13 +81,16 @@ const OrderTable = ({
                 <Avatar icon={<img src={item.buyer.image} alt={''} />} />
                 <span className="ml-2">{item.buyer.name}</span>
               </Col>
-              <Col span={12} className="text-right" style={{ lineHeight: '44px' }}>
+              <Col span={12} className="text-right">
                 Order ID:{item.id}
                 {item.subscriptionId ? (
-                  <span>
-                    <span className="iconfont icon-Frame1 primary-color mr-2" />
-                    Subscription ID:{item.id}
-                  </span>
+                  <>
+                    <br />
+                    <span>
+                      <span className="iconfont icon-Frame1 primary-color mr-2" />
+                      Subscription ID:{item.id}
+                    </span>
+                  </>
                 ) : null}
               </Col>
             </Row>

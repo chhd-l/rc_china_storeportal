@@ -37,7 +37,7 @@ const columns: ColumnsType<TableList> = [
     align: "center",
     render: () => {
       return (
-        <Button type='primary' className='primary-radius'>Download</Button>
+        <Button type='primary' className='rounded-4'>Download</Button>
       )
     }
   }
