@@ -40,7 +40,10 @@ const Menus = () => {
         } else if (path === 'category') {
           setOpenKeys(["shop"])
           throw new Error('0')
-        } else {
+        } else if (path === 'marketingCentre') {
+          setOpenKeys(["marketing_centres"])
+          throw new Error('0')
+        }  else {
           setOpenKeys(["wechat_management"])
         }
       })

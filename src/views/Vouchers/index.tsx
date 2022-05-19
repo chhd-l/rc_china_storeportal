@@ -40,7 +40,7 @@ const Vouchers = () => {
                             preview={false}
                         />
                     </div>
-                    <div className='pl-2 pt-4'>
+                    <div className='pl-2'>
                         <Title className='mb-0' level={5}>Select Products</Title>
                         <span className='text-gray-400 text-xs'>SPU: 3566</span>
                     </div>
