@@ -278,7 +278,8 @@
   border-color: #dcdcdc !important;
   box-shadow: none !important;
 }
-.rc-modal {
+.ant-modal.rc-modal {
+  min-width: 520px;
   .ant-modal-header {
     border-bottom: none;
     .ant-modal-title {
@@ -298,6 +299,32 @@
   }
   .ant-modal-footer {
     border-top: none;
+    padding: 0 24px 24px;
+  }
+}
+// 使用Modal.confirm快捷弹出框的样式
+.ant-modal.ant-modal-confirm.rc-modal {
+  .ant-modal-body {
+    padding: 0 24px 24px;
+  }
+  .ant-modal-confirm-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #333333;
+    font-family: Roboto-Bold !important;
+    font-style: normal;
+    margin: 16px 0;
+  }
+  .ant-modal-confirm-content {
+    font-family: Roboto-Regular !important;
+    font-style: normal;
+    padding: 0 0 48px;
+    color: #333333;
+    font-size: 16px;
+    margin: 0;
+  }
+  .ant-modal-confirm-btns {
+    margin-top: 0;
   }
 }
 // ::-webkit-scrollbar {

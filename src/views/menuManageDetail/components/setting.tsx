@@ -1,6 +1,6 @@
 import React from 'react'
 import { WxMenuContext, getActiveWxMenu, setWxMenu, delWxMenu, moveWxMenu } from '../context'
-import { Input, Form, Radio, RadioChangeEvent, Tooltip } from 'antd'
+import { Input, Form, Radio, RadioChangeEvent, Tooltip, Modal } from 'antd'
 import _ from 'lodash'
 import ResponseType from './response-type'
 import RedirectionType from './redirection-type'
@@ -25,8 +25,19 @@ const WxMenuSetting = () => {
   }
 
   const deleteWxMenu = (key: string) => {
-    const newWxMenus = delWxMenu(wxMenus || [], key);
-    setWxMenus && setWxMenus(_.cloneDeep(newWxMenus));
+    Modal.confirm({
+      className: 'rc-modal',
+      title: 'Delete',
+      content: 'Are you sure you want to delete it? The content set under this menu will be deleted after deletion.',
+      okText: 'Confirm',
+      cancelText: 'Cancel',
+      closable: true,
+      icon: null,
+      onOk: () => {
+        const newWxMenus = delWxMenu(wxMenus || [], key);
+        setWxMenus && setWxMenus(_.cloneDeep(newWxMenus));
+      }
+    });
   }
 
   const moveWxMenuInOrder = (key: string, direction: 'forward' | 'backward') => {
