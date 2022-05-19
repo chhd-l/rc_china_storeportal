@@ -600,7 +600,6 @@ export const normaliseAttrProps = (data: GoodsAttribute[]) => {
   let attrList = data.map(item => {
     let newItem = {
       id: item.id,
-      value: item.id,
       attributeName: item.attributeName,
       attributeNameEn: item.attributeNameEn,
       // attributeRank: item.attributeRank,

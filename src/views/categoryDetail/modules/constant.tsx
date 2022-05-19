@@ -1,36 +1,79 @@
 import { ProductForCateProps } from "@/framework/types/product";
 import { ProColumns } from "@ant-design/pro-table";
-import { Button } from "antd";
+import { Button,Space,Input } from "antd";
+import { getESProducts } from '@/framework/api/get-product'
+import { formatMoney } from '@/utils/utils'
+import IconFont from '@/components/common/IconFont'
+const { Search } = Input
+const setNum = (arr: any) => {
+  let result = 0
+  for (let i = 0; i < arr.length; i++) {
+    result += Number(arr[i].stock)// 点开看 有两个值
+  }
+  return result
+}
+export const columns: ProColumns<any>[] = [
+  {
+    title: 'Product Name',
+    dataIndex: 'goodsName',
+    hideInSearch: true,
+    render: (_, record) => {
+      return (
+        <div className='flex al-cneter'>
+          <img src={record.goodsVariants[0]?.defaultImage} alt='' style={{ width: '50px', marginRight: '10px' }} />
+          <div>
+            <div>{record.goodsName}</div>
+          </div>
+        </div>
+      )
+    },
+  },
+  {
+    title: 'Price',
+    dataIndex: 'Marketing Price',
+    hideInSearch: true,
+    render: (_, record) => {
+      if (record.goodsVariants?.length <= 1) {
+        return (
+          <span>{formatMoney(record.goodsVariants[0]?.marketingPrice)}</span>
+        )
+      } else if (record.goodsVariants?.length > 1) {
+        let arr = record.goodsVariants.sort((a: any, b: any) => {
+          return a.marketingPrice - b.marketingPrice
+        })
+        return (
+          <span>{formatMoney(arr[0]?.marketingPrice) + '-' + formatMoney(arr[arr.length - 1]?.marketingPrice)}</span>
+        )
+      }
+    },
+  },
+  {
+    title: 'Stock',
+    dataIndex: 'stock',
+    hideInSearch: true,
+    render: (_, record) => {
+      if (record.goodsVariants?.length > 0) {
+        return (
+          <span>{setNum(record.goodsVariants)}</span>
+        )
+      }
+    },
+  },
+  {
+    dataIndex: 'goodsName',
+    hideInTable: true,
+    renderFormItem: (_, { type, defaultRender, ...rest }, form) => {
+      return (
+        <Space direction='vertical' className='search-input'>
+          <Search placeholder='Search Products' onSearch={() => {
+            form.submit()
+          }} size='large' style={{ width: 400 }} />
+        </Space>
+      )
+    },
+  },
+]
 
-export const columns: ProColumns<ProductForCateProps>[] = [
-  {
-    title: "product Name",
-    dataIndex: "productName",
-  },
-  {
-    title: "MarketingPrice",
-    dataIndex: "marketingPrice",
-  },
-  {
-    title: "Stock",
-    dataIndex: "stock",
-  },
-];
-
-export const restSearchButtons = {
-  render: (props: any) => {
-    const { submit, resetFields } = props.form;
-    console.log(props);
-    return [
-      <Button key="submit" type="primary" onClick={() => submit?.()}>
-        Search
-      </Button>,
-      <Button key="rest" onClick={() => resetFields()}>
-        Reset
-      </Button>,
-    ];
-  },
-};
 
 export const restWrapButtons = (
   renderProps: any,

@@ -164,12 +164,12 @@ export const menus = [
       //   url: '/automatic-replies',
       //   key: 'automatic_replies',
       // },
-      // {
-      //   name: 'Response Content',
-      //   value: 'response_content',
-      //   url: '/reply/reply-contents',
-      //   key: 'response_content',
-      // },
+      {
+        name: 'Reply Content',
+        value: 'response_content',
+        url: '/reply/reply-contents',
+        key: 'response_content',
+      },
       {
         name: 'Assets Management',
         value: 'assets_management',

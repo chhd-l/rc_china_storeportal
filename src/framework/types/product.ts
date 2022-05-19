@@ -208,6 +208,7 @@ export interface ShopCategoryFilterRulesInput {
   id?: string
   code?: string
   name?: string
+  rank?: number
   description?: string
   value?: string
   shopCategoryId?: string
@@ -229,7 +230,7 @@ export interface ShopCategoryUpdateInput {
 
 export interface ShopCategoryGoodsRelInput {
   goodsId: string
-  shopCategoryId: string
+  shopCategoryId: string|undefined
   storeId?: string
   createdAt?: string
   createdBy?: string

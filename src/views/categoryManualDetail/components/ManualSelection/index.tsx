@@ -217,6 +217,11 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
         }
 
       }}
+      submitter={{
+        searchConfig:{
+          submitText:'Confirm'
+        }
+      }}
       onVisibleChange={handleVisible}
     >
       <ProTable

@@ -16,9 +16,11 @@ const { Search } = Input
 
 const CategoryDetail = () => {
   const params = useParams()
+  const [keyList, setKeyList] = useState([])
+  const [checkLenght, setCheckLenght] = useState(0)
   const [indeterminate, setIndeterminate] = useState(false)
   const [checkAll, setCheckAll] = useState(false)
-  const [curAssetId, setCurAssetId] = useState('')
+  const [curAssetId, setCurAssetId] = useState<any>('')
   const [show, setShow] = useState(false)
   const [name, setName] = useState('')
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
@@ -35,26 +37,28 @@ const CategoryDetail = () => {
   })
   const ref = useRef<any>()
   const onCheckAllChange = (e: any) => {
+    if (checkAll) {
+      setSelectedRowKeys([])
+    } else if (indeterminate) {
+      console.log(keyList)
+      setSelectedRowKeys(keyList)
+    }
+    setCheckAll(!checkAll)
     setIndeterminate(false)
-    setCheckAll(e.target.checked)
+  }
+  const setListKey = (data: any) => {
+    setKeyList(data.map((item: { shopCategoryGoodsRelationId: any }) => item.shopCategoryGoodsRelationId))
   }
   const onSelectChange = (selectedRowKeys: any, selectedRows: any) => {
-    const { id } = params
-    // let data= selectedRows.map((item:any)=>{
-    //   return{
-    //     goodsId: item.id,
-    //     shopCategoryId: id,
-    //     storeId: item.storeId
-    //   }
-    // })
     setSelectedRowKeys(selectedRowKeys)
   }
   const confirmDelete = async () => {
     setLoading(true)
-    detleShopCateRel([curAssetId]).then((res) => {
+    detleShopCateRel(curAssetId).then((res) => {
       if (res) {
         setIsModalVisible(false)
-        ref.current.reload()
+        setSelectedRowKeys([])
+        ref?.current?.reload()
       }
     })
     setLoading(false)
@@ -83,6 +87,7 @@ const CategoryDetail = () => {
     if (meta?.id) {
       setCateInfos({ ...meta, total: res?.findShopCategoryGoodsPage?.total })
     }
+    setCheckLenght(res?.findShopCategoryGoodsPage?.records.length)
     return res
   }
 
@@ -257,26 +262,46 @@ const CategoryDetail = () => {
             actionRef={ref}
             columns={columns}
             toolBarRender={false}
-            // rowSelection={{ selectedRowKeys, onChange: onSelectChange }}
-            rowKey='goodsId'
-          //   tableAlertRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => {
-          //     console.log(selectedRowKeys, selectedRows)
-          //     return (
-          //       <span>
-          //   <a style={{ marginLeft: 8 }} onClick={onCleanSelected}>
-          //     取消选择
-          //   </a>
-          // </span>
-          //     )
-          //   }}
-          //   tableAlertOptionRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => {
-          //     return (
-          //       <Space size={16}>
-          //         <span>{selectedRowKeys.length}products selected</span>
-          //         <Button>Delete</Button>
-          //       </Space>
-          //     )
-          //   }}
+            rowSelection={{ selectedRowKeys, onChange: onSelectChange }}
+            rowKey='shopCategoryGoodsRelationId'
+            tableAlertRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => {
+              console.log(selectedRowKeys, selectedRows, checkLenght)
+              if (selectedRows.length === checkLenght) {
+                setCheckAll(true)
+                setIndeterminate(false)
+              } else {
+                setCheckAll(false)
+              }
+              if (selectedRows.length && selectedRows.length < checkLenght) {
+                setIndeterminate(true)
+              }
+              return (
+                <span>
+                  <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll} />
+          </span>
+              )
+            }}
+            tableAlertOptionRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => {
+              return (
+                <Space size={16}>
+                  <span>{selectedRowKeys.length}products selected</span>
+                  <Button onClick={()=>{
+                    if(selectedRows.length>0){
+
+                      setCurAssetId(selectedRowKeys)
+                      setIsModalVisible(true)
+                      // detleShopCateRel(selectedRowKeys).then((res) => {
+                      //   if (res) {
+                      //
+                      //     setIsModalVisible(false)
+                      //     ref.current.reload()
+                      //   }
+                      // })
+                    }
+                  }}>Delete</Button>
+                </Space>
+              )
+            }}
             pagination={{
               showTotal: (total: number) => ``,
             }}
@@ -299,6 +324,9 @@ const CategoryDetail = () => {
                   limit: page.limit,
                   goodsName: params.goodsName,
                 })
+              }
+              if (tableData?.findShopCategoryGoodsPage?.records && tableData?.findShopCategoryGoodsPage?.records.length > 0) {
+                setListKey(tableData?.findShopCategoryGoodsPage?.records)
               }
               console.log(tableData, 99)
               return Promise.resolve({
@@ -325,9 +353,6 @@ const CategoryDetail = () => {
         >
           <p>Are you sure you want to delete the item?</p>
         </Modal>
-        {/*<Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>*/}
-        {/*  Check all*/}
-        {/*</Checkbox>*/}
       </div>
     </ContentContainer>
   )
