@@ -16,7 +16,6 @@ export const getOrderList = async (queryOrderListParams: any): Promise<{ total: 
       }
     } else {
       let expressCompanies = await getExpressCompanyList()
-      console.log('query orders view params', queryOrderListParams)
       let res = await ApiRoot.orders().getOrders({ queryOrderListParams })
       console.log('query orders view list', res)
       if (res?.orders?.records) {

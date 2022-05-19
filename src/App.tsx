@@ -26,7 +26,7 @@ function App () {
   // }, [location.pathname])
 
   useEffect(() => {
-    if (!localStorage.getItem('rc_access_token')) {
+    if (!localStorage.getItem('rc_access_token') && !['/login', '/register'].includes(location.pathname)) {
       localStorage.setItem('rc_access_token', '')
       localStorage.removeItem('rc-userInfo')
       localStorage.removeItem('rc-token')
