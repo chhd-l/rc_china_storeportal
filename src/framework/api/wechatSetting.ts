@@ -69,7 +69,7 @@ export const syncAccount = async (queryParams: any) => {
     let res = await ApiRoot.wechatSettings().addAccount(params)
     const syncAccount = res?.syncAccount
     console.log('sync account view data', syncAccount)
-    return syncAccount||false
+    return syncAccount || false
   } catch (e) {
     console.log(e)
     return false
@@ -156,7 +156,7 @@ export const createMedia = async (queryParams: any) => {
           }
           : {},
       ),
-      operator: queryParams.operator||'system',
+      operator: queryParams.operator || 'system',
     })
     const addMedia = res?.addMedia
     console.log('create media view data', addMedia)
@@ -297,9 +297,9 @@ export const getTemplateItems = async (queryParams: any) => {
   }
 }
 
-export const syncTemplateItem = async (params:{operator:string}) => {
+export const syncTemplateItem = async (params: { operator: string }) => {
   try {
-    let res = await ApiRoot.wechatSettings().syncTemplateItem(Object.assign(params,{ accountId: '000001'}))
+    let res = await ApiRoot.wechatSettings().syncTemplateItem(Object.assign(params, { accountId: '000001' }))
     const syncTemplateItem = res?.syncTemplateItem
     console.log('sync template item view data', syncTemplateItem)
     return syncTemplateItem || false
@@ -462,5 +462,15 @@ export const getWxMenuDetail = async (id: string) => {
   } catch (e) {
     console.log(e)
     return null
+  }
+}
+
+export const getReplyContentList = async (queryParams: any) => {
+  const data = await ApiRoot.wechatSettings().getReplyContentList({ body: queryParams });
+  const list = data?.replyContentList
+  console.log('get replyContent view data:', list)
+  return {
+    records: list?.records ?? [],
+    total: list?.total ?? 0
   }
 }

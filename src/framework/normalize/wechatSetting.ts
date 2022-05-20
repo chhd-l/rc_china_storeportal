@@ -1,4 +1,5 @@
 import { normaliseAttrProps } from './product'
+import { ReplyContent } from "@/framework/types/wechat"
 import { handleReturnTime } from '@/utils/utils'
 
 export const normaliseMedia = (media: any) => {
@@ -28,4 +29,13 @@ export const normaliseBrands = (data: any) => {
   return data.map((item: any) => {
     return { name: item.id, value: item.id, label: item.displayName }
   })
+}
+
+export const normaliseReplyContent: (data: any) => ReplyContent[] = (data) => {
+  return data.map((item: any) => ({
+    id: item.id,
+    type: item.responseType,
+    description: item.responseDescribe,
+    status: item.isActive
+  }))
 }

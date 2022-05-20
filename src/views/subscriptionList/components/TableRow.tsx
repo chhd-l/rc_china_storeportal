@@ -8,7 +8,7 @@ interface IProps {
 
 const TableRow: React.FC<IProps> = ({ handlePauseOrRestart }) => {
   return (
-    <div className="border mt-4">
+    <div className="border mt-4 rounded">
       <Row className="bg-gray1 border-b px-4 content-center justify-between">
         <Col span={12} className="flex items-center">
           <Avatar icon="people" />
@@ -49,7 +49,7 @@ const TableRow: React.FC<IProps> = ({ handlePauseOrRestart }) => {
         </Col>
         <Col span={2} className="text-left">
           <div className="space-x-2">
-            <Tooltip title="View">
+            <Tooltip title="View Details">
               <Link to="/subscription/subscription-detail/123" className="cursor-pointer iconfont icon-kjafg primary-color" />
             </Tooltip>
             <Tooltip title="Restart">
