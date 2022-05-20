@@ -125,6 +125,13 @@ const SelectProducts = ({ SelectProductsModal, SelectProductshandleOk, SelectPro
                 columns={columns}
                 rowKey='id'
                 beforeSearchSubmit={onSeach}
+                pagination={{
+                    hideOnSinglePage: false,
+                    showSizeChanger: true,
+                    showQuickJumper: true,
+                    defaultPageSize: 10,
+                    showTotal: () => <></>
+                }}
                 options={false}
                 request={(parma) => {
                     return Promise.resolve({

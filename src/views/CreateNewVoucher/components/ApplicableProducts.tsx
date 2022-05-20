@@ -108,6 +108,13 @@ const ApplicableProducts = ({ VoucherType }: ApplicableProductsType) => {
                             columns={columns}
                             options={false}
                             search={false}
+                            pagination={{
+                                hideOnSinglePage: false,
+                                showSizeChanger: true,
+                                showQuickJumper: true,
+                                defaultPageSize: 10,
+                                showTotal: () => <></>
+                            }}
                             rowKey='id'
                             toolBarRender={() => [
                                 <div className='text-gray-400'><span className='text-black'>1</span> Product(s) Selected</div>,

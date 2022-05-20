@@ -86,7 +86,7 @@ const Orders = () => {
       hideInSearch: true,
       render: (text: any, record: any) => (
         <Tooltip title="View Details">
-          <span className="cursor-pointer ml-2 iconfont icon-kjafg text-red-500 text-xl" />
+          <span className="cursor-pointer ml-2 iconfont icon-kjafg text-red-500 text-base" />
         </Tooltip>
       ),
     },
@@ -124,6 +124,13 @@ const Orders = () => {
         className="OrdersProTable mt-20"
         search={false}
         options={false}
+        pagination={{
+            hideOnSinglePage: false,
+            showSizeChanger: true,
+            showQuickJumper: true,
+            showTotal: () => <></>,
+            defaultPageSize: 10,
+        }}
         columns={columns}
         request={() => {
           return new Promise((resolve) => {

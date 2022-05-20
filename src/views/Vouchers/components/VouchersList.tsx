@@ -12,6 +12,13 @@ const VouchersList = ({ columns, getList }: VouchersListType) => {
             <ProTable
                 columns={columns}
                 options={false}
+                pagination={{
+                    hideOnSinglePage: false,
+                    showSizeChanger: true,
+                    showQuickJumper: true,
+                    defaultPageSize: 10,
+                    showTotal: () => <></>
+                }}
                 search= {{
                   labelWidth: 'auto',
                   searchText: 'Search',
