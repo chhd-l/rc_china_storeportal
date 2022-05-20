@@ -7,7 +7,7 @@ import { DetailContext } from '../../index'
 import { TreeDataProps } from '@/framework/types/product'
 import { getCategories } from '@/framework/api/get-product'
 import { CateItemProps } from '@/framework/schema/product.schema'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import { getTree } from '@/framework/normalize/product'
 import { Input } from 'antd'
 interface CascaderProps {}
@@ -18,6 +18,8 @@ const Cascader = (props: CascaderProps) => {
   const [categories, setCategories] = useState<any>([])
   const [categoryList, setCategoryList] = useState<TreeDataProps[]>([])
   const { detail } = useContext(DetailContext)
+  // const location = useLocation()
+
   const params = useParams()
   const InputRef = useRef<any>(null)
 
@@ -39,7 +41,7 @@ const Cascader = (props: CascaderProps) => {
     setCategoryList(treeList)
   }
   useEffect(() => {
-    if (location.href?.indexOf('product-add')>-1) {
+    if (window.location.href?.indexOf('product-add')>-1) {
       getCate()
     }
   }, [])
