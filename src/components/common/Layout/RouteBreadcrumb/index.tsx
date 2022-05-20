@@ -55,34 +55,7 @@ const RouteBreadcrumb = () => {
 
   useEffect(() => {
     breadcrumbItemsaRr = []
-    // if(pathname.split('/').some((path) => path === 'product') && pathname !== '/product/product-list' && pathname !== '/product') {
-    //   if(pathname === '/product/product-detail/add') {
-    //     setbreadcrumbItems([{
-    //       path: '/product/product-list',
-    //       breadcrumbName: 'My Products'
-    //     },{
-    //       path: pathname,
-    //       breadcrumbName: 'Add New Product'
-    //     }])
-    //   } else {
-    //     setbreadcrumbItems([{
-    //       path: '/product/product-list',
-    //       breadcrumbName: 'My Products'
-    //     },{
-    //       path: pathname,
-    //       breadcrumbName: 'Product Details'
-    //     }])
-    //   }
-    // } else {
-    //   // const path = pathname.split('/')[pathname.split('/').length - 1]
-    //   pathname.split('/').forEach(item => {
-    //     console.log('item',item)
-    //     depy(r, item)
-    //   })
-    // }
-    // const path = pathname.split('/')[pathname.split('/').length - 1]
     pathname.split('/').forEach(item => {
-      console.log('item',item)
       depy(r, item)
     })
   }, [pathname])

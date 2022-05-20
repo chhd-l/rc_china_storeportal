@@ -39,7 +39,7 @@ const Cascader = (props: CascaderProps) => {
     setCategoryList(treeList)
   }
   useEffect(() => {
-    if (params.id === 'add') {
+    if (location.href?.indexOf('product-add')>-1) {
       getCate()
     }
   }, [])
