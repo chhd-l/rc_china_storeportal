@@ -1,5 +1,5 @@
 import { session } from '@/utils/global'
-import { normaliseOrder } from '../normalize/order'
+import { normaliseOrder, normalizeLogisticsIntegration } from '../normalize/order'
 import ApiRoot from './fetcher'
 import { orderDetailSource, orderListSource } from '@/views/orderDetail/modules/mockdata'
 import Mock from 'mockjs'
@@ -64,10 +64,43 @@ export const getOrderSetting = async () => {
   try {
     let res = await ApiRoot.orders().getOrderSetting({ storeId: '12345678' })
     console.info('get orderSetting data view', res)
-    return res.orderSetting || []
+    return res?.orderSettings || []
   } catch (e) {
     console.log(e)
     return []
+  }
+}
+
+export const updateOrderSetting = async (params:any) => {
+  try {
+    let res = await ApiRoot.orders().modifyOrderSetting({ body:params })
+    console.info('updateOrderSetting data view', res)
+    return res?.modifyOrderSetting || false
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+}
+
+export const getLogisticsIntegration = async () => {
+  try {
+    let res = await ApiRoot.orders().getLogisticsIntegration({ storeId: '12345678' })
+    console.info('getLogisticsIntegration data view', res)
+    return normalizeLogisticsIntegration(res.getLogisticsIntegration || null)
+  } catch (e) {
+    console.log(e)
+    return null
+  }
+}
+
+export const modifyLogisticsIntegration = async (params: any) => {
+  try {
+    let res = await ApiRoot.orders().modifyLogisticsIntegration(params)
+    console.info('modifyLogisticsIntegration data view', res)
+    return res?.modifyLogisticsIntegration || false
+  } catch (e) {
+    console.log(e)
+    return false
   }
 }
 
@@ -97,7 +130,7 @@ export const shippedOrder = async (params: any) => {
     console.info('shipped order view params', params)
     let res = await ApiRoot.orders().shippedOrder({ body: params })
     console.info('shipped order data view', res)
-    return res.shippedOrder || false
+    return res?.shippedOrder || false
   } catch (e) {
     console.log(e)
     return false
@@ -112,7 +145,7 @@ export const completedOrder = async (params: any) => {
     console.info('completed order view params', params)
     let res = await ApiRoot.orders().completedOrder({ body: params })
     console.info('completed order data view', res)
-    return res.completedOrder || false
+    return res?.completedOrder || false
   } catch (e) {
     console.log(e)
     return false
@@ -124,9 +157,10 @@ export const updateComment = async (params: any) => {
     console.info('update comment view params', params)
     let res = await ApiRoot.orders().updateComment({ body: params })
     console.info('completed order data view', res)
-    return res.updateComment || false
+    return res?.updateComment || false
   } catch (e) {
     console.log(e)
     return false
   }
 }
+
