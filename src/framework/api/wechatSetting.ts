@@ -467,10 +467,19 @@ export const getWxMenuDetail = async (id: string) => {
 
 export const getReplyContentList = async (queryParams: any) => {
   const data = await ApiRoot.wechatSettings().getReplyContentList({ body: queryParams });
-  const list = data?.replyContentList
+  const list = data?.replyContentFindPage
   console.log('get replyContent view data:', list)
   return {
     records: list?.records ?? [],
     total: list?.total ?? 0
   }
+}
+
+export const createReplyContent = async (params: any) => {
+  const data = await ApiRoot.wechatSettings().createReplyContent({
+    body: params,
+    operator: 'zz'
+  })
+  console.log('create replyContent view data:', data)
+  return data?.replyContentCreate ?? {}
 }
