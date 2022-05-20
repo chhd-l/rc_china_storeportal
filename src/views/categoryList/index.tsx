@@ -237,7 +237,7 @@ const ShopCategories = () => {
     <ContentContainer>
       <div className='shop-categories'>
         <div className='bg-white p-6 '>
-          <div className='flex justify-between'>
+          <div className='flex justify-between' style={{marginBottom:'24px'}}>
             <div className='text-xl font-semibold'>My Shop Categories</div>
             <div className='flex'>
               {/*<Button className='flex items-center mr-4 text-red-400 border-red-400' icon={<EyeOutlined />}>*/}
