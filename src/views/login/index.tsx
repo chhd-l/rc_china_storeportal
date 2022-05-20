@@ -45,7 +45,6 @@ const Login = () => {
 
   const handleLogin = (e: any) => {
     try {
-      setLoading(true);
       navigate("/shipment-list");
     } catch (err) {
       setLoginError("error");
@@ -78,6 +77,7 @@ const Login = () => {
             form={form}
             onFinish={(values) => {
               console.log("----form login-----", values);
+              setLoading(true);
               login({ username: values.account, password: values.password }).then(res => {
                 if (res) {
                   console.log(res, 're')
@@ -97,6 +97,7 @@ const Login = () => {
                 } else {
                   message.error('Login failed！')
                 }
+                setLoading(false);
               })
             }}
             autoComplete="off"

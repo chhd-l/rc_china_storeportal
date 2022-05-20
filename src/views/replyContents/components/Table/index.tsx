@@ -43,10 +43,10 @@ const column = [
   },
 ];
 
-const Index = ({ replyContents }: { replyContents: ReplyContent[] }) => {
+const Index = ({ replyContents, onPageChange, pages }: { replyContents: ReplyContent[], onPageChange: Function, pages: any }) => {
   const navigator = useNavigate();
   return (
-    <div>
+    <div className="pt-4">
       <div className="flex flex-row justify-end mb-4">
         <Button
           danger
@@ -61,8 +61,15 @@ const Index = ({ replyContents }: { replyContents: ReplyContent[] }) => {
       <Table
         columns={column}
         dataSource={replyContents}
-        rowKey={"id"}
+        rowKey="id"
         className="rc-table"
+        pagination={{
+          current: pages.page,
+          total: pages.total,
+          onChange: (page) => {
+            onPageChange(page)
+          }
+        }}
       />
     </div>
   );

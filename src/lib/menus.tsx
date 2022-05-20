@@ -16,12 +16,12 @@ export const menus = [
         url: '/shipment-list',
         key: 'my_shipment',
       },
-      // {
-      //   name: 'Shipping Setting',
-      //   value: 'shipping_setting',
-      //   url: '/shipping-setting',
-      //   key: 'shipping_setting',
-      // },
+      {
+        name: 'Shipping Setting',
+        value: 'shipping_setting',
+        url: '/shipping-setting',
+        key: 'shipping_setting',
+      },
     ],
   },
   {
@@ -38,12 +38,12 @@ export const menus = [
         // url: "/",
         key: 'my_orders',
       },
-      // {
-      //   name: 'Order Setting',
-      //   value: 'order_setting',
-      //   url: '/order/order-setting',
-      //   key: 'order_setting',
-      // },
+      {
+        name: 'Order Setting',
+        value: 'order_setting',
+        url: '/order/order-setting',
+        key: 'order_setting',
+      },
     ],
   },
   {

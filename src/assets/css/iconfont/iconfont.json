@@ -302,7 +302,7 @@
     {
       "icon_id": "29601234",
       "name": "category-details",
-      "font_class": "a-Frame21",
+      "font_class": "category-details",
       "unicode": "e637",
       "unicode_decimal": 58935
     },
