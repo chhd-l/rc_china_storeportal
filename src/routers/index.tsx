@@ -133,7 +133,7 @@ let routes: RouteObject[] = [
         children: [
           { index: true, element: <SubscriptionList /> },
           { path: 'subscription-list', element: <SubscriptionList /> },
-          { path: 'subscription-detail/:id', element: <SubscriptionDetail />, breadcrumbName: 'Subscription Detail' },
+          { path: 'subscription-detail', element: <SubscriptionDetail />, breadcrumbName: 'Subscription Detail' },
         ],
       },
       {

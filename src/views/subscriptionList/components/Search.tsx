@@ -34,10 +34,10 @@ const Search = () => {
             <Option value="6">Wechat Name</Option>
             <Option value="7">Product Name</Option>
           </Select>
-          {type === "2" ? <Select defaultValue="1" style={{ width: '80%' }}>
+          {type === "2" ? <Select key="subscription-type" placeholder="Select" style={{ width: '80%' }}>
             <Option value="1">Autoship</Option>
             <Option value="2">Product Contract</Option>
-          </Select> : type === "3" ? <Select defaultValue="1" style={{ width: '80%' }}>
+          </Select> : type === "3" ? <Select key="subscription-cycle" placeholder="Select" style={{ width: '80%' }}>
             <Option value="1">Quarter</Option>
             <Option value="2">Half year</Option>
             <Option value="3">One year</Option>
