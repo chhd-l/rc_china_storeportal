@@ -13,7 +13,7 @@ const callback = (key: string) => {
 const VouchersListHead = () => {
   const navigator = useNavigate()
   return (
-    <ContentContainer className="bg-white px-4 VouchersListHead relative">
+    <ContentContainer className="bg-white px-4 pb-0 VouchersListHead relative">
       <Title className="mb-0" level={5}>
         Vouchers List
       </Title>

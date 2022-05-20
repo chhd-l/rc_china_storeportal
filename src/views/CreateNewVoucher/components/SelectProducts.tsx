@@ -14,14 +14,14 @@ const dataSource = [
     {
         id: '1',
         Products: '胡彦斌',
-        Price: 32,
+        Price: '￥32',
         Stock: 32,
         Brand: '西湖区湖底公园1号',
     },
     {
         id: '2',
         Products: 'xxxx',
-        Price: 312,
+        Price: '￥312',
         Stock: 312,
         Brand: '西湖区湖底公园1号',
     },
@@ -54,30 +54,34 @@ const SelectProducts = ({ SelectProductsModal, SelectProductshandleOk, SelectPro
         {
             title: 'Product Category',
             dataIndex: 'Product Category',
-            valueType: 'Select',
+            valueType: 'select',
+            valueEnum: {
+                AllCategory: 'All Category'
+            },
             hideInTable: true
         },
         {
             title: 'Sales Category',
             dataIndex: 'Sales Category',
-            valueType: 'Select',
+            valueType: 'select',
+            valueEnum: {
+                AllCategory: 'All Category'
+            },
             hideInTable: true
         },
         {
-            title: '',
-            valueType: 'Select',
             hideInTable: true,
             renderFormItem: () => {
                 return (
                     <Input.Group compact className='flex'>
                         <Form.Item initialValue='Product Name' className='m-0' name='ProductType'>
-                            <Select className='z-10' options={[
+                            <Select className='z-10 SelectProduct' options={[
                                 { lable: 'Product Name', value: 'Product Name' },
                                 { lable: 'aaa', value: 'aaaa' },
                             ]} />
                         </Form.Item>
-                        <Form.Item className='border-0 m-0' name='ProductZhi'>
-                            <Input placeholder='Please Input' className='border-l-0 -m-px rounded-l-none' />
+                        <Form.Item className='border-0 m-0 w-full' wrapperCol={{ span:'auto' }} name='ProductZhi'>
+                            <Input placeholder='Please Input' className='border-l-0 -m-px rounded-l-none w-full' />
                         </Form.Item>
                     </Input.Group>
                 )
@@ -93,13 +97,13 @@ const SelectProducts = ({ SelectProductsModal, SelectProductshandleOk, SelectPro
             dataIndex: 'Price',
             hideInSearch: true,
             defaultSortOrder: 'descend',
-            sorter: (a, b) => a.age - b.age,
+            sorter: (a, b) => a.Price - b.Price,
         },
         {
             title: () => <div className='flex items-center'>
                 Stock
                 <Tooltip title="prompt text">
-                    <QuestionCircleOutlined className='ml-1' />
+                    <QuestionCircleOutlined className='ml-1 text-gray-400' />
                 </Tooltip>
             </div>,
             dataIndex: 'Stock',
@@ -115,7 +119,7 @@ const SelectProducts = ({ SelectProductsModal, SelectProductshandleOk, SelectPro
     }
 
     return (
-        <Modal className='SelectProducts' width='60%' closable={false} visible={SelectProductsModal} onOk={SelectProductshandleOk} onCancel={SelectProductshandleCancel}>
+        <Modal className='SelectProducts' okText='Confirm' width='60%' closable={false} visible={SelectProductsModal} onOk={SelectProductshandleOk} onCancel={SelectProductshandleCancel}>
             <Title className='mb-0' level={4}>Select Products</Title>
             <ProTable
                 columns={columns}
