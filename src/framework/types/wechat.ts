@@ -42,6 +42,9 @@ export interface ReplyContent {
   type: string
   description: string
   status: boolean
+  content?: string
+  accountId?: string
+  mediaId?: string
 }
 
 export interface Asset {
