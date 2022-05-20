@@ -78,12 +78,12 @@ const ProductList = () => {
   useEffect(() => {
     getList()
     // setListData(listDatas)
-  }, [sample, pages])
+  }, [sample, pages, filterCondition])
 
-  useEffect(() => {
-    getList()
-    // setListData(listDatas)
-  }, [filterCondition])
+  // useEffect(() => {
+  //   getList()
+  //   // setListData(listDatas)
+  // }, [filterCondition])
   return (
     <ContentContainer>
       <div className='product-list'>

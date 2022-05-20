@@ -34,13 +34,13 @@ const Search = () => {
             <Option value="6">Wechat Name</Option>
             <Option value="7">Product Name</Option>
           </Select>
-          {type === "2" ? <Select style={{ width: '80%' }}>
-            <Option val="1">Autoship</Option>
-            <Option val="2">Product Contract</Option>
-          </Select> : type === "3" ? <Select style={{ width: '80%' }}>
-            <Option val="1">Quarter</Option>
-            <Option val="2">Half year</Option>
-            <Option val="3">One year</Option>
+          {type === "2" ? <Select defaultValue="1" style={{ width: '80%' }}>
+            <Option value="1">Autoship</Option>
+            <Option value="2">Product Contract</Option>
+          </Select> : type === "3" ? <Select defaultValue="1" style={{ width: '80%' }}>
+            <Option value="1">Quarter</Option>
+            <Option value="2">Half year</Option>
+            <Option value="3">One year</Option>
           </Select> : <Input
             style={{ width: '80%' }}
             ref={inputRef}

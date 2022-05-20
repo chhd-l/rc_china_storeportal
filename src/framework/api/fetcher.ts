@@ -14,7 +14,10 @@ const API_URL = 'https://dtc-faas-dev-dtc-plaform-dev-yfetifgpvj.cn-shanghai.fca
 
 const ApiRoot = new ClientBuilder().config({
   url: API_URL,
-  handleError: function (err: string) {
+  handleError: function (err: string, isNeedToLogin: boolean = false) {
+    if (isNeedToLogin) {
+      window.location.href = '/login'
+    }
     message.error({ className: 'rc-message', content: err })
   }
 })

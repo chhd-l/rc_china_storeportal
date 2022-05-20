@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import Menus from '../Menus'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import TopHeader from '../Header'
 import { Layout } from 'antd'
 import { useAtom } from 'jotai'
@@ -11,16 +11,10 @@ const { Content, Sider } = Layout
 
 const AppLayout = () => {
   const { pathname } = useLocation()
-  const navigate = useNavigate();
   const [userInfo] = useAtom(userAtom)
   const [isOpen, setIsOpen] = useState(true)
 
   useEffect(() => {
-    // if (!localStorage.getItem('rc-userInfo') || !localStorage.getItem("rc-token")) {
-    //   localStorage.removeItem('rc-userInfo')
-    //   localStorage.removeItem("rc-token")
-    //   navigate('/login')
-    // }
     if (pathname.split('/').some(path => path === 'product') && pathname !== '/product/product-list' && pathname !== '/product') {
       setIsOpen(false)
     } else {
