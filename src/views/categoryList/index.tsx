@@ -1,4 +1,4 @@
-import { Alert, Button, Input, Modal, Switch } from 'antd'
+import { Alert, Button, Input, Modal, Switch,Tooltip } from 'antd'
 import { Link } from 'react-router-dom'
 import { CheckOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons'
 import './index.less'
@@ -131,17 +131,24 @@ const ShopCategories = () => {
       title: 'Created By',
       dataIndex: 'categoryType',
       render: (_, record) => (
-        <span>{record.name + ' | ' + record.categoryType}</span>
+        <div>
+          <span>{record.name + ' | ' + record.categoryType }</span>
+          <span> {''+ record.categoryType==='MANUAL'?'Selection':'Filtering'}</span>
+        </div>
       ),
     },
     {
       title: 'Product(s)',
       dataIndex: 'total',
+      render: (_, record) => (
+        <span>{record.total?record.total:0}</span>
+      )
     },
     {
       title: 'Display On/Off',
       dataIndex: 'isDisplay',
       render: (_, record) => (
+        <Tooltip title={record?.total < 1?'This category cannot be activated as it contains no product':''}>
         <Switch
           checked={record.isDisplay}
           disabled={record?.total < 1}
@@ -151,6 +158,7 @@ const ShopCategories = () => {
             setIsSwithVisible(true)
           }}
         />
+        </Tooltip>
       ),
     },
     {
@@ -162,54 +170,63 @@ const ShopCategories = () => {
         if (!record.total) {
           if (record.categoryType === 'MANUAL') {
             return [
+              <Tooltip title='Add Poducts'>
               <Link to={`/category/category-manual-detail/${record.id}`} className='mr-4 text-xl'>
                 <IconFont type='icon-jiahao' />
-              </Link>,
+              </Link>
+              </Tooltip>,
+              <Tooltip title='Delete'>
               <Link to='' className='mr-4 text-xl' onClick={() => {
                 setIsModalVisible(true)
                 setCurAssetId(record.id)
               }}>
                 <IconFont type='icon-delete' />
-              </Link>,
+              </Link></Tooltip>,
             ]
           } else {
             return [
+              <Tooltip title='Set Filtering Rules'>
               <Link to={`/category/category-detail/${record.id}`} className='mr-4 text-xl'>
                 <IconFont type='icon-group52' />
-              </Link>,
+              </Link></Tooltip>,
+              <Tooltip title='Delete'>
               <Link to='' className='mr-4 text-xl' onClick={() => {
                 setIsModalVisible(true)
                 setCurAssetId(record.id)
               }}>
                 <IconFont type='icon-delete' />
-              </Link>,
+              </Link></Tooltip>,
             ]
           }
 
         } else {
           if (record.categoryType === 'MANUAL') {
             return [
+              <Tooltip title='Details'>
               <Link to={`/category/category-manual-detail/${record.id}`} className='mr-4 text-xl'>
-                <IconFont type='icon-group52' />
-              </Link>,
+                <IconFont type='icon-category-details' />
+              </Link></Tooltip>,
+              <Tooltip title='Delete'>
               <Link to='' className='mr-4 text-xl' onClick={() => {
                 setIsModalVisible(true)
                 setCurAssetId(record.id)
               }}>
                 <IconFont type='icon-delete' />
-              </Link>,
+              </Link></Tooltip>,
             ]
           } else {
             return [
+              <Tooltip title='Details'>
               <Link to={`/category/category-detail/${record.id}`} className='mr-4 text-xl'>
-                <IconFont type='icon-group52' />
-              </Link>,
+                <IconFont type='icon-category-details' />
+              </Link></Tooltip>,
+              <Tooltip title='Delete'>
               <Link to='' className='mr-4 text-xl' onClick={() => {
                 setIsModalVisible(true)
                 setCurAssetId(record.id)
               }}>
                 <IconFont type='icon-delete' />
-              </Link>,
+              </Link></Tooltip>,
             ]
           }
         }
@@ -220,7 +237,7 @@ const ShopCategories = () => {
     <ContentContainer>
       <div className='shop-categories'>
         <div className='bg-white p-6 '>
-          <div className='flex justify-between'>
+          <div className='flex justify-between' style={{marginBottom:'24px'}}>
             <div className='text-xl font-semibold'>My Shop Categories</div>
             <div className='flex'>
               {/*<Button className='flex items-center mr-4 text-red-400 border-red-400' icon={<EyeOutlined />}>*/}
@@ -242,14 +259,16 @@ const ShopCategories = () => {
               </Button>
             </div>
           </div>
-          <Alert
-            className='my-6 alert'
-            showIcon
-            // icon={<InfoCircleTwoTone />}
-            message='Your edits will be displayed in your Shop Page within 30 minutes'
-            type='info'
-          />
+          {/*<Alert*/}
+          {/*  className='my-6 alert'*/}
+          {/*  showIcon*/}
+          {/*  // icon={<InfoCircleTwoTone />}*/}
+          {/*  message='Your edits will be displayed in your Shop Page within 30 minutes'*/}
+          {/*  type='info'*/}
+          {/*/>*/}
           <ProTable
+            cardBordered
+            className='my-table'
             actionRef={ref}
             search={false}
             columns={columns}
