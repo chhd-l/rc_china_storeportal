@@ -16,7 +16,6 @@ const RouteBreadcrumb = () => {
   const [breadcrumbItems, setbreadcrumbItems] = useState<any[]>([])
   // 将路由处理成路由表对应的路由
 
-
   const depy = (arr: any[], path: string) => {
     if (path === '') return
     arr.forEach((item): any => {
@@ -31,6 +30,28 @@ const RouteBreadcrumb = () => {
     })
     setbreadcrumbItems(breadcrumbItemsaRr)
   }
+
+  // 备用，如果需要将详情id反馈到url上，可以用这个方法解析需要展示的面包屑
+  // const getRouterPathList = () => {
+  //   let parentRouter = r;
+  //   return pathname.split('/').reduce((prev: any[], curr: any, index: number) => {
+  //     if (curr === '' && index === 0) {
+  //       const home = parentRouter.find(rt => rt.path === '/')
+  //       if (home) {
+  //         prev.push(home);
+  //         parentRouter = home.children ?? [];
+  //       }
+  //       prev.push()
+  //     } else {
+  //       const target = parentRouter.find(rt => ((rt?.path ?? '').split('/')[0] ?? '') === curr);
+  //       parentRouter = target?.children ?? [];
+  //       if (target) {
+  //         prev.push(target);
+  //       }
+  //     }
+  //     return prev;
+  //   }, []);
+  // }
 
   useEffect(() => {
     breadcrumbItemsaRr = []

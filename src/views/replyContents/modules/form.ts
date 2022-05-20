@@ -7,14 +7,14 @@ export const formItems = [
     name: "type",
     placeholder: "select",
     type: "select",
-    searchList: replyTypeList,
+    selectList: replyTypeList,
   },
   { label: "Content Description", name: "description", placeholder: "Input" },
   {
     label: "Status",
-    name: "type",
+    name: "status",
     placeholder: "select",
-      type: "select",
-    searchList: statusList,
+    type: "select",
+    selectList: statusList,
   },
 ];

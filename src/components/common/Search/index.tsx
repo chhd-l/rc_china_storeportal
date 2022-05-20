@@ -55,7 +55,7 @@ const Search = ({
             key={item.name}
           >
             {item.type === "select" ? (
-              <Select placeholder={item.placeholder}>
+              <Select placeholder={item.placeholder} style={{minWidth: 200}}>
                 {(item.selectList || []).map((el, index) => (
                   <Select.Option value={el.key} key={index}>
                     {el.label}

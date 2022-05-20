@@ -1,5 +1,5 @@
 import './index.less'
-import { Button, Switch, Tag, Input } from 'antd'
+import { Button, Switch, Tag, Input,Tooltip } from 'antd'
 import { EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons'
 import ProTable from '@/components/common/ProTable'
 import { useEffect, useState, useRef } from 'react'
@@ -134,6 +134,7 @@ const CategoryDetail = () => {
               }
             </div>
             <div>
+              <Tooltip title={!cateInfos?.total?'This category cannot be activated as it contains no product':''}>
               <Switch
                 className='ml-3'
                 checked={cateInfos.isDisplay}
@@ -148,18 +149,19 @@ const CategoryDetail = () => {
                   })
                 }}
               />
+              </Tooltip>
             </div>
           </div>
           <div className='text-gray-400 mt-4'>
             Created By:{' '}
             <span className='text-black mx-2'>
-            {cateInfos.name} {' | ' + cateInfos.categoryType}
+            {cateInfos.name} {' | ' + cateInfos.categoryType} {cateInfos.categoryType==='MANUAL'?' Selection':' Filtering'}
           </span>{' '}
             Product(s): <span className='text-black mx-2'>{cateInfos.total}</span>
           </div>
         </div>
         <div className='bg-white px-6 py-4'>
-          <div className='flex justify-between'>
+          <div className='flex justify-between' style={{marginBottom:'10px'}}>
             <div>
               <div>Product List</div>
               <div className='text-gray-400 py-2'>
@@ -191,6 +193,7 @@ const CategoryDetail = () => {
             </Button>
           </div>
           <ProTable
+            cardBordered
             style={{ padding: 0 }}
             className='my-table'
             actionRef={ref}

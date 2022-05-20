@@ -10,9 +10,11 @@ import { useState } from "react";
 import SelectContext from "./components/SelectAssets";
 import { Asset } from "@/framework/types/wechat";
 import { Container, ContentContainer, InfoContainer } from "@/components/ui";
+import { createReplyContent } from "@/framework/api/wechatSetting"
 
 const AddAccount = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigator = useNavigate();
   const [formItems, setFromItems] = useState(
     ADD_REPLY_CONTENT_FORM.concat(BASE_FORM)
@@ -24,15 +26,15 @@ const AddAccount = () => {
     let baseFormItems = ADD_REPLY_CONTENT_FORM;
     switch (allValues.type) {
       case "":
-      case "picture":
-      case "voice":
+      case "IMAGE":
+      case "VOICE":
         baseFormItems = baseFormItems.concat(BASE_FORM);
         break;
-      case "text":
+      case "TEXT":
         baseFormItems = baseFormItems.concat(TEXT_FORM);
         break;
-      case "video":
-      case "graphic":
+      case "VIDEO":
+      case "ARTICLE":
         baseFormItems = baseFormItems.concat(BASE_FORM, VIDEO_FORM);
         break;
       default:
@@ -45,8 +47,19 @@ const AddAccount = () => {
     setModalVisible(true);
   };
 
-  const addAccount = (values: any) => {
+  const addAccount = async (values: any) => {
     console.log(values);
+    if (values.type === 'TEXT') {
+      setLoading(true);
+      const res = await createReplyContent({
+        accountId: '000001',
+        responseDescribe: values.description,
+        responseType: 'TEXT',
+        messageContent: values.message
+      });
+      setLoading(false);
+      navigator("/reply/reply-contents");
+    }
   };
 
   const setAssetId = (selectAsset: Asset) => {
@@ -57,7 +70,7 @@ const AddAccount = () => {
   return (
     <ContentContainer>
       <InfoContainer>
-        <div className="text-2xl text-medium mb-4">add Reply Content</div>
+        <div className="text-2xl text-medium mb-4">Add New Reply Content</div>
         <Form
           onValuesChange={formValuesChange}
           onFinish={addAccount}
@@ -112,7 +125,7 @@ const AddAccount = () => {
             >
               Cancel
             </Button>
-            <Button type="primary" htmlType="submit" danger>
+            <Button type="primary" htmlType="submit" loading={loading} danger>
               Confirm
             </Button>
           </Form.Item>
