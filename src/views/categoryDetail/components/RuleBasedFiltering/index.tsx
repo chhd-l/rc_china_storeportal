@@ -232,10 +232,11 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
     >
       <div className='flex'>
         <div className='flex-1 mr-4 bg-gray-primary'>
+          <div className='py-3 pl-4'>Set Filtering Rules</div>
           <ProForm
             formRef={formRef}
             className='py-3 pl-4 text-center'
-            labelCol={{ span: 6 }}
+            labelCol={{ span: 7 }}
             wrapperCol={{ span: 16 }}
             submitter={restSearchButtons}
             onValuesChange={() => {
@@ -273,7 +274,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
             <ProFormCascader
               allowClear={false}
               fieldProps={{
-                changeOnSelect: true,
+                changeOnSelect: false,
                 onChange: onChange,
                 options: [{
                   value: 'All Categories',
@@ -282,9 +283,12 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
                 getPopupContainer: triggerNode => triggerNode.parentNode,
                 dropdownClassName: 'productlist-choose-cate common-dropdown-cascader',
                 placeholder: 'Categores Name',
+                style:{
+                  textAlign:'left'
+                },
               }}
               name='goodsCategoryId'
-              label='Category'
+              label='Product Category'
               initialValue={['All Categories']}
             />
             <ProFormSelect
@@ -329,7 +333,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
             </div>
           </ProForm>
         </div>
-        <div className='w-2/5'>
+        <div className='w-2/5 rule-right'>
           <div>
             <div className='mb-3'>Set Filtering Rules</div>
             {filterTags?.length>0&&filterTags.map((el: any) => (
