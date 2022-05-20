@@ -1,5 +1,5 @@
 import './index.less'
-import { Button, Switch, Tag, Input } from 'antd'
+import { Button, Switch, Tag, Input,Tooltip } from 'antd'
 import { EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons'
 import ProTable from '@/components/common/ProTable'
 import { useEffect, useState, useRef } from 'react'
@@ -134,6 +134,7 @@ const CategoryDetail = () => {
               }
             </div>
             <div>
+              <Tooltip title={!cateInfos?.total?'This category cannot be activated as it contains no product':''}>
               <Switch
                 className='ml-3'
                 checked={cateInfos.isDisplay}
@@ -148,6 +149,7 @@ const CategoryDetail = () => {
                   })
                 }}
               />
+              </Tooltip>
             </div>
           </div>
           <div className='text-gray-400 mt-4'>
@@ -159,7 +161,7 @@ const CategoryDetail = () => {
           </div>
         </div>
         <div className='bg-white px-6 py-4'>
-          <div className='flex justify-between'>
+          <div className='flex justify-between' style={{marginBottom:'10px'}}>
             <div>
               <div>Product List</div>
               <div className='text-gray-400 py-2'>

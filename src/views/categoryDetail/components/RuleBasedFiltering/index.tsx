@@ -225,7 +225,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
           createShopCategoryGoodsRel(data)
         }
         handleSucces(true)
-        message.success('提交成功')
+        message.success('Operation success')
         return true
       }}
       onVisibleChange={handleVisible}

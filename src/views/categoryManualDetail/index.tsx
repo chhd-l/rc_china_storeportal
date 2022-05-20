@@ -1,5 +1,5 @@
 import './index.less'
-import { Button, Switch, Space, Input, Checkbox, Modal } from 'antd'
+import { Button, Switch, Space, Input, Checkbox, Modal,Tooltip } from 'antd'
 import { CheckOutlined, CloseOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons'
 import ProTable from '@/components/common/ProTable'
 import { useEffect, useState, useRef } from 'react'
@@ -219,6 +219,7 @@ const CategoryDetail = () => {
               }
             </div>
             <div>
+              <Tooltip title={!cateInfos?.total?'This category cannot be activated as it contains no product':''}>
               <Switch
                 className='ml-3'
                 checked={cateInfos.isDisplay}
@@ -233,6 +234,7 @@ const CategoryDetail = () => {
                   })
                 }}
               />
+              </Tooltip>
             </div>
           </div>
           <div className='text-gray-400 mt-4'>

@@ -148,6 +148,7 @@ const ShopCategories = () => {
       title: 'Display On/Off',
       dataIndex: 'isDisplay',
       render: (_, record) => (
+        <Tooltip title={record?.total < 1?'This category cannot be activated as it contains no product':''}>
         <Switch
           checked={record.isDisplay}
           disabled={record?.total < 1}
@@ -157,6 +158,7 @@ const ShopCategories = () => {
             setIsSwithVisible(true)
           }}
         />
+        </Tooltip>
       ),
     },
     {
@@ -257,13 +259,13 @@ const ShopCategories = () => {
               </Button>
             </div>
           </div>
-          <Alert
-            className='my-6 alert'
-            showIcon
-            // icon={<InfoCircleTwoTone />}
-            message='Your edits will be displayed in your Shop Page within 30 minutes'
-            type='info'
-          />
+          {/*<Alert*/}
+          {/*  className='my-6 alert'*/}
+          {/*  showIcon*/}
+          {/*  // icon={<InfoCircleTwoTone />}*/}
+          {/*  message='Your edits will be displayed in your Shop Page within 30 minutes'*/}
+          {/*  type='info'*/}
+          {/*/>*/}
           <ProTable
             cardBordered
             className='my-table'
