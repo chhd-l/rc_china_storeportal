@@ -1,7 +1,7 @@
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { ParamsType } from '@ant-design/pro-provider';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
-import { Modal, Typography, Form, Select, Input, Image, Button } from 'antd';
+import { Modal, Typography, Form, Select, Input, Image, Button, Tooltip } from 'antd';
 const { Title } = Typography;
 
 type SelectProductsType = {
@@ -34,6 +34,7 @@ const SelectProducts = ({ SelectProductsModal, SelectProductshandleOk, SelectPro
             title: 'Products',
             dataIndex: 'Products',
             hideInSearch: true,
+            width: '38%',
             render: (text, recout) => {
                 return <div className='flex'>
                     <div>
@@ -43,7 +44,7 @@ const SelectProducts = ({ SelectProductsModal, SelectProductshandleOk, SelectPro
                             preview={false}
                         />
                     </div>
-                    <div className='pl-2 pt-4'>
+                    <div className='pl-2'>
                         <Title className='mb-0' level={5}>Select Products</Title>
                         <span className='text-gray-400 text-xs'>SPU: 3566</span>
                     </div>
@@ -69,14 +70,14 @@ const SelectProducts = ({ SelectProductsModal, SelectProductshandleOk, SelectPro
             renderFormItem: () => {
                 return (
                     <Input.Group compact className='flex'>
-                        <Form.Item initialValue='Product Name' name='ProductType'>
+                        <Form.Item initialValue='Product Name' className='m-0' name='ProductType'>
                             <Select className='z-10' options={[
                                 { lable: 'Product Name', value: 'Product Name' },
                                 { lable: 'aaa', value: 'aaaa' },
                             ]} />
                         </Form.Item>
-                        <Form.Item className='border-0' name='ProductZhi'>
-                            <Input className='border-l-0 -m-px' />
+                        <Form.Item className='border-0 m-0' name='ProductZhi'>
+                            <Input placeholder='Please Input' className='border-l-0 -m-px rounded-l-none' />
                         </Form.Item>
                     </Input.Group>
                 )
@@ -85,15 +86,22 @@ const SelectProducts = ({ SelectProductsModal, SelectProductshandleOk, SelectPro
         {
             title: 'Brand',
             dataIndex: 'Brand',
-            hideInSearch: true
+            hideInSearch: true,
         },
         {
             title: 'Price(s)',
             dataIndex: 'Price',
-            hideInSearch: true
+            hideInSearch: true,
+            defaultSortOrder: 'descend',
+            sorter: (a, b) => a.age - b.age,
         },
         {
-            title: () => <div className='flex items-center'>Stock<QuestionCircleOutlined className='ml-1' /></div>,
+            title: () => <div className='flex items-center'>
+                Stock
+                <Tooltip title="prompt text">
+                    <QuestionCircleOutlined className='ml-1' />
+                </Tooltip>
+            </div>,
             dataIndex: 'Stock',
             hideInSearch: true
         },
@@ -107,7 +115,7 @@ const SelectProducts = ({ SelectProductsModal, SelectProductshandleOk, SelectPro
     }
 
     return (
-        <Modal className='SelectProducts' width='50%' closable={false} visible={SelectProductsModal} onOk={SelectProductshandleOk} onCancel={SelectProductshandleCancel}>
+        <Modal className='SelectProducts' width='60%' closable={false} visible={SelectProductsModal} onOk={SelectProductshandleOk} onCancel={SelectProductshandleCancel}>
             <Title className='mb-0' level={4}>Select Products</Title>
             <ProTable
                 columns={columns}
