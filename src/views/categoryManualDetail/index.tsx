@@ -240,7 +240,7 @@ const CategoryDetail = () => {
           <div className='text-gray-400 mt-4'>
             Created By:{' '}
             <span className='text-black mx-2'>
-            {cateInfos.name} {' | ' + cateInfos.categoryType}
+            {cateInfos.name} {' | ' + cateInfos.categoryType} {cateInfos.categoryType==='MANUAL'?' Selection':' Filtering'}
           </span>{' '}
             Product(s): <span className='text-black mx-2'>{cateInfos.total}</span>
           </div>
@@ -260,6 +260,7 @@ const CategoryDetail = () => {
             </Button>
           </div>
           <ProTable
+            cardBordered
             className='set-delete-box'
             actionRef={ref}
             columns={columns}
