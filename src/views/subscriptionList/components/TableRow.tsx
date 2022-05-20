@@ -50,7 +50,7 @@ const TableRow: React.FC<IProps> = ({ handlePauseOrRestart }) => {
         <Col span={2} className="text-left">
           <div className="space-x-2">
             <Tooltip title="View Details">
-              <Link to="/subscription/subscription-detail/123" className="cursor-pointer iconfont icon-kjafg primary-color" />
+              <Link to="/subscription/subscription-detail" className="cursor-pointer iconfont icon-kjafg primary-color" />
             </Tooltip>
             <Tooltip title="Restart">
               <span

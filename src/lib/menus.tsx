@@ -104,14 +104,14 @@ export const menus = [
     ],
   },
   {
-    name: 'Marketing Centres',
+    name: 'Marketing Center',
     value: 'marketing_centres',
     url: '',
     key: 'marketing_centres',
     icon: <span className='icon iconfont icon-a-bianzu13' />,
     children: [
       {
-        name: 'Marketing Centre',
+        name: 'Marketing Center',
         value: 'MarketingCentres',
         url: '/marketingCentre/marketingCentre-list',
         key: 'MarketingCentres',
