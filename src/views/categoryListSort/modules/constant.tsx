@@ -1,4 +1,3 @@
-import IconFont from "@/components/common/IconFont";
 import { ProColumns } from "@/components/common/ProTable";
 import { LabelOptionProps } from "@/framework/types/common";
 import { AddCateType, CategoryBaseProps } from "@/framework/types/product";
@@ -40,21 +39,21 @@ export const columns: ProColumns<CategoryBaseProps>[] = [
       if (record.productNum <= 0) {
         return [
           <Link to={`/category/${record.id}`} className="mr-4 text-xl">
-            <IconFont type='icon-jiahao' />
+            <span className='iconfont icon-jiahao' />
           </Link>,
           // <a className=" mr-4">
           //   <SettingOutlined />
           // </a>,
           <Link to='' className="text-xl mr-4">
-            <IconFont type="icon-delete" />
+            <span className='iconfont icon-delete' />
           </Link>]
       } else {
         return [
           <Link to={`/category/${record.id}`} className="mr-4 text-xl">
-            <IconFont type="icon-group52" />
+            <span className='iconfont icon-group52' />
           </Link>,
           <Link to='' className="mr-4 text-xl">
-            <IconFont type="icon-delete" />
+            <span className='iconfont icon-delete' />
           </Link>,]
       }
     },

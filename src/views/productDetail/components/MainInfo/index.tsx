@@ -70,11 +70,12 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
             // console.info('has name', keyName)
           } else {
             console.info('no name', keyName)
-            if (keyName === 'subscriptionPrice' && el.subscriptionStatus === '0') {
+            if ((keyName === 'subscriptionPrice' && el.subscriptionStatus === '0')||(keyName==='stock'&&el.stock!==undefined&&el.stock!==null)) {
               //特殊处理:订阅是no的时候，订阅价格非必填
-            } else {
+            }else {
               nodataKey.push(keyName)
             }
+           
           }
         })
       }

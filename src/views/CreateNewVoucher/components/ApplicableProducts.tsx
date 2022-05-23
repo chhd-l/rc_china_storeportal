@@ -3,7 +3,6 @@ import SelectProducts from './SelectProducts'
 import { Typography, Button, Image, Tooltip } from 'antd'
 import { useState } from 'react';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
-import IconFont from '@/components/common/IconFont';
 const { Title } = Typography;
 
 type ApplicableProductsType = {
@@ -72,7 +71,7 @@ const ApplicableProducts = ({ VoucherType }: ApplicableProductsType) => {
             dataIndex: 'Actions',
             width: 80,
             render: () => <Tooltip title="Delete">
-                <IconFont type='icon-delete' />
+                <span className='iconfont text-xl icon-delete' />
             </Tooltip>
         },
     ];
@@ -81,11 +80,11 @@ const ApplicableProducts = ({ VoucherType }: ApplicableProductsType) => {
         <div className='bg-white p-4 ApplicableProducts'>
             <Title className='mt-8 mb-6' level={4}>Applicable Products</Title>
             {
-                true ? (
+                false ? (
                     <div className='flex items-center pl-12'>
                         <span className='mr-8'>Applicable Products</span>
                         {
-                            VoucherType === 'Shop Voucher' ? (
+                            VoucherType === 'SHOP_VOUCHER' ? (
                                 <span>all products</span>
                             ) : (
                                 <Button

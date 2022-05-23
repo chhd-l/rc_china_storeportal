@@ -45,6 +45,7 @@ const CreateNewVoucher = lazy(() => import('@/views/CreateNewVoucher'))
 const SubscriptionList = lazy(() => import('@/views/subscriptionList'))
 const SubscriptionDetail = lazy(() => import('@/views/subscriptionDetail'))
 const OrderswithVoucher = lazy(() => import('@/views/OrderswithVoucher'))
+const DiscountPromotions = lazy(() => import('@/views/discountPromotions'))
 
 interface RouteObject {
   caseSensitive?: boolean
@@ -123,7 +124,29 @@ let routes: RouteObject[] = [
             children: [
               { index: true, element: <Vouchers />, },
               { path: 'createNewVoucher', element: <CreateNewVoucher />, breadcrumbName: 'CreateNewVoucher'},
+              { path: 'voucherDetails', element: <CreateNewVoucher />, breadcrumbName: 'voucherDetails'},
               { path: 'orderswithVoucher', element: <OrderswithVoucher />, breadcrumbName: 'Orders with Voucher'},
+            ]
+          },
+          {
+            path: 'promotions',
+            breadcrumbName: 'Discount Promotions',
+            children: [
+              { index: true, element: <DiscountPromotions />, },
+            ]
+          },
+          {
+            path: 'campaigns',
+            breadcrumbName: 'Campaigns',
+            children: [
+              { index: true, element: <DiscountPromotions />, },
+            ]
+          },
+          {
+            path: 'liveStreaming',
+            breadcrumbName: 'Live Streaming',
+            children: [
+              { index: true, element: <DiscountPromotions />, },
             ]
           },
         ]
