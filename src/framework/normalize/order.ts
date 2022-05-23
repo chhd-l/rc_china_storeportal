@@ -117,3 +117,21 @@ export const normaliseOrder = (data: any, expressCompanies: any): any => {
   }
   return orderItem
 }
+
+export const normalizeLogisticsIntegration = (logisticsIntegration: any) => {
+  const { id, type, parameter, isEnabled, remark, storeId } = logisticsIntegration
+  const newParameter = JSON.parse(parameter)
+  return {
+    id: id || '',
+    type: type || '',
+    parameter: parameter || '',
+    isEnabled: isEnabled || false,
+    remark: remark || '',
+    storeId: storeId || '12345678',
+    key: newParameter.KEY || '',
+    customer: newParameter.customer || '',
+    pullUrl: newParameter.pullURL || '',
+    queryUrl: newParameter.queryURL || '',
+    callbackUrl: newParameter.callbackURL || '',
+  }
+}

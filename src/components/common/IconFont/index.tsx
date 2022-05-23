@@ -5,7 +5,7 @@ import {
 import { IconFontProps } from "@ant-design/icons/lib/components/IconFont";
 
 const Iconfont = createFromIconfontCN({
-    scriptUrl: '//at.alicdn.com/t/font_3298206_we0wi0se08l.js',
+    scriptUrl: '//at.alicdn.com/t/font_3298206_ceo8ctgzgn5.js',
   });
 
  const IconFont: React.FC<IconFontProps<string>> = (props: any) => <Iconfont {...props} />

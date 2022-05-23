@@ -21,10 +21,10 @@ export interface Comment {
   lastModifiedAt?: string
   createdAt?: string
   createdBy?: string
-  createId?:string
+  createId?: string
   content?: string
   id?: string
-  avatarUrl?:string
+  avatarUrl?: string
 }
 
 export interface Log {
@@ -55,8 +55,8 @@ export interface PayInfo {
   appId: string
   payTime: string
   outTradeNo: string
-  payWayOrderID?:string
-  payWayCode?:string
+  payWayOrderID?: string
+  payWayCode?: string
 }
 
 export interface TradeState {
@@ -106,4 +106,31 @@ export interface CarrierType {
   isDeleted?: boolean
   isEnabled?: boolean
   storeId?: string
+}
+
+export interface LogisticsIntegration {
+  id: string
+  type: string
+  parameter: string
+  isEnabled: boolean
+  remark: string
+  storeId: string
+  key: string
+  customer: string
+  pullUrl: string
+  queryUrl: string
+  callbackUrl: string
+}
+
+export interface OrderSettingItem {
+  id: string
+  key?: string
+  code: string
+  type: string
+  name: string
+  remark: string
+  isEnabled: boolean
+  context: string
+  storeId: string
+  isDeleted: boolean
 }
