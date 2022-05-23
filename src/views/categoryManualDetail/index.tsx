@@ -8,10 +8,8 @@ import { ProColumns } from '@ant-design/pro-table'
 import { useParams } from 'react-router-dom'
 import ManualSelection from './components/ManualSelection'
 import { detleShopCateRel, getFindShopCategoryGoodsPage, updateShopCategory } from '@/framework/api/get-product'
-import { ContentContainer, SearchContainer, TableContainer } from '@/components/ui'
+import { ContentContainer } from '@/components/ui'
 import { formatMoney, handlePageParams } from '@/utils/utils'
-import IconFont from '@/components/common/IconFont'
-
 const { Search } = Input
 
 const CategoryDetail = () => {
@@ -158,7 +156,7 @@ const CategoryDetail = () => {
             setCurAssetId(record.shopCategoryGoodsRelationId)
             setIsModalVisible(true)
           }}>
-            <IconFont type='icon-delete' />
+            <span className='iconfont text-xl icon-delete' />
           </Link>
         )
       },

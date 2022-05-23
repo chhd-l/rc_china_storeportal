@@ -139,7 +139,8 @@ const Vouchers = () => {
             {text === 0 && <span className="Upcoming">Upcoming</span>}
             {text === 1 && <span className="Ongoing">Ongoing</span>}
             {text === 2 && <span className="Expired">Expired</span>}
-            <div className="text-gray-400">2020/12/23 15:38 - 2020/12/24 14:23</div>
+            <div className="text-gray-400">2020/12/23 15:38 -</div>
+            <div className="text-gray-400">2020/12/24 14:23</div>
           </div>
         )
       },
@@ -155,7 +156,7 @@ const Vouchers = () => {
               <span
                 className="cursor-pointer iconfont icon-a-Group437 text-red-500 text-xl"
                 onClick={() => {
-                  navigator('/marketingCentre/vouchers/orderswithVoucher')
+                  navigator('/marketingCentre/vouchers/voucherDetails')
                 }}
               />
             </Tooltip>
@@ -166,7 +167,12 @@ const Vouchers = () => {
             </Tooltip>
           )}
           <Tooltip title="Orders">
-            <span className="cursor-pointer ml-2 iconfont icon-dingdan text-red-500 text-xl" />
+            <span
+              className="cursor-pointer ml-2 iconfont icon-dingdan text-red-500 text-xl"
+              onClick={() => {
+                navigator('/marketingCentre/vouchers/orderswithVoucher')
+              }}
+            />
           </Tooltip>
           {record.status === 1 && (
             <Tooltip title="End">

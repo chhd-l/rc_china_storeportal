@@ -46,7 +46,7 @@ const KeyMetrics = () => {
     <ContentContainer className="bg-white px-4 mb-8">
       <Title level={5}>
         <span className="font-black">Key Metrics</span>
-        <span className="text-xs text-gray-400 ml-2">(Data from 07-12-2021 to 14-12-2021 GMT+7)</span>
+        <span className="text-xs text-gray-400 ml-2 font-normal">(Data from 07-12-2021 to 14-12-2021 GMT+7)</span>
       </Title>
       <div className="flex w-full">
         {/* GSV */}

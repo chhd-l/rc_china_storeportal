@@ -9,7 +9,6 @@ import { ContentContainer } from "@/components/ui"
 import { getAccountList, getAppQrCodes, upsertAppQrCodes } from '@/framework/api/wechatSetting'
 import type { ProColumns } from "@ant-design/pro-table";
 import { Link } from "react-router-dom"
-import IconFont from "@/components/common/IconFont"
 import { EyeOutlined } from '@ant-design/icons';
 import { useNavigate } from "react-router";
 import { useRef, useState } from "react"
@@ -93,7 +92,7 @@ const MpQrList = () => {
               setID(record.id)
               setDeleteModal(true)
             }}>
-              <IconFont type='icon-delete' />
+              <span className='iconfont icon-delete' />
             </Link>
           </Tooltip>
           <Tooltip title='View QR Code'>
@@ -101,7 +100,7 @@ const MpQrList = () => {
               setImgUrl(record.imgUrl)
               setIsModalVisible(true)
             }}>
-              <IconFont type='icon-Frame-1' />
+              <span className='iconfont icon-Frame-1' />
             </Link>
           </Tooltip>
         </div>

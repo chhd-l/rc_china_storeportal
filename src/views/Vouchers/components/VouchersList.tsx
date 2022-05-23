@@ -1,5 +1,6 @@
 import { ContentContainer } from "@/components/ui"
 import ProTable, { ProColumns } from "@ant-design/pro-table"
+import { Button } from "antd";
 
 type VouchersListType = {
     columns: ProColumns<any, string>[];
@@ -22,6 +23,13 @@ const VouchersList = ({ columns, getList }: VouchersListType) => {
                 search= {{
                   labelWidth: 'auto',
                   searchText: 'Search',
+                  optionRender: (searchConfig,formProps,dom) => {
+                    return dom.map((item: any) => {
+                      return (
+                        <Button {...item.props} loading={false} />
+                      )
+                    }).reverse()
+                  }
                 }}
                 request={(parma) => getList(parma)}
             />

@@ -8,7 +8,7 @@ import './Style.less'
 import { createVoucher, updateVoucher } from '@/framework/api/voucher'
 
 const CreateNewVoucher = () => {
-  const [VoucherType, setVoucherType] = useState('Shop Voucher')
+  const [VoucherType, setVoucherType] = useState('SHOP_VOUCHER')
 
   const addNewVoucher=async ()=>{
     const res=await createVoucher()
