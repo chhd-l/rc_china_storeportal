@@ -2,8 +2,7 @@ import { Typography } from 'antd'
 import { ContentContainer } from '@/components/ui'
 import { PromotionTabList } from './modules/constants'
 import { useNavigate } from 'react-router-dom'
-import IconFont from '@/components/common/IconFont'
-
+import './Style.less'
 const { Title } = Typography
 
 const MarketingCentreList = () => {
@@ -23,7 +22,7 @@ const MarketingCentreList = () => {
                   navigator(el.url)
                 }}
               >
-                <IconFont className="m-auto text-60" type={el.icon} />
+                <div className={`bacIcon ${el.bacImg}`} />
                 <div className="flex flex-col justify-between w-4/5">
                   <div className="mb-1">{el.title}</div>
                   <span className="text-gray-500 text-10 leading-14">{el.span}</span>
@@ -33,6 +32,7 @@ const MarketingCentreList = () => {
           </div>
         </div>
       ))}
+      <div className='bacikaksd'></div>
     </ContentContainer>
   )
 }

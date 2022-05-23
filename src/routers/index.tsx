@@ -125,6 +125,7 @@ let routes: RouteObject[] = [
             children: [
               { index: true, element: <Vouchers />, },
               { path: 'createNewVoucher', element: <CreateNewVoucher />, breadcrumbName: 'CreateNewVoucher'},
+              { path: 'voucherDetails', element: <CreateNewVoucher />, breadcrumbName: 'voucherDetails'},
               { path: 'orderswithVoucher', element: <OrderswithVoucher />, breadcrumbName: 'Orders with Voucher'},
             ]
           },
