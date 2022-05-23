@@ -8,7 +8,6 @@ import { ContentContainer } from '@/components/ui'
 import { useEffect, useRef, useState } from 'react'
 import { CategoryBaseProps } from '@/framework/types/product'
 import { getShopCategories, updateShopCategory } from '@/framework/api/get-product'
-import IconFont from '@/components/common/IconFont'
 import { handlePageParams } from '@/utils/utils'
 import { useAtom } from 'jotai'
 import { userAtom } from '@/store/user.store'
@@ -172,7 +171,7 @@ const ShopCategories = () => {
             return [
               <Tooltip title='Add Poducts'>
               <Link to={`/category/category-manual-detail/${record.id}`} className='mr-4 text-xl'>
-                <IconFont type='icon-jiahao' />
+                <span className='iconfont icon-jiahao' />
               </Link>
               </Tooltip>,
               <Tooltip title='Delete'>
@@ -180,21 +179,21 @@ const ShopCategories = () => {
                 setIsModalVisible(true)
                 setCurAssetId(record.id)
               }}>
-                <IconFont type='icon-delete' />
+                <span className='iconfont icon-delete' />
               </Link></Tooltip>,
             ]
           } else {
             return [
               <Tooltip title='Set Filtering Rules'>
               <Link to={`/category/category-detail/${record.id}`} className='mr-4 text-xl'>
-                <IconFont type='icon-group52' />
+                <span className='iconfont icon-group52' />
               </Link></Tooltip>,
               <Tooltip title='Delete'>
               <Link to='' className='mr-4 text-xl' onClick={() => {
                 setIsModalVisible(true)
                 setCurAssetId(record.id)
               }}>
-                <IconFont type='icon-delete' />
+                <span className='iconfont icon-delete' />
               </Link></Tooltip>,
             ]
           }
@@ -204,28 +203,28 @@ const ShopCategories = () => {
             return [
               <Tooltip title='Details'>
               <Link to={`/category/category-manual-detail/${record.id}`} className='mr-4 text-xl'>
-                <IconFont type='icon-category-details' />
+                <span className='iconfont icon-category-details' />
               </Link></Tooltip>,
               <Tooltip title='Delete'>
               <Link to='' className='mr-4 text-xl' onClick={() => {
                 setIsModalVisible(true)
                 setCurAssetId(record.id)
               }}>
-                <IconFont type='icon-delete' />
+                <span className='iconfont icon-delete' />
               </Link></Tooltip>,
             ]
           } else {
             return [
               <Tooltip title='Details'>
               <Link to={`/category/category-detail/${record.id}`} className='mr-4 text-xl'>
-                <IconFont type='icon-category-details' />
+                <span className='iconfont icon-category-details' />
               </Link></Tooltip>,
               <Tooltip title='Delete'>
               <Link to='' className='mr-4 text-xl' onClick={() => {
                 setIsModalVisible(true)
                 setCurAssetId(record.id)
               }}>
-                <IconFont type='icon-delete' />
+                <span className='iconfont icon-delete' />
               </Link></Tooltip>,
             ]
           }

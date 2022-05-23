@@ -496,10 +496,10 @@ export const deleteReplyContent = async (id: string) => {
   return data?.replyContentUpsert ?? false
 }
 
-export const disableOrEnableReplyContent = async (param: any) => {
+export const updateReplyContent = async (id: string, param: any) => {
   const data = await ApiRoot.wechatSettings().modifyReplyContent({
     body: {
-      id: param.id,
+      id: id,
       isDeleted: false,
       operator: 'zz',
       replyContent: param,

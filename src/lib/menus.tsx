@@ -158,12 +158,12 @@ export const menus = [
         url: '/fans/fans-list',
         key: 'fans_management',
       },
-      // {
-      //   name: 'Automatic Replies',
-      //   value: 'automatic_replies',
-      //   url: '/automatic-replies',
-      //   key: 'automatic_replies',
-      // },
+      {
+        name: 'Automatic Replies',
+        value: 'automatic_replies',
+        url: '/auto-reply/auto-reply-list',
+        key: 'automatic_replies',
+      },
       {
         name: 'Reply Content',
         value: 'response_content',

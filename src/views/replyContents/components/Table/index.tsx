@@ -38,8 +38,7 @@ const Index = ({
       <Switch
         checked={text}
         onChange={(checked) => {
-          onChangeStatus({
-            id: record.id,
+          onChangeStatus(record.id, {
             accountId: record.accountId,
             responseDescribe: record.description,
             responseType: record.type,
@@ -59,7 +58,7 @@ const Index = ({
           <Tooltip title="Edit">
             <span
               className="cursor-pointer iconfont icon-a-Group437 text-red-500"
-              onClick={() => { }}
+              onClick={() => { navigator("/reply/edit-reply-content", { state: record }) }}
             />
           </Tooltip>
           <Tooltip title="Delete">

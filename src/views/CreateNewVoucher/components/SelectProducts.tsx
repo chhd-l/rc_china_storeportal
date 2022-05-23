@@ -1,7 +1,7 @@
-import { QuestionCircleOutlined } from '@ant-design/icons';
 import { ParamsType } from '@ant-design/pro-provider';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
-import { Modal, Typography, Form, Select, Input, Image, Button, Tooltip } from 'antd';
+import { Modal, Typography, Form, Select, Input, Image, Button } from 'antd';
+import { getFindShopCategoryGoodsPage } from '@/framework/api/get-product'
 const { Title } = Typography;
 
 type SelectProductsType = {
@@ -36,7 +36,7 @@ const SelectProducts = ({ SelectProductsModal, SelectProductshandleOk, SelectPro
             hideInSearch: true,
             width: '38%',
             render: (text, recout) => {
-                return <div className='flex'>
+                return <div className='flex items-center'>
                     <div>
                         <Image
                             width={100}
@@ -96,16 +96,9 @@ const SelectProducts = ({ SelectProductsModal, SelectProductshandleOk, SelectPro
             title: 'Price(s)',
             dataIndex: 'Price',
             hideInSearch: true,
-            defaultSortOrder: 'descend',
-            sorter: (a, b) => a.Price - b.Price,
         },
         {
-            title: () => <div className='flex items-center'>
-                Stock
-                <Tooltip title="prompt text">
-                    <QuestionCircleOutlined className='ml-1 text-gray-400' />
-                </Tooltip>
-            </div>,
+            title: 'Stock',
             dataIndex: 'Stock',
             hideInSearch: true
         },
@@ -133,7 +126,17 @@ const SelectProducts = ({ SelectProductsModal, SelectProductshandleOk, SelectPro
                     showTotal: () => <></>
                 }}
                 options={false}
-                request={(parma) => {
+                request={async (parma) => {
+                    const res = await getFindShopCategoryGoodsPage({
+                        offset: parma?.current && parma.current - 1,
+                        limit: parma.pageSize,
+                        isNeedTotal: true,
+                        sample: {
+                            shopCategoryId: '1'
+                        },
+                    })
+                    console.log('res',res)
+                    console.log('parma',parma)
                     return Promise.resolve({
                         success: true,
                         data: dataSource,

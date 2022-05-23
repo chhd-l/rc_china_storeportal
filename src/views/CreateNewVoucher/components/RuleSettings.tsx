@@ -8,9 +8,10 @@ import { useState } from 'react'
 const { Title } = Typography
 
 const OrderType = [
-  { label: 'All', value: 'All' },
-  { label: 'Single Order', value: 'Single Order' },
-  { label: 'Normal Subscription', value: 'Normal Subscription' },
+  { label: 'All', value: 'ALL' },
+  { label: 'Single Order', value: 'SING_ORDER' },
+  { label: 'Normal Subscription', value: 'NORMAL_SUBSCRIPTION' },
+  { label: 'Device Ubscription', value: 'DEVICE_SUBSCRIPTION' },
 ]
 
 const RuleSettings = () => {

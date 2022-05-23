@@ -3,8 +3,8 @@ import { ProColumns } from "@ant-design/pro-table";
 import { Button,Space,Input } from "antd";
 import { getESProducts } from '@/framework/api/get-product'
 import { formatMoney } from '@/utils/utils'
-import IconFont from '@/components/common/IconFont'
 const { Search } = Input
+
 const setNum = (arr: any) => {
   let result = 0
   for (let i = 0; i < arr.length; i++) {
