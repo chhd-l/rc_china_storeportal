@@ -195,7 +195,7 @@ let routes: RouteObject[] = [
         children: [
           { index: true, element: <AutoReplyList /> },
           { path: 'auto-reply-list', element: <AutoReplyList /> },
-          { path: 'add-auto-reply', element: <AddAutoReply />, breadcrumbName: 'Add Automatic Reply' },
+          { path: 'add-auto-reply', element: <AddAutoReply />, breadcrumbName: 'Add New Automatic Reply' },
           { path: 'edit-auto-reply', element: <AddAutoReply />, breadcrumbName: 'Edit Automatic Reply' },
         ],
       },

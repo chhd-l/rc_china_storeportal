@@ -3,11 +3,21 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 import { AutoReplies } from "@/framework/types/wechat";
 
-const Index = ({ autoReplies }: { autoReplies: AutoReplies[] }) => {
+const Index = ({
+  autoReplies,
+  pages,
+  loading,
+  onPageChange
+}: {
+  autoReplies: AutoReplies[]
+  pages: { page: number, limit: number, total: number }
+  loading: boolean
+  onPageChange: Function
+}) => {
   const navigator = useNavigate();
   const columns = [
     {
-      title: "Account Principal",
+      title: "Official Name",
       dataIndex: "principal",
       key: "principal",
     },
@@ -60,13 +70,14 @@ const Index = ({ autoReplies }: { autoReplies: AutoReplies[] }) => {
   ];
 
   return (
-    <div>
+    <div className="pt-4">
       <div className="flex flex-row justify-end mb-4">
         <Button
+          type="primary"
           danger
           className="mr-4"
           onClick={() => {
-            navigator("/reply/add-auto-reply");
+            navigator("/auto-reply/add-auto-reply");
           }}
         >
           + Add
@@ -75,8 +86,16 @@ const Index = ({ autoReplies }: { autoReplies: AutoReplies[] }) => {
       <Table
         dataSource={autoReplies}
         columns={columns}
+        loading={loading}
         rowKey="id"
         className="rc-table"
+        pagination={{
+          current: pages.page,
+          total: pages.total,
+          onChange: (page) => {
+            onPageChange(page)
+          }
+        }}
       />
     </div>
   );

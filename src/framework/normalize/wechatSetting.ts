@@ -1,5 +1,5 @@
 import { normaliseAttrProps } from './product'
-import { ReplyContent } from "@/framework/types/wechat"
+import { ReplyContent, AutoReplies } from "@/framework/types/wechat"
 import { handleReturnTime } from '@/utils/utils'
 
 export const normaliseMedia = (media: any) => {
@@ -39,6 +39,20 @@ export const normaliseReplyContent: (data: any) => ReplyContent[] = (data) => {
     status: item.isActive,
     content: item.messageContent,
     accountId: item.accountId,
-    mediaId: item.mediaId
+    mediaId: item.mediaId,
+    mediaTitle: item.title,
+    mediaDescription: item.description,
   }))
+}
+
+export const normaliseAutoReplies: (data: any) => AutoReplies = (data) => {
+  return {
+    id: data?.id,
+    principal: data?.accountId,
+    matchType: data?.matchType,
+    keywords: data?.keyWords,
+    responseType: data?.replyContentType,
+    responseDes: data?.replyContentDescribe,
+    status: data?.isActive
+  }
 }
