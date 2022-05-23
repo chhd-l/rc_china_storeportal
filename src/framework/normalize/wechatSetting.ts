@@ -36,6 +36,9 @@ export const normaliseReplyContent: (data: any) => ReplyContent[] = (data) => {
     id: item.id,
     type: item.responseType,
     description: item.responseDescribe,
-    status: item.isActive
+    status: item.isActive,
+    content: item.messageContent,
+    accountId: item.accountId,
+    mediaId: item.mediaId
   }))
 }

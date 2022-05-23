@@ -1,13 +1,29 @@
 import { ContentContainer } from '@/components/ui'
 import { Button, Form } from 'antd'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import BasicInformation from './components/BasicInformation'
 import RuleSettings from './components/RuleSettings'
 import ApplicableProducts from './components/ApplicableProducts'
 import './Style.less'
+import { createVoucher, updateVoucher } from '@/framework/api/voucher'
 
 const CreateNewVoucher = () => {
   const [VoucherType, setVoucherType] = useState('SHOP_VOUCHER')
+
+  const addNewVoucher=async ()=>{
+    const res=await createVoucher()
+    console.log('create voucher',res)
+  }
+
+  const updateVouchers=async ()=>{
+    const res=await updateVoucher()
+    console.log('update voucher',res)
+  }
+
+  useEffect(()=>{
+    addNewVoucher()
+    updateVouchers()
+  },[])
 
   return (
     <ContentContainer>
@@ -17,6 +33,7 @@ const CreateNewVoucher = () => {
         className="CreateNewVoucher"
         onFinish={(v) => {
           console.log('v', v)
+          addNewVoucher()
         }}
       >
         <BasicInformation VoucherType={VoucherType} setVoucherType={setVoucherType} />
