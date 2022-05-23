@@ -67,7 +67,6 @@ let routes: RouteObject[] = [
       // { index: true , element:<Routes><Route  element={<Navigate to={'/Home'} />} /></Routes> },
       { path: 'shipment-list', element: <OrderList />, breadcrumbName: 'My Shipment' },
       { path: 'shipping-setting', element: <ShippingSetting />, breadcrumbName: 'Shipping Setting' },
-      { path: 'automatic-replies', element: <AutoReplyList />, breadcrumbName: 'Automatic Replies' },
       { path: 'assets-management', element: <AssetList />, breadcrumbName: 'Assets Management' },
       { path: 'add-video', element: <AddVideo />, breadcrumbName: 'Add Video' },
       {
@@ -185,9 +184,19 @@ let routes: RouteObject[] = [
         breadcrumbName: 'Reply Contents',
         children: [
           { index: true, element: <ReplyContents /> },
-          { path: 'add-auto-reply', element: <AddAutoReply />, breadcrumbName: 'Add AutoReply' },
           { path: 'reply-contents', element: <ReplyContents /> },
-          { path: 'add-reply-content', element: <AddReplyContent />, breadcrumbName: 'Add Reply Content' },
+          { path: 'add-reply-content', element: <AddReplyContent />, breadcrumbName: 'Add New Reply Content' },
+          { path: 'edit-reply-content', element: <AddReplyContent />, breadcrumbName: 'Edit Reply Content' }
+        ],
+      },
+      {
+        path: 'auto-reply',
+        breadcrumbName: 'Automatic Reply',
+        children: [
+          { index: true, element: <AutoReplyList /> },
+          { path: 'auto-reply-list', element: <AutoReplyList /> },
+          { path: 'add-auto-reply', element: <AddAutoReply />, breadcrumbName: 'Add Automatic Reply' },
+          { path: 'edit-auto-reply', element: <AddAutoReply />, breadcrumbName: 'Edit Automatic Reply' },
         ],
       },
       {
