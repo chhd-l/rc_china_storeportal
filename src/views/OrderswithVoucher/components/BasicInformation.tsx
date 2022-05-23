@@ -24,7 +24,7 @@ const BasicInformation = () => {
                     label={
                         <div className="flex items-center">
                             Quantity
-                            <Tooltip color='white' overlayClassName="BasicInformationTooltip" title="prompt text">
+                            <Tooltip color='white' overlayClassName="BasicInformationTooltip" title="Total number of vouchers">
                                 <QuestionCircleOutlined className="text-gray-400" />
                             </Tooltip>
                         </div>
@@ -36,7 +36,7 @@ const BasicInformation = () => {
                     label={
                         <div className="flex items-center">
                             Claimed
-                            <Tooltip color='white' overlayClassName="BasicInformationTooltip" title="prompt text">
+                            <Tooltip color='white' overlayClassName="BasicInformationTooltip" title="Number of vouchers that have been claimed">
                                 <QuestionCircleOutlined className="text-gray-400" />
                             </Tooltip>
                         </div>
@@ -48,7 +48,7 @@ const BasicInformation = () => {
                     label={
                         <div className="flex items-center">
                             Usage
-                            <Tooltip color='white' overlayClassName="BasicInformationTooltip" title="prompt text">
+                            <Tooltip color='white' overlayClassName="BasicInformationTooltip" title="Number of vouchers that have been used (excluding cancelled and orders)">
                                 <QuestionCircleOutlined className="text-gray-400" />
                             </Tooltip>
                         </div>

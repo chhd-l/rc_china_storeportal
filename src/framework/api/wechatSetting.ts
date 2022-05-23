@@ -483,3 +483,28 @@ export const createReplyContent = async (params: any) => {
   console.log('create replyContent view data:', data)
   return data?.replyContentCreate ?? {}
 }
+
+export const deleteReplyContent = async (id: string) => {
+  const data = await ApiRoot.wechatSettings().modifyReplyContent({
+    body: {
+      id,
+      isDeleted: true,
+      operator: 'zz',
+    }
+  });
+  console.log('delete replyContent view data:', data)
+  return data?.replyContentUpsert ?? false
+}
+
+export const disableOrEnableReplyContent = async (param: any) => {
+  const data = await ApiRoot.wechatSettings().modifyReplyContent({
+    body: {
+      id: param.id,
+      isDeleted: false,
+      operator: 'zz',
+      replyContent: param,
+    }
+  });
+  console.log('disable or enable replyContent view data:', data);
+  return data?.replyContentUpsert ?? false
+}

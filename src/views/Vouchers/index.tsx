@@ -3,29 +3,44 @@ import KeyMetrics from './components/KeyMetrics'
 import VouchersListHead from './components/VouchersListHead'
 import VouchersList from './components/VouchersList'
 import { Tooltip, Image, Typography } from 'antd'
+import { useNavigate } from 'react-router-dom'
 import './Style.less'
+import { QuestionCircleOutlined } from '@ant-design/icons'
 const { Title } = Typography
 
 const dataSource = [
   {
     id: '1',
     VoucherName: '胡彦斌',
-    Price: '$300',
+    Price: '￥300',
     Stock: 32,
     Usages: 0,
+    status: 0,
     Brand: '西湖区湖底公园1号',
   },
   {
     id: '2',
     Products: 'xxxx',
-    Price: '$300',
+    Price: '￥300',
     Stock: 312,
     Usages: 0,
+    status: 1,
+    Brand: '西湖区湖底公园1号',
+  },
+  {
+    id: '2',
+    Products: 'xxxx',
+    Price: '￥300',
+    Stock: 312,
+    Usages: 0,
+    status: 2,
     Brand: '西湖区湖底公园1号',
   },
 ]
 
 const Vouchers = () => {
+  const navigator = useNavigate()
+
   const columns = [
     {
       title: 'Voucher Name',
@@ -82,20 +97,27 @@ const Vouchers = () => {
       hideInSearch: true,
     },
     {
-      title: 'Usage',
+      title: (
+        <div className="flex items-center">
+          Usage
+          <Tooltip title="Number of vouchers that have been used (excluding cancelled orders)">
+            <QuestionCircleOutlined className="ml-2 text-gray-400" />
+          </Tooltip>
+        </div>
+      ),
       dataIndex: 'Usages',
       hideInSearch: true,
     },
     {
       title: 'Status Claiming Period',
-      dataIndex: 'StatusClaimingPeriod',
+      dataIndex: 'status',
       hideInSearch: true,
-      render: () => {
+      render: (text: any) => {
         return (
           <div>
-            <span className="Upcoming">Upcoming</span>
-            <span className="Ongoing">Ongoing</span>
-            <span className="Expired">Expired</span>
+            {text === 0 && <span className="Upcoming">Upcoming</span>}
+            {text === 1 && <span className="Ongoing">Ongoing</span>}
+            {text === 2 && <span className="Expired">Expired</span>}
             <div className="text-gray-400">2020/12/23 15:38 - 2020/12/24 14:23</div>
           </div>
         )
@@ -107,21 +129,34 @@ const Vouchers = () => {
       hideInSearch: true,
       render: (text: any, record: any) => (
         <>
-          <Tooltip title="Edit">
-            <span className="cursor-pointer iconfont icon-a-Group437 text-red-500 text-xl" />
-          </Tooltip>
-          <Tooltip title="Details">
-            <span className="cursor-pointer ml-2 iconfont icon-kjafg text-red-500 text-xl" />
-          </Tooltip>
+          {(record.status === 0 || record.status === 1) && (
+            <Tooltip title="Edit">
+              <span
+                className="cursor-pointer iconfont icon-a-Group437 text-red-500 text-xl"
+                onClick={() => {
+                  navigator('/marketingCentre/vouchers/orderswithVoucher')
+                }}
+              />
+            </Tooltip>
+          )}
+          {record.status === 2 && (
+            <Tooltip title="Details">
+              <span className="cursor-pointer ml-2 iconfont icon-kjafg text-red-500 text-base" />
+            </Tooltip>
+          )}
           <Tooltip title="Orders">
             <span className="cursor-pointer ml-2 iconfont icon-dingdan text-red-500 text-xl" />
           </Tooltip>
-          <Tooltip title="End">
-            <span className="cursor-pointer ml-2 iconfont icon-xingzhuangjiehe text-red-500 text-xl" />
-          </Tooltip>
-          <Tooltip title="Delete">
-            <span className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl" />
-          </Tooltip>
+          {record.status === 1 && (
+            <Tooltip title="End">
+              <span className="cursor-pointer ml-2 iconfont icon-lianxi2hebing-15 text-red-500 text-xl" />
+            </Tooltip>
+          )}
+          {record.status === 0 && (
+            <Tooltip title="Delete">
+              <span className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl" />
+            </Tooltip>
+          )}
         </>
       ),
     },

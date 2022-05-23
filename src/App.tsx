@@ -30,7 +30,7 @@ function App () {
       localStorage.setItem('rc_access_token', '')
       localStorage.removeItem('rc-userInfo')
       localStorage.removeItem('rc-token')
-      // navigate('/login')
+      navigate('/login')
     }
   }, [])
 
@@ -39,7 +39,7 @@ function App () {
       <Suspense
         fallback={
           <div className='w-full h-screen flex justify-center items-center'>
-            <img className='mb-15' style={{ width: '13rem' }} src={Loading} />
+            <img className='mb-15' alt='' style={{ width: '13rem' }} src={Loading} />
           </div>
         }
       >

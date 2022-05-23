@@ -56,8 +56,8 @@ project
 - page 页面代码结构约定
 
   ```
-  └── pages
-    ├── Home
+  └── views
+    ├── productList //一个页面一个page,命名:小驼峰形式
     |   ├── components // 放置本页面拆分的一些组件
     |   ├── hooks      // 放置本页面拆分的一些可复用逻辑
     |   ├── index.tsx  // 页面组件的代码

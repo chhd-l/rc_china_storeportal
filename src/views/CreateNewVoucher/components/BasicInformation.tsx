@@ -3,6 +3,7 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { Typography, Form, Input, DatePicker, Upload, Image } from 'antd'
 import Finishedproductdisplay from './Finishedproductdisplay';
 import { useState } from 'react';
+import moment from 'moment';
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
 
@@ -10,6 +11,10 @@ type BasicInformationType = {
     VoucherType: string;
     setVoucherType: Function;
 }
+
+const disabledDate = (current: any) => {
+    return current && current < moment().endOf('day');
+  }
 
 const BasicInformation = ({ VoucherType, setVoucherType }: BasicInformationType) => {
     const [imageUrl, setImageUrl] = useState('')
@@ -32,11 +37,11 @@ const BasicInformation = ({ VoucherType, setVoucherType }: BasicInformationType)
     )
 
     const handleChange = (info: any) => {
-        setLoading(false)
+        setLoading(true)
         if (info.file.status === 'done') {
             // Get this url from response in real world.
             setImageUrl(info.file.response.url)
-            setLoading(true)
+            setLoading(false)
         }
     }
 
@@ -84,7 +89,7 @@ const BasicInformation = ({ VoucherType, setVoucherType }: BasicInformationType)
                 required: true,
                 message: 'Pless Select'
             }]}>
-                <RangePicker />
+                <RangePicker disabledDate={disabledDate} />
             </Form.Item>
             <Form.Item
                 className='Uploader'

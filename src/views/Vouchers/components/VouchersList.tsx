@@ -8,10 +8,17 @@ type VouchersListType = {
 
 const VouchersList = ({ columns, getList }: VouchersListType) => {
     return (
-        <ContentContainer className="bg-white px-4 VouchersList">
+        <ContentContainer className="bg-white px-4 pt-0 VouchersList">
             <ProTable
                 columns={columns}
                 options={false}
+                pagination={{
+                    hideOnSinglePage: false,
+                    showSizeChanger: true,
+                    showQuickJumper: true,
+                    defaultPageSize: 10,
+                    showTotal: () => <></>
+                }}
                 search= {{
                   labelWidth: 'auto',
                   searchText: 'Search',
