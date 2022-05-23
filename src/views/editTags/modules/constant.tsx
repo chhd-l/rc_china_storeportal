@@ -3,7 +3,7 @@ import { ProColumns } from '@ant-design/pro-table'
 import { Button,Input,Space } from 'antd'
 import { formatMoney } from '@/utils/utils'
 import { Link } from 'react-router-dom'
-import IconFont from '@/components/common/IconFont'
+
 const {Search} = Input
 export const columns: ProColumns<ProductForCateProps>[] = [
   {
@@ -29,9 +29,8 @@ export const columns: ProColumns<ProductForCateProps>[] = [
     render: (_, record) => {
       return(
         <Link to='' className='mr-4 text-xl' onClick={() => {
-
         }}>
-          <IconFont type='icon-delete' />
+          <span className='iconfont icon-delete' />
         </Link>
       )
     }
