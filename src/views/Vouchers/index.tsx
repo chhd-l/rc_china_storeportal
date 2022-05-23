@@ -6,6 +6,8 @@ import { Tooltip, Image, Typography } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import './Style.less'
 import { QuestionCircleOutlined } from '@ant-design/icons'
+import { deleteVoucher, endVoucher, getVouchers } from '@/framework/api/voucher'
+import { useEffect } from 'react'
 const { Title } = Typography
 
 const dataSource = [
@@ -40,6 +42,25 @@ const dataSource = [
 
 const Vouchers = () => {
   const navigator = useNavigate()
+
+  const getVoucherList=async ()=>{
+    const res=await getVouchers()
+    console.log('voucher list',res)
+  }
+
+  const delVoucher=async ()=>{
+    const res=await deleteVoucher()
+    console.log('delete voucher',res)
+  }
+
+  const endActivityVoucher=async()=>{
+    const res=await endVoucher()
+    console.log('end voucher',res)
+  }
+
+  useEffect(()=>{
+    getVoucherList()
+  },[])
 
   const columns = [
     {
@@ -149,12 +170,12 @@ const Vouchers = () => {
           </Tooltip>
           {record.status === 1 && (
             <Tooltip title="End">
-              <span className="cursor-pointer ml-2 iconfont icon-lianxi2hebing-15 text-red-500 text-xl" />
+              <span className="cursor-pointer ml-2 iconfont icon-lianxi2hebing-15 text-red-500 text-xl" onClick={()=>endActivityVoucher()}/>
             </Tooltip>
           )}
           {record.status === 0 && (
             <Tooltip title="Delete">
-              <span className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl" />
+              <span className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl" onClick={()=>delVoucher()}/>
             </Tooltip>
           )}
         </>
