@@ -18,7 +18,7 @@ const MarketingCentreList = () => {
           <div className="grid grid-cols-3 gap-4">
             {item.children.map((el: any) => (
               <div
-                className="flex items-center justify-between p-4 bg-gray2"
+                className="flex items-center justify-between p-4 bg-gray2 hover:cursor-pointer"
                 onClick={() => {
                   navigator(el.url)
                 }}
