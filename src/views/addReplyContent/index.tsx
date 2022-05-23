@@ -5,21 +5,39 @@ import {
   TEXT_FORM,
   VIDEO_FORM,
 } from "./modules/form";
-import { useNavigate } from "react-router";
-import { useState } from "react";
-import SelectContext from "./components/SelectAssets";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import AssetsModal from "@/components/common/AssetsModal";
 import { Asset } from "@/framework/types/wechat";
 import { Container, ContentContainer, InfoContainer } from "@/components/ui";
-import { createReplyContent } from "@/framework/api/wechatSetting"
+import { createReplyContent, updateReplyContent } from "@/framework/api/wechatSetting";
 
 const AddAccount = () => {
+  const [title, setTitle] = useState<string>("Add New Reply Content");
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [assetType, setAssetType] = useState<"image" | "video" | "voice">("image")
   const navigator = useNavigate();
   const [formItems, setFromItems] = useState(
     ADD_REPLY_CONTENT_FORM.concat(BASE_FORM)
   );
   const [form] = Form.useForm();
+  const location = useLocation();
+
+  useEffect(() => {
+    const state: any = location.state;
+    if (state?.id) {
+      setTitle("Edit Reply Content");
+      setAssetType(state.type === "VOICE" ? 'voice' : state.type === "VIDEO" ? "video" : "image");
+      formValuesChange({}, { type: state.type });
+      form.setFieldsValue({
+        type: state?.type ?? undefined,
+        description: state?.description ?? undefined,
+        assetId: state?.mediaId ?? undefined,
+        message: state?.content ?? undefined,
+      });
+    }
+  }, []);
 
   const formValuesChange = (changedValues: any, allValues: any) => {
     console.log(changedValues, allValues);
@@ -27,15 +45,22 @@ const AddAccount = () => {
     switch (allValues.type) {
       case "":
       case "IMAGE":
+        setAssetType("image");
+        baseFormItems = baseFormItems.concat(BASE_FORM);
+        break;
       case "VOICE":
+        setAssetType("voice");
         baseFormItems = baseFormItems.concat(BASE_FORM);
         break;
       case "TEXT":
         baseFormItems = baseFormItems.concat(TEXT_FORM);
         break;
       case "VIDEO":
-      case "ARTICLE":
+        setAssetType("video");
         baseFormItems = baseFormItems.concat(BASE_FORM, VIDEO_FORM);
+        break;
+      case "ARTICLE":
+        baseFormItems = baseFormItems.concat(BASE_FORM);
         break;
       default:
         break;
@@ -49,28 +74,32 @@ const AddAccount = () => {
 
   const addAccount = async (values: any) => {
     console.log(values);
-    if (values.type === 'TEXT') {
-      setLoading(true);
-      const res = await createReplyContent({
-        accountId: '000001',
-        responseDescribe: values.description,
-        responseType: 'TEXT',
-        messageContent: values.message
-      });
-      setLoading(false);
-      navigator("/reply/reply-contents");
+    setLoading(true);
+    const newReplyContent = {
+      accountId: '000001',
+      responseDescribe: values.description,
+      responseType: values.type,
+      messageContent: values.type === 'TEXT' ? values.message : undefined,
+      mediaId: values.type !== 'TEXT' ? values.assetId: undefined,
+    };
+    if ((location?.state as any)?.id) {
+      await updateReplyContent((location.state as any).id, newReplyContent);
+    } else {
+      await createReplyContent(newReplyContent);
     }
+    setLoading(false);
+    navigator("/reply/reply-contents");
   };
 
   const setAssetId = (selectAsset: Asset) => {
-    form.setFieldsValue({ assetId: selectAsset.assetId });
+    form.setFieldsValue({ assetId: selectAsset.assetId, assetTitle: assetType === 'video' ? selectAsset.assetTitle : undefined });
     setModalVisible(false);
   };
 
   return (
     <ContentContainer>
       <InfoContainer>
-        <div className="text-2xl text-medium mb-4">Add New Reply Content</div>
+        <div className="text-2xl text-medium mb-4">{title}</div>
         <Form
           onValuesChange={formValuesChange}
           onFinish={addAccount}
@@ -100,6 +129,7 @@ const AddAccount = () => {
                 />
               ) : item.type === "search" ? (
                 <Input.Search
+                  readOnly
                   placeholder={item.placeholder}
                   onSearch={searchDescription}
                 />
@@ -120,7 +150,7 @@ const AddAccount = () => {
               danger
               className="mr-4"
               onClick={() => {
-                navigator("/account-list");
+                navigator("/reply/reply-contents");
               }}
             >
               Cancel
@@ -131,13 +161,12 @@ const AddAccount = () => {
           </Form.Item>
         </Form>
       </InfoContainer>
-      <SelectContext
-        modalVisible={modalVisible}
-        onCancel={() => {
-          setModalVisible(false);
-        }}
+      <AssetsModal
+        visible={modalVisible}
+        assetType={assetType}
+        onlySync={true}
         onConfirm={setAssetId}
-        type={form.getFieldValue("type")}
+        onCancel={() => setModalVisible(false)}
       />
     </ContentContainer>
   );
