@@ -8,7 +8,6 @@ import { ContentContainer } from "@/components/ui"
 import { Link } from "react-router-dom"
 import { getAccountList, getQrCodes } from '@/framework/api/wechatSetting'
 import type { ProColumns } from "@ant-design/pro-table";
-import IconFont from "@/components/common/IconFont"
 import moment from "moment"
 // import { tableColumns } from "./modules/constant"
 
@@ -83,7 +82,7 @@ const QrCodeManage = () => {
           setImgUrl(record.ticket)
           setIsModalVisible(true)
           }}>
-          <IconFont type='icon-Frame-1' />
+          <span className='iconfont icon-Frame-1' />
         </Link>
       )
     }

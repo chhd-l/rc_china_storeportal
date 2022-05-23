@@ -7,7 +7,7 @@ import ApplicableProducts from './components/ApplicableProducts'
 import './Style.less'
 
 const CreateNewVoucher = () => {
-  const [VoucherType, setVoucherType] = useState('Shop Voucher')
+  const [VoucherType, setVoucherType] = useState('SHOP_VOUCHER')
 
   return (
     <ContentContainer>

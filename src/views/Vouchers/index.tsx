@@ -134,7 +134,7 @@ const Vouchers = () => {
               <span
                 className="cursor-pointer iconfont icon-a-Group437 text-red-500 text-xl"
                 onClick={() => {
-                  navigator('/marketingCentre/vouchers/orderswithVoucher')
+                  navigator('/marketingCentre/vouchers/voucherDetails')
                 }}
               />
             </Tooltip>
@@ -145,7 +145,12 @@ const Vouchers = () => {
             </Tooltip>
           )}
           <Tooltip title="Orders">
-            <span className="cursor-pointer ml-2 iconfont icon-dingdan text-red-500 text-xl" />
+            <span
+              className="cursor-pointer ml-2 iconfont icon-dingdan text-red-500 text-xl"
+              onClick={() => {
+                navigator('/marketingCentre/vouchers/orderswithVoucher')
+              }}
+            />
           </Tooltip>
           {record.status === 1 && (
             <Tooltip title="End">
