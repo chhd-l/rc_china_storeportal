@@ -132,8 +132,8 @@ const ShopCategories = () => {
       dataIndex: 'categoryType',
       render: (_, record) => (
         <div>
-          <span>{record.name + ' | ' + record.categoryType }</span>
-          <span> {''+ record.categoryType==='MANUAL'?'Selection':'Filtering'}</span>
+          <span>{record.name + ' | ' }</span>
+          <span> {record.categoryType==='MANUAL'?'Manual Selection':'Rule_based Filtering'}</span>
         </div>
       ),
     },
@@ -249,7 +249,7 @@ const ShopCategories = () => {
               {/*  </Button>*/}
               {/*</Link>*/}
               <Button
-                className=' mr-4'
+                className=''
                 onClick={() => {
                   handleAddCate(true)
                 }}
