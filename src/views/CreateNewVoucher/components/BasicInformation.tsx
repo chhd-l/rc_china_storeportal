@@ -80,7 +80,7 @@ const BasicInformation = ({ VoucherType, setVoucherType }: BasicInformationType)
             <span className="w-32 text-gray-500">Product Voucher</span>
             <span
               className={`absolute top-0 right-0 ${
-                VoucherType == 'PRODUCT_VOUCHER' ? 'VoucherUncheckedtImg' : 'VoucherSelectImg'
+                VoucherType === 'PRODUCT_VOUCHER' ? 'VoucherUncheckedtImg' : 'VoucherSelectImg'
               }`}
               style={{ fontSize: '24px' }}
             />

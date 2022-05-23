@@ -139,7 +139,8 @@ const Vouchers = () => {
             {text === 0 && <span className="Upcoming">Upcoming</span>}
             {text === 1 && <span className="Ongoing">Ongoing</span>}
             {text === 2 && <span className="Expired">Expired</span>}
-            <div className="text-gray-400">2020/12/23 15:38 - 2020/12/24 14:23</div>
+            <div className="text-gray-400">2020/12/23 15:38 -</div>
+            <div className="text-gray-400">2020/12/24 14:23</div>
           </div>
         )
       },
