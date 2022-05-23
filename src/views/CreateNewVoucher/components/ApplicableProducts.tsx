@@ -82,7 +82,7 @@ const ApplicableProducts = ({ VoucherType }: ApplicableProductsType) => {
             <Title className='mt-8 mb-6' level={4}>Applicable Products</Title>
             {
                 true ? (
-                    <div className='flex items-center'>
+                    <div className='flex items-center pl-12'>
                         <span className='mr-8'>Applicable Products</span>
                         {
                             VoucherType === 'Shop Voucher' ? (
@@ -108,6 +108,13 @@ const ApplicableProducts = ({ VoucherType }: ApplicableProductsType) => {
                             columns={columns}
                             options={false}
                             search={false}
+                            pagination={{
+                                hideOnSinglePage: false,
+                                showSizeChanger: true,
+                                showQuickJumper: true,
+                                defaultPageSize: 10,
+                                showTotal: () => <></>
+                            }}
                             rowKey='id'
                             toolBarRender={() => [
                                 <div className='text-gray-400'><span className='text-black'>1</span> Product(s) Selected</div>,
