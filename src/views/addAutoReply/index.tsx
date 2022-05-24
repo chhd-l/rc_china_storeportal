@@ -6,6 +6,7 @@ import ReplyModal from "@/components/wechat/ReplyModal";
 import { ReplyContent } from "@/framework/types/wechat";
 import { ContentContainer, InfoContainer } from "@/components/ui";
 import { createAutomaticResponse, updateAutomaticResponse } from "@/framework/api/wechatSetting";
+import { SearchOutlined } from "@ant-design/icons";
 
 const AddAccount = () => {
   const [title, setTitle] = useState<string>("Add New Automatic Reply");
@@ -96,10 +97,11 @@ const AddAccount = () => {
                   ))}
                 </Select>
               ) : item.type === "search" ? (
-                <Input.Search
+                <Input
                   readOnly
                   placeholder={item.placeholder}
-                  onSearch={searchDescription}
+                  onClick={searchDescription}
+                  suffix={<SearchOutlined onClick={searchDescription} className="text-gray-400" />}
                 />
               ) : (
                 <Input placeholder={item.placeholder} />
@@ -107,21 +109,21 @@ const AddAccount = () => {
             </Form.Item>
           ))}
           <Form.Item
-            className="w-full flex flex-row justify-end"
-            wrapperCol={{ span: 8 }}
+            wrapperCol={{ span: 24 }}
           >
-            <Button
-              danger
-              className="mr-4"
-              onClick={() => {
-                navigator("/auto-reply/auto-reply-list");
-              }}
-            >
-              Cancel
-            </Button>
-            <Button loading={loading} type="primary" htmlType="submit" danger>
-              Confirm
-            </Button>
+            <div className="flex flex-row justify-end space-x-4">
+              <Button
+                danger
+                onClick={() => {
+                  navigator("/auto-reply/auto-reply-list");
+                }}
+              >
+                Cancel
+              </Button>
+              <Button loading={loading} type="primary" htmlType="submit" danger>
+                Confirm
+              </Button>
+            </div>
           </Form.Item>
         </Form>
       </InfoContainer>

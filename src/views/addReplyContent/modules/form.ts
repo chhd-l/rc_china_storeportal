@@ -32,12 +32,12 @@ export const BASE_FORM: FormItemProps[] = [
   {
     label: "Assets ID",
     name: "assetId",
-    placeholder: "Input",
+    placeholder: "Select",
     type: "search",
     rules: [
       {
         required: true,
-        message: "Please input Assets ID!",
+        message: "Please select Asset!",
       },
     ],
   },
