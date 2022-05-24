@@ -52,7 +52,7 @@ const OrderSetting = () => {
   return (
     <ContentContainer>
       <DivideArea />
-      <InfoContainer>
+      <InfoContainer className="pb-0">
         <div className="text-left font-medium text-xl">General order setting</div>
       </InfoContainer>
       {loading ? (
@@ -61,7 +61,7 @@ const OrderSetting = () => {
         </div>
       ) : initOrderSetting.length > 0 ? (
         <InfoContainer>
-          <div className="border p-2 flex justify-between items-center">
+          <div className="border p-2 flex justify-between items-center rounded-4">
             <span>
               After{' '}
               <InputNumber
@@ -82,7 +82,7 @@ const OrderSetting = () => {
               }}
             />
           </div>
-          <div className="border p-2 flex justify-between items-center mt-2">
+          <div className="border p-2 flex justify-between items-center mt-2 rounded-4">
             <span>
               After{' '}
               <InputNumber
