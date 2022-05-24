@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Input, message, Spin, Switch } from 'antd'
+import { Button, InputNumber, message, Spin, Switch } from 'antd'
 import { ContentContainer, InfoContainer, DivideArea } from '@/components/ui'
 import { getOrderSetting, updateOrderSetting } from '@/framework/api/get-order'
 import { OrderSettingItem } from '@/framework/types/order'
@@ -52,7 +52,7 @@ const OrderSetting = () => {
   return (
     <ContentContainer>
       <DivideArea />
-      <InfoContainer>
+      <InfoContainer className="pb-0">
         <div className="text-left font-medium text-xl">General order setting</div>
       </InfoContainer>
       {loading ? (
@@ -61,48 +61,49 @@ const OrderSetting = () => {
         </div>
       ) : initOrderSetting.length > 0 ? (
         <InfoContainer>
-          <div className="border p-2 flex justify-between items-center">
+          <div className="border p-2 flex justify-between items-center rounded-4">
             <span>
               After{' '}
-              <Input
-                type="number"
+              <InputNumber
+                min={0}
+                precision={0}
                 value={Number(autoCancelConfig?.context)}
-                onChange={(e) => {
-                  setAutoCancelConfig({ ...autoCancelConfig, context: String(e.target.value) })
+                onChange={(value) => {
+                  setAutoCancelConfig({ ...autoCancelConfig, context: String(value) })
                 }}
                 className="w-20"
               />{' '}
               minutes,if the PO has not paid successfully,the order would be automatically cancelled
             </span>
             <Switch
-              defaultChecked={autoCancelConfig?.isEnabled}
+              checked={autoCancelConfig?.isEnabled}
               onChange={() => {
                 setAutoCancelConfig({ ...autoCancelConfig, isEnabled: !autoCancelConfig.isEnabled })
               }}
             />
           </div>
-          <div className="border p-2 flex justify-between items-center mt-2">
+          <div className="border p-2 flex justify-between items-center mt-2 rounded-4">
             <span>
               After{' '}
-              <Input
-                type="number"
+              <InputNumber
+                min={0}
                 value={Number(autoCompleteConfig?.context)}
-                onChange={(e) => {
-                  setAutoCompleteConfig({ ...autoCompleteConfig, context: String(e.target.value) })
+                onChange={(value) => {
+                  setAutoCompleteConfig({ ...autoCompleteConfig, context: String(value) })
                 }}
                 className="w-20"
               />{' '}
               days of the order status is shipped,the order would be automatically completed
             </span>
             <Switch
-              defaultChecked={autoCompleteConfig?.isEnabled}
+              checked={autoCompleteConfig?.isEnabled}
               onChange={() => {
                 setAutoCompleteConfig({ ...autoCompleteConfig, isEnabled: !autoCompleteConfig.isEnabled })
               }}
             />
           </div>
           <div className="flex justify-end mt-md">
-            <Button danger className="mr-md" onClick={() => handleOrderSettings(initOrderSetting)}>
+            <Button className="mr-md" onClick={() => handleOrderSettings(initOrderSetting)}>
               Cancel
             </Button>
             <Button type="primary" onClick={() => modifyOrderSetting()}>

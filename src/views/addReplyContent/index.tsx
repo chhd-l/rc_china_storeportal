@@ -7,7 +7,7 @@ import {
 } from "./modules/form";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import AssetsModal from "@/components/common/AssetsModal";
+import AssetsModal from "@/components/wechat/AssetsModal";
 import { Asset } from "@/framework/types/wechat";
 import { Container, ContentContainer, InfoContainer } from "@/components/ui";
 import { createReplyContent, updateReplyContent, getReplyContentDetail } from "@/framework/api/wechatSetting";

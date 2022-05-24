@@ -20,7 +20,7 @@ export const columns: ProColumns<any>[] = [
     render: (_, record) => {
       return (
         <div className='flex al-cneter'>
-          <img src={record.goodsVariants[0]?.defaultImage} alt='' style={{ width: '50px', marginRight: '10px' }} />
+          <img src={record.goodsVariants[0]?.defaultImage} alt='' style={{ width: '50px',height:'50px', marginRight: '10px' }} />
           <div>
             <div>{record.goodsName}</div>
           </div>

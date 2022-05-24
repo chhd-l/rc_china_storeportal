@@ -1,4 +1,4 @@
-import { Button, DatePicker, Input } from 'antd'
+import { Button, DatePicker, Input,Row,Col } from 'antd'
 import React, { useState } from 'react'
 import { SearchParamsProps } from '@/framework/types/customer'
 import { initSearchParams } from '@/views/petOwnerList/modules/constants'
@@ -8,20 +8,23 @@ const OrderSearch = ({ query }: { query: Function }) => {
 
   return (
     <div>
-      <div className="flex flex-row items-center">
-        <div className="w-28 mr-2 text-left">Tagging Name:</div>
-        <Input
-          className="w-full"
-          placeholder="Enter tagging name"
-          value={searchParams.name}
-          onChange={(e) => {
-            setSearchParams({
-              ...searchParams,
-              name: e.target.value,
-            })
-          }}
-        />
-      </div>
+      <Row>
+        <Col span={12}>
+          <div className="flex flex-row items-center">
+            <div className="w-28 mr-2 text-left">Tagging Name:</div>
+            <Input
+              placeholder="Enter tagging name"
+              value={searchParams.name}
+              onChange={(e) => {
+                setSearchParams({
+                  ...searchParams,
+                  name: e.target.value,
+                })
+              }}
+            />
+          </div>
+        </Col>
+      </Row>
       <div className="mt-5 flex">
         <Button
           className="w-20 mr-8"

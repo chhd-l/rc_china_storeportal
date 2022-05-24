@@ -32,6 +32,7 @@ export interface AutoReplies {
   principal: string
   matchType: string
   keywords: string
+  responseId: string
   responseType: string
   responseDes: string
   status: boolean

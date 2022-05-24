@@ -357,7 +357,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
                     className='border border-solid border-gray-200 flex'
                   >
                     <img
-                      src={el.goodsVariants[0].defaultImage}
+                      src={el.goodsVariants[0]?.defaultImage}
                       className='m-auto '
                       style={{ maxHeight: 60, maxWidth: 60 }}
                     />

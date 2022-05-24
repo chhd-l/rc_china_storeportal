@@ -7,12 +7,16 @@ const Index = ({
   autoReplies,
   pages,
   loading,
-  onPageChange
+  onPageChange,
+  onChangeStatus,
+  onDelete
 }: {
   autoReplies: AutoReplies[]
   pages: { page: number, limit: number, total: number }
   loading: boolean
   onPageChange: Function
+  onChangeStatus: Function
+  onDelete: Function
 }) => {
   const navigator = useNavigate();
   const columns = [
@@ -45,23 +49,38 @@ const Index = ({
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (text: any) => <Switch checked={text} onChange={() => { }} />,
+      render: (text: any, record: AutoReplies) => (
+        <Switch
+          checked={text}
+          onChange={(checked) => {
+            onChangeStatus(record.id, {
+              accountId: record.principal,
+              matchType: record.matchType,
+              keyWords: record.keywords,
+              replyContentId: record.responseId,
+              isActive: checked
+            })
+          }}
+        />
+      ),
     },
     {
       title: "Action",
       key: "Action",
-      render: (text: any, record: any) => (
+      render: (text: any, record: AutoReplies) => (
         <>
           <Tooltip title="Edit">
             <span
               className="cursor-pointer iconfont icon-a-Group437 text-red-500"
-              onClick={() => { }}
+              onClick={() => { navigator("/auto-reply/edit-auto-reply", { state: record }) }}
             />
           </Tooltip>
           <Tooltip title="Delete">
             <span
               className="cursor-pointer iconfont icon-delete text-red-500 ml-2"
-              onClick={() => { }}
+              onClick={() => {
+                onDelete(record.id)
+              }}
             />
           </Tooltip>
         </>
