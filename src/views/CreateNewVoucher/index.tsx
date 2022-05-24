@@ -59,7 +59,7 @@ const CreateNewVoucher = () => {
             v.minimumBasketPrice = 1222
             let res = undefined
             if (!state) {
-              // res = await createVoucher(v)
+              res = await createVoucher(v)
             } else {
               delete state.isDeleted
               res = updateVoucher({ ...state, ...v })
