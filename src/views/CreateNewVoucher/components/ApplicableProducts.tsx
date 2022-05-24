@@ -3,6 +3,7 @@ import { Typography, Button, Tooltip } from 'antd'
 import { useRef, useState } from 'react'
 import ProTable, { ProColumns } from '@ant-design/pro-table'
 import ManualSelection from './ManualSelection/index'
+import { normaliseVoucherProduct } from '@/framework/normalize/voucher'
 const { Title } = Typography
 
 type ApplicableProductsType = {
@@ -13,6 +14,12 @@ const ApplicableProducts = ({ VoucherType }: ApplicableProductsType) => {
   const [selectProductsModal, setSelectProductsModal] = useState(false)
   const [selectProducts, setSelectProducts] = useState([])
   const ref = useRef<any>()
+
+  //编辑voucher商品回显 voucher detail里的goodsInfoList
+  const handleEditProducts=(goodsInfoList:any)=>{
+    const res=normaliseVoucherProduct(goodsInfoList)
+    setSelectProducts(res)
+  }
 
   const selectProductChange = (productList: any) => {
     setSelectProducts(productList)
@@ -56,7 +63,7 @@ const ApplicableProducts = ({ VoucherType }: ApplicableProductsType) => {
       width: 80,
       render: () => (
         <Tooltip title="Delete">
-          <span className="iconfont text-xl icon-delete" />
+          <span className="iconfont text-xl icon-delete text-red-500" />
         </Tooltip>
       ),
     },
@@ -67,7 +74,7 @@ const ApplicableProducts = ({ VoucherType }: ApplicableProductsType) => {
       <Title className="mt-8 mb-6" level={4}>
         Applicable Products
       </Title>
-      {false ? (
+      {VoucherType === 'SHOP_VOUCHER' ? (
         <div className="flex items-center pl-12">
           <span className="mr-8">Applicable Products</span>
           {VoucherType === 'SHOP_VOUCHER' ? (

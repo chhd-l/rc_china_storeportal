@@ -96,13 +96,14 @@ const ManualSelection = ({
           label: 'label',
           value: 'value',
         },
+        defaultValue: 'All Category',
       },
       valueType: 'cascader',
     },
     {
       title: 'Sales Category:',
       hideInTable: true,
-      dataIndex: 'goodsCategoryId',
+      dataIndex: 'SalesCategoryId',
       fieldProps: {
         options: mockOptions,
         fieldNames: {
@@ -110,6 +111,7 @@ const ManualSelection = ({
           label: 'label',
           value: 'value',
         },
+        defaultValue: 'All Category',
       },
       valueType: 'cascader',
     },
