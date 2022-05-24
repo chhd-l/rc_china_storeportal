@@ -1,9 +1,9 @@
 import ApiRoot from './fetcher'
 
 //获取优惠券列表
-export const getVouchers = async () => {
+export const getVouchers = async (parma: any) => {
   try {
-    let res = await ApiRoot.vouchers().getVouchers({ offset: 0, limit: 10, isNeedTotal: true, operator: 'zz' })
+    let res = await ApiRoot.vouchers().getVouchers({ ...parma, isNeedTotal: true, operator: 'zz' })
     console.log('get voucher list view data', res)
     return {
       total: res?.voucherFindPage?.total || 0,

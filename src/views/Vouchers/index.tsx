@@ -7,78 +7,29 @@ import { useNavigate } from 'react-router-dom'
 import './Style.less'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 import { deleteVoucher, endVoucher, getVouchers } from '@/framework/api/voucher'
-import { useEffect } from 'react'
+import moment from 'moment'
 const { Title } = Typography
-
-const dataSource = [
-  {
-    id: '1',
-    VoucherName: '胡彦斌',
-    Price: '￥300',
-    Stock: 32,
-    Usages: 0,
-    status: 0,
-    Brand: '西湖区湖底公园1号',
-  },
-  {
-    id: '2',
-    Products: 'xxxx',
-    Price: '￥300',
-    Stock: 312,
-    Usages: 0,
-    status: 1,
-    Brand: '西湖区湖底公园1号',
-  },
-  {
-    id: '2',
-    Products: 'xxxx',
-    Price: '￥300',
-    Stock: 312,
-    Usages: 0,
-    status: 2,
-    Brand: '西湖区湖底公园1号',
-  },
-]
 
 const Vouchers = () => {
   const navigator = useNavigate()
 
-  const getVoucherList=async ()=>{
-    const res=await getVouchers()
-    console.log('voucher list',res)
-  }
-
-  const delVoucher=async ()=>{
-    const res=await deleteVoucher()
-    console.log('delete voucher',res)
-  }
-
-  const endActivityVoucher=async()=>{
-    const res=await endVoucher()
-    console.log('end voucher',res)
-  }
-
-  useEffect(()=>{
-    getVoucherList()
-  },[])
-
   const columns = [
     {
       title: 'Voucher Name',
-      dataIndex: 'VoucherName',
+      dataIndex: 'voucherName',
       render: (text: any, recout: any) => {
         return (
           <div className="flex">
             <div>
               <Image
                 width={100}
-                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                src={recout.voucherDefaultImage}
                 preview={false}
               />
             </div>
             <div className="pl-2">
               <Title className="mb-0" level={5}>
-                Select Products
+                {text}
               </Title>
               <span className="text-gray-400 text-xs">SPU: 3566</span>
             </div>
@@ -98,7 +49,7 @@ const Vouchers = () => {
     },
     {
       title: 'Voucher Type',
-      dataIndex: 'VoucherType',
+      dataIndex: 'voucherType',
       hideInSearch: true,
       render: () => (
         <div>
@@ -111,10 +62,11 @@ const Vouchers = () => {
       title: 'Discount Amount',
       dataIndex: 'Price',
       hideInSearch: true,
+      render: (text: any, record: any) => '￥' + (record.discountType === 'PERCENTAGE' ? record.discountValue : record.minimumBasketPrice),
     },
     {
       title: 'Usage Limit',
-      dataIndex: 'Stock',
+      dataIndex: 'usageQuantity',
       hideInSearch: true,
     },
     {
@@ -126,21 +78,24 @@ const Vouchers = () => {
           </Tooltip>
         </div>
       ),
-      dataIndex: 'Usages',
+      dataIndex: 'usage',
       hideInSearch: true,
     },
     {
-      title: 'Status Claiming Period',
-      dataIndex: 'status',
+      title: () => <div>
+        <div>Status</div>
+        <div>Claiming Period</div>
+      </div>,
+      dataIndex: 'voucherStatus',
       hideInSearch: true,
-      render: (text: any) => {
+      render: (text: any, record: any) => {
         return (
           <div>
-            {text === 0 && <span className="Upcoming">Upcoming</span>}
-            {text === 1 && <span className="Ongoing">Ongoing</span>}
-            {text === 2 && <span className="Expired">Expired</span>}
-            <div className="text-gray-400">2020/12/23 15:38 -</div>
-            <div className="text-gray-400">2020/12/24 14:23</div>
+            {text === 'Upcoming' && <span className="Upcoming">Upcoming</span>}
+            {text === 'Ongoing' && <span className="Ongoing">Ongoing</span>}
+            {text === 'Expired' && <span className="Expired">Expired</span>}
+            <div className="text-gray-400">{moment(record.voucherUsageBeginningOfTime).format('YYYY/MM/DD HH:mm')} -</div>
+            <div className="text-gray-400">{moment(record.voucherUsageEndOfTime).format('YYYY/MM/DD HH:mm')}</div>
           </div>
         )
       },
@@ -151,7 +106,7 @@ const Vouchers = () => {
       hideInSearch: true,
       render: (text: any, record: any) => (
         <>
-          {(record.status === 0 || record.status === 1) && (
+          {(record.status === 'Upcoming' || record.status === 'Ongoing') && (
             <Tooltip title="Edit">
               <span
                 className="cursor-pointer iconfont icon-a-Group437 text-red-500 text-xl"
@@ -161,7 +116,7 @@ const Vouchers = () => {
               />
             </Tooltip>
           )}
-          {record.status === 2 && (
+          {record.voucherStatus === 'Expired' && (
             <Tooltip title="Details">
               <span className="cursor-pointer ml-2 iconfont icon-kjafg text-red-500 text-base" />
             </Tooltip>
@@ -174,12 +129,12 @@ const Vouchers = () => {
               }}
             />
           </Tooltip>
-          {record.status === 1 && (
+          {record.voucherStatus === 'Ongoing' && (
             <Tooltip title="End">
               <span className="cursor-pointer ml-2 iconfont icon-lianxi2hebing-15 text-red-500 text-xl" onClick={()=>endActivityVoucher()}/>
             </Tooltip>
           )}
-          {record.status === 0 && (
+          {record.voucherStatus === 'Upcoming' && (
             <Tooltip title="Delete">
               <span className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl" onClick={()=>delVoucher()}/>
             </Tooltip>
@@ -189,13 +144,34 @@ const Vouchers = () => {
     },
   ]
 
-  const getList = (param: any) => {
-    console.log('param', param)
+  const getList = async (param: any) => {
+    const item: any = {}
+    item.offset = (param.current - 1) * 10
+    item.limit = param.pageSize
+    delete param.current
+    delete param.pageSize
+    if(param.PromotionPeriod) {
+      param.voucherUsageBeginningOfTime = moment(param.PromotionPeriod[0]).utc()
+      param.voucherUsageEndOfTime = moment(param.PromotionPeriod[1]).utc()
+      delete param.PromotionPeriod
+    }
+    item.sample = {...param}
+    const res = await getVouchers(item)
     return Promise.resolve({
-      data: dataSource,
+      data: res.records,
       success: true,
-      total: 10,
+      total: res.total,
     })
+  }
+
+  const delVoucher=async ()=>{
+    const res=await deleteVoucher()
+    console.log('delete voucher',res)
+  }
+
+  const endActivityVoucher=async()=>{
+    const res=await endVoucher()
+    console.log('end voucher',res)
   }
 
   return (

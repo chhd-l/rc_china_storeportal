@@ -1,11 +1,12 @@
 import { ContentContainer } from '@/components/ui'
 import { Button, Form } from 'antd'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import BasicInformation from './components/BasicInformation'
 import RuleSettings from './components/RuleSettings'
 import ApplicableProducts from './components/ApplicableProducts'
 import './Style.less'
 import { createVoucher, updateVoucher } from '@/framework/api/voucher'
+import moment from 'moment'
 
 const CreateNewVoucher = () => {
   const [VoucherType, setVoucherType] = useState('SHOP_VOUCHER')
@@ -20,10 +21,10 @@ const CreateNewVoucher = () => {
     console.log('update voucher',res)
   }
 
-  useEffect(()=>{
-    addNewVoucher()
-    updateVouchers()
-  },[])
+  // useEffect(()=>{
+  //   addNewVoucher()
+  //   updateVouchers()
+  // },[])
 
   return (
     <ContentContainer>
@@ -32,8 +33,21 @@ const CreateNewVoucher = () => {
         wrapperCol={{ span: 6 }}
         className="CreateNewVoucher"
         onFinish={(v) => {
+          v.voucherUsageBeginningOfTime = moment(v.times[0]).utc().format()
+          v.voucherUsageEndOfTime = moment(v.times[1]).utc().format()
+          v.voucherDefaultImage = v.Image.file.response.url
+          v.voucherType = VoucherType
+          delete v.times
+          delete v.Image
+          for (const key in v) {
+            const item = v[key]
+            if(!item) {
+              console.log('v[key]',v[key])
+              delete v[key]
+            }
+          }
           console.log('v', v)
-          addNewVoucher()
+          // addNewVoucher()
         }}
       >
         <BasicInformation VoucherType={VoucherType} setVoucherType={setVoucherType} />

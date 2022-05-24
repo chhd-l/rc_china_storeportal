@@ -80,7 +80,7 @@ const ApplicableProducts = ({ VoucherType }: ApplicableProductsType) => {
         <div className='bg-white p-4 ApplicableProducts'>
             <Title className='mt-8 mb-6' level={4}>Applicable Products</Title>
             {
-                false ? (
+                true ? (
                     <div className='flex items-center pl-12'>
                         <span className='mr-8'>Applicable Products</span>
                         {

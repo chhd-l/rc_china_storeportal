@@ -49,12 +49,12 @@ const BasicInformation = ({ VoucherType, setVoucherType }: BasicInformationType)
       <Title className="mb-8" level={4}>
         Basic Information
       </Title>
-      <Form.Item label="Voucher Type" name="Vouchertype" className="VoucherType">
+      <Form.Item label="Voucher Type" name="voucherType" className="VoucherType">
         <div className="flex items-center cursor-default">
           {/* Shop Voucher */}
           <div
             className={`flex ml-2 pl-2 pr-3 py-3 items-center ${
-              VoucherType === 'SHOP_VOUCHER' ? '' : 'border'
+              VoucherType === 'SHOP_VOUCHER' ? 'VoucherTypeBoxShadow' : 'border'
             } border-gray-300 border-solid relative`}
             style={{ borderRadius: '5px' }}
             onClick={() => setVoucherType('SHOP_VOUCHER')}
@@ -71,7 +71,7 @@ const BasicInformation = ({ VoucherType, setVoucherType }: BasicInformationType)
           {/* Product Voucher */}
           <div
             className={`flex ml-2 pl-2 pr-3 py-3 items-center ${
-              VoucherType === 'PRODUCT_VOUCHER' ? '' : 'border'
+              VoucherType === 'PRODUCT_VOUCHER' ? 'VoucherTypeBoxShadow' : 'border'
             } border-gray-300 border-solid relative`}
             onClick={() => setVoucherType('PRODUCT_VOUCHER')}
             style={{ borderRadius: '5px' }}
@@ -89,7 +89,7 @@ const BasicInformation = ({ VoucherType, setVoucherType }: BasicInformationType)
       </Form.Item>
       <Form.Item
         label="Voucher Name"
-        name="Name"
+        name="voucherName"
         rules={[
           {
             required: true,
@@ -111,12 +111,12 @@ const BasicInformation = ({ VoucherType, setVoucherType }: BasicInformationType)
       >
         <Input placeholder="Input" maxLength={35} />
       </Form.Item>
-      <Form.Item label="Voucher Code" name="Code">
+      <Form.Item label="Voucher Code" name="voucherCode">
         <Input placeholder="Input" />
       </Form.Item>
       <Form.Item
         label="Voucher Usage Period"
-        name="Usage"
+        name="times"
         rules={[
           {
             required: true,
