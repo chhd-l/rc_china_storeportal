@@ -1,10 +1,11 @@
 import Table from "./components/Table";
-import Mock from "mockjs";
 import React, { useEffect, useState } from "react";
-import { dataListSource } from "./modules/mockdata";
-import { formItems } from "./modules/form";
+import { getFormItems } from "./modules/form";
 import Search from "@/components/common/Search";
 import { AutoReplies } from "@/framework/types/wechat";
+import { BaseListProps } from "@/framework/types/common";
+import { normaliseAutoReplies } from "@/framework/normalize/wechatSetting";
+import { getAutomaticResponseList, getAccountList } from "@/framework/api/wechatSetting";
 import {
   ContentContainer,
   DivideArea,
@@ -12,25 +13,67 @@ import {
   TableContainer,
 } from "@/components/ui";
 
-const FanList = () => {
+const AutoReplyList = () => {
   const [autoReplies, setAutoReplies] = useState<AutoReplies[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [quneryParams, setQueryParams] = useState<any>({});
+  const [pages, setPages] = useState<{ page: number, limit: number, total: number }>({ page: 1, limit: 10, total: 0 });
+  const [accountList, setAccountList] = useState<BaseListProps[]>([]);
 
   useEffect(() => {
-    setAutoReplies(Mock.mock(dataListSource).array);
+    getAutoReplyList(1, 10, {});
+    getAccountListForSelection();
   }, []);
 
-  const getFanList = () => {};
+  const getAutoReplyList = async (page: number = 1, limit: number = 10, param: any = {}) => {
+    setLoading(true);
+    const list = await getAutomaticResponseList({
+      offset: page * limit - limit,
+      limit: limit,
+      isNeedTotal: true,
+      operator: 'zz',
+      sample: param.name || param.type || param.keywords || param.status !== undefined ? {
+        accountName: param?.name ?? undefined,
+        matchType: param?.type ?? undefined,
+        keyWords: param?.keywords ?? undefined,
+        isActive: param?.status ?? undefined,
+      } : undefined
+    });
+    setPages(Object.assign({}, pages, { total: list?.total ?? 0 }));
+    setAutoReplies((list?.records ?? []).map((item: any) => normaliseAutoReplies(item)));
+    setLoading(false);
+  };
+
+  const getAccountListForSelection = async () => {
+    const list = await getAccountList({
+      limit: 100,
+      offset: 0,
+      sample: {storeId: "12345678"},
+    });
+    const accounts = (list?.records ?? []).reduce((prev: BaseListProps[], curr: any) => {
+      if(prev.indexOf(curr.accountName) === -1 && curr.accountType === 'ServiceAccount') {
+        prev.push({ key: curr.accountPrincipal as string, label: curr.accountPrincipal as string })
+      }
+      return prev;
+    }, []);
+    setAccountList(accounts);
+  }
+
+  const handlePageChange = (current: number) => {
+    setPages(Object.assign({}, pages, { page: current }));
+    getAutoReplyList(current, pages.limit, quneryParams);
+  }
 
   return (
     <ContentContainer>
       <SearchContainer>
-        <Search query={getFanList} formItems={formItems} />
+        <Search query={getAutoReplyList} formItems={getFormItems(accountList)} pages={pages} />
       </SearchContainer>
       <DivideArea />
       <TableContainer>
-        <Table autoReplies={autoReplies} />
+        <Table autoReplies={autoReplies} pages={pages} loading={loading} onPageChange={handlePageChange} />
       </TableContainer>
     </ContentContainer>
   );
 };
-export default FanList;
+export default AutoReplyList;

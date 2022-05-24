@@ -70,12 +70,14 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
             // console.info('has name', keyName)
           } else {
             console.info('no name', keyName)
-            if ((keyName === 'subscriptionPrice' && el.subscriptionStatus === '0')||(keyName==='stock'&&el.stock!==undefined&&el.stock!==null)) {
+            if (
+              (keyName === 'subscriptionPrice' && el.subscriptionStatus === '0') ||
+              (keyName === 'stock' && el.stock !== undefined && el.stock !== null)
+            ) {
               //特殊处理:订阅是no的时候，订阅价格非必填
-            }else {
+            } else {
               nodataKey.push(keyName)
             }
-           
           }
         })
       }
@@ -90,35 +92,16 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     console.info('shelvesStatus', shelvesStatus)
     //组装product数据
     console.log(values, detail)
-    //校验规格名字
-    // let errMsg =
-    //   detail.goodsSpecificationsInput?.length &&
-    //   validateNullData(detail.goodsSpecificationsInput, { name: 'Variation Name' })
-    // //校验规格详情
-    // if (!errMsg) {
-    //   errMsg =
-    //     detail.goodsSpecificationsInput?.length &&
-    //     detail.goodsSpecificationsInput.map((el: any) => {
-    //       return validateNullData(el.specificationList, { option: 'Variation Option' })
-    //     })
-    // }
-    // if (detail.id && !errMsg) {
-    //   //校验规格 没同步add的，有问题，先兼容
-    //   errMsg = detail?.editChange?.goodsVariants?.map((el: any) => {
-    //     return validateNullData(el, { specificationName: 'Variation Name' })
-    //   })
-    //   if (!errMsg) {
-    //     errMsg = detail?.editChange?.goodsVariants?.map((el: any) => {
-    //       return el.goodsSpecificationDetail.map((cel: any) =>
-    //         validateNullData(cel, { specificationName: 'Variation Name' }),
-    //       )
-    //     })
-    //   }
-    // }
+    // let withoutSku = detail.id ? !detail.variationForm?.variationList?.length : !detail.goodsSpecificationsInput?.length
+    let withoutSku =
+      Array.from(document.getElementsByClassName('get-variation-name'))
+        .filter((el: any) => el.value !== undefined)
+        ?.filter(el => !el.className.includes('hidden'))?.length === 0
     let noDataErrMsg = ''
     // 校验name
     let goodsSpecificationsNameArr: any = Array.from(document.getElementsByClassName('get-variation-name'))
       .filter((el: any) => el.value !== undefined)
+      ?.filter(el => !el.className.includes('hidden'))
       .map((el: any) => el.value)
     goodsSpecificationsNameArr?.forEach((el: any) => {
       if (el === '') {
@@ -127,6 +110,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     })
     let goodsSpecificationsDetailArr: any = Array.from(document.getElementsByClassName('get-variation-option'))
       .filter((el: any) => el.value !== undefined)
+      ?.filter(el => !el.className.includes('hidden'))
       .map((el: any) => el.value)
     if (!noDataErrMsg) {
       // 校验option
@@ -138,69 +122,70 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
       })
     }
     //校验sku
-    if (!noDataErrMsg) {
-      let variantsKeyLableRel: any = {}
-      headerOrigition
-        .filter((el: any) => el.required)
-        .map((el: any) => {
-          variantsKeyLableRel[el.keyVal] = el.label
-        })
-      noDataErrMsg =
-        detail.goodsVariantsInput?.length && validateNullData(detail.goodsVariantsInput, variantsKeyLableRel)
-    }
-    if (noDataErrMsg) {
-      message.error({ className: 'rc-message', content: noDataErrMsg })
-      console.info('....', noDataErrMsg)
-      return
-    }
-    let repeatErrMsg = ''
-    let repeatNameArr: any = []
-    let repeatOptionArr: any = []
-    console.info('goodsSpecificationsNameArr', goodsSpecificationsNameArr)
-    console.info('goodsSpecificationsDetailArr', goodsSpecificationsDetailArr)
-    // //校验同一个商品的option需要判断是否重复 不区分大小写，规格名称不能重复
-    goodsSpecificationsNameArr?.forEach((el: any) => {
-      let name = el?.toLowerCase()
-      if (repeatNameArr.includes(name)) {
-        repeatErrMsg = 'Name repeat'
+    if (!withoutSku) {
+      if (!noDataErrMsg) {
+        let variantsKeyLableRel: any = {}
+        headerOrigition
+          .filter((el: any) => el.required)
+          .map((el: any) => {
+            variantsKeyLableRel[el.keyVal] = el.label
+          })
+        noDataErrMsg =
+          detail.goodsVariantsInput?.length && validateNullData(detail.goodsVariantsInput, variantsKeyLableRel)
+      }
+      if (noDataErrMsg) {
+        message.error({ className: 'rc-message', content: noDataErrMsg })
+        console.info('....', noDataErrMsg)
         return
       }
-      repeatNameArr.push(name)
-    })
-    if (!repeatErrMsg) {
-      goodsSpecificationsDetailArr?.forEach((el: any) => {
+      let repeatErrMsg = ''
+      let repeatNameArr: any = []
+      let repeatOptionArr: any = []
+      console.info('goodsSpecificationsNameArr', goodsSpecificationsNameArr)
+      console.info('goodsSpecificationsDetailArr', goodsSpecificationsDetailArr)
+      // //校验同一个商品的option需要判断是否重复 不区分大小写，规格名称不能重复
+      goodsSpecificationsNameArr?.forEach((el: any) => {
         let name = el?.toLowerCase()
-        if (repeatOptionArr.includes(name)) {
-          repeatErrMsg = 'Option repeat'
+        if (repeatNameArr.includes(name)) {
+          repeatErrMsg = 'Name repeat'
           return
         }
-        repeatOptionArr.push(name)
+        repeatNameArr.push(name)
       })
-    }
-    // 同一spu下，sku丶sku name丶ean需要唯一
-    if (detail.goodsVariantsInput) {
       if (!repeatErrMsg) {
-        repeatErrMsg = validateRepeat(detail.goodsVariantsInput, 'skuNo', 'SkuNo repeat')
+        goodsSpecificationsDetailArr?.forEach((el: any) => {
+          let name = el?.toLowerCase()
+          if (repeatOptionArr.includes(name)) {
+            repeatErrMsg = 'Option repeat'
+            return
+          }
+          repeatOptionArr.push(name)
+        })
       }
-      if (!repeatErrMsg) {
-        repeatErrMsg = validateRepeat(detail.goodsVariantsInput, 'skuName', 'SkuName repeat')
+      // 同一spu下，sku丶sku name丶ean需要唯一
+      if (detail.goodsVariantsInput) {
+        if (!repeatErrMsg) {
+          repeatErrMsg = validateRepeat(detail.goodsVariantsInput, 'skuNo', 'SkuNo repeat')
+        }
+        if (!repeatErrMsg) {
+          repeatErrMsg = validateRepeat(detail.goodsVariantsInput, 'skuName', 'SkuName repeat')
+        }
+        if (!repeatErrMsg) {
+          repeatErrMsg = validateRepeat(detail.goodsVariantsInput, 'eanCode', 'EanCode repeat')
+        }
       }
-      if (!repeatErrMsg) {
-        repeatErrMsg = validateRepeat(detail.goodsVariantsInput, 'eanCode', 'EanCode repeat')
+      if (repeatErrMsg) {
+        message.error({ className: 'rc-message', content: repeatErrMsg })
+        console.info('....', repeatErrMsg)
+        return
       }
     }
 
-    if (repeatErrMsg) {
-      message.error({ className: 'rc-message', content: repeatErrMsg })
-      console.info('....', repeatErrMsg)
-      return
-    }
     let params = Object.assign({}, detail, values, {
       type: spuType,
       shelvesStatus,
       operator: userInfo?.username || 'system',
     })
-    let withoutSku = detail.id ? !detail.variationForm?.variationList?.length : !detail.goodsSpecificationsInput?.length
     debugger
     if (withoutSku) {
       params.goodsVariantsInput = [
@@ -248,7 +233,6 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     console.info('.......')
     console.info('params', params)
     setLoading(true)
-    debugger
     let data = await createProduct(params, beforeData)
     console.info('data', data)
     if (data === true) {

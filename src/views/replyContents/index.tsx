@@ -3,7 +3,7 @@ import Search from "@/components/common/Search";
 import "./index.less";
 import { ReplyContent } from "@/framework/types/wechat";
 import { normaliseReplyContent } from "@/framework/normalize/wechatSetting";
-import { getReplyContentList, deleteReplyContent, disableOrEnableReplyContent } from "@/framework/api/wechatSetting";
+import { getReplyContentList, deleteReplyContent, updateReplyContent } from "@/framework/api/wechatSetting";
 import { formItems } from "./modules/form";
 import Table from "./components/Table";
 import { Modal } from 'antd';
@@ -70,7 +70,7 @@ const SelectContentModal = () => {
     })
   }
 
-  const handleDisableOrEnable = (param: any) => {
+  const handleDisableOrEnable = (id: string, param: any) => {
     Modal.confirm({
       className: "rc-modal",
       okText: "Confirm",
@@ -82,7 +82,7 @@ const SelectContentModal = () => {
       okButtonProps: { loading: loading },
       onOk: () => {
         setLoading(true);
-        disableOrEnableReplyContent(param).then(isSuccess => {
+        updateReplyContent(id, param).then(isSuccess => {
           if (isSuccess) {
             getReplyContents(pages.page, pages.limit, quneryParams);
           } else {

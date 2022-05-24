@@ -45,6 +45,8 @@ export interface ReplyContent {
   content?: string
   accountId?: string
   mediaId?: string
+  mediaTitle?: string
+  mediaDescription?: string
 }
 
 export interface Asset {
