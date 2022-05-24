@@ -93,8 +93,6 @@ const Index = ({
       <div className="flex flex-row justify-end mb-4">
         <Button
           type="primary"
-          danger
-          className="mr-4"
           onClick={() => {
             navigator("/auto-reply/add-auto-reply");
           }}

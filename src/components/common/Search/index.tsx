@@ -51,11 +51,11 @@ const Search = ({
           <Form.Item
             label={item.label}
             name={item.name}
-            className='mt-4'
+            className='mb-4'
             key={item.name}
           >
             {item.type === "select" ? (
-              <Select placeholder={item.placeholder} style={{minWidth: 200}}>
+              <Select placeholder={item.placeholder} style={{minWidth: 280}}>
                 {(item.selectList || []).map((el, index) => (
                   <Select.Option value={el.key} key={index}>
                     {el.label}
@@ -66,20 +66,22 @@ const Search = ({
               <Input.TextArea
                 placeholder={item.placeholder}
                 autoSize={{ minRows: 3, maxRows: 5 }}
+                style={{minWidth: 280}}
               />
             ) : item.type === "dateTime" ? (
               <RangePicker
                 className="flex items-center"
                 // defaultValue={[moment('2021/11/09', dateFormat), moment('2021/11/12', dateFormat)]}
                 format={dateFormat}
+                style={{minWidth: 280}}
               />
             ) : (
-              <Input placeholder={item.placeholder} />
+              <Input placeholder={item.placeholder} style={{minWidth: 280}} />
             )}
           </Form.Item>
         ))}
-        <Form.Item className="w-full flex flex-row mt-4">
-          <Button type="primary" htmlType="submit" danger>
+        <Form.Item className="w-full flex flex-row">
+          <Button type="primary" htmlType="submit">
             Search
           </Button>
           <Button
