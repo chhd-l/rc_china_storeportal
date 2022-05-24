@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Asset } from '@/framework/types/wechat'
-import AssetsModal from '@/components/common/AssetsModal'
+import AssetsModal from '@/components/wechat/AssetsModal'
 import { Image } from 'antd'
 import { WxMenuContext, setWxMenu, getActiveWxMenu } from '../context'
 import _ from 'lodash'

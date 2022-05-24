@@ -1,53 +1,44 @@
 import { Table, Tooltip } from "antd";
-import React from "react";
+import React, { useEffect, useState } from 'react'
 import { CouponCode } from "@/framework/types/customer";
 
 interface CouponInfoProps {
-  couponCodeList: CouponCode[];
+  customerId: string;
   id: string;
 }
 
-const CouponInformation = ({ couponCodeList, id }: CouponInfoProps) => {
+const CouponInformation = ({  id,customerId }: CouponInfoProps) => {
+  const [couponCodeList, setCouponCodeList] = useState<any>([])
+  useEffect(() => {
+    if (customerId !== '') {
+      let arr = [{
+        couponName:'adas'
+      }]
+      setCouponCodeList(arr)
+    }
+  }, [customerId])
+
   const columns = [
     {
-      title: "Coupon Code",
+      title: "Voucher Name",
+      dataIndex: "couponName",
+      key: "couponName",
+
+    },
+    {
+      title: "Voucher Code",
       dataIndex: "couponCode",
       key: "couponCode",
     },
     {
-      title: "Coupon Name",
-      dataIndex: "couponName",
-      key: "couponName",
-    },
-    {
-      title: "Coupon Type",
-      dataIndex: "couponType",
-      key: "couponType",
-    },
-    {
-      title: "Coupon Value",
+      title: "Voucher Value",
       dataIndex: "couponValue",
       key: "couponValue",
     },
     {
-      title: "Start Time",
+      title: "Status",
       dataIndex: "startTime",
       key: "startTime",
-    },
-    {
-      title: "Expiration Time",
-      dataIndex: "expirationTime",
-      key: "expirationTime",
-    },
-    {
-      title: "Coupon Status",
-      dataIndex: "couponStatus",
-      key: "couponStatus",
-    },
-    {
-      title: "Comment",
-      dataIndex: "comment",
-      key: "comment",
     },
     {
       title: "Options",
@@ -55,9 +46,9 @@ const CouponInformation = ({ couponCodeList, id }: CouponInfoProps) => {
       key: "Options",
       className: "text-center",
       render: (text: any, record: any) => (
-        <Tooltip title="Deletes">
+        <Tooltip title="View Details">
           <span
-            className="cursor-pointer iconfont icon-delete primary-color text-xl"
+            className="cursor-pointer iconfont icon-kjafg primary-color text-xl"
             onClick={() => {}}
           />
         </Tooltip>
@@ -67,7 +58,7 @@ const CouponInformation = ({ couponCodeList, id }: CouponInfoProps) => {
   return (
     <div id={id}>
       <div className="py-4 px-2 border-b text-xl font-medium">
-        Coupon Information
+        Voucher Information
       </div>
       <div className="py-4">
         <Table
