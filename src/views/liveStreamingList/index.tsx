@@ -2,9 +2,18 @@ import React, { useState } from 'react'
 import { ContentContainer, InfoContainer, SearchContainer } from '@/components/ui'
 import { Badge, Tabs } from 'antd'
 import ProTable from '@ant-design/pro-table'
+import './index.less'
 
 const LiveStreaming = () => {
-  const [liveStreamingList, setLiveStreamingList] = useState([])
+  const [liveStreamingList, setLiveStreamingList] = useState([
+    {
+      liveStreamingId: '3456789046',
+      liveStreamingName: 'Pet Food Sales',
+      period: '2020/12/23 15:38 - 2020/12/24 14:23',
+      anchorName: 'Silva',
+      status: 'Upcoming',
+    },
+  ])
   const [activeKey, setActiveKey] = useState('All')
   const columns = [
     {
@@ -18,10 +27,24 @@ const LiveStreaming = () => {
     {
       title: 'Period',
       dataIndex: 'period',
+      hideInSearch: true,
     },
     {
       title: 'Anchor Name',
       dataIndex: 'anchorName',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      hideInSearch: true,
+    },
+    {
+      title: 'Period',
+      valueType: 'dateTimeRange',
+      search: {
+        transform: (value: any) => ({ startTime: value[0], endTime: value[1] }),
+      },
+      hideInTable: true,
     },
     {
       title: 'Actions',
@@ -53,9 +76,7 @@ const LiveStreaming = () => {
           ))}
         </Tabs>
         <ProTable
-          search={{
-            labelWidth: 'auto',
-          }}
+          className="live-streaming-pro-table"
           columns={columns}
           request={(params, sorter, filter) => {
             // 表单搜索项会从 params 传入，传递给后端接口。
@@ -72,36 +93,39 @@ const LiveStreaming = () => {
               items: [
                 {
                   key: 'All',
-                  label: <span>All{renderBadge(99, activeKey === 'tab1')}</span>,
+                  label: <span>All</span>,
                 },
                 {
-                  key: 'tab2',
-                  label: <span>项目{renderBadge(30, activeKey === 'tab2')}</span>,
+                  key: 'Ongoing',
+                  label: <span>Ongoing</span>,
                 },
                 {
-                  key: 'tab3',
-                  label: <span>文章{renderBadge(30, activeKey === 'tab3')}</span>,
+                  key: 'Upcoming',
+                  label: <span>Upcoming</span>,
+                },
+                {
+                  key: 'Expired',
+                  label: <span>Expired</span>,
                 },
               ],
               onChange: (key) => {
                 setActiveKey(key as string)
               },
             },
+            settings: [],
           }}
           rowKey="key"
           pagination={{
             showQuickJumper: true,
           }}
-          // search={false}
+          search={{
+            searchText: 'Search',
+            resetText: 'Reset',
+            defaultCollapsed: false,
+            collapseRender: () => '',
+            labelWidth: 120,
+          }}
           dateFormatter="string"
-          // options={{
-          //   setting: {
-          //     draggable: true,
-          //     checkable: true,
-          //     checkedReset: false,
-          //     extra: [<a key="confirm">确认</a>],
-          //   },
-          // }}
         />
       </InfoContainer>
     </ContentContainer>
