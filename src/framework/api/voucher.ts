@@ -21,7 +21,7 @@ export const getVouchers = async () => {
 //获取优惠券详情
 export const getVoucherById = async () => {
   try {
-    let res = await ApiRoot.vouchers().getVoucherById('06158554-8bff-60ed-a511-4f3a02dbc87d')
+    let res = await ApiRoot.vouchers().getVoucherById('06158554-8bff-60ed-a511-4f3a02dbc874')
     console.log('get voucher by id view data', res)
     return res?.voucherFindById || null
   } catch (e) {
