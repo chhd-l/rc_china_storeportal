@@ -81,7 +81,7 @@ const AddVariation = ({}: AddVariationProps) => {
               defaultValue={specification.option}
               // value={specification.option}
               onBlur={handleOption}
-              className='get-variation-option'
+              className={classNames('get-variation-option', specification.isDeleted ? 'hidden' : '')}
               onChange={() => {
                 console.info('....', specification.option)
               }}
@@ -251,7 +251,7 @@ const AddVariation = ({}: AddVariationProps) => {
                 </Col>
                 <Col span={15}>
                   <Input
-                    className='get-variation-name'
+                    className={classNames('get-variation-name', variation.isDeleted ? 'hidden' : '')}
                     defaultValue={variation.name}
                     onBlur={e => {
                       handleName(e, variationIdx)
