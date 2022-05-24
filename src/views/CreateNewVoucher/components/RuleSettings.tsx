@@ -7,6 +7,15 @@ import { Typography, Form, Select, Checkbox, InputNumber } from 'antd'
 import { useState } from 'react'
 const { Title } = Typography
 
+type RuleSettingsType = {
+  PriceOpen: boolean;
+  setPriceOpen: Function;
+  usageQuantityOpen: boolean;
+  setusageQuantityOpen: Function;
+  price: string | number;
+  setPrice: Function;
+}
+
 const OrderType = [
   { label: 'All', value: 'ALL' },
   { label: 'Single Order', value: 'SING_ORDER' },
@@ -14,13 +23,10 @@ const OrderType = [
   { label: 'Device Ubscription', value: 'DEVICE_SUBSCRIPTION' },
 ]
 
-const RuleSettings = () => {
-  const [isOpen, setIsopen] = useState(false)
-  const [isOpen2, setIsopen2] = useState(false)
+const RuleSettings = ({ PriceOpen, usageQuantityOpen, setPriceOpen, setusageQuantityOpen, price, setPrice }: RuleSettingsType) => {
   const [AmountOpen, setAmountOpen] = useState(true)
   const [DiscountType, setDiscountType] = useState('FIX_AMOUNT')
   const [MinimumBasketPrice, setMinimumBasketPrice] = useState<string | number>('')
-  const [price, setPrice] = useState<string | number>('')
   const [UsageQuantity, setUsageQuantity] = useState<string | number>('')
 
   return (
@@ -52,7 +58,6 @@ const RuleSettings = () => {
             <div className="flex items-center border border-gray-300 border-solid">
               <Form.Item
                 name="discountType"
-                initialValue="FIX_AMOUNT"
                 className="m-0 h-8"
                 wrapperCol={{ span: 'auto' }}
               >
@@ -88,7 +93,7 @@ const RuleSettings = () => {
                       {
                         validator: (_, value) => {
                           const price = value || 0
-                          return price <= MinimumBasketPrice || isOpen
+                          return price <= MinimumBasketPrice || PriceOpen
                             ? Promise.resolve()
                             : Promise.reject(
                                 new Error('Please note that the discount amount is > 60% of min basket price'),
@@ -105,7 +110,7 @@ const RuleSettings = () => {
                     <InputNumber
                       onChange={(v) => {
                         validateFields(['minimumBasketPrice'])
-                        if (v < MinimumBasketPrice || isOpen) {
+                        if (v < MinimumBasketPrice || PriceOpen) {
                           setAmountOpen(true)
                         } else {
                           setAmountOpen(false)
@@ -185,7 +190,7 @@ const RuleSettings = () => {
           ]}
         />
       </Form.Item>
-      <Form.Item wrapperCol={{ span: 'auto' }} label="Minimum Basket Price" required={!isOpen} shouldUpdate={true}>
+      <Form.Item wrapperCol={{ span: 'auto' }} label="Minimum Basket Price" required={!PriceOpen} shouldUpdate={true}>
         {({ validateFields, getFieldValue, setFieldsValue }) => (
           <div className="flex w-full">
             <Form.Item
@@ -195,14 +200,14 @@ const RuleSettings = () => {
               wrapperCol={{ span: 'auto' }}
               rules={[
                 {
-                  required: !isOpen,
+                  required: !PriceOpen,
                   message: 'Pless Input',
                 },
                 {
                   validator: (_, value) => {
                     const price = Number(value) || 0
                     const Amount = getFieldValue('discountValue') || 0
-                    const Bool = (DiscountType === 'FIX_AMOUNT' && price >= Amount) || isOpen
+                    const Bool = (DiscountType === 'FIX_AMOUNT' && price >= Amount) || PriceOpen
                     return Bool
                       ? Promise.resolve()
                       : Promise.reject(new Error('Voucher discount amount cannot exceed min. spend required'))
@@ -239,7 +244,7 @@ const RuleSettings = () => {
                   controls={false}
                   placeholder="Input"
                   className="w-72 rounded-l-none"
-                  disabled={isOpen}
+                  disabled={PriceOpen}
                 />
               </div>
             </Form.Item>
@@ -247,7 +252,7 @@ const RuleSettings = () => {
               className="ml-4 mt-1.5 h-8"
               onChange={(e) => {
                 const Amount = getFieldValue('discountValue')
-                setIsopen(e.target.checked)
+                setPriceOpen(e.target.checked)
                 if (e.target.checked) {
                   setFieldsValue({
                     minimumBasketPrice: '',
@@ -272,7 +277,7 @@ const RuleSettings = () => {
       <Form.Item
         label="Usage Quantity"
         extra="Total usable voucher for all buyers"
-        required={!isOpen2}
+        required={!usageQuantityOpen}
         shouldUpdate={(prevValues, curValues) => prevValues.usageQuantity !== curValues.usageQuantity}
       >
         {({ setFieldsValue }) => (
@@ -283,7 +288,7 @@ const RuleSettings = () => {
               wrapperCol={{ span: 'auto' }}
               rules={[
                 {
-                  required: !isOpen2,
+                  required: !usageQuantityOpen,
                   message: 'Pless Input',
                 },
               ]}
@@ -293,14 +298,14 @@ const RuleSettings = () => {
                 onChange={(v) => setUsageQuantity(v)}
                 placeholder="Input"
                 className="w-72"
-                disabled={isOpen2}
+                disabled={usageQuantityOpen}
               />
             </Form.Item>
-            <Form.Item className="m-0" name="isLimitedQuantity" initialValue={false} wrapperCol={{ span: 'auto' }}>
+            <Form.Item className="m-0" name="isLimitedQuantity" wrapperCol={{ span: 'auto' }}>
               <Checkbox
                 className="ml-4 mt-1.5 h-8"
                 onChange={(e) => {
-                  setIsopen2(e.target.checked)
+                  setusageQuantityOpen(e.target.checked)
                   if (e.target.checked) {
                     setUsageQuantity('')
                     setFieldsValue({

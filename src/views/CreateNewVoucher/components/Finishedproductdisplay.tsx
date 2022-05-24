@@ -7,7 +7,7 @@ const Finishedproductdisplay = () => {
       shouldUpdate={(prevValues, curValues) =>
         prevValues.Image !== curValues.Image ||
         prevValues.voucherName !== curValues.voucherName ||
-        prevValues.Description !== curValues.Description ||
+        prevValues.voucherDescription !== curValues.voucherDescription ||
         prevValues.times !== curValues.times
       }
       className="w-96 h-72 absolute top-32 right-32"
@@ -15,7 +15,7 @@ const Finishedproductdisplay = () => {
       {({ getFieldValue }) => {
         const imgUrl = getFieldValue('Image')?.file?.response?.url || ''
         const voucherName = getFieldValue('voucherName') || ''
-        const Description = getFieldValue('Description') || ''
+        const Description = getFieldValue('voucherDescription') || ''
         const times = getFieldValue('times') || ''
         const startTimes = times ? moment(times[0]).format('YYYY-MM-DD') : ''
         const endtTimes = times ? moment(times[1]).format('YYYY-MM-DD') : ''

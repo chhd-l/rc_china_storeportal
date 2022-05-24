@@ -106,19 +106,21 @@ const Vouchers = () => {
       hideInSearch: true,
       render: (text: any, record: any) => (
         <>
-          {(record.status === 'Upcoming' || record.status === 'Ongoing') && (
+          {(record.voucherStatus === 'Upcoming') && (
             <Tooltip title="Edit">
               <span
                 className="cursor-pointer iconfont icon-a-Group437 text-red-500 text-xl"
                 onClick={() => {
-                  navigator('/marketingCentre/vouchers/voucherDetails')
+                  navigator('/marketingCentre/vouchers/voucherDetails', {state: record})
                 }}
               />
             </Tooltip>
           )}
           {record.voucherStatus === 'Expired' && (
             <Tooltip title="Details">
-              <span className="cursor-pointer ml-2 iconfont icon-kjafg text-red-500 text-base" />
+              <span className="cursor-pointer ml-2 iconfont icon-kjafg text-red-500 text-base" onClick={() => {
+                  navigator('/marketingCentre/vouchers/voucherDetails', {state: record})
+                }}/>
             </Tooltip>
           )}
           <Tooltip title="Orders">

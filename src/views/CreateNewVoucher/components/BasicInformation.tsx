@@ -9,14 +9,15 @@ const { RangePicker } = DatePicker
 type BasicInformationType = {
   VoucherType: string
   setVoucherType: Function
+  imageUrl: string
+  setImageUrl: Function
 }
 
 const disabledDate = (current: any) => {
   return current && current < moment().endOf('day')
 }
 
-const BasicInformation = ({ VoucherType, setVoucherType }: BasicInformationType) => {
-  const [imageUrl, setImageUrl] = useState('')
+const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl }: BasicInformationType) => {
   const [loading, setLoading] = useState(false)
 
   const uploadButton = (
@@ -101,7 +102,7 @@ const BasicInformation = ({ VoucherType, setVoucherType }: BasicInformationType)
       </Form.Item>
       <Form.Item
         label="Voucher Description"
-        name="Description"
+        name="voucherDescription"
         rules={[
           {
             required: true,
@@ -116,15 +117,28 @@ const BasicInformation = ({ VoucherType, setVoucherType }: BasicInformationType)
       </Form.Item>
       <Form.Item
         label="Voucher Usage Period"
-        name="times"
-        rules={[
-          {
-            required: true,
-            message: 'Pless Select',
-          },
-        ]}
+        required
+        shouldUpdate={(prevValues, curValues) => prevValues.times !== curValues.times}
       >
-        <RangePicker disabledDate={disabledDate} />
+        {
+          ({ getFieldValue }) => {
+            const startTimer = getFieldValue('voucherUsageBeginningOfTime') ? moment(moment(getFieldValue('voucherUsageBeginningOfTime')).format('YYYY-MM-DD'), 'YYYY-MM-DD') : ''
+            const endTimer = getFieldValue('voucherUsageBeginningOfTime') ? moment(moment(getFieldValue('voucherUsageEndOfTime')).format('YYYY-MM-DD'), 'YYYY-MM-DD') : ''
+            return <Form.Item
+              name="times"
+              className='m-0'
+              initialValue={[startTimer, endTimer]}
+              rules={[
+                {
+                  required: true,
+                  message: 'Pless Select',
+                },
+              ]}
+            >
+            <RangePicker disabledDate={disabledDate} />
+            </Form.Item>
+          }
+        }
       </Form.Item>
       <Form.Item
         className="Uploader"

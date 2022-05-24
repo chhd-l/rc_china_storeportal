@@ -4,7 +4,6 @@ import ApiRoot from './fetcher'
 export const getVouchers = async (parma: any) => {
   try {
     let res = await ApiRoot.vouchers().getVouchers({ ...parma, isNeedTotal: true, operator: 'zz' })
-    console.log('get voucher list view data', res)
     return {
       total: res?.voucherFindPage?.total || 0,
       records: res?.voucherFindPage?.records || [],
@@ -31,33 +30,14 @@ export const getVoucherById = async () => {
 }
 
 //创建优惠券
-export const createVoucher = async () => {
+export const createVoucher = async (parma: any) => {
   try {
     let res = await ApiRoot.vouchers().createVoucher({
-      voucherType: 'SHOP_VOUCHER',
-      voucherName: '满300-15',
-      voucherDescription: '满300-15',
-      voucherCode: '111',
-      voucherUsageBeginningOfTime: '2020-12-11T00:00:00Z',
-      voucherUsageEndOfTime: '2020-12-11T00:00:00Z',
-      voucherDefaultImage: '',
-      orderType: 'SING_ORDER',
-      recurrence: false,
-      discountValue: '0.1',
-      discountType: 'PERCENTAGE',
-      minimumBasketPrice: 300,
-      usageQuantity: 12,
-      isLimitedQuantity: false,
-      voucherStatus: 'Expired',
-      usage: 12,
-      distributeQuantity: 12,
-      applicationProducts: 12,
+      ...parma,
       storeId: '123456',
-      voucherGoodsRelated: [],
       operator: 'zz',
     })
-    console.log('create voucher view data', res)
-    return res?.voucherInsert || false
+    return res?.errors ? false : res
   } catch (e) {
     console.log(e)
     return false
@@ -65,34 +45,14 @@ export const createVoucher = async () => {
 }
 
 //编辑优惠券
-export const updateVoucher = async () => {
+export const updateVoucher = async (parma: any) => {
   try {
     let res = await ApiRoot.vouchers().updateVoucher({
-      id: '06158554-8bff-60ed-a511-4f3a02dbc87d',
-      voucherType: 'SHOP_VOUCHER',
-      voucherName: '满300-15',
-      voucherDescription: '满300-15',
-      voucherCode: '111',
-      voucherUsageBeginningOfTime: '2020-12-11T00:00:00Z',
-      voucherUsageEndOfTime: '2020-12-11T00:00:00Z',
-      voucherDefaultImage: '',
-      orderType: 'SING_ORDER',
-      recurrence: false,
-      discountValue: '0.1',
-      discountType: 'PERCENTAGE',
-      minimumBasketPrice: 300,
-      usageQuantity: 12,
-      isLimitedQuantity: false,
-      voucherStatus: 'Expired',
-      usage: 12,
-      distributeQuantity: 12,
-      applicationProducts: 12,
+      ...parma,
       storeId: '123456',
-      voucherGoodsRelated: [],
       operator: 'zz',
     })
-    console.log('update voucher view data', res)
-    return res?.voucherUpsert || false
+    return res?.errors ? false : res
   } catch (e) {
     console.log(e)
     return false
