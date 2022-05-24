@@ -5,10 +5,10 @@ export const tabList: any[] = [
     label: "Picture",
     key: "image",
   },
-  // {
-  //   label: 'Graphic message',
-  //   key: 'graphic',
-  // },
+  {
+    label: 'Graphic message',
+    key: 'news',
+  },
   {
     label: 'Voice',
     key: 'voice',
