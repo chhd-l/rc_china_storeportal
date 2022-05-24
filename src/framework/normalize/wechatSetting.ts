@@ -51,6 +51,7 @@ export const normaliseAutoReplies: (data: any) => AutoReplies = (data) => {
     principal: data?.accountId,
     matchType: data?.matchType,
     keywords: data?.keyWords,
+    responseId: data?.replyContentId,
     responseType: data?.replyContentType,
     responseDes: data?.replyContentDescribe,
     status: data?.isActive
