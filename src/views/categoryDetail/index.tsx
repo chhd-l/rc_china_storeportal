@@ -155,7 +155,7 @@ const CategoryDetail = () => {
           <div className='text-gray-400 mt-4'>
             Created By:{' '}
             <span className='text-black mx-2'>
-            {cateInfos.name} {' | ' + cateInfos.categoryType} {cateInfos.categoryType==='MANUAL'?' Selection':' Filtering'}
+            {cateInfos.name} {' | '} {cateInfos.categoryType==='MANUAL'?'Manual Selection':'Rule_based Filtering'}
           </span>{' '}
             Product(s): <span className='text-black mx-2'>{cateInfos.total}</span>
           </div>

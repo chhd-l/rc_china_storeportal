@@ -106,7 +106,7 @@ const CategoryDetail = () => {
       render: (_, record) => {
         return (
           <div className='flex al-cneter'>
-            <img src={record.goodsVariants[0]?.defaultImage} alt='' style={{ width: '50px', marginRight: '10px' }} />
+            <img src={record.goodsVariants[0]?.defaultImage} alt='' style={{ width: '50px',height:'50px', marginRight: '10px' }} />
             <div>
               <div>{record.goodsName}</div>
             </div>
@@ -238,7 +238,7 @@ const CategoryDetail = () => {
           <div className='text-gray-400 mt-4'>
             Created By:{' '}
             <span className='text-black mx-2'>
-            {cateInfos.name} {' | ' + cateInfos.categoryType} {cateInfos.categoryType==='MANUAL'?' Selection':' Filtering'}
+            {cateInfos.name} {' | '} {cateInfos.categoryType==='MANUAL'?'Manual Selection':'Rule_based Filtering'}
           </span>{' '}
             Product(s): <span className='text-black mx-2'>{cateInfos.total}</span>
           </div>

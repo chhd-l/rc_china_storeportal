@@ -38,6 +38,7 @@ const MenuManageDetail = lazy(() => import('@/views/menuManageDetail'))
 const TemplateMessageDetail = lazy(() => import('@/views/templateMessageDetail'))
 const TagList = lazy(() => import('@/views/tagList'))
 const EditTag = lazy(() => import('@/views/editTag'))
+const EditTags = lazy(() => import('@/views/editTags'))
 const AddVideo = lazy(() => import('@/views/addVideo'))
 const MarketingCentreList = lazy(() => import('@/views/MarketingCentreList'))
 const Vouchers = lazy(() => import('@/views/Vouchers'))
@@ -87,8 +88,9 @@ let routes: RouteObject[] = [
           { path: 'pet-owner-list', element: <PetOwnerList />},
           { path: 'pet-owner-detail', element: <PetOwnerDetail />, breadcrumbName: 'Pet Owner Detail' },
           { path: 'pet-detail', element: <PetDetail />, breadcrumbName: 'Pet Detail' },
-          { path: 'tag-list', index: true, element: <TagList />, breadcrumbName: 'My Tag' },
-          { path: 'edit-tag', element: <EditTag />, breadcrumbName: 'Tagging Details' },
+          { path: 'tag-list', index: true, element: <TagList />, breadcrumbName: 'Tagging Setting' },
+          // { path: 'edit-tag/:id', element: <EditTag />, breadcrumbName: 'Tagging Details' },
+          { path: 'edit-tags/:id', element: <EditTags />, breadcrumbName: 'Tagging Details' },
         ],
       },
       {

@@ -23,6 +23,7 @@ const PetOwnerList = () => {
 
   useEffect(() => {
     const state: any = location.state
+    console.log(state.id)
     setPetOwnerId(state.id)
   }, [])
 
@@ -52,17 +53,17 @@ const PetOwnerList = () => {
               <Orders id="order-information" customerId={petOwnerId} />
               </InfoContainer>
               <DivideArea />
-              {/*<InfoContainer>*/}
-              {/*<Subscriptions id="subscription-information" subscriptionList={subscriptionList} />*/}
-              {/*</InfoContainer>*/}
+              <InfoContainer>
+              <Subscriptions id="subscription-information" customerId={petOwnerId} />
+              </InfoContainer>
               {/*<DivideArea />*/}
               <InfoContainer>
               <Address id="my-address" customerId={petOwnerId} />
               </InfoContainer>
               <DivideArea />
-              {/*<InfoContainer>*/}
-              {/*<Coupons id="coupon-information" couponCodeList={couponCodeList} />*/}
-              {/*</InfoContainer>*/}
+              <InfoContainer>
+              <Coupons id="coupon-information" customerId={petOwnerId} />
+              </InfoContainer>
               {/*<DivideArea />*/}
               {/*<InfoContainer>*/}
               {/*<SmartDevice id="smart-device" smartDeviceList={smartDeviceList} />*/}
@@ -77,15 +78,17 @@ const PetOwnerList = () => {
             right: '50px',
           }}
         >
-          <Anchor affix={true} offsetTop={150} className="petowner-anchor-link">
+          <Anchor affix={true} offsetTop={150} className="petowner-anchor-link" onClick={(e)=>{
+            e.preventDefault();
+          }}>
             <Link href="#basic-information" title="Basic Information" />
             <Link href="#tagging" title="Tagging" />
             <Link href="#pet-information" title="Pet Information" />
             <Link href="#tencent-account" title="Tencent Account" />
             <Link href="#order-information" title="Order Information" />
-            {/*<Link href="#subscription-information" title="Subscription Information" />*/}
+            <Link href="#subscription-information" title="Subscription Information" />
             <Link href="#my-address" title="My Address" />
-            {/*<Link href="#coupon-information" title="Coupon Information" />*/}
+            <Link href="#coupon-information" title="Voucher Information" />
             {/*<Link href="#smart-device" title="Smart Device" />*/}
           </Anchor>
         </div>
