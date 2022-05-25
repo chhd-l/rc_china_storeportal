@@ -3,26 +3,29 @@ import { Typography, Button, Tooltip } from 'antd'
 import { useRef, useState } from 'react'
 import ProTable, { ProColumns } from '@ant-design/pro-table'
 import ManualSelection from './ManualSelection/index'
-import { normaliseVoucherProduct } from '@/framework/normalize/voucher'
 const { Title } = Typography
 
 type ApplicableProductsType = {
   VoucherType: string
+  setkeys: Function
+  selectProducts: any[]
+  setSelectProducts: Function
+  keys: string[]
 }
 
-const ApplicableProducts = ({ VoucherType }: ApplicableProductsType) => {
+const ApplicableProducts = ({
+  VoucherType,
+  setkeys,
+  selectProducts,
+  setSelectProducts,
+  keys,
+}: ApplicableProductsType) => {
   const [selectProductsModal, setSelectProductsModal] = useState(false)
-  const [selectProducts, setSelectProducts] = useState([])
   const ref = useRef<any>()
 
-  //编辑voucher商品回显 voucher detail里的goodsInfoList
-  const handleEditProducts=(goodsInfoList:any)=>{
-    const res=normaliseVoucherProduct(goodsInfoList)
-    setSelectProducts(res)
-  }
-
-  const selectProductChange = (productList: any) => {
-    setSelectProducts(productList)
+  const selectProductChange = (productList: any, selectedRowKeys: string[]) => {
+    setkeys([...keys,...selectedRowKeys])
+    setSelectProducts([...selectProducts,...productList])
     setSelectProductsModal(false)
     ref.current!.reload()
   }
@@ -108,6 +111,7 @@ const ApplicableProducts = ({ VoucherType }: ApplicableProductsType) => {
               defaultPageSize: 10,
               showTotal: () => <></>,
             }}
+            dataSource={selectProducts}
             rowKey="id"
             toolBarRender={() => [
               <div className="text-gray-400">
@@ -124,13 +128,6 @@ const ApplicableProducts = ({ VoucherType }: ApplicableProductsType) => {
                 Add Products
               </Button>,
             ]}
-            request={async (params) => {
-              // 表单搜索项会从 params 传入，传递给后端接口。
-              return Promise.resolve({
-                data: selectProducts,
-                success: true,
-              })
-            }}
           />
         </div>
       )}
@@ -138,6 +135,7 @@ const ApplicableProducts = ({ VoucherType }: ApplicableProductsType) => {
         visible={selectProductsModal}
         selectProductChange={selectProductChange}
         closeSelectModal={() => setSelectProductsModal(false)}
+        keys={keys}
       />
     </div>
   )

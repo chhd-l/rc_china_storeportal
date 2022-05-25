@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Input, Select, Table } from 'antd';
-import { BaseListProps } from "@/framework/types/common";
+import { Modal, Input, Select, Table, Button } from 'antd';
 import { ReplyContent } from "@/framework/types/wechat";
 import { getReplyContentList } from "@/framework/api/wechatSetting";
 import { normaliseReplyContent } from "@/framework/normalize/wechatSetting";
 import { ColumnProps } from "antd/es/table";
+import { replyTypeList } from "@/framework/constants/wechat";
 
 const Option = Select.Option;
 
@@ -15,19 +15,12 @@ interface IProps {
   onCancel: () => void
 }
 
-const replyTypeSelection: BaseListProps[] = [
-  { label: "Text message", key: "text" },
-  { label: "Picture message", key: "image" },
-  { label: "Voice message", key: "voice" },
-  { label: "Video message", key: "video" },
-  { label: "Graphic message", key: "news" },
-];
-
 const columns: ColumnProps<ReplyContent>[] = [
   {
     title: "Reply Type",
     dataIndex: "type",
     key: "type",
+    render: (_text) => (replyTypeList.find(r => r.key === _text))?.label ?? _text
   },
   {
     title: "Content description",
@@ -64,9 +57,10 @@ const ReplyModal: React.FC<IProps> = ({
     const data = await getReplyContentList({
       offset: current * limit - limit,
       limit: limit,
-      sample: params.description || params.type ? {
-        responseDescribeFuzzy: params?.description ?? undefined,
-        responseType: params?.type ?? undefined,
+      sample: params.description || params.type || onlyEnabled ? {
+        responseDescribeFuzzy: params.description || undefined,
+        responseType: params.type || undefined,
+        isActive: onlyEnabled ? true : undefined,
       }: undefined
     });
     setLoading(false);
@@ -74,7 +68,20 @@ const ReplyModal: React.FC<IProps> = ({
   }
 
   const handleSearch = () => {
-    getReplyList(pages.page, pages.limit, param);
+    setPages(Object.assign({}, pages, { page: 1 }));
+    getReplyList(1, pages.limit, param);
+  }
+
+  const onSelectChange = (val: string) => {
+    setPages(Object.assign({}, pages, { page: 1 }));
+    setParam(Object.assign({}, param, { type: val }));
+    getReplyList(1, pages.limit, Object.assign({}, param, { type: val }));
+  }
+
+  const onReset = () => {
+    setPages(Object.assign({}, pages, { page: 1 }));
+    setParam({ description: "", type: "" });
+    getReplyList(1, pages.limit, { description: "", type: "" });
   }
 
   return (
@@ -94,18 +101,24 @@ const ReplyModal: React.FC<IProps> = ({
       okButtonProps={{disabled: selectedRowKeys.length === 0}}
       onCancel={onCancel}
     >
-      <div className="py-4 flex justify-between items-center">
-        <div className="flex items-center">
-          <span className="mr-2">Content Description</span>
-          <div><Input placeholder="Input" onChange={(e) => setParam(Object.assign({}, param, { description: e.target.value }))} onPressEnter={handleSearch} /></div>
-        </div>
-        <div className="flex items-center">
-          <span className="mr-2">Reply Type</span>
-          <div>
-            <Select placeholder="Select" onChange={(val => setParam(Object.assign({}, param, { type: val })))}>
-              {replyTypeSelection.map((item, idx) => <Option key={idx} value={item.key}>{item.label}</Option>)}
-            </Select>
+      <div className="py-4">
+        <div className="flex justify-between items-center">
+          <div className="flex items-center">
+            <span className="mr-2">Content Description</span>
+            <div><Input placeholder="Input" style={{width: 220}} onChange={(e) => setParam(Object.assign({}, param, { description: e.target.value }))} onPressEnter={handleSearch} /></div>
           </div>
+          <div className="flex items-center">
+            <span className="mr-2">Reply Type</span>
+            <div>
+              <Select placeholder="Select" style={{width: 220}} onChange={onSelectChange}>
+                {replyTypeList.map((item, idx) => <Option key={idx} value={item.key}>{item.label}</Option>)}
+              </Select>
+            </div>
+          </div>
+        </div>
+        <div className="mt-4 space-x-md">
+          <Button type="primary" onClick={handleSearch}>Search</Button>
+          <Button onClick={onReset}>Reset</Button>
         </div>
       </div>
       <Table

@@ -161,7 +161,7 @@ const Graphic = ({
           type="primary"
           className="ml-4 flex items-center"
           onClick={() => {
-            navigator('/add-video')
+            navigator('/add-graphic')
           }}
         >
           + Add

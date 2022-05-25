@@ -8,12 +8,14 @@ import { useState } from 'react'
 const { Title } = Typography
 
 type RuleSettingsType = {
-  PriceOpen: boolean;
-  setPriceOpen: Function;
-  usageQuantityOpen: boolean;
-  setusageQuantityOpen: Function;
-  price: string | number;
-  setPrice: Function;
+  PriceOpen: boolean
+  setPriceOpen: Function
+  usageQuantityOpen: boolean
+  setusageQuantityOpen: Function
+  price: string | number
+  setPrice: Function
+  DiscountType: string
+  setDiscountType: Function
 }
 
 const OrderType = [
@@ -23,9 +25,22 @@ const OrderType = [
   { label: 'Device Ubscription', value: 'DEVICE_SUBSCRIPTION' },
 ]
 
-const RuleSettings = ({ PriceOpen, usageQuantityOpen, setPriceOpen, setusageQuantityOpen, price, setPrice }: RuleSettingsType) => {
+const voucherType = [
+  { lable: 'Fix Amount', value: 'FIX_AMOUNT' },
+  { lable: 'By Percentage', value: 'PERCENTAGE' },
+]
+
+const RuleSettings = ({
+  PriceOpen,
+  usageQuantityOpen,
+  setPriceOpen,
+  setusageQuantityOpen,
+  price,
+  setPrice,
+  DiscountType,
+  setDiscountType,
+}: RuleSettingsType) => {
   const [AmountOpen, setAmountOpen] = useState(true)
-  const [DiscountType, setDiscountType] = useState('FIX_AMOUNT')
   const [MinimumBasketPrice, setMinimumBasketPrice] = useState<string | number>('')
   const [UsageQuantity, setUsageQuantity] = useState<string | number>('')
 
@@ -48,19 +63,15 @@ const RuleSettings = ({ PriceOpen, usageQuantityOpen, setPriceOpen, setusageQuan
       </Form.Item>
       <Form.Item
         label="Discount Type | Amount"
-        className={`${AmountOpen ? '' : 'mb-12'}`}
-        wrapperCol={{ span: 12 }}
+        className={`${AmountOpen ? '' : 'mb-20'}`}
+        wrapperCol={{ span: 10 }}
         shouldUpdate={(prevValues, curValues) => prevValues.discountType !== curValues.discountType}
         required
       >
         {({ setFieldsValue, validateFields }) => {
           return (
             <div className="flex items-center border border-gray-300 border-solid">
-              <Form.Item
-                name="discountType"
-                className="m-0 h-8"
-                wrapperCol={{ span: 'auto' }}
-              >
+              <Form.Item name="discountType" className="m-0 h-8" wrapperCol={{ span: 'auto' }}>
                 <Select
                   className="Selectborder"
                   placeholder="Select"
@@ -75,12 +86,10 @@ const RuleSettings = ({ PriceOpen, usageQuantityOpen, setPriceOpen, setusageQuan
                         Recurrence: '',
                       })
                       validateFields(['Recurrence'])
+                      price && validateFields(['minimumBasketPrice'])
                     }
                   }}
-                  options={[
-                    { lable: 'Fix Amount', value: 'FIX_AMOUNT' },
-                    { lable: 'By Percentage', value: 'PERCENTAGE' },
-                  ]}
+                  options={voucherType}
                 />
               </Form.Item>
               {DiscountType !== 'PERCENTAGE' ? (
@@ -103,13 +112,13 @@ const RuleSettings = ({ PriceOpen, usageQuantityOpen, setPriceOpen, setusageQuan
                       },
                       {
                         required: true,
-                        message: 'Please input'
-                      }
+                        message: 'Please input',
+                      },
                     ]}
                   >
                     <InputNumber
                       onChange={(v) => {
-                        validateFields(['minimumBasketPrice'])
+                        price && validateFields(['minimumBasketPrice'])
                         if (v < MinimumBasketPrice || PriceOpen) {
                           setAmountOpen(true)
                         } else {
@@ -146,7 +155,7 @@ const RuleSettings = ({ PriceOpen, usageQuantityOpen, setPriceOpen, setusageQuan
                             ? Promise.resolve()
                             : Promise.reject(new Error('Please enter a value between 1 and 99'))
                         },
-                      }
+                      },
                     ]}
                   >
                     <InputNumber
@@ -207,7 +216,7 @@ const RuleSettings = ({ PriceOpen, usageQuantityOpen, setPriceOpen, setusageQuan
                   validator: (_, value) => {
                     const price = Number(value) || 0
                     const Amount = getFieldValue('discountValue') || 0
-                    const Bool = (DiscountType === 'FIX_AMOUNT' && price >= Amount) || PriceOpen
+                    const Bool = (DiscountType !== 'FIX_AMOUNT') || PriceOpen || (price >= Amount)
                     return Bool
                       ? Promise.resolve()
                       : Promise.reject(new Error('Voucher discount amount cannot exceed min. spend required'))
@@ -250,6 +259,7 @@ const RuleSettings = ({ PriceOpen, usageQuantityOpen, setPriceOpen, setusageQuan
             </Form.Item>
             <Checkbox
               className="ml-4 mt-1.5 h-8"
+              checked={PriceOpen}
               onChange={(e) => {
                 const Amount = getFieldValue('discountValue')
                 setPriceOpen(e.target.checked)
@@ -297,6 +307,8 @@ const RuleSettings = ({ PriceOpen, usageQuantityOpen, setPriceOpen, setusageQuan
                 value={UsageQuantity}
                 onChange={(v) => setUsageQuantity(v)}
                 placeholder="Input"
+                step='0'
+                parser={(v) => v ? parseInt(v) : ''}
                 className="w-72"
                 disabled={usageQuantityOpen}
               />
@@ -304,6 +316,7 @@ const RuleSettings = ({ PriceOpen, usageQuantityOpen, setPriceOpen, setusageQuan
             <Form.Item className="m-0" name="isLimitedQuantity" wrapperCol={{ span: 'auto' }}>
               <Checkbox
                 className="ml-4 mt-1.5 h-8"
+                checked={usageQuantityOpen}
                 onChange={(e) => {
                   setusageQuantityOpen(e.target.checked)
                   if (e.target.checked) {

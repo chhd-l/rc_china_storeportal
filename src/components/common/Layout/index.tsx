@@ -15,7 +15,7 @@ const AppLayout = () => {
   const [isOpen, setIsOpen] = useState(true)
 
   useEffect(() => {
-    if (pathname.split('/').some(path => path === 'product') && pathname !== '/product/product-list' && pathname !== '/product') {
+    if ((pathname.split('/').some(path => path === 'product') && pathname !== '/product/product-list' && pathname !== '/product') || pathname === '/add-graphic') {
       setIsOpen(false)
     } else {
       setIsOpen(true)

@@ -48,6 +48,7 @@ const SubscriptionDetail = lazy(() => import('@/views/subscriptionDetail'))
 const OrderswithVoucher = lazy(() => import('@/views/OrderswithVoucher'))
 const DiscountPromotions = lazy(() => import('@/views/discountPromotions'))
 const LiveStreamingList = lazy(() => import('@/views/liveStreamingList'))
+const AddGraphic = lazy(() => import('@/views/addGraphic'))
 
 interface RouteObject {
   caseSensitive?: boolean
@@ -71,6 +72,7 @@ let routes: RouteObject[] = [
       { path: 'shipping-setting', element: <ShippingSetting />, breadcrumbName: 'Shipping Setting' },
       { path: 'assets-management', element: <AssetList />, breadcrumbName: 'Assets Management' },
       { path: 'add-video', element: <AddVideo />, breadcrumbName: 'Add Video' },
+      { path: 'add-graphic', element: <AddGraphic />, breadcrumbName: 'Add Graphic message' },
       {
         path: 'product',
         breadcrumbName: 'My Products',
@@ -184,7 +186,7 @@ let routes: RouteObject[] = [
       },
       {
         path: 'reply',
-        breadcrumbName: 'Reply Contents',
+        breadcrumbName: 'Reply Content',
         children: [
           { index: true, element: <ReplyContents /> },
           { path: 'reply-contents', element: <ReplyContents /> },
@@ -194,7 +196,7 @@ let routes: RouteObject[] = [
       },
       {
         path: 'auto-reply',
-        breadcrumbName: 'Automatic Reply',
+        breadcrumbName: 'Automatic Replies',
         children: [
           { index: true, element: <AutoReplyList /> },
           { path: 'auto-reply-list', element: <AutoReplyList /> },

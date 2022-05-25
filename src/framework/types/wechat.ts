@@ -29,7 +29,9 @@ export interface Fans {
 
 export interface AutoReplies {
   id: string
+  accountId: string
   principal: string
+  accountName: string
   matchType: string
   keywords: string
   responseId: string
@@ -88,4 +90,16 @@ export interface WxMenu {
   createdAt: string
   lastModifiedAt: string
   isEnabled: boolean
+}
+
+export interface Article {
+  id: string
+  title: string
+  thumbMediaId: string
+  thumbUrl: string
+  author: string
+  digest: string
+  showCoverPic: number
+  content: string
+  contentSourceURL: string
 }

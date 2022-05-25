@@ -5,7 +5,7 @@ export const formItems = [
   {
     label: "Reply Type",
     name: "type",
-    placeholder: "select",
+    placeholder: "Select",
     type: "select",
     selectList: replyTypeList,
   },
@@ -13,7 +13,7 @@ export const formItems = [
   {
     label: "Status",
     name: "status",
-    placeholder: "select",
+    placeholder: "Select",
     type: "select",
     selectList: statusList,
   },

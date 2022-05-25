@@ -17,17 +17,17 @@ const Finishedproductdisplay = () => {
         const voucherName = getFieldValue('voucherName') || ''
         const Description = getFieldValue('voucherDescription') || ''
         const times = getFieldValue('times') || ''
-        const startTimes = times ? moment(times[0]).format('YYYY-MM-DD') : ''
-        const endtTimes = times ? moment(times[1]).format('YYYY-MM-DD') : ''
+        const startTimes = times ? moment(times[0]).format('YYYY/MM/DD HH:mm') : ''
+        const endtTimes = times ? moment(times[1]).format('YYYY/MM/DD HH:mm') : ''
         return (
           <div className="w-96 h-72">
             <div className="h-10 CoilingCenter" />
             <div className="h-full bg-gray-100 py-2 ">
               <div className="h-28 Notreceived flex items-center">
                 <div className="py-3 pl-4 h-full">
-                  <div className="h-full w-24 flex flex-col">
+                  <div className="h-full w-24 flex flex-col items-center text-center">
                     {imgUrl ? (
-                      <Image className="w-5/6" style={{height:'63px'}} src={imgUrl} preview={false} />
+                      <Image width={70} src={imgUrl} preview={false} />
                     ) : (
                       <div className="flex-1 w-5/6 h-full" />
                     )}

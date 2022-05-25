@@ -22,7 +22,7 @@ export const ADD_REPLY_CONTENT_FORM: FormItemProps[] = [
     rules: [
       {
         required: true,
-        message: "Please input keywords!",
+        message: "Please input description!",
       },
     ],
   },

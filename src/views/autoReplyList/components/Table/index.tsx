@@ -1,6 +1,7 @@
 import { Button, Switch, Table, Tooltip } from "antd";
 import { useNavigate } from "react-router-dom";
-import React from "react";
+import { matchTypeList } from "../../modules/constants";
+import { replyTypeList } from "@/framework/constants/wechat";
 import { AutoReplies } from "@/framework/types/wechat";
 
 const Index = ({
@@ -29,6 +30,7 @@ const Index = ({
       title: "Match Type",
       dataIndex: "matchType",
       key: "matchType",
+      render: (_text: string) => (matchTypeList.find(m => m.key === _text))?.label ?? _text
     },
     {
       title: "Keywords",
@@ -39,6 +41,7 @@ const Index = ({
       title: "Response Type",
       dataIndex: "responseType",
       key: "responseType",
+      render: (_text: string) => (replyTypeList.find(m => m.key === _text))?.label ?? _text
     },
     {
       title: "Response Description",
@@ -54,10 +57,6 @@ const Index = ({
           checked={text}
           onChange={(checked) => {
             onChangeStatus(record.id, {
-              accountId: record.principal,
-              matchType: record.matchType,
-              keyWords: record.keywords,
-              replyContentId: record.responseId,
               isActive: checked
             })
           }}
