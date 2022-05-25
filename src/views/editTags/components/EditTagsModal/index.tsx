@@ -1,11 +1,13 @@
 import './index.less'
-import { message, Button,Avatar } from 'antd'
+import { message, Button, Avatar } from 'antd'
 import { ModalForm } from '@ant-design/pro-form'
 import { useParams } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import ProTable from '@/components/common/ProTable'
 import { ProColumns } from '@ant-design/pro-table'
 import { handlePageParams } from '@/utils/utils'
+import { getPetOwnerList } from '@/framework/api/customer'
+import { addCustomerTag } from '@/framework/api/tag'
 
 export type EditTagsModalProps = {
   visible: boolean;
@@ -13,22 +15,13 @@ export type EditTagsModalProps = {
   handleUpdate: (visible: boolean) => void;
 };
 
-const EditTagsModal = ({ visible, handleVisible,handleUpdate }: EditTagsModalProps) => {
+const EditTagsModal = ({ visible, handleVisible, handleUpdate }: EditTagsModalProps) => {
   const params = useParams()
-  const [selectedRowKeys, setSelectedRowKeys] = useState([''])
-  const [saveList, setSaveList] = useState([])
+  const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const ref = useRef<any>()
   const onSelectChange = (selectedRowKeys: any, selectedRows: any) => {
     const { id } = params
     console.log('selectedRowKeys changed: ', selectedRowKeys, selectedRows)
-    let data = selectedRows.map((item: any) => {
-      return {
-        goodsId: item.id,
-        shopCategoryId: id,
-        storeId: item.storeId,
-      }
-    })
-    setSaveList(data)
     setSelectedRowKeys(selectedRowKeys)
   }
   const manualColumns: ProColumns<any>[] = [
@@ -37,7 +30,7 @@ const EditTagsModal = ({ visible, handleVisible,handleUpdate }: EditTagsModalPro
       dataIndex: 'image',
       key: 'image',
       hideInSearch: true,
-      render: (text: any, record: any) => <Avatar size="large" icon={<img src={text} alt='' />} />,
+      render: (text: any, record: any) => <Avatar size='large' icon={<img src={text} alt='' />} />,
     },
     {
       title: 'WeChat Name',
@@ -49,12 +42,15 @@ const EditTagsModal = ({ visible, handleVisible,handleUpdate }: EditTagsModalPro
       title: 'Phone Number',
       dataIndex: 'phone',
       key: 'phone',
-    }
+      render: (text: any, record: any) => {
+        return record.phone ? record.phone : ''
+      },
+    },
   ]
 
   useEffect(() => {
-
-  }, [])
+    setSelectedRowKeys([])
+  }, [visible])
   return (
     <ModalForm
       width='50%'
@@ -63,25 +59,32 @@ const EditTagsModal = ({ visible, handleVisible,handleUpdate }: EditTagsModalPro
       title='Select Products'
       visible={visible}
       onFinish={async () => {
-        if (saveList.length > 0) {
-          handleUpdate(true)
-          message.success('Operate success')
-          return true
+        if (selectedRowKeys.length > 0) {
+          const { id } = params
+          let res = await addCustomerTag({
+            customerIds: selectedRowKeys,
+            tagId: id,
+            operator: 'zz',
+            storeId: '12345678',
+          })
+          if (res?.addCustomerTag) {
+            message.success('Operate success')
+            handleUpdate(true)
+            return true
+          }
         } else {
-          message.warning('Operation failed')
           return false
         }
 
       }}
       submitter={{
-        searchConfig:{
-          submitText:'Confirm'
-        }
+        searchConfig: {
+          submitText: 'Confirm',
+        },
       }}
       onVisibleChange={handleVisible}
     >
       <ProTable
-        cardBordered
         actionRef={ref}
         columns={manualColumns}
         toolBarRender={false}
@@ -95,13 +98,20 @@ const EditTagsModal = ({ visible, handleVisible,handleUpdate }: EditTagsModalPro
           })
           let data: any = {
             ...page,
-            hasTotal: true,
+            isNeedTotal: true,
             sample: {},
           }
-
+          if (params.nickname) {
+            data.sample.nickName = params.nickname
+          }
+          if (params.phone) {
+            data.sample.phone = params.phone
+          }
+          let tableData = await getPetOwnerList(data)
+          console.log(tableData)
           return Promise.resolve({
-            data: [] || [],
-            total: 0,
+            data: tableData?.records || [],
+            total: tableData.total,
             success: true,
           })
         }}
@@ -111,8 +121,8 @@ const EditTagsModal = ({ visible, handleVisible,handleUpdate }: EditTagsModalPro
         dateFormatter='string'
         pagination={{
           showTotal: (total: number) => ``,
-          showQuickJumper:false,
-          showSizeChanger:false,
+          showQuickJumper: false,
+          showSizeChanger: false,
         }}
         search={{
           defaultCollapsed: false,

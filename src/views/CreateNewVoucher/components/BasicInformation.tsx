@@ -14,7 +14,58 @@ type BasicInformationType = {
 }
 
 const disabledDate = (current: any) => {
-  return current && current < moment().endOf('day')
+  return current && current < moment().startOf('day')
+}
+const range = (start: number, end: number) => {
+  const result = []
+  for (let i = start; i < end; i++) {
+    result.push(i)
+  }
+  return result
+}
+const disabledTime = (current: any, type: string) => {
+  const date = new Date()
+  const disDate = new Date(current)
+  const day = date.getDate()
+  const disDay = disDate.getDate()
+  const hour = date.getHours() + 1
+  const dishour = disDate.getHours()
+  const minute = date.getMinutes()
+  if (type === 'start') {
+    return {
+      disabledHours: () => {
+        if (day === disDay) {
+          return range(0, 24).splice(0, hour)
+        } else {
+          return range(0, 0)
+        }
+      },
+      disabledMinutes: () => {
+        if (day === disDay && hour === dishour) {
+          return range(0, minute)
+        } else {
+          return range(0, 0)
+        }
+      },
+    }
+  } else {
+    return {
+      disabledHours: () => {
+        if (day === disDay) {
+          return range(0, 24).splice(0, hour + 1)
+        } else {
+          return range(0, 0)
+        }
+      },
+      disabledMinutes: () => {
+        if (day === disDay && (hour + 1) === dishour) {
+          return range(0, minute)
+        } else {
+          return range(0, 0)
+        }
+      },
+    }
+  }
 }
 
 const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl }: BasicInformationType) => {
@@ -119,15 +170,20 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl }
         label="Voucher Usage Period"
         required
         shouldUpdate={(prevValues, curValues) => prevValues.times !== curValues.times}
+        wrapperCol={{ span: 10 }}
       >
-        {
-          ({ getFieldValue }) => {
-            const startTimer = getFieldValue('voucherUsageBeginningOfTime') ? moment(moment(getFieldValue('voucherUsageBeginningOfTime')).format('YYYY-MM-DD'), 'YYYY-MM-DD') : ''
-            const endTimer = getFieldValue('voucherUsageBeginningOfTime') ? moment(moment(getFieldValue('voucherUsageEndOfTime')).format('YYYY-MM-DD'), 'YYYY-MM-DD') : ''
-            return <Form.Item
+        {({ getFieldValue }) => {
+          const startTimer = getFieldValue('voucherUsageBeginningOfTime')
+            ? moment(moment(getFieldValue('voucherUsageBeginningOfTime')).format('YYYY-MM-DD'), 'YYYY-MM-DD')
+            : ''
+          const endTimer = getFieldValue('voucherUsageBeginningOfTime')
+            ? moment(moment(getFieldValue('voucherUsageEndOfTime')).format('YYYY-MM-DD'), 'YYYY-MM-DD')
+            : ''
+          return (
+            <Form.Item
               name="times"
-              className='m-0'
-              initialValue={[startTimer, endTimer]}
+              className="m-0"
+              initialValue={[startTimer || moment().add(1, 'hours'), endTimer || moment().add(2, 'hours')]}
               rules={[
                 {
                   required: true,
@@ -135,10 +191,18 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl }
                 },
               ]}
             >
-            <RangePicker disabledDate={disabledDate} />
+              <RangePicker
+                showTime={{
+                  format: 'HH:mm',
+                  defaultValue: [moment().add(1, 'hours'), moment().add(2, 'hours')],
+                }}
+                disabledDate={disabledDate}
+                disabledTime={disabledTime}
+                format="YYYY-MM-DD HH:mm"
+              />
             </Form.Item>
-          }
-        }
+          )
+        }}
       </Form.Item>
       <Form.Item
         className="Uploader"

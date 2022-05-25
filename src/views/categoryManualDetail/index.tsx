@@ -258,7 +258,6 @@ const CategoryDetail = () => {
             </Button>
           </div>
           <ProTable
-            cardBordered
             className='set-delete-box'
             actionRef={ref}
             columns={columns}

@@ -11,7 +11,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
       <Row>
         <Col span={12}>
           <div className="flex flex-row items-center">
-            <div className="w-28 mr-2 text-left">Tagging Name:</div>
+            <div className="w-32 mr-2 text-left">Tagging Name:</div>
             <Input
               placeholder="Enter tagging name"
               value={searchParams.name}
