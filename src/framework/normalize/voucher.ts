@@ -19,6 +19,7 @@ export const normaliseVoucherProduct = (productList: any) => {
     return result
   }
   return productList.map((el: any) => {
+    el.goodsVariants = el.goodsVariant || el.goodsVariants
     return {
       id: el.id,
       goodsName: el.goodsName,

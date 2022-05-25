@@ -48,12 +48,14 @@ export const normaliseReplyContent: (data: any) => ReplyContent[] = (data) => {
 export const normaliseAutoReplies: (data: any) => AutoReplies = (data) => {
   return {
     id: data?.id,
-    principal: data?.accountId,
+    accountId: data?.accountId,
+    principal: data?.accountPrincipal,
+    accountName: data?.accountName,
     matchType: data?.matchType,
     keywords: data?.keyWords,
     responseId: data?.replyContentId,
-    responseType: data?.replyContentType,
-    responseDes: data?.replyContentDescribe,
+    responseType: data?.responseType,
+    responseDes: data?.responseDescribe,
     status: data?.isActive
   }
 }

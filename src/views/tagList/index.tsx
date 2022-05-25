@@ -8,6 +8,7 @@ import { initSearchParams } from '@/views/petOwnerList/modules/constants'
 import { PageParamsProps } from '@/framework/types/common'
 import { getTags } from '@/framework/api/tag'
 import './index.less'
+import { handlePageParams } from '@/utils/utils'
 
 const PetOwnerList = () => {
   const [petOwnerList, setPetOwnerList] = useState<any[]>([])
@@ -18,6 +19,7 @@ const PetOwnerList = () => {
   })
   const [total, setTotal] = useState(0)
   const { currentPage, pageSize } = pageParams
+  const [ loading, setLoading]  = useState<boolean>(false)
 
   const handleUpdate = (visible: boolean) => {
     getTagList()
@@ -27,11 +29,21 @@ const PetOwnerList = () => {
   }
 
   const getTagList = async () => {
-    // let params = handleQueryParams({ searchParams, pageParams })
-    // console.log(params)
-    const res = await getTags()
-    setPetOwnerList(res.records)
+    setLoading(true)
+    let page = handlePageParams(pageParams)
+    let obj:any = {
+      ...page,
+      isNeedTotal: true,
+      operator: 'zz',
+      sample: {},
+    }
+    if (searchParams.name) {
+      obj.sample.name = searchParams.name
+    }
+    const res = await getTags(obj)
+    setPetOwnerList(res?.records||[])
     setTotal(res.total)
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -51,7 +63,7 @@ const PetOwnerList = () => {
         />
       </SearchContainer>
       <TableContainer>
-        <Table petOwnerList={petOwnerList} handleUpdate={handleUpdate} />
+        <Table petOwnerList={petOwnerList} handleUpdate={handleUpdate} loading={loading}/>
         {
           petOwnerList.length > 0 ? <div className='flex flex-row justify-end mt-4'>
             <Pagination

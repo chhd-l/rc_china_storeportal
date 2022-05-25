@@ -112,6 +112,10 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
   }, [productLists,visible])
 
   const init = () => {
+    if(editParams.filterTags.length===0){
+      editParams.filterTags=['All Categories', 'All Brands']
+    }
+    console.log(editParams,9999)
     setSaveParams({...saveParams,...editParams })
     setFilterTags(editParams.filterTags)
     setFilterTagsTwo(editParams.filterTagsTwo)
@@ -313,19 +317,19 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
             </ProForm.Item>
             <div className='flex'>
               <ProFormMoney
-                labelCol={{ span: 10 }}
+                labelCol={{ span: 12 }}
                 wrapperCol={{ span: 12 }}
                 label='Markting Price'
                 name='startPrice'
                 customSymbol='￥'
                 min={0}
               />
-              <span className='relative' style={{ left: '-10px' }}>
+              <span className='relative'>
                 -
               </span>
               <ProFormMoney
-                labelCol={{ span: 4 }}
-                wrapperCol={{ span: 18 }}
+                labelCol={{ span: 0 }}
+                wrapperCol={{ span: 22 }}
                 name='endPrice'
                 customSymbol='￥'
                 min={0}

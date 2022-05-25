@@ -548,7 +548,6 @@ export const deleteAutomaticResponse = async (id: string) => {
     body: {
       id,
       isDeleted: true,
-      operator: 'zz'
     }
   });
   console.log('delete automaticResponse view data:', data);
@@ -560,7 +559,6 @@ export const updateAutomaticResponse = async (id: string, param: any) => {
     body: {
       isDeleted: false,
       id,
-      operator: 'zz',
       automaticResponseInput: param,
     }
   });
