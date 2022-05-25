@@ -91,3 +91,15 @@ export interface WxMenu {
   lastModifiedAt: string
   isEnabled: boolean
 }
+
+export interface Article {
+  id: string
+  title: string
+  thumbMediaId: string
+  picUrl: string
+  author: string
+  digest: string
+  showCoverPic: number
+  content: string
+  contentSourceURL: string
+}
