@@ -9,6 +9,7 @@ const OrderSetting = () => {
   const [autoCompleteConfig, setAutoCompleteConfig] = useState<OrderSettingItem | any>(null)
   const [initOrderSetting, setInitOrderSetting] = useState<OrderSettingItem[]>([])
   const [loading, setLoading] = useState(false)
+  const [saveLoading, setSaveLoading] = useState(false)
 
   const getOrderSettings = async () => {
     setLoading(true)
@@ -30,6 +31,7 @@ const OrderSetting = () => {
   }
 
   const modifyOrderSetting = async () => {
+    setSaveLoading(true)
     const params = [autoCancelConfig].concat([autoCompleteConfig]).map((el) => {
       return {
         id: el.id,
@@ -43,6 +45,7 @@ const OrderSetting = () => {
     } else {
       message.error({ className: 'rc-message', content: 'Operation failed' })
     }
+    setSaveLoading(false)
   }
 
   useEffect(() => {
@@ -103,10 +106,10 @@ const OrderSetting = () => {
             />
           </div>
           <div className="flex justify-end mt-md">
-            <Button className="mr-md" onClick={() => handleOrderSettings(initOrderSetting)}>
+            <Button className="mr-md rounded-4" onClick={() => handleOrderSettings(initOrderSetting)}>
               Cancel
             </Button>
-            <Button type="primary" onClick={() => modifyOrderSetting()}>
+            <Button className="rounded-4" type="primary" loading={saveLoading} onClick={() => modifyOrderSetting()}>
               Save
             </Button>
           </div>
