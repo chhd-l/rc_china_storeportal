@@ -18,16 +18,20 @@ const CreateNewVoucher = () => {
   const [usageQuantityOpen, setusageQuantityOpen] = useState(false)
   const [price, setPrice] = useState<string | number>('')
   const [imageUrl, setImageUrl] = useState('')
-  const [selectedRowKeys, setSelectedRowKeys] = useState([])
+  const [keys, setkeys] = useState<string[]>([])
   const [DiscountType, setDiscountType] = useState('FIX_AMOUNT')
   const [selectProducts, setSelectProducts] = useState([])
 
   //编辑voucher商品回显 voucher detail里的goodsInfoList
   const getvoucherDetails = async (Id: string) => {
     let res = await getVoucherById(Id)
-    // const vlue = normaliseVoucherProduct(res.goodsInfoList)
-    console.log('res', res)
-    // setSelectProducts(vlue)
+    const arr: string[] = []
+    res.goodsInfoList.forEach((item: any) => {
+      arr.push(item.id)
+    });
+    setkeys(arr)
+    const vlue = normaliseVoucherProduct(res.goodsInfoList)
+    setSelectProducts(vlue)
   }
 
   useEffect(() => {
@@ -68,8 +72,8 @@ const CreateNewVoucher = () => {
             v.voucherDefaultImage = v.Image.file.response.url
             v.voucherType = VoucherType
             if (state) {
-              v.voucherGoodsRelated = selectedRowKeys.length
-                ? selectedRowKeys.map((item) => ({
+              v.voucherGoodsRelated = keys.length
+                ? keys.map((item) => ({
                     operator: 'zz',
                     goodsId: item,
                     storeId: '123456',
@@ -77,8 +81,8 @@ const CreateNewVoucher = () => {
                   }))
                 : ''
             } else {
-              v.voucherGoodsRelated = selectedRowKeys.length
-                ? selectedRowKeys.map((item) => ({
+              v.voucherGoodsRelated = keys.length
+                ? keys.map((item) => ({
                     operator: 'zz',
                     goodsId: item,
                     storeId: '123456',
@@ -135,7 +139,8 @@ const CreateNewVoucher = () => {
         />
         <ApplicableProducts
           VoucherType={VoucherType}
-          setSelectedRowKeys={setSelectedRowKeys}
+          keys={keys}
+          setkeys={setkeys}
           selectProducts={selectProducts}
           setSelectProducts={setSelectProducts}
         />

@@ -20,10 +20,12 @@ const ManualSelection = ({
   visible,
   selectProductChange,
   closeSelectModal,
+  keys,
 }: {
   visible: boolean
   selectProductChange: Function
   closeSelectModal: Function
+  keys: string[]
 }) => {
   const [mockOptions, setMockOptions] = useState<any[]>([])
   const [selectedRowKeys, setSelectedRowKeys] = useState([''])
@@ -31,7 +33,6 @@ const ManualSelection = ({
   const ref = useRef<any>()
 
   const onSelectChange = (selectedRowKeys: any, selectedRows: any) => {
-    console.log('selectedRowKeys changed: ', selectedRowKeys, selectedRows)
     setSaveList(selectedRows)
     setSelectedRowKeys(selectedRowKeys)
   }
@@ -51,6 +52,10 @@ const ManualSelection = ({
     setSelectedRowKeys([''])
     setSaveList([])
   }, [])
+
+  useEffect(() => {
+    setSelectedRowKeys(keys)
+  }, [keys])
 
   const manualColumns: ProColumns<any>[] = [
     {
