@@ -29,7 +29,9 @@ export interface Fans {
 
 export interface AutoReplies {
   id: string
+  accountId: string
   principal: string
+  accountName: string
   matchType: string
   keywords: string
   responseId: string
