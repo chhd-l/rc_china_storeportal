@@ -79,6 +79,7 @@ const ShippingSetting = () => {
           title="Notice"
           visible={statusModalTip}
           okText={'Confirm'}
+          confirmLoading={confirmLoading}
           onOk={() =>
             updateLogisticsIntegration({ ...logisticsIntegration, isEnabled: !logisticsIntegration.isEnabled })
           }
