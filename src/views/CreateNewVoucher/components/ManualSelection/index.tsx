@@ -150,7 +150,7 @@ const ManualSelection = ({
       title="Select Products"
       visible={visible}
       onFinish={async () => {
-        selectProductChange && selectProductChange(saveList)
+        selectProductChange && selectProductChange(saveList, selectedRowKeys)
       }}
       submitter={{
         searchConfig: {

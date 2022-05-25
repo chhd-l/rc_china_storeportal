@@ -7,14 +7,16 @@ const { Title } = Typography
 
 type ApplicableProductsType = {
   VoucherType: string
+  setSelectedRowKeys: Function
 }
 
-const ApplicableProducts = ({ VoucherType }: ApplicableProductsType) => {
+const ApplicableProducts = ({ VoucherType, setSelectedRowKeys}: ApplicableProductsType) => {
   const [selectProductsModal, setSelectProductsModal] = useState(false)
   const [selectProducts, setSelectProducts] = useState([])
   const ref = useRef<any>()
 
-  const selectProductChange = (productList: any) => {
+  const selectProductChange = (productList: any, selectedRowKeys: string[]) => {
+    setSelectedRowKeys(selectedRowKeys)
     setSelectProducts(productList)
     setSelectProductsModal(false)
     ref.current!.reload()

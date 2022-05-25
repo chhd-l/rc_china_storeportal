@@ -18,9 +18,9 @@ export const getVouchers = async (parma: any) => {
 }
 
 //获取优惠券详情
-export const getVoucherById = async () => {
+export const getVoucherById = async (Id: string) => {
   try {
-    let res = await ApiRoot.vouchers().getVoucherById('06158554-8bff-60ed-a511-4f3a02dbc87d')
+    let res = await ApiRoot.vouchers().getVoucherById(Id)
     console.log('get voucher by id view data', res)
     return res?.voucherFindById || null
   } catch (e) {
@@ -37,7 +37,7 @@ export const createVoucher = async (parma: any) => {
       storeId: '123456',
       operator: 'zz',
     })
-    return res?.errors ? false : res
+    return res?.voucherInsert || false
   } catch (e) {
     console.log(e)
     return false
@@ -52,7 +52,7 @@ export const updateVoucher = async (parma: any) => {
       storeId: '123456',
       operator: 'zz',
     })
-    return res?.errors ? false : res
+    return res?.voucherUpsert || false
   } catch (e) {
     console.log(e)
     return false
