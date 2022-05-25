@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import BasicInformation from './components/BasicInformation'
 import RuleSettings from './components/RuleSettings'
 import ApplicableProducts from './components/ApplicableProducts'
+import { normaliseVoucherProduct } from '@/framework/normalize/voucher'
 import './Style.less'
 import { createVoucher, getVoucherById, updateVoucher } from '@/framework/api/voucher'
 import moment from 'moment'
@@ -19,10 +20,14 @@ const CreateNewVoucher = () => {
   const [imageUrl, setImageUrl] = useState('')
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const [DiscountType, setDiscountType] = useState('FIX_AMOUNT')
+  const [selectProducts, setSelectProducts] = useState([])
 
+  //编辑voucher商品回显 voucher detail里的goodsInfoList
   const getvoucherDetails = async (Id: string) => {
-     let res = await getVoucherById(Id)
-     console.log('res',res)
+    let res = await getVoucherById(Id)
+    // const vlue = normaliseVoucherProduct(res.goodsInfoList)
+    console.log('res', res)
+    // setSelectProducts(vlue)
   }
 
   useEffect(() => {
@@ -44,50 +49,55 @@ const CreateNewVoucher = () => {
         wrapperCol={{ span: 6 }}
         className="CreateNewVoucher"
         initialValues={
-          state ?
-          {
-            ...state,
-            Image: { file:{response:{url:state?.voucherDefaultImage || ''}} },
-            recurrence: state.discountType !== 'FIX_AMOUNT' ? '' : state.recurrence
-          } : {
-            discountType: 'FIX_AMOUNT',
-            isLimitedQuantity: false,
-          }
+          state
+            ? {
+                ...state,
+                Image: { file: { response: { url: state?.voucherDefaultImage || '' } } },
+                recurrence: state.discountType !== 'FIX_AMOUNT' ? '' : state.recurrence,
+              }
+            : {
+                discountType: 'FIX_AMOUNT',
+                isLimitedQuantity: false,
+              }
         }
         onFinish={async (v) => {
           try {
-            console.log('v',v)
+            console.log('v', v)
             v.voucherUsageBeginningOfTime = moment(v.times[0]).utc().format()
             v.voucherUsageEndOfTime = moment(v.times[1]).utc().format()
             v.voucherDefaultImage = v.Image.file.response.url
             v.voucherType = VoucherType
-            if(state) {
-              v.voucherGoodsRelated = selectedRowKeys.length ? selectedRowKeys.map(item => ({
-                operator: 'zz',
-                goodsId: item,
-                storeId: '123456',
-                voucherId: state.id
-              })) : ''
+            if (state) {
+              v.voucherGoodsRelated = selectedRowKeys.length
+                ? selectedRowKeys.map((item) => ({
+                    operator: 'zz',
+                    goodsId: item,
+                    storeId: '123456',
+                    voucherId: state.id,
+                  }))
+                : ''
             } else {
-              v.voucherGoodsRelated = selectedRowKeys.length ? selectedRowKeys.map(item => ({
-                operator: 'zz',
-                goodsId: item,
-                storeId: '123456'
-              })) : ''
+              v.voucherGoodsRelated = selectedRowKeys.length
+                ? selectedRowKeys.map((item) => ({
+                    operator: 'zz',
+                    goodsId: item,
+                    storeId: '123456',
+                  }))
+                : ''
             }
             v.minimumBasketPrice = Math.round(Number(v.minimumBasketPrice) * 100) / 100 || 0
             v.usageQuantity = v.usageQuantity || 0
             v.discountValue = '' + v.discountValue
             delete v.times
             delete v.Image
-            state && (v = {...state, ...v})
+            state && (v = { ...state, ...v })
             for (const key in v) {
               const item = v[key]
               if (!item && typeof item !== 'boolean' && item !== 0) {
                 delete v[key]
               }
             }
-            console.log('v',v)
+            console.log('v', v)
             let res = undefined
             if (!state) {
               v.voucherStatus = 'Upcoming'
@@ -123,7 +133,12 @@ const CreateNewVoucher = () => {
           DiscountType={DiscountType}
           setDiscountType={setDiscountType}
         />
-        <ApplicableProducts VoucherType={VoucherType} setSelectedRowKeys={setSelectedRowKeys} />
+        <ApplicableProducts
+          VoucherType={VoucherType}
+          setSelectedRowKeys={setSelectedRowKeys}
+          selectProducts={selectProducts}
+          setSelectProducts={setSelectProducts}
+        />
         <Form.Item className="w-full flex items-center justify-end py-8">
           <div className="flex items-center justify-end">
             <Button htmlType="button" onClick={() => navigator('/marketingCentre/vouchers')}>
