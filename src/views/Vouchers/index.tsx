@@ -136,7 +136,7 @@ const Vouchers = () => {
               <span className="cursor-pointer ml-2 iconfont icon-lianxi2hebing-15 text-red-500 text-xl" onClick={()=>endActivityVoucher()}/>
             </Tooltip>
           )}
-          {record.voucherStatus === 'Upcoming' && (
+          {record.voucherStatus !== 'Ongoing' && record.voucherStatus !== 'Expired' && (
             <Tooltip title="Delete">
               <span className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl" onClick={()=>delVoucher()}/>
             </Tooltip>
