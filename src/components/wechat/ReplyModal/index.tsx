@@ -57,9 +57,10 @@ const ReplyModal: React.FC<IProps> = ({
     const data = await getReplyContentList({
       offset: current * limit - limit,
       limit: limit,
-      sample: params.description || params.type ? {
-        responseDescribeFuzzy: params?.description ?? undefined,
-        responseType: params?.type ?? undefined,
+      sample: params.description || params.type || onlyEnabled ? {
+        responseDescribeFuzzy: params.description || undefined,
+        responseType: params.type || undefined,
+        isActive: onlyEnabled ? true : undefined,
       }: undefined
     });
     setLoading(false);

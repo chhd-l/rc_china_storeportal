@@ -184,7 +184,7 @@ let routes: RouteObject[] = [
       },
       {
         path: 'reply',
-        breadcrumbName: 'Reply Contents',
+        breadcrumbName: 'Reply Content',
         children: [
           { index: true, element: <ReplyContents /> },
           { path: 'reply-contents', element: <ReplyContents /> },
@@ -194,7 +194,7 @@ let routes: RouteObject[] = [
       },
       {
         path: 'auto-reply',
-        breadcrumbName: 'Automatic Reply',
+        breadcrumbName: 'Automatic Replies',
         children: [
           { index: true, element: <AutoReplyList /> },
           { path: 'auto-reply-list', element: <AutoReplyList /> },

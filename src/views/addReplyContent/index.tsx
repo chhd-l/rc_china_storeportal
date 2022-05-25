@@ -175,13 +175,13 @@ const AddAccount = () => {
           </Form.Item>
         </Form>
       </InfoContainer>
-      <AssetsModal
+      {modalVisible ? <AssetsModal
         visible={modalVisible}
         assetType={assetType}
         onlySync={true}
         onConfirm={setAssetId}
         onCancel={() => setModalVisible(false)}
-      />
+      />: null}
     </ContentContainer>
   );
 };
