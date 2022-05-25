@@ -44,11 +44,9 @@ const AddAccount = () => {
     let success = false;
     if (state?.id) {
       success = await updateAutomaticResponse(state.id, {
-        accountId: "000001",
         matchType: values.type,
         keyWords: values.keywords,
         replyContentId: reply?.id,
-        isActive: false,
       }).then(res => !!res);
     } else {
       success = await createAutomaticResponse({
