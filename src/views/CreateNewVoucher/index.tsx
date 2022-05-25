@@ -66,7 +66,6 @@ const CreateNewVoucher = () => {
         }
         onFinish={async (v) => {
           try {
-            console.log('v', v)
             v.voucherUsageBeginningOfTime = moment(v.times[0]).utc().format()
             v.voucherUsageEndOfTime = moment(v.times[1]).utc().format()
             v.voucherDefaultImage = v.Image.file.response.url
@@ -101,7 +100,6 @@ const CreateNewVoucher = () => {
                 delete v[key]
               }
             }
-            console.log('v', v)
             let res = undefined
             if (!state) {
               v.voucherStatus = 'Upcoming'
