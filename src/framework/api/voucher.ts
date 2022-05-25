@@ -60,9 +60,9 @@ export const updateVoucher = async (parma: any) => {
 }
 
 //删除优惠券
-export const deleteVoucher = async () => {
+export const deleteVoucher = async (Id: string) => {
   try {
-    let res = await ApiRoot.vouchers().deleteVoucher('677f0a72-ec81-7479-bb56-1348159a8cfb')
+    let res = await ApiRoot.vouchers().deleteVoucher(Id)
     console.log('delete voucher view data', res)
     return res?.voucherDelete || false
   } catch (e) {
