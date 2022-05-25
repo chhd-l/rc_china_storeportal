@@ -193,7 +193,6 @@ const CategoryDetail = () => {
             </Button>
           </div>
           <ProTable
-            cardBordered
             style={{ padding: 0 }}
             className='my-table'
             actionRef={ref}

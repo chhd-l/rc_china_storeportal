@@ -225,7 +225,6 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
       onVisibleChange={handleVisible}
     >
       <ProTable
-        cardBordered
         actionRef={ref}
         columns={manualColumns}
         toolBarRender={false}

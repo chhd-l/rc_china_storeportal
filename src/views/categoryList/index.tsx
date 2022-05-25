@@ -266,7 +266,6 @@ const ShopCategories = () => {
           {/*  type='info'*/}
           {/*/>*/}
           <ProTable
-            cardBordered
             className='my-table'
             actionRef={ref}
             search={false}

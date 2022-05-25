@@ -32,3 +32,43 @@ export const deleteTag = async (params: any) => {
     return []
   }
 }
+export const detailTag = async (params: any) => {
+  try {
+    let res = await ApiRoot.tags().detailTag({ body: params })
+    console.log('get tag list view data', res)
+    return res
+  } catch (e) {
+    console.log(e)
+    return []
+  }
+}
+export const addCustomerTag = async (params: any) => {
+  try {
+    let res = await ApiRoot.tags().addCustomerTag(params)
+    console.log('get tag list view data', res)
+    return res
+  } catch (e) {
+    console.log(e)
+    return []
+  }
+}
+export const removeCustomerTag = async (params: any) => {
+  try {
+    let res = await ApiRoot.tags().removeCustomerTag(params)
+    console.log('get tag list view data', res)
+    return res
+  } catch (e) {
+    console.log(e)
+    return []
+  }
+}
+export const updateTag = async (params: any) => {
+  try {
+    let res = await ApiRoot.tags().updateTag(params)
+    console.log('get tag list view data', res)
+    return res
+  } catch (e) {
+    console.log(e)
+    return []
+  }
+}

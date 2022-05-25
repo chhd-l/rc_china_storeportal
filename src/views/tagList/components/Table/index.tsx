@@ -24,6 +24,7 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
 
   const onFinish = async (values: any) => {
     let res = await createTag({name:values.name,isEnabled:false})
+    console.log(res)
     if(res?.createTag){
       handleUpdate(true)
       message.success('Operate success')

@@ -1,5 +1,5 @@
 import './index.less'
-import { Button, Switch, Input, Modal,Tooltip,Divider,Avatar } from 'antd'
+import { Button, Switch, Input, Modal,Tooltip,Divider,Avatar,message } from 'antd'
 import { CheckOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons'
 import ProTable from '@/components/common/ProTable'
 import { useEffect, useState, useRef } from 'react'
@@ -9,31 +9,59 @@ import EditTagsModal from './components/EditTagsModal'
 import { updateShopCategory } from '@/framework/api/get-product'
 import { ContentContainer } from '@/components/ui'
 import { handlePageParams } from '@/utils/utils'
+import { detailTag, removeCustomerTag, updateTag } from '@/framework/api/tag'
 
 
 const EditTags = () => {
   const params = useParams()
-  const [curAssetId, setCurAssetId] = useState<any>('')
+  const [customerId, setCustomerId] = useState<any>('')
   const [show, setShow] = useState(false)
   const [name, setName] = useState('')
   const [manualSelectionVisible, setManualSelectionVisible] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [cateInfos, setCateInfos] = useState({
-    total: null,
-    categoryType: '',
-    displayName: '',
-    isDisplay: false,
-    name: null,
-    rank: null,
+    isEnabled: false,
+    name: '',
+    total:0
   })
   const ref = useRef<any>()
   const confirmDelete = async () => {
-
+    const { id } = params
+    setLoading(true)
+   let res = await removeCustomerTag({
+      customerId:customerId,
+      tagId: id,
+      operator: "zz",
+      storeId:"12345678"
+    })
+    if(res.removeCustomerTag){
+      message.success('Operate success')
+      setIsModalVisible(false)
+      ref.current.reload()
+    }
+    setLoading(false)
   }
 
   const getList = async (page: any) => {
     const { id } = params
+     let res = await detailTag({
+        offset: 0,
+        limit: 10,
+        isNeedTotal: true,
+        sample:{
+          tagId:id
+        }
+      })
+    console.log(res)
+    if(res?.findTagCustomerPage?.meta?.length>0){
+      setCateInfos({
+        isEnabled: res?.findTagCustomerPage?.meta[0].isEnabled,
+        name: res?.findTagCustomerPage?.meta[0].name,
+        total:res?.findTagCustomerPage.total
+      })
+    }
+    return res?.findTagCustomerPage
   }
 
   useEffect(() => {
@@ -50,17 +78,19 @@ const EditTags = () => {
       title: 'Profile Photo',
       dataIndex: 'image',
       key: 'image',
-      render: (text: any, record: any) => <Avatar size="large" icon={<img src={text} alt='' />} />,
+      render: (text: any, record: any) => <Avatar size="large" icon={<img src={record?.customer?.avatarUrl} alt='' />} />,
     },
     {
       title: 'WeChat Name',
       dataIndex: 'nickname',
       key: 'nickname',
+      render: (text: any, record: any) => record?.customer?.nickName||''
     },
     {
       title: 'Phone Number',
       dataIndex: 'phone',
       key: 'phone',
+      render: (text: any, record: any) => record?.customer?.phone||''
     },
     {
       title: 'Options',
@@ -68,7 +98,10 @@ const EditTags = () => {
       render: (text: any, record: any) => (
         <>
           <Tooltip title="Delete">
-            <span className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl" onClick={() => {}} />
+            <span className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl" onClick={() => {
+              setCustomerId(record.customer.id)
+              setIsModalVisible(true)
+            }} />
           </Tooltip>
         </>
       ),
@@ -85,14 +118,14 @@ const EditTags = () => {
               {
                 show ? <div>
                     <Input.Group compact>
-                      <Input style={{ width: '200px' }} defaultValue={cateInfos.displayName} onChange={(e) => {
+                      <Input style={{ width: '200px' }} defaultValue={cateInfos.name} onChange={(e) => {
                         setName(e.target.value)
                       }} />
                       <Button icon={<CheckOutlined />} onClick={() => {
                         const { id } = params
-                        updateShopCategory({
+                        updateTag({
                           id,
-                          displayName: name,
+                          name,
                         }).then((res) => {
                           if (res) {
                             setShow(false)
@@ -106,11 +139,11 @@ const EditTags = () => {
                       }} />
                     </Input.Group>
                   </div> :
-                  <div className='edit-name'>
-                    <span className='edit-display-name'>{cateInfos.displayName}</span>
+                  <div className='edit-name flex items-center'>
+                    <span className='edit-display-name'>{cateInfos.name}</span>
                     <EditOutlined onClick={() => {
                       setShow(true)
-                      setName(cateInfos.displayName)
+                      setName(cateInfos.name)
                     }} style={{ fontSize: '16px', color: '#ee4d2d' }} />
                   </div>
               }
@@ -119,13 +152,13 @@ const EditTags = () => {
               <Tooltip title={!cateInfos?.total?'This category cannot be activated as it contains no product':''}>
               <Switch
                 className='ml-3'
-                checked={cateInfos.isDisplay}
+                checked={cateInfos.isEnabled}
                 disabled={!cateInfos?.total}
                 onChange={(checked: boolean) => {
                   const { id } = params
-                  updateShopCategory({
+                  updateTag({
                     id,
-                    isDisplay: checked,
+                    isEnabled: checked,
                   }).then(() => {
                     ref.current.reload()
                   })
@@ -151,7 +184,6 @@ const EditTags = () => {
             </Button>
           </div>
           <ProTable
-            cardBordered
             className='set-delete-box'
             actionRef={ref}
             columns={columns}
@@ -177,8 +209,8 @@ const EditTags = () => {
               }
               console.log(tableData, 99)
               return Promise.resolve({
-                data: [],
-                total: 0,
+                data: tableData?.records||[],
+                total: tableData?.total||0,
                 success: true,
               })
             }}
