@@ -1,4 +1,4 @@
-import { Modal, Button, Table, Tooltip, Form, Input } from 'antd'
+import { Modal, Button, Table, Tooltip, Form, message } from 'antd'
 import { Link } from 'react-router-dom'
 import React, { useState, useRef } from 'react'
 import { Customer } from '@/framework/types/customer'
@@ -8,18 +8,43 @@ import ProForm, {
   ProFormRadio,
   ProFormText,
 } from '@ant-design/pro-form'
+import { createTag, deleteTag } from '@/framework/api/tag'
 
 interface PetOwnerTableProps {
   petOwnerList: Customer[],
   handleUpdate: (a: boolean) => void
+  loading: boolean
 }
 
-const Index = ({ petOwnerList, handleUpdate }: PetOwnerTableProps) => {
+const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
   const formRef = useRef<ProFormInstance>()
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const [visible, setVisible] = useState(false)
+  const [id, setId] = useState()
 
   const onFinish = async (values: any) => {
-    console.log(values)
+    let res = await createTag({name:values.name,isEnabled:false})
+    if(res?.createTag){
+      handleUpdate(true)
+      message.success('Operate success')
+      return true
+    } else {
+      message.warning('Operation failed')
+      return false
+    }
+  }
+  const confirmDelete = async () => {
+    deleteTag({
+      id: id,
+      operator: 'zz',
+    }).then((res) => {
+      console.log(res,99999)
+      if(res.deleteTag){
+        setVisible(false)
+        message.success('Operate success')
+        handleUpdate(true)
+      }
+    })
   }
   const columns = [
     {
@@ -53,6 +78,8 @@ const Index = ({ petOwnerList, handleUpdate }: PetOwnerTableProps) => {
           </Tooltip>
           <Tooltip title='Delete'>
             <span className='cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl' onClick={() => {
+              setId(record.id)
+              setVisible(true)
             }} />
           </Tooltip>
         </>
@@ -71,7 +98,7 @@ const Index = ({ petOwnerList, handleUpdate }: PetOwnerTableProps) => {
           + Add New Tag
         </Button>
       </div>
-      <Table bordered dataSource={petOwnerList} columns={columns} rowKey='id' className='rc-table' pagination={false} />
+      <Table loading={loading} bordered dataSource={petOwnerList} columns={columns} rowKey='id' className='rc-table' pagination={false} />
       <ModalForm
         title='Add New Tag'
         visible={isModalVisible}
@@ -87,7 +114,7 @@ const Index = ({ petOwnerList, handleUpdate }: PetOwnerTableProps) => {
           <ProFormText
             width='md'
             rules={[{ required: true, message: 'Missing Display Name' }]}
-            name='displayName'
+            name='name'
             label='Tagging Name'
             fieldProps={{ maxLength: 40, showCount: true }}
             placeholder='Enter a tagging name'
@@ -95,6 +122,16 @@ const Index = ({ petOwnerList, handleUpdate }: PetOwnerTableProps) => {
           />
         </ProForm.Group>
       </ModalForm>
+      <Modal
+        className='rc-modal'
+        title='Delete Item'
+        okText='Confirm'
+        visible={visible}
+        onOk={confirmDelete}
+        onCancel={() => setVisible(false)}
+      >
+        <p>Are you sure you want to delete the item?</p>
+      </Modal>
     </>
   )
 }
