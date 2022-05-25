@@ -8,12 +8,14 @@ import { useState } from 'react'
 const { Title } = Typography
 
 type RuleSettingsType = {
-  PriceOpen: boolean;
-  setPriceOpen: Function;
-  usageQuantityOpen: boolean;
-  setusageQuantityOpen: Function;
-  price: string | number;
-  setPrice: Function;
+  PriceOpen: boolean
+  setPriceOpen: Function
+  usageQuantityOpen: boolean
+  setusageQuantityOpen: Function
+  price: string | number
+  setPrice: Function
+  DiscountType: string
+  setDiscountType: Function
 }
 
 const OrderType = [
@@ -23,9 +25,17 @@ const OrderType = [
   { label: 'Device Ubscription', value: 'DEVICE_SUBSCRIPTION' },
 ]
 
-const RuleSettings = ({ PriceOpen, usageQuantityOpen, setPriceOpen, setusageQuantityOpen, price, setPrice }: RuleSettingsType) => {
+const RuleSettings = ({
+  PriceOpen,
+  usageQuantityOpen,
+  setPriceOpen,
+  setusageQuantityOpen,
+  price,
+  setPrice,
+  DiscountType,
+  setDiscountType,
+}: RuleSettingsType) => {
   const [AmountOpen, setAmountOpen] = useState(true)
-  const [DiscountType, setDiscountType] = useState('FIX_AMOUNT')
   const [MinimumBasketPrice, setMinimumBasketPrice] = useState<string | number>('')
   const [UsageQuantity, setUsageQuantity] = useState<string | number>('')
 
@@ -56,11 +66,7 @@ const RuleSettings = ({ PriceOpen, usageQuantityOpen, setPriceOpen, setusageQuan
         {({ setFieldsValue, validateFields }) => {
           return (
             <div className="flex items-center border border-gray-300 border-solid">
-              <Form.Item
-                name="discountType"
-                className="m-0 h-8"
-                wrapperCol={{ span: 'auto' }}
-              >
+              <Form.Item name="discountType" className="m-0 h-8" wrapperCol={{ span: 'auto' }}>
                 <Select
                   className="Selectborder"
                   placeholder="Select"
@@ -103,8 +109,8 @@ const RuleSettings = ({ PriceOpen, usageQuantityOpen, setPriceOpen, setusageQuan
                       },
                       {
                         required: true,
-                        message: 'Please input'
-                      }
+                        message: 'Please input',
+                      },
                     ]}
                   >
                     <InputNumber
@@ -146,7 +152,7 @@ const RuleSettings = ({ PriceOpen, usageQuantityOpen, setPriceOpen, setusageQuan
                             ? Promise.resolve()
                             : Promise.reject(new Error('Please enter a value between 1 and 99'))
                         },
-                      }
+                      },
                     ]}
                   >
                     <InputNumber
@@ -254,6 +260,7 @@ const RuleSettings = ({ PriceOpen, usageQuantityOpen, setPriceOpen, setusageQuan
                 const Amount = getFieldValue('discountValue')
                 setPriceOpen(e.target.checked)
                 if (e.target.checked) {
+                  console.log('2', 2)
                   setFieldsValue({
                     minimumBasketPrice: '',
                   })
@@ -307,6 +314,7 @@ const RuleSettings = ({ PriceOpen, usageQuantityOpen, setPriceOpen, setusageQuan
                 onChange={(e) => {
                   setusageQuantityOpen(e.target.checked)
                   if (e.target.checked) {
+                    console.log('1', 1)
                     setUsageQuantity('')
                     setFieldsValue({
                       usageQuantity: '',

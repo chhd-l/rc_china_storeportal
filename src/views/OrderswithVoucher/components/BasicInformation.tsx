@@ -8,8 +8,8 @@ const BasicInformation = () => {
   const [DescriptionsOpen, setDescriptionsOpen] = useState(false)
 
   const getVoucherInfo = async () => {
-    const res = await getVoucherById()
-    console.log('voucher detail', res)
+    // const res = await getVoucherById()
+    // console.log('voucher detail', res)
   }
 
   useEffect(() => {
