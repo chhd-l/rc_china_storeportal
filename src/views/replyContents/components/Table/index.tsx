@@ -1,5 +1,5 @@
 import { Button, Switch, Table, Tooltip } from "antd";
-import React from "react";
+import { replyTypeList } from '../../modules/constants';
 import { ReplyContent } from "@/framework/types/wechat";
 import { useNavigate } from "react-router-dom";
 
@@ -24,6 +24,7 @@ const Index = ({
       title: "Reply Type",
       dataIndex: "type",
       key: "type",
+      render: (_text: string) => (replyTypeList.find(r => r.key === _text) ?? {})?.label ?? _text
     },
     {
       title: "Content description",
@@ -79,8 +80,6 @@ const Index = ({
       <div className="flex flex-row justify-end mb-4">
         <Button
           type="primary"
-          danger
-          className="mr-4"
           onClick={() => {
             navigator("/reply/add-reply-content");
           }}

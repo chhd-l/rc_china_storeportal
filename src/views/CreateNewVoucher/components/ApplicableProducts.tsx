@@ -3,6 +3,7 @@ import { Typography, Button, Tooltip } from 'antd'
 import { useRef, useState } from 'react'
 import ProTable, { ProColumns } from '@ant-design/pro-table'
 import ManualSelection from './ManualSelection/index'
+import { normaliseVoucherProduct } from '@/framework/normalize/voucher'
 const { Title } = Typography
 
 type ApplicableProductsType = {
@@ -14,6 +15,12 @@ const ApplicableProducts = ({ VoucherType, setSelectedRowKeys}: ApplicableProduc
   const [selectProductsModal, setSelectProductsModal] = useState(false)
   const [selectProducts, setSelectProducts] = useState([])
   const ref = useRef<any>()
+
+  //编辑voucher商品回显 voucher detail里的goodsInfoList
+  const handleEditProducts=(goodsInfoList:any)=>{
+    const res=normaliseVoucherProduct(goodsInfoList)
+    setSelectProducts(res)
+  }
 
   const selectProductChange = (productList: any, selectedRowKeys: string[]) => {
     setSelectedRowKeys(selectedRowKeys)

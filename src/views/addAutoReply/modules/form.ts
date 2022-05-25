@@ -30,12 +30,12 @@ export const ADD_AUTO_REPLY_FORM: FormItemProps[] = [
   {
     name: "description",
     label: "Reply Description",
-    placeholder: "Input",
+    placeholder: "Select",
     type: "search",
     rules: [
       {
         required: true,
-        message: "Please input Reply Description!",
+        message: "Please select Reply Content!",
       },
     ],
   },

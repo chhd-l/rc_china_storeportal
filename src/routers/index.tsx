@@ -47,6 +47,7 @@ const SubscriptionList = lazy(() => import('@/views/subscriptionList'))
 const SubscriptionDetail = lazy(() => import('@/views/subscriptionDetail'))
 const OrderswithVoucher = lazy(() => import('@/views/OrderswithVoucher'))
 const DiscountPromotions = lazy(() => import('@/views/discountPromotions'))
+const LiveStreamingList = lazy(() => import('@/views/liveStreamingList'))
 
 interface RouteObject {
   caseSensitive?: boolean
