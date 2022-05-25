@@ -109,6 +109,10 @@ const AddAccount = () => {
     setModalVisible(false);
   };
 
+  const handleSelectAsssetType = () => {
+    form.setFieldsValue({ assetId: undefined });
+  }
+
   return (
     <ContentContainer>
       <InfoContainer>
@@ -130,7 +134,7 @@ const AddAccount = () => {
               key={item.name}
             >
               {item.type === "select" ? (
-                <Select placeholder={item.placeholder}>
+                <Select placeholder={item.placeholder} onChange={handleSelectAsssetType}>
                   {(item.selectList || []).map((el) => (
                     <Select.Option value={el.key}>{el.label}</Select.Option>
                   ))}

@@ -22,7 +22,7 @@ const AddAccount = () => {
     if (state?.id) {
       setTitle("Edit Automatic Reply");
       setReply({
-        id: state.id,
+        id: state.responseId,
         description: state?.responseDes
       });
       form.setFieldsValue({

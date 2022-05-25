@@ -96,7 +96,7 @@ export interface Article {
   id: string
   title: string
   thumbMediaId: string
-  picUrl: string
+  thumbUrl: string
   author: string
   digest: string
   showCoverPic: number
