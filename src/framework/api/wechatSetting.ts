@@ -567,3 +567,26 @@ export const updateAutomaticResponse = async (id: string, param: any) => {
   console.log('update automaticResponse view data:', data);
   return data?.automaticResponseUpsert ?? false
 }
+
+export const getArticlesList = async (param: any) => {
+  const data = await ApiRoot.wechatSettings().getArticlesList({
+    body: param
+  });
+  console.log('get article list view data:', data);
+  return {
+    records: data?.articlesPage?.records ?? [],
+    total: data?.articlesPage?.total ?? 0
+  }
+}
+
+export const syncArticles = async (accountId: string) => {
+  const data = await ApiRoot.wechatSettings().syncArticles(accountId);
+  console.log('sync articles view data:', data);
+  return data?.articlesSyc ?? false
+}
+
+export const deleteArticles = async (articlesId: string, mediaId: string) => {
+  const data = await ApiRoot.wechatSettings().deleteArticles(articlesId, mediaId);
+  console.log('delete articles view data:', data);
+  return data?.articlesDelete ?? false
+}
