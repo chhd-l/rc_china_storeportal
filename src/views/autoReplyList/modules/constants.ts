@@ -1,14 +1,14 @@
 export const matchTypeList = [
   {
     label: "Exact match",
-    key: "exact",
+    key: "EXACT_MATCH",
   },
   {
     label: "Fuzzy match",
-    key: "fuzzy",
+    key: "FUZZY_MATCH",
   },
   {
     label: "Regular match",
-    key: "regular",
+    key: "REGULAR_MATCH",
   },
 ];

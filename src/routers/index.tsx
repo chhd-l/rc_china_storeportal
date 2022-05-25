@@ -47,6 +47,7 @@ const SubscriptionList = lazy(() => import('@/views/subscriptionList'))
 const SubscriptionDetail = lazy(() => import('@/views/subscriptionDetail'))
 const OrderswithVoucher = lazy(() => import('@/views/OrderswithVoucher'))
 const DiscountPromotions = lazy(() => import('@/views/discountPromotions'))
+const LiveStreamingList = lazy(() => import('@/views/liveStreamingList'))
 
 interface RouteObject {
   caseSensitive?: boolean
@@ -197,7 +198,7 @@ let routes: RouteObject[] = [
         children: [
           { index: true, element: <AutoReplyList /> },
           { path: 'auto-reply-list', element: <AutoReplyList /> },
-          { path: 'add-auto-reply', element: <AddAutoReply />, breadcrumbName: 'Add Automatic Reply' },
+          { path: 'add-auto-reply', element: <AddAutoReply />, breadcrumbName: 'Add New Automatic Reply' },
           { path: 'edit-auto-reply', element: <AddAutoReply />, breadcrumbName: 'Edit Automatic Reply' },
         ],
       },

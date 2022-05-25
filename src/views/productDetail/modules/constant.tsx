@@ -108,7 +108,7 @@ export const noSkuForm: (InputTextProps | InputSelectProps | LabelOptionProps)[]
     label: 'Feeding Days',
     dataTips: '',
     name: 'feedingDays',
-    rules: [{ required: true }],
+    // rules: [{ required: true }],
   },
   {
     options: [

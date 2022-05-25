@@ -7,11 +7,13 @@ const ShippingSettingModal = ({
   onCancel,
   logisticsIntegration,
   updateLogisticsIntegration,
+  confirmLoading,
 }: {
   shipModalVisible: boolean
   onCancel: Function
   logisticsIntegration: LogisticsIntegration | any
   updateLogisticsIntegration: Function
+  confirmLoading: boolean
 }) => {
   const [form] = Form.useForm()
 
@@ -60,7 +62,7 @@ const ShippingSettingModal = ({
           <Input.TextArea placeholder="please input callbackURL" autoSize={{ minRows: 5, maxRows: 7 }} />
         </Form.Item>
         <Form.Item wrapperCol={{ span: 24, offset: 0 }} style={{ textAlign: 'end' }}>
-          <Button type="primary" danger htmlType="submit">
+          <Button type="primary" danger htmlType="submit" loading={confirmLoading}>
             Confirm
           </Button>
         </Form.Item>

@@ -1,4 +1,6 @@
 import { LabelOptionProps, PageParamsProps } from "@/framework/types/common"
+import { Modal } from "antd"
+import { ModalFuncProps } from "antd/es/modal"
 import { ReactNode } from "react"
 import moment from 'moment'
 
@@ -145,7 +147,7 @@ export const setCookie = (cName: string, value: string, expiredays: number) => {
   document.cookie = cName + '=' + decodeURIComponent(value) + ((expiredays == null) ? '' : ';expires=' + exdate.toGMTString())
 }
 
-export const getAge = (birthdayStr:any) => {
+export const getAge = (birthdayStr: any) => {
   if (!birthdayStr) {
     return ''
   }
@@ -159,10 +161,26 @@ export const getAge = (birthdayStr:any) => {
     return value - birthday[index]
   })
   if (age[0] > 0) {
-    return age[0]*12
+    return age[0] * 12
   } else if (age[1] > 0) {
     return age[1]
   } else {
     return 1
   }
+}
+
+/**
+ * 调用antd的Modal.confirm统一弹出确认框样式
+ */
+export const openConfirmModal: (config: ModalFuncProps) => void = (config) => {
+  Modal.confirm({
+    className: "rc-modal",
+    okText: "Confirm",
+    cancelText: "Cancel",
+    closable: true,
+    icon: null,
+    title: config.title || "Confirm",
+    content: config.content || "Are you sure you want to take this action?",
+    onOk: config.onOk,
+  });
 }

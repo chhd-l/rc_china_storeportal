@@ -32,6 +32,7 @@ export interface AutoReplies {
   principal: string
   matchType: string
   keywords: string
+  responseId: string
   responseType: string
   responseDes: string
   status: boolean
@@ -45,6 +46,8 @@ export interface ReplyContent {
   content?: string
   accountId?: string
   mediaId?: string
+  mediaTitle?: string
+  mediaDescription?: string
 }
 
 export interface Asset {

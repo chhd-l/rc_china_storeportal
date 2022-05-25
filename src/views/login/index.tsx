@@ -76,7 +76,6 @@ const Login = () => {
           <Form
             form={form}
             onFinish={(values) => {
-              console.log("----form login-----", values);
               setLoading(true);
               login({ username: values.account, password: values.password }).then(res => {
                 if (res) {

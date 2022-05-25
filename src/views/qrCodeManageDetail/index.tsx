@@ -118,7 +118,8 @@ const disabledDate = (cut: any) => {
               <Form.Item label='Scenario STR' name='scenarioStr' key='scenarioStr' rules={[
                 {
                   required: true,
-                  message: "Please input Scenario STR!",
+                  pattern: /^((?!.*(\_)).)*$/,
+                  message: "Please input Scenario STR, and do not contain _",
                 },
               ]}>
                 <Input placeholder='input' />

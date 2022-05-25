@@ -9,14 +9,15 @@ const { RangePicker } = DatePicker
 type BasicInformationType = {
   VoucherType: string
   setVoucherType: Function
+  imageUrl: string
+  setImageUrl: Function
 }
 
 const disabledDate = (current: any) => {
   return current && current < moment().endOf('day')
 }
 
-const BasicInformation = ({ VoucherType, setVoucherType }: BasicInformationType) => {
-  const [imageUrl, setImageUrl] = useState('')
+const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl }: BasicInformationType) => {
   const [loading, setLoading] = useState(false)
 
   const uploadButton = (
@@ -49,12 +50,12 @@ const BasicInformation = ({ VoucherType, setVoucherType }: BasicInformationType)
       <Title className="mb-8" level={4}>
         Basic Information
       </Title>
-      <Form.Item label="Voucher Type" name="Vouchertype" className="VoucherType">
+      <Form.Item label="Voucher Type" name="voucherType" className="VoucherType">
         <div className="flex items-center cursor-default">
           {/* Shop Voucher */}
           <div
             className={`flex ml-2 pl-2 pr-3 py-3 items-center ${
-              VoucherType === 'SHOP_VOUCHER' ? '' : 'border'
+              VoucherType === 'SHOP_VOUCHER' ? 'VoucherTypeBoxShadow' : 'border'
             } border-gray-300 border-solid relative`}
             style={{ borderRadius: '5px' }}
             onClick={() => setVoucherType('SHOP_VOUCHER')}
@@ -71,7 +72,7 @@ const BasicInformation = ({ VoucherType, setVoucherType }: BasicInformationType)
           {/* Product Voucher */}
           <div
             className={`flex ml-2 pl-2 pr-3 py-3 items-center ${
-              VoucherType === 'PRODUCT_VOUCHER' ? '' : 'border'
+              VoucherType === 'PRODUCT_VOUCHER' ? 'VoucherTypeBoxShadow' : 'border'
             } border-gray-300 border-solid relative`}
             onClick={() => setVoucherType('PRODUCT_VOUCHER')}
             style={{ borderRadius: '5px' }}
@@ -89,7 +90,7 @@ const BasicInformation = ({ VoucherType, setVoucherType }: BasicInformationType)
       </Form.Item>
       <Form.Item
         label="Voucher Name"
-        name="Name"
+        name="voucherName"
         rules={[
           {
             required: true,
@@ -101,7 +102,7 @@ const BasicInformation = ({ VoucherType, setVoucherType }: BasicInformationType)
       </Form.Item>
       <Form.Item
         label="Voucher Description"
-        name="Description"
+        name="voucherDescription"
         rules={[
           {
             required: true,
@@ -111,20 +112,33 @@ const BasicInformation = ({ VoucherType, setVoucherType }: BasicInformationType)
       >
         <Input placeholder="Input" maxLength={35} />
       </Form.Item>
-      <Form.Item label="Voucher Code" name="Code">
+      <Form.Item label="Voucher Code" name="voucherCode">
         <Input placeholder="Input" />
       </Form.Item>
       <Form.Item
         label="Voucher Usage Period"
-        name="Usage"
-        rules={[
-          {
-            required: true,
-            message: 'Pless Select',
-          },
-        ]}
+        required
+        shouldUpdate={(prevValues, curValues) => prevValues.times !== curValues.times}
       >
-        <RangePicker disabledDate={disabledDate} />
+        {
+          ({ getFieldValue }) => {
+            const startTimer = getFieldValue('voucherUsageBeginningOfTime') ? moment(moment(getFieldValue('voucherUsageBeginningOfTime')).format('YYYY-MM-DD'), 'YYYY-MM-DD') : ''
+            const endTimer = getFieldValue('voucherUsageBeginningOfTime') ? moment(moment(getFieldValue('voucherUsageEndOfTime')).format('YYYY-MM-DD'), 'YYYY-MM-DD') : ''
+            return <Form.Item
+              name="times"
+              className='m-0'
+              initialValue={[startTimer, endTimer]}
+              rules={[
+                {
+                  required: true,
+                  message: 'Pless Select',
+                },
+              ]}
+            >
+            <RangePicker disabledDate={disabledDate} />
+            </Form.Item>
+          }
+        }
       </Form.Item>
       <Form.Item
         className="Uploader"

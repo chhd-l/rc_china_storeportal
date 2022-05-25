@@ -7,10 +7,13 @@ import {
 } from "./modules/form";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import AssetsModal from "@/components/common/AssetsModal";
+import AssetsModal from "@/components/wechat/AssetsModal";
 import { Asset } from "@/framework/types/wechat";
 import { Container, ContentContainer, InfoContainer } from "@/components/ui";
-import { createReplyContent, updateReplyContent } from "@/framework/api/wechatSetting";
+import { createReplyContent, updateReplyContent, getReplyContentDetail } from "@/framework/api/wechatSetting";
+import { ReplyContent } from "@/framework/types/wechat";
+import { normaliseReplyContent } from "@/framework/normalize/wechatSetting";
+import { SearchOutlined } from "@ant-design/icons";
 
 const AddAccount = () => {
   const [title, setTitle] = useState<string>("Add New Reply Content");
@@ -27,8 +30,9 @@ const AddAccount = () => {
   useEffect(() => {
     const state: any = location.state;
     if (state?.id) {
+      getReplyDetailIfEdit(state.id);
       setTitle("Edit Reply Content");
-      setAssetType(state.type === "VOICE" ? 'voice' : state.type === "VIDEO" ? "video" : "image");
+      setAssetType(state.type === "voice" ? 'voice' : state.type === "video" ? "video" : "image");
       formValuesChange({}, { type: state.type });
       form.setFieldsValue({
         type: state?.type ?? undefined,
@@ -39,27 +43,36 @@ const AddAccount = () => {
     }
   }, []);
 
+  const getReplyDetailIfEdit = async (id: string) => {
+    setLoading(true);
+    const reply = await getReplyContentDetail(id);
+    setLoading(false);
+    form.setFieldsValue({
+      assetTitle: reply?.title ?? ''
+    });
+  }
+
   const formValuesChange = (changedValues: any, allValues: any) => {
     console.log(changedValues, allValues);
     let baseFormItems = ADD_REPLY_CONTENT_FORM;
     switch (allValues.type) {
       case "":
-      case "IMAGE":
+      case "image":
         setAssetType("image");
         baseFormItems = baseFormItems.concat(BASE_FORM);
         break;
-      case "VOICE":
+      case "voice":
         setAssetType("voice");
         baseFormItems = baseFormItems.concat(BASE_FORM);
         break;
-      case "TEXT":
+      case "text":
         baseFormItems = baseFormItems.concat(TEXT_FORM);
         break;
-      case "VIDEO":
+      case "video":
         setAssetType("video");
         baseFormItems = baseFormItems.concat(BASE_FORM, VIDEO_FORM);
         break;
-      case "ARTICLE":
+      case "news":
         baseFormItems = baseFormItems.concat(BASE_FORM);
         break;
       default:
@@ -79,8 +92,8 @@ const AddAccount = () => {
       accountId: '000001',
       responseDescribe: values.description,
       responseType: values.type,
-      messageContent: values.type === 'TEXT' ? values.message : undefined,
-      mediaId: values.type !== 'TEXT' ? values.assetId: undefined,
+      messageContent: values.type === 'text' ? values.message : undefined,
+      mediaId: values.type !== 'text' ? values.assetId: undefined,
     };
     if ((location?.state as any)?.id) {
       await updateReplyContent((location.state as any).id, newReplyContent);
@@ -128,10 +141,11 @@ const AddAccount = () => {
                   autoSize={{ minRows: 3, maxRows: 5 }}
                 />
               ) : item.type === "search" ? (
-                <Input.Search
+                <Input
                   readOnly
                   placeholder={item.placeholder}
-                  onSearch={searchDescription}
+                  onClick={searchDescription}
+                  suffix={<SearchOutlined onClick={searchDescription} className="text-gray-400" />}
                 />
               ) : (
                 <Input
@@ -143,21 +157,21 @@ const AddAccount = () => {
             </Form.Item>
           ))}
           <Form.Item
-            className="w-full flex flex-row justify-end"
-            wrapperCol={{ span: 8 }}
+            wrapperCol={{ span: 24 }}
           >
-            <Button
-              danger
-              className="mr-4"
-              onClick={() => {
-                navigator("/reply/reply-contents");
-              }}
-            >
-              Cancel
-            </Button>
-            <Button type="primary" htmlType="submit" loading={loading} danger>
-              Confirm
-            </Button>
+            <div className="flex flex-row justify-end space-x-4">
+              <Button
+                danger
+                onClick={() => {
+                  navigator("/reply/reply-contents");
+                }}
+              >
+                Cancel
+              </Button>
+              <Button type="primary" htmlType="submit" loading={loading} danger>
+                Confirm
+              </Button>
+            </div>
           </Form.Item>
         </Form>
       </InfoContainer>

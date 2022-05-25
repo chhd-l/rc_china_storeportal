@@ -1,14 +1,14 @@
-import { SearchFormItemProps } from "@/framework/types/common";
+import { SearchFormItemProps, BaseListProps } from "@/framework/types/common";
 import { statusList } from "@/views/accountList/modules/constants";
 import { matchTypeList } from "./constants";
 
-export const formItems: SearchFormItemProps[] = [
+export const getFormItems: (accountList: BaseListProps[]) => SearchFormItemProps[] = (accountList) => ([
   {
-    label: "Account Name",
+    label: "Official Name",
     name: "name",
     placeholder: "select",
     type: "select",
-    selectList: [],
+    selectList: accountList,
   },
   {
     label: "Match Type",
@@ -29,4 +29,4 @@ export const formItems: SearchFormItemProps[] = [
     type: "select",
     selectList: statusList,
   },
-];
+]);

@@ -6,7 +6,7 @@ import { normaliseReplyContent } from "@/framework/normalize/wechatSetting";
 import { getReplyContentList, deleteReplyContent, updateReplyContent } from "@/framework/api/wechatSetting";
 import { formItems } from "./modules/form";
 import Table from "./components/Table";
-import { Modal } from 'antd';
+import { openConfirmModal } from "@/utils/utils";
 import {
   ContentContainer,
   DivideArea,
@@ -47,15 +47,9 @@ const SelectContentModal = () => {
   }
 
   const handleDelete = (id: string) => {
-    Modal.confirm({
-      className: "rc-modal",
-      okText: "Confirm",
-      cancelText: "Cancel",
-      closable: true,
-      icon: null,
+    openConfirmModal({
       title: "Confirm Delete?",
       content: "Are you sure you want to delete the item?",
-      okButtonProps: { loading: loading },
       onOk: () => {
         setLoading(true);
         deleteReplyContent(id).then(isDeleted => {
@@ -71,15 +65,9 @@ const SelectContentModal = () => {
   }
 
   const handleDisableOrEnable = (id: string, param: any) => {
-    Modal.confirm({
-      className: "rc-modal",
-      okText: "Confirm",
-      cancelText: "Cancel",
-      closable: true,
-      icon: null,
+    openConfirmModal({
       title: param.isActive ? 'Enable Item' : 'Disable Item',
       content: `Are you sure you want to ${param.isActive ? 'enable' : 'disable'} this item?`,
-      okButtonProps: { loading: loading },
       onOk: () => {
         setLoading(true);
         updateReplyContent(id, param).then(isSuccess => {

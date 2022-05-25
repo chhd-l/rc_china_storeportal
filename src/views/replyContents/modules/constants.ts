@@ -1,9 +1,9 @@
 import { BaseListProps } from "@/framework/types/common";
 
 export const replyTypeList: BaseListProps[] = [
-  { label: "Text message", key: "TEXT" },
-  { label: "Picture message", key: "IMAGE" },
-  { label: "Voice message", key: "VOICE" },
-  { label: "Video message", key: "VIDEO" },
-  { label: "Article message", key: "ARTICLE" },
+  { label: "Text message", key: "text" },
+  { label: "Picture message", key: "image" },
+  { label: "Voice message", key: "voice" },
+  { label: "Video message", key: "video" },
+  { label: "Graphic message", key: "news" },
 ];

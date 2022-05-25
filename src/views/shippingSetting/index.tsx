@@ -12,6 +12,7 @@ const ShippingSetting = () => {
   const [logisticsIntegration, setLogisticsIntegration] = useState<any>(null)
   const [userInfo] = useAtom(userAtom)
   const [statusModalTip, setStatusModalTip] = useState(false)
+  const [confirmLoading, setConFirmLoading] = useState(false)
 
   const getLogisticsIntegrationInfo = async () => {
     const res = await getLogisticsIntegration()
@@ -20,6 +21,7 @@ const ShippingSetting = () => {
   }
 
   const updateLogisticsIntegration = async (newLogisticsIntegration = logisticsIntegration) => {
+    setConFirmLoading(true)
     const parameter = {
       KEY: newLogisticsIntegration.key,
       customer: newLogisticsIntegration.customer,
@@ -44,6 +46,7 @@ const ShippingSetting = () => {
     }
     setStatusModalTip(false)
     setShipModalVisible(false)
+    setConFirmLoading(false)
   }
 
   useEffect(() => {
@@ -58,8 +61,8 @@ const ShippingSetting = () => {
           <Divider className="line" />
         </div>
         <InfoContainer>
-          <div className="border p-4 flex justify-between items-center content">
-            <span>Express 100</span>
+          <div className="border p-4 flex justify-between items-center content rounded-4">
+            <span className="font-semibold">Express 100</span>
             <div className="flex items-center">
               <Switch checked={logisticsIntegration?.isEnabled || false} onClick={() => setStatusModalTip(true)} />
               <span
@@ -76,6 +79,7 @@ const ShippingSetting = () => {
           title="Notice"
           visible={statusModalTip}
           okText={'Confirm'}
+          confirmLoading={confirmLoading}
           onOk={() =>
             updateLogisticsIntegration({ ...logisticsIntegration, isEnabled: !logisticsIntegration.isEnabled })
           }
@@ -90,6 +94,7 @@ const ShippingSetting = () => {
           }}
           logisticsIntegration={logisticsIntegration}
           updateLogisticsIntegration={updateLogisticsIntegration}
+          confirmLoading={confirmLoading}
         />
       </div>
     </ContentContainer>

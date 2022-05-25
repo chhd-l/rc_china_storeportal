@@ -5,7 +5,7 @@ import { tabList } from './modules/constants'
 import { Picture, Graphic, Video, Voice } from './components'
 import { ContentContainer, SearchContainer } from '@/components/ui'
 import './index.less'
-import { syncMedias, updateMedia } from '@/framework/api/wechatSetting'
+import { syncMedias, updateMedia, syncArticles, deleteArticles } from '@/framework/api/wechatSetting'
 import { useAtom } from 'jotai'
 import { userAtom } from '@/store/user.store'
 
@@ -14,6 +14,7 @@ const PetOwnerList = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [isSyncTipModalVisible, setIsSyncModalVisible] = useState(false)
   const [curAssetId, setCurAssetId] = useState('')
+  const [graphicMediaId, setGraphicMediaId] = useState('')
   const [isReload, setIsReload] = useState(false)
   const [loading, setLoading] = useState(false)
   const [userInfo] = useAtom(userAtom)
@@ -28,10 +29,15 @@ const PetOwnerList = () => {
 
   const confirmDelete = async () => {
     setLoading(true)
-    const res = await updateMedia({
-      id: curAssetId,
-      isDeleted: true,
-    })
+    let res = false;
+    if (activeKey === 'news') {
+      res = await deleteArticles(curAssetId, graphicMediaId);
+    } else {
+      res = await updateMedia({
+        id: curAssetId,
+        isDeleted: true,
+      })
+    }
     if (res) {
       message.success({ className: 'rc-message', content: 'Operation success' })
       setIsModalVisible(false)
@@ -42,15 +48,21 @@ const PetOwnerList = () => {
     setLoading(false)
   }
 
-  const openDeleteModal = (id: string) => {
+  const openDeleteModal = (id: string, graphicMediaId: string = '') => {
     setIsReload(false)
     setCurAssetId(id)
+    setGraphicMediaId(graphicMediaId)
     setIsModalVisible(true)
   }
 
   const syncMediaList = async () => {
     setLoading(true)
-    const res=await syncMedias(activeKey)
+    let res = false;
+    if (activeKey === "news") {
+      res = await syncArticles("000001");
+    } else {
+      res = await syncMedias(activeKey)
+    }
     if(res){
       message.success({ className: 'rc-message', content: 'Operation success' })
       setIsSyncModalVisible(false)
@@ -83,7 +95,13 @@ const PetOwnerList = () => {
             userName={userInfo?.username||''}
           />
         ) : null}
-        {/*{activeKey === 'graphic' ? <Graphic /> : null}*/}
+        {activeKey === 'news' ? (
+          <Graphic
+            isReload={isReload}
+            openDelete={openDeleteModal}
+            openSyncTipModal={() => setIsModalVisible(true)}
+          />
+        ) : null}
         {activeKey === 'voice' ? (
           <Voice
             isReload={isReload}
