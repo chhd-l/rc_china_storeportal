@@ -125,12 +125,12 @@ const AddAccount = () => {
           </Form.Item>
         </Form>
       </InfoContainer>
-      <ReplyModal
+      {modalVisible ? <ReplyModal
         visible={modalVisible}
         onlyEnabled={true}
         onConfirm={setReplyDes}
         onCancel={() => setModalVisible(false)}
-      />
+      /> : null}
     </ContentContainer>
   );
 };
