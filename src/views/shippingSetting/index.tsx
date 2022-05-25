@@ -61,7 +61,7 @@ const ShippingSetting = () => {
           <Divider className="line" />
         </div>
         <InfoContainer>
-          <div className="border p-4 flex justify-between items-center content">
+          <div className="border p-4 flex justify-between items-center content rounded-4">
             <span className="font-semibold">Express 100</span>
             <div className="flex items-center">
               <Switch checked={logisticsIntegration?.isEnabled || false} onClick={() => setStatusModalTip(true)} />
