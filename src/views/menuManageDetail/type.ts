@@ -17,6 +17,8 @@ export type WxMenu = {
   accountId?: string
   accountPrincipal?: string
   accountName?: string
+  name?: string
+  description?: string
   content?: string
   isEnabled?: boolean
   createdAt?: string

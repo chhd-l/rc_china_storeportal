@@ -22,7 +22,7 @@ const AddAccount = () => {
   const [assetType, setAssetType] = useState<"image" | "video" | "voice">("image")
   const navigator = useNavigate();
   const [formItems, setFromItems] = useState(
-    ADD_REPLY_CONTENT_FORM.concat(BASE_FORM)
+    ADD_REPLY_CONTENT_FORM
   );
   const [form] = Form.useForm();
   const location = useLocation();

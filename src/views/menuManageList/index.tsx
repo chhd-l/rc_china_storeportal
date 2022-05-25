@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Table, Modal, message } from "antd"
+import { Button, Table, Modal, message, Form, Input } from "antd"
 import { useNavigate } from 'react-router-dom'
 import "./index.less"
 import { tableColumns, TWxMenuUpdateParam } from "./modules/constant"
-import { ContentContainer } from "@/components/ui"
+import { ContentContainer, SearchContainer, TableContainer, DivideArea } from "@/components/ui"
 import { getWxMenusList, updateWxMenu } from '@/framework/api/wechatSetting'
 import { WxMenu } from '@/framework/types/wechat'
 
@@ -16,17 +16,18 @@ const MenuManage = () => {
   const [total, setTotal] = useState<number>(0)
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
   const [pendingToDelete, setPendingToDelete] = useState<any>({})
+  const [name, setName] = useState<string>("")
 
   const navigator = useNavigate()
 
-  const getList = async (pageNumber: number) => {
+  const getList = async (pageNumber: number, menuName: string = "") => {
     const param: PageProps = {
       offset: pageNumber * 10 - 10,
       limit: 10,
-      isNeedTotal: true
+      isNeedTotal: true,
     }
     setLoading(true)
-    const res = await getWxMenusList(param)
+    const res = await getWxMenusList({ ...param, sample: menuName ? { name: menuName } : undefined })
     console.log("page data:", res);
     setLoading(false)
     setList(res.records)
@@ -36,6 +37,11 @@ const MenuManage = () => {
   useEffect(() => {
     getList(1)
   }, [])
+
+  const handleReset = () => {
+    setName("")
+    getList(1)
+  }
 
   const changeStatus = async (updateParam: TWxMenuUpdateParam) => {
     setLoading(true)
@@ -65,27 +71,41 @@ const MenuManage = () => {
     }
   }
   const columns = tableColumns({ changeStatus, handleDelete })
-  console.info("sdsd")
+  
   return (
-    <ContentContainer className="menu-manage bg-white">
-      <div className="btn-area">
-        <Button className="mt-8 text-white" type="primary" ghost onClick={() => navigator('/menuManagempqr/menu-manage-add')}>+ Add</Button>
-      </div>
-      <Table
-        columns={columns}
-        dataSource={list}
-        loading={loading}
-        className="rc-table"
-        pagination={{
-          current: current,
-          pageSize: 10,
-          total: total,
-          onChange: (page) => {
-            setCurrent(page)
-            getList(page)
-          }
-        }}
-      />
+    <ContentContainer className="menu-manage">
+      <SearchContainer>
+        <Form layout="horizontal">
+          <Form.Item label="Menu Name">
+            <Input style={{width: 300}} value={name} onChange={(e) => setName(e.target.value)} />
+          </Form.Item>
+        </Form>
+        <div className="mt-4 space-x-md">
+          <Button type="primary" onClick={() => getList(1, name)}>Search</Button>
+          <Button onClick={handleReset}>Reset</Button>
+        </div>
+      </SearchContainer>
+      <DivideArea />
+      <TableContainer>
+        <div className="btn-area py-4">
+          <Button type="primary" onClick={() => navigator('/menuManagempqr/menu-manage-add')}>+ Add</Button>
+        </div>
+        <Table
+          columns={columns}
+          dataSource={list}
+          loading={loading}
+          className="rc-table"
+          pagination={{
+            current: current,
+            pageSize: 10,
+            total: total,
+            onChange: (page) => {
+              setCurrent(page)
+              getList(page)
+            }
+          }}
+        />
+      </TableContainer>
       <Modal
         className="rc-modal"
         title="Delete Item"

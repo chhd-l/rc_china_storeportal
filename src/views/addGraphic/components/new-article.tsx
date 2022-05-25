@@ -30,10 +30,20 @@ const NewArticle: React.FC = () => {
             />
           </Form.Item>
           <Form.Item label="Author">
-            <Input style={{maxWidth: 500}} placeholder="Input" />
+            <Input
+              style={{maxWidth: 500}}
+              placeholder="Input"
+              value={article?.author}
+              onChange={(e) => onChangeFieldValue({ author: e.target.value })}
+            />
           </Form.Item>
           <Form.Item label="Link">
-            <Input style={{maxWidth: 500}} placeholder='Link for "Read Original Article"' />
+            <Input
+              style={{maxWidth: 500}}
+              placeholder='Link for "Read Original Article"'
+              value={article?.contentSourceURL}
+              onChange={(e) => onChangeFieldValue({ contentSourceURL: e.target.value })}
+            />
           </Form.Item>
           <Form.Item label="Content">
             <MyEditor />

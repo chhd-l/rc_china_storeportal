@@ -36,13 +36,12 @@ const SelectContentModal = () => {
       }: undefined
     });
     setQueryParams(params);
-    setPages(Object.assign({}, pages, { total: list?.total ?? 0 }));
+    setPages(Object.assign({}, pages, { page: current, total: list?.total ?? 0 }));
     setReplyContents(normaliseReplyContent(list.records));
     setLoading(false);
   };
 
   const handlePageChange = (current: number) => {
-    setPages(Object.assign({}, pages, { page: current }));
     getReplyContents(current, pages.limit, quneryParams);
   }
 

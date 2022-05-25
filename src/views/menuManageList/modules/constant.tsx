@@ -32,6 +32,11 @@ export const tableColumns = ({ handleDelete, changeStatus }: TableColumns) => {
       key: "accountPrincipal",
     },
     {
+      title: "Menu Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
       title: "Create Time",
       dataIndex: "createdAt",
       key: "createdAt",

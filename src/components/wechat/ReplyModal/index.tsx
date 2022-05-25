@@ -105,12 +105,12 @@ const ReplyModal: React.FC<IProps> = ({
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <span className="mr-2">Content Description</span>
-            <div><Input placeholder="Input" style={{width: 220}} onChange={(e) => setParam(Object.assign({}, param, { description: e.target.value }))} onPressEnter={handleSearch} /></div>
+            <div><Input placeholder="Input" value={param.description} style={{width: 220}} onChange={(e) => setParam(Object.assign({}, param, { description: e.target.value }))} onPressEnter={handleSearch} /></div>
           </div>
           <div className="flex items-center">
             <span className="mr-2">Reply Type</span>
             <div>
-              <Select placeholder="Select" style={{width: 220}} onChange={onSelectChange}>
+              <Select placeholder="Select" value={param.type || undefined} style={{width: 220}} onChange={onSelectChange}>
                 {replyTypeList.map((item, idx) => <Option key={idx} value={item.key}>{item.label}</Option>)}
               </Select>
             </div>

@@ -439,10 +439,12 @@ export const updateWxMenu = async (queryParams: any) => {
  * @param wxMenusContent
  * @returns
  */
-export const createWxMenu = async (wxMenusContent: string) => {
+export const createWxMenu = async (name: string, wxMenusContent: string, description: string) => {
   try {
     let res = await ApiRoot.wechatSettings().createWxMenu({
       accountId: '000001',
+      name,
+      description,
       content: wxMenusContent,
       operator: 'zz'
     })

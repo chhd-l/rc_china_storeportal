@@ -4,7 +4,7 @@ import WxMenuContextProvider, { filterWxMenus, checkWxMenus } from './context'
 import WxMenuGraph from './components/graph'
 import WxMenuSetting from './components/setting'
 import { WxMenuItem, WxMenu } from './type'
-import { Button, message } from 'antd'
+import { Button, message, Input, Form } from 'antd'
 import { createWxMenu, getWxMenuDetail, updateWxMenu } from '@/framework/api/wechatSetting'
 import _ from 'lodash'
 import './index.less';
@@ -38,14 +38,18 @@ const MenuManageDetail = (props: IProps) => {
       navigator('/menuManagempqr/menu-manage-list')
     } else {
       setWxMenuItem(data)
-      setWxMenus(JSON.parse(data?.content ?? '{}').button ?? [])
+      setWxMenus(JSON.parse(data?.description ?? '{}').button ?? [])
     }
     setLoading(false)
   }
 
   const handleSave = async () => {
     if (wxMenus.length <= 0) {
-      message.error({ className: 'rc-message', content: 'Please add menu' })
+      message.warn({ className: 'rc-message', content: 'Please add menu' })
+      return;
+    }
+    if (!wxMenuItem.name) {
+      message.warn({ className: 'rc-message', content: 'Please input menu name' })
       return;
     }
     if (!checkWxMenus(wxMenus)) {
@@ -57,10 +61,12 @@ const MenuManageDetail = (props: IProps) => {
       success = await updateWxMenu({
         id: wxMenuItem.id,
         accountId: wxMenuItem.accountId,
-        content: JSON.stringify({button: filterWxMenus(_.cloneDeep(wxMenus || []))})
+        content: JSON.stringify({button: filterWxMenus(_.cloneDeep(wxMenus || []))}),
+        name: wxMenuItem.name,
+        description: JSON.stringify({button: _.cloneDeep(wxMenus || [])})
       });
     } else {
-      success = await createWxMenu(JSON.stringify({button: filterWxMenus(_.cloneDeep(wxMenus || []))}))
+      success = await createWxMenu(wxMenuItem.name || "", JSON.stringify({button: filterWxMenus(_.cloneDeep(wxMenus || []))}), JSON.stringify({button: _.cloneDeep(wxMenus || [])}))
     }
     setLoading(false)
     if (success) {
@@ -79,7 +85,12 @@ const MenuManageDetail = (props: IProps) => {
       }}
     >
       <React.Fragment>
-        <div className="mb-8 text-lg">{props.pageType === "add" ? "Add New Menu" : "Edit Menu"}</div>
+        <div className="text-lg">{props.pageType === "add" ? "Add New Menu" : "Edit Menu"}</div>
+        <Form layout="horizontal" className="my-4">
+          <Form.Item label="Menu Name" required rules={[{required: true, message: "Please input menu name"}]}>
+            <Input style={{width: 300}} value={wxMenuItem.name} onChange={(e) => setWxMenuItem(Object.assign({}, wxMenuItem, { name: e.target.value }))} />
+          </Form.Item>
+        </Form>
         <div className="flex bg-gray-primary">
           <div className="flex-shrink-0">
             <WxMenuGraph />

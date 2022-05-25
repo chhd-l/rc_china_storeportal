@@ -86,6 +86,8 @@ export interface TemplateMessageItemProps {
 export interface WxMenu {
   id: string
   accountId: string
+  name: string
+  description: string
   content: string
   createdAt: string
   lastModifiedAt: string
