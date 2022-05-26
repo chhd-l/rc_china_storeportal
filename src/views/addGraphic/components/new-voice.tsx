@@ -4,10 +4,12 @@ import { GraphicContext, getCurrentArticleById } from '../context';
 import { Asset } from '@/framework/types/wechat';
 import MyUpload from './upload';
 
-const NewVoice: React.FC = () => {
+const NewVoice = React.forwardRef((props, ref) => {
   const [form] = Form.useForm();
   const { articleList, currentArticleId, onChangeFieldValue } = React.useContext(GraphicContext);
   const article = getCurrentArticleById(articleList, currentArticleId);
+
+  React.useImperativeHandle(ref, () => ({ form }));
 
   return (
     <div>
@@ -21,7 +23,7 @@ const NewVoice: React.FC = () => {
           labelCol={{span: 2}}
           wrapperCol={{span:22}}
         >          
-          <Form.Item label="Title">
+          <Form.Item name="title" label="Title">
             <Input
               style={{maxWidth: 500}}
               placeholder="Input"
@@ -55,6 +57,6 @@ const NewVoice: React.FC = () => {
       </div>
     </div>
   )
-}
+})
 
 export default NewVoice

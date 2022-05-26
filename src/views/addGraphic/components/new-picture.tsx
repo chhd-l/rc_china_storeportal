@@ -4,10 +4,12 @@ import { GraphicContext, getCurrentArticleById } from '../context';
 import { Asset } from '@/framework/types/wechat';
 import MyUpload from './upload';
 
-const NewPicture: React.FC = () => {
+const NewPicture = React.forwardRef((props, ref) => {
   const [form] = Form.useForm();
   const { articleList, currentArticleId, onChangeFieldValue } = React.useContext(GraphicContext);
   const article = getCurrentArticleById(articleList, currentArticleId);
+
+  React.useImperativeHandle(ref, () => ({ form }));
 
   const handleUploadPicture = (asset: Partial<Asset>, idx: number) => {
     const imageList = (article?.imageList || []).map((image, index) => {
@@ -38,7 +40,7 @@ const NewPicture: React.FC = () => {
           labelCol={{span: 2}}
           wrapperCol={{span:22}}
         >          
-          <Form.Item label="Title">
+          <Form.Item name="title" label="Title">
             <Input
               style={{maxWidth: 500}}
               placeholder="Input"
@@ -73,6 +75,6 @@ const NewPicture: React.FC = () => {
       </div>
     </div>
   )
-}
+})
 
 export default NewPicture
