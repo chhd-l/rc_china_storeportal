@@ -43,7 +43,7 @@ const KeyMetrics = () => {
   }, [])
 
   return (
-    <ContentContainer className="bg-white px-4 mb-8">
+    <ContentContainer className="bg-white px-5 mb-8">
       <Title level={5}>
         <span className="font-black">Key Metrics</span>
         <span className="text-xs text-gray-400 ml-2 font-normal">
