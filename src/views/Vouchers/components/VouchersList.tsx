@@ -184,10 +184,10 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
     item.limit = param.pageSize
     delete param.current
     delete param.pageSize
-    if (param.PromotionPeriod) {
-      param.voucherUsageBeginningOfTime = moment(param.PromotionPeriod[0]).utc()
-      param.voucherUsageEndOfTime = moment(param.PromotionPeriod[1]).utc()
-      delete param.PromotionPeriod
+    if (param.Period) {
+      param.voucherUsageBeginningOfTime = moment(param.Period[0]).utc()
+      param.voucherUsageEndOfTime = moment(param.Period[1]).utc()
+      delete param.Period
     }
     item.sample = { ...param }
     voucherStatus && (item.sample.voucherStatus = voucherStatus)

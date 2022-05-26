@@ -7,11 +7,13 @@ interface IGrapicContext {
   currentArticleId: string
   onChangeFieldValue: (values: { [T in keyof Article]?: Article[T] }) => void
   setCurrentArticleId: (id: string) => void
+  setArticleList: (articleList: Article[]) => void
 }
 
-export const createDefaultArticle: () => Article = () => ({
+export const createDefaultArticle: (type: "image" | "voice" | "video" | "news") => Article = (type) => ({
   id: uuid(),
   title: "",
+  type: type,
   thumbMedia: {},
   author: "",
   digest: "",
@@ -21,10 +23,11 @@ export const createDefaultArticle: () => Article = () => ({
 })
 
 const initialContext: IGrapicContext = {
-  articleList: [{...createDefaultArticle()}],
+  articleList: [{...createDefaultArticle("news")}],
   currentArticleId: "",
   onChangeFieldValue: () => {},
-  setCurrentArticleId: () => {}
+  setCurrentArticleId: () => {},
+  setArticleList: () => {},
 }
 
 export const GraphicContext = React.createContext<IGrapicContext>(initialContext);
