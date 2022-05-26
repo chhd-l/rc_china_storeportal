@@ -3,7 +3,7 @@ import ClientBuilder from '@rc-china-commerce/fetch/'
 import { message } from 'antd'
 // import ClientBuilder from '@/rc-china-commerce/packages/fetch/dist/fetch/lib'
 
-//const API_URL = 'http://localhost:9000/graphql'
+// const API_URL = 'http://localhost:9000/graphql'
 // 生产
 const API_URL = 'https://msdev.d2cgo.com/faas/graphql'
 
