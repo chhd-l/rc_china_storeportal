@@ -10,11 +10,11 @@ export const replyTypeList: BaseListProps[] = [
 
 export const matchTypeList: BaseListProps[] = [
   {
-    label: "Exact match",
+    label: "Exact matching",
     key: "EXACT_MATCH",
   },
   {
-    label: "Fuzzy match",
+    label: "Fuzzy matching",
     key: "FUZZY_MATCH",
   },
 ];
