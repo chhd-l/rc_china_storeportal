@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Form, Input } from 'antd';
 import { GraphicContext, getCurrentArticleById } from "../context";
-import MyEditor from '@/components/common/Wangeditor';
+import MyEditor from './editor';
 import MyUpload from './upload';
 
 const NewArticle: React.FC = () => {
