@@ -10,7 +10,6 @@ import { ContentContainer } from '@/components/ui'
 import { handlePageParams } from '@/utils/utils'
 import { detailTag, removeCustomerTag, updateTag } from '@/framework/api/tag'
 import { useLocation } from 'react-router'
-import { updateShopCategory } from '@/framework/api/get-product'
 
 const EditTags = () => {
   const { state }: any = useLocation();
