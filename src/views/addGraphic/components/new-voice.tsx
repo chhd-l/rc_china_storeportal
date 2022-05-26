@@ -20,7 +20,7 @@ const NewVoice: React.FC = () => {
             <Input style={{maxWidth: 500}} placeholder="Input" />
           </Form.Item>
           <Form.Item label="Content">
-            <MyUpload />
+            {/* <MyUpload /> */}
           </Form.Item>
         </Form>
       </div>

@@ -9,6 +9,9 @@ const Preview: React.FC = () => {
       {
         articleList.map((article, idx) => (
           <div className={`preview-item ${article.id === currentArticleId ? 'active' : ''}`} key={idx}>
+            <div className="image">
+              {article.thumbMedia?.picture ? <img src={article.thumbMedia.picture} /> : null}
+            </div>
             <div className="title">{article.title}</div>
           </div>
         ))

@@ -1,6 +1,7 @@
 import { ContentContainer } from '@/components/ui'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 import { Tooltip, Typography } from 'antd'
+import moment from 'moment'
 import { useEffect, useState } from 'react'
 const { Title } = Typography
 
@@ -45,19 +46,17 @@ const KeyMetrics = () => {
     <ContentContainer className="bg-white px-4 mb-8">
       <Title level={5}>
         <span className="font-black">Key Metrics</span>
-        <span className="text-xs text-gray-400 ml-2 font-normal">(Data from 07-12-2021 to 14-12-2021 GMT+7)</span>
+        <span className="text-xs text-gray-400 ml-2 font-normal">
+          (Data from {moment().format('DD-MM-YYYY')} to {moment().add(7, 'day').format('DD-MM-YYYY')} UTC+8)
+        </span>
       </Title>
       <div className="flex w-full">
         {/* GSV */}
         {keyMetricsList.map((item, index) => (
-          <div
-            className={`${
-              index !== 0 ? 'border-l border-gray-300 border-solid' : ''
-            } p-4 flex-1 flex flex-col`}
-          >
+          <div className={`${index !== 0 ? 'border-l border-gray-300 border-solid' : ''} p-4 flex-1 flex flex-col`}>
             <div className="align-center text-xs flex-1 flex items-center">
               <div>{item.label}</div>
-              <Tooltip title={item.tip}>
+              <Tooltip overlayStyle={{fontSize:'12px'}} title={item.tip}>
                 <QuestionCircleOutlined className="ml-1 text-10 text-gray-400" />
               </Tooltip>
             </div>

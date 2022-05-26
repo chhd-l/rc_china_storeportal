@@ -9,21 +9,20 @@ interface IGrapicContext {
   setCurrentArticleId: (id: string) => void
 }
 
-const defaultArticle: Article = {
+export const createDefaultArticle: () => Article = () => ({
   id: uuid(),
   title: "",
-  thumbMediaId: "",
-  thumbUrl: "",
+  thumbMedia: {},
   author: "",
   digest: "",
   showCoverPic: 0,
   content: "",
   contentSourceURL: "",
-}
+})
 
-export const initialContext: IGrapicContext = {
-  articleList: [{...defaultArticle}],
-  currentArticleId: defaultArticle.id,
+const initialContext: IGrapicContext = {
+  articleList: [{...createDefaultArticle()}],
+  currentArticleId: "",
   onChangeFieldValue: () => {},
   setCurrentArticleId: () => {}
 }

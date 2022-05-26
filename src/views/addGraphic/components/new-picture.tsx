@@ -20,7 +20,7 @@ const NewPicture: React.FC = () => {
             <Input style={{maxWidth: 500}} placeholder="Input" />
           </Form.Item>
           <Form.Item label="Content">
-            <MyUpload />
+            {/* <MyUpload /> */}
           </Form.Item>
         </Form>
       </div>
@@ -28,7 +28,7 @@ const NewPicture: React.FC = () => {
         <div className="text-xl">Cover Preview</div>
         <div className="mt-lg p-4 flex items-center">
           <div>
-            <MyUpload />
+            {/* <MyUpload /> */}
           </div>
           <div className="flex-grow ml-lg text-gray-400">
             <div>Suggested Size</div>
