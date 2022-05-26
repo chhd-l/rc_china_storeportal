@@ -11,6 +11,7 @@ type ApplicableProductsType = {
   selectProducts: any[]
   setSelectProducts: Function
   keys: string[]
+  Edit: boolean | undefined
 }
 
 const ApplicableProducts = ({
@@ -19,6 +20,7 @@ const ApplicableProducts = ({
   selectProducts,
   setSelectProducts,
   keys,
+  Edit,
 }: ApplicableProductsType) => {
   const [selectProductsModal, setSelectProductsModal] = useState(false)
   const ref = useRef<any>()
@@ -68,7 +70,7 @@ const ApplicableProducts = ({
   ]
 
   return (
-    <div className="bg-white px-4 pb-4 ApplicableProducts">
+    <div className="px-4 ApplicableProducts">
       <Title className="m-0 mb-6" level={4}>
         Applicable Products
       </Title>
@@ -82,6 +84,7 @@ const ApplicableProducts = ({
               className="flex items-center m-0 text-white"
               type="primary"
               danger
+              disabled={Edit}
               ghost
               icon={<PlusOutlined />}
               onClick={() => setSelectProductsModal(true)}
@@ -116,6 +119,7 @@ const ApplicableProducts = ({
                 className="flex items-center m-0 text-white"
                 type="primary"
                 danger
+                disabled={Edit}
                 ghost
                 icon={<PlusOutlined />}
                 onClick={() => setSelectProductsModal(true)}

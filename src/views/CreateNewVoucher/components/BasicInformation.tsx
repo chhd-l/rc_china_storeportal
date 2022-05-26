@@ -1,5 +1,5 @@
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
-import { Typography, Form, Input, DatePicker, Upload, Image, message } from 'antd'
+import { Typography, Form, Input, DatePicker, Upload, Image, message, Select } from 'antd'
 import Finishedproductdisplay from './Finishedproductdisplay'
 import { useState } from 'react'
 import moment from 'moment'
@@ -12,6 +12,7 @@ type BasicInformationType = {
   setVoucherType: Function
   imageUrl: string
   setImageUrl: Function
+  Edit: boolean | undefined
 }
 
 const disabledDate = (current: any) => {
@@ -69,7 +70,7 @@ const disabledTime = (current: any, type: string) => {
   }
 }
 
-const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl }: BasicInformationType) => {
+const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, Edit }: BasicInformationType) => {
   const [loading, setLoading] = useState(false)
 
   const uploadButton = (
@@ -98,15 +99,16 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl }
   }
 
   const beforeUpload = (file: RcFile) => {
-    const isLt2M = file.size / 1024 < 300
-    if (!isLt2M) {
+    const isLt1M = file.size / 1024 / 1024 < 1
+    if (!isLt1M) {
+      setLoading(false)
       message.error('Image must smaller than 300kB!')
     }
-    return isLt2M
+    return isLt1M
   }
 
   return (
-    <div className="bg-white px-4 pt-4 relative BasicInformation">
+    <div className="px-4 pt-4 relative BasicInformation">
       <Title className="mb-8" level={4}>
         Basic Information
       </Title>
@@ -118,7 +120,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl }
               VoucherType === 'SHOP_VOUCHER' ? 'VoucherTypeBoxShadow' : 'border'
             } border-gray-300 border-solid relative`}
             style={{ borderRadius: '5px' }}
-            onClick={() => setVoucherType('SHOP_VOUCHER')}
+            onClick={() => !Edit && setVoucherType('SHOP_VOUCHER')}
           >
             <span className="mr-1 ShopVoucherImg" />
             <span className="w-32 text-gray-500">Shop Voucher</span>
@@ -131,10 +133,10 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl }
           </div>
           {/* Product Voucher */}
           <div
-            className={`flex ml-2 pl-2 pr-3 py-3 items-center ${
+            className={`flex ml-3 pl-2 pr-3 py-3 items-center ${
               VoucherType === 'PRODUCT_VOUCHER' ? 'VoucherTypeBoxShadow' : 'border'
             } border-gray-300 border-solid relative`}
-            onClick={() => setVoucherType('PRODUCT_VOUCHER')}
+            onClick={() => !Edit && setVoucherType('PRODUCT_VOUCHER')}
             style={{ borderRadius: '5px' }}
           >
             <span className="mr-1 ProductVoucherImg" />
@@ -158,7 +160,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl }
           },
         ]}
       >
-        <Input placeholder="Input" maxLength={20} />
+        <Input placeholder="Input" disabled={Edit} maxLength={15} />
       </Form.Item>
       <Form.Item
         label="Voucher Description"
@@ -170,7 +172,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl }
           },
         ]}
       >
-        <Input placeholder="Input" maxLength={35} />
+        <Input placeholder="Input" disabled={Edit} maxLength={35} />
       </Form.Item>
       <Form.Item label="Voucher Code" name="voucherCode">
         <Input placeholder="Input" />
@@ -179,7 +181,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl }
         label="Voucher Usage Period"
         required
         shouldUpdate={(prevValues, curValues) => prevValues.times !== curValues.times}
-        wrapperCol={{ span: 10 }}
+        wrapperCol={{ span: 8 }}
       >
         {({ getFieldValue }) => {
           const startTimer = getFieldValue('voucherUsageBeginningOfTime')
@@ -205,6 +207,8 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl }
                   format: 'HH:mm',
                   defaultValue: [moment().add(1, 'hours'), moment().add(2, 'hours')],
                 }}
+                className='w-full'
+                disabled={Edit}
                 disabledDate={disabledDate}
                 disabledTime={disabledTime}
                 format="YYYY-MM-DD HH:mm"
@@ -212,6 +216,24 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl }
             </Form.Item>
           )
         }}
+      </Form.Item>
+      <Form.Item
+        label="Display On Shop"
+        rules={[
+          {
+            required: true,
+            message: 'Pless Select',
+          },
+        ]}
+      >
+        <Select
+          placeholder="Select"
+          disabled={Edit}
+          options={[
+            { label: 'Yes', value: true },
+            { label: 'No', value: false },
+          ]}
+        />
       </Form.Item>
       <Form.Item label="Voucher Image" className="Uploader" wrapperCol={{ span: 'auto' }} required>
         <div className="flex items-center">
@@ -229,6 +251,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl }
             <Upload
               listType="picture-card"
               accept="image/*"
+              disabled={Edit}
               beforeUpload={beforeUpload}
               showUploadList={false}
               action="https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload"

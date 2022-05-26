@@ -1,15 +1,15 @@
-import { ContentContainer } from "@/components/ui"
-import ProTable from "@ant-design/pro-table"
-import { Button, message, Modal } from "antd";
+import { ContentContainer } from '@/components/ui'
+import ProTable from '@ant-design/pro-table'
+import { Button, message, Modal } from 'antd'
 import { Tooltip, Image } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 import { deleteVoucher, endVoucher, getVouchers } from '@/framework/api/voucher'
 import moment from 'moment'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ActionType } from '@ant-design/pro-table'
 
-const VouchersList = () => {
+const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
   const navigator = useNavigate()
   const ref = useRef<ActionType>()
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -46,7 +46,9 @@ const VouchersList = () => {
       fieldProps: () => ({
         placeholder: ['Start time', 'End Time'],
         separator: <div className="flex items-center justify-center w-full h-full">to</div>,
-        style: {textAlin: ''}
+        style: { paddingLeft: '20px' },
+        showTime: { format: 'HH:mm' },
+        format: 'YYYY-MM-DD HH:mm',
       }),
     },
     {
@@ -55,12 +57,10 @@ const VouchersList = () => {
       hideInSearch: true,
       render: (text: any, record: any) => (
         <div>
-          <div>{
-            text === 'SHOP_VOUCHER' ? 'Shop Voucher' : 'Product Voucher'
-          }</div>
-          <div className="text-gray-400 text-xs">({
-            record.applicationProducts ? record.applicationProducts + ' products' : 'all products'
-          })</div>
+          <div>{text === 'SHOP_VOUCHER' ? 'Shop Voucher' : 'Product Voucher'}</div>
+          <div className="text-gray-400 text-xs">
+            ({record.applicationProducts ? record.applicationProducts + ' products' : 'all products'})
+          </div>
         </div>
       ),
     },
@@ -69,7 +69,7 @@ const VouchersList = () => {
       dataIndex: 'Price',
       hideInSearch: true,
       render: (text: any, record: any) =>
-        (record.discountType === 'PERCENTAGE' ? record.discountValue + '%OFF' : '￥' + record.discountValue),
+        record.discountType === 'PERCENTAGE' ? record.discountValue + '%OFF' : '￥' + record.discountValue,
     },
     {
       title: 'Usage Limit',
@@ -120,7 +120,7 @@ const VouchersList = () => {
           {record.voucherStatus === 'Upcoming' && (
             <Tooltip title="Edit">
               <span
-                className="cursor-pointer iconfont icon-a-Group437 text-red-500 text-xl"
+                className="cursor-pointer ml-2 iconfont icon-a-Group437 text-red-500 text-xl"
                 onClick={() => {
                   navigator('/marketingCenter/vouchers/voucherDetails', { state: record })
                 }}
@@ -132,7 +132,7 @@ const VouchersList = () => {
               <span
                 className="cursor-pointer ml-2 iconfont icon-kjafg text-red-500 text-base"
                 onClick={() => {
-                  navigator('/marketingCenter/vouchers/voucherDetails', { state: record })
+                  navigator('/marketingCenter/vouchers/voucherDetails', { state: {...record, Edit: true} })
                 }}
               />
             </Tooltip>
@@ -190,6 +190,7 @@ const VouchersList = () => {
       delete param.PromotionPeriod
     }
     item.sample = { ...param }
+    voucherStatus && (item.sample.voucherStatus = voucherStatus)
     const res = await getVouchers(item)
     return Promise.resolve({
       data: res.records,
@@ -201,7 +202,7 @@ const VouchersList = () => {
   const confirmDelete = async () => {
     setLoading(true)
     let res = null
-    if(voucherId.statu === 'Delete') {
+    if (voucherId.statu === 'Delete') {
       res = await deleteVoucher(voucherId.id)
     } else {
       res = await endVoucher()
@@ -216,47 +217,52 @@ const VouchersList = () => {
     setLoading(false)
   }
 
-    return (
-        <ContentContainer className="bg-white pt-0 VouchersList">
-            <ProTable
-                columns={columns}
-                actionRef={ref}
-                options={false}
-                rowKey='id'
-                pagination={{
-                    hideOnSinglePage: false,
-                    showSizeChanger: true,
-                    showQuickJumper: true,
-                    defaultPageSize: 10,
-                    showTotal: () => <></>
-                }}
-                search= {{
-                  labelWidth: 'auto',
-                  searchText: 'Search',
-                  optionRender: (searchConfig,formProps,dom) => {
-                    return dom.map((item: any) => {
-                      return (
-                        <Button {...item.props} loading={false} />
-                      )
-                    }).reverse()
-                  }
-                }}
-                request={(parma) => getList(parma)}
-            />
-            <Modal
-              key="assetDelete"
-              className="rc-modal"
-              title={`${voucherId.statu} Item`}
-              okText="Confirm"
-              visible={isModalVisible}
-              onOk={confirmDelete}
-              confirmLoading={loading}
-              onCancel={() => setIsModalVisible(false)}
-            >
-              <p>Are you sure you want to {voucherId.statu} the item?</p>
-            </Modal>
-        </ContentContainer>
-    )
+  useEffect(() => {
+    ref.current?.reload()
+  }, [voucherStatus])
+
+  return (
+    <ContentContainer className="bg-white pt-0 VouchersList">
+      <ProTable
+        columns={columns}
+        actionRef={ref}
+        options={false}
+        tableClassName='rc-table'
+        rowKey="id"
+        pagination={{
+          hideOnSinglePage: false,
+          showSizeChanger: true,
+          showQuickJumper: true,
+          defaultPageSize: 10,
+          showTotal: () => <></>,
+        }}
+        search={{
+          labelWidth: 'auto',
+          searchText: 'Search',
+          optionRender: (searchConfig, formProps, dom) => {
+            return dom
+              .map((item: any) => {
+                return <Button {...item.props} loading={false} />
+              })
+              .reverse()
+          },
+        }}
+        request={(parma) => getList(parma)}
+      />
+      <Modal
+        key="assetDelete"
+        className="rc-modal"
+        title={`${voucherId.statu} Item`}
+        okText="Confirm"
+        visible={isModalVisible}
+        onOk={confirmDelete}
+        confirmLoading={loading}
+        onCancel={() => setIsModalVisible(false)}
+      >
+        <p>Are you sure you want to {voucherId.statu} the item?</p>
+      </Modal>
+    </ContentContainer>
+  )
 }
 
 export default VouchersList

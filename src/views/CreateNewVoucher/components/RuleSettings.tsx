@@ -16,6 +16,7 @@ type RuleSettingsType = {
   setPrice: Function
   DiscountType: string
   setDiscountType: Function
+  Edit: boolean | undefined
 }
 
 const OrderType = [
@@ -38,19 +39,21 @@ const RuleSettings = ({
   setPrice,
   DiscountType,
   setDiscountType,
+  Edit,
 }: RuleSettingsType) => {
   const [AmountOpen, setAmountOpen] = useState(true)
   const [MinimumBasketPrice, setMinimumBasketPrice] = useState<string | number>('')
   const [UsageQuantity, setUsageQuantity] = useState<string | number>('')
 
   return (
-    <div className="bg-white px-4 RuleSettings">
+    <div className="px-4 RuleSettings">
       <Title className="m-0 mb-8" level={4}>
         Rule Settings
       </Title>
       <Form.Item
         label="Order Type"
         name="orderType"
+        wrapperCol={{ span: 9 }}
         rules={[
           {
             required: true,
@@ -58,22 +61,23 @@ const RuleSettings = ({
           },
         ]}
       >
-        <Select placeholder="Select" options={OrderType} />
+        <Select placeholder="Select" disabled={Edit} options={OrderType} />
       </Form.Item>
       <Form.Item
         label="Discount Type | Amount"
-        className={`${AmountOpen ? '' : 'mb-20'}`}
-        wrapperCol={{ span: 10 }}
+        className={`${AmountOpen ? '' : 'mb-10'}`}
+        wrapperCol={{ span: 9 }}
         shouldUpdate={(prevValues, curValues) => prevValues.discountType !== curValues.discountType}
         required
       >
         {({ setFieldsValue, validateFields }) => {
           return (
-            <div className="flex items-center border border-gray-300 border-solid">
+            <div className="flex items-center border border-gray-300 border-solid" style={{ borderRadius: '4px' }}>
               <Form.Item name="discountType" className="m-0 h-8" wrapperCol={{ span: 'auto' }}>
                 <Select
                   className="Selectborder"
                   placeholder="Select"
+                  disabled={Edit}
                   onChange={(v) => {
                     setAmountOpen(true)
                     setFieldsValue({
@@ -108,6 +112,7 @@ const RuleSettings = ({
                       onChange={(v) => {
                         price && validateFields(['minimumBasketPrice'])
                       }}
+                      disabled={Edit}
                       placeholder="Input"
                       bordered={false}
                       className="w-full"
@@ -121,16 +126,6 @@ const RuleSettings = ({
                     name="discountValue"
                     className="m-0 flex-1 h-8 Amount2"
                     rules={[
-                      {
-                        validator: (_, value) => {
-                          return value <= 60
-                            ? Promise.resolve()
-                            : Promise.reject(
-                                new Error('Please note that the discount amount is > 60% of min basket price'),
-                              )
-                        },
-                        warningOnly: true,
-                      },
                       {
                         validator: (_, value) => {
                           const v = Number(value) || 0
@@ -150,6 +145,7 @@ const RuleSettings = ({
                         }
                       }}
                       controls={false}
+                      disabled={Edit}
                       placeholder="Input"
                       className="border-0 border-l rounded-none w-full"
                     />
@@ -166,6 +162,7 @@ const RuleSettings = ({
       <Form.Item
         label="Recurrence"
         name="recurrence"
+        wrapperCol={{ span: 9 }}
         rules={[
           {
             required: DiscountType === 'FIX_AMOUNT',
@@ -175,21 +172,19 @@ const RuleSettings = ({
       >
         <Select
           placeholder="Select"
-          disabled={DiscountType !== 'FIX_AMOUNT'}
+          disabled={Edit || DiscountType !== 'FIX_AMOUNT'}
           options={[
             { label: 'Yes', value: true },
             { label: 'No', value: false },
           ]}
         />
       </Form.Item>
-      <Form.Item wrapperCol={{ span: 'auto' }} label="Minimum Basket Price" required={!PriceOpen} shouldUpdate={true}>
+      <Form.Item label="Minimum Basket Price" wrapperCol={{ span: 9 }} required={!PriceOpen} shouldUpdate={true}>
         {({ validateFields, getFieldValue, setFieldsValue }) => (
           <div className="flex w-full">
             <Form.Item
-              className="m-0"
-              style={{ width: '32%' }}
+              className="m-0 w-full"
               name="minimumBasketPrice"
-              wrapperCol={{ span: 'auto' }}
               rules={[
                 {
                   required: !PriceOpen,
@@ -199,10 +194,10 @@ const RuleSettings = ({
                   validator: (_, value) => {
                     const price = Number(value) || 0
                     const Amount = getFieldValue('discountValue') || 0
-                    const Bool = (DiscountType !== 'FIX_AMOUNT') || PriceOpen || (price >= Amount)
+                    const Bool = DiscountType !== 'FIX_AMOUNT' || PriceOpen || price >= Amount
                     return Bool
                       ? Promise.resolve()
-                      : Promise.reject(new Error('Voucher discount amount cannot exceed min. spend required'))
+                      : Promise.reject(new Error('The price cannot be less than the voucher discount amount.'))
                   },
                 },
               ]}
@@ -225,24 +220,19 @@ const RuleSettings = ({
                       } else {
                         setAmountOpen(true)
                       }
-                    } else {
-                      if (Amount > price) {
-                        setAmountOpen(false)
-                      } else {
-                        setAmountOpen(true)
-                      }
                     }
                   }}
                   controls={false}
                   placeholder="Input"
-                  className="w-72 rounded-l-none"
-                  disabled={PriceOpen}
+                  className="w-full rounded-l-none"
+                  disabled={Edit || PriceOpen}
                 />
               </div>
             </Form.Item>
             <Checkbox
               className="ml-4 mt-1.5 h-8"
               checked={PriceOpen}
+              disabled={Edit}
               onChange={(e) => {
                 const Amount = getFieldValue('discountValue')
                 setPriceOpen(e.target.checked)
@@ -269,6 +259,7 @@ const RuleSettings = ({
       </Form.Item>
       <Form.Item
         label="Usage Quantity"
+        wrapperCol={{ span: 9 }}
         extra="Total usable voucher for all buyers"
         required={!usageQuantityOpen}
         shouldUpdate={(prevValues, curValues) => prevValues.usageQuantity !== curValues.usageQuantity}
@@ -276,7 +267,7 @@ const RuleSettings = ({
         {({ setFieldsValue }) => (
           <div className="flex w-full">
             <Form.Item
-              className="m-0"
+              className="m-0 w-full"
               name="usageQuantity"
               wrapperCol={{ span: 'auto' }}
               rules={[
@@ -290,16 +281,17 @@ const RuleSettings = ({
                 value={UsageQuantity}
                 onChange={(v) => setUsageQuantity(v)}
                 placeholder="Input"
-                step='0'
-                parser={(v) => v ? parseInt(v) : ''}
-                className="w-72"
-                disabled={usageQuantityOpen}
+                step="0"
+                className="w-full"
+                parser={(v) => (v ? parseInt(v) : '')}
+                disabled={Edit || usageQuantityOpen}
               />
             </Form.Item>
-            <Form.Item className="m-0" name="isLimitedQuantity" wrapperCol={{ span: 'auto' }}>
+            <Form.Item className="m-0" name="isLimitedQuantity">
               <Checkbox
                 className="ml-4 mt-1.5 h-8"
                 checked={usageQuantityOpen}
+                disabled={Edit}
                 onChange={(e) => {
                   setusageQuantityOpen(e.target.checked)
                   if (e.target.checked) {
