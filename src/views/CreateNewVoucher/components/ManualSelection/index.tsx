@@ -109,21 +109,21 @@ const ManualSelection = ({
       },
       valueType: 'cascader',
     },
-    {
-      title: 'Sales Category:',
-      hideInTable: true,
-      dataIndex: 'SalesCategoryId',
-      fieldProps: {
-        options: mockOptions,
-        fieldNames: {
-          children: 'children',
-          label: 'label',
-          value: 'value',
-        },
-        defaultValue: 'All Category',
-      },
-      valueType: 'cascader',
-    },
+    // {
+    //   title: 'Sales Category:',
+    //   hideInTable: true,
+    //   dataIndex: 'SalesCategoryId',
+    //   fieldProps: {
+    //     options: mockOptions,
+    //     fieldNames: {
+    //       children: 'children',
+    //       label: 'label',
+    //       value: 'value',
+    //     },
+    //     defaultValue: 'All Category',
+    //   },
+    //   valueType: 'cascader',
+    // },
     {
       renderFormItem: (_, { type, defaultRender, ...rest }, form) => {
         return (
