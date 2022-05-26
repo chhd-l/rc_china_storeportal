@@ -1,5 +1,5 @@
 import React from 'react';
-import { Article } from "@/framework/types/wechat";
+import { Article, Asset } from "@/framework/types/wechat";
 import { uuid } from "@/utils/utils";
 
 interface IGrapicContext {
@@ -41,5 +41,9 @@ const GraphicContextProvider: React.FC<{ value: IGrapicContext, children: React.
 export function getCurrentArticleById(articleList: Article[], id: string): Article | undefined {
   return articleList.find(article => article.id === id);
 }
+
+// export function transImageList(imageList: Partial<Asset>): string {
+//   const imgStr = (imageList || []).map((item: Asset) => `<img src="${item.}"`)
+// }
 
 export default GraphicContextProvider;

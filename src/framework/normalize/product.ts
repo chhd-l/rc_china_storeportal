@@ -15,6 +15,7 @@ export const normaliseDetailforFe = (detail: any) => {
 
   let choosedCate = normaliseCateIdProps(detail.goodsCategoryId, detail.listCategoryGet, [])
   let spu: any = {
+    wxCodeUrl: detail.wxCodeUrl,
     id: detail.id,
     // age: string
     brandId: detail.brandId,
@@ -589,7 +590,8 @@ export const normaliseProductListSpu = (spu: any): any => {
     price: 0,
     stock: 0,
     shelvesStatus: spu.shelvesStatus,
-    name: spu.goodsName
+    name: spu.goodsName,
+    wxCodeUrl: spu.wxCodeUrl
   }
   return listItem
 }

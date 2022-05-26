@@ -42,7 +42,14 @@ const MyUpload: React.FC<IProps> = (props) => {
         })
         setUploading(false)
         if (res) {
-          props.onChange(res)
+          props.onChange({
+            assetId: res.mediaId,
+            assetLink: res.wxUrl,
+            picture: res.url,
+            video: res.url,
+            voice: res.url,
+            description: res.description,
+          })
         }
       } else if (file.status === 'error') {
         setUploading(false)

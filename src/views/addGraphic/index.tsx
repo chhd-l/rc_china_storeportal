@@ -74,7 +74,7 @@ const NewGraphic: React.FC = () => {
               : article?.type === "image"
               ? <NewPicture />
               : article?.type === "voice"
-              ? <NewArticle />
+              ? <NewVoice />
               : article?.type === "video" ? <NewVideo /> : null}
             <div className="mt-4 text-right space-x-4">
               <Button disabled={loading}>Cancel</Button>
