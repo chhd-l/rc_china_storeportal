@@ -14,7 +14,6 @@ const Finishedproductdisplay = () => {
     >
       {({ getFieldValue }) => {
         const imgUrl = getFieldValue('Image')?.file?.response?.url || ''
-        console.log('imgUrl',imgUrl)
         const voucherName = getFieldValue('voucherName') || ''
         const Description = getFieldValue('voucherDescription') || ''
         const times = getFieldValue('times') || ''
