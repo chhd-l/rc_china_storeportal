@@ -1,8 +1,9 @@
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
-import { Typography, Form, Input, DatePicker, Upload, Image } from 'antd'
+import { Typography, Form, Input, DatePicker, Upload, Image, message } from 'antd'
 import Finishedproductdisplay from './Finishedproductdisplay'
 import { useState } from 'react'
 import moment from 'moment'
+import { RcFile } from 'antd/lib/upload'
 const { Title } = Typography
 const { RangePicker } = DatePicker
 
@@ -58,7 +59,7 @@ const disabledTime = (current: any, type: string) => {
         }
       },
       disabledMinutes: () => {
-        if (day === disDay && (hour + 1) === dishour) {
+        if (day === disDay && hour + 1 === dishour) {
           return range(0, minute)
         } else {
           return range(0, 0)
@@ -96,8 +97,16 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl }
     }
   }
 
+  const beforeUpload = (file: RcFile) => {
+    const isLt2M = file.size / 1024 < 300
+    if (!isLt2M) {
+      message.error('Image must smaller than 300kB!')
+    }
+    return isLt2M
+  }
+
   return (
-    <div className="bg-white p-4 relative BasicInformation">
+    <div className="bg-white px-4 pt-4 relative BasicInformation">
       <Title className="mb-8" level={4}>
         Basic Information
       </Title>
@@ -145,7 +154,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl }
         rules={[
           {
             required: true,
-            message: 'Pless Input',
+            message: 'Please Input',
           },
         ]}
       >
@@ -157,7 +166,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl }
         rules={[
           {
             required: true,
-            message: 'Pless Input',
+            message: 'Please Input',
           },
         ]}
       >
@@ -204,30 +213,40 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl }
           )
         }}
       </Form.Item>
-      <Form.Item
-        className="Uploader"
-        label="Voucher Image"
-        name="Image"
-        rules={[
-          {
-            required: true,
-            message: 'Pless Select',
-          },
-        ]}
-      >
-        <Upload
-          listType="picture-card"
-          accept="image/*"
-          showUploadList={false}
-          action="https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload"
-          headers={{
-            authorization: 'authorization-text',
-          }}
-          style={{ backgroundColor: '#51ACF5' }}
-          onChange={handleChange}
-        >
-          {imageUrl ? <Image src={imageUrl} preview={false} /> : uploadButton}
-        </Upload>
+      <Form.Item label="Voucher Image" className="Uploader" wrapperCol={{ span: 'auto' }} required>
+        <div className="flex items-center">
+          <Form.Item
+            name="Image"
+            className='m-0'
+            wrapperCol={{ span: 12 }}
+            rules={[
+              {
+                required: true,
+                message: 'Pless Select',
+              },
+            ]}
+          >
+            <Upload
+              listType="picture-card"
+              accept="image/*"
+              beforeUpload={beforeUpload}
+              showUploadList={false}
+              action="https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload"
+              headers={{
+                authorization: 'authorization-text',
+              }}
+              className={imageUrl ? 'imgUploadNoBorder' : 'imgUploadBorder'}
+              style={{ backgroundColor: '#51ACF5', width: '100px' }}
+              onChange={handleChange}
+            >
+              {imageUrl ? <Image src={imageUrl} preview={false} /> : uploadButton}
+            </Upload>
+          </Form.Item>
+          <div className="text-gray-400">
+            <div>The recommended size for images is 100px * 100px.</div>
+            <div className="mt-1">Image size should not exceed 300KB.</div>
+          </div>
+        </div>
       </Form.Item>
       <Finishedproductdisplay />
     </div>

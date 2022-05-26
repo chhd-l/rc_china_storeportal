@@ -2,7 +2,6 @@ import { ContentContainer } from '@/components/ui'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 import { Tooltip, Typography } from 'antd'
 import { useEffect, useState } from 'react'
-
 const { Title } = Typography
 
 interface KeyMetricsListProps {
@@ -14,22 +13,22 @@ interface KeyMetricsListProps {
 const initMetricsContent: KeyMetricsListProps[] = [
   {
     label: 'GSV',
-    tip: 'Total value of all confirmed orders using seller-absorbed vouchers, including shipping fees and excluding other promotions, over the selected time period.',
+    tip: 'Total amount of all confirmed orders using vouchers.',
     value: '￥23.00',
   },
   {
     label: 'Orders',
-    tip: 'Total number of seller-absorbed vouchers used in all confirmed orders over the selected time period.',
+    tip: 'Total number of confirmed orders using vouchers.',
     value: 24,
   },
   {
     label: 'Usage Rate',
-    tip: 'Total voucher usages in confirmed orders divide by total number of voucher claims over the selected time period.',
+    tip: 'Total number of voucher usages in confirmed orders divide by total number of voucher claims.',
     value: '12%',
   },
   {
-    label: 'Buyers',
-    tip: 'Total number of unique buyers who applied at least 1 seller-absorbed voucher in all confirmed orders over the selected time period.',
+    label: 'Pet Owners',
+    tip: 'Total number of unique pet owners who used voucher in confirmed orders.',
     value: 8,
   },
 ]
@@ -54,12 +53,12 @@ const KeyMetrics = () => {
           <div
             className={`${
               index !== 0 ? 'border-l border-gray-300 border-solid' : ''
-            } p-4 flex-1 flex flex-col justify-center`}
+            } p-4 flex-1 flex flex-col`}
           >
-            <div className="align-center text-xs flex-1 ml-2">
-              {item.label}
+            <div className="align-center text-xs flex-1 flex items-center">
+              <div>{item.label}</div>
               <Tooltip title={item.tip}>
-                <QuestionCircleOutlined className="ml-2 text-10" />
+                <QuestionCircleOutlined className="ml-1 text-10 text-gray-400" />
               </Tooltip>
             </div>
             <Title className="flex-1 mt-2 mb-0" level={4}>

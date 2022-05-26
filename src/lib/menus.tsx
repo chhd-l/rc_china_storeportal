@@ -107,14 +107,14 @@ export const menus = [
     name: 'Marketing Center',
     value: 'marketing_centres',
     url: '',
-    key: 'marketing_centres',
+    key: 'marketing_centers',
     icon: <span className='icon iconfont icon-a-bianzu13' />,
     children: [
       {
         name: 'Marketing Center',
-        value: 'MarketingCentres',
-        url: '/marketingCentre/marketingCentre-list',
-        key: 'MarketingCentres',
+        value: 'MarketingCenters',
+        url: '/marketingCenter/marketingCenter-list',
+        key: 'MarketingCenters',
       },
     ],
   },
