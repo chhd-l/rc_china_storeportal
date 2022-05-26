@@ -1,5 +1,6 @@
 .CreateNewVoucher {
   .Uploader .ant-form-item-label {
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: end;
@@ -23,9 +24,17 @@
     .VoucherTypeBoxShadow {
       box-shadow: 0 0 17px 0 #e2e2e2;
     }
-    .ant-upload-select {
-      border: 1px dashed #51acf5 !important;
-      background-color: #fff;
+    .imgUploadBorder {
+      .ant-upload-select {
+        border: 1px dashed #51acf5 !important;
+        background-color: #fff;
+      }
+    }
+    .imgUploadNoBorder {
+      .ant-upload-select {
+        border: 0 !important;
+        background-color: #fff;
+      }
     }
     .ShopVoucherImg {
       background: url(../../assets//images/ShopVoucher.png) no-repeat center;
@@ -50,6 +59,13 @@
       background-size: 100% 100%;
       width: 24px;
       height: 24px;
+    }
+    .ant-upload-select-picture-card {
+      width: 80px !important;
+      height: 80px !important;
+    }
+    .ant-upload-picture-card-wrapper {
+      width: auto !important;
     }
   }
   .CoilingCenter {

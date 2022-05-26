@@ -42,12 +42,12 @@ const CreateNewVoucher = () => {
       state.minimumBasketPrice ? setPrice(state.minimumBasketPrice) : setPriceOpen(true)
       state.usageQuantity || setusageQuantityOpen(true)
       setImageUrl(state.voucherDefaultImage)
-      setDiscountType('PERCENTAGE')
+      setDiscountType(state.discountType)
     }
   }, [state])
 
   return (
-    <ContentContainer>
+    <ContentContainer className='bg-white'>
       <Form
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 6 }}
@@ -70,27 +70,31 @@ const CreateNewVoucher = () => {
             v.voucherUsageEndOfTime = moment(v.times[1]).utc().format()
             v.voucherDefaultImage = v.Image.file.response.url
             v.voucherType = VoucherType
-            if (state) {
-              v.voucherGoodsRelated = keys.length
-                ? keys.map((item) => ({
-                    operator: 'zz',
-                    goodsId: item,
-                    storeId: '123456',
-                    voucherId: state.id,
-                  }))
-                : ''
-            } else {
-              v.voucherGoodsRelated = keys.length
-                ? keys.map((item) => ({
-                    operator: 'zz',
-                    goodsId: item,
-                    storeId: '123456',
-                  }))
-                : ''
-            }
             v.minimumBasketPrice = Math.round(Number(v.minimumBasketPrice) * 100) / 100 || 0
             v.usageQuantity = v.usageQuantity || 0
             v.discountValue = '' + v.discountValue
+            if(VoucherType === 'SHOP_VOUCHER') {
+              v.voucherGoodsRelated = []
+            } else {
+              if (state) {
+                v.voucherGoodsRelated = keys.length
+                  ? keys.map((item) => ({
+                      operator: 'zz',
+                      goodsId: item,
+                      storeId: '123456',
+                      voucherId: state.id,
+                    }))
+                  : ''
+              } else {
+                v.voucherGoodsRelated = keys.length
+                  ? keys.map((item) => ({
+                      operator: 'zz',
+                      goodsId: item,
+                      storeId: '123456',
+                    }))
+                  : ''
+              }
+            }
             delete v.times
             delete v.Image
             state && (v = { ...state, ...v })
@@ -113,7 +117,7 @@ const CreateNewVoucher = () => {
               throw new Error('失败')
             }
             message.success({ className: 'rc-message', content: 'Operation success' })
-            navigator('/marketingCentre/vouchers')
+            navigator('/marketingCenter/vouchers')
           } catch (err) {
             message.error({ className: 'rc-message', content: 'Operation failed' })
           }
@@ -144,7 +148,7 @@ const CreateNewVoucher = () => {
         />
         <Form.Item className="w-full flex items-center justify-end py-8">
           <div className="flex items-center justify-end">
-            <Button htmlType="button" onClick={() => navigator('/marketingCentre/vouchers')}>
+            <Button htmlType="button" onClick={() => navigator('/marketingCenter/vouchers')}>
               Cancel
             </Button>
             <Button className="ml-4" type="primary" htmlType="submit">
