@@ -187,12 +187,12 @@ export const createMediaAndSync = async (queryParams: any) => {
       ),
       operator: queryParams.operator || 'system',
     })
-    const mediaAssetUrl = res?.addAndSyc
-    console.log('create mediaAndSync view data', mediaAssetUrl);
-    return mediaAssetUrl || ""
+    const mediaAsset = res?.addAndSyc
+    console.log('create mediaAndSync view data', mediaAsset);
+    return mediaAsset || false
   } catch (e) {
     console.log(e)
-    return ""
+    return false
   }
 }
 
@@ -618,4 +618,16 @@ export const deleteArticles = async (articlesId: string, mediaId: string) => {
   const data = await ApiRoot.wechatSettings().deleteArticles(articlesId, mediaId);
   console.log('delete articles view data:', data);
   return data?.articlesDelete ?? false
+}
+
+export const addArticle = async (param: any) => {
+  const data = await ApiRoot.wechatSettings().addArticles({
+    body: {
+      accountId: '000001',
+      operator: 'zz',
+      articleList: param
+    }
+  });
+  console.log('add article view data:', data);
+  return data?.articlesAdd ?? {}
 }

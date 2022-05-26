@@ -3,17 +3,18 @@ import '@wangeditor/editor/dist/css/style.css'
 import { IEditorConfig, DomEditor, i18nChangeLanguage } from '@wangeditor/editor'
 import { Editor, Toolbar } from '@wangeditor/editor-for-react'
 
+import "./index.less"
+
 interface EditorProps {
   onChange?: Function
-  defaultValue?: string
+  value?: string
 }
 type InsertFnType = (url: string) => void
 
 i18nChangeLanguage('en')
 
-const MyEditor: FC<EditorProps> = ({ defaultValue = '', onChange }) => {
+const MyEditor: FC<EditorProps> = ({ value = '', onChange }) => {
   const [editor, setEditor] = useState<any>(null) // 存储 editor 实例
-  const [html, setHtml] = useState('')
 
   const toolbarConfig = {
     excludeKeys: [
@@ -83,13 +84,13 @@ const MyEditor: FC<EditorProps> = ({ defaultValue = '', onChange }) => {
   // useEffect(() => {
   //   setHtml(`<p></p>`)
   // }, [])
-  useEffect(() => {
-    //重新塞进去菜单就会被禁用？注释掉就active?
-    if (defaultValue) {
-      console.info('goodsDescriptiondefaultValue======', defaultValue)
-      setHtml(`<span>${defaultValue}</span>`) //不知道为啥加了标签就可以反显，不加就不行
-    }
-  }, [defaultValue])
+  // useEffect(() => {
+  //   //重新塞进去菜单就会被禁用？注释掉就active?
+  //   if (defaultValue) {
+  //     console.info('goodsDescriptiondefaultValue======', defaultValue)
+  //     setHtml(`<span>${defaultValue}</span>`) //不知道为啥加了标签就可以反显，不加就不行
+  //   }
+  // }, [defaultValue])
   // useEffect(() => {
   //   if (defaultValue) {
   //     console.info('goodsDescriptiondefaultValue======', defaultValue)
@@ -123,12 +124,12 @@ const MyEditor: FC<EditorProps> = ({ defaultValue = '', onChange }) => {
         />
         <Editor
           defaultConfig={editorConfig}
-          value={html}
+          value={value}
           onCreated={setEditor}
           onChange={editor => {
             let htmls = editor.getHtml()
             // console.info('htmlshtmlshtmlshtmlshtmls', htmls)
-            setHtml(htmls)
+            // setHtml(htmls)
             onChange?.(htmls)
           }}
           mode='default'
