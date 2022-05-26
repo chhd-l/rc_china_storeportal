@@ -27,7 +27,6 @@ const CategoryDetail = () => {
   useEffect(() => {
   }, [])
   const handleRuleBaseVisible = (visible: boolean) => {
-    ref?.current?.reload()
     setRuleBasedVisible(visible)
   }
   const handleSucces = (visible: boolean) => {
