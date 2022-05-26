@@ -1,19 +1,20 @@
 import './index.less'
-import { Button, Switch, Input, Modal,Tooltip,Divider,Avatar,message } from 'antd'
+import { Button, Switch, Input, Modal,Tooltip,Divider,Avatar,message,Spin } from 'antd'
 import { CheckOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons'
 import ProTable from '@/components/common/ProTable'
 import { useEffect, useState, useRef } from 'react'
 import { ProColumns } from '@ant-design/pro-table'
 import { useParams } from 'react-router-dom'
 import EditTagsModal from './components/EditTagsModal'
-import { updateShopCategory } from '@/framework/api/get-product'
 import { ContentContainer } from '@/components/ui'
 import { handlePageParams } from '@/utils/utils'
 import { detailTag, removeCustomerTag, updateTag } from '@/framework/api/tag'
-
+import { useLocation } from 'react-router'
 
 const EditTags = () => {
-  const params = useParams()
+  const { state }: any = useLocation();
+  const [isSwithVisible, setIsSwithVisible] = useState(false)
+  const [status, setStatus] = useState(false)
   const [customerId, setCustomerId] = useState<any>('')
   const [show, setShow] = useState(false)
   const [name, setName] = useState('')
@@ -27,11 +28,11 @@ const EditTags = () => {
   })
   const ref = useRef<any>()
   const confirmDelete = async () => {
-    const { id } = params
+
     setLoading(true)
    let res = await removeCustomerTag({
       customerId:customerId,
-      tagId: id,
+      tagId: state.id,
       operator: "zz",
       storeId:"12345678"
     })
@@ -44,13 +45,13 @@ const EditTags = () => {
   }
 
   const getList = async (page: any) => {
-    const { id } = params
+    setLoading(true)
      let res = await detailTag({
-        offset: 0,
-        limit: 10,
+       offset: page.offset,
+       limit: page.limit,
         isNeedTotal: true,
         sample:{
-          tagId:id
+          tagId:state.id
         }
       })
     console.log(res)
@@ -61,11 +62,23 @@ const EditTags = () => {
         total:res?.findTagCustomerPage.total
       })
     }
+    setLoading(false)
     return res?.findTagCustomerPage
+  }
+  const confirmSwitch = async () => {
+    setLoading(true)
+    updateTag({
+      id:state.id,
+      isEnabled: status,
+    }).then(() => {
+      ref.current.reload()
+      setIsSwithVisible(false)
+    })
+    setLoading(false)
   }
 
   useEffect(() => {
-    const { id } = params
+
   }, [])
   const handleManualVisible = (visible: boolean) => {
     setManualSelectionVisible(visible)
@@ -111,6 +124,7 @@ const EditTags = () => {
   // @ts-ignore
   return (
     <ContentContainer>
+      <Spin spinning={loading}>
       <div className='category-detail'>
         <div className='bg-white px-6 py-4'>
           <div className='flex justify-between'>
@@ -122,9 +136,8 @@ const EditTags = () => {
                         setName(e.target.value)
                       }} />
                       <Button icon={<CheckOutlined />} onClick={() => {
-                        const { id } = params
                         updateTag({
-                          id,
+                          id:state.id,
                           name,
                         }).then((res) => {
                           if (res) {
@@ -155,13 +168,8 @@ const EditTags = () => {
                 checked={cateInfos.isEnabled}
                 disabled={!cateInfos?.total}
                 onChange={(checked: boolean) => {
-                  const { id } = params
-                  updateTag({
-                    id,
-                    isEnabled: checked,
-                  }).then(() => {
-                    ref.current.reload()
-                  })
+                  setIsSwithVisible(true)
+                  setStatus(checked)
                 }}
               />
               </Tooltip>
@@ -172,7 +180,7 @@ const EditTags = () => {
         <div className='bg-white px-6 py-4'>
           <div className='flex justify-between'>
             <div className='search-title'>
-              <div className='text-xl font-semibold list-title'>Pet Owner List</div>
+              <div className='text-xl list-title'>Pet Owner List</div>
             </div>
             <Button
               type='primary'
@@ -184,6 +192,7 @@ const EditTags = () => {
             </Button>
           </div>
           <ProTable
+            loading={false}
             className='set-delete-box'
             actionRef={ref}
             columns={columns}
@@ -232,7 +241,19 @@ const EditTags = () => {
         >
           <p>Are you sure you want to delete the item?</p>
         </Modal>
+        <Modal
+          className='rc-modal'
+          title='Notice'
+          okText='Confirm'
+          visible={isSwithVisible}
+          onOk={confirmSwitch}
+          confirmLoading={loading}
+          onCancel={() => setIsSwithVisible(false)}
+        >
+          <p>{status ? 'Are you sure you want to enable the item ?' : 'Are you sure you want to disable the item ?'}</p>
+        </Modal>
       </div>
+      </Spin>
     </ContentContainer>
   )
 }

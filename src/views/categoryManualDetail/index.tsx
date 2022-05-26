@@ -1,5 +1,5 @@
 import './index.less'
-import { Button, Switch, Space, Input, Checkbox, Modal,Tooltip } from 'antd'
+import { Button, Switch, Space, Input, Checkbox, Modal, Tooltip, Spin } from 'antd'
 import { CheckOutlined, CloseOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons'
 import ProTable from '@/components/common/ProTable'
 import { useEffect, useState, useRef } from 'react'
@@ -10,9 +10,11 @@ import ManualSelection from './components/ManualSelection'
 import { detleShopCateRel, getFindShopCategoryGoodsPage, updateShopCategory } from '@/framework/api/get-product'
 import { ContentContainer } from '@/components/ui'
 import { formatMoney, handlePageParams } from '@/utils/utils'
+import { useLocation } from 'react-router'
 const { Search } = Input
 
 const CategoryDetail = () => {
+  const { state }: any = useLocation();
   const params = useParams()
   const [keyList, setKeyList] = useState([])
   const [checkLenght, setCheckLenght] = useState(0)
@@ -23,8 +25,10 @@ const CategoryDetail = () => {
   const [name, setName] = useState('')
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const [manualSelectionVisible, setManualSelectionVisible] = useState<boolean>(false)
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(true)
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const [isSwithVisible, setIsSwithVisible] = useState(false)
+  const [status, setStatus] = useState(false)
   const [cateInfos, setCateInfos] = useState({
     total: null,
     categoryType: '',
@@ -71,13 +75,13 @@ const CategoryDetail = () => {
   }
 
   const getList = async (page: any) => {
-    const { id } = params
+    setLoading(true)
     let res = await getFindShopCategoryGoodsPage({
       offset: page.offset,
       limit: page.limit,
       isNeedTotal: true,
       sample: {
-        shopCategoryId: id,
+        shopCategoryId: state.id,
         goodsName: page.goodsName,
       },
     })
@@ -86,11 +90,25 @@ const CategoryDetail = () => {
       setCateInfos({ ...meta, total: res?.findShopCategoryGoodsPage?.total })
     }
     setCheckLenght(res?.findShopCategoryGoodsPage?.records.length)
+    setLoading(false)
     return res
+  }
+  const confirmSwitch = async () => {
+    setLoading(true)
+    updateShopCategory({
+      id: state.id,
+      isDisplay: status,
+    }).then((res) => {
+      if (res) {
+        setIsSwithVisible(false)
+        ref.current.reload()
+      }
+    })
+    setLoading(false)
   }
 
   useEffect(() => {
-    const { id } = params
+
   }, [])
   const handleManualVisible = (visible: boolean) => {
     setManualSelectionVisible(visible)
@@ -106,7 +124,8 @@ const CategoryDetail = () => {
       render: (_, record) => {
         return (
           <div className='flex al-cneter'>
-            <img src={record.goodsVariants[0]?.defaultImage} alt='' style={{ width: '50px',height:'50px', marginRight: '10px' }} />
+            <img src={record.goodsVariants[0]?.defaultImage} alt=''
+                 style={{ width: '50px', height: '50px', marginRight: '10px' }} />
             <div>
               <div>{record.goodsName}</div>
             </div>
@@ -178,182 +197,193 @@ const CategoryDetail = () => {
 
   // @ts-ignore
   return (
+
     <ContentContainer>
-      <div className='category-detail'>
-        <div className='bg-white mb-8 px-6 py-4'>
-          <div className='flex justify-between'>
-            <div className='font-bold text-lg'>
-              {
-                show ? <div>
-                    <Input.Group compact>
-                      <Input style={{ width: '200px' }} defaultValue={cateInfos.displayName} onChange={(e) => {
-                        setName(e.target.value)
-                      }} />
-                      <Button icon={<CheckOutlined />} onClick={() => {
-                        const { id } = params
-                        updateShopCategory({
-                          id,
-                          displayName: name,
-                        }).then((res) => {
-                          if (res) {
-                            setShow(false)
-                            ref.current.reload()
-                          }
-                        })
-                      }} />
-                      <Button icon={<CloseOutlined />} onClick={() => {
-                        setName('')
-                        setShow(false)
-                      }} />
-                    </Input.Group>
-                  </div> :
-                  <div className='edit-name'>
-                    <span className='edit-display-name'>{cateInfos.displayName}</span>
-                    <EditOutlined onClick={() => {
-                      setShow(true)
-                      setName(cateInfos.displayName)
-                    }} style={{ fontSize: '16px', color: '#ee4d2d' }} />
-                  </div>
-              }
+      <Spin spinning={loading}>
+        <div className='category-detail'>
+          <div className='bg-white mb-8 px-6 py-4'>
+            <div className='flex justify-between'>
+              <div className='font-bold text-lg'>
+                {
+                  show ? <div>
+                      <Input.Group compact>
+                        <Input style={{ width: '200px' }} defaultValue={cateInfos.displayName} onChange={(e) => {
+                          setName(e.target.value)
+                        }} />
+                        <Button icon={<CheckOutlined />} onClick={() => {
+                          updateShopCategory({
+                            id:state.id,
+                            displayName: name,
+                          }).then((res) => {
+                            if (res) {
+                              setShow(false)
+                              ref.current.reload()
+                            }
+                          })
+                        }} />
+                        <Button icon={<CloseOutlined />} onClick={() => {
+                          setName('')
+                          setShow(false)
+                        }} />
+                      </Input.Group>
+                    </div> :
+                    <div className='edit-name'>
+                      <span className='edit-display-name'>{cateInfos.displayName}</span>
+                      <span style={{ color: '#ee4d2d' }}
+                            className='iconfont icon-shop-cate-edit'
+                            onClick={() => {
+                              setShow(true)
+                              setName(cateInfos.displayName)
+                            }} />
+                    </div>
+                }
+              </div>
+              <div>
+                <Tooltip title={!cateInfos?.total ? 'This category cannot be activated as it contains no product' : ''}>
+                  <Switch
+                    className='ml-3'
+                    checked={cateInfos.isDisplay}
+                    disabled={!cateInfos?.total}
+                    onChange={(checked: boolean) => {
+                      setStatus(checked)
+                      setIsSwithVisible(true)
+                    }}
+                  />
+                </Tooltip>
+              </div>
             </div>
-            <div>
-              <Tooltip title={!cateInfos?.total?'This category cannot be activated as it contains no product':''}>
-              <Switch
-                className='ml-3'
-                checked={cateInfos.isDisplay}
-                disabled={!cateInfos?.total}
-                onChange={(checked: boolean) => {
-                  const { id } = params
-                  updateShopCategory({
-                    id,
-                    isDisplay: checked,
-                  }).then(() => {
-                    ref.current.reload()
-                  })
-                }}
-              />
-              </Tooltip>
-            </div>
-          </div>
-          <div className='text-gray-400 mt-4'>
-            Created By:{' '}
-            <span className='text-black mx-2'>
-            {cateInfos.name} {' | '} {cateInfos.categoryType==='MANUAL'?'Manual Selection':'Rule_based Filtering'}
+            <div className='text-gray-400 mt-4'>
+              Created By:{' '}
+              <span className='text-black mx-2'>
+            {cateInfos.name} {' | '} {cateInfos.categoryType === 'MANUAL' ? 'Manual Selection' : 'Rule-based Filtering'}
           </span>{' '}
-            Product(s): <span className='text-black mx-2'>{cateInfos.total}</span>
-          </div>
-        </div>
-        <div className='bg-white px-6 py-4'>
-          <div className='flex justify-between'>
-            <div className='search-title'>
-              <div className='text-xl font-semibold list-title'>Product List</div>
+              Product(s): <span className='text-black mx-2'>{cateInfos.total}</span>
             </div>
-            <Button
-              type='primary'
-              onClick={() => {
-                setManualSelectionVisible(true)
-              }}
-            >
-              + Add Category
-            </Button>
           </div>
-          <ProTable
-            className='set-delete-box'
-            actionRef={ref}
-            columns={columns}
-            toolBarRender={false}
-            rowSelection={{ selectedRowKeys, onChange: onSelectChange }}
-            rowKey='shopCategoryGoodsRelationId'
-            tableAlertRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => {
-              console.log(selectedRowKeys, selectedRows, checkLenght)
-              if (selectedRows.length === checkLenght) {
-                setCheckAll(true)
-                setIndeterminate(false)
-              } else {
-                setCheckAll(false)
-              }
-              if (selectedRows.length && selectedRows.length < checkLenght) {
-                setIndeterminate(true)
-              }
-              return (
-                <span>
+          <div className='bg-white px-6 py-4'>
+            <div className='flex justify-between'>
+              <div className='search-title'>
+                <div className='text-xl font-semibold list-title'>Product List</div>
+              </div>
+              <Button
+                type='primary'
+                onClick={() => {
+                  setManualSelectionVisible(true)
+                }}
+              >
+                + Add Products
+              </Button>
+            </div>
+            <ProTable
+              loading={false}
+              className='set-delete-box'
+              actionRef={ref}
+              columns={columns}
+              toolBarRender={false}
+              rowSelection={{ selectedRowKeys, onChange: onSelectChange }}
+              rowKey='shopCategoryGoodsRelationId'
+              tableAlertRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => {
+                console.log(selectedRowKeys, selectedRows, checkLenght)
+                if (selectedRows.length === checkLenght) {
+                  setCheckAll(true)
+                  setIndeterminate(false)
+                } else {
+                  setCheckAll(false)
+                }
+                if (selectedRows.length && selectedRows.length < checkLenght) {
+                  setIndeterminate(true)
+                }
+                return (
+                  <span>
                   <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll} />
           </span>
-              )
-            }}
-            tableAlertOptionRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => {
-              return (
-                <Space size={16}>
-                  <span>{selectedRowKeys.length}products selected</span>
-                  <Button onClick={()=>{
-                    if(selectedRows.length>0){
+                )
+              }}
+              tableAlertOptionRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => {
+                return (
+                  <Space size={16}>
+                    <span>{selectedRowKeys.length}products selected</span>
+                    <Button onClick={() => {
+                      if (selectedRows.length > 0) {
 
-                      setCurAssetId(selectedRowKeys)
-                      setIsModalVisible(true)
-                      // detleShopCateRel(selectedRowKeys).then((res) => {
-                      //   if (res) {
-                      //
-                      //     setIsModalVisible(false)
-                      //     ref.current.reload()
-                      //   }
-                      // })
-                    }
-                  }}>Delete</Button>
-                </Space>
-              )
-            }}
-            pagination={{
-              showTotal: (total: number) => ``,
-            }}
-            search={{
-              optionRender: false,
-              collapsed: false,
-              className: 'my-searchs',
-            }}
-            request={async (params, sorter, filter) => {
-              // 表单搜索项会从 params 传入，传递给后端接口。
-              console.log('test sort', params, sorter, filter)
-              let page = handlePageParams({
-                currentPage: params.current,
-                pageSize: params.pageSize,
-              })
-              let tableData = await getList({ ...page, goodsName: params.goodsName })
-              if (tableData === undefined && page.offset >= 10) {
-                tableData = await getList({
-                  offset: page.offset - 10,
-                  limit: page.limit,
-                  goodsName: params.goodsName,
+                        setCurAssetId(selectedRowKeys)
+                        setIsModalVisible(true)
+                        // detleShopCateRel(selectedRowKeys).then((res) => {
+                        //   if (res) {
+                        //
+                        //     setIsModalVisible(false)
+                        //     ref.current.reload()
+                        //   }
+                        // })
+                      }
+                    }}>Delete</Button>
+                  </Space>
+                )
+              }}
+              pagination={{
+                showTotal: (total: number) => ``,
+              }}
+              search={{
+                optionRender: false,
+                collapsed: false,
+                className: 'my-searchs',
+              }}
+              request={async (params, sorter, filter) => {
+                // 表单搜索项会从 params 传入，传递给后端接口。
+                console.log('test sort', params, sorter, filter)
+                let page = handlePageParams({
+                  currentPage: params.current,
+                  pageSize: params.pageSize,
                 })
-              }
-              if (tableData?.findShopCategoryGoodsPage?.records && tableData?.findShopCategoryGoodsPage?.records.length > 0) {
-                setListKey(tableData?.findShopCategoryGoodsPage?.records)
-              }
-              console.log(tableData, 99)
-              return Promise.resolve({
-                data: tableData?.findShopCategoryGoodsPage?.records || [],
-                total: tableData?.findShopCategoryGoodsPage.total,
-                success: true,
-              })
-            }}
+                let tableData = await getList({ ...page, goodsName: params.goodsName })
+                if (tableData === undefined && page.offset >= 10) {
+                  tableData = await getList({
+                    offset: page.offset - 10,
+                    limit: page.limit,
+                    goodsName: params.goodsName,
+                  })
+                }
+                if (tableData?.findShopCategoryGoodsPage?.records && tableData?.findShopCategoryGoodsPage?.records.length > 0) {
+                  setListKey(tableData?.findShopCategoryGoodsPage?.records)
+                }
+                console.log(tableData, 99)
+                return Promise.resolve({
+                  data: tableData?.findShopCategoryGoodsPage?.records || [],
+                  total: tableData?.findShopCategoryGoodsPage.total,
+                  success: true,
+                })
+              }}
+            />
+          </div>
+          <ManualSelection
+            visible={manualSelectionVisible}
+            handleVisible={handleManualVisible}
+            handleUpdate={handleUpdate}
           />
+          <Modal
+            className='rc-modal'
+            title='Delete Item'
+            okText='Confirm'
+            visible={isModalVisible}
+            onOk={confirmDelete}
+            confirmLoading={loading}
+            onCancel={() => setIsModalVisible(false)}
+          >
+            <p>Are you sure you want to delete the item?</p>
+          </Modal>
+          <Modal
+            className='rc-modal'
+            title='Notice'
+            okText='Confirm'
+            visible={isSwithVisible}
+            onOk={confirmSwitch}
+            confirmLoading={loading}
+            onCancel={() => setIsSwithVisible(false)}
+          >
+            <p>{status ? 'Are you sure you want to enable the item ?' : 'Are you sure you want to disable the item ?'}</p>
+          </Modal>
         </div>
-        <ManualSelection
-          visible={manualSelectionVisible}
-          handleVisible={handleManualVisible}
-          handleUpdate={handleUpdate}
-        />
-        <Modal
-          className='rc-modal'
-          title='Delete Item'
-          okText='Confirm'
-          visible={isModalVisible}
-          onOk={confirmDelete}
-          confirmLoading={loading}
-          onCancel={() => setIsModalVisible(false)}
-        >
-          <p>Are you sure you want to delete the item?</p>
-        </Modal>
-      </div>
+      </Spin>
     </ContentContainer>
   )
 }

@@ -1,4 +1,4 @@
-import { Alert, Button, Input, Modal, Switch,Tooltip } from 'antd'
+import { Alert, Button, Input, Modal, Switch, Tooltip } from 'antd'
 import { Link } from 'react-router-dom'
 import { CheckOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons'
 import './index.less'
@@ -11,8 +11,10 @@ import { getShopCategories, updateShopCategory } from '@/framework/api/get-produ
 import { handlePageParams } from '@/utils/utils'
 import { useAtom } from 'jotai'
 import { userAtom } from '@/store/user.store'
+import { useNavigate } from 'react-router-dom'
 // import 'antd/dist/antd.css';
 const ShopCategories = () => {
+  const navigator = useNavigate()
   const [userInfo] = useAtom(userAtom)
   const [addVisible, setAddvisible] = useState(false)
   const [editIndex, setEditIndex] = useState<number | undefined>()
@@ -78,7 +80,7 @@ const ShopCategories = () => {
 
   const columns: ProColumns<CategoryBaseProps>[] = [
     {
-      title: 'Category Display Name',
+      title: 'Category Name',
       dataIndex: 'displayName',
       width: 400,
       render: (_, record, index) => {
@@ -111,12 +113,15 @@ const ShopCategories = () => {
           return (
             <div className='edit-name'>
               <span className='edit-display-name'>{record.displayName}</span>
-              <EditOutlined onClick={() => {
-                setEditClickIndex(index)
-                setEditIndex(index)
-                setShow(true)
-                setName(record.displayName)
-              }} style={{ fontSize: '16px', color: '#ee4d2d' }} />
+              <span style={{ color: '#ee4d2d' }}
+                    className='iconfont icon-shop-cate-edit'
+                    onClick={() => {
+                      setEditClickIndex(index)
+                      setEditIndex(index)
+                      setShow(true)
+                      setName(record.displayName)
+                    }}
+              />
             </div>
           )
         } else {
@@ -131,8 +136,8 @@ const ShopCategories = () => {
       dataIndex: 'categoryType',
       render: (_, record) => (
         <div>
-          <span>{record.name + ' | ' }</span>
-          <span> {record.categoryType==='MANUAL'?'Manual Selection':'Rule_based Filtering'}</span>
+          <span>{record.name + ' | '}</span>
+          <span> {record.categoryType === 'MANUAL' ? 'Manual Selection' : 'Rule-based Filtering'}</span>
         </div>
       ),
     },
@@ -140,23 +145,23 @@ const ShopCategories = () => {
       title: 'Product(s)',
       dataIndex: 'total',
       render: (_, record) => (
-        <span>{record.total?record.total:0}</span>
-      )
+        <span>{record.total ? record.total : 0}</span>
+      ),
     },
     {
-      title: 'Display On/Off',
+      title: 'Status',
       dataIndex: 'isDisplay',
       render: (_, record) => (
-        <Tooltip title={record?.total < 1?'This category cannot be activated as it contains no product':''}>
-        <Switch
-          checked={record.isDisplay}
-          disabled={record?.total < 1}
-          onChange={(checked: boolean) => {
-            setStatus(!record.isDisplay)
-            setCurAssetId(record.id)
-            setIsSwithVisible(true)
-          }}
-        />
+        <Tooltip title={record?.total < 1 ? 'This category cannot be activated as it contains no product' : ''}>
+          <Switch
+            checked={record.isDisplay}
+            disabled={record?.total < 1}
+            onChange={(checked: boolean) => {
+              setStatus(!record.isDisplay)
+              setCurAssetId(record.id)
+              setIsSwithVisible(true)
+            }}
+          />
         </Tooltip>
       ),
     },
@@ -170,31 +175,41 @@ const ShopCategories = () => {
           if (record.categoryType === 'MANUAL') {
             return [
               <Tooltip title='Add Poducts'>
-              <Link to={`/category/category-manual-detail/${record.id}`} className='mr-4 text-xl'>
-                <span className='iconfont icon-jiahao' />
-              </Link>
+                <a className='mr-4' href='' onClick={(e) => {
+                  e.stopPropagation()
+                  navigator('/category/category-manual-detail', {
+                    state: { id: record.id },
+                  })
+                }} >
+                  <span className='iconfont icon-jiahao' />
+                </a>
               </Tooltip>,
               <Tooltip title='Delete'>
-              <Link to='' className='mr-4 text-xl' onClick={() => {
-                setIsModalVisible(true)
-                setCurAssetId(record.id)
-              }}>
-                <span className='iconfont icon-delete' />
-              </Link></Tooltip>,
+                <Link to='' className='mr-4 text-xl' onClick={() => {
+                  setIsModalVisible(true)
+                  setCurAssetId(record.id)
+                }}>
+                  <span className='iconfont icon-delete' />
+                </Link></Tooltip>,
             ]
           } else {
             return [
               <Tooltip title='Set Filtering Rules'>
-              <Link to={`/category/category-detail/${record.id}`} className='mr-4 text-xl'>
-                <span className='iconfont icon-group52' />
-              </Link></Tooltip>,
+                <a className='mr-4' href='' onClick={(e) => {
+                  e.stopPropagation()
+                  navigator('/category/category-detail', {
+                    state: { id: record.id },
+                  })
+                }} >
+                  <span className='iconfont icon-group52' />
+                </a></Tooltip>,
               <Tooltip title='Delete'>
-              <Link to='' className='mr-4 text-xl' onClick={() => {
-                setIsModalVisible(true)
-                setCurAssetId(record.id)
-              }}>
-                <span className='iconfont icon-delete' />
-              </Link></Tooltip>,
+                <Link to='' className='mr-4 text-xl' onClick={() => {
+                  setIsModalVisible(true)
+                  setCurAssetId(record.id)
+                }}>
+                  <span className='iconfont icon-delete' />
+                </Link></Tooltip>,
             ]
           }
 
@@ -202,30 +217,40 @@ const ShopCategories = () => {
           if (record.categoryType === 'MANUAL') {
             return [
               <Tooltip title='Details'>
-              <Link to={`/category/category-manual-detail/${record.id}`} className='mr-4 text-xl'>
-                <span className='iconfont icon-category-details' />
-              </Link></Tooltip>,
+                <a className='mr-4' href='' onClick={(e) => {
+                  e.stopPropagation()
+                  navigator('/category/category-manual-detail', {
+                    state: { id: record.id },
+                  })
+                }} >
+                  <span className='iconfont icon-category-details' />
+                </a></Tooltip>,
               <Tooltip title='Delete'>
-              <Link to='' className='mr-4 text-xl' onClick={() => {
-                setIsModalVisible(true)
-                setCurAssetId(record.id)
-              }}>
-                <span className='iconfont icon-delete' />
-              </Link></Tooltip>,
+                <Link to='' className='mr-4 text-xl' onClick={() => {
+                  setIsModalVisible(true)
+                  setCurAssetId(record.id)
+                }}>
+                  <span className='iconfont icon-delete mr-4' />
+                </Link></Tooltip>,
             ]
           } else {
             return [
               <Tooltip title='Details'>
-              <Link to={`/category/category-detail/${record.id}`} className='mr-4 text-xl'>
-                <span className='iconfont icon-category-details' />
-              </Link></Tooltip>,
+                <a className='mr-4' href='' onClick={(e) => {
+                  e.stopPropagation()
+                  navigator('/category/category-detail', {
+                    state: { id: record.id },
+                  })
+                }} >
+                  <span className='iconfont icon-category-details' />
+                </a></Tooltip>,
               <Tooltip title='Delete'>
-              <Link to='' className='mr-4 text-xl' onClick={() => {
-                setIsModalVisible(true)
-                setCurAssetId(record.id)
-              }}>
-                <span className='iconfont icon-delete' />
-              </Link></Tooltip>,
+                <Link to='' className='mr-4 text-xl' onClick={() => {
+                  setIsModalVisible(true)
+                  setCurAssetId(record.id)
+                }}>
+                  <span className='iconfont icon-delete' />
+                </Link></Tooltip>,
             ]
           }
         }
@@ -236,7 +261,7 @@ const ShopCategories = () => {
     <ContentContainer>
       <div className='shop-categories'>
         <div className='bg-white p-6 '>
-          <div className='flex justify-between' style={{marginBottom:'24px'}}>
+          <div className='flex justify-between' style={{ marginBottom: '24px' }}>
             <div className='text-xl font-semibold'>My Shop Categories</div>
             <div className='flex'>
               {/*<Button className='flex items-center mr-4 text-red-400 border-red-400' icon={<EyeOutlined />}>*/}

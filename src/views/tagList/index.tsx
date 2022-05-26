@@ -1,8 +1,8 @@
 import Table from './components/Table'
 import React, { useEffect, useState } from 'react'
 import Search from './components/Search'
-import { ContentContainer, SearchContainer, TableContainer } from '@/components/ui'
-import { Divider, Pagination } from 'antd'
+import { ContentContainer, DivideArea, SearchContainer, TableContainer } from '@/components/ui'
+import { Pagination } from 'antd'
 import { SearchParamsProps } from '@/framework/types/customer'
 import { initSearchParams } from '@/views/petOwnerList/modules/constants'
 import { PageParamsProps } from '@/framework/types/common'
@@ -62,6 +62,7 @@ const PetOwnerList = () => {
           }}
         />
       </SearchContainer>
+      <DivideArea />
       <TableContainer>
         <Table petOwnerList={petOwnerList} handleUpdate={handleUpdate} loading={loading}/>
         {

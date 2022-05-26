@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, forwardRef } from 'react';
 import { Form, Input } from 'antd';
 import { GraphicContext, getCurrentArticleById } from "../context";
 import MyEditor from './editor';
@@ -9,6 +9,7 @@ const NewArticle: React.FC = () => {
   const { articleList, currentArticleId, onChangeFieldValue } = useContext(GraphicContext);
   const article = getCurrentArticleById(articleList, currentArticleId);
 
+  console.log('article:', article);
   return (
     <div>
       <div className="p-4 bg-white">
@@ -54,7 +55,7 @@ const NewArticle: React.FC = () => {
         <div className="text-xl">Cover Preview</div>
         <div className="mt-lg p-4 flex items-center">
           <div>
-            <MyUpload />
+            <MyUpload value={article?.thumbMedia ?? {}} assetType="image" onChange={(asset) => onChangeFieldValue({ thumbMedia: asset })} />
           </div>
           <div className="flex-grow ml-lg text-gray-400">
             <div>Suggested Size</div>
@@ -64,7 +65,13 @@ const NewArticle: React.FC = () => {
         </div>
         <div className="mt-lg p-4">
           <div>Abstract</div>
-          <div className="mt-2"><Input.TextArea /></div>
+          <div className="mt-2">
+            <Input.TextArea
+              value={article?.digest ?? ""}
+              placeholder="Abstrac (optional, if not filled, the first line of 45 words will be grabbed by default)"
+              onChange={(e) => onChangeFieldValue({ digest: e.target.value })}
+            />
+          </div>
         </div>
       </div>
     </div>

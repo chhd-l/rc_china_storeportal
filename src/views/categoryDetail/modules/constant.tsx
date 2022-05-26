@@ -67,7 +67,7 @@ export const columns: ProColumns<any>[] = [
         <Space direction='vertical' className='search-input'>
           <Search placeholder='Search Products' onSearch={() => {
             form.submit()
-          }} size='large' style={{ width: 400 }} />
+          }} size='middle' style={{ width: 400,fontSize:'14px' }} />
         </Space>
       )
     },

@@ -1,25 +1,86 @@
-import React from "react";
-import { Dropdown, Menu, Upload } from 'antd';
+import React, { useState } from "react";
+import { Dropdown, Menu, Upload, message } from 'antd';
+import AssetsModal from "@/components/wechat/AssetsModal";
+import { createMediaAndSync } from "@/framework/api/wechatSetting";
+import { Asset } from "@/framework/types/wechat";
+import { LoadingOutlined } from '@ant-design/icons';
 import './index.less';
 
-const MyUpload: React.FC = () => {
+interface IProps {
+  assetType: "image" | "voice" | "video"
+  value: Partial<Asset>
+  onChange: (asset: Partial<Asset>) => void
+}
+
+const MyUpload: React.FC<IProps> = (props) => {
+  const [visible, setVisible] = useState<boolean>(false);
+  const [uploading, setUploading] = useState<boolean>(false);
+
+  const handleAssetChosen = (asset: Asset) => {
+    setVisible(false);
+    props.onChange(asset);
+  }
+
+  const uploadProps = {
+    name: 'file',
+    accept: 'image/*',
+    action: 'https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload',
+    headers: {
+      authorization: 'authorization-text',
+    },
+    onChange: async (info: any) => {
+      const { file } = info
+      const { name } = file
+      console.log('upload file',file)
+      setUploading(true)
+      if (file.status === 'done') {
+        const res = await createMediaAndSync({
+          type: 'image',
+          url: file.response.url,
+          fileExtension: name.substr(name.lastIndexOf('.') + 1),
+          operator: "system",
+        })
+        setUploading(false)
+        if (res) {
+          props.onChange(res)
+        }
+      } else if (file.status === 'error') {
+        setUploading(false)
+        message.error(`${name} file upload failed.`)
+      }
+    },
+  }
+
   const menu = (
     <Menu>
       <Menu.Item key="0">
-        <Upload>
+        <Upload {...uploadProps}>
           <span>Select</span>
         </Upload>
       </Menu.Item>
-      <Menu.Item key="1">Picture Assets</Menu.Item>
+      <Menu.Item key="1"><span onClick={() => setVisible(true)}>Picture Assets</span></Menu.Item>
     </Menu>
   );
 
   return (
-    <Dropdown overlay={menu}>
-      <div className="upload-container flex justify-center items-center">
-        <span className="iconfont icon-jiahao"></span>
-      </div>
-    </Dropdown>
+    <>
+      <Dropdown overlay={menu}>
+        <div className="upload-container flex justify-center items-center">
+          {props.value.picture
+            ? <div className="image"><img src={props.value.picture} /></div>
+            : uploading
+            ? <LoadingOutlined style={{ fontSize: 24, color: "#51acf5" }} spin />
+            : <span className="iconfont icon-jiahao"></span>}
+        </div>
+      </Dropdown>
+      {visible ? <AssetsModal
+        assetType={props.assetType}
+        visible={visible}
+        onlySync={true}
+        onCancel={() => setVisible(false)}
+        onConfirm={handleAssetChosen}
+      /> : null}
+    </>
   );
 }
 
