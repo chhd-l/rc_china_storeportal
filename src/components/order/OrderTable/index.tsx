@@ -88,7 +88,7 @@ const OrderTable = ({
                     <br />
                     <span>
                       <span className="iconfont icon-Frame1 primary-color mr-2" />
-                      Subscription ID:{item.id}
+                      Subscription ID:{item.subscriptionId}
                     </span>
                   </>
                 ) : null}
