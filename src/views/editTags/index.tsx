@@ -10,10 +10,12 @@ import { ContentContainer } from '@/components/ui'
 import { handlePageParams } from '@/utils/utils'
 import { detailTag, removeCustomerTag, updateTag } from '@/framework/api/tag'
 import { useLocation } from 'react-router'
+import { updateShopCategory } from '@/framework/api/get-product'
 
 const EditTags = () => {
   const { state }: any = useLocation();
-  const params = useParams()
+  const [isSwithVisible, setIsSwithVisible] = useState(false)
+  const [status, setStatus] = useState(false)
   const [customerId, setCustomerId] = useState<any>('')
   const [show, setShow] = useState(false)
   const [name, setName] = useState('')
@@ -63,6 +65,17 @@ const EditTags = () => {
     }
     setLoading(false)
     return res?.findTagCustomerPage
+  }
+  const confirmSwitch = async () => {
+    setLoading(true)
+    updateTag({
+      id:state.id,
+      isEnabled: status,
+    }).then(() => {
+      ref.current.reload()
+      setIsSwithVisible(false)
+    })
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -156,12 +169,8 @@ const EditTags = () => {
                 checked={cateInfos.isEnabled}
                 disabled={!cateInfos?.total}
                 onChange={(checked: boolean) => {
-                  updateTag({
-                    id:state.id,
-                    isEnabled: checked,
-                  }).then(() => {
-                    ref.current.reload()
-                  })
+                  setIsSwithVisible(true)
+                  setStatus(checked)
                 }}
               />
               </Tooltip>
@@ -232,6 +241,17 @@ const EditTags = () => {
           onCancel={() => setIsModalVisible(false)}
         >
           <p>Are you sure you want to delete the item?</p>
+        </Modal>
+        <Modal
+          className='rc-modal'
+          title='Notice'
+          okText='Confirm'
+          visible={isSwithVisible}
+          onOk={confirmSwitch}
+          confirmLoading={loading}
+          onCancel={() => setIsSwithVisible(false)}
+        >
+          <p>{status ? 'Are you sure you want to enable the item ?' : 'Are you sure you want to disable the item ?'}</p>
         </Modal>
       </div>
       </Spin>
