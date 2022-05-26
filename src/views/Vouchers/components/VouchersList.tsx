@@ -28,7 +28,7 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
         return (
           <div className="flex">
             <div>
-              <Image className='border border-solid border-gray-300' width={80} src={recout.voucherDefaultImage} preview={false} />
+              <Image width={80} src={recout.voucherDefaultImage} preview={false} />
             </div>
             <div className="pl-2 w-56">
               <div>{text}</div>
