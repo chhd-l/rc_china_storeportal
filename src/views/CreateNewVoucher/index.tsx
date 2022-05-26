@@ -40,7 +40,7 @@ const CreateNewVoucher = () => {
       console.info('state', state)
       getvoucherDetails(state.id)
       setVoucherType(state.voucherType)
-      state.minimumBasketPrice ? setPrice(state.minimumBasketPrice) : setPriceOpen(true)
+      state.minimumBasketPrice ? setPrice(state.minimumBasketPrice === 0 ? '' : state.minimumBasketPrice) : setPriceOpen(true)
       state.usageQuantity || setusageQuantityOpen(true)
       setImageUrl(state.voucherDefaultImage)
       setDiscountType(state.discountType)
@@ -60,6 +60,8 @@ const CreateNewVoucher = () => {
                   ...state,
                   Image: { file: { response: { url: state?.voucherDefaultImage || '' } } },
                   recurrence: state.discountType !== 'FIX_AMOUNT' ? '' : state.recurrence,
+                  usageQuantity: state.usageQuantity === 0 ? '' : state.usageQuantity,
+                  minimumBasketPrice: state.minimumBasketPrice === 0 ? '' : state.minimumBasketPrice,
                 }
               : {
                   discountType: 'FIX_AMOUNT',

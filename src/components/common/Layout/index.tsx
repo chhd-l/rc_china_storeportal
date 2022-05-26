@@ -15,12 +15,11 @@ const AppLayout = () => {
   const [isOpen, setIsOpen] = useState(true)
 
   useEffect(() => {
-    if ((pathname.split('/').some(path => path === 'product') && pathname !== '/product/product-list' && pathname !== '/product') || pathname === '/add-graphic') {
-      setIsOpen(false)
-    } else {
-      setIsOpen(true)
-    }
-    if ((pathname.split('/').some(path => path === 'category') && pathname !== '/category/category-list' && pathname !== '/category')) {
+    if (
+      (pathname.split('/').some(path => path === 'product') && pathname !== '/product/product-list' && pathname !== '/product')
+       || pathname === '/add-graphic'
+       || (pathname.split('/').some(path => path === 'category') && pathname !== '/category/category-list' && pathname !== '/category')
+      ) {
       setIsOpen(false)
     } else {
       setIsOpen(true)

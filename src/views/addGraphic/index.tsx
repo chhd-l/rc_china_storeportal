@@ -3,7 +3,10 @@ import { ContentContainer } from '@/components/ui';
 import { Article } from "@/framework/types/wechat";
 import Preview from './components/preview';
 import NewArticle from './components/new-article';
-import GraphicContentProvider, { createDefaultArticle }  from './context';
+import NewPicture from './components/new-picture';
+import NewVoice from './components/new-voice';
+import NewVideo from './components/new-video';
+import GraphicContentProvider, { createDefaultArticle, getCurrentArticleById }  from './context';
 import { Button } from 'antd';
 import { addArticle } from "@/framework/api/wechatSetting";
 import _ from 'lodash';
@@ -16,7 +19,7 @@ const NewGraphic: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    const initialArticle = createDefaultArticle();
+    const initialArticle = createDefaultArticle("news");
     setArticleList([initialArticle]);
     setCurrentArticleId(initialArticle.id);
   }, []);
@@ -48,7 +51,7 @@ const NewGraphic: React.FC = () => {
     setLoading(false);
   }
 
-
+  const article = getCurrentArticleById(articleList, currentArticleId);
   console.log("redernnnnnnnnnnnn:", articleList);
   return (
     <ContentContainer>
@@ -57,7 +60,8 @@ const NewGraphic: React.FC = () => {
           articleList,
           currentArticleId,
           onChangeFieldValue,
-          setCurrentArticleId
+          setCurrentArticleId,
+          setArticleList
         }}
       >
         <div className="flex justify-start">
@@ -65,7 +69,13 @@ const NewGraphic: React.FC = () => {
             <Preview />
           </div>
           <div className="flex-grow p-4 ml-4">
-            <NewArticle />
+            {article?.type === "news"
+              ? <NewArticle />
+              : article?.type === "image"
+              ? <NewPicture />
+              : article?.type === "voice"
+              ? <NewArticle />
+              : article?.type === "video" ? <NewVideo /> : null}
             <div className="mt-4 text-right space-x-4">
               <Button disabled={loading}>Cancel</Button>
               <Button loading={loading} type="primary" onClick={handleSave}>Save</Button>

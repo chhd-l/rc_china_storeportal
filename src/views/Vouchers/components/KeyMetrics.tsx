@@ -3,47 +3,80 @@ import { QuestionCircleOutlined } from '@ant-design/icons'
 import { Tooltip, Typography } from 'antd'
 import moment from 'moment'
 import { useEffect, useState } from 'react'
+import { getVoucherKeyMetric } from '@/framework/api/voucher'
+import { formatMoney } from '@/utils/utils'
 const { Title } = Typography
 
 interface KeyMetricsListProps {
   label: string
   tip: string
   value: any
+  key: string
 }
 
 const initMetricsContent: KeyMetricsListProps[] = [
   {
     label: 'GSV',
     tip: 'Total amount of all confirmed orders using vouchers.',
-    value: '￥23.00',
+    value: 0,
+    key: 'gsv',
   },
   {
     label: 'Orders',
     tip: 'Total number of confirmed orders using vouchers.',
-    value: 24,
+    value: 0,
+    key: 'orders',
   },
   {
     label: 'Usage Rate',
     tip: 'Total number of voucher usages in confirmed orders divide by total number of voucher claims.',
-    value: '12%',
+    value: 0,
+    key: 'usageRate',
   },
   {
     label: 'Pet Owners',
     tip: 'Total number of unique pet owners who used voucher in confirmed orders.',
-    value: 8,
+    value: 0,
+    key: 'buyers',
   },
 ]
 
 const KeyMetrics = () => {
   const [keyMetricsList, setKeyMetricsList] = useState<KeyMetricsListProps[]>(initMetricsContent)
 
+  const getVoucherKeyMetrics = async () => {
+    const res = await getVoucherKeyMetric()
+    if (res) {
+      setKeyMetricsList(
+        keyMetricsList.map((el) => {
+          switch (el.key) {
+            case 'gsv':
+              el.value = formatMoney(res.gsv)
+              break
+            case 'orders':
+              el.value = res.orders
+              break
+            case 'usageRate':
+              el.value = res.usageRate.toFixed(2) * 100 + '%'
+              break
+            case 'buyers':
+              el.value = res.buyers
+              break
+            default:
+              break
+          }
+          return el
+        }),
+      )
+    }
+  }
+
   useEffect(() => {
-    //todo 拿到数据处理值
-    setKeyMetricsList(initMetricsContent)
+    getVoucherKeyMetrics()
   }, [])
 
   return (
-    <ContentContainer className="bg-white px-4 mb-8">
+    <ContentContainer className="bg-white px-5 mb-8">
       <Title level={5}>
         <span className="font-black">Key Metrics</span>
         <span className="text-xs text-gray-400 ml-2 font-normal">

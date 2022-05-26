@@ -97,10 +97,14 @@ export interface WxMenu {
 export interface Article {
   id: string
   title: string
+  type: "image" | "voice" | "video" | "news",
   thumbMedia: Partial<Asset>
   author: string
   digest: string
   showCoverPic: number
   content: string
   contentSourceURL: string
+  imageList?: Partial<Asset>[]
+  voice?: Partial<Asset>
+  video?: Partial<Asset>
 }

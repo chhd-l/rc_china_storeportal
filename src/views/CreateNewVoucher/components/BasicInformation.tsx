@@ -175,7 +175,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
         <Input placeholder="Input" disabled={Edit} maxLength={35} />
       </Form.Item>
       <Form.Item label="Voucher Code" name="voucherCode">
-        <Input placeholder="Input" />
+        <Input placeholder="Input" disabled={Edit} />
       </Form.Item>
       <Form.Item
         label="Voucher Usage Period"
@@ -219,6 +219,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
       </Form.Item>
       <Form.Item
         label="Display On Shop"
+        name='displayOnShop'
         rules={[
           {
             required: true,
