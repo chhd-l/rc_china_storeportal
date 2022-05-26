@@ -172,7 +172,7 @@ const EditTags = () => {
         <div className='bg-white px-6 py-4'>
           <div className='flex justify-between'>
             <div className='search-title'>
-              <div className='text-xl font-semibold list-title'>Pet Owner List</div>
+              <div className='text-xl list-title'>Pet Owner List</div>
             </div>
             <Button
               type='primary'
