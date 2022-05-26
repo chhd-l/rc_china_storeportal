@@ -39,7 +39,11 @@ const ManualSelection = ({
 
   const getProductList = async (params: any) => {
     const data = handleQueryParams(params)
-    return await getESProducts(data)
+    const res = await getESProducts(data)
+    return {
+      records: res?.records || [],
+      total: res?.total || 0,
+    }
   }
 
   const getCategoriesList = async () => {
@@ -175,8 +179,8 @@ const ManualSelection = ({
           console.log('test sort', params, sorter, filter)
           const tableData = await getProductList(params)
           return Promise.resolve({
-            data: normaliseVoucherProduct(tableData?.records) || [],
-            total: tableData?.total || 0,
+            data: tableData.records.length > 0 ? normaliseVoucherProduct(tableData?.records) : [],
+            total: tableData.total,
             success: true,
           })
         }}
