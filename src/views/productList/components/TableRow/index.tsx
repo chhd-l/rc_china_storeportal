@@ -5,7 +5,7 @@ import ShowMoreButton from '../ShowMoreButton'
 import { Link } from 'react-router-dom'
 import { deleteProducts, switchShelves } from '@/framework/api/get-product'
 import { useState } from 'react'
-import { useNavigate } from "react-router";
+import { useNavigate } from 'react-router'
 import './index.less'
 
 interface TableRowProps {
@@ -32,8 +32,8 @@ const TableRow = ({
   setLoading,
 }: TableRowProps) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
-  const navigator = useNavigate();
-
+  const navigator = useNavigate()
+  const [imgUrl, setImgUrl] = useState('')
   const istb = (sku: any) => {
     if (!tableHeader.length) return
     return tableHeader.map(item => {
@@ -105,16 +105,26 @@ const TableRow = ({
         ) : null}
       </div>
       <div className='w-64 flex text-12'>
-        {/* <Tooltip title='Preview'>
-          <Link to='' className='mr-4'>
+        <Tooltip title='Preview'>
+          <Link
+            to=''
+            className='mr-4'
+            onClick={e => {
+              e.stopPropagation()
+              setImgUrl(listData[spuIdx]?.wxCodeUrl || '')
+            }}
+          >
             <span className='icon iconfont icon-preview'></span>
           </Link>
-        </Tooltip> */}
+        </Tooltip>
         <Tooltip title='Edit'>
-          <a className='mr-4' onClick={(e) => {
-            e.stopPropagation()
-            navigator('/product/product-detail', {state: listData[spuIdx]?.id})
-          }} >
+          <a
+            className='mr-4'
+            onClick={e => {
+              e.stopPropagation()
+              navigator('/product/product-detail', { state: listData[spuIdx]?.id })
+            }}
+          >
             <span className='icon iconfont icon-Edit'></span>
           </a>
         </Tooltip>
@@ -168,6 +178,18 @@ const TableRow = ({
             <div className='font-semibold w-full pl-4'>{listData[spuIdx]?.name}</div>
           </p>
         </Modal>
+        {imgUrl ? (
+          <Modal
+            visible={!!imgUrl}
+            closable={false}
+            onCancel={() => {
+              setImgUrl('')
+            }}
+            footer={null}
+          >
+            <Image src={imgUrl} width='100%' height='100%' preview={false} />
+          </Modal>
+        ) : null}
       </div>
     </div>
   )
