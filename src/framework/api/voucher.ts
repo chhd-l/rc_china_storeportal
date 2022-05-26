@@ -100,3 +100,14 @@ export const goodsRelatedDelete = async () => {
     return false
   }
 }
+
+export const getVoucherKeyMetric = async () => {
+  try {
+    let res = await ApiRoot.vouchers().getVoucherKeyMetric()
+    console.log('getVoucherKeyMetric view data', res)
+    return res?.voucherKeyMetric || null
+  } catch (e) {
+    console.log(e)
+    return null
+  }
+}
