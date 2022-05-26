@@ -9,6 +9,7 @@ export interface Order {
   tradePrice: TradePrice
   payInfo?: PayInfo
   subscriptionId?: string
+  subscriptionNo?:string
   shippingAddress?: Address | any
   buyer?: Customer | any
   carrier?: Carrier[]
