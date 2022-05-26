@@ -97,8 +97,7 @@ export interface WxMenu {
 export interface Article {
   id: string
   title: string
-  thumbMediaId: string
-  thumbUrl: string
+  thumbMedia: Partial<Asset>
   author: string
   digest: string
   showCoverPic: number

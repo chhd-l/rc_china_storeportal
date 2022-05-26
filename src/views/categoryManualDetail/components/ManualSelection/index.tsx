@@ -14,6 +14,7 @@ import { formatMoney, handlePageParams } from '@/utils/utils'
 import { OptionsProps } from '@/framework/types/common'
 import { getTree } from '@/framework/normalize/product'
 import { getBrands } from '@/framework/api/wechatSetting'
+import { useLocation } from 'react-router'
 
 const { Option } = Select
 export type ManualSelectionProps = {
@@ -27,6 +28,7 @@ const nameForKey: OptionsProps[] = [
   { name: 'SPU', value: '3' },
 ]
 const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectionProps) => {
+  const { state }: any = useLocation();
   const params = useParams()
   const [brandList, setBrandList] = useState([])
   const [mockOptions, setMockOptions] = useState<Array<any>>([])
@@ -34,12 +36,11 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
   const [saveList, setSaveList] = useState([])
   const ref = useRef<any>()
   const onSelectChange = (selectedRowKeys: any, selectedRows: any) => {
-    const { id } = params
     console.log('selectedRowKeys changed: ', selectedRowKeys, selectedRows)
     let data = selectedRows.map((item: any) => {
       return {
         goodsId: item.id,
-        shopCategoryId: id,
+        shopCategoryId: state.id,
         storeId: item.storeId,
       }
     })
@@ -54,6 +55,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
     return result
   }
   const getCategoriesList = async () => {
+    console.log(state,9992999)
     let res = await getCategories({ storeId: '12345678' })
     setMockOptions(getTree(res, null, 0))
   }
@@ -212,7 +214,6 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
           message.success('Operate success')
           return true
         } else {
-          message.warning('Operation failed')
           return false
         }
 

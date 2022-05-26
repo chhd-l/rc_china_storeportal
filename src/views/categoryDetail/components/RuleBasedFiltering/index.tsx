@@ -7,7 +7,6 @@ import ProForm, {
   ProFormInstance,
   ProFormCascader,
 } from '@ant-design/pro-form'
-import { useParams } from 'react-router-dom'
 import { useRef, useState, useEffect } from 'react'
 import { restWrapButtons } from '../../modules/constant'
 import {
@@ -19,8 +18,7 @@ import {
 } from '@/framework/api/get-product'
 import { getTree } from '@/framework/normalize/product'
 import { getBrands } from '@/framework/api/wechatSetting'
-import { GoodsAttributeAndValue } from '@/framework/schema/product.schema'
-
+import { useLocation } from 'react-router'
 
 export interface RuleBasedFilteringProps {
   visible: boolean;
@@ -31,7 +29,7 @@ export interface RuleBasedFilteringProps {
 }
 
 const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,editParams }: RuleBasedFilteringProps) => {
-  const params = useParams()
+  const { state }: any = useLocation();
   const formRef = useRef<ProFormInstance>()
   const [filterTags, setFilterTags] = useState<string[]>([])
   const [filterTagsTwo, setFilterTagsTwo] = useState<string[]>([])
@@ -71,9 +69,6 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
     }
     // @ts-ignore
     setSpeciList(data)
-    // formRef?.current?.setFieldsValue({
-    //   attributeValueIds: ['19591683-b307-883d-c28b-18ac92f3']
-    // })
   }
   const getList = async (params: any) => {
     let data: any = {
@@ -86,7 +81,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
     if (params.brand && params.brand !== 'All Brands') {
       data.sample.brand = params.brand
     }
-    if (params.attributeValueIds) {
+    if (params.attributeValueIds.length>0) {
       data.sample.attributeValueIds = params.attributeValueIds
     }
     if (params.startPrice) {
@@ -172,46 +167,45 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
       visible={visible}
       onFinish={async (values) => {
         // 用productList直接传值操作
-        const { id } = params
         let obj = [
           {
-            shopCategoryId: id,
+            shopCategoryId: state.id,
             name: 'goodsCategoryId',
             value: saveParams?.goodsCategoryId.length>0?saveParams?.goodsCategoryId.join():'',
             rank:1
           },
           {
-            shopCategoryId: id,
+            shopCategoryId: state.id,
             name: 'brand',
             value: saveParams?.brand,
             rank:2
           },
           {
-            shopCategoryId: id,
+            shopCategoryId: state.id,
             name: 'attributeValueIds',
             value: saveParams?.attributeValueIds?.length>0?saveParams.attributeValueIds.join():'',
             rank:3
           },
           {
-            shopCategoryId: id,
+            shopCategoryId: state.id,
             name: 'startPrice',
             value: saveParams?.startPrice?saveParams?.startPrice.toString():'',
             rank:4
           },
           {
-            shopCategoryId: id,
+            shopCategoryId: state.id,
             name: 'endPrice',
             value: saveParams?.endPrice?saveParams?.endPrice.toString():'',
             rank:5
           },
           {
-            shopCategoryId: id,
+            shopCategoryId: state.id,
             name: 'filterTags',
             value: filterTags.length>0?filterTags.join():'',
             rank:6
           },
           {
-            shopCategoryId: id,
+            shopCategoryId: state.id,
             name: 'filterTagsTwo',
             value: filterTagsTwo.length>0?filterTagsTwo.join():'',
             rank:7
@@ -222,7 +216,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
           let data = productList.map((item: any) => {
             return {
               goodsId: item.id,
-              shopCategoryId: id,
+              shopCategoryId: state.id,
               storeId: item.storeId,
             }
           })
@@ -303,7 +297,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
               label='Brand'
               initialValue={'All Brands'}
             />
-            <ProForm.Item label='specification' name='attributeValueIds'>
+            <ProForm.Item label='Specification' name='attributeValueIds'>
               <Select
                 showArrow
                 className='text-left'
@@ -355,7 +349,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
             <div className='my-3'>Filtering Results</div>
             <div className='flex flex-wrap' style={{ maxHeight: '250px', overflow: 'scroll' }}>
               {productList?.map((el: any) => (
-                <div key={el.id} style={{ width: 60 }} className='mb-3 mr-3'>
+                <div key={el.id} style={{ width: 60 }} className='mb-3 mr-2'>
                   <div
                     style={{ height: 60 }}
                     className='border border-solid border-gray-200 flex'

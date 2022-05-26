@@ -1,5 +1,5 @@
 import { ContentContainer } from '@/components/ui'
-import { Button, Form, message } from 'antd'
+import { Button, Form, message, Spin } from 'antd'
 import { useEffect, useState } from 'react'
 import BasicInformation from './components/BasicInformation'
 import RuleSettings from './components/RuleSettings'
@@ -21,6 +21,7 @@ const CreateNewVoucher = () => {
   const [keys, setkeys] = useState<string[]>([])
   const [DiscountType, setDiscountType] = useState('FIX_AMOUNT')
   const [selectProducts, setSelectProducts] = useState([])
+  const [spinning, setSpinning] = useState(false)
 
   //编辑voucher商品回显 voucher detail里的goodsInfoList
   const getvoucherDetails = async (Id: string) => {
@@ -28,7 +29,7 @@ const CreateNewVoucher = () => {
     const arr: string[] = []
     res.goodsInfoList.forEach((item: any) => {
       arr.push(item.id)
-    });
+    })
     setkeys(arr)
     const vlue = normaliseVoucherProduct(res.goodsInfoList)
     setSelectProducts(vlue)
@@ -47,116 +48,126 @@ const CreateNewVoucher = () => {
   }, [state])
 
   return (
-    <ContentContainer className='bg-white'>
-      <Form
-        labelCol={{ span: 4 }}
-        wrapperCol={{ span: 6 }}
-        className="CreateNewVoucher"
-        initialValues={
-          state
-            ? {
-                ...state,
-                Image: { file: { response: { url: state?.voucherDefaultImage || '' } } },
-                recurrence: state.discountType !== 'FIX_AMOUNT' ? '' : state.recurrence,
-              }
-            : {
-                discountType: 'FIX_AMOUNT',
-                isLimitedQuantity: false,
-              }
-        }
-        onFinish={async (v) => {
-          try {
-            v.voucherUsageBeginningOfTime = moment(v.times[0]).utc().format()
-            v.voucherUsageEndOfTime = moment(v.times[1]).utc().format()
-            v.voucherDefaultImage = v.Image.file.response.url
-            v.voucherType = VoucherType
-            v.minimumBasketPrice = Math.round(Number(v.minimumBasketPrice) * 100) / 100 || 0
-            v.usageQuantity = v.usageQuantity || 0
-            v.discountValue = '' + v.discountValue
-            if(VoucherType === 'SHOP_VOUCHER') {
-              v.voucherGoodsRelated = []
-            } else {
-              if (state) {
-                v.voucherGoodsRelated = keys.length
-                  ? keys.map((item) => ({
-                      operator: 'zz',
-                      goodsId: item,
-                      storeId: '123456',
-                      voucherId: state.id,
-                    }))
-                  : ''
-              } else {
-                v.voucherGoodsRelated = keys.length
-                  ? keys.map((item) => ({
-                      operator: 'zz',
-                      goodsId: item,
-                      storeId: '123456',
-                    }))
-                  : ''
-              }
-            }
-            delete v.times
-            delete v.Image
-            state && (v = { ...state, ...v })
-            for (const key in v) {
-              const item = v[key]
-              if (!item && typeof item !== 'boolean' && item !== 0) {
-                delete v[key]
-              }
-            }
-            let res = undefined
-            if (!state) {
-              v.voucherStatus = 'Upcoming'
-              res = await createVoucher(v)
-            } else {
-              delete v.isDeleted
-              res = await updateVoucher(v)
-            }
-            if (!res) {
-              console.log('res', res)
-              throw new Error('失败')
-            }
-            message.success({ className: 'rc-message', content: 'Operation success' })
-            navigator('/marketingCenter/vouchers')
-          } catch (err) {
-            message.error({ className: 'rc-message', content: 'Operation failed' })
+    <ContentContainer className="bg-white mb-4">
+      <Spin spinning={spinning} tip="Loading..." className="CreateNewVoucherSpin">
+        <Form
+          labelCol={{ span: 4 }}
+          wrapperCol={{ span: 8 }}
+          className="CreateNewVoucher"
+          initialValues={
+            state
+              ? {
+                  ...state,
+                  Image: { file: { response: { url: state?.voucherDefaultImage || '' } } },
+                  recurrence: state.discountType !== 'FIX_AMOUNT' ? '' : state.recurrence,
+                }
+              : {
+                  discountType: 'FIX_AMOUNT',
+                  isLimitedQuantity: false,
+                }
           }
-        }}
-      >
-        <BasicInformation
-          imageUrl={imageUrl}
-          setImageUrl={setImageUrl}
-          VoucherType={VoucherType}
-          setVoucherType={setVoucherType}
-        />
-        <RuleSettings
-          PriceOpen={PriceOpen}
-          setPriceOpen={setPriceOpen}
-          usageQuantityOpen={usageQuantityOpen}
-          setusageQuantityOpen={setusageQuantityOpen}
-          price={price}
-          setPrice={setPrice}
-          DiscountType={DiscountType}
-          setDiscountType={setDiscountType}
-        />
-        <ApplicableProducts
-          VoucherType={VoucherType}
-          keys={keys}
-          setkeys={setkeys}
-          selectProducts={selectProducts}
-          setSelectProducts={setSelectProducts}
-        />
-        <Form.Item className="w-full flex items-center justify-end py-8">
-          <div className="flex items-center justify-end">
-            <Button htmlType="button" onClick={() => navigator('/marketingCenter/vouchers')}>
-              Cancel
-            </Button>
-            <Button className="ml-4" type="primary" htmlType="submit">
-              Confirm
-            </Button>
-          </div>
-        </Form.Item>
-      </Form>
+          onFinish={async (v) => {
+            try {
+              setSpinning(true)
+              v.voucherUsageBeginningOfTime = moment(v.times[0]).utc().format()
+              v.voucherUsageEndOfTime = moment(v.times[1]).utc().format()
+              v.voucherDefaultImage = v.Image.file.response.url
+              v.voucherType = VoucherType
+              v.minimumBasketPrice = Math.round(Number(v.minimumBasketPrice) * 100) / 100 || 0
+              v.usageQuantity = v.usageQuantity || 0
+              v.discountValue = '' + v.discountValue
+              if (VoucherType === 'SHOP_VOUCHER') {
+                v.voucherGoodsRelated = []
+              } else {
+                if (state) {
+                  v.voucherGoodsRelated = keys.length
+                    ? keys.map((item) => ({
+                        operator: 'zz',
+                        goodsId: item,
+                        storeId: '123456',
+                        voucherId: state.id,
+                      }))
+                    : ''
+                } else {
+                  v.voucherGoodsRelated = keys.length
+                    ? keys.map((item) => ({
+                        operator: 'zz',
+                        goodsId: item,
+                        storeId: '123456',
+                      }))
+                    : ''
+                }
+              }
+              delete v.times
+              delete v.Image
+              delete v.Edit
+              state && (v = { ...state, ...v })
+              for (const key in v) {
+                const item = v[key]
+                if (!item && typeof item !== 'boolean' && item !== 0) {
+                  delete v[key]
+                }
+              }
+              let res = undefined
+              if (!state) {
+                v.voucherStatus = 'Upcoming'
+                res = await createVoucher(v)
+              } else {
+                delete v.isDeleted
+                res = await updateVoucher(v)
+              }
+              if (!res) {
+                throw new Error()
+              }
+              setSpinning(false)
+              message.success({ className: 'rc-message', content: 'Operation success' })
+              navigator('/marketingCenter/vouchers')
+            } catch (err) {
+              setSpinning(false)
+              message.error({ className: 'rc-message', content: 'Operation failed' })
+            }
+          }}
+        >
+          <BasicInformation
+            imageUrl={imageUrl}
+            setImageUrl={setImageUrl}
+            VoucherType={VoucherType}
+            setVoucherType={setVoucherType}
+            Edit={state?.Edit}
+          />
+          <RuleSettings
+            PriceOpen={PriceOpen}
+            setPriceOpen={setPriceOpen}
+            usageQuantityOpen={usageQuantityOpen}
+            setusageQuantityOpen={setusageQuantityOpen}
+            price={price}
+            setPrice={setPrice}
+            DiscountType={DiscountType}
+            setDiscountType={setDiscountType}
+            Edit={state?.Edit}
+          />
+          <ApplicableProducts
+            VoucherType={VoucherType}
+            keys={keys}
+            setkeys={setkeys}
+            selectProducts={selectProducts}
+            setSelectProducts={setSelectProducts}
+            Edit={state?.Edit}
+          />
+          <Form.Item className="w-full flex items-center justify-end py-8">
+            <div className="flex items-center justify-end">
+              <Button htmlType="button" onClick={() => navigator('/marketingCenter/vouchers')}>
+                Cancel
+              </Button>
+              {!state?.Edit ? (
+                <Button className="ml-4" type="primary" htmlType="submit">
+                  Confirm
+                </Button>
+              ) : null}
+            </div>
+          </Form.Item>
+        </Form>
+      </Spin>
     </ContentContainer>
   )
 }

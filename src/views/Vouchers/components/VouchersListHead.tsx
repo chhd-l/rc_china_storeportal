@@ -2,16 +2,12 @@ import { ContentContainer } from '@/components/ui'
 import { PlusOutlined } from '@ant-design/icons'
 import { Button, Tabs, Typography } from 'antd'
 import { useNavigate } from 'react-router-dom'
-
 const { Title } = Typography
 const { TabPane } = Tabs
 
-const callback = (key: string) => {
-  console.log(key)
-}
-
-const VouchersListHead = () => {
+const VouchersListHead = ({ setVoucherStatus }: { setVoucherStatus:Function }) => {
   const navigator = useNavigate()
+
   return (
     <ContentContainer className="bg-white px-5 pb-0 VouchersListHead relative">
       <Title className="mb-0" level={5}>
@@ -20,7 +16,7 @@ const VouchersListHead = () => {
       <span className="text-xs text-gray-400">
         Create and manage your own vouchers for your shop and products on Seller Center!
       </span>
-      <Tabs className="mt-6" defaultActiveKey="" onChange={callback}>
+      <Tabs className="mt-6" defaultActiveKey="" onChange={(key) => setVoucherStatus(key)}>
         <TabPane tab="All" key="" />
         <TabPane tab="Ongoing" key="Ongoing" />
         <TabPane tab="Upcoming" key="Upcoming" />
