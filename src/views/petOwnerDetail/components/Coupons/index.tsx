@@ -11,10 +11,7 @@ const CouponInformation = ({  id,customerId }: CouponInfoProps) => {
   const [couponCodeList, setCouponCodeList] = useState<any>([])
   useEffect(() => {
     if (customerId !== '') {
-      let arr = [{
-        couponName:'adas'
-      }]
-      setCouponCodeList(arr)
+      // setCouponCodeList(arr)
     }
   }, [customerId])
 
