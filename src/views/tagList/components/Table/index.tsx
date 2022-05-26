@@ -94,12 +94,13 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
   ]
   return (
     <>
-      <div className='flex justify-end mb-4'>
+      <div className='flex justify-end mb-4 pt-6'>
         <Button
           danger
           onClick={() => {
             setIsModalVisible(true)
           }}
+          type='primary'
         >
           + Add New Tag
         </Button>
