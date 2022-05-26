@@ -57,11 +57,11 @@ const AddCate = ({ visible, handleVisible, handleUpdate }: AddCateProps) => {
       <ProForm.Group>
         <ProFormText
           width='md'
-          rules={[{ required: true, message: 'Missing Display Name' }]}
+          rules={[{ required: true, message: 'Missing Category Name' }]}
           name='displayName'
-          label='Category Display Name'
+          label='Category Name'
           fieldProps={{ maxLength: 40, showCount: true }}
-          placeholder='Enter a Category Display Name'
+          placeholder='Enter a Category Name'
         />
       </ProForm.Group>
       <ProFormRadio.Group

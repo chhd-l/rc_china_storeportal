@@ -1,18 +1,18 @@
 import './index.less'
-import { Button, Switch, Input, Modal,Tooltip,Divider,Avatar,message } from 'antd'
+import { Button, Switch, Input, Modal,Tooltip,Divider,Avatar,message,Spin } from 'antd'
 import { CheckOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons'
 import ProTable from '@/components/common/ProTable'
 import { useEffect, useState, useRef } from 'react'
 import { ProColumns } from '@ant-design/pro-table'
 import { useParams } from 'react-router-dom'
 import EditTagsModal from './components/EditTagsModal'
-import { updateShopCategory } from '@/framework/api/get-product'
 import { ContentContainer } from '@/components/ui'
 import { handlePageParams } from '@/utils/utils'
 import { detailTag, removeCustomerTag, updateTag } from '@/framework/api/tag'
-
+import { useLocation } from 'react-router'
 
 const EditTags = () => {
+  const { state }: any = useLocation();
   const params = useParams()
   const [customerId, setCustomerId] = useState<any>('')
   const [show, setShow] = useState(false)
@@ -27,11 +27,11 @@ const EditTags = () => {
   })
   const ref = useRef<any>()
   const confirmDelete = async () => {
-    const { id } = params
+
     setLoading(true)
    let res = await removeCustomerTag({
       customerId:customerId,
-      tagId: id,
+      tagId: state.id,
       operator: "zz",
       storeId:"12345678"
     })
@@ -44,13 +44,13 @@ const EditTags = () => {
   }
 
   const getList = async (page: any) => {
-    const { id } = params
+    setLoading(true)
      let res = await detailTag({
-        offset: 0,
-        limit: 10,
+       offset: page.offset,
+       limit: page.limit,
         isNeedTotal: true,
         sample:{
-          tagId:id
+          tagId:state.id
         }
       })
     console.log(res)
@@ -61,11 +61,12 @@ const EditTags = () => {
         total:res?.findTagCustomerPage.total
       })
     }
+    setLoading(false)
     return res?.findTagCustomerPage
   }
 
   useEffect(() => {
-    const { id } = params
+
   }, [])
   const handleManualVisible = (visible: boolean) => {
     setManualSelectionVisible(visible)
@@ -111,6 +112,7 @@ const EditTags = () => {
   // @ts-ignore
   return (
     <ContentContainer>
+      <Spin spinning={loading}>
       <div className='category-detail'>
         <div className='bg-white px-6 py-4'>
           <div className='flex justify-between'>
@@ -122,9 +124,8 @@ const EditTags = () => {
                         setName(e.target.value)
                       }} />
                       <Button icon={<CheckOutlined />} onClick={() => {
-                        const { id } = params
                         updateTag({
-                          id,
+                          id:state.id,
                           name,
                         }).then((res) => {
                           if (res) {
@@ -155,9 +156,8 @@ const EditTags = () => {
                 checked={cateInfos.isEnabled}
                 disabled={!cateInfos?.total}
                 onChange={(checked: boolean) => {
-                  const { id } = params
                   updateTag({
-                    id,
+                    id:state.id,
                     isEnabled: checked,
                   }).then(() => {
                     ref.current.reload()
@@ -184,6 +184,7 @@ const EditTags = () => {
             </Button>
           </div>
           <ProTable
+            loading={false}
             className='set-delete-box'
             actionRef={ref}
             columns={columns}
@@ -233,6 +234,7 @@ const EditTags = () => {
           <p>Are you sure you want to delete the item?</p>
         </Modal>
       </div>
+      </Spin>
     </ContentContainer>
   )
 }

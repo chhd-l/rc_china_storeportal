@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import React, { useState, useRef } from 'react'
 import { Customer } from '@/framework/types/customer'
 import type { ProFormInstance } from '@ant-design/pro-form'
+import { useNavigate } from 'react-router-dom'
 import ProForm, {
   ModalForm,
-  ProFormRadio,
   ProFormText,
 } from '@ant-design/pro-form'
 import { createTag, deleteTag } from '@/framework/api/tag'
@@ -17,6 +17,7 @@ interface PetOwnerTableProps {
 }
 
 const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
+  const navigator = useNavigate()
   const formRef = useRef<ProFormInstance>()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [visible, setVisible] = useState(false)
@@ -30,7 +31,6 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
       message.success('Operate success')
       return true
     } else {
-      message.warning('Operation failed')
       return false
     }
   }
@@ -71,11 +71,16 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
       render: (text: any, record: any) => (
         <>
           <Tooltip title='View Details'>
-            <Link to={`/petOwner/edit-tags/${record.id}`} className='mr-4 text-xl'>
+            <a className='mr-4' href='' onClick={(e) => {
+              e.stopPropagation()
+              navigator('/petOwner/edit-tags', {
+                state: { id: record.id },
+              })
+            }} >
             <span
               className='cursor-pointer iconfont icon-kjafg primary-color mr-4 text-xl'
             />
-            </Link>
+            </a>
           </Tooltip>
           <Tooltip title='Delete'>
             <span className='cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl' onClick={() => {
