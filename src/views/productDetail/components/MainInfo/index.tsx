@@ -1,5 +1,5 @@
 import './index.less'
-import { Alert, Anchor, message } from 'antd'
+import { Alert, Anchor, message, Modal, Image } from 'antd'
 import { useLocation } from 'react-router-dom'
 import { Form, Space, Button } from 'antd'
 import { FC, useContext, useEffect, useState } from 'react'
@@ -26,6 +26,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
   const [form] = Form.useForm()
   const [tipsIdx, setTipsIdx] = useState(0)
   const [userInfo] = useAtom(userAtom)
+  const [imgUrl, setImgUrl] = useState('')
 
   const { detail, spuType } = useContext(DetailContext)
   const navigator = useNavigate()
@@ -243,6 +244,9 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
       message.error({ className: 'rc-message', content: 'Operate failed' })
     }
   }
+  const showQrImg = () => {
+    setImgUrl(detail.wxCodeUrl)
+  }
   console.info('shelvesStatusshelvesStatus', beforeData)
   return (
     <div id={steps[0].anchor}>
@@ -278,7 +282,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                     <div>
                       <div className='flex justify-between  pb-2'>
                         <div className='font-black text-lg font-bold'>{steps[idx].title}</div>
-                        <div>{steps[idx].rightSlot}</div>
+                        <div>{steps[idx].rightSlot && steps[idx].rightSlot(showQrImg)}</div>
                       </div>
                       {steps[idx].subTitle ? <div className='pb-4'>{steps[idx].subTitle}</div> : null}
                     </div>
@@ -346,6 +350,18 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
           </div>
         </Form>
       </div>
+      {imgUrl ? (
+        <Modal
+          visible={!!imgUrl}
+          closable={false}
+          onCancel={() => {
+            setImgUrl('')
+          }}
+          footer={null}
+        >
+          <Image src={imgUrl} width='100%' height='100%' preview={false} />
+        </Modal>
+      ) : null}
       {info?.description ? (
         <Alert message={info.message} description={info.description} type={info.type} showIcon />
       ) : null}
