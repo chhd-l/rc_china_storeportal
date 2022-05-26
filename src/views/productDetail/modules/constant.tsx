@@ -132,7 +132,7 @@ interface StepsProps {
   anchor: string
   subTitle?: string
   tips: string
-  rightSlot?: ReactNode | null
+  rightSlot?: any
   render: Function
 }
 

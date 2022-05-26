@@ -245,7 +245,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     }
   }
   const showQrImg = () => {
-    setImgUrl(detail.wxCodeUrl)
+    detail?.wxCodeUrl&&setImgUrl(detail.wxCodeUrl)
   }
   console.info('shelvesStatusshelvesStatus', beforeData)
   return (
@@ -282,7 +282,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                     <div>
                       <div className='flex justify-between  pb-2'>
                         <div className='font-black text-lg font-bold'>{steps[idx].title}</div>
-                        <div>{steps[idx].rightSlot && steps[idx].rightSlot(showQrImg)}</div>
+                        <div>{steps?.[idx]?.rightSlot?.(showQrImg)}</div>
                       </div>
                       {steps[idx].subTitle ? <div className='pb-4'>{steps[idx].subTitle}</div> : null}
                     </div>
