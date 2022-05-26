@@ -214,7 +214,6 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
           message.success('Operate success')
           return true
         } else {
-          message.warning('Operation failed')
           return false
         }
 

@@ -8,7 +8,7 @@ import { ProColumns } from '@ant-design/pro-table'
 import { handlePageParams } from '@/utils/utils'
 import { getPetOwnerList } from '@/framework/api/customer'
 import { addCustomerTag } from '@/framework/api/tag'
-
+import { useLocation } from 'react-router'
 export type EditTagsModalProps = {
   visible: boolean;
   handleVisible: (visible: boolean) => void;
@@ -16,11 +16,11 @@ export type EditTagsModalProps = {
 };
 
 const EditTagsModal = ({ visible, handleVisible, handleUpdate }: EditTagsModalProps) => {
+  const { state }: any = useLocation();
   const params = useParams()
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const ref = useRef<any>()
   const onSelectChange = (selectedRowKeys: any, selectedRows: any) => {
-    const { id } = params
     console.log('selectedRowKeys changed: ', selectedRowKeys, selectedRows)
     setSelectedRowKeys(selectedRowKeys)
   }
@@ -56,14 +56,13 @@ const EditTagsModal = ({ visible, handleVisible, handleUpdate }: EditTagsModalPr
       width='50%'
       className='manual-selection'
       layout='horizontal'
-      title='Select Products'
+      title='Select Pet Owner'
       visible={visible}
       onFinish={async () => {
         if (selectedRowKeys.length > 0) {
-          const { id } = params
           let res = await addCustomerTag({
             customerIds: selectedRowKeys,
-            tagId: id,
+            tagId: state.id,
             operator: 'zz',
             storeId: '12345678',
           })

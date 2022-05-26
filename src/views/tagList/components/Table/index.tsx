@@ -78,12 +78,12 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
               })
             }} >
             <span
-              className='cursor-pointer iconfont icon-kjafg primary-color mr-4 text-xl'
+              className='cursor-pointer iconfont icon-kjafg primary-color mr-4'
             />
             </a>
           </Tooltip>
           <Tooltip title='Delete'>
-            <span className='cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl' onClick={() => {
+            <span className='cursor-pointer ml-2 iconfont icon-delete text-red-500' onClick={() => {
               setId(record.id)
               setVisible(true)
             }} />
@@ -94,12 +94,13 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
   ]
   return (
     <>
-      <div className='flex justify-end mb-4'>
+      <div className='flex justify-end mb-4 pt-6'>
         <Button
           danger
           onClick={() => {
             setIsModalVisible(true)
           }}
+          type='primary'
         >
           + Add New Tag
         </Button>
