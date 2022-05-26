@@ -167,6 +167,35 @@ export const createMedia = async (queryParams: any) => {
   }
 }
 
+export const createMediaAndSync = async (queryParams: any) => {
+  try {
+    let res = await ApiRoot.wechatSettings().createMediaAndSync({
+      mediaInput: Object.assign(
+        {
+          accountId: '000001',
+          type: queryParams.type,
+          url: queryParams.url,
+          status: false,
+          fileExtension: queryParams.fileExtension,
+        },
+        queryParams.type === 'video'
+          ? {
+            title: queryParams.title,
+            description: queryParams.description,
+          }
+          : {},
+      ),
+      operator: queryParams.operator || 'system',
+    })
+    const mediaAssetUrl = res?.addAndSyc
+    console.log('create mediaAndSync view data', mediaAssetUrl);
+    return mediaAssetUrl || ""
+  } catch (e) {
+    console.log(e)
+    return ""
+  }
+}
+
 export const updateMedia = async (queryParams: any) => {
   try {
     let res = await ApiRoot.wechatSettings().modifyMedia(queryParams)

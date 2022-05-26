@@ -32,20 +32,21 @@ const VouchersList = () => {
             </div>
             <div className="pl-2 w-56">
               <div>{text}</div>
-              <div className="text-gray-400 text-xs truncate">SPU: 3566123131231231312312313123123123131312312312321321312321</div>
+              <div className="text-gray-400 text-xs truncate">{recout.voucherDescription}</div>
             </div>
           </div>
         )
       },
     },
     {
-      title: 'Promotion Period',
-      dataIndex: 'PromotionPeriod',
+      title: 'Claiming Period',
+      dataIndex: 'Period',
       valueType: 'dateRange',
       hideInTable: true,
       fieldProps: () => ({
         placeholder: ['Start time', 'End Time'],
         separator: <div className="flex items-center justify-center w-full h-full">to</div>,
+        style: {textAlin: ''}
       }),
     },
     {
@@ -54,7 +55,9 @@ const VouchersList = () => {
       hideInSearch: true,
       render: (text: any, record: any) => (
         <div>
-          <div>{text}</div>
+          <div>{
+            text === 'SHOP_VOUCHER' ? 'Shop Voucher' : 'Product Voucher'
+          }</div>
           <div className="text-gray-400 text-xs">({
             record.applicationProducts ? record.applicationProducts + ' products' : 'all products'
           })</div>
@@ -119,17 +122,17 @@ const VouchersList = () => {
               <span
                 className="cursor-pointer iconfont icon-a-Group437 text-red-500 text-xl"
                 onClick={() => {
-                  navigator('/marketingCentre/vouchers/voucherDetails', { state: record })
+                  navigator('/marketingCenter/vouchers/voucherDetails', { state: record })
                 }}
               />
             </Tooltip>
           )}
-          {record.voucherStatus === 'Expired' && (
+          {(record.voucherStatus === 'Expired' || record.voucherStatus === 'Ongoing') && (
             <Tooltip title="Details">
               <span
                 className="cursor-pointer ml-2 iconfont icon-kjafg text-red-500 text-base"
                 onClick={() => {
-                  navigator('/marketingCentre/vouchers/voucherDetails', { state: record })
+                  navigator('/marketingCenter/vouchers/voucherDetails', { state: record })
                 }}
               />
             </Tooltip>
@@ -138,14 +141,14 @@ const VouchersList = () => {
             <span
               className="cursor-pointer ml-2 iconfont icon-dingdan text-red-500 text-xl"
               onClick={() => {
-                navigator('/marketingCentre/vouchers/orderswithVoucher')
+                navigator('/marketingCenter/vouchers/orderswithVoucher')
               }}
             />
           </Tooltip>
           {record.voucherStatus === 'Ongoing' && (
             <Tooltip title="End">
               <span
-                className="cursor-pointer ml-2 iconfont icon-lianxi2hebing-15 text-red-500 text-xl"
+                className="cursor-pointer ml-2 iconfont icon-lianxi2hebing-15 text-red-500 text-base"
                 onClick={() => {
                   setVoucherId({
                     id: record.id,
@@ -214,7 +217,7 @@ const VouchersList = () => {
   }
 
     return (
-        <ContentContainer className="bg-white px-4 pt-0 VouchersList">
+        <ContentContainer className="bg-white pt-0 VouchersList">
             <ProTable
                 columns={columns}
                 actionRef={ref}

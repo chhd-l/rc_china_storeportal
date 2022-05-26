@@ -1,4 +1,4 @@
-import { PlusOutlined, QuestionCircleOutlined } from '@ant-design/icons'
+import { PlusOutlined } from '@ant-design/icons'
 import { Typography, Button, Tooltip } from 'antd'
 import { useRef, useState } from 'react'
 import ProTable, { ProColumns } from '@ant-design/pro-table'
@@ -52,12 +52,7 @@ const ApplicableProducts = ({
       dataIndex: 'marketingPrice',
     },
     {
-      title: () => (
-        <div className="flex items-center">
-          Stock
-          <QuestionCircleOutlined className="ml-1" />
-        </div>
-      ),
+      title: 'Stock',
       dataIndex: 'stock',
     },
     {
@@ -73,11 +68,11 @@ const ApplicableProducts = ({
   ]
 
   return (
-    <div className="bg-white p-4 ApplicableProducts">
-      <Title className="mt-8 mb-6" level={4}>
+    <div className="bg-white px-4 pb-4 ApplicableProducts">
+      <Title className="m-0 mb-6" level={4}>
         Applicable Products
       </Title>
-      {VoucherType === 'SHOP_VOUCHER' ? (
+      {!selectProducts.length ? (
         <div className="flex items-center pl-12">
           <span className="mr-8">Applicable Products</span>
           {VoucherType === 'SHOP_VOUCHER' ? (

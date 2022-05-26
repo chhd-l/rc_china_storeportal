@@ -22,12 +22,11 @@ const OrderType = [
   { label: 'All', value: 'ALL' },
   { label: 'Single Order', value: 'SING_ORDER' },
   { label: 'Normal Subscription', value: 'NORMAL_SUBSCRIPTION' },
-  { label: 'Device Ubscription', value: 'DEVICE_SUBSCRIPTION' },
 ]
 
 const voucherType = [
-  { lable: 'Fix Amount', value: 'FIX_AMOUNT' },
-  { lable: 'By Percentage', value: 'PERCENTAGE' },
+  { label: 'Fix Amount', value: 'FIX_AMOUNT' },
+  { label: 'By Percentage', value: 'PERCENTAGE' },
 ]
 
 const RuleSettings = ({
@@ -45,8 +44,8 @@ const RuleSettings = ({
   const [UsageQuantity, setUsageQuantity] = useState<string | number>('')
 
   return (
-    <div className="bg-white p-4 RuleSettings">
-      <Title className="mb-8" level={4}>
+    <div className="bg-white px-4 RuleSettings">
+      <Title className="m-0 mb-8" level={4}>
         Rule Settings
       </Title>
       <Form.Item
@@ -100,17 +99,6 @@ const RuleSettings = ({
                     className="m-0 flex-1 h-8 Amount1"
                     rules={[
                       {
-                        validator: (_, value) => {
-                          const price = value || 0
-                          return price <= MinimumBasketPrice || PriceOpen
-                            ? Promise.resolve()
-                            : Promise.reject(
-                                new Error('Please note that the discount amount is > 60% of min basket price'),
-                              )
-                        },
-                        warningOnly: true,
-                      },
-                      {
                         required: true,
                         message: 'Please input',
                       },
@@ -119,11 +107,6 @@ const RuleSettings = ({
                     <InputNumber
                       onChange={(v) => {
                         price && validateFields(['minimumBasketPrice'])
-                        if (v < MinimumBasketPrice || PriceOpen) {
-                          setAmountOpen(true)
-                        } else {
-                          setAmountOpen(false)
-                        }
                       }}
                       placeholder="Input"
                       bordered={false}

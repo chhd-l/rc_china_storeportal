@@ -10,10 +10,10 @@ const MarketingCentreList = () => {
 
   return (
     <ContentContainer className="bg-white px-8">
-      <Title level={3}>Marketing Tools</Title>
+      <Title level={4}>Marketing Center</Title>
       {PromotionTabList.map((item) => (
         <div className="mb-16">
-          <Title level={4}>{item.title}</Title>
+          <Title level={5}>{item.title}</Title>
           <div className="grid grid-cols-3 gap-4">
             {item.children.map((el: any) => (
               <div
@@ -24,7 +24,7 @@ const MarketingCentreList = () => {
               >
                 <div className={`bacIcon ${el.bacImg}`} />
                 <div className="flex flex-col justify-between w-4/5">
-                  <div className="mb-1">{el.title}</div>
+                  <div className="mb-1 font-black">{el.title}</div>
                   <span className="text-gray-500 text-10 leading-14">{el.span}</span>
                 </div>
               </div>
