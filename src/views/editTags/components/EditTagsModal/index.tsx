@@ -56,7 +56,7 @@ const EditTagsModal = ({ visible, handleVisible, handleUpdate }: EditTagsModalPr
       width='50%'
       className='manual-selection'
       layout='horizontal'
-      title='Select Products'
+      title='Select Pet Owner'
       visible={visible}
       onFinish={async () => {
         if (selectedRowKeys.length > 0) {
