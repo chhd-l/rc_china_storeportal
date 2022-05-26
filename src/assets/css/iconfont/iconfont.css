@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3298206 */
-  src: url('iconfont.woff2?t=1653291616528') format('woff2'),
-       url('iconfont.woff?t=1653291616528') format('woff'),
-       url('iconfont.ttf?t=1653291616528') format('truetype');
+  src: url('iconfont.woff2?t=1653537222794') format('woff2'),
+       url('iconfont.woff?t=1653537222794') format('woff'),
+       url('iconfont.ttf?t=1653537222794') format('truetype');
 }
 
 .iconfont {
@@ -13,7 +13,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-a-Group2782:before {
+.icon-a-tuijian1:before {
+  content: "\e666";
+}
+
+.icon-a-Group201:before {
   content: "\e665";
 }
 
@@ -215,6 +219,10 @@
 
 .icon-group52:before {
   content: "\e634";
+}
+
+.icon-shop-cate-edit:before {
+  content: "\e727";
 }
 
 .icon-a-edit:before {

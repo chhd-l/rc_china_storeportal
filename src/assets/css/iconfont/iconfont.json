@@ -6,9 +6,16 @@
   "description": "",
   "glyphs": [
     {
-      "icon_id": "29912894",
-      "name": "Group 2782",
-      "font_class": "a-Group2782",
+      "icon_id": "29965836",
+      "name": "推荐 (1)",
+      "font_class": "a-tuijian1",
+      "unicode": "e666",
+      "unicode_decimal": 58982
+    },
+    {
+      "icon_id": "29928926",
+      "name": "Group 20 (1)",
+      "font_class": "a-Group201",
       "unicode": "e665",
       "unicode_decimal": 58981
     },
@@ -361,6 +368,13 @@
       "font_class": "group52",
       "unicode": "e634",
       "unicode_decimal": 58932
+    },
+    {
+      "icon_id": "29967442",
+      "name": "编辑 (2)",
+      "font_class": "shop-cate-edit",
+      "unicode": "e727",
+      "unicode_decimal": 59175
     },
     {
       "icon_id": "29503562",

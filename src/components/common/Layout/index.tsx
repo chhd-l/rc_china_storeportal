@@ -20,6 +20,13 @@ const AppLayout = () => {
     } else {
       setIsOpen(true)
     }
+    if ((pathname.split('/').some(path => path === 'category') && pathname !== '/category/category-list' && pathname !== '/category')) {
+      setIsOpen(false)
+    } else {
+      setIsOpen(true)
+    }
+
+
   }, [pathname])
 
   return (
