@@ -30,7 +30,7 @@ export const ADD_REPLY_CONTENT_FORM: FormItemProps[] = [
 
 export const BASE_FORM: FormItemProps[] = [
   {
-    label: "Assets ID",
+    label: "Asset",
     name: "assetId",
     placeholder: "Select",
     type: "search",
