@@ -92,12 +92,12 @@ const NewGraphic: React.FC = () => {
           </div>
           <div className="flex-grow p-4 ml-4">
             {article?.type === "news"
-              ? <NewArticle ref={formRef} />
+              ? <NewArticle key={article.id} ref={formRef} />
               : article?.type === "image"
-              ? <NewPicture ref={formRef} />
+              ? <NewPicture key={article.id} ref={formRef} />
               : article?.type === "voice"
-              ? <NewVoice ref={formRef} />
-              : article?.type === "video" ? <NewVideo ref={formRef} /> : null}
+              ? <NewVoice key={article.id} ref={formRef} />
+              : article?.type === "video" ? <NewVideo key={article.id} ref={formRef} /> : null}
             <div className="mt-4 text-right space-x-4">
               <Button disabled={loading}>Cancel</Button>
               <Button loading={loading} type="primary" onClick={handleSave}>Save</Button>

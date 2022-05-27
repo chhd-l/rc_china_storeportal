@@ -16,7 +16,7 @@ const VouchersListHead = ({ setVoucherStatus }: { setVoucherStatus:Function }) =
       <span className="text-xs text-gray-400">
         Create and manage your own vouchers for your shop and products on Seller Center!
       </span>
-      <Tabs className="mt-6" defaultActiveKey="" onChange={(key) => setVoucherStatus(key)}>
+      <Tabs defaultActiveKey="" onChange={(key) => setVoucherStatus(key)}>
         <TabPane tab="All" key="" />
         <TabPane tab="Ongoing" key="Ongoing" />
         <TabPane tab="Upcoming" key="Upcoming" />

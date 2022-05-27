@@ -20,6 +20,7 @@ const NewArticle = forwardRef((props, ref) => {
           layout="horizontal"
           className="mt-lg p-4"
           form={form}
+          initialValues={{title: article?.title, author: article?.author, contentSourceURL: article?.contentSourceURL, content: article?.content}}
           labelAlign="right"
           labelCol={{span: 2}}
           wrapperCol={{span:22}}

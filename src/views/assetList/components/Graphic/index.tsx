@@ -7,6 +7,7 @@ import { PageParamsProps } from '@/framework/types/common'
 import { handlePageParams } from '@/utils/utils'
 import { useNavigate } from 'react-router'
 import { initPageParams } from '@/lib/constants'
+import moment from "moment";
 
 const Graphic = ({
   isReload = false,
@@ -20,24 +21,27 @@ const Graphic = ({
   const column = [
     {
       title: 'Main Cover',
-      dataIndex: 'assetTitle',
-      key: 'assetTitle',
+      dataIndex: 'id',
+      key: 'keyid',
+      render: (_text: any, record: any) => <img src={record?.articleList?.[0]?.thumbPic ?? ""} style={{width:200,height:120,objectFit:"cover"}} />
     },
     {
       title: 'Title',
-      dataIndex: 'description',
-      key: 'description',
+      dataIndex: 'title',
+      key: 'title',
+      render: (_text: any, record: any) => record?.articleList?.[0]?.title ?? ""
     },
     {
       title: 'Create Time',
-      dataIndex: 'createTime',
+      dataIndex: 'createdAt',
       key: 'createTime',
-      render: (text: any, record: any) => `${record.status === 'synchronized' ? record.syncTime : text}`,
+      render: (_text: any) => moment(_text).format("YYYY/MM/DD HH:mm:ss"),
     },
     {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
+      render: (_text: boolean) => _text ? "Sychronized" : "Not synced"
     },
     {
       title: 'Action',
@@ -45,16 +49,17 @@ const Graphic = ({
       key: 'action',
       render: (text: any, record: any) => (
         <>
-          <Tooltip title="View Details">
-            <span
+          {record.status ? <Tooltip title="View Details">
+            <a
               className="cursor-pointer ml-2 iconfont icon-a-Frame2 primary-color text-xl"
-              onClick={() => record.video && window.open(record.video)}
+              href={record?.articleList?.[0]?.downURL}
+              target="_blank"
             />
-          </Tooltip>
+          </Tooltip> : null}
           <Tooltip title="Delete">
             <span
               className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl"
-              onClick={() => openDelete && openDelete(record.id, record.mediaId)}
+              onClick={() => openDelete && openDelete(record.id, record.mediaId || undefined)}
             />
           </Tooltip>
         </>
