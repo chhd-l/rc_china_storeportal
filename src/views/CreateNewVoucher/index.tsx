@@ -47,6 +47,11 @@ const CreateNewVoucher = () => {
     }
   }, [state])
 
+  const scrollTop = () => document.documentElement.scrollTop = 0
+  useEffect(() => {
+    scrollTop()
+  }, [])
+
   return (
     <ContentContainer className="mb-4">
       <Spin spinning={spinning} tip="Loading..." className="CreateNewVoucherSpin">
@@ -66,7 +71,6 @@ const CreateNewVoucher = () => {
               : {
                   discountType: 'FIX_AMOUNT',
                   isLimitedQuantity: false,
-                  displayOnShop: false
                 }
           }
           onFinish={async (v) => {
@@ -111,7 +115,6 @@ const CreateNewVoucher = () => {
                   delete v[key]
                 }
               }
-              console.log('v',v)
               let res = undefined
               if (!state) {
                 v.voucherStatus = 'Upcoming'

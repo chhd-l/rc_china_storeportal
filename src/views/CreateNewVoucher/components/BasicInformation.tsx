@@ -245,7 +245,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
           <Form.Item
             name="Image"
             className='m-0'
-            wrapperCol={{ span: 12 }}
+            wrapperCol={{ span: 'auto' }}
             rules={[
               {
                 required: true,
