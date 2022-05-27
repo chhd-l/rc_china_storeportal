@@ -57,7 +57,7 @@ const RuleSettings = ({
         rules={[
           {
             required: true,
-            message: 'Pless Select',
+            message: 'Please Select',
           },
         ]}
       >
