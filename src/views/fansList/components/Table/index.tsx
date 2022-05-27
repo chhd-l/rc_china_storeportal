@@ -71,8 +71,8 @@ const Index = ({
   const columns = [
     {
       title: 'Wechat Account',
-      dataIndex: 'accountPrincipal',
-      key: 'accountPrincipal',
+      dataIndex: 'accountName',
+      key: 'accountName',
     },
     {
       title: 'Union ID',
