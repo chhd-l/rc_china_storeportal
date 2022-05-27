@@ -7,6 +7,7 @@ import { PageParamsProps } from '@/framework/types/common'
 import { handlePageParams } from '@/utils/utils'
 import { useNavigate } from 'react-router'
 import { initPageParams } from '@/lib/constants'
+import ArticleDetail from './detail';
 import moment from "moment";
 
 const Graphic = ({
@@ -18,6 +19,18 @@ const Graphic = ({
   openDelete: Function
   openSyncTipModal: Function
 }) => {
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [chosedArticleList, setChosedArticleList] = useState<any[]>([]);
+  const [createdDate, setCreatedDate] = useState<string>("");
+  const [mediaId, setMediaId] = useState<string>("");
+  const [chosedArticleSynced, setChosedArticleSynced] = useState<boolean>(false)
+  const handleViewDetail = (record: any) => {
+    setChosedArticleList(record?.articleList || [])
+    setCreatedDate(record?.createdAt || "")
+    setMediaId(record?.mediaId);
+    setModalVisible(true);
+    setChosedArticleSynced(record?.status ?? false);
+  }
   const column = [
     {
       title: 'Main Cover',
@@ -49,13 +62,12 @@ const Graphic = ({
       key: 'action',
       render: (text: any, record: any) => (
         <>
-          {record.status ? <Tooltip title="View Details">
-            <a
-              className="cursor-pointer ml-2 iconfont icon-kjafg primary-color text-xl"
-              href={record?.articleList?.[0]?.downURL}
-              target="_blank"
+          <Tooltip title="View Details">
+            <span
+              className="cursor-pointer ml-2 iconfont icon-kjafg primary-color text-lg"
+              onClick={() => handleViewDetail(record)}
             />
-          </Tooltip> : null}
+          </Tooltip>
           <Tooltip title="Delete">
             <span
               className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl"
@@ -191,6 +203,14 @@ const Graphic = ({
           showSizeChanger={true}
         />
       </div>
+      {modalVisible ? <ArticleDetail
+        visible={modalVisible}
+        articleList={chosedArticleList}
+        createdAt={createdDate}
+        onClose={() => setModalVisible(false)}
+        synced={chosedArticleSynced}
+        mediaId={mediaId}
+      /> : null}
     </ContentContainer>
   )
 }

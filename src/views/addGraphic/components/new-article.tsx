@@ -15,7 +15,9 @@ const NewArticle = forwardRef((props, ref) => {
     onChangeFieldValue(changedValue);
   }
 
-  console.log('article:', article);
+  React.useEffect(() => {
+    form.setFieldsValue({ content: article?.content ?? "" })
+  }, []);
   return (
     <div>
       <div className="p-4 bg-white">

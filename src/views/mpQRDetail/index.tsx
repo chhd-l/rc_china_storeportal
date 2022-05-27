@@ -108,7 +108,7 @@ const MpQrDetail = () => {
             },
           ]}>
             <Select disabled={state} placeholder='Select' options={[
-              {label: 'Campaign QR code', value: 'CampaignQRcode'}
+              {label: 'Campaign QR code', value: 'Campaign QR code'}
             ]} />
           </Form.Item>
 
