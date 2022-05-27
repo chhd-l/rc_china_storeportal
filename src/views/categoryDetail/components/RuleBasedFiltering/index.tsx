@@ -1,14 +1,13 @@
 import './index.less'
-import { message, Tag, Button, Select,Spin } from 'antd'
+import { Button, Select, Spin, Tag } from 'antd'
 import ProForm, {
   ModalForm,
-  ProFormSelect,
-  ProFormMoney,
-  ProFormInstance,
   ProFormCascader,
+  ProFormInstance,
+  ProFormMoney,
+  ProFormSelect,
 } from '@ant-design/pro-form'
-import { useRef, useState, useEffect } from 'react'
-import { restWrapButtons } from '../../modules/constant'
+import { useEffect, useRef, useState } from 'react'
 import {
   createShopCategoryGoodsRel,
   getAttrs,
@@ -93,7 +92,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
       data.sample.endPrice = params.endPrice
     }
     let res = await getESProducts(data)
-    setProductList(res.records)
+    setProductList(res?.records||[])
     setLoading(false)
   }
 
@@ -142,7 +141,70 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
       ]
     },
   }
-  // @ts-ignore
+  const waitTime = () => {
+    return new Promise((resolve) => {
+      let obj = [
+        {
+          shopCategoryId: state.id,
+          name: 'goodsCategoryId',
+          value: saveParams?.goodsCategoryId.length>0?saveParams?.goodsCategoryId.join():'',
+          rank:1
+        },
+        {
+          shopCategoryId: state.id,
+          name: 'brand',
+          value: saveParams?.brand,
+          rank:2
+        },
+        {
+          shopCategoryId: state.id,
+          name: 'attributeValueIds',
+          value: saveParams?.attributeValueIds?.length>0?saveParams.attributeValueIds.join():'',
+          rank:3
+        },
+        {
+          shopCategoryId: state.id,
+          name: 'startPrice',
+          value: saveParams?.startPrice?saveParams?.startPrice.toString():'',
+          rank:4
+        },
+        {
+          shopCategoryId: state.id,
+          name: 'endPrice',
+          value: saveParams?.endPrice?saveParams?.endPrice.toString():'',
+          rank:5
+        },
+        {
+          shopCategoryId: state.id,
+          name: 'filterTags',
+          value: filterTags.length>0?filterTags.join():'',
+          rank:6
+        },
+        {
+          shopCategoryId: state.id,
+          name: 'filterTagsTwo',
+          value: filterTagsTwo.length>0?filterTagsTwo.join():'',
+          rank:7
+        },
+      ]
+      shopCategoryFilterRules(obj)
+      if(productList.length>0){
+        let data = productList.map((item: any) => {
+          return {
+            goodsId: item.id,
+            shopCategoryId: state.id,
+            storeId: item.storeId,
+          }
+        })
+        createShopCategoryGoodsRel(data).then(res=>{
+          resolve(true)
+          handleSucces(true)
+        })
+      }else {
+        resolve(true)
+      }
+    });
+  };
   // @ts-ignore
   return (
     <ModalForm
@@ -156,76 +218,22 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
           </div>
         </>
       }
-      // 有变量，提出来报错
-      // submitter={() => restWrapButtons(1, handleVisible)}
-
+      // submitter={{
+      //   render: (props) => {
+      //     return restWrapButtons(props, productList?.length, handleVisible)
+      //   },
+      // }}
       submitter={{
-        render: (props) => {
-          return restWrapButtons(props, productList?.length, handleVisible)
+        searchConfig: {
+          submitText: 'Confirm',
         },
       }}
       layout='horizontal'
       visible={visible}
-      onFinish={async (values) => {
-        // 用productList直接传值操作
-        let obj = [
-          {
-            shopCategoryId: state.id,
-            name: 'goodsCategoryId',
-            value: saveParams?.goodsCategoryId.length>0?saveParams?.goodsCategoryId.join():'',
-            rank:1
-          },
-          {
-            shopCategoryId: state.id,
-            name: 'brand',
-            value: saveParams?.brand,
-            rank:2
-          },
-          {
-            shopCategoryId: state.id,
-            name: 'attributeValueIds',
-            value: saveParams?.attributeValueIds?.length>0?saveParams.attributeValueIds.join():'',
-            rank:3
-          },
-          {
-            shopCategoryId: state.id,
-            name: 'startPrice',
-            value: saveParams?.startPrice?saveParams?.startPrice.toString():'',
-            rank:4
-          },
-          {
-            shopCategoryId: state.id,
-            name: 'endPrice',
-            value: saveParams?.endPrice?saveParams?.endPrice.toString():'',
-            rank:5
-          },
-          {
-            shopCategoryId: state.id,
-            name: 'filterTags',
-            value: filterTags.length>0?filterTags.join():'',
-            rank:6
-          },
-          {
-            shopCategoryId: state.id,
-            name: 'filterTagsTwo',
-            value: filterTagsTwo.length>0?filterTagsTwo.join():'',
-            rank:7
-          },
-        ]
-        shopCategoryFilterRules(obj)
-        if(productList.length>0){
-          let data = productList.map((item: any) => {
-            return {
-              goodsId: item.id,
-              shopCategoryId: state.id,
-              storeId: item.storeId,
-            }
-          })
-          createShopCategoryGoodsRel(data)
+      onFinish={async () => {
+        if(await waitTime()){
+          return true
         }
-        handleSucces(true)
-        message.success('Operation success')
-        return true
       }}
       onVisibleChange={handleVisible}
     >
