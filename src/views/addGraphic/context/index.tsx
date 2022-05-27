@@ -61,6 +61,7 @@ export function transArticleList(articleList: Article[]): any {
     title: article.title,
     thumbMediaId: article.thumbMedia.assetId,
     thumbUrl: article.thumbMedia.assetLink,
+    thumbPic: article.thumbMedia.picture,
     author: article.author,
     digest: article.digest,
     showCoverPic: article.thumbMedia.assetId ? 1 : 0,

@@ -19,7 +19,7 @@ const AddAccount = () => {
   const [title, setTitle] = useState<string>("Add New Reply Content");
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [assetType, setAssetType] = useState<"image" | "video" | "voice">("image")
+  const [assetType, setAssetType] = useState<"image" | "video" | "voice" | "news">("image")
   const navigator = useNavigate();
   const [formItems, setFromItems] = useState(
     ADD_REPLY_CONTENT_FORM
@@ -32,7 +32,7 @@ const AddAccount = () => {
     if (state?.id) {
       getReplyDetailIfEdit(state.id);
       setTitle("Edit Reply Content");
-      setAssetType(state.type === "voice" ? 'voice' : state.type === "video" ? "video" : "image");
+      setAssetType(state.type);
       formValuesChange({}, { type: state.type });
       form.setFieldsValue({
         type: state?.type ?? undefined,
@@ -73,6 +73,7 @@ const AddAccount = () => {
         baseFormItems = baseFormItems.concat(BASE_FORM, VIDEO_FORM);
         break;
       case "news":
+        setAssetType("news");
         baseFormItems = baseFormItems.concat(BASE_FORM);
         break;
       default:

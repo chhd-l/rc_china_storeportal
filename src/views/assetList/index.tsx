@@ -99,7 +99,7 @@ const PetOwnerList = () => {
           <Graphic
             isReload={isReload}
             openDelete={openDeleteModal}
-            openSyncTipModal={() => setIsModalVisible(true)}
+            openSyncTipModal={() => setIsSyncModalVisible(true)}
           />
         ) : null}
         {activeKey === 'voice' ? (
