@@ -1,11 +1,12 @@
-import ClientBuilder from '@rc-china-commerce/fetch/'
-// import ClientBuilder from '@/rc-china-commerce/packages/fetch/lib/index'
+// import ClientBuilder from '@rc-china-commerce/fetch/'
+import ClientBuilder from '@/rc-china-commerce/packages/fetch/lib/index'
 import { message } from 'antd'
 // import ClientBuilder from '@/rc-china-commerce/packages/fetch/dist/fetch/lib'
 
 // const API_URL = 'http://localhost:9000/graphql'
 // 生产
-const API_URL = 'https://msdev.d2cgo.com/faas/graphql'
+const API_URL = 'http://20.62.176.70/faas/graphql'
+// const API_URL = 'https://msdev.d2cgo.com/faas/graphql'
 
 // 开发
 // const API_URL = 'https://dtc-faas-dev-dtc-plaform-dev-yfetifgpvj.cn-shanghai.fcapp.run/graphql'

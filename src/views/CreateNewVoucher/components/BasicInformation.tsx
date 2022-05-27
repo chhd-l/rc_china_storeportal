@@ -96,13 +96,17 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
       setImageUrl(info.file.response.url)
       setLoading(false)
     }
+    if (info.file.status === 'error') {
+      message.error({ className: 'rc-message', content: 'Picture upload failed!' })
+      setLoading(false)
+    }
   }
 
   const beforeUpload = (file: RcFile) => {
     const isLt1M = file.size / 1024 / 1024 < 1
     if (!isLt1M) {
       setLoading(false)
-      message.error('Image must smaller than 300kB!')
+      message.error({ className: 'rc-message', content: 'Image must smaller than 1M!' })
     }
     return isLt1M
   }
