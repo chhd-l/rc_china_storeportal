@@ -22,10 +22,12 @@ const Graphic = ({
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [chosedArticleList, setChosedArticleList] = useState<any[]>([]);
   const [createdDate, setCreatedDate] = useState<string>("");
+  const [chosedArticleSynced, setChosedArticleSynced] = useState<boolean>(false)
   const handleViewDetail = (record: any) => {
     setChosedArticleList(record?.articleList || [])
     setCreatedDate(record?.createdAt || "")
     setModalVisible(true);
+    setChosedArticleSynced(record?.status ?? false);
   }
   const column = [
     {
@@ -58,12 +60,12 @@ const Graphic = ({
       key: 'action',
       render: (text: any, record: any) => (
         <>
-          {record.status ? <Tooltip title="View Details">
+          <Tooltip title="View Details">
             <span
               className="cursor-pointer ml-2 iconfont icon-kjafg primary-color text-lg"
               onClick={() => handleViewDetail(record)}
             />
-          </Tooltip> : null}
+          </Tooltip>
           <Tooltip title="Delete">
             <span
               className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl"
@@ -199,7 +201,13 @@ const Graphic = ({
           showSizeChanger={true}
         />
       </div>
-      <ArticleDetail visible={modalVisible} articleList={chosedArticleList} createdAt={createdDate} onClose={() => setModalVisible(false)} />
+      <ArticleDetail
+        visible={modalVisible}
+        articleList={chosedArticleList}
+        createdAt={createdDate}
+        onClose={() => setModalVisible(false)}
+        synced={chosedArticleSynced}
+      />
     </ContentContainer>
   )
 }

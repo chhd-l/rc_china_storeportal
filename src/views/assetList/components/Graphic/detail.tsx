@@ -3,13 +3,14 @@ import { Modal, Table, Tooltip } from 'antd';
 import moment from 'moment';
 
 interface IProps {
+  synced: boolean
   visible: boolean
   articleList: any[]
   createdAt: string
   onClose: () => void
 }
 
-const ArticleDetail: React.FC<IProps> = ({ visible, articleList, createdAt, onClose }) => {
+const ArticleDetail: React.FC<IProps> = ({ synced, visible, articleList, createdAt, onClose }) => {
   const column = [
     {
       title: 'Cover',
@@ -35,9 +36,9 @@ const ArticleDetail: React.FC<IProps> = ({ visible, articleList, createdAt, onCl
       key: 'action',
       render: (text: any, record: any) => (
         <>
-          <Tooltip title="Preview">
+          <Tooltip title={synced ? "Preview" : "Not synced"}>
             <a
-              className="cursor-pointer ml-2 iconfont icon-kjafg primary-color text-xl"
+              className={`cursor-pointer ml-2 iconfont icon-kjafg text-xl ${synced ? "primary-color" : "text-gray-400"}`}
               href={record?.downURL}
               target="_blank"
             />
