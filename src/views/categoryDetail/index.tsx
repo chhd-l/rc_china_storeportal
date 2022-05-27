@@ -1,6 +1,6 @@
 import './index.less'
 import { Button, Switch, Tag, Input, Tooltip, Spin, Modal } from 'antd'
-import { EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons'
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons'
 import ProTable from '@/components/common/ProTable'
 import { useEffect, useState, useRef } from 'react'
 import { columns } from './modules/constant'
@@ -27,7 +27,6 @@ const CategoryDetail = () => {
   useEffect(() => {
   }, [])
   const handleRuleBaseVisible = (visible: boolean) => {
-    ref?.current?.reload()
     setRuleBasedVisible(visible)
   }
   const handleSucces = (visible: boolean) => {
@@ -104,10 +103,14 @@ const CategoryDetail = () => {
     }).then((res) => {
       if (res) {
         setIsSwithVisible(false)
-        ref.current.reload()
+        setCateInfos({
+          ...cateInfos,
+          isDisplay:status
+        })
+        setLoading(false)
       }
     })
-    setLoading(false)
+
   }
 
   return (

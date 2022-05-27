@@ -1,5 +1,5 @@
 import './index.less'
-import { message, Tag, Button, Select } from 'antd'
+import { message, Tag, Button, Select,Spin } from 'antd'
 import ProForm, {
   ModalForm,
   ProFormSelect,
@@ -36,6 +36,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
   const [productList, setProductList] = useState([])
   const [mockOptions, setMockOptions] = useState<Array<any>>([])
   const [brandList, setBrandList] = useState([])
+  const [loading, setLoading] = useState(false)
   const [saveParams, setSaveParams] = useState<any>({
     goodsCategoryId:'All Categories',
     brand:'All Brands'
@@ -71,6 +72,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
     setSpeciList(data)
   }
   const getList = async (params: any) => {
+    setLoading(true)
     let data: any = {
       hasTotal: true,
       sample: {},
@@ -81,7 +83,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
     if (params.brand && params.brand !== 'All Brands') {
       data.sample.brand = params.brand
     }
-    if (params.attributeValueIds.length>0) {
+    if (params.attributeValueIds?.length>0) {
       data.sample.attributeValueIds = params.attributeValueIds
     }
     if (params.startPrice) {
@@ -92,7 +94,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
     }
     let res = await getESProducts(data)
     setProductList(res.records)
-
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -110,7 +112,6 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
     if(editParams.filterTags.length===0){
       editParams.filterTags=['All Categories', 'All Brands']
     }
-    console.log(editParams,9999)
     setSaveParams({...saveParams,...editParams })
     setFilterTags(editParams.filterTags)
     setFilterTagsTwo(editParams.filterTagsTwo)
@@ -347,6 +348,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
           </div>
           <div>
             <div className='my-3'>Filtering Results</div>
+            <Spin spinning={loading}>
             <div className='flex flex-wrap' style={{ maxHeight: '250px', overflow: 'scroll' }}>
               {productList?.map((el: any) => (
                 <div key={el.id} style={{ width: 60 }} className='mb-3 mr-2'>
@@ -366,6 +368,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
                 </div>
               ))}
             </div>
+            </Spin>
           </div>
         </div>
       </div>

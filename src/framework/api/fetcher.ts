@@ -1,5 +1,5 @@
-import ClientBuilder from '@rc-china-commerce/fetch/'
-// import ClientBuilder from '@/rc-china-commerce/packages/fetch/lib/index'
+// import ClientBuilder from '@rc-china-commerce/fetch/'
+import ClientBuilder from '@/rc-china-commerce/packages/fetch/lib/index'
 import { message } from 'antd'
 // import ClientBuilder from '@/rc-china-commerce/packages/fetch/dist/fetch/lib'
 
