@@ -30,10 +30,10 @@ const disabledTime = (current: any, type: string) => {
   const disDate = new Date(current)
   const day = date.getDate()
   const disDay = disDate.getDate()
-  const hour = date.getHours() + 1
+  const hour = date.getHours()
   const dishour = disDate.getHours()
   const minute = date.getMinutes()
-  if (type === 'start') {
+  if (type !== 'end') {
     return {
       disabledHours: () => {
         if (day === disDay) {
@@ -178,7 +178,16 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
       >
         <Input placeholder="Input" disabled={Edit} maxLength={35} />
       </Form.Item>
-      <Form.Item label="Voucher Code" name="voucherCode">
+      <Form.Item
+        label="Voucher Code"
+        rules={[
+          {
+            required: true,
+            message: 'Please Input',
+          },
+        ]}
+        name="voucherCode"
+      >
         <Input placeholder="Input" disabled={Edit} />
       </Form.Item>
       <Form.Item
@@ -189,7 +198,10 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
       >
         {({ getFieldValue }) => {
           const startTimer = getFieldValue('voucherUsageBeginningOfTime')
-            ? moment(moment(getFieldValue('voucherUsageBeginningOfTime')).format('YYYY-MM-DD HH:mm'), 'YYYY-MM-DD HH:mm')
+            ? moment(
+                moment(getFieldValue('voucherUsageBeginningOfTime')).format('YYYY-MM-DD HH:mm'),
+                'YYYY-MM-DD HH:mm',
+              )
             : ''
           const endTimer = getFieldValue('voucherUsageBeginningOfTime')
             ? moment(moment(getFieldValue('voucherUsageEndOfTime')).format('YYYY-MM-DD HH:mm'), 'YYYY-MM-DD HH:mm')
@@ -198,7 +210,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
             <Form.Item
               name="times"
               className="m-0"
-              initialValue={[startTimer || moment().add(1, 'hours'), endTimer || moment().add(2, 'hours')]}
+              initialValue={[startTimer || moment().add(0, 'hours'), endTimer || moment().add(1, 'hours')]}
               rules={[
                 {
                   required: true,
@@ -209,9 +221,8 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
               <RangePicker
                 showTime={{
                   format: 'HH:mm',
-                  defaultValue: [moment().add(1, 'hours'), moment().add(2, 'hours')],
                 }}
-                className='w-full'
+                className="w-full"
                 disabled={Edit}
                 disabledDate={disabledDate}
                 disabledTime={disabledTime}
@@ -223,7 +234,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
       </Form.Item>
       <Form.Item
         label="Automatic Offer"
-        name='displayOnShop'
+        name="displayOnShop"
         rules={[
           {
             required: true,
@@ -244,7 +255,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
         <div className="flex items-center">
           <Form.Item
             name="Image"
-            className='m-0'
+            className="m-0"
             wrapperCol={{ span: 'auto' }}
             rules={[
               {

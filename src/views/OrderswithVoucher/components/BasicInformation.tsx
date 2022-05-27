@@ -1,20 +1,11 @@
 import { ContentContainer } from '@/components/ui'
 import { DownOutlined, QuestionCircleOutlined, UpOutlined } from '@ant-design/icons'
 import { Descriptions, Divider, Tooltip } from 'antd'
-import { useEffect, useState } from 'react'
-import { getVoucherById } from '@/framework/api/voucher'
+import moment from 'moment'
+import { useState } from 'react'
 
-const BasicInformation = () => {
+const BasicInformation = ({ state }: { state: any }) => {
   const [DescriptionsOpen, setDescriptionsOpen] = useState(false)
-
-  const getVoucherInfo = async () => {
-    // const res = await getVoucherById()
-    // console.log('voucher detail', res)
-  }
-
-  useEffect(() => {
-    getVoucherInfo()
-  }, [])
 
   return (
     <ContentContainer className="bg-white p-4 BasicInformation">
@@ -26,15 +17,17 @@ const BasicInformation = () => {
         }
         className={`${DescriptionsOpen ? '' : 'h-32'} overflow-hidden`}
       >
-        <Descriptions.Item label="Voucher Name">Zhou Maomao</Descriptions.Item>
-        <Descriptions.Item label="Order Type">1810000000</Descriptions.Item>
-        <Descriptions.Item label="Minimum Basket Price">Hangzhou, Zhejiang</Descriptions.Item>
-        <Descriptions.Item label="Discount Amount">empty</Descriptions.Item>
+        <Descriptions.Item label="Voucher Name">{state.voucherName}</Descriptions.Item>
+        <Descriptions.Item label="Order Type">{state.orderType}</Descriptions.Item>
+        <Descriptions.Item label="Minimum Basket Price">￥{state.minimumBasketPrice}</Descriptions.Item>
+        <Descriptions.Item label="Discount Amount">{
+          state.discountType === 'FIX_AMOUNT' ? 'Fix Amount' : 'By Percentage'
+          }</Descriptions.Item>
         <Descriptions.Item label="Voucher Usage Period">
-          No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China
+          {moment(state.voucherUsageBeginningOfTime).format('YYYY/MM/DD HH:mm')} to {moment(state.voucherUsageEndOfTimemoment).format('YYYY/MM/DD HH:mm')}
         </Descriptions.Item>
-        <Descriptions.Item label="Voucher Type">Zhou Maomao</Descriptions.Item>
-        <Descriptions.Item label="Applicable Products">1810000000</Descriptions.Item>
+        <Descriptions.Item label="Voucher Type">{state.voucherType}</Descriptions.Item>
+        <Descriptions.Item label="Applicable Products">{state.discountType}</Descriptions.Item>
         {/* <Descriptions.Item label="Quantity">Hangzhou, Zhejiang</Descriptions.Item>
                 <Descriptions.Item label="Claimed">empty</Descriptions.Item> */}
         <Descriptions.Item
@@ -47,7 +40,7 @@ const BasicInformation = () => {
             </div>
           }
         >
-          Zhou Maomao
+          {state.usageQuantity}
         </Descriptions.Item>
         <Descriptions.Item
           label={
@@ -63,7 +56,7 @@ const BasicInformation = () => {
             </div>
           }
         >
-          Zhou Maomao
+          {state.distributeQuantity}
         </Descriptions.Item>
         <Descriptions.Item
           label={
@@ -79,7 +72,7 @@ const BasicInformation = () => {
             </div>
           }
         >
-          Zhou Maomao
+          {state.usage}
         </Descriptions.Item>
       </Descriptions>
       <Divider className="text-blue-500 border-black" dashed>
