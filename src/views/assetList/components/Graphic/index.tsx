@@ -73,8 +73,8 @@ const Graphic = ({
   const [loading, setLoading] = useState(false)
   const { currentPage, pageSize } = pageParams
   const initSearchParams = {
-    title: '',
-    status: '',
+    title: undefined,
+    status: undefined,
   }
   const [searchParams, setSearchParams] = useState(initSearchParams)
   const [pickValue, setPickValue] = useState<any>(undefined)
@@ -132,6 +132,7 @@ const Graphic = ({
             <div className="mr-2 ml-4">Status</div>
             <Select
               style={{ width: '300px' }}
+              placeholder="Select"
               value={searchParams.status}
               onChange={(val) => {
                 setSearchParams({ ...searchParams, status: val })
