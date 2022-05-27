@@ -72,7 +72,7 @@ const Graphic = ({
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(false)
   const { currentPage, pageSize } = pageParams
-  const initSearchParams = {
+  const initSearchParams: { title: string | undefined, status: string | undefined } = {
     title: undefined,
     status: undefined,
   }
