@@ -45,8 +45,6 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
       hideInTable: true,
       fieldProps: () => ({
         placeholder: ['Start time', 'End Time'],
-        separator: <div className="flex items-center justify-center w-full h-full">to</div>,
-        style: { paddingLeft: '20px' },
         showTime: { format: 'HH:mm' },
         format: 'YYYY-MM-DD HH:mm',
       }),
@@ -80,7 +78,7 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
       title: (
         <div className="flex items-center">
           Usage
-          <Tooltip title="Number of vouchers that have been used (excluding cancelled orders)">
+          <Tooltip overlayStyle={{fontSize:'12px'}} title="Number of vouchers that have been used (excluding cancelled orders)">
             <QuestionCircleOutlined className="ml-2 text-gray-400" />
           </Tooltip>
         </div>
@@ -228,6 +226,7 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
         actionRef={ref}
         options={false}
         tableClassName='rc-table'
+        className='VouchersListTable'
         rowKey="id"
         pagination={{
           hideOnSinglePage: false,
@@ -259,7 +258,7 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
         confirmLoading={loading}
         onCancel={() => setIsModalVisible(false)}
       >
-        <p>Are you sure you want to {voucherId.statu} the item?</p>
+        <p>Are you sure you want to {voucherId.statu === 'Delete' ? voucherId.statu.toLowerCase() : voucherId.statu} the item?</p>
       </Modal>
     </ContentContainer>
   )

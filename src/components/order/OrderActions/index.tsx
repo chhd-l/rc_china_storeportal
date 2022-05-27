@@ -49,7 +49,7 @@ const OrderActions = ({
       setShipModalVisible(false)
       shipOrCompleteSuccess && shipOrCompleteSuccess()
     }else{
-      message.error({ className: 'rc-message', content: 'Operation failed' })
+      // message.error({ className: 'rc-message', content: 'Operation failed' })
     }
   }
 
