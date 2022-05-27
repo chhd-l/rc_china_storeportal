@@ -43,7 +43,7 @@ const Finishedproductdisplay = () => {
                   >
                     <div>
                       <div className="text-red-600">{Description}</div>
-                      <div>领卷时间</div>
+                      <div>领券时间</div>
                       <div>{startTimes + '-' + endtTimes}</div>
                     </div>
                     <div className="absolute bottom-2 right-6 py-1 bg-red-600 rounded w-16 text-center text-white flex items-center justify-center">
