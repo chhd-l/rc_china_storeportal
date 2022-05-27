@@ -46,7 +46,7 @@ const RuleSettings = ({
   const [UsageQuantity, setUsageQuantity] = useState<string | number>('')
 
   return (
-    <div className="px-4 RuleSettings">
+    <div className="bg-white px-6 RuleSettings">
       <Title className="m-0 mb-8" level={4}>
         Rule Settings
       </Title>
@@ -97,7 +97,7 @@ const RuleSettings = ({
               </Form.Item>
               {DiscountType !== 'PERCENTAGE' ? (
                 <>
-                  <span className="w-8 text-center border-l border-r">￥</span>
+                  <span className={`w-8 text-center border-l border-r ${Edit ? 'bg-gray-300' : ''}`}>￥</span>
                   <Form.Item
                     name="discountValue"
                     className="m-0 flex-1 h-8 Amount1"
@@ -150,7 +150,11 @@ const RuleSettings = ({
                       className="border-0 border-l rounded-none w-full"
                     />
                   </Form.Item>
-                  <span className="text-gray-400 w-10 text-center h-8 flex items-center justify-center border-l">
+                  <span
+                    className={`text-gray-400 w-10 text-center h-8 flex items-center justify-center border-l ${
+                      Edit ? 'bg-gray-300' : ''
+                    }`}
+                  >
                     %OFF
                   </span>
                 </>
@@ -166,7 +170,7 @@ const RuleSettings = ({
         rules={[
           {
             required: DiscountType === 'FIX_AMOUNT',
-            message: 'Pless Select',
+            message: 'Please Select',
           },
         ]}
       >
@@ -188,7 +192,7 @@ const RuleSettings = ({
               rules={[
                 {
                   required: !PriceOpen,
-                  message: 'Pless Input',
+                  message: 'Please Input',
                 },
                 {
                   validator: (_, value) => {
@@ -203,7 +207,7 @@ const RuleSettings = ({
               ]}
             >
               <div className="flex">
-                <span className="bg-gray-100 text-gray-400 w-10 text-center border border-l-0 flex items-center justify-center border-l">
+                <span className={`${Edit ? 'bg-gray-300' : 'bg-gray-100'} text-gray-400 w-10 text-center border border-l-0 flex items-center justify-center border-l`}>
                   ￥
                 </span>
                 <InputNumber
@@ -262,6 +266,7 @@ const RuleSettings = ({
         wrapperCol={{ span: 9 }}
         extra="Total usable voucher for all buyers"
         required={!usageQuantityOpen}
+        className="m-0"
         shouldUpdate={(prevValues, curValues) => prevValues.usageQuantity !== curValues.usageQuantity}
       >
         {({ setFieldsValue }) => (
@@ -273,7 +278,7 @@ const RuleSettings = ({
               rules={[
                 {
                   required: !usageQuantityOpen,
-                  message: 'Pless Input',
+                  message: 'Please Input',
                 },
               ]}
             >

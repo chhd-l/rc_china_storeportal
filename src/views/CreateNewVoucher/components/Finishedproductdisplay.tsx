@@ -4,12 +4,7 @@ import moment from 'moment'
 const Finishedproductdisplay = () => {
   return (
     <Form.Item
-      shouldUpdate={(prevValues, curValues) =>
-        prevValues.Image !== curValues.Image ||
-        prevValues.voucherName !== curValues.voucherName ||
-        prevValues.voucherDescription !== curValues.voucherDescription ||
-        prevValues.times !== curValues.times
-      }
+      shouldUpdate={(prevValues, curValues) =>true}
       className="w-96 h-72 absolute top-32 right-32"
     >
       {({ getFieldValue }) => {
@@ -19,6 +14,12 @@ const Finishedproductdisplay = () => {
         const times = getFieldValue('times') || ''
         const startTimes = times ? moment(times[0]).format('YYYY/MM/DD HH:mm') : ''
         const endtTimes = times ? moment(times[1]).format('YYYY/MM/DD HH:mm') : ''
+        console.log('imgUrl',imgUrl)
+        console.log('voucherName',voucherName)
+        console.log('Description',Description)
+        console.log('times',times)
+        console.log('startTimes',startTimes)
+        console.log('endtTimes',endtTimes)
         return (
           <div className="w-96 h-72">
             <div className="h-10 CoilingCenter" />

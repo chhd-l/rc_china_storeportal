@@ -47,8 +47,13 @@ const CreateNewVoucher = () => {
     }
   }, [state])
 
+  const scrollTop = () => document.documentElement.scrollTop === 0
+  useEffect(() => {
+    scrollTop()
+  }, [])
+
   return (
-    <ContentContainer className="bg-white mb-4">
+    <ContentContainer className="mb-4">
       <Spin spinning={spinning} tip="Loading..." className="CreateNewVoucherSpin">
         <Form
           labelCol={{ span: 4 }}
