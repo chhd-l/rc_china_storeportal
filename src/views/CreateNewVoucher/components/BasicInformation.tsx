@@ -185,10 +185,10 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
       >
         {({ getFieldValue }) => {
           const startTimer = getFieldValue('voucherUsageBeginningOfTime')
-            ? moment(moment(getFieldValue('voucherUsageBeginningOfTime')).format('YYYY-MM-DD'), 'YYYY-MM-DD')
+            ? moment(moment(getFieldValue('voucherUsageBeginningOfTime')).format('YYYY-MM-DD HH:mm'), 'YYYY-MM-DD HH:mm')
             : ''
           const endTimer = getFieldValue('voucherUsageBeginningOfTime')
-            ? moment(moment(getFieldValue('voucherUsageEndOfTime')).format('YYYY-MM-DD'), 'YYYY-MM-DD')
+            ? moment(moment(getFieldValue('voucherUsageEndOfTime')).format('YYYY-MM-DD HH:mm'), 'YYYY-MM-DD HH:mm')
             : ''
           return (
             <Form.Item

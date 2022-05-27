@@ -72,10 +72,10 @@ export const deleteVoucher = async (Id: string) => {
 }
 
 //end 优惠券
-export const endVoucher = async () => {
+export const endVoucher = async (Id: string) => {
   try {
     let res = await ApiRoot.vouchers().voucherActivityEnd({
-      voucherId: '06158554-8bff-60ed-a511-4f3a02dbc87d',
+      voucherId: Id,
       voucherStatus: 'Expired',
       storeId: '123456',
       operator: 'zz',

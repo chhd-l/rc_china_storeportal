@@ -1,5 +1,5 @@
 import React from 'react';
-import { Article } from "@/framework/types/wechat";
+import { Article, Asset } from "@/framework/types/wechat";
 import { uuid } from "@/utils/utils";
 
 interface IGrapicContext {
@@ -40,6 +40,33 @@ const GraphicContextProvider: React.FC<{ value: IGrapicContext, children: React.
 
 export function getCurrentArticleById(articleList: Article[], id: string): Article | undefined {
   return articleList.find(article => article.id === id);
+}
+
+// id: article.id,
+// title: article.title,
+// thumbMediaId: article.thumbMedia.assetId,
+// thumbUrl: article.thumbMedia.assetLink,
+// author: article.author,
+// digest: article.digest,
+// showCoverPic: article.showCoverPic || 0,
+// content: article.content,
+// contentSourceURL: article.contentSourceURL,
+
+export function transArticleList(articleList: Article[]): any {
+  const imgStr = (imgList: any) => imgList.map((img: any) => `<img src="${img.assetLink}" />`).join("");
+  const voiceStr = (voice: any) => `<audio controls><source src="${voice.assetLink}" /></audio>`;
+  const videoStr = (video: any) => `<video controls><source src="${video.assetLink}" type="video/mp4" /></video>`;
+  return articleList.map((article) => ({
+    id: article.id,
+    title: article.title,
+    thumbMediaId: article.thumbMedia.assetId,
+    thumbUrl: article.thumbMedia.assetLink,
+    author: article.author,
+    digest: article.digest,
+    showCoverPic: article.thumbMedia.assetId ? 1 : 0,
+    content: article.type === "image" ? `<div>${imgStr(article.imageList)}</div>` : article.type === "video" ? `<div>${videoStr(article.video)}</div>` : article.type === "voice" ? `<div>${article.voice}</div>` : article.content,
+    contentSourceURL: article.contentSourceURL,
+  }));
 }
 
 export default GraphicContextProvider;

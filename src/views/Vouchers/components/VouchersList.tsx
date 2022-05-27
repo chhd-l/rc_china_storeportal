@@ -205,7 +205,7 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
     if (voucherId.statu === 'Delete') {
       res = await deleteVoucher(voucherId.id)
     } else {
-      res = await endVoucher()
+      res = await endVoucher(voucherId.id)
     }
     if (res) {
       setIsModalVisible(false)

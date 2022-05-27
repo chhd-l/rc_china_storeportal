@@ -121,6 +121,7 @@ export interface ProductListItemProps {
   price: string
   stock: number
   name: string
+  wxCodeUrl?: string
 
 }
 export interface ProductListProps {
@@ -230,7 +231,7 @@ export interface ShopCategoryUpdateInput {
 
 export interface ShopCategoryGoodsRelInput {
   goodsId: string
-  shopCategoryId: string|undefined
+  shopCategoryId: string | undefined
   storeId?: string
   createdAt?: string
   createdBy?: string

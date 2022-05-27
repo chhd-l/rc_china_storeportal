@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { Typography, Button, Tooltip } from 'antd'
+import { Typography, Button, Tooltip, Modal, message } from 'antd'
 import { useRef, useState } from 'react'
 import ProTable, { ProColumns } from '@ant-design/pro-table'
 import ManualSelection from './ManualSelection/index'
@@ -23,7 +23,10 @@ const ApplicableProducts = ({
   Edit,
 }: ApplicableProductsType) => {
   const [selectProductsModal, setSelectProductsModal] = useState(false)
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [Products, setProducts] = useState("")
   const ref = useRef<any>()
+  const [loading, setLoading] = useState(false)
 
   const selectProductChange = (productList: any, selectedRowKeys: string[]) => {
     setkeys([...keys,...selectedRowKeys])
@@ -59,15 +62,41 @@ const ApplicableProducts = ({
     },
     {
       title: 'Actions',
-      dataIndex: 'Actions',
+      dataIndex: 'id',
       width: 80,
-      render: () => (
+      render: (text: any, record: any) => (
         <Tooltip title="Delete">
-          <span className="iconfont text-xl icon-delete text-red-500" />
+          <span className="iconfont text-xl icon-delete text-red-500" onClick={() => {
+            setProducts(text)
+            setIsModalVisible(true)
+          }} />
         </Tooltip>
       ),
     },
   ]
+  
+  const confirmDelete = async () => {
+    try {
+      setLoading(true)
+      const deKeys = [...keys]
+      deKeys.splice(deKeys.indexOf(Products), 1)
+      const arr = [...selectProducts]
+      selectProducts.forEach((item, idx) => {
+        if(item.id === Products) {
+          arr.splice(idx, 1)
+        }
+      })
+      setkeys(deKeys)
+      setSelectProducts(arr)
+      setIsModalVisible(false)
+      setLoading(false)
+      message.success({ className: 'rc-message', content: 'Operation success' })
+    } catch (err) {
+      message.error({ className: 'rc-message', content: 'Operation failed' })
+      setLoading(false)
+    }
+  }
+
 
   return (
     <div className="px-4 ApplicableProducts">
@@ -136,6 +165,18 @@ const ApplicableProducts = ({
         closeSelectModal={() => setSelectProductsModal(false)}
         keys={keys}
       />
+      <Modal
+        key="assetDelete"
+        className="rc-modal"
+        title="Delete Item"
+        okText="Confirm"
+        visible={isModalVisible}
+        onOk={confirmDelete}
+        confirmLoading={loading}
+        onCancel={() => setIsModalVisible(false)}
+      >
+        <p>Are you sure you want to Delete the item?</p>
+      </Modal>
     </div>
   )
 }
