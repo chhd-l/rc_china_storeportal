@@ -207,7 +207,7 @@ const RuleSettings = ({
               ]}
             >
               <div className="flex">
-                <span className={`${Edit ? 'bg-gray-300' : 'bg-gray-100'} text-gray-400 w-10 text-center border border-l-0 flex items-center justify-center border-l`}>
+                <span className='bg-gray-100 text-gray-400 w-10 text-center border border-l-0 flex items-center justify-center border-l'>
                   ￥
                 </span>
                 <InputNumber
@@ -264,7 +264,7 @@ const RuleSettings = ({
       <Form.Item
         label="Usage Quantity"
         wrapperCol={{ span: 9 }}
-        extra="Total usable voucher for all buyers"
+        extra="Total usable voucher for all pet owners"
         required={!usageQuantityOpen}
         className="m-0"
         shouldUpdate={(prevValues, curValues) => prevValues.usageQuantity !== curValues.usageQuantity}
@@ -286,7 +286,7 @@ const RuleSettings = ({
                 value={UsageQuantity}
                 onChange={(v) => setUsageQuantity(v)}
                 placeholder="Input"
-                step="0"
+                controls={false}
                 className="w-full"
                 parser={(v) => (v ? parseInt(v) : '')}
                 disabled={Edit || usageQuantityOpen}
