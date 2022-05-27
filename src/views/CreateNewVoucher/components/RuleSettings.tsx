@@ -97,7 +97,7 @@ const RuleSettings = ({
               </Form.Item>
               {DiscountType !== 'PERCENTAGE' ? (
                 <>
-                  <span className={`w-8 text-center border-l border-r ${Edit ? 'bg-gray-300' : ''}`}>￥</span>
+                  <span className={`w-8 text-center border-l border-r ${Edit ? 'bg-gray-100' : ''}`}>￥</span>
                   <Form.Item
                     name="discountValue"
                     className="m-0 flex-1 h-8 Amount1"
@@ -152,7 +152,7 @@ const RuleSettings = ({
                   </Form.Item>
                   <span
                     className={`text-gray-400 w-10 text-center h-8 flex items-center justify-center border-l ${
-                      Edit ? 'bg-gray-300' : ''
+                      Edit ? 'bg-gray-100' : ''
                     }`}
                   >
                     %OFF
