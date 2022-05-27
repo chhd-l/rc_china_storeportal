@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dropdown, Menu, message } from 'antd';
-import { GraphicContext, createDefaultArticle } from "../context";
+import { GraphicContext, createDefaultArticle, moveArticleList } from "../context";
 import { openConfirmModal } from "@/utils/utils";
 import _ from 'lodash';
 
@@ -47,6 +47,11 @@ const Preview: React.FC<IProps> = ({ onValidate }) => {
     })
   }
 
+  const handleMoveArticle = (direction: "up" | "down") => {
+    const _articleList = moveArticleList(articleList, currentArticleId, direction);
+    setArticleList(_.cloneDeep(_articleList));
+  }
+
   const menu = (
     <Menu>
       <Menu.Item key="0">
@@ -64,6 +69,7 @@ const Preview: React.FC<IProps> = ({ onValidate }) => {
     </Menu>
   );
 
+  const articleIdx = articleList.findIndex(ar => ar.id === currentArticleId);
   return (
     <div className="preview-container">
       {
@@ -80,7 +86,9 @@ const Preview: React.FC<IProps> = ({ onValidate }) => {
         <div className="add-new">+ Add a new message</div>
       </Dropdown>
       <div className="action">
-        <div className="py-md cursor-pointer" onClick={confirmDelete}><span className="iconfont icon-delete text-xl" /></div>
+        {articleIdx > 0 ? <div className="cursor-pointer"><span className="iconfont icon-Frame-21 text-xl"></span></div> : null}
+        {articleIdx < articleList.length - 1 ? <div className="cursor-pointer"><span className="iconfont icon-Frame-31 text-xl"></span></div> : null}
+        <div className="cursor-pointer" onClick={confirmDelete}><span className="iconfont icon-delete text-xl" /></div>
       </div>
     </div>
   )

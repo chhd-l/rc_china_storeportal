@@ -42,16 +42,6 @@ export function getCurrentArticleById(articleList: Article[], id: string): Artic
   return articleList.find(article => article.id === id);
 }
 
-// id: article.id,
-// title: article.title,
-// thumbMediaId: article.thumbMedia.assetId,
-// thumbUrl: article.thumbMedia.assetLink,
-// author: article.author,
-// digest: article.digest,
-// showCoverPic: article.showCoverPic || 0,
-// content: article.content,
-// contentSourceURL: article.contentSourceURL,
-
 export function transArticleList(articleList: Article[]): any {
   const imgStr = (imgList: any) => imgList.map((img: any) => `<img src="${img.assetLink}" />`).join("");
   const voiceStr = (voice: any) => `<audio controls><source src="${voice.assetLink}" /></audio>`;
@@ -68,6 +58,17 @@ export function transArticleList(articleList: Article[]): any {
     content: article.type === "image" ? `<div>${imgStr(article.imageList)}</div>` : article.type === "video" ? `<div>${videoStr(article.video)}</div>` : article.type === "voice" ? `<div>${article.voice}</div>` : article.content,
     contentSourceURL: article.contentSourceURL,
   }));
+}
+
+export function moveArticleList(articleList: Article[], articleId: string, direction: "up" | "down"): Article[] {
+  const article = getCurrentArticleById(articleList, articleId);
+  const articleIdx = articleList.findIndex(article => article.id === articleId);
+  if (!article || articleList.length < 2 || (articleIdx < 1 && direction === "up") || (articleIdx === articleList.length - 1 && direction === "down")) {
+    return articleList;
+  }
+  articleList.splice(articleIdx, 1);
+  articleList.splice(direction === "up" ? articleIdx - 1 : articleIdx + 1, 0, article);
+  return articleList;
 }
 
 export default GraphicContextProvider;
