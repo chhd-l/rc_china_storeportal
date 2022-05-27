@@ -643,3 +643,9 @@ export const addAndSyncArticle = async (param: any) => {
   console.log('add articleandsync view data:', data);
   return data?.articlesAdd ?? {}
 }
+
+export const getArticlePreviewUrls = async (mediaId: string) => {
+  const data = await ApiRoot.wechatSettings().getArticlesPreviewUrls(mediaId);
+  console.log('get previewurls view data:', data);
+  return data?.articlesGetUrlFromWX ?? []
+}

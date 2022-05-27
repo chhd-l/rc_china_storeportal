@@ -22,10 +22,12 @@ const Graphic = ({
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [chosedArticleList, setChosedArticleList] = useState<any[]>([]);
   const [createdDate, setCreatedDate] = useState<string>("");
+  const [mediaId, setMediaId] = useState<string>("");
   const [chosedArticleSynced, setChosedArticleSynced] = useState<boolean>(false)
   const handleViewDetail = (record: any) => {
     setChosedArticleList(record?.articleList || [])
     setCreatedDate(record?.createdAt || "")
+    setMediaId(record?.mediaId);
     setModalVisible(true);
     setChosedArticleSynced(record?.status ?? false);
   }
@@ -201,13 +203,14 @@ const Graphic = ({
           showSizeChanger={true}
         />
       </div>
-      <ArticleDetail
+      {modalVisible ? <ArticleDetail
         visible={modalVisible}
         articleList={chosedArticleList}
         createdAt={createdDate}
         onClose={() => setModalVisible(false)}
         synced={chosedArticleSynced}
-      />
+        mediaId={mediaId}
+      /> : null}
     </ContentContainer>
   )
 }

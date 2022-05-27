@@ -71,7 +71,7 @@ const MyUpload: React.FC<IProps> = (props) => {
 
   return (
     <>
-      <Dropdown overlay={menu}>
+      <Dropdown overlay={menu} trigger={["click"]}>
         <div className="upload-container flex justify-center items-center">
           {props.value.picture
             ? <div className="image"><img src={props.value.picture} /></div>
