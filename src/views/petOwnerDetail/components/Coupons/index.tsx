@@ -2,7 +2,7 @@ import { Table, Tooltip } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { CouponCode } from '@/framework/types/customer'
 import { getCustomerVouchers } from '@/framework/api/voucher'
-
+import moment from 'moment'
 interface CouponInfoProps {
   customerId: string;
   id: string;
@@ -34,10 +34,33 @@ const CouponInformation = ({ id, customerId }: CouponInfoProps) => {
       title: 'Voucher Value',
       dataIndex: 'couponValue',
       key: 'couponValue',
+      render: (text: any, record: any) => {
+        return(
+          <span>{
+            record.discountType==='PERCENTAGE'?record.discountValue+'%OFF':record.minimumBasketPrice?'￥'+record.minimumBasketPrice:''
+          }</span>
+        )
+      }
+    },
+    {
+      title: 'Period',
+      render: (text: any, record: any) => {
+        return (
+          <div>
+            {text === 'Upcoming' && <span className="Upcoming">Upcoming</span>}
+            {text === 'Ongoing' && <span className="Ongoing">Ongoing</span>}
+            {text === 'Expired' && <span className="Expired">Expired</span>}
+            <div className="text-gray-400">
+              {moment(record.voucherUsageBeginningOfTime).format('YYYY/MM/DD HH:mm')} -
+            </div>
+            <div className="text-gray-400">{moment(record.voucherUsageEndOfTime).format('YYYY/MM/DD HH:mm')}</div>
+          </div>
+        )
+      },
     },
     {
       title: 'Status',
-      dataIndex: 'voucherStatus'
+      dataIndex: 'voucherStatus',
     },
     {
       title: 'Options',

@@ -82,7 +82,7 @@ const ShopCategories = () => {
     {
       title: 'Category Name',
       dataIndex: 'displayName',
-      width: 400,
+      width: 300,
       render: (_, record, index) => {
         if (editClickIndex === index && show) {
           return (
@@ -134,6 +134,7 @@ const ShopCategories = () => {
     {
       title: 'Created By',
       dataIndex: 'categoryType',
+      width: 300,
       render: (_, record) => (
         <div>
           <span>{record.name + ' | '}</span>
