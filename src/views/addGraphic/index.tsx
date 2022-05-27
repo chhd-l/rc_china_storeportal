@@ -8,7 +8,7 @@ import NewVoice from './components/new-voice';
 import NewVideo from './components/new-video';
 import GraphicContentProvider, { createDefaultArticle, getCurrentArticleById, transArticleList }  from './context';
 import { Button, message } from 'antd';
-import { addArticle } from "@/framework/api/wechatSetting";
+import { addArticle, addAndSyncArticle } from "@/framework/api/wechatSetting";
 import _ from 'lodash';
 import { useNavigate } from "react-router-dom";
 
@@ -29,9 +29,9 @@ const NewGraphic: React.FC = () => {
     setCurrentArticleId(initialArticle.id);
   }, []);
 
-  useEffect(() => {
-    formRef.current = null;
-  }, [currentArticleId]);
+  // useEffect(() => {
+  //   formRef.current = null;
+  // }, [currentArticleId]);
 
   const onChangeFieldValue = (values: { [T in keyof Article]?: Article[T] }) => {
     const _articleList = articleList.map((item: Article) => {
@@ -54,7 +54,6 @@ const NewGraphic: React.FC = () => {
     }
     return new Promise((resolve) => {
       formRef.current?.form?.validateFields().then(() => {
-        onChangeFieldValue({ content: formRef.current.form.getFieldValue("content") ?? "" });
         resolve(true);
       }).catch(() => {
         resolve(false);
@@ -68,6 +67,19 @@ const NewGraphic: React.FC = () => {
       const param = transArticleList(articleList);
       setLoading(true);
       const res = await addArticle(param);
+      setLoading(false);
+      if (res?.id) {
+        navigator("/assets-management", { state: "news" });
+      }
+    }  
+  }
+
+  const handleSaveAndSync = async () => {
+    const success = await handleValidate();
+    if (success) {
+      const param = transArticleList(articleList);
+      setLoading(true);
+      const res = await addAndSyncArticle(param);
       setLoading(false);
       if (res?.id) {
         navigator("/assets-management", { state: "news" });
@@ -101,7 +113,7 @@ const NewGraphic: React.FC = () => {
             <div className="mt-4 text-right space-x-4">
               <Button disabled={loading}>Cancel</Button>
               <Button loading={loading} type="primary" onClick={handleSave}>Save</Button>
-              <Button loading={loading} type="primary">Save and Sync</Button>
+              <Button loading={loading} type="primary" onClick={handleSaveAndSync}>Save and Sync</Button>
             </div>
           </div>
         </div>

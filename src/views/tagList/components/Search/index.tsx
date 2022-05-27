@@ -21,6 +21,9 @@ const OrderSearch = ({ query }: { query: Function }) => {
                   name: e.target.value,
                 })
               }}
+              onPressEnter={(e)=>{
+                query && query(searchParams)
+              }}
             />
           </div>
         </Col>
@@ -38,7 +41,6 @@ const OrderSearch = ({ query }: { query: Function }) => {
         </Button>
         <Button
           className="w-20"
-          danger
           onClick={(e) => {
             setSearchParams(initSearchParams)
             query && query(initSearchParams)

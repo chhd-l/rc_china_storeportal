@@ -6,24 +6,26 @@ import { PageParamsProps } from '@/framework/types/common'
 
 const SubscriptionInformation = ({ customerId, id }: any) => {
   const navigator = useNavigate()
-  const [subscriptionList, setSubscriptionList] = useState([{
-    subscriptionId:'1',
-    customerName:'dsadsa',
-    img:'https://thirdwx.qlogo.cn/mmopen/vi_32/4hVkF9Gmv5oIiakLOn081OeSB9iaYYKfKb6yYqQftgbbDpdlSw1vtFI4He0xKZYnt0ayQWBNQkQLn1ztKKcfj2UQ/132',
-    products:[{
-      id:1,
-      img:'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1618476680557_qTbFsC.jpg',
-      productName:'假数据',
-      num:1,
-      goodsSpecifications:'222'
-    },{
-      id:2,
-      img:'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1618476680557_qTbFsC.jpg',
-      productName:'假数据',
-      num:1,
-      goodsSpecifications:'222'
-    }]
-  }])
+  const [subscriptionList, setSubscriptionList] = useState([
+  //   {
+  //   subscriptionId:'1',
+  //   customerName:'dsadsa',
+  //   img:'https://thirdwx.qlogo.cn/mmopen/vi_32/4hVkF9Gmv5oIiakLOn081OeSB9iaYYKfKb6yYqQftgbbDpdlSw1vtFI4He0xKZYnt0ayQWBNQkQLn1ztKKcfj2UQ/132',
+  //   products:[{
+  //     id:1,
+  //     img:'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1618476680557_qTbFsC.jpg',
+  //     productName:'假数据',
+  //     num:1,
+  //     goodsSpecifications:'222'
+  //   },{
+  //     id:2,
+  //     img:'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1618476680557_qTbFsC.jpg',
+  //     productName:'假数据',
+  //     num:1,
+  //     goodsSpecifications:'222'
+  //   }]
+  // }
+  ])
   const [pageParams, setPageParams] = useState<PageParamsProps>({
     currentPage: 1,
     pageSize: 3,

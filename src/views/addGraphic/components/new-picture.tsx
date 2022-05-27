@@ -11,6 +11,10 @@ const NewPicture = React.forwardRef((props, ref) => {
 
   React.useImperativeHandle(ref, () => ({ form }));
 
+  const formValueChange = (changedValue: any) => {
+    onChangeFieldValue(changedValue);
+  }
+
   const handleUploadPicture = (asset: Partial<Asset>, idx: number) => {
     const imageList = (article?.imageList || []).map((image, index) => {
       if (idx === index) {
@@ -39,13 +43,12 @@ const NewPicture = React.forwardRef((props, ref) => {
           labelAlign="right"
           labelCol={{span: 2}}
           wrapperCol={{span:22}}
+          onValuesChange={formValueChange}
         >          
           <Form.Item name="title" label="Title">
             <Input
               style={{maxWidth: 500}}
               placeholder="Input"
-              value={article?.title}
-              onChange={(e) => onChangeFieldValue({ title: e.target.value })}
             />
           </Form.Item>
           <Form.Item label="Content">

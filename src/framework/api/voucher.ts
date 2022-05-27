@@ -100,6 +100,18 @@ export const goodsRelatedDelete = async () => {
     return false
   }
 }
+//删除优惠券绑定的商品
+export const getCustomerVouchers = async (params: any) => {
+  try {
+    //ids:string[]
+    let res = await ApiRoot.vouchers().getCustomerVouchers(params)
+    console.log('getCustomerVouchers view data', res)
+    return res
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+}
 
 export const getVoucherKeyMetric = async () => {
   try {

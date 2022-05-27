@@ -1,6 +1,6 @@
 import './index.less'
 import { Button, Switch, Space, Input, Checkbox, Modal, Tooltip, Spin } from 'antd'
-import { CheckOutlined, CloseOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons'
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons'
 import ProTable from '@/components/common/ProTable'
 import { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
@@ -101,10 +101,14 @@ const CategoryDetail = () => {
     }).then((res) => {
       if (res) {
         setIsSwithVisible(false)
-        ref.current.reload()
+        setCateInfos({
+          ...cateInfos,
+          isDisplay:status
+        })
+        setLoading(false)
       }
     })
-    setLoading(false)
+
   }
 
   useEffect(() => {
@@ -302,7 +306,7 @@ const CategoryDetail = () => {
               tableAlertOptionRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => {
                 return (
                   <Space size={16}>
-                    <span>{selectedRowKeys.length}products selected</span>
+                    <span>{selectedRowKeys.length} products selected</span>
                     <Button onClick={() => {
                       if (selectedRows.length > 0) {
 

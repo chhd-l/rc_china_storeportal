@@ -71,10 +71,14 @@ const EditTags = () => {
       id:state.id,
       isEnabled: status,
     }).then(() => {
-      ref.current.reload()
       setIsSwithVisible(false)
+      setCateInfos({
+        ...cateInfos,
+        isEnabled:status
+      })
+      setLoading(false)
     })
-    setLoading(false)
+
   }
 
   useEffect(() => {
@@ -162,17 +166,14 @@ const EditTags = () => {
               }
             </div>
             <div>
-              <Tooltip title={!cateInfos?.total?'This category cannot be activated as it contains no product':''}>
               <Switch
                 className='ml-3'
                 checked={cateInfos.isEnabled}
-                disabled={!cateInfos?.total}
                 onChange={(checked: boolean) => {
                   setIsSwithVisible(true)
                   setStatus(checked)
                 }}
               />
-              </Tooltip>
             </div>
           </div>
           <Divider />
