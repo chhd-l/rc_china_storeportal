@@ -65,12 +65,12 @@ const ApplicableProducts = ({
       dataIndex: 'id',
       width: 80,
       render: (text: any, record: any) => (
-        <Tooltip title="Delete">
+        !Edit ? (<Tooltip title="Delete">
           <span className="iconfont text-xl icon-delete text-red-500" onClick={() => {
             setProducts(text)
             setIsModalVisible(true)
           }} />
-        </Tooltip>
+        </Tooltip>) : null
       ),
     },
   ]
@@ -99,7 +99,7 @@ const ApplicableProducts = ({
 
 
   return (
-    <div className="px-4 ApplicableProducts">
+    <div className="bg-white px-6 pb-6 ApplicableProducts">
       <Title className="m-0 mb-6" level={4}>
         Applicable Products
       </Title>

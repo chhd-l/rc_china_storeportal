@@ -108,7 +108,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
   }
 
   return (
-    <div className="px-4 pt-4 relative BasicInformation">
+    <div className="bg-white px-6 pt-6 relative BasicInformation">
       <Title className="mb-8" level={4}>
         Basic Information
       </Title>
@@ -116,7 +116,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
         <div className="flex items-center cursor-default">
           {/* Shop Voucher */}
           <div
-            className={`flex ml-2 pl-2 pr-3 py-3 items-center ${
+            className={`flex ml-3 pl-2 pr-3 py-3 items-center ${
               VoucherType === 'SHOP_VOUCHER' ? 'VoucherTypeBoxShadow' : 'border'
             } border-gray-300 border-solid relative`}
             style={{ borderRadius: '5px' }}
@@ -133,7 +133,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
           </div>
           {/* Product Voucher */}
           <div
-            className={`flex ml-3 pl-2 pr-3 py-3 items-center ${
+            className={`flex ml-5 pl-2 pr-3 py-3 items-center ${
               VoucherType === 'PRODUCT_VOUCHER' ? 'VoucherTypeBoxShadow' : 'border'
             } border-gray-300 border-solid relative`}
             onClick={() => !Edit && setVoucherType('PRODUCT_VOUCHER')}
@@ -198,7 +198,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
               rules={[
                 {
                   required: true,
-                  message: 'Pless Select',
+                  message: 'Please Select',
                 },
               ]}
             >
@@ -218,12 +218,12 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
         }}
       </Form.Item>
       <Form.Item
-        label="Display On Shop"
+        label="Automatic Offer"
         name='displayOnShop'
         rules={[
           {
             required: true,
-            message: 'Pless Select',
+            message: 'Please Select',
           },
         ]}
       >
@@ -236,7 +236,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
           ]}
         />
       </Form.Item>
-      <Form.Item label="Voucher Image" className="Uploader" wrapperCol={{ span: 'auto' }} required>
+      <Form.Item label="Voucher Image" className="Uploader m-0" wrapperCol={{ span: 'auto' }} required>
         <div className="flex items-center">
           <Form.Item
             name="Image"
@@ -245,7 +245,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
             rules={[
               {
                 required: true,
-                message: 'Pless Select',
+                message: 'Please Select',
               },
             ]}
           >
@@ -268,7 +268,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
           </Form.Item>
           <div className="text-gray-400">
             <div>The recommended size for images is 100px * 100px.</div>
-            <div className="mt-1">Image size should not exceed 300KB.</div>
+            <div className="mt-1">Image size should not exceed 1M.</div>
           </div>
         </div>
       </Form.Item>

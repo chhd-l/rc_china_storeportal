@@ -10,6 +10,18 @@
     }
   }
   .VouchersList {
+    .VouchersListTable {
+      .ant-row-start {
+        > div:nth-child(2) {
+          margin-left: 10%;
+        }
+        > div:last-child {
+          display: flex;
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
+      }
+    }
     .ant-form-item-control-input-content {
       display: flex;
       justify-content: end;
@@ -20,10 +32,6 @@
     }
     #PromotionPeriod {
       text-align: right !important;
-    }
-    .ant-picker-suffix {
-      position: absolute;
-      left: 0;
     }
     td {
       vertical-align: top !important;
