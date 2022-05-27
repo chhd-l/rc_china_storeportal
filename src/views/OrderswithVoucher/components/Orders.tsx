@@ -1,8 +1,7 @@
 import { ContentContainer } from '@/components/ui'
-import { UserOutlined } from '@ant-design/icons'
-import ProTable, { ActionType } from '@ant-design/pro-table'
-import { Tooltip, Typography, Image, Avatar, Form, DatePicker, Button } from 'antd'
-import { useRef } from 'react'
+import OrdersList from "./OrdersList"
+import { Typography, Form, DatePicker, Button } from 'antd'
+import { useEffect, useState } from 'react'
 const { Title } = Typography
 const { RangePicker } = DatePicker
 
@@ -25,86 +24,33 @@ const dataSource = [
   },
 ]
 
-const Orders = () => {
-    const ref = useRef<ActionType>();
+const Orders = ({ state }: {state:any}) => {
+  const [orderList, setOrderList] = useState<any[]>([])
+  //   const [total, setTotal] = useState(0)
+  //   const [pageSize, setPageSize] = useState({
+  //     limit: 10,
+  //     offset: 0,
+  //   })
+  const [loading, setLoading] = useState(false)
 
-  const columns = [
-    {
-      title: 'Product(s)',
-      dataIndex: 'VoucherName',
-      hideInSearch: true,
-      render: (text: any, recout: any) => {
-        return (
-          <div className="flex flex-col">
-            <div className="flex">
-              <div>
-                <Image
-                  width={100}
-                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                  preview={false}
-                />
-              </div>
-              <div className="pl-2 pt-4">
-                <Title className="mb-0" level={5}>
-                  Select Products
-                </Title>
-                <span className="text-gray-400 text-xs">SPU: 3566</span>
-              </div>
-            </div>
-            <div className="flex">
-              <div>
-                <Image
-                  width={100}
-                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                  preview={false}
-                />
-              </div>
-              <div className="pl-2 pt-4">
-                <Title className="mb-0" level={5}>
-                  Select Products
-                </Title>
-                <span className="text-gray-400 text-xs">SPU: 3566</span>
-              </div>
-            </div>
-          </div>
-        )
-      },
-    },
-    {
-      title: 'Order Total',
-      dataIndex: 'Price',
-      hideInSearch: true,
-    },
-    {
-      title: 'Order Status',
-      dataIndex: 'Stock',
-      hideInSearch: true,
-    },
-    {
-      title: 'Actions',
-      dataIndex: 'Actions',
-      hideInSearch: true,
-      render: (text: any, record: any) => (
-        <Tooltip title="View Details">
-          <span className="cursor-pointer ml-2 iconfont icon-kjafg text-red-500 text-base" />
-        </Tooltip>
-      ),
-    },
-    {
-      title: '',
-      dataIndex: 'xxx',
-      hideInSearch: true,
-      render: (text: any, record: any) => (
-        <div className="flex h-8 justify-between">
-          <div className="w-20 flex items-center">
-            <Avatar size="small" icon={<UserOutlined />} />
-            <div className="ml-2 h-full flex items-center">xxxx</div>
-          </div>
-          <div className="flex items-center">orderId: 121e2e122e21e12e21e211e2ee21</div>
-        </div>
-      ),
-    },
-  ]
+  const getOrderLists = async () => {
+    setLoading(true)
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(true)
+      }, 1000)
+    }).then(() => {
+      setOrderList(dataSource)
+      setLoading(false)
+    })
+  }
+
+  useEffect(() => {
+    if (!loading) {
+      getOrderLists()
+    }
+  }, [])
+
 
   return (
     <ContentContainer className="bg-white p-4 mt-10">
@@ -115,36 +61,11 @@ const Orders = () => {
         <Form.Item label="Order Time Date" className="m-0 mr-3">
           <RangePicker />
         </Form.Item>
-        <Button type="primary" onClick={() => ref.current?.reload()}>
+        <Button type="primary" onClick={() => {}}>
           Search
         </Button>
       </div>
-      <ProTable
-        actionRef={ref}
-        className="OrdersProTable mt-20"
-        search={false}
-        options={false}
-        pagination={{
-            hideOnSinglePage: false,
-            showSizeChanger: true,
-            showQuickJumper: true,
-            showTotal: () => <></>,
-            defaultPageSize: 10,
-        }}
-        columns={columns}
-        request={() => {
-          return new Promise((resolve) => {
-            setTimeout(() => {
-              resolve(true)
-            }, 1000)
-          }).then(() => {
-            return {
-              success: true,
-              data: dataSource,
-            }
-          })
-        }}
-      />
+      <OrdersList orderList={orderList} loading={loading} />
     </ContentContainer>
   )
 }

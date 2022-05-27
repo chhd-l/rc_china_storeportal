@@ -139,7 +139,7 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
             <span
               className="cursor-pointer ml-2 iconfont icon-dingdan text-red-500 text-xl"
               onClick={() => {
-                navigator('/marketingCenter/vouchers/orderswithVoucher')
+                navigator('/marketingCenter/vouchers/orderswithVoucher', {state: record})
               }}
             />
           </Tooltip>

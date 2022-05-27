@@ -70,7 +70,7 @@ const CreateNewVoucher = () => {
                 }
               : {
                   discountType: 'FIX_AMOUNT',
-                  isLimitedQuantity: false,
+                  displayOnShop: false,
                 }
           }
           onFinish={async (v) => {
