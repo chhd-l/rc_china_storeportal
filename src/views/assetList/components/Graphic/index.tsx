@@ -51,7 +51,7 @@ const Graphic = ({
         <>
           {record.status ? <Tooltip title="View Details">
             <a
-              className="cursor-pointer ml-2 iconfont icon-a-Frame2 primary-color text-xl"
+              className="cursor-pointer ml-2 iconfont icon-kjafg primary-color text-xl"
               href={record?.articleList?.[0]?.downURL}
               target="_blank"
             />
@@ -59,7 +59,7 @@ const Graphic = ({
           <Tooltip title="Delete">
             <span
               className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl"
-              onClick={() => openDelete && openDelete(record.id, record.mediaId || undefined)}
+              onClick={() => openDelete && openDelete(record.id, record.mediaId)}
             />
           </Tooltip>
         </>

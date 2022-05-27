@@ -29,9 +29,9 @@ const NewGraphic: React.FC = () => {
     setCurrentArticleId(initialArticle.id);
   }, []);
 
-  useEffect(() => {
-    formRef.current = null;
-  }, [currentArticleId]);
+  // useEffect(() => {
+  //   formRef.current = null;
+  // }, [currentArticleId]);
 
   const onChangeFieldValue = (values: { [T in keyof Article]?: Article[T] }) => {
     const _articleList = articleList.map((item: Article) => {
@@ -54,7 +54,6 @@ const NewGraphic: React.FC = () => {
     }
     return new Promise((resolve) => {
       formRef.current?.form?.validateFields().then(() => {
-        onChangeFieldValue({ content: formRef.current.form.getFieldValue("content") ?? "" });
         resolve(true);
       }).catch(() => {
         resolve(false);

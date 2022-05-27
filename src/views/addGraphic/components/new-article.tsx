@@ -11,6 +11,10 @@ const NewArticle = forwardRef((props, ref) => {
 
   React.useImperativeHandle(ref, () => ({ form }));
 
+  const formValueChange = (changedValue: any) => {
+    onChangeFieldValue(changedValue);
+  }
+
   console.log('article:', article);
   return (
     <div>
@@ -24,32 +28,27 @@ const NewArticle = forwardRef((props, ref) => {
           labelAlign="right"
           labelCol={{span: 2}}
           wrapperCol={{span:22}}
+          onValuesChange={formValueChange}
         >          
           <Form.Item name="title" label="Title" rules={[{required:true,message:"Please input title!"}]}>
             <Input
               style={{maxWidth: 500}}
               placeholder="Input"
-              value={article?.title}
-              onChange={(e) => onChangeFieldValue({ title: e.target.value })}
             />
           </Form.Item>
           <Form.Item name="author" label="Author">
             <Input
               style={{maxWidth: 500}}
               placeholder="Input"
-              value={article?.author}
-              onChange={(e) => onChangeFieldValue({ author: e.target.value })}
             />
           </Form.Item>
           <Form.Item name="contentSourceURL" label="Link">
             <Input
               style={{maxWidth: 500}}
               placeholder='Link for "Read Original Article"'
-              value={article?.contentSourceURL}
-              onChange={(e) => onChangeFieldValue({ contentSourceURL: e.target.value })}
             />
           </Form.Item>
-          <Form.Item name="content" label="Content">
+          <Form.Item name="content" label="Content" rules={[{required:true,message:"Please input content!"}]}>
             <MyEditor />
           </Form.Item>
         </Form>
