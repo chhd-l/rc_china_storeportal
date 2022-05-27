@@ -33,11 +33,14 @@ const disabledTime = (current: any, type: string) => {
   const hour = date.getHours()
   const dishour = disDate.getHours()
   const minute = date.getMinutes()
+  
   if (type !== 'end') {
     return {
       disabledHours: () => {
         if (day === disDay) {
           return range(0, 24).splice(0, hour)
+        } else if (day > disDay) {
+          return range(0, 24)
         } else {
           return range(0, 0)
         }
@@ -45,6 +48,8 @@ const disabledTime = (current: any, type: string) => {
       disabledMinutes: () => {
         if (day === disDay && hour === dishour) {
           return range(0, minute)
+        } else if (day > disDay) {
+          return range(0, 60)
         } else {
           return range(0, 0)
         }
@@ -55,6 +60,8 @@ const disabledTime = (current: any, type: string) => {
       disabledHours: () => {
         if (day === disDay) {
           return range(0, 24).splice(0, hour + 1)
+        } else if (day > disDay) {
+          return range(0, 24)
         } else {
           return range(0, 0)
         }
@@ -62,6 +69,8 @@ const disabledTime = (current: any, type: string) => {
       disabledMinutes: () => {
         if (day === disDay && hour + 1 === dishour) {
           return range(0, minute)
+        } else if (day > disDay) {
+          return range(0, 60)
         } else {
           return range(0, 0)
         }
@@ -221,6 +230,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
               <RangePicker
                 showTime={{
                   format: 'HH:mm',
+                  defaultValue: [startTimer || moment().add(0, 'hours'), endTimer || moment().add(1, 'hours')],
                 }}
                 className="w-full"
                 disabled={Edit}
