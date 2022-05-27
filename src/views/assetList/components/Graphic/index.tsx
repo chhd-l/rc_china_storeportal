@@ -51,7 +51,7 @@ const Graphic = ({
         <>
           {record.status ? <Tooltip title="View Details">
             <a
-              className="cursor-pointer ml-2 iconfont icon-a-Frame2 primary-color text-xl"
+              className="cursor-pointer ml-2 iconfont icon-kjafg primary-color text-xl"
               href={record?.articleList?.[0]?.downURL}
               target="_blank"
             />
@@ -59,7 +59,7 @@ const Graphic = ({
           <Tooltip title="Delete">
             <span
               className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl"
-              onClick={() => openDelete && openDelete(record.id, record.mediaId || undefined)}
+              onClick={() => openDelete && openDelete(record.id, record.mediaId)}
             />
           </Tooltip>
         </>
@@ -72,9 +72,9 @@ const Graphic = ({
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(false)
   const { currentPage, pageSize } = pageParams
-  const initSearchParams = {
-    title: '',
-    status: '',
+  const initSearchParams: { title: string | undefined, status: string | undefined } = {
+    title: undefined,
+    status: undefined,
   }
   const [searchParams, setSearchParams] = useState(initSearchParams)
   const [pickValue, setPickValue] = useState<any>(undefined)
@@ -132,6 +132,7 @@ const Graphic = ({
             <div className="mr-2 ml-4">Status</div>
             <Select
               style={{ width: '300px' }}
+              placeholder="Select"
               value={searchParams.status}
               onChange={(val) => {
                 setSearchParams({ ...searchParams, status: val })

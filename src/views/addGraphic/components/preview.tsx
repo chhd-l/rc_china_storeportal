@@ -22,8 +22,11 @@ const Preview: React.FC<IProps> = ({ onValidate }) => {
     })    
   }
 
-  const handleSelectMessage = (id: string) => {
-    setCurrentArticleId(id);
+  const handleSelectMessage = async (id: string) => {
+    const check = await onValidate();
+    if (check) {
+      setCurrentArticleId(id);
+    }
   } 
 
   const handleDeleteMessage = () => {

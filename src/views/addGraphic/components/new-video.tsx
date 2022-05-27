@@ -11,6 +11,10 @@ const NewVideo = React.forwardRef((props, ref) => {
 
   React.useImperativeHandle(ref, () => ({ form }));
 
+  const formValueChange = (changedValue: any) => {
+    onChangeFieldValue(changedValue);
+  }
+
   const handleUploadVideo = (asset: Partial<Asset>) => {
     onChangeFieldValue({ video: asset })
     form.setFieldsValue({ description: asset.description })
@@ -27,13 +31,12 @@ const NewVideo = React.forwardRef((props, ref) => {
           labelAlign="right"
           labelCol={{span: 2}}
           wrapperCol={{span:22}}
+          onValuesChange={formValueChange}
         >          
           <Form.Item name="title" label="Title">
             <Input
               style={{maxWidth: 500}}
               placeholder="Input"
-              value={article?.title}
-              onChange={(e) => onChangeFieldValue({ title: e.target.value })}
             />
           </Form.Item>
           <Form.Item name="description" label="Description">
