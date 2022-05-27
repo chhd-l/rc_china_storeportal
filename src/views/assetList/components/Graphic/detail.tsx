@@ -1,8 +1,10 @@
 import React from 'react';
 import { Modal, Table, Tooltip } from 'antd';
+import { getArticlePreviewUrls } from '@/framework/api/wechatSetting';
 import moment from 'moment';
 
 interface IProps {
+  mediaId: string
   synced: boolean
   visible: boolean
   articleList: any[]
@@ -10,7 +12,21 @@ interface IProps {
   onClose: () => void
 }
 
-const ArticleDetail: React.FC<IProps> = ({ synced, visible, articleList, createdAt, onClose }) => {
+const ArticleDetail: React.FC<IProps> = ({ mediaId, synced, visible, articleList, createdAt, onClose }) => {
+  const [list, setList] = React.useState<any[]>(articleList);
+  const [loading, setLoading] = React.useState<boolean>(false);
+  React.useEffect(() => {
+    getPreviewList()
+  }, []);
+  const getPreviewList = async () => {
+    setLoading(true)
+    const urls = await getArticlePreviewUrls(mediaId)
+    setList(list.map((item: any, idx: number) => ({
+      ...item,
+      previewUrl: urls[idx]
+    })));
+    setLoading(false);
+  }
   const column = [
     {
       title: 'Cover',
@@ -39,7 +55,7 @@ const ArticleDetail: React.FC<IProps> = ({ synced, visible, articleList, created
           <Tooltip title={synced ? "Preview" : "Not synced"}>
             <a
               className={`cursor-pointer ml-2 iconfont icon-kjafg text-xl ${synced ? "primary-color" : "text-gray-400"}`}
-              href={record?.downURL}
+              href={record?.previewUrl}
               target="_blank"
             />
           </Tooltip>
@@ -58,8 +74,9 @@ const ArticleDetail: React.FC<IProps> = ({ synced, visible, articleList, created
     >
       <Table
         rowKey="id"
+        loading={loading}
         columns={column}
-        dataSource={articleList}
+        dataSource={list}
         className="rc-table"
         pagination={false}
       />
