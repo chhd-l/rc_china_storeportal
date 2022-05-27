@@ -53,7 +53,7 @@ const AutoReplyList = () => {
     });
     const accounts = (list?.records ?? []).reduce((prev: BaseListProps[], curr: any) => {
       if(prev.indexOf(curr.accountName) === -1 && curr.accountType === 'ServiceAccount') {
-        prev.push({ key: curr.accountPrincipal as string, label: curr.accountPrincipal as string })
+        prev.push({ key: curr.accountName as string, label: curr.accountName as string })
       }
       return prev;
     }, []);

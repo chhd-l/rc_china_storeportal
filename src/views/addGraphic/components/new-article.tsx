@@ -4,10 +4,12 @@ import { GraphicContext, getCurrentArticleById } from "../context";
 import MyEditor from './editor';
 import MyUpload from './upload';
 
-const NewArticle: React.FC = () => {
+const NewArticle = forwardRef((props, ref) => {
   const [form] = Form.useForm();
   const { articleList, currentArticleId, onChangeFieldValue } = useContext(GraphicContext);
   const article = getCurrentArticleById(articleList, currentArticleId);
+
+  React.useImperativeHandle(ref, () => ({ form }));
 
   console.log('article:', article);
   return (
@@ -18,11 +20,12 @@ const NewArticle: React.FC = () => {
           layout="horizontal"
           className="mt-lg p-4"
           form={form}
+          initialValues={{title: article?.title, author: article?.author, contentSourceURL: article?.contentSourceURL, content: article?.content}}
           labelAlign="right"
           labelCol={{span: 2}}
           wrapperCol={{span:22}}
         >          
-          <Form.Item label="Title" rules={[{required:true,message:"Please input title!"}]}>
+          <Form.Item name="title" label="Title" rules={[{required:true,message:"Please input title!"}]}>
             <Input
               style={{maxWidth: 500}}
               placeholder="Input"
@@ -30,7 +33,7 @@ const NewArticle: React.FC = () => {
               onChange={(e) => onChangeFieldValue({ title: e.target.value })}
             />
           </Form.Item>
-          <Form.Item label="Author">
+          <Form.Item name="author" label="Author">
             <Input
               style={{maxWidth: 500}}
               placeholder="Input"
@@ -38,7 +41,7 @@ const NewArticle: React.FC = () => {
               onChange={(e) => onChangeFieldValue({ author: e.target.value })}
             />
           </Form.Item>
-          <Form.Item label="Link">
+          <Form.Item name="contentSourceURL" label="Link">
             <Input
               style={{maxWidth: 500}}
               placeholder='Link for "Read Original Article"'
@@ -46,7 +49,7 @@ const NewArticle: React.FC = () => {
               onChange={(e) => onChangeFieldValue({ contentSourceURL: e.target.value })}
             />
           </Form.Item>
-          <Form.Item label="Content">
+          <Form.Item name="content" label="Content">
             <MyEditor />
           </Form.Item>
         </Form>
@@ -76,6 +79,6 @@ const NewArticle: React.FC = () => {
       </div>
     </div>
   )
-}
+})
 
 export default NewArticle

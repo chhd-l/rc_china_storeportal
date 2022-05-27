@@ -132,7 +132,7 @@ interface StepsProps {
   anchor: string
   subTitle?: string
   tips: string
-  rightSlot?: ReactNode | null
+  rightSlot?: any
   render: Function
 }
 
@@ -142,7 +142,13 @@ export const steps: StepsProps[] = [
     anchor: 'product_basic_infomation',
     subTitle: '',
     tips: 'Basic Infomation',
-    // rightSlot: <EyeOutlined />,
+    rightSlot: (handleShow?: Function) => (
+      <EyeOutlined
+        onClick={() => {
+          handleShow && handleShow()
+        }}
+      />
+    ),
     render: (field: FormListFieldData, form: any) => <BasicInfo field={field} form={form} />,
   },
   {

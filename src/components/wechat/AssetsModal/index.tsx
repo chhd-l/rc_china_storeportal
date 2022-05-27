@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Table } from 'antd';
 import { Asset } from '@/framework/types/wechat'
-import { getMedias } from '@/framework/api/wechatSetting'
+import { getMedias, getArticlesList } from '@/framework/api/wechatSetting'
 
 interface IProps {
-  assetType: 'image' | 'voice' | 'video'
+  assetType: 'image' | 'voice' | 'video' | 'news'
   visible: boolean
   onlySync?: boolean
   onConfirm?: (asset: Asset) => void
@@ -86,24 +86,59 @@ const videoColumns = [
   }
 ];
 
+const graphicColumns = [
+  {
+    title: "Graphic main cover",
+    dataIndex: "cover",
+    key: "cover",
+    render: (_text: any, record: any) => <img src={record?.articleList?.[0]?.thumbPic ?? ""} style={{width:100,height:50,objectFit:"cover"}} />
+  },
+  {
+    title: "Wechat Assets ID",
+    dataIndex: "mediaId",
+    key: "mediaId"
+  },
+  {
+    title: "title",
+    dataIndex: "title",
+    key: "title",
+    render: (_text: any, record: any) => record?.articleList?.[0]?.title ?? ""
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+    render: (_text: boolean) => _text ? "Sychronized" : "Not synced"
+  }
+]
+
 const AssetsModal = (props: IProps) => {
   const [list, setList] = React.useState<Asset[]>([])
+  const [articles, setArticles] = React.useState<any[]>([])
   const [loading, setLoading] = React.useState<boolean>(false)
   const [current, setCurrent] = React.useState<number>(1)
   const [total, setTotal] = React.useState<number>(0)
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
-  const [selectedRows, setSelectedRows] = useState<Asset[]>([])
+  const [selectedRows, setSelectedRows] = useState<any[]>([])
 
   const getList = async (currentPage: number) => {
-    const params = {
+    const params = props.assetType === "news" ? {
+      sample: props.onlySync ? { status: true } : undefined,
+      offset: currentPage * 10 - 10,
+      limit: 10,
+    } : {
       sample: { type: props.assetType, status: props.onlySync ?? undefined },
       offset: currentPage * 10 - 10,
-      limit: 10
+      limit: 10,
     }
     setLoading(true)
-    const res = await getMedias(params)
+    const res = props.assetType === "news" ? (await getArticlesList(params)) : (await getMedias(params))
     setTotal(res.total)
-    setList(res.records)
+    if (props.assetType === "news") {
+      setArticles(res.records)
+    } else {
+      setList(res.records)
+    }
     setLoading(false)
   }
 
@@ -120,7 +155,16 @@ const AssetsModal = (props: IProps) => {
       cancelText="Cancel"
       onOk={() => {
         if (props.onConfirm) {
-          props.onConfirm(selectedRows[0])
+          props.assetType === "news"
+            ? props.onConfirm({
+              assetId: selectedRows[0]['mediaId'],
+              id: selectedRows[0]['id'],
+              assetLink: "",
+              createTime: selectedRows[0]['createdAt'],
+              status: selectedRows[0]['status'],
+              syncTime: selectedRows[0]['createdAt'],
+            })
+            : props.onConfirm(selectedRows[0])
         } else {
           props.onCancel()
         }
@@ -130,8 +174,8 @@ const AssetsModal = (props: IProps) => {
     >
       <Table
         rowKey="id"
-        columns={props.assetType === 'image' ? imageColumns : props.assetType === 'voice' ? voiceColumns : videoColumns}
-        dataSource={list}
+        columns={props.assetType === 'image' ? imageColumns : props.assetType === 'voice' ? voiceColumns : props.assetType === "video" ? videoColumns : graphicColumns}
+        dataSource={props.assetType === "news" ? articles : list}
         loading={loading}
         pagination={{
           current: current,

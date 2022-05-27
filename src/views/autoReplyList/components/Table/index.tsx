@@ -23,8 +23,8 @@ const Index = ({
   const columns = [
     {
       title: "Official Name",
-      dataIndex: "principal",
-      key: "principal",
+      dataIndex: "accountName",
+      key: "accountName",
     },
     {
       title: "Match Type",
