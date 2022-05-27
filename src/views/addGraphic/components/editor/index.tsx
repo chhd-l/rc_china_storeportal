@@ -30,6 +30,7 @@ const MyEditor: FC<EditorProps> = ({ value = '', onChange }) => {
     ],
   }
   const editorConfig: Partial<IEditorConfig> = { MENU_CONF: {} } // 初始化 MENU_CONF 属性
+  editorConfig.autoFocus = false;
   // 修改 uploadImage 菜单配置
   if (editorConfig.MENU_CONF) {
     //上面就申明了，但是一直提示object可能为空？？

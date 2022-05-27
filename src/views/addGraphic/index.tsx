@@ -8,7 +8,7 @@ import NewVoice from './components/new-voice';
 import NewVideo from './components/new-video';
 import GraphicContentProvider, { createDefaultArticle, getCurrentArticleById, transArticleList }  from './context';
 import { Button, message } from 'antd';
-import { addArticle } from "@/framework/api/wechatSetting";
+import { addArticle, addAndSyncArticle } from "@/framework/api/wechatSetting";
 import _ from 'lodash';
 import { useNavigate } from "react-router-dom";
 
@@ -75,6 +75,19 @@ const NewGraphic: React.FC = () => {
     }  
   }
 
+  const handleSaveAndSync = async () => {
+    const success = await handleValidate();
+    if (success) {
+      const param = transArticleList(articleList);
+      setLoading(true);
+      const res = await addAndSyncArticle(param);
+      setLoading(false);
+      if (res?.id) {
+        navigator("/assets-management", { state: "news" });
+      }
+    }  
+  }
+
   return (
     <ContentContainer>
       <GraphicContentProvider
@@ -101,7 +114,7 @@ const NewGraphic: React.FC = () => {
             <div className="mt-4 text-right space-x-4">
               <Button disabled={loading}>Cancel</Button>
               <Button loading={loading} type="primary" onClick={handleSave}>Save</Button>
-              <Button loading={loading} type="primary">Save and Sync</Button>
+              <Button loading={loading} type="primary" onClick={handleSaveAndSync}>Save and Sync</Button>
             </div>
           </div>
         </div>

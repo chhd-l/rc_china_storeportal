@@ -631,3 +631,15 @@ export const addArticle = async (param: any) => {
   console.log('add article view data:', data);
   return data?.articlesAdd ?? {}
 }
+
+export const addAndSyncArticle = async (param: any) => {
+  const data = await ApiRoot.wechatSettings().addAndSyncArticles({
+    body: {
+      accountId: '000001',
+      operator: 'zz',
+      articleList: param
+    }
+  });
+  console.log('add articleandsync view data:', data);
+  return data?.articlesAdd ?? {}
+}
