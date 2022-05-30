@@ -2,13 +2,8 @@ import { Image, Modal, Table, Tooltip } from 'antd'
 import React, { useState } from 'react'
 import { LiveStreaming } from '@/framework/types/liveStreaming'
 import moment from 'moment'
-import { ContentContainer } from '@/components/ui'
 
-interface PetOwnerTableProps {
-  liveStreamingList: LiveStreaming[]
-}
-
-const Index = ({ liveStreamingList }: PetOwnerTableProps) => {
+const Index = ({ liveStreamingList }: { liveStreamingList: LiveStreaming[] }) => {
   const [imgUrl, setImgUrl] = useState('')
   const [isModalVisible, setIsModalVisible] = useState(false)
   const columns = [

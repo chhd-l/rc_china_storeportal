@@ -3,7 +3,6 @@ import { ContentContainer, DivideArea, SearchContainer, TableContainer } from '@
 import { Button, Modal, Pagination, Spin, Tabs } from 'antd'
 import Search from './components/Search'
 import Table from './components/Table'
-import './index.less'
 import { LiveStreaming } from '@/framework/types/liveStreaming'
 import { liveStreamTabList } from '@/views/liveStreamingList/modules/constants'
 import { getLiveStreamingList, syncLiveStreaming } from '@/framework/api/liveStreaming'
