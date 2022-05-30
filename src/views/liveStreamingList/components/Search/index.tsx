@@ -1,8 +1,8 @@
-import { Button, DatePicker, Input } from 'antd'
+import { Button, DatePicker, Input, Select } from 'antd'
 import React, { useState } from 'react'
 import { initSearchParams, SearchParamsProps } from '../../modules/constants'
 
-const LiveStreamingSearch = ({ query }: { query: Function }) => {
+const LiveStreamingSearch = ({ query, miniProjList }: { query: Function; miniProjList: any[] }) => {
   const [searchParams, setSearchParams] = useState<SearchParamsProps>(initSearchParams)
   const [pickValue, setPickValue] = useState<any>(undefined)
 
@@ -20,7 +20,7 @@ const LiveStreamingSearch = ({ query }: { query: Function }) => {
           <div className="mr-2 w-30 text-right">Live Streaming ID:</div>
           <Input
             style={{ width: '240px' }}
-            type='number'
+            type="number"
             placeholder="Enter live streaming ID"
             value={searchParams.roomId}
             onChange={(e) => {
@@ -61,21 +61,37 @@ const LiveStreamingSearch = ({ query }: { query: Function }) => {
         </div>
       </div>
       <div className="flex flex-row items-center mt-md">
-        <div className="mr-2 w-30 text-right">Period:</div>
-        <DatePicker.RangePicker
-          style={{ width: '240px' }}
-          value={pickValue}
-          onChange={(date, dateString) => {
-            console.log(date, dateString)
-            setPickValue(date)
-            setSearchParams({
-              ...searchParams,
-              startTime: new Date(dateString[0]).toISOString(),
-              endTime: new Date(dateString[1]).toISOString(),
-            })
-            // query && query(searchParams)
-          }}
-        />
+        <div className="flex flex-row items-center">
+          <div className="mr-2 w-30 text-right">Period:</div>
+          <DatePicker.RangePicker
+            style={{ width: '240px' }}
+            value={pickValue}
+            onChange={(date, dateString) => {
+              console.log(date, dateString)
+              setPickValue(date)
+              setSearchParams({
+                ...searchParams,
+                startTime: new Date(dateString[0]).toISOString(),
+                endTime: new Date(dateString[1]).toISOString(),
+              })
+              // query && query(searchParams)
+            }}
+          />
+        </div>
+        <div className="flex flex-row items-center ml-12">
+          <div className="mr-2 w-40 text-right">Mini Program:</div>
+          <Select
+            style={{ width: '240px' }}
+            placeholder="Select mini program"
+            onChange={(value) => {
+              setSearchParams({ ...searchParams, accountName: value })
+            }}
+          >
+            {miniProjList.map((el) => (
+              <Select.Option key={el.id}>{el.accountName}</Select.Option>
+            ))}
+          </Select>
+        </div>
       </div>
       <div className="mt-md flex">
         <Button
