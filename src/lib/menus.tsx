@@ -206,12 +206,12 @@ export const menus = [
         url: '/mpqr/mpqr-list',
         key: 'mini_program_qr_code',
       },
-      // {
-      //   name: 'Mini Program Banner',
-      //   value: 'mini_program_banner',
-      //   url: '/mpbanner/mpbanner-list',
-      //   key: 'mini_program_banner',
-      // },
+      {
+        name: 'Mini Program Banner',
+        value: 'mini_program_banner',
+        url: '/mpbanner/mpbanner-list',
+        key: 'mini_program_banner',
+      },
     ],
   },
 ]

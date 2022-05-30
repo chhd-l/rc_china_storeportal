@@ -22,7 +22,12 @@ const Tagging = ({ id, customerId }: { id: string; customerId: string }) => {
     })
     if(res.removeCustomerTag){
       tagList.splice(index,1)
-      setTagList(tagList)
+      if(tagList.length===0){
+        setTagList([])
+      } else {
+        setTagList(tagList)
+      }
+
     }
   }
 

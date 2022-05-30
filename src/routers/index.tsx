@@ -156,9 +156,7 @@ let routes: RouteObject[] = [
           },
           {
             path: 'comingSoon',
-            children: [
-              { index: true, element: <ComingSoon />, },
-            ]
+            element: <ComingSoon />,
           },
         ]
       },
