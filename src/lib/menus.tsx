@@ -116,6 +116,12 @@ export const menus = [
         url: '/marketingCenter/marketingCenter-list',
         key: 'MarketingCenters',
       },
+      {
+        name: 'Intelligent Recommendation',
+        value: 'IntelligentRecommendation',
+        url: '/marketingCenter/intelligentRecommendation/intelligentRecommendation-list',
+        key: 'IntelligentRecommendation',
+      },
     ],
   },
   {
