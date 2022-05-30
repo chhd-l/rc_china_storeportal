@@ -13,7 +13,6 @@ const Tagging = ({ id, customerId }: { id: string; customerId: string }) => {
     setTagList(res)
   }
   const deleteTag = async (item:any,index:any) => {
-    console.log(item,index)
     let res = await removeCustomerTag({
       customerId:customerId,
       tagId: item.id,
@@ -21,13 +20,7 @@ const Tagging = ({ id, customerId }: { id: string; customerId: string }) => {
       storeId:"12345678"
     })
     if(res.removeCustomerTag){
-      tagList.splice(index,1)
-      if(tagList.length===0){
-        setTagList([])
-      } else {
-        setTagList(tagList)
-      }
-
+     getTagList()
     }
   }
 
