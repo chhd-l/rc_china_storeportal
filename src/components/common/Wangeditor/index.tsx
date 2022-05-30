@@ -102,7 +102,7 @@ const MyEditor: FC<EditorProps> = ({ defaultValue = '', onChange }) => {
           onCreated={setEditor}
           onChange={editor => {
             let htmls = editor.getHtml()
-            // console.info('htmlshtmlshtmlshtmlshtmls', htmls)
+            console.info('htmlshtmlshtmlshtmlshtmls', htmls)
             setHtml(htmls)
             onChange?.(htmls)
           }}
