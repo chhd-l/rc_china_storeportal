@@ -149,7 +149,7 @@ let routes: RouteObject[] = [
             path: 'liveStreaming',
             breadcrumbName: 'Live Streaming',
             children: [
-              { index: true, element: <DiscountPromotions />, },
+              { index: true, element: <LiveStreamingList />, },
             ]
           },
         ]
