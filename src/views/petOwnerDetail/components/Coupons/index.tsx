@@ -2,6 +2,7 @@ import { Table, Tooltip } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { CouponCode } from '@/framework/types/customer'
 import { getCustomerVouchers } from '@/framework/api/voucher'
+import { useNavigate } from 'react-router-dom'
 import moment from 'moment'
 interface CouponInfoProps {
   customerId: string;
@@ -10,6 +11,7 @@ interface CouponInfoProps {
 
 const CouponInformation = ({ id, customerId }: CouponInfoProps) => {
   const [couponCodeList, setCouponCodeList] = useState<any>([])
+  const navigator = useNavigate()
   useEffect(() => {
     if (customerId !== '') {
       getList()
@@ -72,6 +74,7 @@ const CouponInformation = ({ id, customerId }: CouponInfoProps) => {
           <span
             className='cursor-pointer iconfont icon-kjafg primary-color text-xl'
             onClick={() => {
+              navigator('/marketingCenter/vouchers/voucherDetails', { state: record })
             }}
           />
         </Tooltip>
