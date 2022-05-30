@@ -1,6 +1,7 @@
 import React from 'react'
 import { WxMenuContext, getActiveWxMenu, setWxMenu, delWxMenu, moveWxMenu } from '../context'
 import { Input, Form, Radio, RadioChangeEvent, Tooltip, Modal } from 'antd'
+import { getAccountList } from "@/framework/api/wechatSetting";
 import _ from 'lodash'
 import ResponseType from './response-type'
 import RedirectionType from './redirection-type'
@@ -8,7 +9,10 @@ import MiniProgramType from './miniprogram-type'
 
 const WxMenuSetting = () => {
   const { wxMenus, setWxMenus } = React.useContext(WxMenuContext);
+  const [miniProgramList, setMiniProgramList] = React.useState<any[]>([]);
   const activeMenu = getActiveWxMenu(wxMenus || []);
+
+  const miniProgramFormRef = React.useRef<any>();
 
   const changeMenuName = (e: React.ChangeEvent<HTMLInputElement>, key: string) => {
     const newWxMenus = setWxMenu(wxMenus || [], key, {
@@ -43,6 +47,19 @@ const WxMenuSetting = () => {
   const moveWxMenuInOrder = (key: string, direction: 'forward' | 'backward') => {
     const newWxMenus = moveWxMenu(wxMenus || [], key, direction);
     setWxMenus && setWxMenus(_.cloneDeep(newWxMenus));
+  }
+
+  React.useEffect(() => {
+    getMiniProgramList()
+  }, [])
+
+  const getMiniProgramList = async () => {
+    const data = await getAccountList({
+      limit: 100,
+      offset: 0,
+      sample: { storeId: "12345678", status: true },
+    });
+    setMiniProgramList((data?.records ?? []).filter((item: any) => item.accountType === 'MiniProgram'));
   }
 
   return (
@@ -83,7 +100,7 @@ const WxMenuSetting = () => {
                 <Radio value="miniprogram">Joint with Miniprogram</Radio>
               </Radio.Group>
             </Form.Item>
-            {activeMenu.type === 'media_id' ? <ResponseType /> : activeMenu.type === 'view' ? <RedirectionType /> : <MiniProgramType />}
+            {activeMenu.type === 'media_id' ? <ResponseType /> : activeMenu.type === 'view' ? <RedirectionType /> : <MiniProgramType miniProgramList={miniProgramList} ref={miniProgramFormRef} />}
           </React.Fragment>}
         </Form>
       </div>}

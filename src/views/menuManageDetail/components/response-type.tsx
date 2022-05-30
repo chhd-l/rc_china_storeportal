@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Asset } from '@/framework/types/wechat'
 import AssetsModal from '@/components/wechat/AssetsModal'
+import UploadAndSync from './upload';
 import { Image } from 'antd'
 import { WxMenuContext, setWxMenu, getActiveWxMenu } from '../context'
 import _ from 'lodash'
@@ -11,7 +12,7 @@ const ResponseType = () => {
 
   const activeMenu = getActiveWxMenu(wxMenus || [])
   
-  const handleConfirm = (asset: Asset) => {
+  const handleConfirm = (asset: Partial<Asset>) => {
     const newWxMenus = setWxMenu(wxMenus || [], activeMenu?.key || '', {
       media_id: asset.assetId,
       rc_preview_url: activeMenu?.rc_preview_type === "image" ? asset.picture : activeMenu?.rc_preview_type === "voice" ? asset.voice : asset.video
@@ -45,10 +46,15 @@ const ResponseType = () => {
         </div>
       </div>
       <div className="p-8 text-center">
-        <div className="text-gray-400" style={{display:'inline-block'}} onClick={() => setVisible(true)}>
-          <span className="iconfont icon-Frame3 mb-0.5" style={{fontSize: 30}}></span>
-          <div>Select from assets</div>
-          <div className="uploaded-asset">{activeMenu?.media_id}</div>
+        <div className="flex justify-center items-start">
+          <div className="mx-md text-gray-400" onClick={() => setVisible(true)}>
+            <span className="iconfont icon-Frame3 mb-0.5" style={{fontSize: 30}}></span>
+            <div>Select from assets</div>
+            <div className="uploaded-asset">{activeMenu?.media_id}</div>
+          </div>
+          <div className="mx-md text-gray-400">
+            <UploadAndSync assetType={activeMenu?.rc_preview_type ?? "image"} onChange={handleConfirm} />
+          </div>
         </div>
         <div className="mt-4">
           {activeMenu ? <div className="inline-block">
