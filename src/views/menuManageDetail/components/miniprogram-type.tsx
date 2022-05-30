@@ -1,26 +1,33 @@
 import React from 'react'
-import { Input, Form } from 'antd'
+import { Input, Form, Select } from 'antd'
 import { WxMenuContext, setWxMenu, getActiveWxMenu } from '../context'
 import _ from 'lodash'
 
-const MiniProgramType = () => {
+const MiniProgramType = React.forwardRef((props: { miniProgramList: any[] }, ref) => {
   const { wxMenus, setWxMenus } = React.useContext(WxMenuContext)
   const activeMenu = getActiveWxMenu(wxMenus || [])
+  const [form] = Form.useForm();
 
   const changeMenuItem = (key: string, value: any) => {
     const newWxMenus = setWxMenu(wxMenus || [], key, value)
     setWxMenus && setWxMenus(_.cloneDeep(newWxMenus))
   }
 
+  React.useImperativeHandle(ref, () => ({ form }));
+
   return (
     <div className="redirection-type p-4 border border-gray-200 bg-white">
-      <Form layout="horizontal" labelCol={{span: 6}} wrapperCol={{span: 12}} labelAlign="right">
+      <Form form={form} layout="horizontal" labelCol={{span: 6}} wrapperCol={{span: 12}} labelAlign="right">
         <div className="text-gray-400 mb-4">Subscribers click on this menu to jump to the following Mini Program</div>
+        <Form.Item label="Mini Program">
+          <Select onChange={(val) => changeMenuItem(activeMenu?.key || '', { appid: val })}>
+            {(props.miniProgramList ?? []).map((item, idx) => (
+              <Select.Option key={idx} value={item.appId}>{item.accountName}</Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
         <Form.Item label="URL">
           <Input value={activeMenu?.url} onChange={(e) => changeMenuItem(activeMenu?.key || '', { url: e.target.value })} />
-        </Form.Item>
-        <Form.Item label="AppID">
-          <Input value={activeMenu?.appid} onChange={(e) => changeMenuItem(activeMenu?.key || '', { appid: e.target.value })} />
         </Form.Item>
         <Form.Item label="PagePath">
           <Input value={activeMenu?.pagepath} onChange={(e) => changeMenuItem(activeMenu?.key || '', { pagepath: e.target.value })} />
@@ -28,6 +35,6 @@ const MiniProgramType = () => {
       </Form>
     </div>
   )
-}
+})
 
 export default MiniProgramType
