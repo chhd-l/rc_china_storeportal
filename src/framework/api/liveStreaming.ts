@@ -2,7 +2,7 @@ import ApiRoot from './fetcher'
 import Mock from 'mockjs'
 import { liveStreamMockData } from '@/views/liveStreamingList/modules/mockdata'
 
-const isMock = true
+const isMock = false
 
 //获取直播列表
 export const getLiveStreamingList = async (parma: any) => {
@@ -29,12 +29,12 @@ export const getLiveStreamingList = async (parma: any) => {
 }
 
 //同步直播列表
-export const syncLiveStreaming = async () => {
+export const syncLiveStreaming = async (accountId: string) => {
   try {
     if (isMock) {
       return true
     } else {
-      let res = await ApiRoot.liveStreams().syncLiveStreaming('000001')
+      let res = await ApiRoot.liveStreams().syncLiveStreaming(accountId)
       return res?.syncLiveStreaming || false
     }
   } catch (e) {

@@ -8,6 +8,10 @@ const Index = ({ liveStreamingList }: { liveStreamingList: LiveStreaming[] }) =>
   const [isModalVisible, setIsModalVisible] = useState(false)
   const columns = [
     {
+      title: 'Mini Program',
+      dataIndex: 'accountName',
+    },
+    {
       title: 'Live Streaming ID',
       dataIndex: 'roomId',
     },
