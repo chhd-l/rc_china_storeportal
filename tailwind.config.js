@@ -8,6 +8,9 @@ module.exports = {
       borderRadius:{
         '4':'4px'
       },
+      width:{
+        '30':'7.5rem'
+      },
       spacing:{
         sm: '8px',
         md: '16px',
@@ -40,6 +43,10 @@ module.exports = {
         divider: 'var(--divider)',
         disable: 'var(--disable)',
         tableBg: 'var(--tableBg)',
+        upcomingBg:'var(--bg-status-upcoming)',
+        ongoingBg:'var(--bg-status-ongoing)',
+        ongoingText:'var(--status-ongoing)',
+        expiredBg:'var(--bg-status-expired)'
       },
       textColor: {
         gray1: 'var(--gray1)',
@@ -55,6 +62,10 @@ module.exports = {
         divider: 'var(--divider)',
         disable: 'var(--disable)',
         tableBg: 'var(--tableBg)',
+        upcomingBg:'var(--bg-status-upcoming)',
+        ongoingBg:'var(--bg-status-ongoing)',
+        ongoingText:'var(--status-ongoing)',
+        expiredBg:'var(--bg-status-expired)'
       },
     },
   },

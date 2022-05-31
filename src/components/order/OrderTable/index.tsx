@@ -19,10 +19,12 @@ const OrderTable = ({
   orderList,
   shipOrCompleteSuccess,
   changeCarrier,
+  origin = 'order',
 }: {
   orderList: Order[]
   shipOrCompleteSuccess: Function
   changeCarrier: Function
+  origin?: string
 }) => {
   const [carrierTypes, setCarrierTypes] = useState<CarrierType[]>([])
   const selectRef = React.useRef<any>(null)
@@ -43,33 +45,35 @@ const OrderTable = ({
         <Col span={4} className="text-left">
           Order Total
         </Col>
-        <Col span={4} className="text-left">
+        <Col span={origin !== 'voucher'?4:6} className="text-left">
           Order status
         </Col>
-        <Col span={4} className="text-left">
-          <Select
-            ref={selectRef}
-            onChange={(val, a) => {
-              console.log(val)
-              selectRef.current!.blur()
-              changeCarrier && changeCarrier(val)
-            }}
-            getPopupContainer={(trigger: any) => trigger.parentNode}
-            value="Carrier"
-            className="order-table-select"
-            style={{ width: '150px' }}
-          >
-            {carrierTypes
-              .concat([{ nameEn: 'All', code: '' }])
-              .reverse()
-              .map((item) => (
-                <Select.Option value={item.code} key={item.code}>
-                  {item.nameEn}
-                </Select.Option>
-              ))}
-          </Select>
-        </Col>
-        <Col span={2} className="text-left">
+        {origin !== 'voucher' ? (
+          <Col span={4} className="text-left">
+            <Select
+              ref={selectRef}
+              onChange={(val, a) => {
+                console.log(val)
+                selectRef.current!.blur()
+                changeCarrier && changeCarrier(val)
+              }}
+              getPopupContainer={(trigger: any) => trigger.parentNode}
+              value="Carrier"
+              className="order-table-select"
+              style={{ width: '150px' }}
+            >
+              {carrierTypes
+                .concat([{ nameEn: 'All', code: '' }])
+                .reverse()
+                .map((item) => (
+                  <Select.Option value={item.code} key={item.code}>
+                    {item.nameEn}
+                  </Select.Option>
+                ))}
+            </Select>
+          </Col>
+        ) : null}
+        <Col span={origin !== 'voucher'?2:4} className="text-left">
           Actions
         </Col>
       </Row>
@@ -130,13 +134,15 @@ const OrderTable = ({
                   <span className="text-gray-400 ">{item?.payInfo?.payTypeName}</span>
                 </div>
               </Col>
-              <Col span={4} className="text-left">
+              <Col span={origin !== 'voucher'?4:6} className="text-left">
                 <div>{orderStatusType[item.tradeState.orderState]}</div>
               </Col>
-              <Col span={4} className="text-left">
-                {item.carrierType}
-              </Col>
-              <Col span={2} className="text-left">
+              {origin !== 'voucher' ? (
+                <Col span={4} className="text-left">
+                  {item.carrierType}
+                </Col>
+              ) : null}
+              <Col span={origin !== 'voucher'?2:4} className="text-left">
                 <OrderActions
                   orderState={item.tradeState.orderState}
                   orderId={item.id}

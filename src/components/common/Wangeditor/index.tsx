@@ -2,6 +2,7 @@ import { useState, useEffect, FC } from 'react'
 import '@wangeditor/editor/dist/css/style.css'
 import { IEditorConfig, DomEditor, i18nChangeLanguage } from '@wangeditor/editor'
 import { Editor, Toolbar } from '@wangeditor/editor-for-react'
+import { UPLOAD_API_URL } from '@/framework/api/fetcher'
 import './index.less'
 interface EditorProps {
   onChange?: Function
@@ -32,7 +33,7 @@ const MyEditor: FC<EditorProps> = ({ defaultValue = '', onChange }) => {
   if (editorConfig.MENU_CONF) {
     //上面就申明了，但是一直提示object可能为空？？
     editorConfig.MENU_CONF['uploadImage'] = {
-      server: 'https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload',
+      server: UPLOAD_API_URL,
       fieldName: 'file',
       // meta: {
       //   type: 'image',
@@ -55,14 +56,14 @@ const MyEditor: FC<EditorProps> = ({ defaultValue = '', onChange }) => {
       //【注意】不需要修改的不用写，wangEditor 会去 merge 当前其他配置
     }
   }
-  // useEffect(() => {
-  //   setHtml(`<p></p>`)
-  // }, [])
+  useEffect(() => {
+    setHtml(`<p></p>`)
+  }, [])
   useEffect(() => {
     //重新塞进去菜单就会被禁用？注释掉就active?
     if (defaultValue) {
       console.info('goodsDescriptiondefaultValue======', defaultValue)
-      setHtml(`<span>${defaultValue}</span>`) //不知道为啥加了标签就可以反显，不加就不行
+      setHtml(`<p>${defaultValue}</p>`) //不知道为啥加了标签就可以反显，不加就不行
     }
   }, [defaultValue])
   // useEffect(() => {
@@ -102,7 +103,7 @@ const MyEditor: FC<EditorProps> = ({ defaultValue = '', onChange }) => {
           onCreated={setEditor}
           onChange={editor => {
             let htmls = editor.getHtml()
-            // console.info('htmlshtmlshtmlshtmlshtmls', htmls)
+            console.info('htmlshtmlshtmlshtmlshtmls', htmls)
             setHtml(htmls)
             onChange?.(htmls)
           }}

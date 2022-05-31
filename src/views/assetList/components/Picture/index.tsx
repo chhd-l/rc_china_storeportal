@@ -7,6 +7,7 @@ import { PageParamsProps } from '@/framework/types/common'
 import { handlePageParams } from '@/utils/utils'
 import './index.less'
 import { initPageParams } from '@/lib/constants'
+import { UPLOAD_API_URL } from '@/framework/api/fetcher'
 
 const Picture = ({
   isReload = false,
@@ -113,7 +114,7 @@ const Picture = ({
   const uploadProps = {
     name: 'file',
     accept: 'image/*',
-    action: 'https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload',
+    action: UPLOAD_API_URL,
     headers: {
       authorization: 'authorization-text',
     },

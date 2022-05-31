@@ -44,7 +44,7 @@ const MpQrList = () => {
     const lists: any = {}
     arr.forEach((item) => {
       if(item.accountType === 'MiniProgram') {
-        lists[item.id] = { text: item.accountPrincipal, status: "Success"}
+        lists[item.id] = { text: item.accountName, status: "Success"}
       }
     })
     setList(lists)
@@ -52,8 +52,8 @@ const MpQrList = () => {
 
   const columns: ProColumns[] = [
     {
-      title: 'Official Name',
-      dataIndex: "accountPrincipal",
+      title: 'Mini Program',
+      dataIndex: "accountName",
       valueType: "select",
       valueEnum: list,
     },

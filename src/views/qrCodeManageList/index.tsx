@@ -34,7 +34,7 @@ const QrCodeManage = () => {
     const lists: string[] = []
     arr.forEach((item) => {
       if(lists.indexOf(item.accountName) === -1 && item.accountType === 'ServiceAccount')
-      lists.push(item.accountPrincipal)
+      lists.push(item.accountName)
     })
     const val: any = {}
     lists.forEach((item: string) => {
@@ -52,8 +52,8 @@ const QrCodeManage = () => {
 
   const columns: ProColumns[] = [
     {
-      title: 'Official Name',
-      dataIndex: "accountPrincipal",
+      title: 'Wechat Account',
+      dataIndex: "accountName",
       valueType: "select",
       valueEnum: list,
     },
@@ -127,7 +127,7 @@ const QrCodeManage = () => {
           }
           const param: any = {}
           if(params.name) param.name = params.name
-          if(params.accountPrincipal) param.accountPrincipal = params.accountPrincipal
+          if(params.accountName) param.accountName = params.accountName
           if(params.type) param.type = params.type
           if(JSON.stringify(param) !== '{}') {
             item.sample = param

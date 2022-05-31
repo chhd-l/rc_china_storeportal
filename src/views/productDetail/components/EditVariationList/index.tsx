@@ -11,6 +11,8 @@ import { VerticalAlignBottomOutlined, VerticalAlignTopOutlined } from '@ant-desi
 import BundleSubSKu from '../BundleSubSKu'
 import Upload from '../UploadList'
 import ValidateInput from '../ValidateInput'
+import SkuNameInput from '../SkuNameInput'
+
 export interface VarviationProps {
   defaultImage: string
   skuNo: string
@@ -38,6 +40,7 @@ const EditVariationList = (props: FormProps) => {
   //changeType操作variation需要做include处理；操作spec需要做===处理
   const [variationList, setVariationList] = useState<VarviationProps[]>([])
   const [headerList, setHeaderList] = useState<HeaderProps[]>([])
+
   const [variationForm, setVariationForm] = useState({} as VarationsFormProps)
   useEffect(() => {
     const variationForm = cloneDeep(cloneVariationForm)
@@ -465,12 +468,16 @@ const EditVariationList = (props: FormProps) => {
                                   defaultValue={tr[td.keyVal]}
                                 />
                               )
-                            // return
                             case 'popup':
                               return (
-                                <Popover className='' content='哈哈哈' trigger='click' placement='bottom' title='Title'>
-                                  <Button type='primary'>Hover me</Button>
-                                </Popover>
+                                <SkuNameInput
+                                  defaultValue={tr[td.keyVal]}
+                                  onBlur={(e: any) => {
+                                    console.info('./.......', e.target.value)
+                                    tr[td.keyVal] = e.target.value
+                                    updateVations(e.target.value, index, td.keyVal, tr)
+                                  }}
+                                />
                               )
                             case 'subSku':
                               return (
@@ -485,7 +492,8 @@ const EditVariationList = (props: FormProps) => {
                               return (
                                 <div className='text-center '>
                                   {tr[td.keyVal] === 'true' ? (
-                                    <VerticalAlignBottomOutlined
+                                    <span
+                                      className='icon text-theme-red  iconfont icon-xiajia'
                                       onClick={() => {
                                         debugger
                                         tr[td.keyVal] = 'false'
@@ -493,16 +501,17 @@ const EditVariationList = (props: FormProps) => {
                                         updateVations('false', index, td.keyVal, tr)
                                         debugger
                                       }}
-                                    />
+                                    ></span>
                                   ) : (
-                                    <VerticalAlignTopOutlined
+                                    <span
+                                      className='icon text-theme-red  iconfont icon-Frame4'
                                       onClick={() => {
                                         debugger
                                         tr[td.keyVal] = 'true'
                                         updateVations('true', index, td.keyVal, tr)
                                         setVariationList([...variationList])
                                       }}
-                                    />
+                                    ></span>
                                   )}
                                 </div>
                               )
