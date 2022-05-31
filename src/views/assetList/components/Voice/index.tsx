@@ -6,6 +6,7 @@ import { ContentContainer } from '@/components/ui'
 import { PageParamsProps } from '@/framework/types/common'
 import { handlePageParams } from '@/utils/utils'
 import { initPageParams } from '@/lib/constants'
+import { UPLOAD_API_URL } from '@/framework/api/fetcher'
 
 const Voice = ({
   isReload = false,
@@ -98,7 +99,7 @@ const Voice = ({
   const uploadProps = {
     name: 'file',
     accept: 'audio/*',
-    action: 'https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload',
+    action: UPLOAD_API_URL,
     headers: {
       authorization: 'authorization-text',
     },

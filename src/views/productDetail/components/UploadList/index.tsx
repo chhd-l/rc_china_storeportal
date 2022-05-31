@@ -3,6 +3,7 @@ import { EyeOutlined, LoadingOutlined, PlusOutlined, UploadOutlined } from '@ant
 import { FC, useEffect, useState } from 'react'
 import { UploadProps } from 'antd'
 import { UploadChangeParam, UploadFile } from 'antd/lib/upload/interface'
+import { UPLOAD_API_URL } from '@/framework/api/fetcher'
 import classNames from 'classnames'
 import './index.less'
 export enum UploadType {
@@ -35,7 +36,7 @@ const UploadWrap = (props: UploadWrapProps) => {
   const [fileName, setFileName] = useState('')
   const uploadProps = {
     name: 'file',
-    action: 'https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload',
+    action: UPLOAD_API_URL,
     headers: {
       authorization: 'authorization-text',
     },
@@ -179,7 +180,7 @@ const UploadWrap = (props: UploadWrapProps) => {
         <Upload
           listType='picture-card'
           showUploadList={false}
-          action='https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload'
+          action={UPLOAD_API_URL}
           beforeUpload={beforeUpload}
           headers={{
             authorization: 'authorization-text',

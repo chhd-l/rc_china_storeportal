@@ -38,7 +38,8 @@ const AppLayout = () => {
               theme="light"
               style={{
                 overflow: 'auto',
-                height: '100vh',
+                height: 'calc(100vh - 55px)',
+                paddingBottom: 20,
                 position: 'fixed',
                 left: 0,
                 top: 55,

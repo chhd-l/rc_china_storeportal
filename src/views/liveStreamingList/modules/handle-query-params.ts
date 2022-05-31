@@ -13,7 +13,7 @@ export const handleQueryParams = ({
 }) => {
   let sample = Object.assign({}, activeKey !== '' ? { liveStatus: Number(activeKey) } : {})
   Object.keys(searchParams).map((name, index) => {
-    if (Object.values(searchParams)[index] !== '') {
+    if (Object.values(searchParams)[index] && Object.values(searchParams)[index] !== '') {
       sample = Object.assign(sample, {
         [name]: name === 'roomId' ? Number(Object.values(searchParams)[index]) : Object.values(searchParams)[index],
       })
