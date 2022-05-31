@@ -45,8 +45,9 @@ const CreateNewVoucher = lazy(() => import('@/views/CreateNewVoucher'))
 const SubscriptionList = lazy(() => import('@/views/subscriptionList'))
 const SubscriptionDetail = lazy(() => import('@/views/subscriptionDetail'))
 const OrderswithVoucher = lazy(() => import('@/views/OrderswithVoucher'))
-const DiscountPromotions = lazy(() => import('@/views/discountPromotions'))
+const ComingSoon = lazy(() => import('@/views/ComingSoon'))
 const LiveStreamingList = lazy(() => import('@/views/liveStreamingList'))
+const IntelligentRecommendation = lazy(() => import('@/views/intelligentRecommendation'))
 const AddGraphic = lazy(() => import('@/views/addGraphic'))
 
 interface RouteObject {
@@ -135,22 +136,27 @@ let routes: RouteObject[] = [
             path: 'promotions',
             breadcrumbName: 'Discount Promotions',
             children: [
-              { index: true, element: <DiscountPromotions />, },
-            ]
-          },
-          {
-            path: 'campaigns',
-            breadcrumbName: 'Campaigns',
-            children: [
-              { index: true, element: <DiscountPromotions />, },
+              { index: true, element: <ComingSoon />, },
             ]
           },
           {
             path: 'liveStreaming',
             breadcrumbName: 'Live Streaming',
             children: [
-              { index: true, element: <LiveStreamingList />, },
+              { index: true, element: <ComingSoon />, },
             ]
+          },
+          {
+            path: 'intelligentRecommendation',
+            breadcrumbName: 'Intelligent Recommendation',
+            children: [
+              { index: true, element: <IntelligentRecommendation /> },
+              { path: 'intelligentRecommendation-list', element: <IntelligentRecommendation /> },
+            ],
+          },
+          {
+            path: 'comingSoon',
+            element: <ComingSoon />,
           },
         ]
       },
