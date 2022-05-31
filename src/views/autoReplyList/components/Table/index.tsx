@@ -22,7 +22,7 @@ const Index = ({
   const navigator = useNavigate();
   const columns = [
     {
-      title: "Official Name",
+      title: "Wechat Account",
       dataIndex: "accountName",
       key: "accountName",
     },

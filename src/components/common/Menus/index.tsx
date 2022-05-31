@@ -5,76 +5,53 @@ import { useEffect, useState } from 'react'
 import { session } from '@/utils/global'
 // import "./index.less"
 
+const { SubMenu } = Menu;
+
+const findOpenKeysAndSelectedKeysByPathname = (menuList: any[], pathname: string) => {
+  const openKeys: any[] = [], selectedKeys: any[] = [];
+  (menuList || []).forEach((parent: any) => {
+    (parent.children || []).forEach((child: any) => {
+      if (child.url === pathname) {
+        openKeys.push(parent.key);
+        selectedKeys.push(child.key);
+      }
+    });
+  });
+  return { openKeys, selectedKeys };
+}
+
 const Menus = () => {
   const { pathname } = useLocation();
-  const { SubMenu } = Menu;
-  const [selectedKeys,setSelectKeys]=useState<any>(initActive(pathname))
-  const [openKeys,setOpenKeys]=useState([initActive(pathname)[0]])
+  const [selectedKeys,setSelectKeys]=useState<any[]>([])
+  const [openKeys,setOpenKeys]=useState<any[]>([])
 
   useEffect(()=>{
     console.log(333333,pathname)
-    const selectMenuKey=session.get('selectMenuKey')||[]
-    if(selectMenuKey.length>0){
-      setSelectKeys(selectMenuKey.reverse());
-      setOpenKeys([selectMenuKey[0]])
-    }else{
-      setSelectKeys(initActive(pathname));
-      setOpenKeys([initActive(pathname)[0]])
-      session.set('selectMenuKey',initActive(pathname))
+    let { openKeys, selectedKeys } = findOpenKeysAndSelectedKeysByPathname(menus, pathname);
+    if (!openKeys.length || !selectedKeys.length) {
+      openKeys = session.get('openMenuKeys') || [];
+      selectedKeys = session.get('selectedMenuKeys') || [];
     }
-    // setSelectKeys(initActive(pathname));
-    // setOpenKeys([initActive(pathname)[0]])
-    // try {
-    //   pathname.split('/').find(path => {
-    //     if(path === 'product') {
-    //       setOpenKeys(['product'])
-    //       throw new Error('0')
-    //     } else if (path === 'order') {
-    //       setOpenKeys(['order'])
-    //       throw new Error('0')
-    //     } else if (path === 'subscription') {
-    //       setOpenKeys(['subscription'])
-    //       throw new Error('0')
-    //     } else if (path === 'shipment-list') {
-    //       setOpenKeys(['shipment'])
-    //       throw new Error('0')
-    //     } else if (path === 'petOwner') {
-    //       setOpenKeys(['petOwner'])
-    //       throw new Error('0')
-    //     } else if (path === 'petOwner') {
-    //       setOpenKeys(['petOwner'])
-    //       throw new Error('0')
-    //     } else if (path === 'petOwner') {
-    //       setOpenKeys(['petOwner'])
-    //       throw new Error('0')
-    //     } else if (path === 'category') {
-    //       setOpenKeys(["shop"])
-    //       throw new Error('0')
-    //     } else {
-    //       setOpenKeys(["wechat_management"])
-    //     }
-    //   })
-    // } catch (e) {
-    //   console.log('e',e)
-    // }
-  },[pathname])
+    setSelectKeys(selectedKeys);
+    setOpenKeys(openKeys);
+  },[])
 
   const onOpenChange=(opens:string[])=>{
     console.log('opens',opens)
-    setOpenKeys(opens)
+    setOpenKeys(opens);
+    session.set('openMenuKeys', opens);
   }
 
   const onSelect=({ item, key, keyPath, selectedKeys, domEvent }:any)=>{
     console.log('selectMenuKey',item, key, keyPath, selectedKeys, domEvent)
-    session.set('selectMenuKey',keyPath)
+    setSelectKeys([key]);
+    session.set('selectedMenuKeys', [key]);
   }
 
   return (
     <Menu
-      defaultSelectedKeys={selectedKeys}
       selectedKeys={selectedKeys}
       openKeys={openKeys}
-      defaultOpenKeys={openKeys}
       mode="inline"
       onOpenChange={onOpenChange}
       onSelect={onSelect}

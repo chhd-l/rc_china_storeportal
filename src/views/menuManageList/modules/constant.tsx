@@ -27,9 +27,9 @@ interface ColumnsProps {
 export const tableColumns = ({ handleDelete, changeStatus }: TableColumns) => {
   const columns: ColumnProps<ColumnsProps>[] = [
     {
-      title: "Official Account",
-      dataIndex: "accountPrincipal",
-      key: "accountPrincipal",
+      title: "Wechat Account",
+      dataIndex: "accountName",
+      key: "accountName",
     },
     {
       title: "Menu Name",

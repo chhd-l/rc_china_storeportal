@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { ContentContainer, DivideArea, SearchContainer, TableContainer } from '@/components/ui'
-import { Button, Modal, Pagination, Spin, Tabs } from 'antd'
+import { ContentContainer, DivideArea, InfoContainer, SearchContainer, TableContainer } from '@/components/ui'
+import { Button, Form, message, Modal, Pagination, Select, Spin, Tabs } from 'antd'
 import Search from './components/Search'
 import Table from './components/Table'
 import { LiveStreaming } from '@/framework/types/liveStreaming'
@@ -10,6 +10,7 @@ import { handleQueryParams } from '@/views/liveStreamingList/modules/handle-quer
 import { initSearchParams, SearchParamsProps } from './modules/constants'
 import { PageParamsProps } from '@/framework/types/common'
 import { initPageParams } from '@/lib/constants'
+import { getAccountList } from '@/framework/api/wechatSetting'
 
 const LiveStreamingList = () => {
   const [liveStreamingList, setLiveStreamingList] = useState<LiveStreaming[]>([])
@@ -21,6 +22,7 @@ const LiveStreamingList = () => {
   const [loading, setLoading] = useState(false)
   const [syncTipModalShow, setSyncTipModalShow] = useState(false)
   const [syncLoading, setSyncLoading] = useState(false)
+  const [miniProjList, setMiniProjList] = useState([])
 
   const changePage = (page: any, pageSize: any) => {
     setPageParams({ currentPage: page, pageSize: pageSize })
@@ -35,16 +37,32 @@ const LiveStreamingList = () => {
     setLoading(false)
   }
 
-  const syncLiveStreams = async () => {
+  const syncLiveStreams = async (values: any) => {
     setSyncLoading(true)
-    await syncLiveStreaming()
+    const res = await syncLiveStreaming(values.accountId)
+    if (res) {
+      message.success({ className: 'rc-message', content: 'Synchronize success' })
+    }
     setSyncTipModalShow(false)
     setSyncLoading(false)
+  }
+
+  const getAccountName = async () => {
+    let res = await getAccountList({
+      limit: 100,
+      offset: 0,
+      sample: { storeId: '12345678' },
+    })
+    setMiniProjList((res?.records || []).filter((item: any) => item.accountType === 'MiniProgram'))
   }
 
   useEffect(() => {
     getLiveStreamingLists()
   }, [searchParams, pageParams, activeKey])
+
+  useEffect(() => {
+    getAccountName()
+  }, [])
 
   return (
     <ContentContainer>
@@ -53,6 +71,7 @@ const LiveStreamingList = () => {
           query={(data: SearchParamsProps) => {
             setSearchParams(data)
           }}
+          miniProjList={miniProjList}
         />
       </SearchContainer>
       <DivideArea />
@@ -99,12 +118,44 @@ const LiveStreamingList = () => {
           title="Synchronize Live Streaming"
           closable={false}
           width={400}
-          onCancel={() => setSyncTipModalShow(false)}
-          onOk={() => syncLiveStreams()}
-          okText="Confirm"
-          confirmLoading={syncLoading}
+          footer={null}
+          destroyOnClose
         >
-          <div>Are you sure you want yo sync ?</div>
+          <div>Please select a mini program to synchronize</div>
+          <Form
+            className="mt-lg"
+            layout="horizontal"
+            onFinish={async (values) => {
+              await syncLiveStreams(values)
+            }}
+          >
+            <Form.Item
+              label="Mini Program"
+              name="accountId"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please select Mini Program!',
+                },
+              ]}
+            >
+              <Select placeholder="Select Mini Program">
+                {miniProjList.map((el: any) => (
+                  <Select.Option key={el.id}>{el.accountName}</Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+            <Form.Item>
+              <div className="flex justify-end mt-lg -mb-lg">
+                <Button className="mr-4 rounded-4" onClick={() => setSyncTipModalShow(false)}>
+                  Cancel
+                </Button>
+                <Button className="rounded-4" type="primary" htmlType="submit" danger loading={syncLoading}>
+                  Confirm
+                </Button>
+              </div>
+            </Form.Item>
+          </Form>
         </Modal>
       </TableContainer>
     </ContentContainer>

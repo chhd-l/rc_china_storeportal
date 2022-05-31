@@ -4,7 +4,7 @@ import { matchTypeList } from "./constants";
 
 export const getFormItems: (accountList: BaseListProps[]) => SearchFormItemProps[] = (accountList) => ([
   {
-    label: "Official Name",
+    label: "Wechat Account",
     name: "name",
     placeholder: "Select",
     type: "select",

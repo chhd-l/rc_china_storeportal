@@ -217,7 +217,7 @@ export const headerOrigition: any = [
   },
   {
     label: 'SKU Name',
-    type: 'input',
+    type: 'popup',
     required: true,
     keyVal: 'skuName',
     dataTips: `SKU Name:

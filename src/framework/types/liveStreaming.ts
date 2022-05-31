@@ -1,6 +1,5 @@
 export interface LiveStreaming {
   id: string
-  accountId?: string
   name: string
   roomId: number
   coverImg?: string
@@ -12,4 +11,7 @@ export interface LiveStreaming {
   anchorName: string
   liveType?: number
   createdAt?: string
+  accountId?:string
+  accountPrincipal:string
+  accountName:string
 }
