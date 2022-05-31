@@ -8,7 +8,7 @@ const BasicInformation = ({ state }: { state: any }) => {
   const [DescriptionsOpen, setDescriptionsOpen] = useState(false)
 
   return (
-    <ContentContainer className="bg-white p-4 BasicInformation">
+    <div className=" BasicInformation">
       <Descriptions
         title={
           <div className="text-xl">
@@ -20,14 +20,17 @@ const BasicInformation = ({ state }: { state: any }) => {
         <Descriptions.Item label="Voucher Name">{state.voucherName}</Descriptions.Item>
         <Descriptions.Item label="Order Type">{state.orderType}</Descriptions.Item>
         <Descriptions.Item label="Minimum Basket Price">￥{state.minimumBasketPrice}</Descriptions.Item>
-        <Descriptions.Item label="Discount Amount">{
-          state.discountType === 'FIX_AMOUNT' ? 'Fix Amount' : 'By Percentage'
-          }</Descriptions.Item>
+        <Descriptions.Item label="Discount Amount">
+          {state.discountType === 'FIX_AMOUNT' ? 'Fix Amount' : 'By Percentage'}
+        </Descriptions.Item>
         <Descriptions.Item label="Voucher Usage Period">
-          {moment(state.voucherUsageBeginningOfTime).format('YYYY/MM/DD HH:mm')} to {moment(state.voucherUsageEndOfTimemoment).format('YYYY/MM/DD HH:mm')}
+          {moment(state.voucherUsageBeginningOfTime).format('YYYY/MM/DD HH:mm')} to{' '}
+          {moment(state.voucherUsageEndOfTimemoment).format('YYYY/MM/DD HH:mm')}
         </Descriptions.Item>
         <Descriptions.Item label="Voucher Type">{state.voucherType}</Descriptions.Item>
-        <Descriptions.Item label="Applicable Products">{state.discountType}</Descriptions.Item>
+        <Descriptions.Item label="Applicable Products">
+          {state.voucherType === 'SHOP_VOUCHER' ? 'All Products' : `${state?.voucherGoodsRelated?.length} Products`}
+        </Descriptions.Item>
         {/* <Descriptions.Item label="Quantity">Hangzhou, Zhejiang</Descriptions.Item>
                 <Descriptions.Item label="Claimed">empty</Descriptions.Item> */}
         <Descriptions.Item
@@ -86,7 +89,7 @@ const BasicInformation = ({ state }: { state: any }) => {
           </div>
         )}
       </Divider>
-    </ContentContainer>
+    </div>
   )
 }
 

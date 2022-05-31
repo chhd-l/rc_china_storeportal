@@ -216,7 +216,7 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
   }
 
   useEffect(() => {
-    ref.current?.reload()
+    ref.current?.reloadAndRest!()
   }, [voucherStatus])
 
   return (
@@ -233,6 +233,7 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
           showSizeChanger: true,
           showQuickJumper: true,
           defaultPageSize: 10,
+          defaultCurrent: 1,
           showTotal: () => <></>,
         }}
         search={{

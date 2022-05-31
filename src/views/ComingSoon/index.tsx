@@ -2,7 +2,7 @@ import React from 'react'
 import comingsoon from '@/assets/images/comingsoon.png'
 import { ContentContainer, InfoContainer } from '@/components/ui'
 
-const DiscountPromotions = () => {
+const ComingSoon = () => {
   return (
     <ContentContainer>
       <InfoContainer>
@@ -13,4 +13,4 @@ const DiscountPromotions = () => {
     </ContentContainer>
   )
 }
-export default DiscountPromotions
+export default ComingSoon

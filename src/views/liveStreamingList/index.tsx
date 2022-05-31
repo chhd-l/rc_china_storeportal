@@ -37,9 +37,9 @@ const LiveStreamingList = () => {
     setLoading(false)
   }
 
-  const syncLiveStreams = async (values: any) => {
+  const syncLiveStreams = async () => {
     setSyncLoading(true)
-    const res = await syncLiveStreaming(values.accountId)
+    const res = await syncLiveStreaming("000001")
     if (res) {
       message.success({ className: 'rc-message', content: 'Synchronize success' })
     }
@@ -118,44 +118,49 @@ const LiveStreamingList = () => {
           title="Synchronize Live Streaming"
           closable={false}
           width={400}
-          footer={null}
-          destroyOnClose
+          onCancel={() => setSyncTipModalShow(false)}
+          onOk={() => syncLiveStreams()}
+          okText="Confirm"
+          confirmLoading={syncLoading}
+          // footer={null}
+          // destroyOnClose
         >
-          <div>Please select a mini program to synchronize</div>
-          <Form
-            className="mt-lg"
-            layout="horizontal"
-            onFinish={async (values) => {
-              await syncLiveStreams(values)
-            }}
-          >
-            <Form.Item
-              label="Mini Program"
-              name="accountId"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please select Mini Program!',
-                },
-              ]}
-            >
-              <Select placeholder="Select Mini Program">
-                {miniProjList.map((el: any) => (
-                  <Select.Option key={el.id}>{el.accountName}</Select.Option>
-                ))}
-              </Select>
-            </Form.Item>
-            <Form.Item>
-              <div className="flex justify-end mt-lg -mb-lg">
-                <Button className="mr-4 rounded-4" onClick={() => setSyncTipModalShow(false)}>
-                  Cancel
-                </Button>
-                <Button className="rounded-4" type="primary" htmlType="submit" danger loading={syncLoading}>
-                  Confirm
-                </Button>
-              </div>
-            </Form.Item>
-          </Form>
+          <div>Are you sure you want yo sync ?</div>
+          {/*<div>Please select a mini program to synchronize</div>*/}
+          {/*<Form*/}
+          {/*  className="mt-lg"*/}
+          {/*  layout="horizontal"*/}
+          {/*  onFinish={async (values) => {*/}
+          {/*    await syncLiveStreams(values)*/}
+          {/*  }}*/}
+          {/*>*/}
+          {/*  <Form.Item*/}
+          {/*    label="Mini Program"*/}
+          {/*    name="accountId"*/}
+          {/*    rules={[*/}
+          {/*      {*/}
+          {/*        required: true,*/}
+          {/*        message: 'Please select Mini Program!',*/}
+          {/*      },*/}
+          {/*    ]}*/}
+          {/*  >*/}
+          {/*    <Select placeholder="Select Mini Program">*/}
+          {/*      {miniProjList.map((el: any) => (*/}
+          {/*        <Select.Option key={el.id}>{el.accountName}</Select.Option>*/}
+          {/*      ))}*/}
+          {/*    </Select>*/}
+          {/*  </Form.Item>*/}
+          {/*  <Form.Item>*/}
+          {/*    <div className="flex justify-end mt-lg -mb-lg">*/}
+          {/*      <Button className="mr-4 rounded-4" onClick={() => setSyncTipModalShow(false)}>*/}
+          {/*        Cancel*/}
+          {/*      </Button>*/}
+          {/*      <Button className="rounded-4" type="primary" htmlType="submit" danger loading={syncLoading}>*/}
+          {/*        Confirm*/}
+          {/*      </Button>*/}
+          {/*    </div>*/}
+          {/*  </Form.Item>*/}
+          {/*</Form>*/}
         </Modal>
       </TableContainer>
     </ContentContainer>
