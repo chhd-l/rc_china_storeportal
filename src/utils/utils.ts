@@ -17,6 +17,7 @@ export const handleValueEnum = (list: LabelOptionProps[]) => {
   list.forEach((item: LabelOptionProps) => {
     newEnum[item.value] = { text: item.label }
   })
+  console.log(newEnum)
   return newEnum
 }
 
