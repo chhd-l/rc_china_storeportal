@@ -19,7 +19,7 @@ const IntelligentRecommendation = ({ title, span, Enable, Edit, Details, open, b
               <span className="cursor-pointer ml-1 iconfont icon-kjafg text-gray-300 text-xs" onClick={() => {}} />
             )}
           </Title>
-          <div style={{ fontSize: '12px', lineHeight: '1.2rem' }}>{span}</div>
+          <div style={{ fontSize: '0.75rem', lineHeight: '1.2rem' }}>{span}</div>
         </div>
       </div>
       <div className="p-1 mt-1 flex">
