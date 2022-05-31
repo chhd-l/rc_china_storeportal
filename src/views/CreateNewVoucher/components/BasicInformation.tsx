@@ -4,6 +4,7 @@ import Finishedproductdisplay from './Finishedproductdisplay'
 import { useState } from 'react'
 import moment from 'moment'
 import { RcFile } from 'antd/lib/upload'
+import { UPLOAD_API_URL } from '@/framework/api/fetcher'
 const { Title } = Typography
 const { RangePicker } = DatePicker
 
@@ -280,7 +281,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
               disabled={Edit}
               beforeUpload={beforeUpload}
               showUploadList={false}
-              action="https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload"
+              action={UPLOAD_API_URL}
               headers={{
                 authorization: 'authorization-text',
               }}

@@ -20,7 +20,7 @@ const MiniProgramType = React.forwardRef((props: { miniProgramList: any[] }, ref
       <Form form={form} layout="horizontal" labelCol={{span: 6}} wrapperCol={{span: 12}} labelAlign="right">
         <div className="text-gray-400 mb-4">Subscribers click on this menu to jump to the following Mini Program</div>
         <Form.Item label="Mini Program">
-          <Select onChange={(val) => changeMenuItem(activeMenu?.key || '', { appid: val })}>
+          <Select value={activeMenu?.appid} onChange={(val) => changeMenuItem(activeMenu?.key || '', { appid: val })}>
             {(props.miniProgramList ?? []).map((item, idx) => (
               <Select.Option key={idx} value={item.appId}>{item.accountName}</Select.Option>
             ))}

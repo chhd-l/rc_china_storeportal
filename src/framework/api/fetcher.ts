@@ -13,6 +13,8 @@ const API_URL = 'https://msdev.d2cgo.com/faas/graphql'
 
 // const API_URL = `${process.env.REACT_APP_BASE_URL}/graphql`
 
+export const UPLOAD_API_URL = 'https://msdev.d2cgo.com/faas/upload'
+
 const ApiRoot = new ClientBuilder().config({
   url: API_URL,
   handleError: function (err: string, isNeedToLogin: boolean = false) {

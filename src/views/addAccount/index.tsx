@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router";
 import { ContentContainer, InfoContainer } from "@/components/ui";
 import { createAccount, modifyAccount } from '@/framework/api/wechatSetting'
 import { useState } from "react";
+import { UPLOAD_API_URL } from '@/framework/api/fetcher'
 import './Style.less'
 
 const AddAccount = () => {
@@ -105,7 +106,7 @@ const AddAccount = () => {
                           autoSize={{ minRows: 3, maxRows: 5 }}
                         />
                       ) : item.type === "upload" ? (
-                        <Upload name="file" action="https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload" headers={{authorization: 'authorization-text'}} showUploadList={false} onChange={(info: any) => onUploadChange(item.name, info)}>
+                        <Upload name="file" action={UPLOAD_API_URL} headers={{authorization: 'authorization-text'}} showUploadList={false} onChange={(info: any) => onUploadChange(item.name, info)}>
                           <Input
                             value={item.name === "qrCodePath" ? qrCodePath : pertificatePath}
                             placeholder={item.placeholder}
@@ -158,7 +159,7 @@ const AddAccount = () => {
                           autoSize={{ minRows: 3, maxRows: 5 }}
                         />
                       ) : item.type === "upload" ? (
-                        <Upload name="file" action="https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload" headers={{authorization: 'authorization-text'}} showUploadList={false} onChange={(info: any) => onUploadChange(item.name, info)}>
+                        <Upload name="file" action={UPLOAD_API_URL} headers={{authorization: 'authorization-text'}} showUploadList={false} onChange={(info: any) => onUploadChange(item.name, info)}>
                           <Input
                             value={item.name === "qrCodePath" ? qrCodePath : pertificatePath}
                             placeholder={item.placeholder}

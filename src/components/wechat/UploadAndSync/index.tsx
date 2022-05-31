@@ -3,6 +3,7 @@ import { Asset } from "@/framework/types/wechat";
 import { createMediaAndSync } from "@/framework/api/wechatSetting";
 import { Upload, Spin, message } from "antd";
 import { LoadingOutlined } from '@ant-design/icons';
+import { UPLOAD_API_URL } from '@/framework/api/fetcher'
 
 interface IProps {
   assetType: "image" | "voice" | "video"
@@ -16,7 +17,7 @@ const MyUpload: React.FC<IProps> = (props) => {
   const uploadProps = {
     name: 'file',
     accept: 'image/*',
-    action: 'https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload',
+    action: UPLOAD_API_URL,
     headers: {
       authorization: 'authorization-text',
     },
