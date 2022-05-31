@@ -2,6 +2,7 @@ import { useState, useEffect, FC } from 'react'
 import '@wangeditor/editor/dist/css/style.css'
 import { IEditorConfig, DomEditor, i18nChangeLanguage } from '@wangeditor/editor'
 import { Editor, Toolbar } from '@wangeditor/editor-for-react'
+import { UPLOAD_API_URL } from '@/framework/api/fetcher'
 import './index.less'
 interface EditorProps {
   onChange?: Function
@@ -32,7 +33,7 @@ const MyEditor: FC<EditorProps> = ({ defaultValue = '', onChange }) => {
   if (editorConfig.MENU_CONF) {
     //上面就申明了，但是一直提示object可能为空？？
     editorConfig.MENU_CONF['uploadImage'] = {
-      server: 'https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload',
+      server: UPLOAD_API_URL,
       fieldName: 'file',
       // meta: {
       //   type: 'image',

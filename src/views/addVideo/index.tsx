@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router'
 import { ContentContainer, InfoContainer } from '@/components/ui'
 import { createMedia } from '@/framework/api/wechatSetting'
 import React, { useState } from 'react'
+import { UPLOAD_API_URL } from '@/framework/api/fetcher'
 
 const AddAccount = () => {
   const navigator = useNavigate()
@@ -31,7 +32,7 @@ const AddAccount = () => {
   const uploadProps = {
     name: 'file',
     accept: 'video/*',
-    action: 'https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload',
+    action: UPLOAD_API_URL,
     headers: {
       authorization: 'authorization-text',
     },
