@@ -1,118 +1,151 @@
-import { IsDefault, LabelOptionProps } from "@/framework/types/common";
-import { handleValueEnum } from "@/utils/utils";
+import { IsDefault, LabelOptionProps } from '@/framework/types/common'
+import { handleValueEnum } from '@/utils/utils'
 import {
   DeleteOutlined,
   FormOutlined,
   SearchOutlined,
-} from "@ant-design/icons";
-import { ProColumns } from "@ant-design/pro-table";
-import { Switch } from "antd";
-import { Link } from "react-router-dom";
+} from '@ant-design/icons'
+import { ProColumns } from '@ant-design/pro-table'
+import { Switch, Tooltip } from 'antd'
+import { Link } from 'react-router-dom'
+
 
 enum StatusType {
-  Close,
+  Closef,
   Open,
 }
+
 interface TableColumnsProps {
   handleDelete: (e: string) => void;
-  changeStatus: (e: boolean) => void;
+  changeStatus: (e: boolean, id:string) => void;
   handlePreview: (e: string) => void;
-  clickTypeList: LabelOptionProps[];
+  navigator:any
 }
+
 interface ColumnsProps {
   officialAccount: string;
   name: string;
-  img: string;
+  picUrl: string;
   clickType: string;
   path: string;
   default: number;
   sort: number;
   id: string;
-  status: boolean;
+  page: string;
+  isActive: boolean;
 }
+
 export const tableColumns = ({
-  handlePreview,
-  handleDelete,
-  changeStatus,
-  clickTypeList,
-}: TableColumnsProps) => {
+                               handlePreview,
+                               handleDelete,
+                               changeStatus,
+                               navigator,
+                             }: TableColumnsProps) => {
+
   const columns: ProColumns<ColumnsProps>[] = [
     {
-      title: "Official Account",
-      dataIndex: "officialAccount",
+      title: 'Official Account',
+      dataIndex: 'accountId',
       hideInSearch: true,
     },
     {
-      title: "Banner Name",
-      dataIndex: "name",
+      title: 'Banner Name',
+      dataIndex: 'name',
+    },
+    {
+      title: 'Page',
+      dataIndex: 'page',
+      hideInSearch: true,
+    },
+    // {
+    //   title: "Banner Pic",
+    //   dataIndex: "img",
+    //   hideInSearch: true,
+    //   render: (_, record) => (
+    //     <a>
+    //       <SearchOutlined
+    //         onClick={() => {
+    //           handlePreview(record.img);
+    //         }}
+    //       />
+    //     </a>
+    //   ),
+    // },
+    {
+      title: 'Click Type',
+      dataIndex: 'clickType',
+      valueEnum: {
+        NO_OPERATION:{text:'No operation'},
+        OPEN_THE_WEB_PAGE:{text:'No the WEB page'},
+        OPEN_THE_MP_PAGE:{text:'Open the MP page'},
+        OPEN_OTHER_MP_PAGE:{text:'Open other MP page'},
+      },
+    },
+    {
+      title: 'Path',
+      dataIndex: 'path',
+      hideInSearch: true,
+    },
+    // {
+    //   title: "Default",
+    //   dataIndex: "default",
+    //   hideInSearch: true,
+    //   render: (_, record) => <div>{IsDefault[record.default]}</div>,
+    // },
+    {
+      title: 'Sort',
+      dataIndex: 'sort',
       hideInSearch: true,
     },
     {
-      title: "Banner Pic",
-      dataIndex: "img",
-      hideInSearch: true,
-      render: (_, record) => (
-        <a>
-          <SearchOutlined
-            onClick={() => {
-              handlePreview(record.img);
-            }}
-          />
-        </a>
-      ),
-    },
-    {
-      title: "Click Type",
-      dataIndex: "clickType",
-      valueEnum: handleValueEnum(clickTypeList),
-    },
-    {
-      title: "Path",
-      dataIndex: "path",
-      hideInSearch: true,
-    },
-    {
-      title: "Default",
-      dataIndex: "default",
-      hideInSearch: true,
-      render: (_, record) => <div>{IsDefault[record.default]}</div>,
-    },
-    {
-      title: "Sort",
-      dataIndex: "sort",
-      hideInSearch: true,
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      valueEnum: StatusType,
+      title: 'Status',
+      dataIndex: 'isActive',
+      valueEnum: {
+        true:{text:'Open'},
+        false:{text:'Closef'},
+      },
       render: (_, record) => (
         <Switch
-          defaultChecked={record.status}
+          checked={record.isActive}
           onChange={(checked: boolean) => {
-            changeStatus(checked);
-            console.log(`switch to ${checked}`);
+            changeStatus(checked,record.id)
           }}
         />
       ),
     },
     {
-      title: "Action",
+      title: 'Action',
       hideInSearch: true,
       render: (_, record) => [
-        <Link to={`/mpbanner/mpbanner-detail/${record.id}`} className="mr-4">
-          <FormOutlined />
-        </Link>,
-        <a className=" mr-4">
-          <DeleteOutlined
-            onClick={() => {
-              handleDelete(record.id);
-            }}
-          />
-        </a>,
+        <Tooltip title='Edit'>
+          <a className='mr-4' href='' onClick={(e) => {
+            e.stopPropagation()
+            navigator('/mpbanner/mpbanner-detail', {
+              state: { id: record.id },
+            })
+          }}>
+            <FormOutlined />
+          </a>
+        </Tooltip>,
+        <Tooltip title='View'>
+          <a className=' mr-4'>
+            <SearchOutlined
+              onClick={() => {
+                console.log(record.picUrl)
+                handlePreview(record.picUrl);
+              }}
+            />
+          </a>
+        </Tooltip>,
+        <Tooltip title='Delete'>
+          <Link to='' className='mr-4 text-xl' onClick={() => {
+            handleDelete(record.id)
+          }}>
+            <span className='iconfont icon-delete' />
+          </Link></Tooltip>,
       ],
     },
-  ];
+  ]
 
-  return columns;
-};
+  return columns
+}

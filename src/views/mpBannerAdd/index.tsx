@@ -11,13 +11,11 @@ import {
 import { useEffect, useRef, useState } from 'react'
 import { ContentContainer, InfoContainer } from '@/components/ui'
 import { getAccountList } from '@/framework/api/wechatSetting'
-import { bannerCreate, bannerGetDetailById, bannerUpdate } from '@/framework/api/banner'
-import { useLocation } from 'react-router'
+import { bannerCreate } from '@/framework/api/banner'
 import { useNavigate } from 'react-router-dom'
 
-const MpBannerDetail = () => {
+const MpBannerAdd = () => {
   const navigator = useNavigate()
-  const { state }: any = useLocation();
   const formRef = useRef<ProFormInstance>()
   const [picUrl, setPicUrl] = useState('');
   const [clickType, setClickType] = useState();
@@ -46,18 +44,13 @@ const MpBannerDetail = () => {
     })
     setList(lists)
   }
-  const getlist = async () => {
-    let res = await bannerGetDetailById(state.id)
-    console.log(res,99999)
-    formRef?.current?.setFieldsValue(res.bannerGetDetailById)
-    setClickType(res.bannerGetDetailById.clickType)
-  }
+
   useEffect(() => {
     getAccountName()
-    getlist()
   }, [])
   const onUploadChange = ( info: any) => {
     if (info.file.status === 'done') {
+      console.log(info.file.response.url,22222)
       formRef?.current?.setFieldsValue({ picUrl: info.file.response.url })
       setPicUrl(info.file.response.url)
     } else if (info.file.status === 'error') {
@@ -84,20 +77,17 @@ const MpBannerDetail = () => {
   }
   return (
     <ContentContainer className='mp-banner-detail'>
-      <InfoContainer title='Edit MP Banner'>
+      <InfoContainer title='Add New MP Banner'>
         <ProForm
           {...layout}
           formRef={formRef}
           layout='horizontal'
           onFinish={async (values) => {
             console.info(values)
-          let res = await bannerUpdate({
-              id:state.id,
+            bannerCreate({
               ...values
             },'111')
-            if(res.bannerUpdate){
-              navigator('/mpbanner/mpbanner-list')
-            }
+            navigator('/mpbanner/mpbanner-list')
           }}
           submitter={restSearchButtons}
           className='mp-form'
@@ -196,4 +186,4 @@ const MpBannerDetail = () => {
   )
 }
 
-export default MpBannerDetail
+export default MpBannerAdd

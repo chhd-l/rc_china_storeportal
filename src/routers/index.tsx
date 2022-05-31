@@ -32,6 +32,7 @@ const QrCodeManage = lazy(() => import('@/views/qrCodeManageList'))
 const MenuManage = lazy(() => import('@/views/menuManageList'))
 const TemplateMessage = lazy(() => import('@/views/templateMessageList'))
 const MpBannerDetail = lazy(() => import('@/views/mpBannerDetail'))
+const MpBannerAdd = lazy(() => import('@/views/mpBannerAdd'))
 const MpQRDetail = lazy(() => import('@/views/mpQRDetail'))
 const QrCodeManageDetail = lazy(() => import('@/views/qrCodeManageDetail'))
 const MenuManageDetail = lazy(() => import('@/views/menuManageDetail'))
@@ -227,7 +228,8 @@ let routes: RouteObject[] = [
         children: [
           { index: true, element: <MpBannerList /> },
           { path: 'mpbanner-list', element: <MpBannerList /> },
-          { path: 'mpbanner-detail/:id', element: <MpBannerDetail />, breadcrumbName: 'MpBanner Detail' },
+          { path: 'mpbanner-detail', element: <MpBannerDetail />, breadcrumbName: 'Mp Banner Detail' },
+          { path: 'mpbanner-add', element: <MpBannerAdd />, breadcrumbName: 'Mp Banner Add' },
         ],
       },
       {
