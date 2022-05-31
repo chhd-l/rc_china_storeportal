@@ -1,18 +1,23 @@
-import { ContentContainer } from "@/components/ui"
-import { useLocation } from "react-router"
-import BasicInformation from "./components/BasicInformation"
-import Orders from "./components/Orders"
+import { ContentContainer, DivideArea, InfoContainer } from '@/components/ui'
+import { useLocation } from 'react-router'
+import BasicInformation from './components/BasicInformation'
+import Orders from './components/Orders'
 import './Style.less'
 
-const OrderswithVoucher = () => {
-    const { state }: any = useLocation()
+const VoucherOrders = () => {
+  const { state }: any = useLocation()
 
-    return (
-        <ContentContainer>
-            <BasicInformation state={state} />
-            <Orders state={state} />
-        </ContentContainer>
-    )   
+  return (
+    <ContentContainer>
+      <InfoContainer>
+        <BasicInformation state={state} />
+      </InfoContainer>
+      <DivideArea />
+      <InfoContainer>
+        <Orders state={state} />
+      </InfoContainer>
+    </ContentContainer>
+  )
 }
 
-export default OrderswithVoucher
+export default VoucherOrders
