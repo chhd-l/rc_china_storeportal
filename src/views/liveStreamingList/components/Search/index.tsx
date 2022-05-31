@@ -82,13 +82,17 @@ const LiveStreamingSearch = ({ query, miniProjList }: { query: Function; miniPro
           <div className="mr-2 w-40 text-right">Mini Program:</div>
           <Select
             style={{ width: '240px' }}
+            // defaultValue={searchParams.accountName}
+            value={searchParams.accountName}
             placeholder="Select mini program"
             onChange={(value) => {
               setSearchParams({ ...searchParams, accountName: value })
             }}
           >
             {miniProjList.map((el) => (
-              <Select.Option key={el.id}>{el.accountName}</Select.Option>
+              <Select.Option key={el.id} value={el.accountName}>
+                {el.accountName}
+              </Select.Option>
             ))}
           </Select>
         </div>

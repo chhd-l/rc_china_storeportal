@@ -4,7 +4,7 @@ export interface SearchParamsProps {
   anchorName: string
   startTime: string
   endTime: string
-  accountName:string
+  accountName:any
 }
 
 export const initSearchParams: SearchParamsProps = {
@@ -13,7 +13,7 @@ export const initSearchParams: SearchParamsProps = {
   anchorName: '',
   startTime: '',
   endTime: '',
-  accountName:''
+  accountName:null
 }
 
 export const liveStreamTabList = [
