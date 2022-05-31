@@ -1,12 +1,54 @@
 import React, { useState } from 'react'
 import { DatePicker, Button, Input, Select } from 'antd'
 import { MenuOutlined } from '@ant-design/icons'
+import { SubscriptionType, SubscriptionCycle } from '../modules/constants'
+import moment, { Moment } from 'moment'
 
 const Option = Select.Option
 
-const Search = () => {
+type RangeValue = [Moment | null, Moment | null] | null
+
+type TParam = {
+  sample: any
+  where: any
+}
+
+interface IProps {
+  onSearch: (param: TParam) => void
+}
+
+const Search = (props: IProps) => {
   const inputRef = React.useRef<any>(null);
-  const [type, setType] = useState<string>('1')
+  const [dates, setDates] = useState<RangeValue>(null)
+  const [type, setType] = useState<string>('idLike');
+  const [val, setVal] = useState<string | undefined>(undefined);
+
+  const handleSelectDate = (date: any) => {
+    setDates(date)
+  }
+
+  const handleSelectType = (val: string) => {
+    setType(val)
+    setVal(undefined)
+  }
+
+  const handleReset = () => {
+    setType("idLike")
+    setVal(undefined)
+    setDates(null)
+    props.onSearch({sample: undefined, where: undefined})
+  }
+
+  const handleSearch = () => {
+    props.onSearch({
+      sample: type === "type" || type === "cycle" ? { [type]: val } : undefined,
+      where: dates || (type !== "type" && type !== "cycle") ? {
+        createdAtBiggerThan: dates && dates[0] ? dates[0].utc().startOf('day').format() : undefined,
+        createdAtLessThan: dates && dates[1] ? dates[1].utc().endOf('day').format() : undefined,
+        [type]: type !== "type" && type !== "cycle" ? val : undefined,
+      } : undefined
+    })
+  }
 
   return (
     <div>
@@ -14,6 +56,8 @@ const Search = () => {
         <div className="w-auto mr-3">Subscription Creation Date</div>
         <DatePicker.RangePicker
           style={{ width: '300px' }}
+          value={dates}
+          onChange={handleSelectDate}
         />
         <Button className="ml-3">Export</Button>
         <Button className="ml-3" icon={<MenuOutlined style={{ color: '#979797' }} />} />
@@ -23,28 +67,31 @@ const Search = () => {
           <Select
             getPopupContainer={(trigger: any) => trigger.parentNode}
             value={type}
-            onChange={(val) => setType(val)}
+            onChange={handleSelectType}
             style={{ width: '20%' }}
           >
-            <Option value="1">Subscription ID</Option>
-            <Option value="2">Subscription Type</Option>
-            <Option value="3">Subscription Cycle</Option>
-            <Option value="4">Order ID</Option>
-            <Option value="5">Phone Number</Option>
-            <Option value="6">Wechat Name</Option>
-            <Option value="7">Product Name</Option>
+            <Option value="idLike">Subscription ID</Option>
+            <Option value="type">Subscription Type</Option>
+            <Option value="cycle">Subscription Cycle</Option>
+            <Option value="orderIdLike">Order ID</Option>
+            <Option value="phoneLike">Phone Number</Option>
+            <Option value="wechatNameLike">Wechat Name</Option>
+            <Option value="productNameLike">Product Name</Option>
           </Select>
-          {type === "2" ? <Select key="subscription-type" placeholder="Select" style={{ width: '80%' }}>
-            <Option value="1">Autoship</Option>
-            <Option value="2">Product Contract</Option>
-          </Select> : type === "3" ? <Select key="subscription-cycle" placeholder="Select" style={{ width: '80%' }}>
-            <Option value="1">Quarter</Option>
-            <Option value="2">Half year</Option>
-            <Option value="3">One year</Option>
+          {type === "type" ? <Select key="subscription-type" placeholder="Select" value={val} onChange={(val) => setVal(val)} style={{ width: '80%' }}>
+            {Object.keys(SubscriptionType).map((key: string, idx: number) => (
+              <Option value={key} key={idx}>{SubscriptionType[key]}</Option>
+            ))}
+          </Select> : type === "cycle" ? <Select key="subscription-cycle" placeholder="Select" value={val} onChange={(val) => setVal(val)} style={{ width: '80%' }}>
+            {Object.keys(SubscriptionCycle).map((key: string, idx: number) => (
+              <Option value={key} key={idx}>{SubscriptionCycle[key]}</Option>
+            ))}
           </Select> : <Input
             style={{ width: '80%' }}
             ref={inputRef}
+            value={val}
             placeholder={'Input '}
+            onChange={(e) => setVal(e.target.value)}
             onPressEnter={() => {
               inputRef.current!.blur()
             }}
@@ -53,12 +100,13 @@ const Search = () => {
         <Button
           className="w-32 mx-3 btn-primary"
           type="primary"
-          danger
+          onClick={handleSearch}
         >
           Search
         </Button>
         <Button
           className="w-32"
+          onClick={handleReset}
         >
           Reset
         </Button>

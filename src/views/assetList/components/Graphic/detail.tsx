@@ -19,6 +19,9 @@ const ArticleDetail: React.FC<IProps> = ({ mediaId, synced, visible, articleList
     getPreviewList()
   }, []);
   const getPreviewList = async () => {
+    if (!synced) {
+      return Promise.resolve(true);
+    }
     setLoading(true)
     const urls = await getArticlePreviewUrls(mediaId)
     setList(list.map((item: any, idx: number) => ({

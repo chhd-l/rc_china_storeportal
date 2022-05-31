@@ -6,6 +6,153 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "30110058",
+      "name": "Vector",
+      "font_class": "Vector2",
+      "unicode": "e67d",
+      "unicode_decimal": 59005
+    },
+    {
+      "icon_id": "30110059",
+      "name": "Vector-1",
+      "font_class": "Vector-1",
+      "unicode": "e67e",
+      "unicode_decimal": 59006
+    },
+    {
+      "icon_id": "30101156",
+      "name": "Group 23 (3)",
+      "font_class": "a-Group233",
+      "unicode": "e67c",
+      "unicode_decimal": 59004
+    },
+    {
+      "icon_id": "30094624",
+      "name": "Group 112 (2)",
+      "font_class": "a-Group1122",
+      "unicode": "e67b",
+      "unicode_decimal": 59003
+    },
+    {
+      "icon_id": "30094594",
+      "name": "Group 112 (1)",
+      "font_class": "a-Group1121",
+      "unicode": "e67a",
+      "unicode_decimal": 59002
+    },
+    {
+      "icon_id": "30094517",
+      "name": "Group 112",
+      "font_class": "a-Group112",
+      "unicode": "e679",
+      "unicode_decimal": 59001
+    },
+    {
+      "icon_id": "30094308",
+      "name": "编组 5",
+      "font_class": "a-bianzu51",
+      "unicode": "e678",
+      "unicode_decimal": 59000
+    },
+    {
+      "icon_id": "30091721",
+      "name": "德勤LOGO (1)",
+      "font_class": "a-deqinLOGO1",
+      "unicode": "e677",
+      "unicode_decimal": 58999
+    },
+    {
+      "icon_id": "30075315",
+      "name": "Spot8",
+      "font_class": "Spot8",
+      "unicode": "e66c",
+      "unicode_decimal": 58988
+    },
+    {
+      "icon_id": "30075316",
+      "name": "Strategy1",
+      "font_class": "Strategy1",
+      "unicode": "e66d",
+      "unicode_decimal": 58989
+    },
+    {
+      "icon_id": "30075317",
+      "name": "Strategy2",
+      "font_class": "Strategy2",
+      "unicode": "e66e",
+      "unicode_decimal": 58990
+    },
+    {
+      "icon_id": "30075318",
+      "name": "Spot7",
+      "font_class": "Spot7",
+      "unicode": "e66f",
+      "unicode_decimal": 58991
+    },
+    {
+      "icon_id": "30075319",
+      "name": "Spot6",
+      "font_class": "Spot6",
+      "unicode": "e670",
+      "unicode_decimal": 58992
+    },
+    {
+      "icon_id": "30075320",
+      "name": "Spot5",
+      "font_class": "Spot5",
+      "unicode": "e671",
+      "unicode_decimal": 58993
+    },
+    {
+      "icon_id": "30075321",
+      "name": "Spot4",
+      "font_class": "Spot4",
+      "unicode": "e672",
+      "unicode_decimal": 58994
+    },
+    {
+      "icon_id": "30075322",
+      "name": "Strategy4",
+      "font_class": "Strategy4",
+      "unicode": "e673",
+      "unicode_decimal": 58995
+    },
+    {
+      "icon_id": "30075323",
+      "name": "Spot3",
+      "font_class": "Spot3",
+      "unicode": "e674",
+      "unicode_decimal": 58996
+    },
+    {
+      "icon_id": "30075324",
+      "name": "Spot2",
+      "font_class": "Spot2",
+      "unicode": "e675",
+      "unicode_decimal": 58997
+    },
+    {
+      "icon_id": "30075331",
+      "name": "Strategy3",
+      "font_class": "Strategy3",
+      "unicode": "e676",
+      "unicode_decimal": 58998
+    },
+    {
+      "icon_id": "30074890",
+      "name": "Basic",
+      "font_class": "IR1",
+      "unicode": "e66a",
+      "unicode_decimal": 58986
+    },
+    {
+      "icon_id": "30074891",
+      "name": "Spot1",
+      "font_class": "Spot1",
+      "unicode": "e66b",
+      "unicode_decimal": 58987
+    },
+    {
       "icon_id": "30061241",
       "name": "Vector",
       "font_class": "Vector1",
