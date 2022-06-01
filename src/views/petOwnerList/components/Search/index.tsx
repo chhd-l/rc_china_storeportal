@@ -20,7 +20,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
         <div className="flex flex-row items-center">
           <div className="mr-2 w-24 text-left">WeChat Name:</div>
           <Input
-            style={{ width: '200px' }}
+            style={{ width: '260px' }}
             placeholder="Enter WeChat name"
             value={searchParams.name}
             onChange={(e) => {
@@ -34,7 +34,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
         <div className="flex flex-row items-center">
           <div className="mr-2 ml-4 w-28">Phone Number:</div>
           <Input
-            style={{ width: '200px' }}
+            style={{ width: '260px' }}
             placeholder="Enter phone number"
             value={searchParams.phone}
             onChange={(e) => {
@@ -48,7 +48,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
         <div className="flex flex-row items-center">
           <div className="mr-2 ml-4 w-24">Login Time:</div>
           <DatePicker.RangePicker
-            style={{ width: '300px' }}
+            style={{ width: '260px' }}
             value={pickValue}
             onChange={(date, dateString) => {
               console.log(date, dateString)
@@ -61,7 +61,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
       </div>
       <div className="mt-5 flex">
         <Button
-          className="w-20 mr-8"
+          className="w-20 mr-md"
           type="primary"
           danger
           onClick={() => {

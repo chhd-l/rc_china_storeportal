@@ -17,7 +17,7 @@ const LogsAndState: KeyRules = {
 const OrderProgress = ({
   orderState,
   orderId,
-  subscriptionId,
+  subscriptionNo,
   orderAddress,
   logs,
   buyer,
@@ -25,7 +25,7 @@ const OrderProgress = ({
 }: {
   orderState: string
   orderId: string
-  subscriptionId: string | undefined
+  subscriptionNo: string | undefined
   orderAddress: any[]
   logs: any
   buyer: any
@@ -65,7 +65,7 @@ const OrderProgress = ({
           <span className="ml-4">
             Order ID:{orderId}
             <br />
-            {subscriptionId && <span>Subscription ID:{subscriptionId}</span>}
+            {subscriptionNo && <span>Subscription ID:{subscriptionNo}</span>}
           </span>
         </div>
         <div className="justify-items-end">
