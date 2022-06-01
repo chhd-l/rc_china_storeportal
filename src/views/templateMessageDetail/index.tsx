@@ -169,7 +169,7 @@ const TemplateMessageDetail = () => {
           <InfoContainer className="mb-7">
             <div className="bg-white">
               示例：
-              {`${templateInfo.example}`}
+              <div dangerouslySetInnerHTML={{ __html: (templateInfo?.example ?? "").replace(/\r\n/g, "<br/>")}} />
             </div>
           </InfoContainer>
         </>

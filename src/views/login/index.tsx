@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Input, Button, Checkbox, Form, message } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { SellerLogoPanel } from "@/components/auth";
 import { FormItemProps } from "@/framework/types/common";
 import "./index.less";
@@ -113,12 +113,12 @@ const Login = () => {
                   console.log('isRemember', e.target.checked)
                 }}>Remember me</Checkbox>
               </Form.Item>
-              <a
+              <Link
                 className="primary-color font-medium text-12"
-                href={"/resetPassword"}
+                to="/resetPassword"
               >
                 Forget password?
-              </a>
+              </Link>
             </Form.Item>
             <Form.Item wrapperCol={{ span: 24 }} className="login-btn">
               {loginError ? (

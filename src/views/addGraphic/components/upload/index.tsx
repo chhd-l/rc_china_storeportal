@@ -66,7 +66,7 @@ const MyUpload: React.FC<IProps> = (props) => {
           <span>Select</span>
         </Upload>
       </Menu.Item>
-      <Menu.Item key="1"><span onClick={() => setVisible(true)}>Picture Assets</span></Menu.Item>
+      <Menu.Item key="1"><span onClick={() => setVisible(true)}>{props.assetType === "image" ? "Picture Assets" : props.assetType === "voice" ? "Voice Assets" : "Video Assets"}</span></Menu.Item>
     </Menu>
   );
 

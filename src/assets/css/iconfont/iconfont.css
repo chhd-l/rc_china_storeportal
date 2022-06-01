@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3298206 */
-  src: url('iconfont.woff2?t=1653893390401') format('woff2'),
-       url('iconfont.woff?t=1653893390401') format('woff'),
-       url('iconfont.ttf?t=1653893390401') format('truetype');
+  src: url('iconfont.woff2?t=1653996185704') format('woff2'),
+       url('iconfont.woff?t=1653996185704') format('woff'),
+       url('iconfont.ttf?t=1653996185704') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,90 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-Vector2:before {
+  content: "\e67d";
+}
+
+.icon-Vector-1:before {
+  content: "\e67e";
+}
+
+.icon-a-Group233:before {
+  content: "\e67c";
+}
+
+.icon-a-Group1122:before {
+  content: "\e67b";
+}
+
+.icon-a-Group1121:before {
+  content: "\e67a";
+}
+
+.icon-a-Group112:before {
+  content: "\e679";
+}
+
+.icon-a-bianzu51:before {
+  content: "\e678";
+}
+
+.icon-a-deqinLOGO1:before {
+  content: "\e677";
+}
+
+.icon-Spot8:before {
+  content: "\e66c";
+}
+
+.icon-Strategy1:before {
+  content: "\e66d";
+}
+
+.icon-Strategy2:before {
+  content: "\e66e";
+}
+
+.icon-Spot7:before {
+  content: "\e66f";
+}
+
+.icon-Spot6:before {
+  content: "\e670";
+}
+
+.icon-Spot5:before {
+  content: "\e671";
+}
+
+.icon-Spot4:before {
+  content: "\e672";
+}
+
+.icon-Strategy4:before {
+  content: "\e673";
+}
+
+.icon-Spot3:before {
+  content: "\e674";
+}
+
+.icon-Spot2:before {
+  content: "\e675";
+}
+
+.icon-Strategy3:before {
+  content: "\e676";
+}
+
+.icon-IR1:before {
+  content: "\e66a";
+}
+
+.icon-Spot1:before {
+  content: "\e66b";
 }
 
 .icon-Vector1:before {
