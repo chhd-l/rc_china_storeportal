@@ -48,14 +48,14 @@ const ShippingSettingModal = ({
         <Form.Item label="Customer:" name="customer" rules={[{ required: true, message: 'Please input customer' }]}>
           <Input placeholder="Please input customer" />
         </Form.Item>
-        <Form.Item label="pullURL:" name="pullUrl">
+        <Form.Item label="Pull URL:" name="pullUrl">
           <Input disabled placeholder="please input user name" />
         </Form.Item>
-        <Form.Item label="queryURL:" name="queryUrl">
+        <Form.Item label="Query URL:" name="queryUrl">
           <Input disabled placeholder="please input url" />
         </Form.Item>
         <Form.Item
-          label="callbackURL:"
+          label="Callback URL:"
           name="callbackUrl"
           rules={[{ required: true, message: 'Please input callbackUrl' }]}
         >
