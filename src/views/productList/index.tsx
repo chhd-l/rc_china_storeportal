@@ -19,7 +19,7 @@ const listDatas = Mock.mock(dataSource)
 // console.info('listData', listData)
 const ProductList = () => {
   const [activeKey, setActiveKey] = useState<React.Key>(Tab.All)
-  const [sample, setSample] = useState({})
+  const [sample, setSample] = useState<any>({})
   const [filterCondition, setFilterCondition] = useState('')
   const [toolbarList, setToolbarList] = useState<OptionsProps[]>([])
   const navigation = useNavigate()
@@ -60,8 +60,14 @@ const ProductList = () => {
   const getList = async () => {
     setLoading(true)
     let pageParams = handlePageParams({ currentPage: pages.page, pageSize: pages.pageSize })
+    let sampleParams: any = {}
+    for (let sampleKey in sample) {
+      if (sample[sampleKey] !== '' && sample[sampleKey] !== undefined) {
+        sampleParams[sampleKey] = sample[sampleKey]
+      }
+    }
     let params: any = {
-      sample,
+      sample: sampleParams,
       isNeedTotal: true,
       operator: 'sss',
     }

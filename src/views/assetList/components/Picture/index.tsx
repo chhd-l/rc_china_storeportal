@@ -68,7 +68,7 @@ const Picture = ({
           <Tooltip title="Delete">
             <span
               className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl"
-              onClick={() => openDelete && openDelete(record.id)}
+              onClick={() => openDelete && openDelete(record.id, record.mediaId)}
             />
           </Tooltip>
         </div>

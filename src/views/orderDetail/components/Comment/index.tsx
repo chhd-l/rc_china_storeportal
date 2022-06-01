@@ -6,6 +6,7 @@ import { updateComment } from '@/framework/api/get-order'
 import { useAtom } from 'jotai'
 import { userAtom } from '@/store/user.store'
 import userIcon from '@/assets/images/userIcon.svg'
+import { omit } from 'lodash'
 
 const OrderComment = ({
   comments,
@@ -30,7 +31,7 @@ const OrderComment = ({
             createdBy: userInfo?.nickname || 'zz',
             createId: userInfo?.id || '',
           }
-        : Object.assign(curComment, {
+        : Object.assign(omit(curComment, ['avatarUrl']), {
             content: values.comment,
           })
     const params = {
@@ -74,7 +75,7 @@ const OrderComment = ({
             <div className={`mb-2 pb-2 ${index !== comments.length - 1 ? 'border-b' : ''}`}>
               <div className="flex justify-between items-center">
                 <span className="flex items-center">
-                  <img className="w-10 h-10 rounded-full" src={item?.avatarUrl||userIcon} alt={''} />
+                  <img className="w-10 h-10 rounded-full" src={item?.avatarUrl || userIcon} alt={''} />
                   <span className="ml-2">
                     {item.createdBy}
                     <br />

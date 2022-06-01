@@ -29,30 +29,34 @@ const range = (start: number, end: number) => {
 const disabledTime = (current: any, type: string) => {
   const date = new Date()
   const disDate = new Date(current)
+  const year = date.getFullYear()
+  const disYear = disDate.getFullYear()
+  const MM = date.getMonth()
+  const disMM = disDate.getMonth()
   const day = date.getDate()
   const disDay = disDate.getDate()
   const hour = date.getHours()
   const dishour = disDate.getHours()
   const minute = date.getMinutes()
-  
+  const bool = ((disYear < year) || (disMM < MM) || (disDay < day))
   if (type !== 'end') {
     return {
       disabledHours: () => {
         if (day === disDay) {
           return range(0, 24).splice(0, hour)
-        } else if (day > disDay) {
-          return range(0, 24)
-        } else {
+        } else if (bool) {
           return range(0, 0)
+        } else {
+          return range(0, 24)
         }
       },
       disabledMinutes: () => {
         if (day === disDay && hour === dishour) {
           return range(0, minute)
-        } else if (day > disDay) {
-          return range(0, 60)
-        } else {
+        } else if (bool) {
           return range(0, 0)
+        } else {
+          return range(0, 60)
         }
       },
     }
@@ -61,19 +65,19 @@ const disabledTime = (current: any, type: string) => {
       disabledHours: () => {
         if (day === disDay) {
           return range(0, 24).splice(0, hour + 1)
-        } else if (day > disDay) {
-          return range(0, 24)
-        } else {
+        } else if (bool) {
           return range(0, 0)
+        } else {
+          return range(0, 24)
         }
       },
       disabledMinutes: () => {
         if (day === disDay && hour + 1 === dishour) {
           return range(0, minute)
-        } else if (day > disDay) {
-          return range(0, 60)
-        } else {
+        } else if (bool) {
           return range(0, 0)
+        } else {
+          return range(0, 60)
         }
       },
     }

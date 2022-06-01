@@ -284,6 +284,7 @@ export const headerOrigition: any = [
     type: 'number',
     required: true,
     keyVal: 'stock',
+    className: 'px-2',
     dataTips: `Stock:
     <p>Number of stocks should reflect the actual stock that is ready to ship.</p>
     <p>If out of stock, please fill in 0, to avoid non-filfillment rate (NFR) or late shipment rate (LSR).</p>
