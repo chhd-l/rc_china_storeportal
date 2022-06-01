@@ -60,7 +60,7 @@ const CategoryDetail = () => {
       let obj = {
         'goodsCategoryId': shopCategoryFilterRules[0].value?.split(','),
         'brand': shopCategoryFilterRules[1].value,
-        'attributeValueIds': shopCategoryFilterRules[2].value !== '' ? shopCategoryFilterRules[2]?.value.split(',') : [],
+        'attributeValueIds': shopCategoryFilterRules[2].value !== '' ? shopCategoryFilterRules[2]?.value.split(',') : null,
         'startPrice': shopCategoryFilterRules[3]?.value ? parseFloat(shopCategoryFilterRules[3]?.value) : null,
         'endPrice': shopCategoryFilterRules[4]?.value ? parseFloat(shopCategoryFilterRules[4]?.value) : null,
         'filterTags': shopCategoryFilterRules[5]?.value !== '' ? shopCategoryFilterRules[5]?.value.split(',') : [],
@@ -84,7 +84,7 @@ const CategoryDetail = () => {
       data.sample.brand = params.brand
     }
     if (params.attributeValueIds) {
-      data.sample.attributeValueIds = params.attributeValueIds
+      data.sample.attributeRelation = [{attributeValueIds:params.attributeValueIds}]
     }
     if (params.startPrice) {
       data.sample.startPrice = params.startPrice
