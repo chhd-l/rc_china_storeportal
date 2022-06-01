@@ -13,8 +13,8 @@ const Tagging = ({ id, customerId }: { id: string; customerId: string }) => {
   const getTagList = async () => {
     const res = await getCustomTags({ customerId })
     console.log(res, 9999)
-    if(res&&res.length>0){
-     let arr:any= res.map(item=>item.id)
+    if (res && res.length > 0) {
+      let arr: any = res.map(item => item.id)
       setOptionValue(arr)
     }
     setTagList(res)
@@ -26,24 +26,22 @@ const Tagging = ({ id, customerId }: { id: string; customerId: string }) => {
       operator: 'zz',
       storeId: '12345678',
     })
-    if (res.removeCustomerTag) {
-      getTagList()
-    }
+
   }
-  const handleChange = async (value: string[]) => {
-    let res = await addCustomerTag({
+  const handleSelect = async (value: string[]) => {
+    await addCustomerTag({
       customerIds: [customerId],
       tagId: value,
       operator: 'zz',
       storeId: '12345678',
     })
-    if (res?.addCustomerTag) {
-      getTagList()
-    }
-  };
+  }
   const handleSearch = (value: string) => {
     deleteTag(value)
-  };
+  }
+  const handleChange = (value: any) => {
+    setOptionValue(value)
+  }
 
   const getList = async () => {
     const res = await getTags({
@@ -69,10 +67,11 @@ const Tagging = ({ id, customerId }: { id: string; customerId: string }) => {
       {tagList.length > 0 ? (
         <div className='flex flex-col'>
           <div>Tag name</div>
-          <Select placeholder='Select' value={optionValue} mode='multiple' onSelect={handleChange} onDeselect={handleSearch}>
+          <Select placeholder='Select' value={optionValue} mode='multiple' onSelect={handleSelect}
+                  onChange={handleChange} onDeselect={handleSearch}>
             {
               option.length > 0 && option.map((item: any) =>
-                <Select.Option value={item.id}>{item.name}</Select.Option>
+                <Select.Option value={item.id}>{item.name}</Select.Option>,
               )
             }
           </Select>
