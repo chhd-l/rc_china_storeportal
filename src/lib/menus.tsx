@@ -179,7 +179,7 @@ export const menus = [
       {
         name: 'Assets Management',
         value: 'assets_management',
-        url: '/assets-management',
+        url: '/assets/assets-management',
         key: 'assets_management',
       },
       {

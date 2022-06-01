@@ -22,3 +22,23 @@ export const resumeSubscription = async (id: string) => {
   console.log('resume subscription view data:', res);
   return res?.subscriptionResume || false
 }
+
+export const getSubscriptionDetail = async (id: string) => {
+  const res = await ApiRoot.subscriptions().subscriptionDetail({
+    id
+  });
+  console.log("get subscriptiondetail view data:", res);
+  return res?.subscriptionDetail || {}
+}
+
+export const updateSubscriptionAddress = async (id: string, address: any) => {
+  const res = await ApiRoot.subscriptions().updateSubscriptionAddress(id, address);
+  console.log("update subscription address view data:", res);
+  return res?.subscriptionUpdateAddress || false
+}
+
+export const updateNextDeliveryDate = async (id: string, date: string) => {
+  const res = await ApiRoot.subscriptions().subscriptionScheduleNextDelivery(id, date, 'zz');
+  console.log("update subscription next delivery date view data:", res);
+  return res?.subscriptionScheduleNextDelivery || false
+}
