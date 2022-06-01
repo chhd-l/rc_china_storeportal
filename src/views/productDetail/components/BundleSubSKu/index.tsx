@@ -133,7 +133,7 @@ const BundleSbuSKu = ({
     }
   }, [skuItem?.goodsVariantBundleInfo])
   return (
-    <div className='flex items-center'>
+    <div className='flex items-center' style={{ minWidth: '6rem' }}>
       <div
         onClick={() => {
           console.info('regularList', regularList)
