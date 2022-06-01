@@ -1,8 +1,9 @@
-import { Divider, Table } from 'antd'
-import React, { useState } from 'react'
+import { Table } from 'antd'
+import React, { useEffect, useState } from 'react'
 import { DownOutlined, UpOutlined } from '@ant-design/icons'
 import { OrderTradeItem, TradePrice } from '@/framework/types/order'
 import { formatMoney } from '@/utils/utils'
+import { cloneDeep } from 'lodash'
 
 const column = [
   {
@@ -43,9 +44,33 @@ const column = [
   },
 ]
 
-const OrderInformation = ({ tradeItem, tradePrice }: { tradeItem: OrderTradeItem[]; tradePrice: TradePrice }) => {
+const subscriptionColumn = {
+  title: 'Freshness',
+  key: 'freshType',
+  dataIndex:'freshType',
+  render: (text: any, record: any) => <div>{text === 'FRESH_100_DAYS' ? '100' : 'Normal'}</div>,
+}
+
+const OrderInformation = ({
+  tradeItem,
+  tradePrice,
+  isSubscription,
+}: {
+  tradeItem: OrderTradeItem[]
+  tradePrice: TradePrice
+  isSubscription: boolean
+}) => {
   const [showMore, setShowMore] = useState(true)
   const { goodsPrice, discountsPrice, deliveryPrice, totalPrice } = tradePrice
+  const [columns, setColumns] = useState(column)
+
+  useEffect(() => {
+    if (isSubscription) {
+      let tempColumn = cloneDeep(column)
+      tempColumn?.splice(4, 0, subscriptionColumn)
+      setColumns(tempColumn)
+    }
+  }, [isSubscription])
 
   return (
     <div className="flex justify-start">
@@ -53,25 +78,25 @@ const OrderInformation = ({ tradeItem, tradePrice }: { tradeItem: OrderTradeItem
       <div className="ml-4 w-full">
         <div className="text-left text-base">Order Information</div>
         <div className="mt-4">
-          <Table columns={column} dataSource={tradeItem} pagination={false} rowKey="skuId" className="rc-table" />
+          <Table columns={columns} dataSource={tradeItem} pagination={false} rowKey="skuId" className="rc-table" />
         </div>
         <div className="flex flex-col mt-4 ">
-         <div className="flex justify-end mb-4 items-center">
-           <span className="mr-2">View order amount detail</span>
-           {showMore ? (
-             <UpOutlined
-               onClick={() => {
-                 setShowMore(false)
-               }}
-             />
-           ) : (
-             <DownOutlined
-               onClick={() => {
-                 setShowMore(true)
-               }}
-             />
-           )}
-         </div>
+          <div className="flex justify-end mb-4 items-center">
+            <span className="mr-2">View order amount detail</span>
+            {showMore ? (
+              <UpOutlined
+                onClick={() => {
+                  setShowMore(false)
+                }}
+              />
+            ) : (
+              <DownOutlined
+                onClick={() => {
+                  setShowMore(true)
+                }}
+              />
+            )}
+          </div>
           {showMore ? (
             <div className="flex flex-row border-b -mt-3 pb-2">
               <div className="flex flex-col text-right w-3/4 pr-2">
