@@ -28,7 +28,7 @@ const TableRow: React.FC<IProps> = ({ data, handlePauseOrRestart }) => {
               <img className="w-16 h-16 order-img" src={goods?.goodsVariant?.defaultImage || ""} alt="" />
             </Col>
             <Col span={16}>
-              <Row>
+              <Row className={`${(data?.goodsList ?? []).length > 1 && idx < (data?.goodsList ?? []).length - 1 ? "border-b h-20 pb-2" : ""}`}>
                 <Col span={20}>
                   <span>{goods?.goodsVariant?.name ?? ""}</span>
                   <br />
