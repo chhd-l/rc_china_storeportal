@@ -1,10 +1,11 @@
 import React from 'react'
 import { Table, Tabs, Row, Col, Calendar, Popover } from 'antd'
 import { ColumnProps } from 'antd/es/table'
-import moment from 'moment'
+import moment, { Moment } from 'moment'
 
 
 const SubscriptionOrders = ({ planningList, completedList, onChangeDate } : { planningList: any[], completedList: any[], onChangeDate: (date: string) => void }) => {
+  const [visible, setVisible] = React.useState<boolean>(false)
   const columns_tostart: ColumnProps<any>[] = [
     {
       title: 'Sequence',
@@ -49,7 +50,23 @@ const SubscriptionOrders = ({ planningList, completedList, onChangeDate } : { pl
       title: 'Actions',
       key: 'ac',
       render: (text: any, record: any) => (
-        <Popover trigger="click" content={<Calendar fullscreen={false} disabledDate={(current) => current < moment().endOf('day')} />}>
+        <Popover
+          trigger="click"
+          visible={visible}
+          onVisibleChange={(v: boolean) => setVisible(v)}
+          content={
+            <div style={{width:300}}>
+              <Calendar
+                fullscreen={false}
+                disabledDate={(current) => current < moment().endOf('day')}
+                onChange={(date: Moment) => {
+                  setVisible(false);
+                  onChangeDate(date.utc().format())
+                }}
+              />
+            </div>
+          }
+        >
           <span className="iconfont primary-color icon-rili text-lx"></span>
         </Popover>
       )
