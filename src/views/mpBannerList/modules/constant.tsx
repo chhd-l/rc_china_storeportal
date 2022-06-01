@@ -44,7 +44,7 @@ export const tableColumns = ({
 
   const columns: ProColumns<ColumnsProps>[] = [
     {
-      title: 'Official Account',
+      title: 'Mini Program',
       dataIndex: 'accountId',
       hideInSearch: true,
     },

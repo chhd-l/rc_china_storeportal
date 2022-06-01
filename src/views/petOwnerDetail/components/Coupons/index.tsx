@@ -39,7 +39,7 @@ const CouponInformation = ({ id, customerId }: CouponInfoProps) => {
       render: (text: any, record: any) => {
         return(
           <span>{
-            record.discountType==='PERCENTAGE'?record.discountValue+'%OFF':record.minimumBasketPrice?'￥'+record.minimumBasketPrice:''
+            record.discountType==='PERCENTAGE'?record.discountValue+'%OFF':'￥'+record.discountValue
           }</span>
         )
       }
