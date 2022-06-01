@@ -55,16 +55,16 @@ const Preview: React.FC<IProps> = ({ onValidate }) => {
   const menu = (
     <Menu>
       <Menu.Item key="0">
-        <span onClick={() => handleCreateNewMessage("news")}>New graphic</span>
+        <div onClick={() => handleCreateNewMessage("news")}>New graphic</div>
       </Menu.Item>
       <Menu.Item key="1">
-        <span onClick={() => handleCreateNewMessage("image")}>Picture message</span>
+        <div onClick={() => handleCreateNewMessage("image")}>Picture message</div>
       </Menu.Item>
       <Menu.Item key="2">
-        <span onClick={() => handleCreateNewMessage("voice")}>Voice message</span>
+        <div onClick={() => handleCreateNewMessage("voice")}>Voice message</div>
       </Menu.Item>
       <Menu.Item key="3">
-        <span onClick={() => handleCreateNewMessage("video")}>Video message</span>
+        <div onClick={() => handleCreateNewMessage("video")}>Video message</div>
       </Menu.Item>
     </Menu>
   );

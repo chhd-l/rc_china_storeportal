@@ -32,6 +32,7 @@ const NewVideo = React.forwardRef((props, ref) => {
           labelCol={{span: 2}}
           wrapperCol={{span:22}}
           onValuesChange={formValueChange}
+          initialValues={{title: article?.title}}
         >          
           <Form.Item name="title" label="Title">
             <Input

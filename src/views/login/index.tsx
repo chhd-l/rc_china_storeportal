@@ -94,7 +94,7 @@ const Login = () => {
                   }
                   handleLogin(values)
                 } else {
-                  message.error('Login failed！')
+                  message.error({ className: "rc-message", content: 'Username or password is wrong!' })
                 }
                 setLoading(false);
               })
