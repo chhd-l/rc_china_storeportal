@@ -73,6 +73,7 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
       title: 'Usage Limit',
       dataIndex: 'usageQuantity',
       hideInSearch: true,
+      render: (text: any) => text || '-'
     },
     {
       title: (
