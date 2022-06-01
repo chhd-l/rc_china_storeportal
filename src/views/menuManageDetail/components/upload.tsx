@@ -3,7 +3,7 @@ import { Asset } from "@/framework/types/wechat";
 import MyUpload from "@/components/wechat/UploadAndSync";
 
 interface IProps {
-  assetType: "image" | "voice" | "video"
+  assetType: "image" | "voice" | "video" | "message"
   onChange: (asset: Partial<Asset>) => void
 }
 

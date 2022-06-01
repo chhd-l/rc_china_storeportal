@@ -148,7 +148,7 @@ const AssetsModal = (props: IProps) => {
 
   return (
     <Modal
-      title={props.assetType === 'image' ? 'Pictures' : props.assetType === 'voice' ? 'Voices' : 'Videoes'}
+      title={props.assetType === 'image' ? 'Pictures' : props.assetType === 'voice' ? 'Voices' : props.assetType === 'news'?'Graphic message':'Videos'}
       visible={props.visible}
       width={900}
       okText="Confirm"

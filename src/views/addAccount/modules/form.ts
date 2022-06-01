@@ -1,6 +1,6 @@
-import { FormItemProps } from "@/framework/types/common";
-import { accountTypeList, manageModeList } from "./constants";
-import { officialTypeList } from "@/views/accountList/modules/constants";
+import { FormItemProps } from '@/framework/types/common'
+import { accountTypeList, manageModeList } from './constants'
+import { officialTypeList } from '@/views/accountList/modules/constants'
 
 export const ACCOUNT_FORM: FormItemProps[] = [
   {
@@ -232,6 +232,19 @@ export const ACCOUNT_FORM_TWO: FormItemProps[] = [
     name: "merchantKey",
     label: "Merchant Key",
     placeholder: "Input",
+  },
+  {
+    label: "Associated Account",
+    name: "associatedAccount",
+    placeholder: "Select",
+    type: "select",
+    rules: [
+      {
+        required: true,
+        message: "Please select Associated Account!",
+      },
+    ],
+    selectList: [],
   },
   {
     name: "certificatePath",

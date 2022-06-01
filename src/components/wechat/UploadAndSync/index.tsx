@@ -6,7 +6,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { UPLOAD_API_URL } from '@/framework/api/fetcher'
 
 interface IProps {
-  assetType: "image" | "voice" | "video"
+  assetType: "image" | "voice" | "video" | "message"
   onChange: (asset: Partial<Asset>) => void
   children: React.ReactElement
 }
