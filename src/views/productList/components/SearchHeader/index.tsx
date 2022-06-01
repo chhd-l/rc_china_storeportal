@@ -76,6 +76,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
               <Form.Item className='rounded-xl ' name='selectName' initialValue={nameForKey[0].value}>
                 <Select
                   style={{ width: 140 }}
+                  allowClear
                   placeholder='Select a option and change input text above'
                   className='ant-select-left no-border-radius-right'
                 >
@@ -96,6 +97,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
             <Input.Group compact className='flex'>
               <Form.Item name='type' initialValue={typeForKey[0].value}>
                 <Select
+                  allowClear
                   style={{ width: 150 }}
                   placeholder='Select a option and change input text above'
                   onChange={v => {
@@ -112,7 +114,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                 {/* <SelectKey list={typeForKey} /> */}
               </Form.Item>
               <Form.Item className='flex-1' name='GoodsType'>
-                <Select placeholder='Choose Product Type'>
+                <Select placeholder='Choose Product Type' allowClear>
                   {typeSelect === typeForKey[0].value
                     ? chooseProductType.map((el: any) => (
                         <Option key={el.value} value={el.value}>
