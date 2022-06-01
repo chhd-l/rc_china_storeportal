@@ -100,6 +100,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                   allowClear
                   style={{ width: 150 }}
                   placeholder='Select a option and change input text above'
+                  className='ant-select-left no-border-radius-right'
                   onChange={v => {
                     form.setFieldsValue({ GoodsType: '' })
                     setTypeSelect(v)
@@ -113,7 +114,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
                 </Select>
                 {/* <SelectKey list={typeForKey} /> */}
               </Form.Item>
-              <Form.Item className='flex-1' name='GoodsType'>
+              <Form.Item className='flex-1 no-border-radius-left' name='GoodsType'>
                 <Select placeholder='Choose Product Type' allowClear>
                   {typeSelect === typeForKey[0].value
                     ? chooseProductType.map((el: any) => (
