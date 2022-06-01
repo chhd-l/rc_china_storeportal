@@ -71,7 +71,7 @@ const MpQrDetail = () => {
 
   return (
     <ContentContainer className="mp-qr-detail">
-      <InfoContainer title="Add New QR Code">
+      <InfoContainer title={state ? 'QR Code Detail' : 'Add New QR Code'}>
         <Form
           {...layout}
           className="w-1/2 "

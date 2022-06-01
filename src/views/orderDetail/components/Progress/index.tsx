@@ -5,6 +5,7 @@ import { OrderStatus } from '@/framework/types/order'
 import { stepList } from '../../modules/constants'
 import { KeyRules } from '@/framework/types/common'
 import { handleReturnTime } from '@/utils/utils'
+import { useNavigate } from 'react-router-dom'
 
 const LogsAndState: KeyRules = {
   UNPAID: 'INITIALIZATION',
@@ -33,6 +34,7 @@ const OrderProgress = ({
 }) => {
   const [currentStep, setCurrentStep] = useState(0)
   const [filterSteps, setFilterSteps] = useState(stepList)
+  const navigator = useNavigate()
 
   useEffect(() => {
     let steps = stepList
@@ -65,7 +67,13 @@ const OrderProgress = ({
           <span className="ml-4">
             Order ID:{orderId}
             <br />
-            {subscriptionNo && <span>Subscription ID:{subscriptionNo}</span>}
+            {subscriptionNo && (
+              <span className="hover:cursor-pointer" onClick={() => {
+                navigator('/subscription/subscription-detail')
+              }}>
+                Subscription ID:{subscriptionNo}
+              </span>
+            )}
           </span>
         </div>
         <div className="justify-items-end">

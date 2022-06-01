@@ -65,7 +65,7 @@ const OrderDetail = () => {
               </InfoContainer>
               <DivideArea />
               <InfoContainer>
-                <TradeItem tradeItem={tradeItem} tradePrice={tradePrice} />
+                <TradeItem tradeItem={tradeItem} tradePrice={tradePrice} isSubscription={subscriptionNo !== ''} />
               </InfoContainer>
               <DivideArea />
               <InfoContainer>
