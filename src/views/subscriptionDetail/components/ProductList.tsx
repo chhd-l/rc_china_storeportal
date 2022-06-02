@@ -1,8 +1,9 @@
 import React from 'react'
 import { Table } from 'antd'
 import { formatMoney } from '@/utils/utils'
+import { SubscriptionFreshType } from '@/framework/constants/subscription'
 
-const ProductList: React.FC = () => {
+const ProductList = ({ productList, freshType }: { productList: any[], freshType: any }) => {
   const columns = [
     {
       title: 'No',
@@ -11,15 +12,15 @@ const ProductList: React.FC = () => {
     },
     {
       title: 'Product',
-      dataIndex: 'pic',
-      key: 'pic',
+      dataIndex: 'goodsName',
+      key: 'goodsName',
       render: (text: any, record: any) => (
         <div className="flex flex-row items-center">
-          <img src={text} className="w-10 h-10 mr-2" alt="" />
+          <img src={record?.goodsVariant?.defaultImage} className="w-10 h-10 mr-2" alt="" />
           <span>
-            {record.skuName}
+            {text}
             <br />
-            <span>{record.skuId}</span>
+            <span>{record?.goodsVariant?.skuNo}</span>
           </span>
         </div>
       ),
@@ -28,22 +29,24 @@ const ProductList: React.FC = () => {
       title: 'Unit price',
       dataIndex: 'price',
       key: 'price',
-      render: (text: any, record: any) => <div>{formatMoney(text)}</div>,
+      render: (text: any, record: any) => <div>{formatMoney(record?.goodsVariant?.subscriptionPrice)}</div>,
     },
     {
       title: 'Quantity',
       dataIndex: 'num',
       key: 'num',
+      render: (text: any, record: any) => <div>{record?.goodsVariant?.num}</div>
     },
     {
-      title: 'Subscription Cycle',
+      title: 'Freshness',
       dataIndex: 'cycle',
       key: 'cycle',
+      render: () => <div>{SubscriptionFreshType[freshType]}</div>
     },
     {
       title: 'Subtotal',
       key: 'Subtotal',
-      render: (text: any, record: any) => <div>{formatMoney(record.price * record.num)}</div>,
+      render: (text: any, record: any) => <div>{formatMoney(record?.goodsVariant?.subscriptionPrice * record?.goodsVariant?.num)}</div>,
     },
   ]
   return (
@@ -53,7 +56,7 @@ const ProductList: React.FC = () => {
         <span>Subscription product</span>
       </div>
       <div className="mt-4">
-        <Table rowKey="skuId" columns={columns} dataSource={[]} pagination={false} size="small" className="rc-table" />
+        <Table rowKey="id" columns={columns} dataSource={productList} pagination={false} size="small" className="rc-table" />
       </div>
     </div>
   )

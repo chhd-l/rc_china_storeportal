@@ -58,16 +58,13 @@ const MpQrList = () => {
       valueEnum: list,
     },
     {
-      title: "Scenario",
-      dataIndex: "scenarioId",
+      title: "QR Code Type",
+      dataIndex: "qrType",
       valueType: "select",
       valueEnum: {
-        Normal: 'Normal'
+        'QR_CODE': 'Normal',
+        'SUN_CODE': 'Sun Code'
       },
-    },
-    {
-      title: "QR Code Key Value",
-      dataIndex: "key",
     },
     {
       title: "Mini Program Path",
@@ -144,9 +141,9 @@ const MpQrList = () => {
           })
           depy(val?.records || [])
           const param: any = {}
-          if(params.accountPrincipal) param.accountId = params.accountPrincipal
-          if(params.scenarioId) param.scenarioId = params.scenarioId
-          if(params.key) param.key = params.key
+          if(params.accountName) param.accountId = params.accountName
+          if(params.qrType) param.qrType = params.qrType
+          //if(params.key) param.key = params.key
           let res = await getAppQrCodes({
             offset: (params.current - 1) * 10,
             limit: params.pageSize,

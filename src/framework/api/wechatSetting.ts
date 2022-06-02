@@ -641,7 +641,7 @@ export const addAndSyncArticle = async (param: any) => {
     }
   });
   console.log('add articleandsync view data:', data);
-  return data?.articlesAdd ?? {}
+  return data?.articlesAddAndSyc ?? {}
 }
 
 export const getArticlePreviewUrls = async (mediaId: string) => {

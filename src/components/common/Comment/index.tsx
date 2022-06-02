@@ -6,6 +6,7 @@ import { userAtom } from '@/store/user.store'
 import userIcon from '@/assets/images/userIcon.svg'
 
 type TComment = {
+  id: string
   avatarUrl?: string
   createdBy: string
   createdAt: string

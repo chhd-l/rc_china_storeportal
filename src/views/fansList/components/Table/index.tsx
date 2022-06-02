@@ -75,9 +75,24 @@ const Index = ({
       key: 'accountName',
     },
     {
+      title: 'Avatar',
+      dataIndex: 'headimgurl',
+      key: 'headimgurl',
+    },
+    {
+      title: 'Wechat Name',
+      dataIndex: 'nickname',
+      key: 'nickname',
+    },
+    {
       title: 'Union ID',
       dataIndex: 'unionId',
       key: 'unionId',
+    },
+    {
+      title: 'Is Member',
+      dataIndex: 'isAppMember',
+      render: (text: any, record: any) => record.isAppMember?'Yes':'N0',
     },
     {
       title: 'Follow Time',

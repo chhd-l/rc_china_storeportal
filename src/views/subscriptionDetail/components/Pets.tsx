@@ -1,7 +1,22 @@
 import React from 'react'
 import { Avatar, Row, Col } from 'antd'
+import moment from 'moment'
 
-const Pets: React.FC = () => {
+const calcPetAge = (dateStr: string) => {
+  const birthday = moment(dateStr, 'YYYY-MM-DD');
+  const diffMonth = moment().diff(birthday, 'months');
+  if (diffMonth <= 1) {
+    return `${diffMonth} month`;
+  } else if (diffMonth < 12) {
+    return `${diffMonth} months`;
+  } else {
+    const diffYear = Math.floor(diffMonth / 12);
+    const diffMonthAfterYear = diffMonth % 12;
+    return `${diffYear} ${diffYear > 1 ? 'years' : 'year'} ${diffMonthAfterYear === 0 ? '' : `${diffMonthAfterYear} ${diffMonthAfterYear > 1 ? 'months' : 'month'}`}`;
+  }
+};
+
+const Pets = ({ pet } : { pet: any }) => {
   return (
     <div>
       <div className="flex justify-start space-x-4">
@@ -9,16 +24,16 @@ const Pets: React.FC = () => {
         <span>Pet detail</span>
       </div>
       <div className="mt-4 flex items-center space-x-4">
-        <div><Avatar shape="square" size={64} /></div>
+        <div><Avatar shape="square" size={64} src={pet?.image} /></div>
         <div className="flex-grow">
-          <div className="text-lg">Silva</div>
+          <div className="text-lg">{pet?.name}</div>
           <Row gutter={10}>
             <Col span={4}><span className="text-gray-400">Age</span></Col>
             <Col span={4}><span className="text-gray-400">Breed</span></Col>
           </Row>
           <Row gutter={10}>
-            <Col span={4}>9 months</Col>
-            <Col span={4}>Race mixte</Col>
+            <Col span={4}>{calcPetAge(moment(pet?.birthday).format('YYYY-MM-DD'))}</Col>
+            <Col span={4}>{pet?.breedName}</Col>
           </Row>
         </div>
       </div>

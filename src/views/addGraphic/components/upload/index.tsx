@@ -61,12 +61,12 @@ const MyUpload: React.FC<IProps> = (props) => {
 
   const menu = (
     <Menu>
-      <Menu.Item key="0">
+      <Menu.Item key="0" className="rc-upload-region">
         <Upload {...uploadProps}>
-          <span>Select</span>
+          <div>Select</div>
         </Upload>
       </Menu.Item>
-      <Menu.Item key="1"><span onClick={() => setVisible(true)}>{props.assetType === "image" ? "Picture Assets" : props.assetType === "voice" ? "Voice Assets" : "Video Assets"}</span></Menu.Item>
+      <Menu.Item key="1"><div onClick={() => setVisible(true)}>{props.assetType === "image" ? "Picture Assets" : props.assetType === "voice" ? "Voice Assets" : "Video Assets"}</div></Menu.Item>
     </Menu>
   );
 
