@@ -6,7 +6,7 @@ export const fansDetailForm: SearchFormItemProps[] = [
     name: "accountPrincipal",
   },
   {
-    label: "Nickname",
+    label: "Wechat Name",
     name: "nickname",
   },
   {
@@ -14,32 +14,16 @@ export const fansDetailForm: SearchFormItemProps[] = [
     name: "sex",
   },
   {
-    label: "Country",
-    name: "country",
-  },
-  {
-    label: "Province",
-    name: "province",
-  },
-  {
-    label: "City",
-    name: "city",
-  },
-  {
-    label: "Language Used",
-    name: "language",
-  },
-  {
-    label: "Avatar",
-    name: "avatar",
+    label: "Unionid",
+    name: "unionId",
   },
   {
     label: "OPENID",
     name: "openId",
   },
   {
-    label: "Unionid",
-    name: "unionId",
+    label: "Follow Time",
+    name: "subscribeTime",
   },
   {
     label: "Comment",

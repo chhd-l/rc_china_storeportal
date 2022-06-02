@@ -11,7 +11,7 @@ const OrderDetail = () => {
   const [orderDetail, setOrderDetail] = useState<any>(initOrderDetail)
   const location = useLocation()
   const {
-    subscriptionId,
+    subscriptionNo,
     tradeState,
     shippingAddress,
     buyer,
@@ -47,7 +47,7 @@ const OrderDetail = () => {
                 <Progress
                   orderState={tradeState.orderState}
                   orderId={orderId}
-                  subscriptionId={subscriptionId}
+                  subscriptionNo={subscriptionNo}
                   orderAddress={shippingAddress}
                   logs={logs}
                   buyer={buyer}
@@ -65,7 +65,7 @@ const OrderDetail = () => {
               </InfoContainer>
               <DivideArea />
               <InfoContainer>
-                <TradeItem tradeItem={tradeItem} tradePrice={tradePrice} />
+                <TradeItem tradeItem={tradeItem} tradePrice={tradePrice} isSubscription={subscriptionNo !== ''} />
               </InfoContainer>
               <DivideArea />
               <InfoContainer>
@@ -78,7 +78,9 @@ const OrderDetail = () => {
             </div>
           </div>
         </ContentContainer>
-      ) : <Empty className='mt-48' image={Empty.PRESENTED_IMAGE_SIMPLE}/>}
+      ) : (
+        <Empty className="mt-48" image={Empty.PRESENTED_IMAGE_SIMPLE} />
+      )}
     </>
   )
 }

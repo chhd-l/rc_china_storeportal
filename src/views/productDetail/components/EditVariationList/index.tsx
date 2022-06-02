@@ -12,6 +12,7 @@ import BundleSubSKu from '../BundleSubSKu'
 import Upload from '../UploadList'
 import ValidateInput from '../ValidateInput'
 import SkuNameInput from '../SkuNameInput'
+import classNames from 'classnames'
 
 export interface VarviationProps {
   defaultImage: string
@@ -39,7 +40,7 @@ const EditVariationList = (props: FormProps) => {
   const { variationForm: cloneVariationForm } = useContext(VariationosContext)
   //changeType操作variation需要做include处理；操作spec需要做===处理
   const [variationList, setVariationList] = useState<VarviationProps[]>([])
-  const [headerList, setHeaderList] = useState<HeaderProps[]>([])
+  const [headerList, setHeaderList] = useState<any[]>([])
 
   const [variationForm, setVariationForm] = useState({} as VarationsFormProps)
   useEffect(() => {
@@ -311,7 +312,7 @@ const EditVariationList = (props: FormProps) => {
             <thead>
               <tr className='text-center bg-gray-primary h-12'>
                 {headerList.map((th, index) => (
-                  <th className='font-normal' key={index}>
+                  <th className={classNames('font-normal', th.className)} key={index}>
                     {!th.required ||
                     (variationList.every(el => {
                       console.info('aiaiaiai？', el.subscriptionStatus, typeof el.subscriptionStatus)

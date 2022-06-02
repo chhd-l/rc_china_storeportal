@@ -39,7 +39,7 @@ const CouponInformation = ({ id, customerId }: CouponInfoProps) => {
       render: (text: any, record: any) => {
         return(
           <span>{
-            record.discountType==='PERCENTAGE'?record.discountValue+'%OFF':record.minimumBasketPrice?'￥'+record.minimumBasketPrice:''
+            record.discountType==='PERCENTAGE'?record.discountValue+'%OFF':'￥'+record.discountValue
           }</span>
         )
       }
@@ -74,7 +74,7 @@ const CouponInformation = ({ id, customerId }: CouponInfoProps) => {
           <span
             className='cursor-pointer iconfont icon-kjafg primary-color text-xl'
             onClick={() => {
-              navigator('/marketingCenter/vouchers/voucherDetails', { state: record })
+              navigator('/marketingCenter/vouchers/voucherDetails', { state: {...record, Edit: true} })
             }}
           />
         </Tooltip>

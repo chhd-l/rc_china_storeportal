@@ -1,7 +1,7 @@
 import { DownOutlined, QuestionCircleOutlined, UpOutlined } from '@ant-design/icons'
 import { Descriptions, Divider, Tooltip } from 'antd'
 import moment from 'moment'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 const OrderType = [
   { label: 'All', value: 'ALL' },
@@ -21,8 +21,21 @@ const BasicInformation = ({ state }: { state: any }) => {
     <div className="BasicInformation">
       <Descriptions
         title={
-          <div className="text-xl">
-            Basic Information <span className="text-xs BasicInformationDescriptions ml-10">{state.voucherStatus}</span>
+          <div className="text-xl flex flex-row">
+            Basic Information{' '}
+            <span
+              className={`${
+                state.voucherStatus === 'Ongoing'
+                  ? 'bg-ongoingBg text-ongoingText'
+                  : state.voucherStatus === 'Upcoming'
+                  ? 'bg-upcomingBg text-theme-red'
+                  : state.voucherStatus === 'Expired'
+                  ? 'bg-expiredBg'
+                  : ''
+              } w-20 h-6 flex items-center justify-center text-xs ml-md`}
+            >
+              {state.voucherStatus}
+            </span>
           </div>
         }
         className={`${DescriptionsOpen ? '' : 'h-32'} overflow-hidden`}

@@ -13,17 +13,21 @@ import { dataSource } from './modules/mockdata'
 import Mock from 'mockjs'
 import './index.less'
 import { handlePageParams } from '@/utils/utils'
+import { userAtom } from '@/store/user.store'
+import { useAtom } from 'jotai'
 const { TabPane } = Tabs
 
 const listDatas = Mock.mock(dataSource)
 // console.info('listData', listData)
 const ProductList = () => {
   const [activeKey, setActiveKey] = useState<React.Key>(Tab.All)
-  const [sample, setSample] = useState({})
+  const [sample, setSample] = useState<any>({})
   const [filterCondition, setFilterCondition] = useState('')
   const [toolbarList, setToolbarList] = useState<OptionsProps[]>([])
   const navigation = useNavigate()
   const [loading, setLoading] = useState(false)
+  const [userInfo] = useAtom(userAtom)
+  const [needReload, setNeedReload] = useState(false)
   const [listData, setListData] = useState<ProductListProps>({
     products: [],
     all: '0',
@@ -39,10 +43,17 @@ const ProductList = () => {
 
   const getFormData = (data: any) => {
     setSample(data)
+    //点击搜索需要重置页码
+    setPages({
+      page: 1,
+      pageSize: 10,
+    })
+    setNeedReload(!needReload)
   }
   const handlePagination = (page: number, pageSize: number) => {
     const pages = { page, pageSize }
     setPages(pages)
+    setNeedReload(!needReload)
   }
   const handleTab = (activeKey: any) => {
     setActiveKey(activeKey)
@@ -54,16 +65,29 @@ const ProductList = () => {
         .toUpperCase()
     }
     setFilterCondition(filter)
+    //点击搜索需要重置页码
+    setPages({
+      page: 1,
+      pageSize: 10,
+    })
+    setNeedReload(!needReload)
+
     console.info()
   }
 
   const getList = async () => {
     setLoading(true)
     let pageParams = handlePageParams({ currentPage: pages.page, pageSize: pages.pageSize })
+    let sampleParams: any = {}
+    for (let sampleKey in sample) {
+      if (sample[sampleKey] !== '' && sample[sampleKey] !== undefined) {
+        sampleParams[sampleKey] = sample[sampleKey]
+      }
+    }
     let params: any = {
-      sample,
+      sample: sampleParams,
       isNeedTotal: true,
-      operator: 'sss',
+      operator: userInfo?.nickname || 'system',
     }
     params = Object.assign({}, params, pageParams)
     if (filterCondition) {
@@ -77,8 +101,7 @@ const ProductList = () => {
   }
   useEffect(() => {
     getList()
-    // setListData(listDatas)
-  }, [sample, pages, filterCondition])
+  }, [needReload])
 
   // useEffect(() => {
   //   getList()

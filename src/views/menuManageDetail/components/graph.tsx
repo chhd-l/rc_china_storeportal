@@ -15,7 +15,7 @@ const WxMenuGraph = () => {
       key: newWxMenuKey,
       name: 'Menu Name',
       type: 'media_id',
-      rc_preview_type: "image",
+      rc_preview_type: "news",
       sub_button: []
     });
     setWxMenus && setWxMenus(setActiveWxMenu(newWxMenus, newWxMenuKey));

@@ -69,7 +69,7 @@ const NewGraphic: React.FC = () => {
       const res = await addArticle(param);
       setLoading(false);
       if (res?.id) {
-        navigator("/assets-management", { state: "news" });
+        navigator("/assets/assets-management", { state: "news" });
       }
     }  
   }
@@ -82,7 +82,7 @@ const NewGraphic: React.FC = () => {
       const res = await addAndSyncArticle(param);
       setLoading(false);
       if (res?.id) {
-        navigator("/assets-management", { state: "news" });
+        navigator("/assets/assets-management", { state: "news" });
       }
     }  
   }
@@ -113,7 +113,7 @@ const NewGraphic: React.FC = () => {
             <div className="mt-4 text-right space-x-4">
               <Button disabled={loading}onClick={() => navigator("/assets-management", { state: "news" })} >Cancel</Button>
               <Button loading={loading} type="primary" onClick={handleSave}>Save</Button>
-              <Button loading={loading} type="primary" onClick={handleSaveAndSync}>Save and Sync</Button>
+              <Button loading={loading} type="primary" onClick={handleSaveAndSync}>Save and Synchronous</Button>
             </div>
           </div>
         </div>

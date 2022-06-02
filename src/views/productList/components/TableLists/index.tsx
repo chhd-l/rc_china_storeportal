@@ -93,6 +93,7 @@ const ListTable = ({ listData, handlePagination, getList, pages, setLoading, loa
             <Pagination
               className='text-right my-8'
               showSizeChanger
+              current={pages.page}
               onChange={handlePagination}
               defaultCurrent={pages.page}
               total={listData.total}

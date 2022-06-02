@@ -7,7 +7,8 @@ import LatestReports from '../LatestReports/index'
 
 const OrderSearch = ({ query }: { query: Function }) => {
   const [searchParams, setSearchParams] = useState<OrderSearchParamsProps>(initSearchParams)
-  const inputRef = React.useRef<any>(null);
+  const inputRef = React.useRef<any>(null)
+  const [pickValue, setPickValue] = useState<any>(undefined)
 
   return (
     <div>
@@ -15,8 +16,10 @@ const OrderSearch = ({ query }: { query: Function }) => {
         <div className="w-auto mr-3">Order Creation Date</div>
         <DatePicker.RangePicker
           style={{ width: '300px' }}
+          value={pickValue}
           onChange={(date, dateString) => {
             console.log(date, dateString)
+            setPickValue(date)
             setSearchParams({ ...searchParams, startTime: dateString[0], endTime: dateString[1] })
           }}
         />
@@ -73,8 +76,8 @@ const OrderSearch = ({ query }: { query: Function }) => {
         </Button>
         <Button
           className="w-32"
-          // danger
           onClick={(e) => {
+            setPickValue(['', ''])
             setSearchParams(initSearchParams)
             query && query(initSearchParams)
           }}

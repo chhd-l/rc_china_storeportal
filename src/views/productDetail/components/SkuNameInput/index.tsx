@@ -41,7 +41,7 @@ const SkuNameInput: FC<Props> = ({ defaultValue, onBlur }) => {
         trigger='click'
         placement='bottomLeft'
       >
-        <div className='w-24 px-3 truncate'>
+        <div className='w-24 px-3 truncate cursor-pointer'>
           {valueText ? (
             valueText
           ) : (

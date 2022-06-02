@@ -28,7 +28,7 @@ const TableRow: React.FC<IProps> = ({ data, handlePauseOrRestart }) => {
               <img className="w-16 h-16 order-img" src={goods?.goodsVariant?.defaultImage || ""} alt="" />
             </Col>
             <Col span={16}>
-              <Row>
+              <Row className={`${(data?.goodsList ?? []).length > 1 && idx < (data?.goodsList ?? []).length - 1 ? "border-b h-20 pb-2" : ""}`}>
                 <Col span={20}>
                   <span>{goods?.goodsVariant?.name ?? ""}</span>
                   <br />
@@ -54,7 +54,7 @@ const TableRow: React.FC<IProps> = ({ data, handlePauseOrRestart }) => {
         <Col span={2} className="text-left">
           <div className="space-x-2">
             <Tooltip title="View Details">
-              <Link to="/subscription/subscription-detail" className="cursor-pointer iconfont icon-kjafg primary-color" />
+              <Link to="/subscription/subscription-detail" state={{id: data?.id}} className="cursor-pointer iconfont icon-kjafg primary-color" />
             </Tooltip>
             {data?.status === "PAUSED" || data?.status === "ONGOING" ? <Tooltip title={data?.status === "PAUSED" ? "Restart" : "Pause"}>
               <span

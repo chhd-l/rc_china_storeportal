@@ -10,6 +10,7 @@ export interface Order {
   payInfo?: PayInfo
   subscriptionId?: string
   subscriptionNo?:string
+  freshType?:string
   shippingAddress?: Address | any
   buyer?: Customer | any
   carrier?: Carrier[]
@@ -81,6 +82,7 @@ export interface OrderTradeItem {
   num: number
   description?: string //不知道是不是规格
   price: number
+  freshType?:string
 }
 
 export enum OrderStatus {

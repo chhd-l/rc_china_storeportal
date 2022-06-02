@@ -165,7 +165,7 @@ const Video = ({
           type="primary"
           className="ml-4 flex items-center"
           onClick={() => {
-            navigator('/add-video')
+            navigator('/assets/add-video')
           }}
         >
           + Add
