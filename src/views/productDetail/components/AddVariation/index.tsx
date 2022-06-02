@@ -134,7 +134,16 @@ const AddVariation = ({}: AddVariationProps) => {
           variationForm.variationList[variationIdx].specificationList[specificationIdx].id
         variationData[variationIdx].goodsSpecificationDetail[specificationIdx].isDeleted = true
       } else {
-        variationData[variationIdx].goodsSpecificationDetail.splice(variationIdx, 1)
+        variationData[variationIdx].goodsSpecificationDetail.splice(specificationIdx, 1)
+        let hasChangedGoodsSpecificationDetail = variationData[variationIdx].goodsSpecificationDetail.filter(
+          (el: any) => el,
+        )
+        if (!hasChangedGoodsSpecificationDetail?.length) {
+          delete variationData[variationIdx].goodsSpecificationDetail
+          if (!variationData[variationIdx]?.specificationName) {
+            variationData.splice(variationIdx, 1)
+          }
+        }
       }
     }
     setVariationForm(cloneDeep(variationForm))
