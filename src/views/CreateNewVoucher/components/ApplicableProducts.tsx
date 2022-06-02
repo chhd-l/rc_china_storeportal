@@ -64,13 +64,14 @@ const ApplicableProducts = ({
       title: 'Actions',
       dataIndex: 'id',
       width: 80,
+      hideInTable: Edit,
       render: (text: any, record: any) => (
-        !Edit ? (<Tooltip title="Delete">
+        <Tooltip title="Delete">
           <span className="iconfont text-xl icon-delete text-red-500" onClick={() => {
             setProducts(text)
             setIsModalVisible(true)
           }} />
-        </Tooltip>) : null
+        </Tooltip>
       ),
     },
   ]
