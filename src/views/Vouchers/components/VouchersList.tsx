@@ -103,9 +103,9 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
             {text === 'Ongoing' && <span className="Ongoing">Ongoing</span>}
             {text === 'Expired' && <span className="Expired">Expired</span>}
             <div className="text-gray-400">
-              {moment(record.voucherUsageBeginningOfTime).format('YYYY/MM/DD HH:mm')} -
+              {moment(record.voucherUsageBeginningOfTime).format('YYYY-MM-DD HH:mm')} -
             </div>
-            <div className="text-gray-400">{moment(record.voucherUsageEndOfTime).format('YYYY/MM/DD HH:mm')}</div>
+            <div className="text-gray-400">{moment(record.voucherUsageEndOfTime).format('YYYY-MM-DD HH:mm')}</div>
           </div>
         )
       },
