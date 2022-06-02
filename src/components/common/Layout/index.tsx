@@ -19,6 +19,7 @@ const AppLayout = () => {
       (pathname.split('/').some(path => path === 'product') && pathname !== '/product/product-list' && pathname !== '/product')
        || pathname === '/assets/add-graphic'
        || (pathname.split('/').some(path => path === 'category') && pathname !== '/category/category-list' && pathname !== '/category')
+       || (pathname.split('/').some(path => path === 'marketingCenter') && pathname !== '/marketingCenter/marketingCenter-list' && pathname !== '/marketingCenter')
       ) {
       setIsOpen(false)
     } else {
