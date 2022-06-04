@@ -1,4 +1,4 @@
-import { Typography, Form, DatePicker, Button, Pagination } from 'antd'
+import { Typography, Form, DatePicker, Button, Pagination, Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
 import OrderTable from '@/components/order/OrderTable'
 import { OrderSearchParamsProps } from '@/framework/types/order'
@@ -25,11 +25,8 @@ const Orders = ({ state }: { state: any }) => {
     pageParams: PageParamsProps
   }) => {
     setLoading(true)
-    console.log('1111111', state)
     let params = handleQueryParams({ searchParams, pageParams, voucherId: state?.id })
-    console.log('query orders view params', params)
     const res = await getOrderList(params)
-    console.log('res', res)
     setOrderList(res.records)
     setTotal(res.total)
     setLoading(false)
@@ -49,6 +46,7 @@ const Orders = ({ state }: { state: any }) => {
 
   return (
     <div>
+      <Spin spinning={loading}>
       <Typography.Title className="mb-md" level={4}>
         Orders
       </Typography.Title>
@@ -84,6 +82,7 @@ const Orders = ({ state }: { state: any }) => {
           />
         </div>
       )}
+      </Spin>
     </div>
   )
 }
