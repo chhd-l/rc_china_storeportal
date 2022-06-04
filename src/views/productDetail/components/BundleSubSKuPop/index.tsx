@@ -8,6 +8,7 @@ import { ProFormInstance } from '@ant-design/pro-form'
 import { ProColumns } from '@ant-design/pro-table'
 import { Input, Modal, Select, Space } from 'antd'
 import { useEffect, useRef, useState } from 'react'
+import './index.less'
 interface Props {
   isModalVisible: boolean
   handleOk: Function
@@ -113,15 +114,16 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
       },
       renderFormItem: (_, { type, defaultRender, ...rest }, form) => {
         return (
-          <div className='flex'>
+          <div className='flex items-center'>
             <Input
               addonBefore='¥'
               onChange={e => {
                 setStartPrice(e.target.value)
               }}
-              className='mr-4'
+              // className='mr-4'
               value={startPrice}
-            />{' '}
+            />
+            <div className='px-2'>-</div>
             <Input addonBefore='¥' />
           </div>
         )
@@ -138,6 +140,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
       okText='Comfirm'
       title='Select Products'
       visible={isModalVisible}
+      className='bundle-sub-sku-pop'
       width={800}
       onOk={() => {
         console.info('allPageList', allPageList)
