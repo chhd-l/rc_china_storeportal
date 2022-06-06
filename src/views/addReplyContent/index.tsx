@@ -32,24 +32,22 @@ const AddAccount = () => {
     if (state?.id) {
       getReplyDetailIfEdit(state.id);
       setTitle("Edit Reply Content");
-      setAssetType(state.type);
-      formValuesChange({}, { type: state.type });
-      form.setFieldsValue({
-        type: state?.type ?? undefined,
-        description: state?.description ?? undefined,
-        assetId: state?.mediaId ?? undefined,
-        message: state?.content ?? undefined,
-      });
     }
   }, []);
 
   const getReplyDetailIfEdit = async (id: string) => {
     setLoading(true);
     const reply = await getReplyContentDetail(id);
-    setLoading(false);
+    setAssetType(reply?.responseType ?? 'image');
+    formValuesChange({}, { type: reply?.responseType ?? 'text' });
     form.setFieldsValue({
-      assetTitle: reply?.title ?? ''
+      assetTitle: reply?.title ?? '',
+      type: reply?.responseType ?? undefined,
+      description: reply?.description ?? undefined,
+      assetId: reply?.mediaId ?? undefined,
+      message: reply?.messageContent ?? undefined,
     });
+    setLoading(false);
   }
 
   const formValuesChange = (changedValues: any, allValues: any) => {

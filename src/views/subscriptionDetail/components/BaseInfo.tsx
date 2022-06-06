@@ -17,7 +17,7 @@ const BaseInfo = ({ data, onChange }: { data: any, onChange: () => void }) => {
         </Row>
       </div>
       <div>
-        {data?.status === "ONGOING" || data?.status === "PAUSED" ? <Button type="primary" onClick={onChange}>{data?.status === "ONGOING" ? "Pause" : "Restart"}</Button> : null}
+        {data?.status === "ONGOING" || data?.status === "PAUSED" ? <Button type="primary" style={{minWidth: 80}} onClick={onChange}>{data?.status === "ONGOING" ? "Pause" : "Restart"}</Button> : null}
       </div>
     </div>
   )

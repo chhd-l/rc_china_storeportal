@@ -1,5 +1,5 @@
 import { Button, Switch, Table, Tooltip } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { matchTypeList } from "../../modules/constants";
 import { replyTypeList } from "@/framework/constants/wechat";
 import { AutoReplies } from "@/framework/types/wechat";
@@ -47,6 +47,7 @@ const Index = ({
       title: "Response Description",
       dataIndex: "responseDes",
       key: "responseDes",
+      render: (_text: string, record: AutoReplies) => <Link to="/reply/edit-reply-content" state={{id:record.responseId}}>{_text}</Link>
     },
     {
       title: "Status",
