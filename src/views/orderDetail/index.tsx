@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 import { initOrderDetail } from './modules/constants'
 import { ContentContainer, InfoContainer, DivideArea } from '@/components/ui'
 import { getOrderDetail } from '@/framework/api/get-order'
-import { Empty } from 'antd'
+import { Empty, Spin } from 'antd'
 
 const OrderDetail = () => {
   const [orderId, setOrderId] = useState('')
@@ -24,6 +24,7 @@ const OrderDetail = () => {
     comments,
     id,
   } = orderDetail
+  const [loading,setLoading]=useState(false)
 
   useEffect(() => {
     const state: any = location.state
@@ -33,13 +34,16 @@ const OrderDetail = () => {
   }, [])
 
   const getDetail = async (orderNum = orderId) => {
+    setLoading(true)
     let data: any = await getOrderDetail({ orderNum })
     console.log('333', data)
     setOrderDetail(data)
+    setLoading(false)
   }
 
   return (
     <>
+      <Spin spinning={loading}>
       {orderDetail?.id ? (
         <ContentContainer>
           <div className="flex flex-row">
@@ -83,6 +87,7 @@ const OrderDetail = () => {
       ) : (
         <Empty className="mt-48" image={Empty.PRESENTED_IMAGE_SIMPLE} />
       )}
+      </Spin>
     </>
   )
 }
