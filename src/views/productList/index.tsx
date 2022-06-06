@@ -16,7 +16,10 @@ import { handlePageParams } from '@/utils/utils'
 import { userAtom } from '@/store/user.store'
 import { useAtom } from 'jotai'
 const { TabPane } = Tabs
-
+interface ParamProps {
+  sortKey?: string
+  sortDirection?: string
+}
 const listDatas = Mock.mock(dataSource)
 // console.info('listData', listData)
 const ProductList = () => {
@@ -75,7 +78,7 @@ const ProductList = () => {
     console.info()
   }
 
-  const getList = async () => {
+  const getList = async (sort?: ParamProps) => {
     setLoading(true)
     let pageParams = handlePageParams({ currentPage: pages.page, pageSize: pages.pageSize })
     let sampleParams: any = {}
@@ -84,10 +87,25 @@ const ProductList = () => {
         sampleParams[sampleKey] = sample[sampleKey]
       }
     }
+
     let params: any = {
       sample: sampleParams,
       isNeedTotal: true,
       operator: userInfo?.nickname || 'system',
+    }
+    if (sort) {
+      if (sort.sortDirection === 'ascend' && sort.sortKey === 'price') {
+        params.sort = 'MARKETING_PRICE_ASC'
+      }
+      if (sort.sortDirection === 'descend' && sort.sortKey === 'price') {
+        params.sort = 'MARKETING_PRICE_DESC'
+      }
+      if (sort.sortDirection === 'ascend' && sort.sortKey === 'stock') {
+        params.sort = 'STOCK_ASC'
+      }
+      if (sort.sortDirection === 'descend' && sort.sortKey === 'stock') {
+        params.sort = 'STOCK_DESC'
+      }
     }
     params = Object.assign({}, params, pageParams)
     if (filterCondition) {
