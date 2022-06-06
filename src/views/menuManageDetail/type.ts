@@ -8,7 +8,15 @@ export type WxMenuItem = {
   active?: boolean
   media_id?: string
   rc_preview_type?: "news" | "voice" | "video" | "image"
-  rc_preview_url?: string
+  rc_preview_news_media_id?: string
+  rc_preview_news_url?: string
+  rc_preview_image_media_id?: string
+  rc_preview_image_url?: string
+  rc_preview_voice_media_id?: string
+  rc_preview_voice_url?: string
+  rc_preview_video_media_id?: string
+  rc_preview_video_url?: string
+
   sub_button?: WxMenuItem[]
 }
 

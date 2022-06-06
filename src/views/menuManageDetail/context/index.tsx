@@ -94,7 +94,6 @@ export const filterWxMenus: (wxMenus: WxMenuItem[]) => WxMenuItem[] = (wxMenus) 
   wxMenus.forEach(item => {
     item.active = undefined;
     item.rc_preview_type = undefined;
-    item.rc_preview_url = undefined;
     if (item.type === "media_id") {
       item.url = undefined;
       item.appid = undefined;

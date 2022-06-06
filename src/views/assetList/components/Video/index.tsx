@@ -90,7 +90,7 @@ const Video = ({
     getMediaList({})
   }, [])
 
-  const getMediaList = async ({ curPageParams = pageParams, curSearchParams = searchParams }) => {
+  const getMediaList = async ({ curPageParams = initPageParams, curSearchParams = searchParams }) => {
     const { description, startTime, endTime } = curSearchParams
     const queryParams = Object.assign(
       {
@@ -140,7 +140,10 @@ const Video = ({
           </div>
         </div>
         <div className="my-4 flex">
-          <Button className="w-20 mr-8" type="primary" danger onClick={() => getMediaList({})}>
+          <Button className="w-20 mr-8" type="primary" danger onClick={() => {
+            setPageParams(initPageParams);
+            getMediaList({});
+          }}>
             Search
           </Button>
           <Button
@@ -149,6 +152,7 @@ const Video = ({
             onClick={(e) => {
               setPickValue(['', ''])
               setSearchParams(initSearchParams)
+              setPageParams(initPageParams)
               getMediaList({ curSearchParams: initSearchParams })
             }}
           >

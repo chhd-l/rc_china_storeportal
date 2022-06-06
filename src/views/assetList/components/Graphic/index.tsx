@@ -106,14 +106,14 @@ const Graphic = ({
     getMediaList({})
   }, [])
 
-  const getMediaList = async ({ curPageParams = pageParams, curSearchParams = searchParams }) => {
+  const getMediaList = async ({ curPageParams = initPageParams, curSearchParams = searchParams }) => {
     const { title, status } = curSearchParams
     const queryParams = Object.assign(
       {
         isNeedTotal: true,
         sample: title || status ? {
           title,
-          status: status === '1' ? false : true
+          status: status === '1' ? false : status === '2' ? true : undefined
         } : undefined,
       },
       handlePageParams(curPageParams),
@@ -156,13 +156,17 @@ const Graphic = ({
           </div>
         </div>
         <div className="my-4 flex">
-          <Button className="w-20 mr-8" type="primary" onClick={() => getMediaList({})}>
+          <Button className="w-20 mr-8" type="primary" onClick={() => {
+            setPageParams(initPageParams);
+            getMediaList({});
+          }}>
             Search
           </Button>
           <Button
             className="w-20"
             onClick={(e) => {
               setSearchParams(initSearchParams)
+              setPageParams(initPageParams)
               getMediaList({ curSearchParams: initSearchParams })
             }}
           >

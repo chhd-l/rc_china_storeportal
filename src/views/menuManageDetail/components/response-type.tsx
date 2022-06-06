@@ -15,7 +15,8 @@ const ResponseType = () => {
   const handleConfirm = (asset: Partial<Asset>) => {
     const newWxMenus = setWxMenu(wxMenus || [], activeMenu?.key || '', {
       media_id: asset.assetId,
-      rc_preview_url: activeMenu?.rc_preview_type === 'image' ? asset.picture : activeMenu?.rc_preview_type === 'voice' ? asset.voice : asset.video,
+      [`rc_preview_${activeMenu?.rc_preview_type}_media_id`]: asset.assetId,
+      [`rc_preview_${activeMenu?.rc_preview_type}_url`]: asset.picture,
     })
     setWxMenus && setWxMenus(_.cloneDeep(newWxMenus))
     setVisible(false)
@@ -25,7 +26,7 @@ const ResponseType = () => {
     console.log(type)
     const newWxMenus = setWxMenu(wxMenus || [], activeMenu?.key || '', {
       rc_preview_type: type,
-      rc_preview_url: '',
+      media_id: type === "news" ? activeMenu?.rc_preview_news_media_id : type === "image" ? activeMenu?.rc_preview_image_media_id : type === "video" ? activeMenu?.rc_preview_video_media_id : activeMenu?.rc_preview_voice_media_id,
     })
     setWxMenus && setWxMenus(_.cloneDeep(newWxMenus))
   }
@@ -60,7 +61,6 @@ const ResponseType = () => {
           <div className='mx-md text-gray-400' onClick={() => setVisible(true)}>
             <span className='iconfont icon-Frame3 mb-0.5' style={{ fontSize: 30 }}></span>
             <div>Select from assets</div>
-            <div className='uploaded-asset'>{activeMenu?.media_id}</div>
           </div>
           <div className='mx-md text-gray-400'>
             {
@@ -70,12 +70,20 @@ const ResponseType = () => {
           </div>
         </div>
         <div className='mt-4'>
-          {activeMenu ? <div className='inline-block'>
-            {activeMenu.rc_preview_type === 'image'
-              ? <Image width={80} src={activeMenu.rc_preview_url} />
-              : activeMenu.rc_preview_type!=='news' ? <div className='uploaded-asset'><a href={activeMenu.rc_preview_url}
-                                                                                target='_blank'>{activeMenu.rc_preview_url}</a>
-              </div> : null}
+          {activeMenu?.rc_preview_type === "news" && activeMenu?.rc_preview_news_media_id ? <div className='uploaded-asset'>Asset ID: {activeMenu?.rc_preview_news_media_id}</div> : null}
+          {activeMenu?.rc_preview_type === "image" && activeMenu?.rc_preview_image_media_id ? <div className='uploaded-asset'>Asset ID: {activeMenu?.rc_preview_image_media_id}</div> : null}
+          {activeMenu?.rc_preview_type === "voice" && activeMenu?.rc_preview_voice_media_id ? <div className='uploaded-asset'>Asset ID: {activeMenu?.rc_preview_voice_media_id}</div> : null}
+          {activeMenu?.rc_preview_type === "video" && activeMenu?.rc_preview_video_media_id ? <div className='uploaded-asset'>Asset ID: {activeMenu?.rc_preview_video_media_id}</div> : null}
+          {activeMenu?.rc_preview_type === "image" ? <div className='inline-block'><Image width={80} src={activeMenu?.rc_preview_image_url} /></div>: null}
+          {activeMenu?.rc_preview_type === 'voice' ? <div className='inline-block'>
+            <div className='uploaded-asset'>
+              <a href={activeMenu?.rc_preview_voice_url} target='_blank'>{activeMenu.rc_preview_voice_url}</a>
+            </div>
+          </div> : null}
+          {activeMenu?.rc_preview_type === 'video' ? <div className='inline-block'>
+            <div className='uploaded-asset'>
+              <a href={activeMenu?.rc_preview_video_url} target='_blank'>{activeMenu.rc_preview_video_url}</a>
+            </div>
           </div> : null}
         </div>
       </div>
