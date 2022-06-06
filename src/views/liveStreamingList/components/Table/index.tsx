@@ -43,12 +43,10 @@ const Index = ({ liveStreamingList }: { liveStreamingList: LiveStreaming[] }) =>
               ? 'bg-ongoingBg text-ongoingText'
               : text === 102
               ? 'bg-upcomingBg text-theme-red'
-              : text === 107
-              ? 'bg-expiredBg'
-              : ''
+              : 'bg-expiredBg'
           } w-20 h-6 flex items-center justify-center`}
         >
-          {text === 101 ? 'Ongoing' : text === 102 ? 'Upcoming' : text === 107 ? 'Expired' : ''}
+          {text === 101 ? 'Ongoing' : text === 102 ? 'Upcoming' : 'Expired'}
         </span>
       ),
     },
