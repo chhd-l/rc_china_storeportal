@@ -47,8 +47,8 @@ const column = [
 const subscriptionColumn = {
   title: 'Freshness',
   key: 'freshType',
-  dataIndex:'freshType',
-  render: (text: any, record: any) => <div>{text === 'FRESH_100_DAYS' ? '100' : 'Normal'}</div>,
+  dataIndex: 'freshType',
+  render: (text: any, record: any) => <div>{record?.isGift ? '-' : text === 'FRESH_100_DAYS' ? '100' : 'Normal'}</div>,
 }
 
 const OrderInformation = ({

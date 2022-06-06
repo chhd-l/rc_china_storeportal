@@ -84,6 +84,7 @@ export interface OrderTradeItem {
   description?: string //不知道是不是规格
   price: number
   freshType?:string
+  isGift?:boolean
 }
 
 export enum OrderStatus {
