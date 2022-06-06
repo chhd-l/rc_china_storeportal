@@ -9,6 +9,7 @@ import Cascader from '../Cascader'
 const { Option } = Select
 interface SearchProps {
   getFormData: Function
+  getList: Function
 }
 const nameForKey: OptionsProps[] = [
   { name: 'Product Name', value: 'goodsName' },
@@ -28,7 +29,7 @@ const SubscriptionType: OptionsProps[] = [
   { name: 'No', value: false },
 ]
 
-const SearchHeader = ({ getFormData }: SearchProps) => {
+const SearchHeader = ({ getFormData, getList }: SearchProps) => {
   const [form] = Form.useForm()
   const [typeSelect, setTypeSelect] = useState(typeForKey[0].value)
   const [selectedOptions, setSelectedOptions] = useState([])
@@ -48,6 +49,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
     form.resetFields()
     setCateId([])
     setTypeSelect(typeForKey[0].value) //恢复第一个选项的选择
+    getList({}, true)
   }
   // const handleCateId = (cateIds: any) => {
   //   setCateId(cateIds)

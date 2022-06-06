@@ -78,22 +78,33 @@ const ProductList = () => {
     console.info()
   }
 
-  const getList = async (sort?: ParamProps) => {
+  const getList = async (sort?: ParamProps, isReset?: boolean) => {
     setLoading(true)
-    let pageParams = handlePageParams({ currentPage: pages.page, pageSize: pages.pageSize })
     let sampleParams: any = {}
-    for (let sampleKey in sample) {
-      if (sample[sampleKey] !== '' && sample[sampleKey] !== undefined) {
-        sampleParams[sampleKey] = sample[sampleKey]
+    let currentPage = pages.page
+    let pageSize = pages.pageSize
+    if (!isReset) {
+      for (let sampleKey in sample) {
+        if (sample[sampleKey] !== '' && sample[sampleKey] !== undefined) {
+          sampleParams[sampleKey] = sample[sampleKey]
+        }
       }
+    } else {
+      //重置页码
+      currentPage = 1
+      pageSize = 10
+      setPages({
+        page: 1,
+        pageSize: 10,
+      })
     }
-
+    let pageParams = handlePageParams({ currentPage, pageSize })
     let params: any = {
       sample: sampleParams,
       isNeedTotal: true,
       operator: userInfo?.nickname || 'system',
     }
-    if (sort) {
+    if (sort?.sortKey) {
       if (sort.sortDirection === 'ascend' && sort.sortKey === 'price') {
         params.sort = 'MARKETING_PRICE_ASC'
       }
@@ -128,7 +139,7 @@ const ProductList = () => {
   return (
     <ContentContainer>
       <div className='product-list'>
-        <SearchHeader getFormData={getFormData} />
+        <SearchHeader getFormData={getFormData} getList={getList} />
         <DivideArea />
         <TableContainer>
           <Tabs defaultActiveKey={Tab.All} onChange={handleTab}>
