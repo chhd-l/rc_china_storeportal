@@ -131,7 +131,6 @@ const CreateNewVoucher = () => {
               navigator('/marketingCenter/vouchers')
             } catch (err) {
               setSpinning(false)
-              message.error({ className: 'rc-message', content: 'Operation failed' })
             }
           }}
         >
