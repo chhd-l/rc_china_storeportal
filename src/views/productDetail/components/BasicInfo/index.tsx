@@ -36,7 +36,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
     form.setFieldsValue({
       goodsDescription: html,
     })
-    console.info('editorHtml', html)
+    // console.info('editorHtml', html)
   }
   const handleImgUrl = ({ url, idx, type, id }: uploadHandleProps) => {
     let newAssets = [...initAsserts]
@@ -45,7 +45,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
     form.setFieldsValue({
       goodsAsserts: newAssets,
     })
-    console.info('setAssetsUrl', newAssets)
+    // console.info('setAssetsUrl', newAssets)
   }
   const handleVideoUrl = ({ url, idx, type, id }: uploadHandleProps) => {
     setvideoUrl({ url, idx, type, id })
@@ -89,7 +89,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
       })
     }
   }, [detail?.selectedCateOptions])
-  console.info('......detaildetaildetaildetail', detail)
+  // console.info('......detaildetaildetaildetail', detail)
   return (
     <div className='basicinfo'>
       <Form.Item
