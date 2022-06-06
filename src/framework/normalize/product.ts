@@ -465,7 +465,8 @@ export const normaliseInputAttrProps = (goodsAttributeValueRel: any, beforeGoods
         delArr.push({
           attributeId: beforeGoodsAttributeValueRel[item].attributeId,
           attributeValueId: beforeGoodsAttributeValueRel[item].attributeValueId,
-          isDeleted: true
+          isDeleted: true,
+          relId: beforeGoodsAttributeValueRel[item].relId,
         })
       }
     }
