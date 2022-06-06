@@ -146,6 +146,7 @@ const OrderTable = ({
                 <OrderActions
                   orderState={item.tradeState.orderState}
                   orderId={item.id}
+                  subscriptionId={item.subscriptionId}
                   orderAddress={item.shippingAddress}
                   orderBuyer={item.buyer}
                   shipOrCompleteSuccess={shipOrCompleteSuccess}

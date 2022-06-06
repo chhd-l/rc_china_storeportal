@@ -19,6 +19,7 @@ const OrderProgress = ({
   orderState,
   orderId,
   subscriptionNo,
+  subscriptionId,
   orderAddress,
   logs,
   buyer,
@@ -27,6 +28,7 @@ const OrderProgress = ({
   orderState: string
   orderId: string
   subscriptionNo: string | undefined
+  subscriptionId: string
   orderAddress: any[]
   logs: any
   buyer: any
@@ -68,9 +70,12 @@ const OrderProgress = ({
             Order ID:{orderId}
             <br />
             {subscriptionNo && (
-              <span className="hover:cursor-pointer" onClick={() => {
-                navigator('/subscription/subscription-detail')
-              }}>
+              <span
+                className="hover:cursor-pointer"
+                onClick={() => {
+                  navigator('/subscription/subscription-detail', { state: { id: subscriptionId } })
+                }}
+              >
                 Subscription ID:{subscriptionNo}
               </span>
             )}
@@ -80,6 +85,7 @@ const OrderProgress = ({
           <OrderActions
             orderState={orderState}
             orderId={orderId}
+            subscriptionId={subscriptionId}
             orderAddress={orderAddress}
             orderBuyer={buyer}
             shipOrCompleteSuccess={shipOrCompleteSuccess}

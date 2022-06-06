@@ -48,7 +48,7 @@ export const getCustomTags = async ({ customerId }: { customerId: string }) => {
   try {
     let res = await ApiRoot.customers().getCustomerTags(customerId)
     console.log('customerTags', res)
-    const customerTags = normalisePetOwnerTagList(res)
+    const customerTags = normalisePetOwnerTagList(res || [])
     return customerTags
   } catch (e) {
     console.log(e)
@@ -60,7 +60,7 @@ export const getCustomer = async ({ customerId }: { customerId: string }) => {
   try {
     let res = await ApiRoot.customers().getCustomer({ id: customerId })
     console.log('customer info', res)
-    const customer = normaliseCustomer(res.customer);
+    const customer = normaliseCustomer(res.customer)
     return customer
   } catch (e) {
     console.log(e)
@@ -69,7 +69,7 @@ export const getCustomer = async ({ customerId }: { customerId: string }) => {
 }
 
 export const getCustomerAddressList = async (customerId: string) => {
-  const res = await ApiRoot.addresses().getAddresses({ customerId });
-  console.log("get customer addresses view data:", res);
+  const res = await ApiRoot.addresses().getAddresses({ customerId })
+  console.log('get customer addresses view data:', res)
   return res || []
 }
