@@ -24,6 +24,7 @@ const OrderProgress = ({
   logs,
   buyer,
   shipOrCompleteSuccess,
+                         expectedShippingDate
 }: {
   orderState: string
   orderId: string
@@ -33,6 +34,7 @@ const OrderProgress = ({
   logs: any
   buyer: any
   shipOrCompleteSuccess: Function
+  expectedShippingDate:string
 }) => {
   const [currentStep, setCurrentStep] = useState(0)
   const [filterSteps, setFilterSteps] = useState(stepList)
@@ -90,15 +92,18 @@ const OrderProgress = ({
             orderBuyer={buyer}
             shipOrCompleteSuccess={shipOrCompleteSuccess}
             origin={'detail'}
+            expectedShippingDate={expectedShippingDate}
           />
         </div>
       </div>
-      <div className="mt-4">
-        <Steps progressDot current={currentStep}>
-          {filterSteps.map((el) => (
-            <Steps.Step title={el.label} description={el.updateTime} key={el.key} />
-          ))}
-        </Steps>
+      <div className="mt-4 flex justify-center">
+        <div className={`${filterSteps.length < 3 ? 'w-1/2' : 'w-full'}`}>
+          <Steps progressDot current={currentStep}>
+            {filterSteps.map((el) => (
+              <Steps.Step title={el.label} description={el.updateTime} key={el.key} />
+            ))}
+          </Steps>
+        </div>
       </div>
     </div>
   )

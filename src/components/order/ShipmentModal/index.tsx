@@ -9,15 +9,17 @@ const ShipmentModal = ({
   orderId,
   onCancel,
   shipped,
+  expectedShippingDate,
 }: {
   shipModalVisible: boolean
   orderId?: string
   onCancel: Function
   shipped?: Function
+  expectedShippingDate: string
 }) => {
   const [form] = Form.useForm()
   const [carrierTypes, setCarrierTypes] = useState<CarrierType[]>([])
-  const [shippingTime, setShippingTime] = useState('')
+  const [shippingTime, setShippingTime] = useState(moment(expectedShippingDate).format('YYYY-MM-DD'))
 
   const disabledDate = (current: any) => {
     return current && current < moment().subtract(1, 'days')
@@ -71,7 +73,8 @@ const ShipmentModal = ({
         <Form.Item label="Shipment Date:" name="shippingTime">
           <DatePicker
             className="w-full"
-            disabledDate={disabledDate}
+            // disabledDate={disabledDate}
+            defaultValue={moment(expectedShippingDate)}
             onChange={(date, dateString) => {
               console.log(date, dateString)
               setShippingTime(dateString)
