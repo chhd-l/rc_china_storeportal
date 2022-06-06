@@ -24,6 +24,7 @@ const OrderProgress = ({
   logs,
   buyer,
   shipOrCompleteSuccess,
+                         expectedShippingDate
 }: {
   orderState: string
   orderId: string
@@ -33,6 +34,7 @@ const OrderProgress = ({
   logs: any
   buyer: any
   shipOrCompleteSuccess: Function
+  expectedShippingDate:string
 }) => {
   const [currentStep, setCurrentStep] = useState(0)
   const [filterSteps, setFilterSteps] = useState(stepList)
@@ -90,6 +92,7 @@ const OrderProgress = ({
             orderBuyer={buyer}
             shipOrCompleteSuccess={shipOrCompleteSuccess}
             origin={'detail'}
+            expectedShippingDate={expectedShippingDate}
           />
         </div>
       </div>

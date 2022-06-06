@@ -89,6 +89,7 @@ export const normaliseOrder = (data: any, expressCompanies: any): any => {
     tradeState: {
       orderState: orderState,
     },
+    expectedShippingDate:shippingInfo?.expectedShippingDate||'',
     carrier: shippingInfo?.trackingId
       ? [
           {

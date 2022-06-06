@@ -16,6 +16,7 @@ export interface Order {
   carrier?: Carrier[]
   logs: Log[]
   comments: Comment[]
+  expectedShippingDate?:string
 }
 
 export interface Comment {

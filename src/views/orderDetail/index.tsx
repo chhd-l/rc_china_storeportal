@@ -23,8 +23,9 @@ const OrderDetail = () => {
     logs,
     comments,
     id,
+    expectedShippingDate,
   } = orderDetail
-  const [loading,setLoading]=useState(false)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const state: any = location.state
@@ -44,49 +45,50 @@ const OrderDetail = () => {
   return (
     <>
       <Spin spinning={loading}>
-      {orderDetail?.id ? (
-        <ContentContainer>
-          <div className="flex flex-row">
-            <div className="mr-4 w-3/4">
-              <InfoContainer>
-                <Progress
-                  orderState={tradeState.orderState}
-                  orderId={orderId}
-                  subscriptionNo={subscriptionNo}
-                  subscriptionId={subscriptionId}
-                  orderAddress={shippingAddress}
-                  logs={logs}
-                  buyer={buyer}
-                  shipOrCompleteSuccess={getDetail}
-                />
-              </InfoContainer>
-              <DivideArea />
-              <InfoContainer>
-                <Address address={shippingAddress} />
-                <Carrier carrier={carrier} />
-              </InfoContainer>
-              <DivideArea />
-              <InfoContainer>
-                <Customer buyer={buyer} />
-              </InfoContainer>
-              <DivideArea />
-              <InfoContainer>
-                <TradeItem tradeItem={tradeItem} tradePrice={tradePrice} isSubscription={subscriptionNo !== ''} />
-              </InfoContainer>
-              <DivideArea />
-              <InfoContainer>
-                <Payment payInfo={payInfo} />
-              </InfoContainer>
+        {orderDetail?.id ? (
+          <ContentContainer>
+            <div className="flex flex-row">
+              <div className="mr-4 w-3/4">
+                <InfoContainer>
+                  <Progress
+                    orderState={tradeState.orderState}
+                    orderId={orderId}
+                    subscriptionNo={subscriptionNo}
+                    subscriptionId={subscriptionId}
+                    orderAddress={shippingAddress}
+                    logs={logs}
+                    buyer={buyer}
+                    shipOrCompleteSuccess={getDetail}
+                    expectedShippingDate={expectedShippingDate}
+                  />
+                </InfoContainer>
+                <DivideArea />
+                <InfoContainer>
+                  <Address address={shippingAddress} />
+                  <Carrier carrier={carrier} />
+                </InfoContainer>
+                <DivideArea />
+                <InfoContainer>
+                  <Customer buyer={buyer} />
+                </InfoContainer>
+                <DivideArea />
+                <InfoContainer>
+                  <TradeItem tradeItem={tradeItem} tradePrice={tradePrice} isSubscription={subscriptionNo !== ''} />
+                </InfoContainer>
+                <DivideArea />
+                <InfoContainer>
+                  <Payment payInfo={payInfo} />
+                </InfoContainer>
+              </div>
+              <div className="w-1/4">
+                <Comment comments={comments} orderNum={id} updateSuccess={() => getDetail(orderId)} />
+                <OperationLog logs={logs} />
+              </div>
             </div>
-            <div className="w-1/4">
-              <Comment comments={comments} orderNum={id} updateSuccess={() => getDetail(orderId)} />
-              <OperationLog logs={logs} />
-            </div>
-          </div>
-        </ContentContainer>
-      ) : (
-        <Empty className="mt-48" image={Empty.PRESENTED_IMAGE_SIMPLE} />
-      )}
+          </ContentContainer>
+        ) : (
+          <Empty className="mt-48" image={Empty.PRESENTED_IMAGE_SIMPLE} />
+        )}
       </Spin>
     </>
   )
