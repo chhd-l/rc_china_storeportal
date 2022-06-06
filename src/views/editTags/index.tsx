@@ -158,10 +158,12 @@ const EditTags = () => {
                   </div> :
                   <div className='edit-name flex items-center'>
                     <span className='edit-display-name'>{cateInfos.name}</span>
-                    <EditOutlined onClick={() => {
-                      setShow(true)
-                      setName(cateInfos.name)
-                    }} style={{ fontSize: '16px', color: '#ee4d2d' }} />
+                    <span style={{ color: '#ee4d2d' }}
+                          className='iconfont icon-shop-cate-edit'
+                          onClick={() => {
+                            setShow(true)
+                            setName(cateInfos.name)
+                          }} />
                   </div>
               }
             </div>

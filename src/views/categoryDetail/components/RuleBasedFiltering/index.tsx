@@ -83,8 +83,9 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
       data.sample.brand = params.brand
     }
     if (params.attributeValueIds?.length>0) {
-      data.sample.attributeValueIds = params.attributeValueIds
+      data.sample.attributeRelation = [{attributeValueIds:params.attributeValueIds}]
     }
+
     if (params.startPrice) {
       data.sample.startPrice = params.startPrice
     }
@@ -110,6 +111,9 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
   const init = () => {
     if(editParams.filterTags.length===0){
       editParams.filterTags=['All Categories', 'All Brands']
+    }
+    if(!editParams.attributeValueIds){
+      editParams.attributeValueIds = []
     }
     setSaveParams({...saveParams,...editParams })
     setFilterTags(editParams.filterTags)
