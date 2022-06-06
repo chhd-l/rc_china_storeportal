@@ -19,7 +19,7 @@ const ShipmentModal = ({
 }) => {
   const [form] = Form.useForm()
   const [carrierTypes, setCarrierTypes] = useState<CarrierType[]>([])
-  const [shippingTime, setShippingTime] = useState('')
+  const [shippingTime, setShippingTime] = useState(moment(expectedShippingDate).format('YYYY-MM-DD'))
 
   const disabledDate = (current: any) => {
     return current && current < moment().subtract(1, 'days')
