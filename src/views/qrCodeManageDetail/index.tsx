@@ -6,9 +6,12 @@ import { Button, Form, Input, Select, Upload, DatePicker, InputNumber } from "an
 // import { mockList } from "../mpBannerList/modules/mockdata"
 import { ContentContainer, InfoContainer } from "@/components/ui"
 import "./index.less"
+import ReplyModal from "@/components/wechat/ReplyModal";
+import { ReplyContent } from "@/framework/types/wechat";
 import { createQrCode } from "@/framework/api/wechatSetting";
 import { useNavigate } from "react-router";
 import { useState } from "react";
+import { SearchOutlined } from "@ant-design/icons";
 import moment from "moment";
 // const mockData = Mock.mock(mockList).list[0]
 // mockData.img = [{ url: mockData.img }] //单独处理图片数据
@@ -36,6 +39,9 @@ const QrCodeManageDetail = () => {
   const navigator = useNavigate();
   const [isOpen, setIsOpen] = useState('')
   const [isRequset, setIsRequset] = useState(true)
+  const [reply, setReply] = useState<any>({})
+  const [visible, setVisible] = useState(false)
+  const [form] = Form.useForm()
   const layout = {
     labelCol: { span: 6 },
     wrapperCol: { span: 16 },
@@ -52,24 +58,30 @@ const disabledDate = (cut: any) => {
   return !((pickTime > dateTime) && ((pickTime - dateTime < time) && (pickTime - dateTime >= 0)))
 }
 
+const handleChooseReplyContent = (reply: ReplyContent) => {
+  setReply(reply);
+  form.setFieldsValue({ description: reply.description });
+  setVisible(false);
+}
+
   return (
     <ContentContainer className="qr-code-manage-detail">
       <InfoContainer title="Add QR Code">
         <Form
           {...layout}
+          form={form}
           className="w-1/2 "
           layout="horizontal"
           onFinish={async (values) => {
-            if(isRequset) {
-              setIsRequset(false)
-              if(values.expiredTime) {
-                values.expiredTime = moment(values.expiredTime).utc().format()
-              }
-              await createQrCode({...values, accountId: "000001"}).then(() => {
-                navigator("/QrcodeManage/qrcode-manage-list");
-              })
-              setIsRequset(true)
+            setIsRequset(true)
+            if(values.expiredTime) {
+              values.expiredTime = moment(values.expiredTime).utc().format()
             }
+            const { description, ...rest } = values;
+            await createQrCode({...rest, replyContentId: reply.id, accountId: "000001"}).then(() => {
+              navigator("/QrcodeManage/qrcode-manage-list");
+            })
+            setIsRequset(false)
           }}
         >
           <Form.Item label='QR Code Name' name='name' rules={[
@@ -127,19 +139,21 @@ const disabledDate = (cut: any) => {
             )
           }
 
-          {/* <Form.Item label='Response Content' name='url'>
-            <Input.Group>
-              <Input
-                placeholder='input'
-                style={{ width: "82%" }}
-              />
-              <Upload name="logo" action="/upload.do" listType="picture">
-                <Button>Select</Button>
-              </Upload>
-            </Input.Group>
-          </Form.Item> */}
+          <Form.Item label='Response Content' name='description' rules={[
+            {
+              required: true,
+              message: "Please select Reply Content!"
+            }
+          ]}>
+            <Input
+              readOnly
+              placeholder="Select"
+              onClick={() => setVisible(true)}
+              suffix={<SearchOutlined onClick={() => setVisible(true)} className="text-gray-400" />}
+            />
+          </Form.Item>
           <Form.Item label='Comment' name='comment'>
-            <Input placeholder='input' />
+            <Input placeholder="Input" />
           </Form.Item>
 
           <Form.Item
@@ -154,12 +168,18 @@ const disabledDate = (cut: any) => {
             >
               Cancel
             </Button>
-            <Button type="primary" htmlType="submit" danger>
+            <Button type="primary" htmlType="submit" loading={isRequset}>
               Confirm
             </Button>
             </div>
           </Form.Item>
         </Form>
+        {visible ? <ReplyModal
+          visible={visible}
+          onlyEnabled={true}
+          onCancel={() => setVisible(false)}
+          onConfirm={handleChooseReplyContent}
+        /> : null}
       </InfoContainer>
     </ContentContainer>
   )

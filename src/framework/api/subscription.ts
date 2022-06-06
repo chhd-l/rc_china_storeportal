@@ -38,7 +38,7 @@ export const updateSubscriptionAddress = async (id: string, address: any) => {
 }
 
 export const updateNextDeliveryDate = async (id: string, date: string) => {
-  const res = await ApiRoot.subscriptions().subscriptionScheduleNextDelivery(id, date, 'zz');
+  const res = await ApiRoot.subscriptions().subscriptionScheduleNextDelivery({ body: { id, nextDeliveryDate: date, operator: 'zz' } });
   console.log("update subscription next delivery date view data:", res);
   return res?.subscriptionScheduleNextDelivery || false
 }

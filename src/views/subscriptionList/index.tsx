@@ -46,7 +46,6 @@ const SubscriptionList: React.FC<{}> = ({}) => {
   }
 
   const handleSearch = (param: any) => {
-    setParams(param);
     getSubscriptions(1, pages.limit, getParam(param, akey));
   }
 
@@ -62,6 +61,7 @@ const SubscriptionList: React.FC<{}> = ({}) => {
   const handlePauseAndRestart = async () => {
     let success = false;
     setTipObj({ ...tipObj, visible: false })
+    setLoading(true);
     if (tipObj.isResume) {
       success = await resumeSubscription(tipObj.id);
     } else {
@@ -69,6 +69,8 @@ const SubscriptionList: React.FC<{}> = ({}) => {
     }
     if (success) {
       getSubscriptions(pages.page, pages.limit, getParam(params, akey));
+    } else {
+      setLoading(false);
     }
   }
 
@@ -82,7 +84,7 @@ const SubscriptionList: React.FC<{}> = ({}) => {
           <Tabs.TabPane key="COMPLETED" tab="Completed" />
           <Tabs.TabPane key="INACTIVE" tab="Inactive" />
         </Tabs>
-        <Search onSearch={handleSearch} />
+        <Search onSearch={handleSearch} onSetParam={(param: any) => setParams(param)} />
       </SearchContainer>
       <TableContainer className="py-0 pb-5">
         <Spin spinning={loading}>

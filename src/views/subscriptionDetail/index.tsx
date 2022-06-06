@@ -98,7 +98,7 @@ export default function SubscriptionDetail() {
             </InfoContainer>
             <DivideArea />
             <InfoContainer>
-              <SubscriptionOrders planningList={detail?.planingDeliveries ?? []} completedList={detail?.completedDeliveries ?? []} onChangeDate={handleChangeNextDeliveryDate} />
+              <SubscriptionOrders planningList={detail?.planingDeliveries ?? []} completedList={detail?.completedDeliveries ?? []} nextDeliveryDate={detail?.createNextDeliveryTime} onChangeDate={handleChangeNextDeliveryDate} />
             </InfoContainer>
             <DivideArea />
             <InfoContainer>

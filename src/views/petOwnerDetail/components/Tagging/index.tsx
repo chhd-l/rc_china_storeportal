@@ -70,7 +70,7 @@ const Tagging = ({ id, customerId }: { id: string; customerId: string }) => {
                   onChange={handleChange} onDeselect={handleSearch}>
             {
               option.length > 0 && option.map((item: any) =>
-                <Select.Option value={item.id}>{item.name}</Select.Option>,
+                <Select.Option value={item.id} key={item.id}>{item.name}</Select.Option>,
               )
             }
           </Select>

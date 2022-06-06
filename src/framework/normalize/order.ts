@@ -75,7 +75,7 @@ export const normaliseOrder = (data: any, expressCompanies: any): any => {
     },
     tradeItem:
       lineItem?.map((item: any) => {
-        const { skuId, pic, skuName, num, price, goodsSpecifications } = item
+        const { skuId, pic, skuName, num, price, goodsSpecifications,isGift } = item
         return {
           skuId,
           pic,
@@ -84,11 +84,13 @@ export const normaliseOrder = (data: any, expressCompanies: any): any => {
           num,
           price,
           freshType: data?.freshType || '',
+          isGift
         }
       }) || [],
     tradeState: {
       orderState: orderState,
     },
+    expectedShippingDate:shippingInfo?.expectedShippingDate||'',
     carrier: shippingInfo?.trackingId
       ? [
           {

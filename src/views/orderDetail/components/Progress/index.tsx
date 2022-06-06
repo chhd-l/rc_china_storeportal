@@ -19,18 +19,22 @@ const OrderProgress = ({
   orderState,
   orderId,
   subscriptionNo,
+  subscriptionId,
   orderAddress,
   logs,
   buyer,
   shipOrCompleteSuccess,
+                         expectedShippingDate
 }: {
   orderState: string
   orderId: string
   subscriptionNo: string | undefined
+  subscriptionId: string
   orderAddress: any[]
   logs: any
   buyer: any
   shipOrCompleteSuccess: Function
+  expectedShippingDate:string
 }) => {
   const [currentStep, setCurrentStep] = useState(0)
   const [filterSteps, setFilterSteps] = useState(stepList)
@@ -68,9 +72,12 @@ const OrderProgress = ({
             Order ID:{orderId}
             <br />
             {subscriptionNo && (
-              <span className="hover:cursor-pointer" onClick={() => {
-                navigator('/subscription/subscription-detail')
-              }}>
+              <span
+                className="hover:cursor-pointer"
+                onClick={() => {
+                  navigator('/subscription/subscription-detail', { state: { id: subscriptionId } })
+                }}
+              >
                 Subscription ID:{subscriptionNo}
               </span>
             )}
@@ -80,19 +87,23 @@ const OrderProgress = ({
           <OrderActions
             orderState={orderState}
             orderId={orderId}
+            subscriptionId={subscriptionId}
             orderAddress={orderAddress}
             orderBuyer={buyer}
             shipOrCompleteSuccess={shipOrCompleteSuccess}
             origin={'detail'}
+            expectedShippingDate={expectedShippingDate}
           />
         </div>
       </div>
-      <div className="mt-4">
-        <Steps progressDot current={currentStep}>
-          {filterSteps.map((el) => (
-            <Steps.Step title={el.label} description={el.updateTime} key={el.key} />
-          ))}
-        </Steps>
+      <div className="mt-4 flex justify-center">
+        <div className={`${filterSteps.length < 3 ? 'w-1/2' : 'w-full'}`}>
+          <Steps progressDot current={currentStep}>
+            {filterSteps.map((el) => (
+              <Steps.Step title={el.label} description={el.updateTime} key={el.key} />
+            ))}
+          </Steps>
+        </div>
       </div>
     </div>
   )

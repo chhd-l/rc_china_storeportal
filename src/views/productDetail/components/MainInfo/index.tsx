@@ -245,7 +245,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     }
   }
   const showQrImg = () => {
-    detail?.wxCodeUrl&&setImgUrl(detail.wxCodeUrl)
+    detail?.wxCodeUrl && setImgUrl(detail.wxCodeUrl)
   }
   console.info('shelvesStatusshelvesStatus', beforeData)
   return (

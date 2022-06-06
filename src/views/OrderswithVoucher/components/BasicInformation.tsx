@@ -3,11 +3,22 @@ import { Descriptions, Divider, Tooltip } from 'antd'
 import moment from 'moment'
 import React, { useState } from 'react'
 
+const OrderType = [
+  { label: 'All', value: 'ALL' },
+  { label: 'Single Order', value: 'SING_ORDER' },
+  { label: 'Normal Subscription', value: 'NORMAL_SUBSCRIPTION' },
+]
+
+const VoucherType = [
+  { label: 'Shop Voucher', value: 'SHOP_VOUCHER' },
+  { label: 'Product Voucher', value: 'PRODUCT_VOUCHER' },
+]
+
 const BasicInformation = ({ state }: { state: any }) => {
   const [DescriptionsOpen, setDescriptionsOpen] = useState(false)
 
   return (
-    <div className=" BasicInformation">
+    <div className="BasicInformation">
       <Descriptions
         title={
           <div className="text-xl flex flex-row">
@@ -30,16 +41,16 @@ const BasicInformation = ({ state }: { state: any }) => {
         className={`${DescriptionsOpen ? '' : 'h-32'} overflow-hidden`}
       >
         <Descriptions.Item label="Voucher Name">{state.voucherName}</Descriptions.Item>
-        <Descriptions.Item label="Order Type">{state.orderType}</Descriptions.Item>
+        <Descriptions.Item label="Order Type">{OrderType.find(item => item.value === state.orderType)?.label}</Descriptions.Item>
         <Descriptions.Item label="Minimum Basket Price">￥{state.minimumBasketPrice}</Descriptions.Item>
         <Descriptions.Item label="Discount Amount">
-          {state.discountType === 'FIX_AMOUNT' ? 'Fix Amount' : 'By Percentage'}
+          {state.discountType === 'PERCENTAGE' ? state.discountValue + '%OFF' : '￥' + state.discountValue}
         </Descriptions.Item>
         <Descriptions.Item label="Voucher Usage Period">
-          {moment(state.voucherUsageBeginningOfTime).format('YYYY/MM/DD HH:mm')} to{' '}
-          {moment(state.voucherUsageEndOfTimemoment).format('YYYY/MM/DD HH:mm')}
+          {moment(state.voucherUsageBeginningOfTime).format('YYYY-MM-DD HH:mm')} to{' '}
+          {moment(state.voucherUsageEndOfTimemoment).format('YYYY-MM-DD HH:mm')}
         </Descriptions.Item>
-        <Descriptions.Item label="Voucher Type">{state.voucherType}</Descriptions.Item>
+        <Descriptions.Item label="Voucher Type">{VoucherType.find(item => item.value === state.voucherType)?.label}</Descriptions.Item>
         <Descriptions.Item label="Applicable Products">
           {state.voucherType === 'SHOP_VOUCHER' ? 'All Products' : `${state?.voucherGoodsRelated?.length} Products`}
         </Descriptions.Item>
@@ -55,7 +66,7 @@ const BasicInformation = ({ state }: { state: any }) => {
             </div>
           }
         >
-          {state.usageQuantity}
+          {state.usageQuantity === 0 ? 'Unlimited' : state.usageQuantity}
         </Descriptions.Item>
         <Descriptions.Item
           label={
@@ -90,7 +101,7 @@ const BasicInformation = ({ state }: { state: any }) => {
           {state.usage}
         </Descriptions.Item>
       </Descriptions>
-      <Divider className="text-blue-500 border-black" dashed>
+      <Divider className="text-blue-500 border-gray-500" dashed>
         {DescriptionsOpen ? (
           <div onClick={() => setDescriptionsOpen(false)} className="flex items-center cursor-default">
             Collapse Voucher Information <UpOutlined className="ml-1" />
