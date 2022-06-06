@@ -80,7 +80,7 @@ const LiveStreamingSearch = ({ query, miniProjList }: { query: Function; miniPro
           />
         </div>
         <div className="flex flex-row items-center">
-          <div className="mr-2 w-36 ml-1 text-right">Period:</div>
+          <div className="mx-2 w-36 text-right">Period:</div>
           <DatePicker.RangePicker
             style={{ width: '240px' }}
             value={pickValue}

@@ -17,6 +17,7 @@ const OrderActions = ({
   shipOrCompleteSuccess,
   origin = 'table',
   subscriptionId = '',
+  expectedShippingDate = '',
 }: {
   orderState: string
   orderId: string
@@ -25,6 +26,7 @@ const OrderActions = ({
   shipOrCompleteSuccess: Function
   origin?: string
   subscriptionId?: string
+  expectedShippingDate?: string
 }) => {
   const [shipModalVisible, setShipModalVisible] = useState(false)
   const [completeModalVisible, setCompleteModalVisible] = useState(false)
@@ -135,6 +137,7 @@ const OrderActions = ({
         orderId={orderId}
         onCancel={() => setShipModalVisible(false)}
         shipped={shipped}
+        expectedShippingDate={expectedShippingDate}
       />
       <Modal
         className="rc-modal"

@@ -15,39 +15,58 @@ type TParam = {
 
 interface IProps {
   onSearch: (param: TParam) => void
+  onSetParam: (param: TParam) => void
 }
 
 const Search = (props: IProps) => {
   const inputRef = React.useRef<any>(null);
   const [dates, setDates] = useState<RangeValue>(null)
-  const [type, setType] = useState<string>('idLike');
+  const [type, setType] = useState<string>('noLike');
   const [val, setVal] = useState<string | undefined>(undefined);
 
   const handleSelectDate = (date: any) => {
     setDates(date)
+    props.onSetParam({
+      sample: type === "type" || type === "cycle" ? { [type]: val } : undefined,
+      where: date || (type !== "type" && type !== "cycle") ? {
+        createdAtGreaterThan: date && date[0] ? date[0].utc().startOf('day').format() : undefined,
+        createdAtLessThan: date && date[1] ? date[1].utc().endOf('day').format() : undefined,
+        [type]: type !== "type" && type !== "cycle" ? val : undefined,
+      } : undefined
+    })
   }
 
   const handleSelectType = (val: string) => {
     setType(val)
     setVal(undefined)
+    props.onSetParam({
+      sample: undefined,
+      where: dates ? {
+        createdAtGreaterThan: dates && dates[0] ? dates[0].utc().startOf('day').format() : undefined,
+        createdAtLessThan: dates && dates[1] ? dates[1].utc().endOf('day').format() : undefined,
+      } : undefined
+    })
   }
 
   const handleReset = () => {
-    setType("idLike")
+    setType("noLike")
     setVal(undefined)
     setDates(null)
+    props.onSetParam({sample: undefined, where: undefined})
     props.onSearch({sample: undefined, where: undefined})
   }
 
   const handleSearch = () => {
-    props.onSearch({
+    const params = {
       sample: type === "type" || type === "cycle" ? { [type]: val } : undefined,
       where: dates || (type !== "type" && type !== "cycle") ? {
-        createdAtBiggerThan: dates && dates[0] ? dates[0].utc().startOf('day').format() : undefined,
+        createdAtGreaterThan: dates && dates[0] ? dates[0].utc().startOf('day').format() : undefined,
         createdAtLessThan: dates && dates[1] ? dates[1].utc().endOf('day').format() : undefined,
         [type]: type !== "type" && type !== "cycle" ? val : undefined,
       } : undefined
-    })
+    };
+    props.onSetParam(params);
+    props.onSearch(params);
   }
 
   return (
@@ -70,10 +89,10 @@ const Search = (props: IProps) => {
             onChange={handleSelectType}
             style={{ width: '20%' }}
           >
-            <Option value="idLike">Subscription ID</Option>
+            <Option value="noLike">Subscription ID</Option>
             <Option value="type">Subscription Type</Option>
             <Option value="cycle">Subscription Cycle</Option>
-            <Option value="orderIdLike">Order ID</Option>
+            <Option value="tradeIdLike">Order ID</Option>
             <Option value="phoneLike">Phone Number</Option>
             <Option value="wechatNameLike">Wechat Name</Option>
             <Option value="productNameLike">Product Name</Option>
