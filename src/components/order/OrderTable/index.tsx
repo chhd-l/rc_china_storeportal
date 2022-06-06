@@ -1,19 +1,20 @@
 import { Avatar, Col, Empty, Row, Select } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { CarrierType, Order, OrderTradeItem } from '@/framework/types/order'
+import { orderStatusType } from '@/framework/constants/order'
 import OrderActions from '../OrderActions'
 import './index.less'
 import { KeyRules } from '@/framework/types/common'
 import { getExpressCompanyList } from '@/framework/api/get-order'
 import { formatMoney } from '@/utils/utils'
 
-const orderStatusType: KeyRules = {
-  UNPAID: 'Unpaid',
-  TO_SHIP: 'To ship',
-  SHIPPED: 'Shipped',
-  COMPLETED: 'Completed',
-  VOID: 'Cancellation',
-}
+// const orderStatusType: KeyRules = {
+//   UNPAID: 'Unpaid',
+//   TO_SHIP: 'To ship',
+//   SHIPPED: 'Shipped',
+//   COMPLETED: 'Completed',
+//   VOID: 'Cancellation',
+// }
 
 const OrderTable = ({
   orderList,

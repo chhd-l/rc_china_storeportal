@@ -111,7 +111,7 @@ const NewGraphic: React.FC = () => {
               ? <NewVoice key={article.id} ref={formRef} />
               : article?.type === "video" ? <NewVideo key={article.id} ref={formRef} /> : null}
             <div className="mt-4 text-right space-x-4">
-              <Button disabled={loading}onClick={() => navigator("/assets-management", { state: "news" })} >Cancel</Button>
+              <Button disabled={loading}onClick={() => navigator("/assets/assets-management", { state: "news" })} >Cancel</Button>
               <Button loading={loading} type="primary" onClick={handleSave}>Save</Button>
               <Button loading={loading} type="primary" onClick={handleSaveAndSync}>Save and Synchronous</Button>
             </div>

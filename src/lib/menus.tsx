@@ -54,7 +54,7 @@ export const menus = [
     icon: <span className='icon iconfont icon-a-bianzu11-1' />,
     children: [
       {
-        name: 'My subscriptions',
+        name: 'My Subscriptions',
         value: 'my_subscriptions',
         url: '/subscription/subscription-list',
         key: 'my_subscriptions',

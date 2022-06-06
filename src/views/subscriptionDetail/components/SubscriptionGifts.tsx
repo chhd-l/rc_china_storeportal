@@ -1,5 +1,6 @@
 import React from 'react'
 import { Table } from 'antd'
+import { Link } from 'react-router-dom'
 import { ColumnProps } from 'antd/es/table'
 
 const columns: ColumnProps<any>[] = [
@@ -36,7 +37,10 @@ const columns: ColumnProps<any>[] = [
     render: () => <div>Product</div>
   },
   {
-    title: 'Actions'
+    title: 'Actions',
+    dataIndex: "acs",
+    key: 'acs',
+    render: (text: any, record: any) => <Link to="/product/product-detail" state={record?.id} className="cursor-pointer iconfont icon-kjafg primary-color" />
   }
 ]
 
