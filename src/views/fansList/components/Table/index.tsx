@@ -92,7 +92,7 @@ const Index = ({
     {
       title: 'Is Member',
       dataIndex: 'isAppMember',
-      render: (text: any, record: any) => record.isAppMember?'Yes':'N0',
+      render: (text: any, record: any) => record.isAppMember?'Yes':'No',
     },
     {
       title: 'Follow Time',

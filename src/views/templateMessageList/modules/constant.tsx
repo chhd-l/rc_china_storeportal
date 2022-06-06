@@ -29,6 +29,7 @@ export const tableColumns = ({ openDelTipModal, templateTitleList, modifyTemplat
       title: 'Scenario',
       dataIndex: 'scenario',
       hideInSearch: true,
+      render: (_text, record) => _text === 'SHIPPED' ? 'Shipped' : _text === 'CANCEL REMINDER' ? 'Cancel Reminder' : _text
     },
     {
       title: 'Title',
@@ -60,8 +61,8 @@ export const tableColumns = ({ openDelTipModal, templateTitleList, modifyTemplat
       hideInTable: true,
       valueEnum: {
         all: { text: 'All', status: 'Default' },
-        SHIPPED: { text: 'SHIPPED', status: 'Default' },
-        'CANCEL REMINDER': { text: 'CANCEL REMINDER', status: 'Processing' },
+        SHIPPED: { text: 'Shipped', status: 'Default' },
+        'CANCEL REMINDER': { text: 'Cancel Reminder', status: 'Processing' },
       },
     },
     {

@@ -16,7 +16,7 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, onC
       key: 'no',
     },
     {
-      title: 'Product Name',
+      title: <Row><Col span={21}>Product Name</Col><Col span={3}>Quantity</Col></Row>,
       dataIndex: 'pic',
       key: 'p',
       render: (text: any, record: any) => (
@@ -41,14 +41,7 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, onC
             </Row>
           ))}
         </div>
-      ),
-      onCell: () => ({ colSpan: 2 })
-    },
-    {
-      title: "Quantity",
-      dataIndex: 'qua',
-      key: 'qua',
-      onCell: () => ({ colSpan: 0 })
+      )
     },
     {
       title: 'Shipment date',
@@ -98,9 +91,10 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, onC
       render: (text: string, record: any) => <Link to="/order/order-detail" state={{id: record?.tradeId,status: record?.tradeState?.orderState}}>{text}</Link>
     },
     {
-      title: 'Product Name',
+      title: <Row><Col span={21}>Product Name</Col><Col span={3}>Quantity</Col></Row>,
       dataIndex: 'pic',
       key: 'p',
+      width: '40%',
       render: (text: any, record: any) => (
         <div>
           {(record?.lineItems ?? []).map((item: any, idx: number) => (
@@ -123,15 +117,7 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, onC
             </Row>
           ))}
         </div>
-      ),
-      onCell: () => ({ colSpan: 2 })
-    },
-    {
-      title: "Quantity",
-      dataIndex: 'qua',
-      align: 'right',
-      key: 'qua',
-      onCell: () => ({ colSpan: 0 })
+      )
     },
     {
       title: 'Shipment date',
@@ -156,7 +142,7 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, onC
     <div>
       <div className="flex justify-start space-x-4">
         <span className="iconfont icon-bianzu-1 primary-color text-lg" />
-        <div>Subscription information</div>
+        <div>Subscription Information</div>
       </div>
       <div className="mt-4">
         <Tabs type="card">

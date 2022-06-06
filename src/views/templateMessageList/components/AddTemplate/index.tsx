@@ -74,11 +74,11 @@ const AddTemplate: FC<Props> = ({ visible, handleVisible, addSuccess }) => {
           options={[
             {
               value: 'SHIPPED',
-              label: 'SHIPPED',
+              label: 'Shipped',
             },
             {
               value: 'CANCEL REMINDER',
-              label: 'CANCEL REMINDER',
+              label: 'Cancel Reminder',
             },
           ]}
           name="useMode"

@@ -53,7 +53,7 @@ const ProductList = ({ productList, freshType }: { productList: any[], freshType
     <div>
       <div className="flex justify-start space-x-4">
         <span className="iconfont icon-bianzu-1 primary-color text-lg" />
-        <span>Subscription product</span>
+        <span>Subscription Product</span>
       </div>
       <div className="mt-4">
         <Table rowKey="id" columns={columns} dataSource={productList} pagination={false} size="small" className="rc-table" />

@@ -17,9 +17,9 @@ enum StatusType {
 
 interface TableColumnsProps {
   handleDelete: (e: string) => void;
-  changeStatus: (e: boolean, id:string) => void;
+  changeStatus: (e: boolean, id: string) => void;
   handlePreview: (e: string) => void;
-  navigator:any
+  navigator: any
 }
 
 interface ColumnsProps {
@@ -45,7 +45,7 @@ export const tableColumns = ({
   const columns: ProColumns<ColumnsProps>[] = [
     {
       title: 'Mini Program',
-      dataIndex: 'accountId',
+      dataIndex: 'accountName',
       hideInSearch: true,
     },
     {
@@ -75,10 +75,10 @@ export const tableColumns = ({
       title: 'Click Type',
       dataIndex: 'clickType',
       valueEnum: {
-        NO_OPERATION:{text:'No operation'},
-        OPEN_THE_WEB_PAGE:{text:'No the WEB page'},
-        OPEN_THE_MP_PAGE:{text:'Open the MP page'},
-        OPEN_OTHER_MP_PAGE:{text:'Open other MP page'},
+        NO_OPERATION: { text: 'No operation' },
+        OPEN_THE_WEB_PAGE: { text: 'Open the WEB page' },
+        OPEN_THE_MP_PAGE: { text: 'Open the MP page' },
+        OPEN_OTHER_MP_PAGE: { text: 'Open other MP page' },
       },
     },
     {
@@ -101,14 +101,14 @@ export const tableColumns = ({
       title: 'Status',
       dataIndex: 'isActive',
       valueEnum: {
-        true:{text:'Open'},
-        false:{text:'Closef'},
+        true: { text: 'Enable' },
+        false: { text: 'Disable' },
       },
       render: (_, record) => (
         <Switch
           checked={record.isActive}
           onChange={(checked: boolean) => {
-            changeStatus(checked,record.id)
+            changeStatus(checked, record.id)
           }}
         />
       ),
@@ -124,16 +124,16 @@ export const tableColumns = ({
               state: { id: record.id },
             })
           }}>
-            <FormOutlined />
+            <span className='cursor-pointer iconfont icon-a-Group437 text-red-500'/>
           </a>
         </Tooltip>,
         <Tooltip title='View'>
           <a className=' mr-4'>
-            <SearchOutlined
-              onClick={() => {
-                console.log(record.picUrl)
-                handlePreview(record.picUrl);
-              }}
+            <span className='cursor-pointer iconfont icon-bianzu'
+                  onClick={() => {
+                    console.log(record.picUrl)
+                    handlePreview(record.picUrl)
+                  }}
             />
           </a>
         </Tooltip>,
