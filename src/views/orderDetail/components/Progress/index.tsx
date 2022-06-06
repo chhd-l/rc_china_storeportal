@@ -93,12 +93,14 @@ const OrderProgress = ({
           />
         </div>
       </div>
-      <div className="mt-4">
-        <Steps progressDot current={currentStep}>
-          {filterSteps.map((el) => (
-            <Steps.Step title={el.label} description={el.updateTime} key={el.key} />
-          ))}
-        </Steps>
+      <div className="mt-4 flex justify-center">
+        <div className={`${filterSteps.length < 3 ? 'w-1/2' : 'w-full'}`}>
+          <Steps progressDot current={currentStep}>
+            {filterSteps.map((el) => (
+              <Steps.Step title={el.label} description={el.updateTime} key={el.key} />
+            ))}
+          </Steps>
+        </div>
       </div>
     </div>
   )
