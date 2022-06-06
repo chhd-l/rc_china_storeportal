@@ -10,10 +10,6 @@ export const fansDetailForm: SearchFormItemProps[] = [
     name: "nickname",
   },
   {
-    label: "Sex",
-    name: "sex",
-  },
-  {
     label: "Unionid",
     name: "unionId",
   },
