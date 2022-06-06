@@ -49,7 +49,7 @@ const SubscriptionGifts = ({ benefits }: { benefits: any[] }) => {
     <div>
       <div className="flex items-center space-x-4">
         <span className="iconfont icon-Frame2 primary-color text-lg" />
-        <span>Subscription benefits</span>
+        <span>Subscription Benefits</span>
       </div>
       <div className="mt-4">
         <Table size="small" columns={columns} dataSource={benefits} pagination={false} className="rc-table" />

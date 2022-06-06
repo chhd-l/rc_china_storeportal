@@ -21,7 +21,7 @@ const Pets = ({ pet } : { pet: any }) => {
     <div>
       <div className="flex justify-start space-x-4">
         <span className="iconfont icon-a-Frame6 primary-color text-lg" />
-        <span>Pet detail</span>
+        <span>Pet Detail</span>
       </div>
       <div className="mt-4 flex items-center space-x-4">
         <div><Avatar shape="square" size={64} src={pet?.image} /></div>

@@ -177,7 +177,7 @@ const Graphic = ({
       <div className="flex flex-row justify-between mb-4">
         <Button className="flex items-center" onClick={() => openSyncTipModal && openSyncTipModal()}>
           <span className="iconfont icon-bianzu2 mr-2 text-xl" />
-          Synchronous WeChat Assets
+          Synchronize WeChat Assets
         </Button>
         <Button
           type="primary"
