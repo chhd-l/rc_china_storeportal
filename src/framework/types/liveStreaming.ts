@@ -14,4 +14,5 @@ export interface LiveStreaming {
   accountId?:string
   accountPrincipal:string
   accountName:string
+  qrCodeImg?:string
 }
