@@ -43,6 +43,18 @@ const Specification = (props: FormProps) => {
       // console.info(' item.defaultVal ', item.defaultVal)
       return item
     })
+    let attributeInput: any = {}
+    detail?.goodsAttributeValueRel?.forEach((el: any) => {
+      if (attributeInput[el.attributeId]?.length) {
+        attributeInput[el.attributeId].push(el.attributeValueId)
+      } else {
+        attributeInput[el.attributeId] = [el.attributeValueId]
+      }
+    })
+    console.info('attributeInput', attributeInput)
+    detail.goodsAttributeValueRelInput = attributeInput
+    setGoodsAttributeValueRel(attributeInput)
+
     setSpecificationList(list)
   }
 
@@ -65,6 +77,18 @@ const Specification = (props: FormProps) => {
                   className='w-full'
                   // searchValue=''
                   labelInValue
+                  onDeselect={(value: any, option: any) => {
+                    console.info('value, optiononDeselectonDeselect', value, option)
+                    Object.keys(detail.goodsAttributeValueRelInput)?.forEach((el: any) => {
+                      if (el === option.attributeId) {
+                        debugger
+                        let idx = detail.goodsAttributeValueRelInput[el].findIndex((cel: any) => cel === option.id)
+                        if (idx > -1) {
+                          detail.goodsAttributeValueRelInput[el].splice(idx, 1)
+                        }
+                      }
+                    })
+                  }}
                   mode='multiple'
                   allowClear
                   showArrow

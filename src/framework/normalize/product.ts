@@ -193,7 +193,7 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     // ],
     goodsAsserts,
     goodsSpecifications: data.id ? data.editChange.variationList : data.goodsSpecificationsInput && normaliseInputSpecificationProps(data.goodsSpecificationsInput),
-    goodsAttributeValueRel: data.goodsAttributeValueRelInput && normaliseInputAttrProps(data.goodsAttributeValueRelInput)
+    goodsAttributeValueRel: data.goodsAttributeValueRelInput && normaliseInputAttrProps(data.goodsAttributeValueRelInput, beforeData.goodsAttributeValueRel)
   }
   if (data.id) {
     detail.id = data.id
@@ -439,10 +439,48 @@ export const normaliseInputSpecificationProps = (data: any) => {
     return newSpec
   })
 }
-export const normaliseInputAttrProps = (goodsAttributeValueRel: any) => {
+export const normaliseInputAttrProps = (goodsAttributeValueRel: any, beforeGoodsAttributeValueRel: any) => {
   let newRel: any = []
+  let delArr = []
+  let changedOriginArr: any = []
+  // let changedParent: any = []
   Object.keys(goodsAttributeValueRel)?.map(el => {
-    goodsAttributeValueRel[el].forEach((rel: any) => {
+    let data = goodsAttributeValueRel[el]
+    if (data) {
+      changedOriginArr.push(...data)
+    }
+  })
+  //删除
+  console.info('changedOriginArr', changedOriginArr)
+  console.info('beforeGoodsAttributeValueRel', beforeGoodsAttributeValueRel.map((el: any) => el.attributeValueId))
+  if (beforeGoodsAttributeValueRel) {
+    for (let item in beforeGoodsAttributeValueRel) {
+      var found = false
+      for (let citem in changedOriginArr) {
+        if (changedOriginArr[citem] === beforeGoodsAttributeValueRel[item].attributeValueId) {
+          found = true
+          break
+        }
+      }
+      if (!found) {
+        delArr.push({
+          attributeId: beforeGoodsAttributeValueRel[item].attributeId,
+          attributeValueId: beforeGoodsAttributeValueRel[item].attributeValueId,
+          isDeleted: true
+        })
+      }
+    }
+  }
+  debugger
+  //新增
+  Object.keys(goodsAttributeValueRel)?.map(el => {
+    // let filterData = beforeGoodsAttributeValueRel.filter((cel: any) => cel.attributeId === el)
+    // changedParent.push(...filterData)
+    let valueArr = goodsAttributeValueRel[el]
+    if (beforeGoodsAttributeValueRel) {
+      valueArr = goodsAttributeValueRel[el]?.filter((item: any) => beforeGoodsAttributeValueRel.findIndex((citem: any) => citem.attributeValueId === item) === -1)
+    }
+    valueArr.forEach((rel: any) => {
       if (rel) {
         newRel.push({
           attributeId: el,
@@ -451,6 +489,10 @@ export const normaliseInputAttrProps = (goodsAttributeValueRel: any) => {
       }
     })
   })
+  if (delArr?.length) {
+    newRel.push(...delArr)
+  }
+
   console.info('newRel', newRel)
   return newRel
 }
