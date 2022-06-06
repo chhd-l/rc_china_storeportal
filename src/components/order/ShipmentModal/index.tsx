@@ -19,17 +19,17 @@ const ShipmentModal = ({
   const [carrierTypes, setCarrierTypes] = useState<CarrierType[]>([])
   const [shippingTime, setShippingTime] = useState('')
 
-  const disabledDate=(current:any) =>{
-    return current && current < moment().subtract(1,"days");
+  const disabledDate = (current: any) => {
+    return current && current < moment().subtract(1, 'days')
   }
 
-  const getExpressCompanys = async () => {
+  const getExpressCompanies = async () => {
     const res = await getExpressCompanyList()
     setCarrierTypes(res)
   }
 
   useEffect(() => {
-    getExpressCompanys()
+    getExpressCompanies()
   }, [])
 
   const shippedOrderEvent = (values: any) => {
@@ -58,7 +58,7 @@ const ShipmentModal = ({
         </Form.Item>
         <Form.Item label="Carrier company:" name="shippingCompany">
           <Select placeholder="Please select">
-            {carrierTypes.map((item:any) => (
+            {carrierTypes.map((item: any) => (
               <Select.Option value={item.code} key={item.code}>
                 {item?.name}
               </Select.Option>

@@ -85,6 +85,7 @@ const OrderProgress = ({
           <OrderActions
             orderState={orderState}
             orderId={orderId}
+            subscriptionId={subscriptionId}
             orderAddress={orderAddress}
             orderBuyer={buyer}
             shipOrCompleteSuccess={shipOrCompleteSuccess}
