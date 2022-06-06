@@ -283,6 +283,7 @@ const RuleSettings = ({
               ]}
             >
               <InputNumber
+                min={1}
                 value={UsageQuantity}
                 onChange={(v) => setUsageQuantity(v)}
                 placeholder="Input"
