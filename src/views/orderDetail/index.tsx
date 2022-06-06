@@ -12,6 +12,7 @@ const OrderDetail = () => {
   const location = useLocation()
   const {
     subscriptionNo,
+    subscriptionId,
     tradeState,
     shippingAddress,
     buyer,
@@ -48,6 +49,7 @@ const OrderDetail = () => {
                   orderState={tradeState.orderState}
                   orderId={orderId}
                   subscriptionNo={subscriptionNo}
+                  subscriptionId={subscriptionId}
                   orderAddress={shippingAddress}
                   logs={logs}
                   buyer={buyer}
