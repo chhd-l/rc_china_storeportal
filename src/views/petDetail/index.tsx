@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Avatar } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
 import { ContentContainer } from '@/components/ui'
+import SuspensionBar from '@/components/common/SuspensionBar'
+import { session } from '@/utils/global'
 
 const PetDetail = () => {
   const location = useLocation()
+  const navigator = useNavigate()
   const [pet, setPet] = useState({
     image: '',
     name: '',
@@ -62,8 +65,12 @@ const PetDetail = () => {
             </div>
           </div>
         </div>
-
       </div>
+      <SuspensionBar
+        backEvent={() => {
+          navigator('/petOwner/pet-owner-detail', { state: { id: session.get('cur-pet-owner')?.id } })
+        }}
+      />
     </ContentContainer>
   )
 }
