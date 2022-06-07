@@ -7,7 +7,7 @@ import { getCategories } from '@/framework/api/get-product'
 import { CateItemProps } from '@/framework/schema/product.schema'
 import { useParams } from 'react-router-dom'
 import { getTree } from '@/framework/normalize/product'
-import { Input, Modal } from 'antd'
+import { Input, Modal, Spin } from 'antd'
 
 interface CascaderProps {
   cateId: any[]
@@ -16,6 +16,7 @@ interface CascaderProps {
 
 const Cascader = (props: CascaderProps) => {
   const [categories, setCategories] = useState<any>([])
+  const [loading, setLoading] = useState(false)
   const [categoryList, setCategoryList] = useState<TreeDataProps[]>([])
   const params = useParams()
   const InputRef = useRef<any>(null)
@@ -30,7 +31,10 @@ const Cascader = (props: CascaderProps) => {
     console.info('cascaderRef.current', InputRef)
   }
   const getCate = async () => {
+    setLoading(true)
     let list: CateItemProps[] = await getCategories({ storeId: '12345678' })
+    setLoading(false)
+
     if (props.cateId) {
       let choosed: any[] = props.cateId
       setCategories(choosed)
@@ -60,29 +64,31 @@ const Cascader = (props: CascaderProps) => {
     <div className='cate-cascader'>
       <div className='p-6 bg-gray-50 relative'>
         <Input ref={InputRef} style={{ position: 'absolute', left: -10000 }} />
-        {categoryList?.length ? (
-          <ProFormCascader
-            // ref={}
-            name='cateId'
-            rules={[{ required: true, message: '这是必填项' }]}
-            // request={(params, props) => {
-            //   return Promise.resolve(categoryList)
-            // }}
-            fieldProps={{
-              // defaultValue: ['1', '3', '20'],
-              changeOnSelect: true,
-              onChange: onChange,
-              options: categoryList,
-              getPopupContainer: triggerNode => triggerNode.parentNode,
-              showSearch: true,
-              dropdownClassName: 'productlist-choose-cate common-dropdown-cascader',
-              open: true,
-              placement: 'bottomLeft',
-              placeholder: 'Categores Name',
-            }}
-          />
-        ) : null}
-        <div className='ant-select'></div>
+        <Spin spinning={loading}>
+          {categoryList?.length ? (
+            <ProFormCascader
+              // ref={}
+              name='cateId'
+              rules={[{ required: true, message: '这是必填项' }]}
+              // request={(params, props) => {
+              //   return Promise.resolve(categoryList)
+              // }}
+              fieldProps={{
+                // defaultValue: ['1', '3', '20'],
+                changeOnSelect: true,
+                onChange: onChange,
+                options: categoryList,
+                getPopupContainer: triggerNode => triggerNode.parentNode,
+                showSearch: true,
+                dropdownClassName: 'productlist-choose-cate common-dropdown-cascader',
+                open: true,
+                placement: 'bottomLeft',
+                placeholder: 'Categores Name',
+              }}
+            />
+          ) : null}
+          <div className='ant-select'></div>
+        </Spin>
       </div>
 
       <div className='py-4'>
