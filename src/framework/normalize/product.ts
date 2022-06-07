@@ -289,10 +289,11 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
   }
   if (spu.id && beforeData) {
     //编辑 需要检查之前保存后的变更并返回变更
-    beforeData.goodsVariants.filter((el: any) => el.id)
-    spu.variationLists.filter((el: any) => el.id)
-    skuData.filter((el: any) => el.id)
-
+    // 页面上没展示的商品需要被删除
+    spu.editChange.goodsVariants = spu.editChange.goodsVariants?.filter((el: any) => spu.goodsVariantsInput.find((cel: any) => cel.skuName === el.skuName))
+    // beforeData.goodsVariants.filter((el: any) => el.id)
+    // spu.variationLists.filter((el: any) => el.id)
+    // skuData.filter((el: any) => el.id)
     //被删除的
     let delArr: any = []
     for (let item in beforeData.goodsVariants) {
