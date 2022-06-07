@@ -83,7 +83,7 @@ const Cascader = (props: CascaderProps) => {
                 dropdownClassName: 'productlist-choose-cate common-dropdown-cascader',
                 open: true,
                 placement: 'bottomLeft',
-                placeholder: 'Categores Name',
+                placeholder: 'Category Name',
               }}
             />
           ) : null}
