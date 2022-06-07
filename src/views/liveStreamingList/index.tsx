@@ -82,7 +82,7 @@ const LiveStreamingList = () => {
             setActiveKey(key)
           }}
           tabBarExtraContent={
-            <Button className="flex items-center" onClick={() => setSyncTipModalShow(true)}>
+            <Button className="flex items-center rounded-4" onClick={() => setSyncTipModalShow(true)}>
               <span className="iconfont icon-bianzu2 mr-2" />
               Synchronize
             </Button>

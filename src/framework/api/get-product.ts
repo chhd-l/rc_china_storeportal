@@ -72,10 +72,19 @@ export const createProduct = async (params: any, beforeData?: any) => {
     }
     if (el?.goodsVariantBundleInfo) {
       el.goodsVariantBundleInfo?.forEach((cel: any) => {
-        if (typeof cel.subSkuStock !== undefined) {
+        if (typeof cel.subSkuStock !== 'undefined') {
           delete cel.subSkuStock
         }
-        if (typeof cel.stock !== undefined) {
+        if (typeof cel.marketingPrice !== 'undefined') {
+          delete cel.marketingPrice
+        }
+        if (typeof cel.subscriptionPrice !== 'undefined') {
+          delete cel.subscriptionPrice
+        }
+        if (typeof cel.listPrice !== 'undefined') {
+          delete cel.listPrice
+        }
+        if (typeof cel.stock !== 'undefined') {
           delete cel.stock
         }
       })

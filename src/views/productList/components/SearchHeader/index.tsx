@@ -9,6 +9,7 @@ import Cascader from '../Cascader'
 const { Option } = Select
 interface SearchProps {
   getFormData: Function
+  getList: Function
 }
 const nameForKey: OptionsProps[] = [
   { name: 'Product Name', value: 'goodsName' },
@@ -28,7 +29,7 @@ const SubscriptionType: OptionsProps[] = [
   { name: 'No', value: false },
 ]
 
-const SearchHeader = ({ getFormData }: SearchProps) => {
+const SearchHeader = ({ getFormData, getList }: SearchProps) => {
   const [form] = Form.useForm()
   const [typeSelect, setTypeSelect] = useState(typeForKey[0].value)
   const [selectedOptions, setSelectedOptions] = useState([])
@@ -48,6 +49,7 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
     form.resetFields()
     setCateId([])
     setTypeSelect(typeForKey[0].value) //恢复第一个选项的选择
+    getList({}, true)
   }
   // const handleCateId = (cateIds: any) => {
   //   setCateId(cateIds)
@@ -76,7 +78,6 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
               <Form.Item className='rounded-xl ' name='selectName' initialValue={nameForKey[0].value}>
                 <Select
                   style={{ width: 140 }}
-                  allowClear
                   placeholder='Select a option and change input text above'
                   className='ant-select-left no-border-radius-right'
                 >
@@ -97,7 +98,6 @@ const SearchHeader = ({ getFormData }: SearchProps) => {
             <Input.Group compact className='flex'>
               <Form.Item name='type' initialValue={typeForKey[0].value}>
                 <Select
-                  allowClear
                   style={{ width: 150 }}
                   placeholder='Select a option and change input text above'
                   className='ant-select-left no-border-radius-right'

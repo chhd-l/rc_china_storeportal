@@ -24,7 +24,7 @@ const OrderProgress = ({
   logs,
   buyer,
   shipOrCompleteSuccess,
-                         expectedShippingDate
+  expectedShippingDate,
 }: {
   orderState: string
   orderId: string
@@ -34,7 +34,7 @@ const OrderProgress = ({
   logs: any
   buyer: any
   shipOrCompleteSuccess: Function
-  expectedShippingDate:string
+  expectedShippingDate: string
 }) => {
   const [currentStep, setCurrentStep] = useState(0)
   const [filterSteps, setFilterSteps] = useState(stepList)
@@ -66,22 +66,21 @@ const OrderProgress = ({
   return (
     <div>
       <div className="flex flex-row justify-between">
-        <div className="text-left flex flex-row text-black">
-          <span className="icon-dingdan iconfont text-theme-red text-xl" />
-          <span className="ml-4">
-            Order ID:{orderId}
-            <br />
-            {subscriptionNo && (
-              <span
-                className="hover:cursor-pointer"
-                onClick={() => {
-                  navigator('/subscription/subscription-detail', { state: { id: subscriptionId } })
-                }}
-              >
-                Subscription ID:{subscriptionNo}
-              </span>
-            )}
-          </span>
+        <div className="flex flex-col text-black">
+          <div className="flex flex-row items-center text-black">
+            <span className="icon-dingdan iconfont text-theme-red text-xl" />
+            <span className="ml-md">Order ID:{orderId}</span>
+          </div>
+          {subscriptionNo && (
+            <div
+              className="hover:cursor-pointer pl-9"
+              onClick={() => {
+                navigator('/subscription/subscription-detail', { state: { id: subscriptionId } })
+              }}
+            >
+              Subscription ID:{subscriptionNo}
+            </div>
+          )}
         </div>
         <div className="justify-items-end">
           <OrderActions

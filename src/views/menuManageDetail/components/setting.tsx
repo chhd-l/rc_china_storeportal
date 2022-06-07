@@ -89,7 +89,7 @@ const WxMenuSetting = () => {
       </div>
       {activeMenu && <div className="p-8">
         <Form layout="horizontal">
-          <Form.Item label="Menu Name" extra={<div className="text-xs text-gray-400">No longer than 4 Chinese characters or 8 English characters</div>}>
+          <Form.Item label="Menu Name" extra={<div className="text-xs text-gray-400">No longer than 4 Chinese characters or 8 English characters are recommended</div>}>
             <Input style={{maxWidth: 300}} value={activeMenu.name} onChange={(e) => changeMenuName(e, activeMenu.key)} />
           </Form.Item>
           {activeMenu?.sub_button?.length ? null : <React.Fragment>

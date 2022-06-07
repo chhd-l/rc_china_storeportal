@@ -59,8 +59,10 @@ const Index = ({ liveStreamingList }: { liveStreamingList: LiveStreaming[] }) =>
             <span
               className="cursor-pointer iconfont icon-Vector1 text-theme-red"
               onClick={() => {
-                setImgUrl(record.shareImg)
-                setIsModalVisible(true)
+                if (record?.qrCodeImg) {
+                  setImgUrl(record.qrCodeImg)
+                  setIsModalVisible(true)
+                }
               }}
             />
           </Tooltip>

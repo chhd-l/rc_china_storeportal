@@ -80,7 +80,7 @@ const KeyMetrics = () => {
       <Title level={5}>
         <span className="font-black">Key Metrics</span>
         <span className="text-xs text-gray-400 ml-2 font-normal">
-          (Data from {moment().format('DD-MM-YYYY')} to {moment().add(7, 'day').format('DD-MM-YYYY')} UTC+8)
+          (Data from {moment().add(-7, 'day').format('DD-MM-YYYY')} to {moment().format('DD-MM-YYYY')} UTC+8)
         </span>
       </Title>
       <div className="flex w-full">

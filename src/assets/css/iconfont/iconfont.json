@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "30211440",
+      "name": "返回-顶部",
+      "font_class": "fanhui-dingbu",
+      "unicode": "e693",
+      "unicode_decimal": 59027
+    },
+    {
+      "icon_id": "30211441",
+      "name": "首页",
+      "font_class": "shouye",
+      "unicode": "e694",
+      "unicode_decimal": 59028
+    },
+    {
       "icon_id": "30185705",
       "name": "Frame (6)",
       "font_class": "a-Frame6",

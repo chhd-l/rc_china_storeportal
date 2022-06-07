@@ -25,7 +25,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
   const ref = useRef<ProFormInstance>()
   const { Option } = Select
   const changeKeyVal = (val: string) => {
-    console.info('...', val)
+    // console.info('...', val)
     setKeyVal(val)
   }
   const [selectedRowKeys, setSelectedRowKeys] = useState([''])
@@ -143,7 +143,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
       className='bundle-sub-sku-pop'
       width={800}
       onOk={() => {
-        console.info('allPageList', allPageList)
+        // console.info('allPageList', allPageList)
         let regularChoosed = selectedRowKeys.map((el: string) => {
           let choosedItem = allPageList.find((item: any) => item.id === el)
           if (choosedItem) {
@@ -151,7 +151,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
             return choosedItem
           }
         })
-        console.info('regularChoosed', regularChoosed)
+        // console.info('regularChoosed', regularChoosed)
         handleOk(regularChoosed)
         handleCancel()
       }}
@@ -202,9 +202,9 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
             }
           })
           allPageList.unshift(...list)
-          console.info('allPageList', allPageList)
+          // console.info('allPageList', allPageList)
           setRegularList(list)
-          console.info('res', res)
+          // console.info('res', res)
           return Promise.resolve({
             data: list,
             success: true,

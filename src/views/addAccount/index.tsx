@@ -71,13 +71,15 @@ const AddAccount = () => {
   useEffect(() => {
     if (state) {
       setServiceAccount(state.accountType)
+      setQrCodePath(state?.qrCodePath ?? '')
+      setPertificatePah(state?.certificatePath ?? '')
     }
     getlist()
   }, [])
   return (
     <ContentContainer className='addAccount'>
       <InfoContainer>
-        <div className='text-2xl text-medium mb-4'>Add Account</div>
+        <div className='text-2xl text-medium mb-4'>{state ? 'Account Details' : 'Add Account'}</div>
         <Form
           initialValues={state ? state : { type: 'ServiceAccount' }}
           form={form}

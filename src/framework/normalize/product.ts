@@ -452,7 +452,6 @@ export const normaliseInputAttrProps = (goodsAttributeValueRel: any, beforeGoods
   })
   //删除
   console.info('changedOriginArr', changedOriginArr)
-  console.info('beforeGoodsAttributeValueRel', beforeGoodsAttributeValueRel.map((el: any) => el.attributeValueId))
   if (beforeGoodsAttributeValueRel) {
     for (let item in beforeGoodsAttributeValueRel) {
       var found = false
@@ -466,12 +465,12 @@ export const normaliseInputAttrProps = (goodsAttributeValueRel: any, beforeGoods
         delArr.push({
           attributeId: beforeGoodsAttributeValueRel[item].attributeId,
           attributeValueId: beforeGoodsAttributeValueRel[item].attributeValueId,
-          isDeleted: true
+          isDeleted: true,
+          relId: beforeGoodsAttributeValueRel[item].relId,
         })
       }
     }
   }
-  debugger
   //新增
   Object.keys(goodsAttributeValueRel)?.map(el => {
     // let filterData = beforeGoodsAttributeValueRel.filter((cel: any) => cel.attributeId === el)

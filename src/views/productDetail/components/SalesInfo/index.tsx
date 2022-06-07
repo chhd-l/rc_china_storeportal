@@ -9,9 +9,8 @@ import { VarationsFormProps } from '@/framework/types/product'
 import { Form, Input, InputNumber } from 'antd'
 import BundleSubSKuPop from '../BundleSubSKuPop'
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
-import { data } from 'browserslist'
-import { debug } from 'console'
 import './index.less'
+import { debug } from 'console'
 interface ContextProps {
   variationForm: VarationsFormProps
   setVariationForm: () => void
@@ -55,13 +54,18 @@ const SalesInfo = (props: FormProps) => {
     regularList.forEach(oldSku => {
       choosedSku.forEach((newSku: any) => {
         if (oldSku.subGoodsVariantId === newSku.subGoodsVariantId) {
-          newSku.bundleNumber = oldSku.bundleNumber
+          newSku.bundleNumber = oldSku.bundleNumber || 1
         }
       })
     })
+    debugger
+    // 数量没有值的赋值1
+    choosedSku.forEach((el: any) => {
+      el.bundleNumber = el.bundleNumber || 1
+    })
     console.info('choosedSku', choosedSku)
     setRegularList(choosedSku)
-    validateNumber(regularList)
+    validateNumber(choosedSku)
   }
   const onChange = (val: number, idx: number) => {
     if (!detail.goodsVariantBundleInfo) {
@@ -82,21 +86,6 @@ const SalesInfo = (props: FormProps) => {
       detail.goodsVariantBundleInfo[idx].subGoodsVariantId = regularList[idx].id
       detail.goodsVariantBundleInfo[idx].skuNo = regularList[idx].skuNo
     }
-    let stockArr = regularList
-      ?.filter((el, idx) => {
-        let skuStock = el.bundleNumber || 0
-        if (skuStock) {
-          el.subSkuStock = Math.floor(el.stock / skuStock)
-        }
-        return skuStock
-      })
-      .map(el => el.subSkuStock)
-    let spuStock = Math.min(...stockArr)
-    console.info('spuStock', spuStock)
-    detail.stock = spuStock
-    props.form.setFieldsValue({
-      stock: spuStock,
-    })
     setRegularList([...regularList])
     validateNumber(regularList)
   }
@@ -120,9 +109,41 @@ const SalesInfo = (props: FormProps) => {
       // regularData?.push(...deletedBundles)
       subSku = 1
     }
+    let stockArr = regularList
+      ?.filter((el: any, idx: any) => {
+        let skuStock = el.bundleNumber || 0
+        if (skuStock) {
+          el.subSkuStock = Math.floor(el.stock / skuStock)
+        }
+        debugger
+        return skuStock
+      })
+      .map((el: any) => el.subSkuStock)
+    debugger
+
+    let spuStock = Math.min(...stockArr)
+    console.info('spuStock', spuStock)
+    detail.stock = spuStock
+    let listPrice = props.form.getFieldValue('listPrice')
+    let marketingPrice = props.form.getFieldValue('marketingPrice')
+    let subscriptionPrice = props.form.getFieldValue('subscriptionPrice')
+    if (regularList[0]?.listPrice && !detail?.id) {
+      // if (regularList[0]?.listPrice) {
+      // 编辑的时候不去计算反显价格
+      listPrice = getTotal(regularList, 'listPrice')
+      marketingPrice = getTotal(regularList, 'marketingPrice')
+      subscriptionPrice = getTotal(regularList, 'subscriptionPrice')
+    }
     props.form.setFieldsValue({
+      stock: spuStock,
       subSku,
+      listPrice,
+      marketingPrice,
+      subscriptionPrice,
     })
+    // props.form.setFieldsValue({
+    //   subSku,
+    // })
   }
   useEffect(() => {
     if (detail.regularList) {
@@ -172,6 +193,14 @@ const SalesInfo = (props: FormProps) => {
       return item
     })
     return formList
+  }
+  const getTotal = (list: any, key: string) => {
+    let total = list.reduce((pre: any, cur: any) => {
+      let preNum = pre?.key || pre
+      let number = cur.bundleNumber || 1
+      return preNum + cur[key] * number
+    }, 0)
+    return total
   }
   useEffect(() => {
     let formList: any = noSkuFormList.map((el: any) => {

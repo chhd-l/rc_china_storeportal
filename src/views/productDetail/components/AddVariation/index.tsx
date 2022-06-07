@@ -83,7 +83,7 @@ const AddVariation = ({}: AddVariationProps) => {
               onBlur={handleOption}
               className={classNames('get-variation-option', specification.isDeleted ? 'hidden' : '')}
               onChange={() => {
-                console.info('....', specification.option)
+                // console.info('....', specification.option)
               }}
               placeholder='Option'
               showCount
@@ -214,7 +214,7 @@ const AddVariation = ({}: AddVariationProps) => {
   }
   const handleName = (e: any, variationIdx: number) => {
     variationForm.variationList[variationIdx].name = e.target.value
-    console.info('option', e.target.value)
+    // console.info('option', e.target.value)
     // let changedVariationList = detail.editChange.variationList
     // changedVariationList[variationIdx].name = e.target.value
     // debugger

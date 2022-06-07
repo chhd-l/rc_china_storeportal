@@ -4,6 +4,7 @@ import { handleReturnTime } from '@/utils/utils'
 import { useAtom } from 'jotai'
 import { userAtom } from '@/store/user.store'
 import userIcon from '@/assets/images/userIcon.svg'
+import { omit } from 'lodash'
 
 type TComment = {
   id: string
@@ -15,14 +16,47 @@ type TComment = {
 }
 
 interface IProps {
-  comments: TComment[],
+  comments: TComment[]
   defaultParam: { [key: string]: string | number }
+  handleUpsertComment: (param: any) => void
 }
 
-const CommentWidget: React.FC<IProps> = ({ comments, defaultParam }) => {
+const CommentWidget: React.FC<IProps> = ({ comments, defaultParam, handleUpsertComment }) => {
   const [visible, setVisible] = useState(false)
   const [form] = Form.useForm()
+  const [curType, setCurType] = useState<'add' | 'edit'>('add')
+  const [curComment, setCurComment] = useState<any>({})
   const [userInfo] = useAtom(userAtom)
+
+  const handleDeleteComment = () => {
+    handleUpsertComment({
+      ...defaultParam,
+      comment: {
+        ...curComment,
+        isDeleted: true,
+      }
+    });
+  }
+
+  const handleCancelDelete = () => {
+    setCurComment({});
+    setCurType("add");
+    setVisible(false);
+  }
+
+  const handleSubmit = (values: any) => {
+    const param = {
+      ...defaultParam,
+      comment: curType === "add" ? {
+        content: values.comment,
+        createdBy: userInfo?.nickname || 'zz',
+        createId: userInfo?.id || '',
+      } : Object.assign(omit(curComment, ['avatarUrl']), {
+        content: values.comment,
+      })
+    };
+    handleUpsertComment(param)
+  }
   
   return (
     <div className="bg-white p-4">
@@ -46,6 +80,8 @@ const CommentWidget: React.FC<IProps> = ({ comments, defaultParam }) => {
                       <span
                         className="cursor-pointer iconfont text-sm icon-Edit text-red-500 ml-2"
                         onClick={() => {
+                          setCurType("edit")
+                          setCurComment(item)
                           form.setFieldsValue({ comment: item.content })
                         }}
                       />
@@ -54,6 +90,7 @@ const CommentWidget: React.FC<IProps> = ({ comments, defaultParam }) => {
                       <span
                         className="cursor-pointer iconfont text-sm icon-delete text-red-500 ml-2"
                         onClick={() => {
+                          setCurComment(item)
                           setVisible(true)
                         }}
                       />
@@ -66,7 +103,7 @@ const CommentWidget: React.FC<IProps> = ({ comments, defaultParam }) => {
           )
         })}
       </div>
-      <Form form={form} name="dynamic_rule" onFinish={() => {}}>
+      <Form form={form} name="dynamic_rule" onFinish={handleSubmit}>
         <Form.Item
           name="comment"
           rules={[
@@ -93,8 +130,8 @@ const CommentWidget: React.FC<IProps> = ({ comments, defaultParam }) => {
         title="Delete Comment"
         visible={visible}
         okText={'Confirm'}
-        onOk={() => setVisible(false)}
-        onCancel={() => setVisible(false)}
+        onOk={() => handleDeleteComment}
+        onCancel={() => handleCancelDelete}
       >
         <p>Are you sure you want to delete this comment?</p>
       </Modal>
