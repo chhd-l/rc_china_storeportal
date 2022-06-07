@@ -3,7 +3,7 @@ import MainInfo from './components/MainInfo'
 import { createContext, useEffect, useState } from 'react'
 import { ContentContainer } from '@/components/ui'
 import { getProductDetail } from '@/framework/api/get-product'
-import { useLocation } from "react-router";
+import { useLocation } from 'react-router'
 import { cloneDeep } from 'lodash'
 import './index.less'
 export const DetailContext = createContext(null as any)
@@ -16,7 +16,7 @@ const Product = () => {
   const [detail, setDetail] = useState({})
   const [showMain, setShowMain] = useState(false)
   const [beforeData, setBeforeData] = useState({})
-  const { state }: any = useLocation();
+  const { state }: any = useLocation()
   useEffect(() => {
     if (state) {
       getDetail(state)
@@ -30,7 +30,7 @@ const Product = () => {
   const getDetail = async (goodsId: string) => {
     // let data = await getProductDetail({ storeId: '12345678', goodsId: '7d58d3fb-77a7-66b2-dfb3-dfcd21a44ead' })
     let { afterData, beforeData } = await getProductDetail({ storeId: '12345678', goodsId })
-    console.info('data', afterData)
+    // console.info('data', afterData)
     setBeforeData(beforeData)
     setDetail(afterData)
     if (afterData.type) {
@@ -48,7 +48,7 @@ const Product = () => {
   }, [cateInfo])
 
   const handleCate = (value: any) => {
-    console.info('tetstets', value)
+    // console.info('tetstets', value)
     if (value) {
       let newDetail = Object.assign({}, detail, cateInfo)
       setDetail(newDetail)

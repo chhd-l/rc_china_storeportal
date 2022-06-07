@@ -138,7 +138,7 @@ const Voice = ({
         </Upload>
         <Button className="ml-4 flex items-center" onClick={() => openSyncTipModal && openSyncTipModal()}>
           <span className="iconfont icon-bianzu2 mr-2 text-xl" />
-          Synchronous WeChat Assets
+          Synchronize WeChat Assets
         </Button>
       </div>
       <Table columns={column} loading={loading} dataSource={pictureList} pagination={false} rowKey="skuId" className="rc-table w-full" />

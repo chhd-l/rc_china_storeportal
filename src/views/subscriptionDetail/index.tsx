@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { ContentContainer, InfoContainer, DivideArea } from '@/components/ui'
-import { getSubscriptionDetail, pauseSubscription, resumeSubscription, updateSubscriptionAddress, updateNextDeliveryDate } from '@/framework/api/subscription'
+import { getSubscriptionDetail, pauseSubscription, resumeSubscription, updateSubscriptionAddress, updateNextDeliveryDate, upsertSubscriptionComment } from '@/framework/api/subscription'
 import { Spin, Modal } from "antd"
 import { useLocation } from 'react-router-dom'
 import BaseInfo from './components/BaseInfo'
@@ -72,6 +72,16 @@ export default function SubscriptionDetail() {
     }
   }
 
+  const handleUpsertComment = async (param: any) => {
+    setLoading(false)
+    const success = await upsertSubscriptionComment(param);
+    if (success) {
+      getSubscription()
+    } else {
+      setLoading(false)
+    }
+  }
+
   return (
     <ContentContainer>
       <Spin spinning={loading}>
@@ -98,7 +108,7 @@ export default function SubscriptionDetail() {
             </InfoContainer>
             <DivideArea />
             <InfoContainer>
-              <SubscriptionOrders planningList={detail?.planingDeliveries ?? []} completedList={detail?.completedDeliveries ?? []} onChangeDate={handleChangeNextDeliveryDate} />
+              <SubscriptionOrders planningList={detail?.planingDeliveries ?? []} completedList={detail?.completedDeliveries ?? []} nextDeliveryDate={detail?.createNextDeliveryTime} onChangeDate={handleChangeNextDeliveryDate} />
             </InfoContainer>
             <DivideArea />
             <InfoContainer>
@@ -108,7 +118,8 @@ export default function SubscriptionDetail() {
           <div className="w-1/4">
             <CommentWidget
               comments={detail?.comments ?? []}
-              defaultParam={{ orderNum: 111 }}
+              defaultParam={{ subscriptionId: detail?.id }}
+              handleUpsertComment={handleUpsertComment}
             />
             <OperateLogWidget
               logs={detail?.logs ?? []}

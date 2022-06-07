@@ -32,7 +32,7 @@ const WxMenuGraph = () => {
           key: newSubMenuKey,
           name: 'Menu Name',
           type: 'media_id',
-          rc_preview_type: "image"
+          rc_preview_type: "news",
         });
         item.sub_button = setActiveWxMenu(subMenus, newSubMenuKey)
       }

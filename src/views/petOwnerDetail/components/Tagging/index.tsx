@@ -53,7 +53,6 @@ const Tagging = ({ id, customerId }: { id: string; customerId: string }) => {
     if (res.records) {
       setOption(res.records)
     }
-    console.log(res, 99999)
   }
 
   useEffect(() => {
@@ -64,28 +63,21 @@ const Tagging = ({ id, customerId }: { id: string; customerId: string }) => {
   return (
     <div id={id}>
       <div className='text-xl font-medium'>Tagging</div>
-      {tagList.length > 0 ? (
+      {/*{tagList.length > 0 ? (*/}
         <div className='flex flex-col'>
           <div>Tag name</div>
           <Select placeholder='Select' value={optionValue} mode='multiple' onSelect={handleSelect}
                   onChange={handleChange} onDeselect={handleSearch}>
             {
               option.length > 0 && option.map((item: any) =>
-                <Select.Option value={item.id}>{item.name}</Select.Option>,
+                <Select.Option value={item.id} key={item.id}>{item.name}</Select.Option>,
               )
             }
           </Select>
-          {/*<div className="border flex flex-row flex-wrap p-2 mt-2">*/}
-          {/*  {tagList.map((item: Tag,index) => (*/}
-          {/*    <div className="bg-gray1 p-1 font-normal flex items-center mr-4" key={item.id}>*/}
-          {/*      <div className="mr-2">{item.name}</div> <CloseOutlined onClick={() => deleteTag(item,index)} />*/}
-          {/*    </div>*/}
-          {/*  ))}*/}
-          {/*</div>*/}
         </div>
-      ) : (
-        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-      )}
+      {/*) : (*/}
+      {/*  <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />*/}
+      {/*)}*/}
     </div>
   )
 }

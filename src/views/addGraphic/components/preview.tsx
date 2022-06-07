@@ -82,9 +82,9 @@ const Preview: React.FC<IProps> = ({ onValidate }) => {
           </div>
         ))
       }
-      <Dropdown overlay={menu} trigger={["click"]}>
+      {articleList.length < 8 ? <Dropdown overlay={menu} trigger={["click"]}>
         <div className="add-new">+ Add a new message</div>
-      </Dropdown>
+      </Dropdown> : null}
       <div className="action">
         {articleIdx > 0 ? <div className="cursor-pointer" onClick={() => handleMoveArticle("up")}><span className="iconfont icon-Frame-21 text-xl"></span></div> : null}
         {articleIdx < articleList.length - 1 ? <div className="cursor-pointer" onClick={() => handleMoveArticle("down")}><span className="iconfont icon-Frame-31 text-xl"></span></div> : null}

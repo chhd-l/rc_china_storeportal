@@ -83,7 +83,7 @@ const AddVariation = ({}: AddVariationProps) => {
               onBlur={handleOption}
               className={classNames('get-variation-option', specification.isDeleted ? 'hidden' : '')}
               onChange={() => {
-                console.info('....', specification.option)
+                // console.info('....', specification.option)
               }}
               placeholder='Option'
               showCount
@@ -134,7 +134,16 @@ const AddVariation = ({}: AddVariationProps) => {
           variationForm.variationList[variationIdx].specificationList[specificationIdx].id
         variationData[variationIdx].goodsSpecificationDetail[specificationIdx].isDeleted = true
       } else {
-        variationData[variationIdx].goodsSpecificationDetail.splice(variationIdx, 1)
+        variationData[variationIdx].goodsSpecificationDetail.splice(specificationIdx, 1)
+        let hasChangedGoodsSpecificationDetail = variationData[variationIdx].goodsSpecificationDetail.filter(
+          (el: any) => el,
+        )
+        if (!hasChangedGoodsSpecificationDetail?.length) {
+          delete variationData[variationIdx].goodsSpecificationDetail
+          if (!variationData[variationIdx]?.specificationName) {
+            variationData.splice(variationIdx, 1)
+          }
+        }
       }
     }
     setVariationForm(cloneDeep(variationForm))
@@ -205,7 +214,7 @@ const AddVariation = ({}: AddVariationProps) => {
   }
   const handleName = (e: any, variationIdx: number) => {
     variationForm.variationList[variationIdx].name = e.target.value
-    console.info('option', e.target.value)
+    // console.info('option', e.target.value)
     // let changedVariationList = detail.editChange.variationList
     // changedVariationList[variationIdx].name = e.target.value
     // debugger

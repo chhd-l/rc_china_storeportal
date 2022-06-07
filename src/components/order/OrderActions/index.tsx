@@ -16,6 +16,8 @@ const OrderActions = ({
   orderBuyer,
   shipOrCompleteSuccess,
   origin = 'table',
+  subscriptionId = '',
+  expectedShippingDate = '',
 }: {
   orderState: string
   orderId: string
@@ -23,6 +25,8 @@ const OrderActions = ({
   orderBuyer: any
   shipOrCompleteSuccess: Function
   origin?: string
+  subscriptionId?: string
+  expectedShippingDate?: string
 }) => {
   const [shipModalVisible, setShipModalVisible] = useState(false)
   const [completeModalVisible, setCompleteModalVisible] = useState(false)
@@ -31,7 +35,7 @@ const OrderActions = ({
   const [userInfo] = useAtom(userAtom)
 
   const shipped = async (tradeShippingInfoInput: any) => {
-    const params = {
+    let params = {
       tradeShippingInfoInput: tradeShippingInfoInput,
       address: _.omit(orderAddress, ['isDefault', 'postCode']),
       orderNum: orderId,
@@ -41,14 +45,17 @@ const OrderActions = ({
         unionId: orderBuyer.unionId,
         nickName: orderBuyer.name,
       },
-      operator: userInfo?.nickname||'system',
+      operator: userInfo?.nickname || 'system',
+    }
+    if (subscriptionId) {
+      params = Object.assign(params, { isSubscription: true, subscriptionId })
     }
     const res = await shippedOrder(params)
     if (res) {
       message.success({ className: 'rc-message', content: 'Operation success' })
       setShipModalVisible(false)
       shipOrCompleteSuccess && shipOrCompleteSuccess()
-    }else{
+    } else {
       // message.error({ className: 'rc-message', content: 'Operation failed' })
     }
   }
@@ -57,13 +64,13 @@ const OrderActions = ({
     const res = await completedOrder({
       orderNum: orderId,
       nowOrderState: orderState,
-      operator: userInfo?.nickname||'system',
+      operator: userInfo?.nickname || 'system',
     })
     if (res) {
       message.success({ className: 'rc-message', content: 'Operation success' })
       setCompleteModalVisible(false)
       shipOrCompleteSuccess && shipOrCompleteSuccess()
-    }else{
+    } else {
       message.error({ className: 'rc-message', content: 'Operation failed' })
     }
   }
@@ -93,17 +100,17 @@ const OrderActions = ({
             }}
           />
         </Tooltip>
-      ): orderState === OrderStatus['Toship'] ? (
+      ) : orderState === OrderStatus['Toship'] ? (
         <Tooltip title="Arrange shipment">
           <Button
-            type='primary'
+            type="primary"
             className="cursor-pointer ml-2 text-white rounded-4"
             onClick={() => setShipModalVisible(true)}
           >
             Arrange shipment
           </Button>
         </Tooltip>
-      ) :null}
+      ) : null}
       {/*收货*/}
       {orderState === OrderStatus['Shipped'] && origin === 'table' ? (
         <Tooltip title="Completed">
@@ -116,7 +123,7 @@ const OrderActions = ({
       ) : orderState === OrderStatus['Shipped'] ? (
         <Tooltip title="Completed">
           <Button
-            type='primary'
+            type="primary"
             className="cursor-pointer ml-2 text-white rounded-4"
             // style={{ fontSize: '20px' }}
             onClick={() => setCompleteModalVisible(true)}
@@ -130,6 +137,7 @@ const OrderActions = ({
         orderId={orderId}
         onCancel={() => setShipModalVisible(false)}
         shipped={shipped}
+        expectedShippingDate={expectedShippingDate}
       />
       <Modal
         className="rc-modal"

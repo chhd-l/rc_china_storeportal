@@ -109,11 +109,11 @@ const MpBannerAdd = () => {
             options={[
               {
                 label:'Home Page',
-                value:'1'
+                value:'Home Page'
               },
               {
                 label: 'Shop Page',
-                value: '2'
+                value: 'Shop Page'
               }
             ]}
             placeholder= "Please select"
@@ -145,7 +145,7 @@ const MpBannerAdd = () => {
                 label:'No operation',
                 value:'NO_OPERATION'
               } ,{
-                label:'No the WEB page',
+                label:'Open the WEB page',
                 value:'OPEN_THE_WEB_PAGE'
               }, {
                 label:'Open the MP page',

@@ -17,6 +17,24 @@ const LiveStreamingSearch = ({ query, miniProjList }: { query: Function; miniPro
     <div>
       <div className="flex flex-row justify-between">
         <div className="flex flex-row items-center">
+          <div className="mr-2 w-24 text-right">Mini Program:</div>
+          <Select
+            style={{ width: '240px' }}
+            // defaultValue={searchParams.accountName}
+            value={searchParams.accountName}
+            placeholder="Select mini program"
+            onChange={(value) => {
+              setSearchParams({ ...searchParams, accountName: value })
+            }}
+          >
+            {miniProjList.map((el) => (
+              <Select.Option key={el.id} value={el.accountName}>
+                {el.accountName}
+              </Select.Option>
+            ))}
+          </Select>
+        </div>
+        <div className="flex flex-row items-center">
           <div className="mr-2 w-30 text-right">Live Streaming ID:</div>
           <Input
             style={{ width: '240px' }}
@@ -45,8 +63,10 @@ const LiveStreamingSearch = ({ query, miniProjList }: { query: Function; miniPro
             }}
           />
         </div>
+      </div>
+      <div className="flex flex-row items-center mt-md">
         <div className="flex flex-row items-center">
-          <div className="mr-2 w-28 text-right">Anchor Name:</div>
+          <div className="mr-2 w-24 text-right">Anchor Name:</div>
           <Input
             style={{ width: '240px' }}
             placeholder="Input anchor name"
@@ -59,10 +79,8 @@ const LiveStreamingSearch = ({ query, miniProjList }: { query: Function; miniPro
             }}
           />
         </div>
-      </div>
-      <div className="flex flex-row items-center mt-md">
         <div className="flex flex-row items-center">
-          <div className="mr-2 w-30 text-right">Period:</div>
+          <div className="mx-2 w-36 text-right">Period:</div>
           <DatePicker.RangePicker
             style={{ width: '240px' }}
             value={pickValue}
@@ -77,24 +95,6 @@ const LiveStreamingSearch = ({ query, miniProjList }: { query: Function; miniPro
               // query && query(searchParams)
             }}
           />
-        </div>
-        <div className="flex flex-row items-center ml-12">
-          <div className="mr-2 w-40 text-right">Mini Program:</div>
-          <Select
-            style={{ width: '240px' }}
-            // defaultValue={searchParams.accountName}
-            value={searchParams.accountName}
-            placeholder="Select mini program"
-            onChange={(value) => {
-              setSearchParams({ ...searchParams, accountName: value })
-            }}
-          >
-            {miniProjList.map((el) => (
-              <Select.Option key={el.id} value={el.accountName}>
-                {el.accountName}
-              </Select.Option>
-            ))}
-          </Select>
         </div>
       </div>
       <div className="mt-md flex">

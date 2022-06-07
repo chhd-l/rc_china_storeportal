@@ -8,6 +8,7 @@ import { ProFormInstance } from '@ant-design/pro-form'
 import { ProColumns } from '@ant-design/pro-table'
 import { Input, Modal, Select, Space } from 'antd'
 import { useEffect, useRef, useState } from 'react'
+import './index.less'
 interface Props {
   isModalVisible: boolean
   handleOk: Function
@@ -24,7 +25,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
   const ref = useRef<ProFormInstance>()
   const { Option } = Select
   const changeKeyVal = (val: string) => {
-    console.info('...', val)
+    // console.info('...', val)
     setKeyVal(val)
   }
   const [selectedRowKeys, setSelectedRowKeys] = useState([''])
@@ -113,15 +114,16 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
       },
       renderFormItem: (_, { type, defaultRender, ...rest }, form) => {
         return (
-          <div className='flex'>
+          <div className='flex items-center'>
             <Input
               addonBefore='¥'
               onChange={e => {
                 setStartPrice(e.target.value)
               }}
-              className='mr-4'
+              // className='mr-4'
               value={startPrice}
-            />{' '}
+            />
+            <div className='px-2'>-</div>
             <Input addonBefore='¥' />
           </div>
         )
@@ -138,9 +140,10 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
       okText='Comfirm'
       title='Select Products'
       visible={isModalVisible}
+      className='bundle-sub-sku-pop'
       width={800}
       onOk={() => {
-        console.info('allPageList', allPageList)
+        // console.info('allPageList', allPageList)
         let regularChoosed = selectedRowKeys.map((el: string) => {
           let choosedItem = allPageList.find((item: any) => item.id === el)
           if (choosedItem) {
@@ -148,7 +151,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
             return choosedItem
           }
         })
-        console.info('regularChoosed', regularChoosed)
+        // console.info('regularChoosed', regularChoosed)
         handleOk(regularChoosed)
         handleCancel()
       }}
@@ -199,9 +202,9 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
             }
           })
           allPageList.unshift(...list)
-          console.info('allPageList', allPageList)
+          // console.info('allPageList', allPageList)
           setRegularList(list)
-          console.info('res', res)
+          // console.info('res', res)
           return Promise.resolve({
             data: list,
             success: true,

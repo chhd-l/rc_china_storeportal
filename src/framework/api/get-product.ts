@@ -72,10 +72,19 @@ export const createProduct = async (params: any, beforeData?: any) => {
     }
     if (el?.goodsVariantBundleInfo) {
       el.goodsVariantBundleInfo?.forEach((cel: any) => {
-        if (typeof cel.subSkuStock !== undefined) {
+        if (typeof cel.subSkuStock !== 'undefined') {
           delete cel.subSkuStock
         }
-        if (typeof cel.stock !== undefined) {
+        if (typeof cel.marketingPrice !== 'undefined') {
+          delete cel.marketingPrice
+        }
+        if (typeof cel.subscriptionPrice !== 'undefined') {
+          delete cel.subscriptionPrice
+        }
+        if (typeof cel.listPrice !== 'undefined') {
+          delete cel.listPrice
+        }
+        if (typeof cel.stock !== 'undefined') {
           delete cel.stock
         }
       })
@@ -94,12 +103,12 @@ export const createProduct = async (params: any, beforeData?: any) => {
 export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categoryId: string }) => {
   try {
     let data = []
-    if(categoryId){
+    if (categoryId) {
       const { getAttributes: attributeList } = await ApiRoot.products().getAttrList({ storeId, categoryId })
-       data = normaliseAttrProps(attributeList)
+      data = normaliseAttrProps(attributeList)
     } else {
       const { getAttributes: attributeList } = await ApiRoot.products().getAttrList({ storeId })
-       data = normaliseAttrProps(attributeList)
+      data = normaliseAttrProps(attributeList)
     }
     return data
   } catch (e) {
@@ -269,7 +278,7 @@ export const saveShopCategory = async (params: SaveShopCategoryInput): Promise<a
   }
 }
 
-export const detleShopCateRel = async (id: (string|number)[]): Promise<any> => {
+export const detleShopCateRel = async (id: (string | number)[]): Promise<any> => {
   try {
     return await ApiRoot.products().detleShopCateRel({ id })
   } catch (e) {

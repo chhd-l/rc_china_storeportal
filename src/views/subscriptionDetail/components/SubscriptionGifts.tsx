@@ -1,5 +1,6 @@
 import React from 'react'
 import { Table } from 'antd'
+import { Link } from 'react-router-dom'
 import { ColumnProps } from 'antd/es/table'
 
 const columns: ColumnProps<any>[] = [
@@ -36,7 +37,10 @@ const columns: ColumnProps<any>[] = [
     render: () => <div>Product</div>
   },
   {
-    title: 'Actions'
+    title: 'Actions',
+    dataIndex: "acs",
+    key: 'acs',
+    render: (text: any, record: any) => <Link to="/product/product-detail" state={record?.id} className="cursor-pointer iconfont icon-kjafg primary-color" />
   }
 ]
 
@@ -45,7 +49,7 @@ const SubscriptionGifts = ({ benefits }: { benefits: any[] }) => {
     <div>
       <div className="flex items-center space-x-4">
         <span className="iconfont icon-Frame2 primary-color text-lg" />
-        <span>Subscription benefits</span>
+        <span>Subscription Benefits</span>
       </div>
       <div className="mt-4">
         <Table size="small" columns={columns} dataSource={benefits} pagination={false} className="rc-table" />

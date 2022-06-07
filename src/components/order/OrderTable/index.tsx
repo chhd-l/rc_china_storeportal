@@ -1,19 +1,20 @@
 import { Avatar, Col, Empty, Row, Select } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { CarrierType, Order, OrderTradeItem } from '@/framework/types/order'
+import { orderStatusType } from '@/framework/constants/order'
 import OrderActions from '../OrderActions'
 import './index.less'
 import { KeyRules } from '@/framework/types/common'
 import { getExpressCompanyList } from '@/framework/api/get-order'
 import { formatMoney } from '@/utils/utils'
 
-const orderStatusType: KeyRules = {
-  UNPAID: 'Unpaid',
-  TO_SHIP: 'To ship',
-  SHIPPED: 'Shipped',
-  COMPLETED: 'Completed',
-  VOID: 'Cancellation',
-}
+// const orderStatusType: KeyRules = {
+//   UNPAID: 'Unpaid',
+//   TO_SHIP: 'To ship',
+//   SHIPPED: 'Shipped',
+//   COMPLETED: 'Completed',
+//   VOID: 'Cancellation',
+// }
 
 const OrderTable = ({
   orderList,
@@ -45,7 +46,7 @@ const OrderTable = ({
         <Col span={4} className="text-left">
           Order Total
         </Col>
-        <Col span={origin !== 'voucher'?4:6} className="text-left">
+        <Col span={origin !== 'voucher' ? 4 : 6} className="text-left">
           Order status
         </Col>
         {origin !== 'voucher' ? (
@@ -73,7 +74,7 @@ const OrderTable = ({
             </Select>
           </Col>
         ) : null}
-        <Col span={origin !== 'voucher'?2:4} className="text-left">
+        <Col span={origin !== 'voucher' ? 2 : 4} className="text-left">
           Actions
         </Col>
       </Row>
@@ -134,7 +135,7 @@ const OrderTable = ({
                   <span className="text-gray-400 ">{item?.payInfo?.payTypeName}</span>
                 </div>
               </Col>
-              <Col span={origin !== 'voucher'?4:6} className="text-left">
+              <Col span={origin !== 'voucher' ? 4 : 6} className="text-left">
                 <div>{orderStatusType[item.tradeState.orderState]}</div>
               </Col>
               {origin !== 'voucher' ? (
@@ -142,13 +143,15 @@ const OrderTable = ({
                   {item.carrierType}
                 </Col>
               ) : null}
-              <Col span={origin !== 'voucher'?2:4} className="text-left">
+              <Col span={origin !== 'voucher' ? 2 : 4} className="text-left">
                 <OrderActions
                   orderState={item.tradeState.orderState}
                   orderId={item.id}
+                  subscriptionId={item.subscriptionId}
                   orderAddress={item.shippingAddress}
                   orderBuyer={item.buyer}
                   shipOrCompleteSuccess={shipOrCompleteSuccess}
+                  expectedShippingDate={item.expectedShippingDate}
                 />
               </Col>
             </Row>

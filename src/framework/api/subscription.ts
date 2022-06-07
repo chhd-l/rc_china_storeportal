@@ -42,3 +42,9 @@ export const updateNextDeliveryDate = async (id: string, date: string) => {
   console.log("update subscription next delivery date view data:", res);
   return res?.subscriptionScheduleNextDelivery || false
 }
+
+export const upsertSubscriptionComment = async (param: any) => {
+  const res = await ApiRoot.subscriptions().upsertSubscriptionComment({ body: param });
+  console.log("upsert subscription comment view data:", res);
+  return res?.subscriptionCommentUpsert || false
+}

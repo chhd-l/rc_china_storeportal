@@ -16,6 +16,7 @@ export interface Order {
   carrier?: Carrier[]
   logs: Log[]
   comments: Comment[]
+  expectedShippingDate?:string
 }
 
 export interface Comment {
@@ -83,6 +84,7 @@ export interface OrderTradeItem {
   description?: string //不知道是不是规格
   price: number
   freshType?:string
+  isGift?:boolean
 }
 
 export enum OrderStatus {

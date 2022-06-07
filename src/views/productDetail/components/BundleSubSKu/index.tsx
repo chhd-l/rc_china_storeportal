@@ -29,13 +29,9 @@ const BundleSbuSKu = ({
     caclNum(regularList)
   }
   const onChange = (val: number, idx: number) => {
-    debugger
-
     if (!skuItem.goodsVariantBundleInfo) {
       skuItem.goodsVariantBundleInfo = []
     }
-    debugger
-
     if (!skuItem.goodsVariantBundleInfo[idx]) {
       skuItem.goodsVariantBundleInfo[idx] = {}
     }
@@ -55,37 +51,52 @@ const BundleSbuSKu = ({
   const caclNum = (regularList: any, isAll?: boolean) => {
     let stockArr = regularList
       ?.filter((el: any, idx: number) => {
-        debugger
-        console.info('regularListregularListregularListregularList', regularList)
-        let skuStock = el.bundleNumber || 0
-        console.info(el, 'elelelel')
-        console.info(el.stock, skuStock, 'skuStockskuStockskuStock')
+        // console.info('regularListregularListregularListregularList', regularList)
+        let skuStock = el.bundleNumber || 1
+        // console.info(el, 'elelelel')
+        // console.info(el.stock, skuStock, 'skuStockskuStockskuStock')
         if (skuStock && el.stock) {
           el.subSkuStock = Math.floor(el.stock / skuStock)
-          console.info('........', skuStock)
+          // console.info('........', skuStock)
         }
-        console.info('....skuStock', skuStock)
+        // console.info('....skuStock', skuStock)
         debugger
         return skuStock
       })
       .map((el: any) => el.subSkuStock)
-    console.info('subSkuStock', JSON.stringify(stockArr))
+
+    // console.info('subSkuStock', JSON.stringify(stockArr))
+    let spuStock = stockArr?.length ? Math.min(...stockArr) : 0
     debugger
-    let spuStock = stockArr?.length ? Math.min(...stockArr) : ''
-    console.info('spuStock', spuStock)
+    // console.info('spuStock', spuStock)
     skuItem.stock = spuStock
+    if (regularList[0]?.listPrice && !detail?.id) {
+      // 编辑的时候不去计算反显价格
+      skuItem.listPrice = getTotal(regularList, 'listPrice')
+      skuItem.marketingPrice = getTotal(regularList, 'marketingPrice')
+      skuItem.subscriptionPrice = getTotal(regularList, 'subscriptionPrice')
+    }
     setRegularList(cloneDeep(regularList))
     updateBundleInfo(regularList, isAll)
   }
+  const getTotal = (list: any, key: string) => {
+    let total = list.reduce((pre: any, cur: any) => {
+      let preNum = pre?.key || pre
+      let number = cur.bundleNumber || 1
+      return preNum + cur[key] * number
+    }, 0)
+    return total
+  }
   const updateBundleInfo = (val: any, isAll?: boolean) => {
-    // debugger
     let bundleInfo = val?.map((el: any) => {
-      debugger
       let info: any = {
-        bundleNumber: el.bundleNumber,
+        bundleNumber: el.bundleNumber || 1,
         skuNo: el.skuNo,
         subGoodsVariantId: el.subGoodsVariantId,
         stock: el.stock,
+        listPrice: el.listPrice,
+        marketingPrice: el.marketingPrice,
+        subscriptionPrice: el.subscriptionPrice,
       }
       if (el.id) {
         info.id = el.id
@@ -93,7 +104,6 @@ const BundleSbuSKu = ({
       }
       return info
     })
-    debugger
     if (isAll) {
       skuItem.goodsVariantBundleInfo = bundleInfo
     }
@@ -117,17 +127,17 @@ const BundleSbuSKu = ({
     regularList.forEach(oldSku => {
       choosedSku.forEach((newSku: any) => {
         if (oldSku.subGoodsVariantId === newSku.subGoodsVariantId) {
-          newSku.bundleNumber = oldSku.bundleNumber
+          newSku.bundleNumber = oldSku.bundleNumber || 1
         }
       })
     })
-    debugger
+
     //把删除的也存起来
     choosedSku.push(...deletedBundles)
     caclNum(choosedSku, true)
   }
   useEffect(() => {
-    console.info('testtest', skuItem?.goodsVariantBundleInfo)
+    // console.info('testtest', skuItem?.goodsVariantBundleInfo)
     if (skuItem?.goodsVariantBundleInfo) {
       setRegularList(skuItem?.goodsVariantBundleInfo)
     }
@@ -136,7 +146,7 @@ const BundleSbuSKu = ({
     <div className='flex items-center' style={{ minWidth: '6rem' }}>
       <div
         onClick={() => {
-          console.info('regularList', regularList)
+          // console.info('regularList', regularList)
           setShowBundleChoose(true)
         }}
         className=' w-8 h-8 p-1 cursor-pointer m-auto'

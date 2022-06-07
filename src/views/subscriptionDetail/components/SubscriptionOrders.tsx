@@ -1,11 +1,14 @@
 import React from 'react'
-import { Table, Tabs, Row, Col, Calendar, Popover } from 'antd'
+import { Table, Tabs, Row, Col, Calendar, Popover, Tooltip } from 'antd'
+import { Link, useNavigate } from 'react-router-dom'
+import { orderStatusType } from '@/framework/constants/order'
 import { ColumnProps } from 'antd/es/table'
 import moment, { Moment } from 'moment'
 
 
-const SubscriptionOrders = ({ planningList, completedList, onChangeDate } : { planningList: any[], completedList: any[], onChangeDate: (date: string) => void }) => {
+const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, onChangeDate } : { planningList: any[], completedList: any[], nextDeliveryDate: string, onChangeDate: (date: string) => void }) => {
   const [visible, setVisible] = React.useState<boolean>(false)
+  const navigator = useNavigate()
   const columns_tostart: ColumnProps<any>[] = [
     {
       title: 'Sequence',
@@ -13,17 +16,17 @@ const SubscriptionOrders = ({ planningList, completedList, onChangeDate } : { pl
       key: 'no',
     },
     {
-      title: 'Product Name',
+      title: <Row><Col span={21}>Product Name</Col><Col span={3}>Quantity</Col></Row>,
       dataIndex: 'pic',
       key: 'p',
       render: (text: any, record: any) => (
         <div>
-          {(record?.lineItem ?? []).map((item: any, idx: number) => (
-            <Row key={idx} className={`${(record?.lineItem ?? []).length > 1 && idx < (record?.lineItem ?? []).length - 1 ? "border-b h-20 pb-2" : ""}`}>
+          {(record?.lineItems ?? []).map((item: any, idx: number) => (
+            <Row key={idx} className={`${(record?.lineItems ?? []).length > 1 && idx < (record?.lineItems ?? []).length - 1 ? "mb-2 border-b h-20 pb-2" : ""}`}>
               <Col span={6}>
                 <img className="w-16 h-16 order-img" src={item?.pic || ""} alt="" />
               </Col>
-              <Col span={16}>
+              <Col span={18}>
                 <Row>
                   <Col span={20}>
                     <span>{item?.skuName ?? ""}</span>
@@ -58,6 +61,7 @@ const SubscriptionOrders = ({ planningList, completedList, onChangeDate } : { pl
             <div style={{width:300}}>
               <Calendar
                 fullscreen={false}
+                defaultValue={nextDeliveryDate ? moment(nextDeliveryDate) : undefined}
                 disabledDate={(current) => current < moment().endOf('day')}
                 onChange={(date: Moment) => {
                   setVisible(false);
@@ -67,7 +71,9 @@ const SubscriptionOrders = ({ planningList, completedList, onChangeDate } : { pl
             </div>
           }
         >
-          <span className="iconfont primary-color icon-rili text-lx"></span>
+          <Tooltip title="Select Date">
+            <span className="iconfont primary-color icon-rili text-lx"></span>
+          </Tooltip>
         </Popover>
       )
     }
@@ -80,21 +86,23 @@ const SubscriptionOrders = ({ planningList, completedList, onChangeDate } : { pl
     },
     {
       title: 'Order ID',
-      dataIndex: 'or',
-      key: 'or'
+      dataIndex: 'tradeId',
+      key: 'tradeId',
+      render: (text: string, record: any) => <Link to="/order/order-detail" state={{id: record?.tradeId,status: record?.tradeState?.orderState}}>{text}</Link>
     },
     {
-      title: 'Product Name',
+      title: <Row><Col span={21}>Product Name</Col><Col span={3}>Quantity</Col></Row>,
       dataIndex: 'pic',
       key: 'p',
+      width: '40%',
       render: (text: any, record: any) => (
         <div>
-          {(record?.lineItem ?? []).map((item: any, idx: number) => (
-            <Row key={idx} className={`${(record?.lineItem ?? []).length > 1 && idx < (record?.lineItem ?? []).length - 1 ? "border-b h-20 pb-2" : ""}`}>
+          {(record?.lineItems ?? []).map((item: any, idx: number) => (
+            <Row key={idx} className={`${(record?.lineItems ?? []).length > 1 && idx < (record?.lineItems ?? []).length - 1 ? "mb-2 border-b h-20 pb-2" : ""}`}>
               <Col span={6}>
                 <img className="w-16 h-16 order-img" src={item?.pic || ""} alt="" />
               </Col>
-              <Col span={16}>
+              <Col span={18}>
                 <Row>
                   <Col span={20}>
                     <span>{item?.skuName ?? ""}</span>
@@ -115,24 +123,26 @@ const SubscriptionOrders = ({ planningList, completedList, onChangeDate } : { pl
       title: 'Shipment date',
       dataIndex: 'shipmentDate',
       key: 'shi',
-      render: (text: any) => moment(text).format('YYYY/MM/DD HH:mm')
+      render: (text: any) => text ? moment(text).format('YYYY/MM/DD HH:mm') : ""
     },
     {
       title: 'Order status',
       dataIndex: 'ors',
-      key: 'ors'
+      key: 'ors',
+      render: (text: any, record: any) => orderStatusType[record?.tradeState?.orderState]
     },
     {
       title: 'Actions',
       dataIndex: 'ac',
-      key: 'ac'
+      key: 'ac',
+      render: (text: any, record: any) => <Link to="/order/order-detail" state={{id: record?.tradeId,status: record?.tradeState?.orderState}} className="cursor-pointer iconfont icon-kjafg primary-color" />
     }
   ];
   return (
     <div>
       <div className="flex justify-start space-x-4">
         <span className="iconfont icon-bianzu-1 primary-color text-lg" />
-        <div>Subscription information</div>
+        <div>Subscription Information</div>
       </div>
       <div className="mt-4">
         <Tabs type="card">
