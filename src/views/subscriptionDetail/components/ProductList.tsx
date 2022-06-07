@@ -6,7 +6,7 @@ import { SubscriptionFreshType } from '@/framework/constants/subscription'
 const ProductList = ({ productList, freshType }: { productList: any[], freshType: any }) => {
   const columns = [
     {
-      title: 'No',
+      title: 'No.',
       key: 'no',
       render: (text: any, record: any, index: number) => `${index + 1}`,
     },

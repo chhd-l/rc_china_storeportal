@@ -97,11 +97,11 @@ const Search = (props: IProps) => {
             <Option value="wechatNameLike">Wechat Name</Option>
             <Option value="productNameLike">Product Name</Option>
           </Select>
-          {type === "type" ? <Select key="subscription-type" placeholder="Select" value={val} onChange={(val) => setVal(val)} style={{ width: '80%' }}>
+          {type === "type" ? <Select key="subscription-type" allowClear placeholder="Select" value={val} onChange={(val) => setVal(val)} style={{ width: '80%' }}>
             {Object.keys(SubscriptionType).map((key: string, idx: number) => (
               <Option value={key} key={idx}>{SubscriptionType[key]}</Option>
             ))}
-          </Select> : type === "cycle" ? <Select key="subscription-cycle" placeholder="Select" value={val} onChange={(val) => setVal(val)} style={{ width: '80%' }}>
+          </Select> : type === "cycle" ? <Select key="subscription-cycle" allowClear placeholder="Select" value={val} onChange={(val) => setVal(val)} style={{ width: '80%' }}>
             {Object.keys(SubscriptionCycle).map((key: string, idx: number) => (
               <Option value={key} key={idx}>{SubscriptionCycle[key]}</Option>
             ))}

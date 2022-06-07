@@ -8,6 +8,7 @@ import { login } from "@/framework/api/login-user";
 import { useAtom } from "jotai";
 import { userAtom } from "@/store/user.store";
 import { getCookie, setCookie } from "@/utils/utils";
+import LogRocket from 'logrocket';
 // import axios from "axios";
 
 const formItems: FormItemProps[] = [
@@ -83,6 +84,11 @@ const Login = () => {
                   setUserInfo(res.userInfo)
                   localStorage.setItem("rc-userInfo", JSON.stringify(res.userInfo))
                   localStorage.setItem("rc-token", JSON.stringify(res.access_token))
+                  if (process.env.NODE_ENV === "production") {
+                    LogRocket.identify(res.userInfo.id, {
+                      name: res.userInfo.name
+                    });
+                  }
                   if (isRemember) {
                     setCookie('username', values.account, 30)
                     setCookie('password', values.password, 30)
