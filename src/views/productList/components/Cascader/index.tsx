@@ -96,7 +96,7 @@ const Cascader = (props: CascaderProps) => {
         <span className={`${categories.length ? 'font-semibold primary-color' : ''}`}>
           {categories.length
             ? categories.map((el: TreeDataProps, idx: number) => ` ${idx === 0 ? '' : '>'} ${el.label}`)
-            : 'No categories has been chosen'}
+            : 'No category has been chosen'}
         </span>
       </div>
     </div>
