@@ -28,6 +28,7 @@ const CustomerInformation = ({ buyer }: { buyer: Customer | any }) => {
         <span className="ml-4">{buyer.name}</span>
       </div>
       <Button
+        className="rounded-4"
         type="primary"
         danger
         onClick={() => {

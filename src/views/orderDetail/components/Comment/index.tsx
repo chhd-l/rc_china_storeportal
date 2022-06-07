@@ -7,6 +7,7 @@ import { useAtom } from 'jotai'
 import { userAtom } from '@/store/user.store'
 import userIcon from '@/assets/images/userIcon.svg'
 import { omit } from 'lodash'
+import './index.less'
 
 const OrderComment = ({
   comments,
@@ -121,13 +122,14 @@ const OrderComment = ({
             },
           ]}
         >
-          <Input.TextArea autoSize={{ minRows: 5, maxRows: 7 }} placeholder="Input comment" />
+          <Input.TextArea className="rounded-4" autoSize={{ minRows: 5, maxRows: 7 }} placeholder="Input comment" />
         </Form.Item>
         <Form.Item
-          style={{ marginBottom: 0, marginTop: '-10px', marginRight: '-10px' }}
-          wrapperCol={{ span: 24, offset: 18 }}
+          style={{ marginBottom: 0, marginTop: '-10px' }}
+          wrapperCol={{ span: 24, offset: 20 }}
+          className="form-button-end"
         >
-          <Button danger htmlType="submit">
+          <Button className="rounded-4" danger htmlType="submit">
             Save
           </Button>
         </Form.Item>

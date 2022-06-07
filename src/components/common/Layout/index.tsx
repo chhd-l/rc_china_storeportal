@@ -16,41 +16,45 @@ const AppLayout = () => {
 
   useEffect(() => {
     if (
-      (pathname.split('/').some(path => path === 'product') && pathname !== '/product/product-list' && pathname !== '/product')
-       || pathname === '/assets/add-graphic'
-       || (pathname.split('/').some(path => path === 'category') && pathname !== '/category/category-list' && pathname !== '/category')
-       || (pathname.split('/').some(path => path === 'marketingCenter') && pathname !== '/marketingCenter/marketingCenter-list' && pathname !== '/marketingCenter')
-      ) {
+      (pathname.split('/').some((path) => path === 'product') &&
+        pathname !== '/product/product-list' &&
+        pathname !== '/product') ||
+      pathname === '/assets/add-graphic' ||
+      (pathname.split('/').some((path) => path === 'category') &&
+        pathname !== '/category/category-list' &&
+        pathname !== '/category') ||
+      (pathname.split('/').some((path) => path === 'marketingCenter') &&
+        pathname !== '/marketingCenter/marketingCenter-list' &&
+        pathname !== '/marketingCenter' &&
+        pathname !== '/marketingCenter/intelligentRecommendation' &&
+        pathname !== '/marketingCenter/intelligentRecommendation/intelligentRecommendation-list')
+    ) {
       setIsOpen(false)
     } else {
       setIsOpen(true)
     }
-
-
   }, [pathname])
 
   return (
     <Layout>
       <TopHeader userInfo={userInfo} />
       <Layout>
-        {
-          isOpen ? (
-            <Sider
-              theme="light"
-              style={{
-                overflow: 'auto',
-                height: 'calc(100vh - 55px)',
-                paddingBottom: 20,
-                position: 'fixed',
-                left: 0,
-                top: 55,
-                bottom: 0,
-              }}
-            >
-              <Menus />
-            </Sider>
-          ) : null
-        }
+        {isOpen ? (
+          <Sider
+            theme="light"
+            style={{
+              overflow: 'auto',
+              height: 'calc(100vh - 55px)',
+              paddingBottom: 20,
+              position: 'fixed',
+              left: 0,
+              top: 55,
+              bottom: 0,
+            }}
+          >
+            <Menus />
+          </Sider>
+        ) : null}
         {/* <Sider
           theme="light"
           style={{
@@ -64,9 +68,9 @@ const AppLayout = () => {
         >
           <Menus />
         </Sider> */}
-        <Layout style={{ marginLeft: isOpen ? 200 : 0 }} >
+        <Layout style={{ marginLeft: isOpen ? 200 : 0 }}>
           <Content
-            className='site-layout-background'
+            className="site-layout-background"
             style={{
               margin: isOpen ? '59px 2% 0' : '59px 10% 0',
             }}
