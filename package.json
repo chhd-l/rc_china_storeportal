@@ -19,6 +19,7 @@
     "@types/array-move": "^2.0.0",
     "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.181",
+    "@types/logrocket-react": "^3.0.0",
     "@types/node": "^16.11.26",
     "@types/react": "^17.0.41",
     "@types/react-color": "^3.0.6",
@@ -56,6 +57,7 @@
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
     "lodash": "^4.17.21",
+    "logrocket-react": "5",
     "mini-css-extract-plugin": "^2.4.5",
     "moment": "^2.29.2",
     "postcss": "^8.4.4",
@@ -176,6 +178,9 @@
   "babel": {
     "presets": [
       "react-app"
+    ],
+    "plugins": [
+      "@babel/plugin-transform-react-display-name"
     ]
   },
   "husky": {
