@@ -29,7 +29,8 @@ const FanList = () => {
   }, []);
 
   const getFanList = async (offset = pages.page, limit = pages.limit, item = {}) => {
-   let val: {
+    console.log(item)
+    let val: {
     offset: number
     limit: number
     isNeedTotal: boolean
