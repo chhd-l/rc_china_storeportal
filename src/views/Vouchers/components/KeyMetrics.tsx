@@ -57,7 +57,7 @@ const KeyMetrics = () => {
               el.value = res.orders
               break
             case 'usageRate':
-              el.value = res.usageRate.toFixed(2) * 100 + '%'
+              el.value = (res.usageRate * 100).toFixed(2) + '%'
               break
             case 'buyers':
               el.value = res.buyers

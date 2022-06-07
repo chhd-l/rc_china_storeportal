@@ -3,7 +3,7 @@
  * 此部分页面逻辑较为(混乱)复杂，如遇问题，请使用www.baidu.com | 联系chhd !!!
  */
 
-import { Typography, Form, Select, Checkbox, InputNumber } from 'antd'
+import { Checkbox, Form, InputNumber, Select, Typography } from 'antd'
 import { useState } from 'react'
 const { Title } = Typography
 
@@ -72,7 +72,7 @@ const RuleSettings = ({
       >
         {({ setFieldsValue, validateFields }) => {
           return (
-            <div className="flex items-center border border-gray-300 border-solid" style={{ borderRadius: '4px' }}>
+            <div className="flex items-center border border-gray-300 border-solid" style={{ borderRadius: '4px',backgroundColor:Edit ? '#f6f6f6' : '' }}>
               <Form.Item name="discountType" className="m-0 h-8" wrapperCol={{ span: 'auto' }}>
                 <Select
                   className="Selectborder"
@@ -97,7 +97,7 @@ const RuleSettings = ({
               </Form.Item>
               {DiscountType !== 'PERCENTAGE' ? (
                 <>
-                  <span className={`w-8 text-center border-l border-r ${Edit ? 'bg-gray-100' : ''}`}>￥</span>
+                  <span className={`text-gray-400 w-8 text-center border-l border-r ${Edit ? 'bg-gray-100' : ''}`}>￥</span>
                   <Form.Item
                     name="discountValue"
                     className="m-0 flex-1 h-8 Amount1"
