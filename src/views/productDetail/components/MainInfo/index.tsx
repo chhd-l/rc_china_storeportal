@@ -202,7 +202,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
           feedingDays: Number(values.feedingDays),
           isSupport100: values.isSupport100,
           id: detail.skuId,
-          // defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
+          defaultImage: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Non_photo.png',
           goodsVariantBundleInfo: detail.goodsVariantBundleInfo?.map((el: any) => {
             let bundleInfo = {
               bundleNumber: el.bundleNumber,
