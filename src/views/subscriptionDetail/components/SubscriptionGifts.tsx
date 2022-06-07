@@ -16,11 +16,10 @@ const columns: ColumnProps<any>[] = [
     render: (text: any, record: any) => (
       <div className="flex flex-row items-center">
         <img src={record?.defaultImage} className="w-10 h-10 mr-2" alt="" />
-        <span>
-          {text}
-          <br />
-          <span>{record?.goodsVariant?.skuNo}</span>
-        </span>
+        <div>
+          <div className="w-80 truncate">{text}</div>
+          <span className="text-gray-400">{record?.goodsVariant?.skuNo}</span>
+        </div>
       </div>
     ),
   },
