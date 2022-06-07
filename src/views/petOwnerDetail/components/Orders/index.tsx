@@ -60,7 +60,7 @@ const OrderInformation = ({ id, customerId }: OrderInfoProps) => {
       <div className="flex flex-row items-center justify-end mb-4">
         <div className="w-auto mr-3">Order Creation Date</div>
         <DatePicker.RangePicker
-          style={{ width: '300px' }}
+          className="rounded-4 w-64"
           onChange={(date, dateString) => {
             console.log(date, dateString)
             getCustomerOrders({

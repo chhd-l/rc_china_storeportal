@@ -5,7 +5,7 @@ import { initSearchParams } from '@/views/petOwnerList/modules/constants'
 
 const OrderSearch = ({ query }: { query: Function }) => {
   const [searchParams, setSearchParams] = useState<SearchParamsProps>(initSearchParams)
-  const [pickValue,setPickValue]=useState<any>(undefined)
+  const [pickValue, setPickValue] = useState<any>(undefined)
 
   const updateSearchParams = (value: any, name: string) => {
     setSearchParams({
@@ -20,7 +20,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
         <div className="flex flex-row items-center">
           <div className="mr-2 w-24 text-left">WeChat Name:</div>
           <Input
-            style={{ width: '260px' }}
+            className="w-64 rounded-4"
             placeholder="Enter WeChat name"
             value={searchParams.name}
             onChange={(e) => {
@@ -32,9 +32,9 @@ const OrderSearch = ({ query }: { query: Function }) => {
           />
         </div>
         <div className="flex flex-row items-center">
-          <div className="mr-2 ml-4 w-28">Phone Number:</div>
+          <div className="mr-2 w-28 text-right">Phone Number:</div>
           <Input
-            style={{ width: '260px' }}
+            className="w-64 rounded-4"
             placeholder="Enter phone number"
             value={searchParams.phone}
             onChange={(e) => {
@@ -46,9 +46,9 @@ const OrderSearch = ({ query }: { query: Function }) => {
           />
         </div>
         <div className="flex flex-row items-center">
-          <div className="mr-2 ml-4 w-24">Login Time:</div>
+          <div className="mr-2 w-24 text-right">Login Time:</div>
           <DatePicker.RangePicker
-            style={{ width: '260px' }}
+            className="w-64 rounded-4"
             value={pickValue}
             onChange={(date, dateString) => {
               console.log(date, dateString)
@@ -61,7 +61,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
       </div>
       <div className="mt-5 flex">
         <Button
-          className="w-20 mr-md"
+          className="w-20 mr-md rounded-4"
           type="primary"
           danger
           onClick={() => {
@@ -71,13 +71,12 @@ const OrderSearch = ({ query }: { query: Function }) => {
           Search
         </Button>
         <Button
-          className="w-20"
-          // danger
+          className="w-20 rounded-4"
           onClick={(e) => {
             console.log(1111)
-            setPickValue(['',''])
+            setPickValue(['', ''])
             setSearchParams(initSearchParams)
-            query &&query(initSearchParams)
+            query && query(initSearchParams)
           }}
         >
           Reset

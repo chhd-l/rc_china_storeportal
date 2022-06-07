@@ -41,7 +41,7 @@ const OrderTable = ({
 
   return (
     <div className="order-list-page">
-      <Row className="bg-gray1 border py-2 px-4">
+      <Row className="bg-gray1 border rounded-4 py-2 px-4">
         <Col span={10}>Product(s)</Col>
         <Col span={4} className="text-left">
           Order Total
@@ -80,7 +80,7 @@ const OrderTable = ({
       </Row>
       {orderList.length > 0 ? (
         orderList.map((item: Order) => (
-          <div className="border mt-4" key={item.id}>
+          <div className="border rounded-4 mt-4" key={item.id}>
             <Row className="bg-gray1 border-b py-2 px-4 content-center justify-between">
               <Col span={12} className="flex items-center">
                 <Avatar icon={<img src={item.buyer.image} alt={''} />} />

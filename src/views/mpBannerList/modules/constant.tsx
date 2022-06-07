@@ -76,7 +76,7 @@ export const tableColumns = ({
       dataIndex: 'clickType',
       valueEnum: {
         NO_OPERATION: { text: 'No operation' },
-        OPEN_THE_WEB_PAGE: { text: 'Open the WEB page' },
+        OPEN_THE_WEB_PAGE: { text: 'Open the web page' },
         OPEN_THE_MP_PAGE: { text: 'Open the MP page' },
         OPEN_OTHER_MP_PAGE: { text: 'Open other MP page' },
       },

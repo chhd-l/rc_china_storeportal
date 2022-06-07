@@ -15,7 +15,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
       <div className="flex flex-row items-center justify-end">
         <div className="w-auto mr-3">Order Creation Date</div>
         <DatePicker.RangePicker
-          style={{ width: '300px' }}
+          className="w-64 rounded-4"
           value={pickValue}
           onChange={(date, dateString) => {
             console.log(date, dateString)
@@ -25,10 +25,10 @@ const OrderSearch = ({ query }: { query: Function }) => {
         />
         <Space direction="vertical">
           <Dropdown overlay={LatestReports} placement="bottom">
-            <Button className="ml-3">Export</Button>
+            <Button className="ml-3 rounded-4">Export</Button>
           </Dropdown>
         </Space>
-        <Button className="ml-3" icon={<MenuOutlined style={{ color: '#979797' }} />} />
+        <Button className="ml-3 rounded-4" icon={<MenuOutlined style={{ color: '#979797' }} />} />
       </div>
       <div className="flex flex-row items-center mt-4 text-left">
         <Input.Group compact>
@@ -38,7 +38,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
             }}
             getPopupContainer={(trigger: any) => trigger.parentNode}
             value={searchParams.searchType}
-            style={{ width: '20%' }}
+            className="rc-select w-1/5"
           >
             {searchTypeList.map((item, idx) => (
               <Select.Option value={item.key} key={idx}>
@@ -47,7 +47,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
             ))}
           </Select>
           <Input
-            style={{ width: '80%' }}
+            className="rounded-4 w-4/5 -ml-1"
             ref={inputRef}
             value={searchParams.searchTypeValue}
             onChange={(e) => {
@@ -64,7 +64,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
           />
         </Input.Group>
         <Button
-          className="w-32 mx-3 btn-primary"
+          className="w-32 mx-3 btn-primary rounded-4"
           type="primary"
           danger
           onClick={() => {
@@ -75,7 +75,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
           Search
         </Button>
         <Button
-          className="w-32"
+          className="w-32 rounded-4"
           onClick={(e) => {
             setPickValue(['', ''])
             setSearchParams(initSearchParams)

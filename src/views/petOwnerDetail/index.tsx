@@ -56,7 +56,7 @@ const PetOwnerList = () => {
               <InfoContainer>
               <Subscriptions id="subscription-information" customerId={petOwnerId} />
               </InfoContainer>
-              {/*<DivideArea />*/}
+              <DivideArea />
               <InfoContainer>
               <Address id="my-address" customerId={petOwnerId} />
               </InfoContainer>
