@@ -72,7 +72,7 @@ const SearchHeader = ({ getFormData, getList }: SearchProps) => {
           layout: 'inline',
         }}
       >
-        <Row justify='start' gutter={[0, 14]}>
+        <Row justify='start' style={{ width: '100%' }} gutter={[0, 14]}>
           <Col span={11}>
             <Input.Group compact className='flex'>
               <Form.Item className='rounded-xl ' name='selectName' initialValue={nameForKey[0].value}>
