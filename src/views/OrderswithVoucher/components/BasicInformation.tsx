@@ -101,7 +101,7 @@ const BasicInformation = ({ state }: { state: any }) => {
           {state.usage}
         </Descriptions.Item>
       </Descriptions>
-      <Divider className="text-blue-500 border-gray-500" dashed>
+      <Divider className="text-blue-500 border-gray-500 text-16" dashed>
         {DescriptionsOpen ? (
           <div onClick={() => setDescriptionsOpen(false)} className="flex items-center cursor-default">
             Collapse Voucher Information <UpOutlined className="ml-1" />
