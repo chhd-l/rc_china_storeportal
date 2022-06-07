@@ -146,6 +146,7 @@ const Graphic = ({
               style={{ width: '300px' }}
               placeholder="Select"
               value={searchParams.status}
+              allowClear
               onChange={(val) => {
                 setSearchParams({ ...searchParams, status: val })
               }}
