@@ -26,7 +26,8 @@ const AppLayout = () => {
       (pathname.split('/').some((path) => path === 'marketingCenter') &&
         pathname !== '/marketingCenter/marketingCenter-list' &&
         pathname !== '/marketingCenter' &&
-        pathname !== '/marketingCenter/intelligentRecommendation')
+        pathname !== '/marketingCenter/intelligentRecommendation' &&
+        pathname !== '/marketingCenter/intelligentRecommendation/intelligentRecommendation-list')
     ) {
       setIsOpen(false)
     } else {
