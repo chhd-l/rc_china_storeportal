@@ -8,26 +8,19 @@ const OrderCarrier = ({ carrier }: { carrier: Carrier[] }) => {
 
   return (
     <div className="flex flex-col justify-start mt-4">
-      <div className="flex flex-row justify-between">
-        <div>
+      <div className="flex flex-row justify-between items-center">
+        <div className="flex items-center">
           <span className="iconfont icon-a-xingzhuangjiehe3 text-theme-red text-xl" />
-          <span className="ml-4 text-black text-base">Carrier information</span>
+          <span className="ml-md text-black text-base">Carrier information</span>
         </div>
-        <div className="flex flex-row items-center">
+        <div
+          className="flex flex-row items-center hover:cursor-pointer"
+          onClick={() => {
+            setShowMore(!showMore)
+          }}
+        >
           <span className="mr-2">View carrier detail</span>
-          {showMore ? (
-            <UpOutlined
-              onClick={() => {
-                setShowMore(false)
-              }}
-            />
-          ) : (
-            <DownOutlined
-              onClick={() => {
-                setShowMore(true)
-              }}
-            />
-          )}
+          {showMore ? <UpOutlined /> : <DownOutlined />}
         </div>
       </div>
       {showMore
