@@ -11,32 +11,30 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, onC
   const navigator = useNavigate()
   const columns_tostart: ColumnProps<any>[] = [
     {
-      title: 'Sequence',
+      title: 'SEQ',
       dataIndex: 'sequence',
+      className: "table-cell-align-top",
       key: 'no',
     },
     {
-      title: <Row><Col span={21}>Product Name</Col><Col span={3}>Quantity</Col></Row>,
+      title: <Row gutter={16}><Col span={20}>Product Name</Col><Col span={4}>Quantity</Col></Row>,
       dataIndex: 'pic',
       key: 'p',
       render: (text: any, record: any) => (
         <div>
           {(record?.lineItems ?? []).map((item: any, idx: number) => (
-            <Row key={idx} className={`${(record?.lineItems ?? []).length > 1 && idx < (record?.lineItems ?? []).length - 1 ? "mb-2 border-b h-20 pb-2" : ""}`}>
-              <Col span={6}>
-                <img className="w-16 h-16 order-img" src={item?.pic || ""} alt="" />
-              </Col>
-              <Col span={18}>
-                <Row>
-                  <Col span={20}>
-                    <span>{item?.skuName ?? ""}</span>
-                    <br />
+            <Row key={idx} gutter={16} className={`${(record?.lineItems ?? []).length > 1 && idx < (record?.lineItems ?? []).length - 1 ? "mb-2 border-b pb-2" : ""}`}>
+              <Col span={20}>
+                <div className="flex flex-row items-center">
+                  <img className="w-10 h-10 mr-2" src={item?.pic || ""} alt="" />
+                  <div>
+                    <div className="w-80 truncate">{item?.skuName ?? ""}</div>
                     <span className="text-gray-400 text-sm">{item?.skuNo}</span>
-                  </Col>
-                  <Col span={4} className="items-start text-left">
-                    x {item?.num}
-                  </Col>
-                </Row>
+                  </div>
+                </div>
+              </Col>
+              <Col span={4} className="items-start text-left">
+                x {item?.num}
               </Col>
             </Row>
           ))}
@@ -47,11 +45,13 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, onC
       title: 'Shipment date',
       dataIndex: 'shipmentDate',
       key: 'shi',
+      className: "table-cell-align-top",
       render: (text: any) => text ? moment(text).format('YYYY/MM/DD HH:mm') : ""
     },
     {
       title: 'Actions',
       key: 'ac',
+      className: "table-cell-align-top",
       render: (text: any, record: any) => (
         <Popover
           trigger="click"
@@ -80,39 +80,37 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, onC
   ];
   const columns_completed: ColumnProps<any>[] = [
     {
-      title: 'Sequency',
+      title: 'SEQ',
       dataIndex: 'sequence',
+      className: "table-cell-align-top",
       key: 'no',
     },
     {
       title: 'Order ID',
       dataIndex: 'tradeId',
+      className: "table-cell-align-top",
       key: 'tradeId',
       render: (text: string, record: any) => <Link to="/order/order-detail" state={{id: record?.tradeId,status: record?.tradeState?.orderState}}>{text}</Link>
     },
     {
-      title: <Row><Col span={21}>Product Name</Col><Col span={3}>Quantity</Col></Row>,
+      title: <Row gutter={16}><Col span={20}>Product Name</Col><Col span={4}>Quantity</Col></Row>,
       dataIndex: 'pic',
       key: 'p',
-      width: '40%',
       render: (text: any, record: any) => (
         <div>
           {(record?.lineItems ?? []).map((item: any, idx: number) => (
-            <Row key={idx} className={`${(record?.lineItems ?? []).length > 1 && idx < (record?.lineItems ?? []).length - 1 ? "mb-2 border-b h-20 pb-2" : ""}`}>
-              <Col span={6}>
-                <img className="w-16 h-16 order-img" src={item?.pic || ""} alt="" />
-              </Col>
-              <Col span={18}>
-                <Row>
-                  <Col span={20}>
-                    <span>{item?.skuName ?? ""}</span>
-                    <br />
+            <Row key={idx} gutter={16} className={`${(record?.lineItems ?? []).length > 1 && idx < (record?.lineItems ?? []).length - 1 ? "mb-2 border-b pb-2" : ""}`}>
+              <Col span={20}>
+                <div className="flex flex-row items-center">
+                  <img className="w-10 h-10 mr-2" src={item?.pic || ""} alt="" />
+                  <div>
+                    <div className="w-80 truncate">{item?.skuName ?? ""}</div>
                     <span className="text-gray-400 text-sm">{item?.skuNo}</span>
-                  </Col>
-                  <Col span={4} className="items-start text-left">
-                    x {item?.num}
-                  </Col>
-                </Row>
+                  </div>
+                </div>
+              </Col>
+              <Col span={4} className="items-start text-left">
+                x {item?.num}
               </Col>
             </Row>
           ))}
@@ -122,18 +120,21 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, onC
     {
       title: 'Shipment date',
       dataIndex: 'shipmentDate',
+      className: "table-cell-align-top",
       key: 'shi',
       render: (text: any) => text ? moment(text).format('YYYY/MM/DD HH:mm') : ""
     },
     {
       title: 'Order status',
       dataIndex: 'ors',
+      className: "table-cell-align-top",
       key: 'ors',
       render: (text: any, record: any) => orderStatusType[record?.tradeState?.orderState]
     },
     {
       title: 'Actions',
       dataIndex: 'ac',
+      className: "table-cell-align-top",
       key: 'ac',
       render: (text: any, record: any) => <Link to="/order/order-detail" state={{id: record?.tradeId,status: record?.tradeState?.orderState}} className="cursor-pointer iconfont icon-kjafg primary-color" />
     }

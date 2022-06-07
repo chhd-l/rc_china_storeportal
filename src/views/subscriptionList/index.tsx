@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { ContentContainer, SearchContainer, TableContainer } from '@/components/ui'
-import { Tabs, Pagination, Modal, Spin } from 'antd'
+import { Tabs, Pagination, Modal, Spin, Empty } from 'antd'
 import { getSubscriptionList, pauseSubscription, resumeSubscription } from '@/framework/api/subscription'
 import Search from './components/Search'
 import TableHeader from './components/TableHeader'
@@ -90,19 +90,21 @@ const SubscriptionList: React.FC<{}> = ({}) => {
         <Spin spinning={loading}>
           <div className="mb-4 text-left text-xl font-bold">{pages.total} Subscriptions</div>
           <TableHeader />
-          {(list || []).map((subs: any, index: number) => (
-            <TableRow key={index} data={subs} handlePauseOrRestart={(isResume: boolean, id: string) => setTipObj({ visible: true, isResume, id })} />
-          ))}
-          <div className="flex flex-row justify-end mt-4">
-          <Pagination
-              current={pages.page}
-              total={pages.total}
-              pageSize={pages.limit}
-              onChange={changePage}
-              showSizeChanger={true}
-              className="rc-pagination"
-            />
-          </div>
+          {(list || []).length > 0 ? (<React.Fragment>
+            {(list || []).map((subs: any, index: number) => (
+              <TableRow key={index} data={subs} handlePauseOrRestart={(isResume: boolean, id: string) => setTipObj({ visible: true, isResume, id })} />
+            ))}
+            <div className="flex flex-row justify-end mt-4">
+              <Pagination
+                current={pages.page}
+                total={pages.total}
+                pageSize={pages.limit}
+                onChange={changePage}
+                showSizeChanger={true}
+                className="rc-pagination"
+              />
+            </div>
+          </React.Fragment>) : (<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />)}
         </Spin>
       </TableContainer>
       <Modal
