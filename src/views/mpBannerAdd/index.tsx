@@ -13,6 +13,7 @@ import { ContentContainer, InfoContainer } from '@/components/ui'
 import { getAccountList } from '@/framework/api/wechatSetting'
 import { bannerCreate } from '@/framework/api/banner'
 import { useNavigate } from 'react-router-dom'
+import { UPLOAD_API_URL } from '@/framework/api/fetcher'
 
 const MpBannerAdd = () => {
   const navigator = useNavigate()
@@ -36,7 +37,7 @@ const MpBannerAdd = () => {
     if (!arr.length) return
     const lists: any[] = []
     arr.forEach((item) => {
-      if (item.accountType === 'MiniProgram')
+      if (item.accountType === 'MiniProgram' && item.isActive)
         lists.push({
           label: item.accountName,
           value: item.id
@@ -77,7 +78,7 @@ const MpBannerAdd = () => {
   }
   return (
     <ContentContainer className='mp-banner-detail'>
-      <InfoContainer title='Add New MP Banner'>
+      <InfoContainer title='Add New MP Banner' className="pt-0">
         <ProForm
           {...layout}
           formRef={formRef}
@@ -93,15 +94,19 @@ const MpBannerAdd = () => {
           className='mp-form'
         >
           <ProFormSelect
+            allowClear={false}
             name='accountId'
             label='Mini Program'
             options={list}
             placeholder= "Please select"
+            rules={[{ required: true, message: 'Please select' }]}
           />
           <ProFormText
             name='name'
             label='Banner Name'
             placeholder= "Please input"
+            allowClear={false}
+            rules={[{ required: true, message: 'Please input' }]}
           />
           <ProFormSelect
             name='page'
@@ -117,15 +122,17 @@ const MpBannerAdd = () => {
               }
             ]}
             placeholder= "Please select"
+            rules={[{ required: true, message: 'Please select' }]}
           />
           <ProForm.Item
             label="Pic Location"
             name="picUrl"
             trigger="onValuesChange"
+            rules={[{ required: true, message: 'Please upload' }]}
           >
             <Upload name="file"
                     className="my-upload"
-                    action="https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload"
+                    action={UPLOAD_API_URL}
                     headers={{authorization: 'authorization-text'}}
                     showUploadList={false}
                     onChange={(info: any) => onUploadChange(info)}>
@@ -145,7 +152,7 @@ const MpBannerAdd = () => {
                 label:'No operation',
                 value:'NO_OPERATION'
               } ,{
-                label:'Open the WEB page',
+                label:'Open the web page',
                 value:'OPEN_THE_WEB_PAGE'
               }, {
                 label:'Open the MP page',
@@ -161,12 +168,14 @@ const MpBannerAdd = () => {
                 setClickType(value)
               }
             }}
+            rules={[{ required: true, message: 'Please select' }]}
           />
           {
             clickType&&clickType!=='NO_OPERATION'? <ProFormText
              name='path'
              label='Path'
              placeholder= "Please input"
+             rules={[{ required: true, message: 'Please input' }]}
            />:null
           }
           {
@@ -174,11 +183,13 @@ const MpBannerAdd = () => {
               name='mpAppId'
               label='MP ID'
               placeholder= "Please input"
+              rules={[{ required: true, message: 'Please input' }]}
             />:null
           }
           <ProFormDigit
             name='sort'
             label='Sort'
+            rules={[{ required: true, message: 'Please input' }]}
           />
         </ProForm>
       </InfoContainer>

@@ -63,6 +63,7 @@ const CouponInformation = ({ id, customerId }: CouponInfoProps) => {
     {
       title: 'Status',
       dataIndex: 'voucherStatus',
+      render: (text: any, record: any) => record.voucherStatus==='Not_Used'?'Not Used':record.voucherStatus
     },
     {
       title: 'Options',
