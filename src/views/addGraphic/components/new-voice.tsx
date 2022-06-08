@@ -38,7 +38,7 @@ const NewVoice = React.forwardRef((props, ref) => {
           <Form.Item label="Content">
             <div className="flex items-center space-x-4">
             {article?.voice
-              ? <div><audio controls>
+              ? <div key={article?.voice?.assetId ?? 'newvoice'}><audio controls>
               <source src={article?.voice?.voice} />
             </audio></div> : null}
             <div><MyUpload value={{}} assetType="voice" onChange={(asset) => onChangeFieldValue({ voice: asset })} /></div>

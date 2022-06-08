@@ -46,8 +46,8 @@ const NewVideo = React.forwardRef((props, ref) => {
           <Form.Item label="Content">
             <div className="flex items-center space-x-4">
             {article?.video
-              ? <div><video width="320" height="240" controls>
-              <source src={article.video?.video}  type="video/mp4" />
+              ? <div key={article?.video?.assetId ?? 'newvideo'}><video width="320" height="240" controls>
+              <source src={article.video?.video} />
             </video></div> : null}
             <div><MyUpload value={{}} assetType="video" onChange={handleUploadVideo} /></div>
             </div>

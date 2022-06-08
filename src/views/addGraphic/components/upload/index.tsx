@@ -24,7 +24,7 @@ const MyUpload: React.FC<IProps> = (props) => {
 
   const uploadProps = {
     name: 'file',
-    accept: 'image/*',
+    accept: props.assetType === "image" ? 'image/*' : props.assetType === "video" ? 'video/*' : 'audio/*',
     action: UPLOAD_API_URL,
     headers: {
       authorization: 'authorization-text',
@@ -36,7 +36,7 @@ const MyUpload: React.FC<IProps> = (props) => {
       setUploading(true)
       if (file.status === 'done') {
         const res = await createMediaAndSync({
-          type: 'image',
+          type: props.assetType,
           url: file.response.url,
           fileExtension: name.substr(name.lastIndexOf('.') + 1),
           operator: "system",
