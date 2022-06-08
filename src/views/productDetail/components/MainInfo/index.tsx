@@ -192,7 +192,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
       params.goodsVariantsInput = [
         {
           // skuNo: 'test0001', //to do
-          // isWithoutSku: true,
+          isWithoutSku:true,
           shelvesStatus: 'true', //没有sku默认上架
           subscriptionPrice: values.subscriptionPrice,
           subscriptionStatus: values.subscriptionStatus,
