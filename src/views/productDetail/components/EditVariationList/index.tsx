@@ -231,7 +231,6 @@ const EditVariationList = (props: FormProps) => {
           lastData.splice(lastIdx, 1)
         }
       }
-
       if (vartion.length) {
         vartion.forEach((spec: any, idx: number) => {
           let name = formData[idx]?.name || `Variation${idx}`
@@ -243,7 +242,6 @@ const EditVariationList = (props: FormProps) => {
           if (formData[idx]?.goodsSpecificationId) {
             newEl.relArr[idx].goodsSpecificationId = formData[idx]?.goodsSpecificationId
           }
-          // debugger
           if (spec.id) {
             newEl.relArr[idx].id = spec.id
           }
@@ -254,7 +252,7 @@ const EditVariationList = (props: FormProps) => {
           // })
         })
       } else {
-        // debugger
+        newEl.relArr=[{}]
         let name = formData[0]?.name || `Variation1`
         newEl[name] = vartion?.option || 'option'
         newEl.relArr[0] = {

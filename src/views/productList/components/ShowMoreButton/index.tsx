@@ -27,7 +27,7 @@ const ShowMoreButton: FC<Props> = ({
   return (
     <div className="cursor-pointer" onClick={() => hanldeshowAll(spuIdx)}>
       <div className="border-b border-solid mt-4 boder-gary-400 relative mb-8">
-        <div className="absolute bg-white px-4 py-2 left-2/4 -translate-x-2/4 -translate-y-2/4">
+        <div className="absolute bg-white px-4 py-2 left-2/4 -translate-x-2/4 -translate-y-2/4 show-more-btn">
           {children}
         </div>
       </div>
