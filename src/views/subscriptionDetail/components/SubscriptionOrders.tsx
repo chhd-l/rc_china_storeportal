@@ -29,7 +29,7 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
                 <div className="flex flex-row items-center">
                   <img className="w-10 h-10 mr-2" src={item?.pic || ""} alt="" />
                   <div>
-                    <div className="w-80 truncate">{item?.skuName ?? ""}</div>
+                    <div className="max-w-xs truncate">{item?.skuName ?? ""}</div>
                     <span className="text-gray-400 text-sm">{item?.skuNo}</span>
                   </div>
                 </div>
@@ -41,6 +41,10 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
           ))}
         </div>
       )
+    },
+    {
+      title: "",
+      width: '5%',
     },
     {
       title: 'Shipment date',
@@ -104,7 +108,7 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
                 <div className="flex flex-row items-center">
                   <img className="w-10 h-10 mr-2" src={item?.pic || ""} alt="" />
                   <div>
-                    <div className="w-80 truncate">{item?.skuName ?? ""}</div>
+                    <div className="max-w-xs truncate">{item?.skuName ?? ""}</div>
                     <span className="text-gray-400 text-sm">{item?.skuNo}</span>
                   </div>
                 </div>
@@ -116,6 +120,10 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
           ))}
         </div>
       )
+    },
+    {
+      title: "",
+      width: '2%',
     },
     {
       title: 'Shipment date',
