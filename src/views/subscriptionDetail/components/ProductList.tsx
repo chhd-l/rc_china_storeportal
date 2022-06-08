@@ -18,7 +18,7 @@ const ProductList = ({ productList, freshType }: { productList: any[], freshType
         <div className="flex flex-row items-center">
           <img src={record?.goodsVariant?.defaultImage} className="w-10 h-10 mr-2" alt="" />
           <div>
-            <div className="w-80 truncate">{record?.goodsVariant?.name}</div>
+            <div className="max-w-xs truncate">{record?.goodsVariant?.name}</div>
             <span className="text-gray-400">{record?.goodsVariant?.skuNo}</span>
           </div>
         </div>

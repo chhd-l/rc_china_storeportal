@@ -39,7 +39,7 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
       },
     },
     {
-      title: 'Claiming Period',
+      title: 'Valid Period',
       dataIndex: 'Period',
       valueType: 'dateRange',
       hideInTable: true,
@@ -91,7 +91,7 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
       title: () => (
         <div>
           <div>Status</div>
-          <div>Claiming Period</div>
+          <div>Valid Period</div>
         </div>
       ),
       dataIndex: 'voucherStatus',
