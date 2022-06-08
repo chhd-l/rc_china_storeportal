@@ -33,9 +33,9 @@ export const handlePageParams = (pageParams: PageParamsProps) => {
   }
 }
 
-export const handleReturnTime = (time: any) => {
+export const handleReturnTime = (time: any, showTime: boolean = true) => {
   if (time !== null && time !== undefined && time !== '') {
-    return moment(new Date(time)).format('YYYY-MM-DD HH:mm:SS')
+    return moment(new Date(time)).format(showTime ? 'YYYY-MM-DD HH:mm:SS' : 'YYYY-MM-DD')
   } else {
     return ''
   }

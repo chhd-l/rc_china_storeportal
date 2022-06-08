@@ -32,7 +32,7 @@ export const TableContainer: FC<Props> = ({ children }) => {
 export const InfoContainer: FC<Props> = ({ children, title, className }) => {
   return (
     <Container className={cn(className,'px-10 py-7 bg-white')}>
-      {title ? <Container className='py-7 text-lg'>{title}</Container> : null}
+      {title ? <Container className='pb-7 text-lg'>{title}</Container> : null}
       {children}
     </Container>
   )

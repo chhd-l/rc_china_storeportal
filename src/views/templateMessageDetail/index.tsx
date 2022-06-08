@@ -99,8 +99,12 @@ const TemplateMessageDetail = () => {
                     colProps={{ span: 12 }}
                     options={[
                       {
-                        value: 'time',
-                        label: '履行完终止',
+                        value: 'SHIPPED',
+                        label: 'Shipped',
+                      },
+                      {
+                        value: 'CANCEL REMINDER',
+                        label: 'Cancel Reminder',
                       },
                     ]}
                     name="scenario"
@@ -135,7 +139,8 @@ const TemplateMessageDetail = () => {
                   <ProFormText
                     colProps={{ span: 12 }}
                     name="url"
-                    label="H5 jump path"
+                    label="H5 Jump Path"
+                    allowClear={false}
                     placeholder="Please input H5 jump path"
                   />
                 </ProForm.Group>
@@ -143,13 +148,15 @@ const TemplateMessageDetail = () => {
                   <ProFormText
                     colProps={{ span: 12 }}
                     name="appId"
-                    label="Mini Program appid"
+                    label="Mini Program AppId"
+                    allowClear={false}
                     placeholder="Please input Mini Program appid"
                   />
                   <ProFormText
                     colProps={{ span: 12 }}
                     name="pagepath"
                     label="Jump Path"
+                    allowClear={false}
                     placeholder="Please input Mini Program Jump Path"
                   />
                 </ProForm.Group>

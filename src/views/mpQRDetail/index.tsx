@@ -161,12 +161,10 @@ const MpQrDetail = () => {
             ]} />
           </Form.Item> : null}
 
-          <Form.Item
-          >
-            <div style={{ width: '70vw' }} className="flex justify-end">
+          <Form.Item wrapperCol={{ span: 16, offset: 8 }}>
+            <div className="flex space-x-4 justify-end">
             <Button
               danger
-              className="mr-4"
               onClick={() => {
                 navigator("/mpqr/mpqr-list");
               }}
