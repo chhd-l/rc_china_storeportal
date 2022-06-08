@@ -38,7 +38,7 @@ const typeValueEnum = [
 const QrCodeManageDetail = () => {
   const navigator = useNavigate();
   const [isOpen, setIsOpen] = useState('')
-  const [isRequset, setIsRequset] = useState(true)
+  const [isRequset, setIsRequset] = useState(false)
   const [reply, setReply] = useState<any>({})
   const [visible, setVisible] = useState(false)
   const [form] = Form.useForm()
