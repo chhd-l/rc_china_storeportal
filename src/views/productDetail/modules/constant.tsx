@@ -73,7 +73,7 @@ export const noSkuForm: (InputTextProps | InputSelectProps | LabelOptionProps)[]
     rules: [{ required: true }],
   },
   {
-    type: 'input',
+    type: 'inputNumber',
     addonBefore: '¥',
     label: 'List Price',
     name: 'listPrice',
@@ -81,7 +81,7 @@ export const noSkuForm: (InputTextProps | InputSelectProps | LabelOptionProps)[]
     rules: [{ required: true }],
   },
   {
-    type: 'input',
+    type: 'inputNumber',
     addonBefore: '¥',
     dataTips: '',
     label: 'Marketing Price',
@@ -89,7 +89,7 @@ export const noSkuForm: (InputTextProps | InputSelectProps | LabelOptionProps)[]
     rules: [{ required: true }],
   },
   {
-    type: 'input',
+    type: 'inputNumber',
     addonBefore: '¥',
     dataTips: '',
     label: 'Subscription Price',
@@ -97,14 +97,14 @@ export const noSkuForm: (InputTextProps | InputSelectProps | LabelOptionProps)[]
     rules: [{ required: true }],
   },
   {
-    type: 'input',
+    type: 'inputNumber',
     label: 'Stock',
     dataTips: '',
     name: 'stock',
     rules: [{ required: true }],
   },
   {
-    type: 'input',
+    type: 'inputNumber',
     label: 'Feeding Days',
     dataTips: '',
     name: 'feedingDays',
