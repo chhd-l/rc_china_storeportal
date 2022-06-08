@@ -8,7 +8,9 @@ const Finishedproductdisplay = () => {
         prevValues.Image !== curValues.Image ||
         prevValues.voucherName !== curValues.voucherName ||
         prevValues.voucherDescription !== curValues.voucherDescription ||
-        prevValues.times !== curValues.times
+        prevValues.times !== curValues.times ||
+        prevValues.discountValue !== curValues.discountValue ||
+        prevValues.discountType !== curValues.discountType
       }
       className="w-96 h-72 absolute top-32 right-32"
     >
@@ -19,6 +21,8 @@ const Finishedproductdisplay = () => {
         const times = getFieldValue('times') || ''
         const startTimes = times ? moment(times[0]).format('YYYY/MM/DD HH:mm') : ''
         const endtTimes = times ? moment(times[1]).format('YYYY/MM/DD HH:mm') : ''
+        const discountType = getFieldValue('discountType')
+        const discountValue = getFieldValue('discountValue')
         return (
           <div className="w-96 h-72">
             <div className="h-10 CoilingCenter" />
@@ -29,7 +33,19 @@ const Finishedproductdisplay = () => {
                     {imgUrl ? (
                       <Image width={70} src={imgUrl} preview={false} />
                     ) : (
-                      <div className="flex-1 w-5/6 h-full" />
+                      <div className="flex-1 w-5/6 h-full">
+                        {discountType === 'PERCENTAGE' ? (
+                          <div className='w-full h-full flex items-center text-center text-red-600'>
+                            {discountValue && 
+                            <span className="text-4xl font-medium flex-1">{(100 - discountValue) / 10}<span className='text-sm'>折</span></span>}
+                          </div>
+                        ) : (
+                          <div className='w-full h-full flex items-center text-center text-red-600'>
+                            {discountValue && 
+                            <span className="text-4xl font-medium flex-1"><span className='text-sm'>￥</span>{discountValue}</span>}
+                          </div>
+                        )}
+                      </div>
                     )}
                     <span className="text-red-600" style={{ fontSize: '12px', lineHeight: '1.1' }}>
                       {voucherName}
