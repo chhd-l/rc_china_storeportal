@@ -293,7 +293,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
                 }, ...mockOptions],
                 getPopupContainer: triggerNode => triggerNode.parentNode,
                 dropdownClassName: 'productlist-choose-cate common-dropdown-cascader',
-                placeholder: 'Categores Name',
+                placeholder: 'Category Name',
                 style:{
                   textAlign:'left'
                 },

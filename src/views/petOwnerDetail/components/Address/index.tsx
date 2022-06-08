@@ -23,6 +23,7 @@ const MyAddress = ({ id, customerId }: { id: string; customerId: string }) => {
       title: 'No.',
       dataIndex: 'isDefault',
       key: 'isDefault',
+      width: 130,
       render: (text: any, record: any, index: number) =>
       <div style={{ height: '74px' }} className={`w-full flex items-center justify-center ${text ? 'startOne' : ''}`}>{index + 1}</div>
     },

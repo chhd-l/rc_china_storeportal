@@ -2,8 +2,8 @@ import { SearchFormItemProps } from "@/framework/types/common";
 
 export const formItems: SearchFormItemProps[] = [
   {
-    label: "Openid",
-    name: "openId",
+    label: "Wechat Name",
+    name: "nickname",
     placeholder: "Input",
   },
   {
@@ -14,7 +14,7 @@ export const formItems: SearchFormItemProps[] = [
   {
     label: "Is Member",
     name: "isAppMember",
-    placeholder: "Selext",
+    placeholder: "Select",
     type:"select",
     selectList:[{
       label:'Yes',

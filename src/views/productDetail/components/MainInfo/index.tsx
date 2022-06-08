@@ -202,7 +202,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
           feedingDays: Number(values.feedingDays),
           isSupport100: values.isSupport100,
           id: detail.skuId,
-          // defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
+          defaultImage: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Non_photo.png',
           goodsVariantBundleInfo: detail.goodsVariantBundleInfo?.map((el: any) => {
             let bundleInfo = {
               bundleNumber: el.bundleNumber,
@@ -247,7 +247,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
   const showQrImg = () => {
     detail?.wxCodeUrl && setImgUrl(detail.wxCodeUrl)
   }
-  console.info('shelvesStatusshelvesStatus', beforeData)
+  console.info('shelvesStatusshelvesStatus', detail)
   return (
     <div id={steps[0].anchor}>
       <div className={!showCatePop ? 'flex-1 MainInfo mr-48' : 'flex-1 MainInfo'}>
@@ -282,7 +282,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                     <div>
                       <div className='flex justify-between  pb-2'>
                         <div className='font-black text-lg font-bold'>{steps[idx].title}</div>
-                        <div>{steps?.[idx]?.rightSlot?.(showQrImg)}</div>
+                        {detail?.id?<div>{steps?.[idx]?.rightSlot?.(showQrImg)}</div>:null}
                       </div>
                       {steps[idx].subTitle ? <div className='pb-4'>{steps[idx].subTitle}</div> : null}
                     </div>

@@ -6,7 +6,7 @@ import { SubscriptionFreshType } from '@/framework/constants/subscription'
 const ProductList = ({ productList, freshType }: { productList: any[], freshType: any }) => {
   const columns = [
     {
-      title: 'No',
+      title: 'No.',
       key: 'no',
       render: (text: any, record: any, index: number) => `${index + 1}`,
     },
@@ -17,11 +17,10 @@ const ProductList = ({ productList, freshType }: { productList: any[], freshType
       render: (text: any, record: any) => (
         <div className="flex flex-row items-center">
           <img src={record?.goodsVariant?.defaultImage} className="w-10 h-10 mr-2" alt="" />
-          <span>
-            {text}
-            <br />
-            <span>{record?.goodsVariant?.skuNo}</span>
-          </span>
+          <div>
+            <div className="w-80 truncate">{text}</div>
+            <span className="text-gray-400">{record?.goodsVariant?.skuNo}</span>
+          </div>
         </div>
       ),
     },

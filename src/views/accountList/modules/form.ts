@@ -10,14 +10,14 @@ export const formItems: SearchFormItemProps[] = [
   {
     label: "Official Account Type",
     name: "officialAccountType",
-    placeholder: "select",
+    placeholder: "Select",
     type: "select",
     selectList: officialTypeList,
   },
   {
     label: "Status",
     name: "status",
-    placeholder: "select",
+    placeholder: "Select",
     type: "select",
     selectList: statusList,
   },

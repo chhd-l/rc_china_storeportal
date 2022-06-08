@@ -41,7 +41,7 @@ const Cascader = (props: CascaderProps) => {
     setCategoryList(treeList)
   }
   useEffect(() => {
-    if (window.location.href?.indexOf('product-add')>-1) {
+    if (window.location.href?.indexOf('product-add') > -1) {
       getCate()
     }
   }, [])
@@ -73,7 +73,7 @@ const Cascader = (props: CascaderProps) => {
         {categoryList?.length ? (
           <ProFormCascader
             name='cateId'
-            rules={[{ required: true, message: 'Categores Name required' }]}
+            rules={[{ required: true, message: 'Category Name required' }]}
             // request={(params, props) => {
             //   return Promise.resolve(categoryList)
             // }}
@@ -86,8 +86,8 @@ const Cascader = (props: CascaderProps) => {
               dropdownClassName: 'product-choose-cate common-dropdown-cascader',
               open: true,
               placement: 'bottomLeft',
-              placeholder: 'Categores Name',
-              displayRender: () => 'Categores Name',
+              placeholder: 'Category Name',
+              displayRender: () => 'Category Name',
             }}
           />
         ) : null}
@@ -99,7 +99,7 @@ const Cascader = (props: CascaderProps) => {
         <span className={`${categories.length ? 'font-semibold primary-color' : ''}`}>
           {categories.length
             ? categories.map((el: TreeDataProps, idx: number) => ` ${idx === 0 ? '' : '>'} ${el.label}`)
-            : 'No categories has been chosen'}
+            : 'No category has been chosen'}
         </span>
       </div>
     </div>

@@ -73,29 +73,22 @@ const OrderInformation = ({
   }, [isSubscription])
 
   return (
-    <div className="flex justify-start">
-      <span className="iconfont icon-bianzu-1 text-theme-red text-lg" />
-      <div className="ml-4 w-full">
-        <div className="text-left text-base">Order Information</div>
-        <div className="mt-4">
-          <Table columns={columns} dataSource={tradeItem} pagination={false} rowKey="skuId" className="rc-table" />
-        </div>
+    <div className="flex flex-col">
+      <div className="flex items-center mb-md">
+        <span className="iconfont icon-bianzu-1 text-theme-red text-lg" />
+        <span className="text-left text-base ml-md">Order Information</span>
+      </div>
+      <div className="pl-8 w-full">
+        <Table columns={columns} dataSource={tradeItem} pagination={false} rowKey="skuId" className="rc-table" />
         <div className="flex flex-col mt-4 ">
-          <div className="flex justify-end mb-4 items-center">
+          <div
+            className="flex justify-end mb-4 items-center hover:cursor-pointer"
+            onClick={() => {
+              setShowMore(!showMore)
+            }}
+          >
             <span className="mr-2">View order amount detail</span>
-            {showMore ? (
-              <UpOutlined
-                onClick={() => {
-                  setShowMore(false)
-                }}
-              />
-            ) : (
-              <DownOutlined
-                onClick={() => {
-                  setShowMore(true)
-                }}
-              />
-            )}
+            {showMore ? <UpOutlined /> : <DownOutlined />}
           </div>
           {showMore ? (
             <div className="flex flex-row border-b -mt-3 pb-2">
