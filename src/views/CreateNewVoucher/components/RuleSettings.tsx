@@ -129,7 +129,7 @@ const RuleSettings = ({
                       {
                         validator: (_, value) => {
                           const v = Number(value) || 0
-                          return v > 0 && v < 99
+                          return v > 0 && v < 100
                             ? Promise.resolve()
                             : Promise.reject(new Error('Please enter a value between 1 and 99'))
                         },
@@ -138,7 +138,7 @@ const RuleSettings = ({
                   >
                     <InputNumber
                       onChange={(v) => {
-                        if (v < 99) {
+                        if (v < 100) {
                           setAmountOpen(true)
                         } else {
                           setAmountOpen(false)
@@ -219,7 +219,7 @@ const RuleSettings = ({
                     validateFields(['discountValue'])
                     const Amount = getFieldValue('discountValue')
                     if (DiscountType !== 'FIX_AMOUNT') {
-                      if (Amount > 99 && Amount > price) {
+                      if (Amount > 100 && Amount > price) {
                         setAmountOpen(false)
                       } else {
                         setAmountOpen(true)

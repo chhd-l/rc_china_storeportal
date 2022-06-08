@@ -45,7 +45,7 @@ const KeyMetrics = () => {
   const [keyMetricsList, setKeyMetricsList] = useState<KeyMetricsListProps[]>(initMetricsContent)
 
   const getVoucherKeyMetrics = async () => {
-    const res = await getVoucherKeyMetric()
+    const res = await getVoucherKeyMetric({startTime: moment().add(-7, 'day').utc(), endTime: moment().utc()})
     if (res) {
       setKeyMetricsList(
         keyMetricsList.map((el) => {

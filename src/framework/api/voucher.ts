@@ -113,9 +113,9 @@ export const getCustomerVouchers = async (params: any) => {
   }
 }
 
-export const getVoucherKeyMetric = async () => {
+export const getVoucherKeyMetric = async (parmas: any) => {
   try {
-    let res = await ApiRoot.vouchers().getVoucherKeyMetric()
+    let res = await ApiRoot.vouchers().getVoucherKeyMetric(parmas)
     console.log('getVoucherKeyMetric view data', res)
     return res?.voucherKeyMetric || null
   } catch (e) {
