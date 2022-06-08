@@ -126,7 +126,6 @@ const AddVariation = ({}: AddVariationProps) => {
       if (!variationData[variationIdx].goodsSpecificationDetail[specificationIdx]) {
         variationData[variationIdx].goodsSpecificationDetail[specificationIdx] = {}
       }
-      // debugger
       if (variationForm.variationList[variationIdx].specificationList[specificationIdx]?.id) {
         // debugger
         variationData[variationIdx].id = variationForm.variationList[variationIdx].id
@@ -166,6 +165,8 @@ const AddVariation = ({}: AddVariationProps) => {
         }
         variationData[variationIdx].id = variationForm.variationList[variationIdx].id
         variationData[variationIdx].isDeleted = variationForm.variationList[variationIdx].isDeleted
+      }else{
+        variationData.splice(variationIdx, 1)
       }
     }
     setVariationForm(cloneDeep(variationForm))

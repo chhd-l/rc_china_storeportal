@@ -161,6 +161,19 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     return asset
   })
   goodsAsserts = data.id ? normaliseDeletedData(goodsAsserts, beforeData.goodsAsserts) : goodsAsserts
+  let editChangeVariationList = data.editChange?.variationList?.map((el: any, index: number) => {
+    if (el) {
+      el.rank = index
+      if (el.goodsSpecificationDetail?.length) {
+        el.goodsSpecificationDetail.forEach((cel: any, celIdx: number) => {
+          if (cel) {
+            cel.rank = celIdx
+          }
+        })
+      }
+    }
+    return el
+  })
   let detail: any = {
     spuNo: data.spuNo,
     goodsName: data.name,
@@ -170,16 +183,11 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     brandId: data.brandId,
     goodsCategoryId: data.cateId[data.cateId.length - 1],
     shelvesStatus: data.shelvesStatus,
-    // defaultImage: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',//?干嘛呢
     salesStatus: data.salesStatus === "1",
     weight: data.weight && Number(data.weight),
-    // weightUnit: 'g',
     parcelSizeLong: data.length,
-    // parcelSizeLongUnit: 'cm',
     parcelSizeHeight: data.height,
-    // parcelSizeHeightUnit: 'cm',
     parcelSizeWidth: data.width,
-    // parcelSizeWidthUnit: 'cm',
     storeId: '12345678',
     isDeleted: false,
     operator: data.operator,
@@ -192,7 +200,7 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     //   },
     // ],
     goodsAsserts,
-    goodsSpecifications: data.id ? data.editChange.variationList : data.goodsSpecificationsInput && normaliseInputSpecificationProps(data.goodsSpecificationsInput),
+    goodsSpecifications: data.id ? editChangeVariationList : data.goodsSpecificationsInput && normaliseInputSpecificationProps(data.goodsSpecificationsInput),
     goodsAttributeValueRel: data.goodsAttributeValueRelInput && normaliseInputAttrProps(data.goodsAttributeValueRelInput, beforeData.goodsAttributeValueRel)
   }
   if (data.id) {
@@ -208,7 +216,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
   if (skus) {
     skuData = skus.map((data: any, skuIdx: number) => {
       console.info('data.marketingPrice', data.marketingPrice)
-
+      debugger
       let newVariation: any = {
         isSupport100: data.isSupport100 === 'true',
         skuType: spu.type,
@@ -290,7 +298,50 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
   if (spu.id && beforeData) {
     //编辑 需要检查之前保存后的变更并返回变更
     // 页面上没展示的商品需要被删除
-    spu.editChange.goodsVariants = spu.editChange.goodsVariants?.filter((el: any) => spu.goodsVariantsInput.find((cel: any) => cel.skuName === el.skuName))
+    if (spu?.goodsVariantsInput?.length) {
+      let deletedSkuIdx: any = []
+      spu.editChange.goodsVariants?.forEach((el: any, index: number) => {
+        if (el?.goodsVariantSpecifications) {
+          let editspecStr = ''
+          el?.goodsVariantSpecifications.forEach((specItem: any) => {
+            editspecStr = editspecStr + specItem.specificationName + '-' + specItem.specificationDetailName + '^'
+          })
+          let hasSku = spu.goodsVariantsInput.find((cel: any) => {
+            let inputspecStr = ''
+            cel.relArr?.forEach((relItem: any) => {
+              inputspecStr = inputspecStr + relItem.specificationName + '-' + relItem.specificationDetailName + '^'
+            })
+            return editspecStr === inputspecStr
+          })
+          if (!hasSku) {
+            deletedSkuIdx.push(index)
+          }
+        }
+        if (!el?.id) {
+          // 新增sku subscriptionStatus和stock没有值的时候需要默认赋值
+          if (typeof el.subscriptionStatus === 'undefined') {
+            el.subscriptionStatus = '1'
+          }
+          if (typeof el.stock === 'undefined') {
+            el.stock = '0'
+          }
+          if (typeof el.shelvesStatus === 'undefined') {
+            el.shelvesStatus = 'true'
+          }
+          if (typeof el.isSupport100 === 'undefined') {
+            el.isSupport100 = 'true'
+          }
+        }
+      })
+      if (deletedSkuIdx.length) {
+        for (let i = deletedSkuIdx.length - 1;i >= 0;i--) {
+          spu.editChange.goodsVariants.splice(deletedSkuIdx[i], 1)
+        }
+      }
+
+    }
+
+    // }
     // beforeData.goodsVariants.filter((el: any) => el.id)
     // spu.variationLists.filter((el: any) => el.id)
     // skuData.filter((el: any) => el.id)
@@ -367,50 +418,52 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
 
     editData = [...editVariationData, ...delArr]
     //规格有改变的
-    spu.goodsVariantsInput.filter((el: any) => el.id).forEach((variantInput: any, index: number) => {
+    spu.goodsVariantsInput?.forEach((variantInput: any, index: number) => {
+      if (variantInput?.id) {
+        //取到补集
+        let deleteComplement = variantInput?.goodsSpecificationRel?.filter((beforeItem: any) => {
+          return variantInput.relArr?.findIndex((afterItem: any) => beforeItem.goodsSpecificationDetailId === afterItem.id) === -1
+        })
+        let addedComplement = variantInput.relArr?.filter((beforeItem: any) => {
+          return variantInput.goodsSpecificationRel?.findIndex((afterItem: any) => beforeItem.id === afterItem.goodsSpecificationDetailId) === -1
+        })
+        // let complement = [...complement1, ...complement2]
+        console.info('deleteComplement', deleteComplement)
+        console.info('addedComplement', addedComplement)
+        //删除的
+        deleteComplement?.forEach((item: any) => {
+          if (!editData[index]) {
+            editData[index] = {
+              id: variantInput.id
+            }
+            if (!editData[index].goodsVariantSpecifications) {
+              editData[index].goodsVariantSpecifications = []
+            }
+          }
+          editData[index].goodsVariantSpecifications.push({
+            id: variantInput.id || variantInput.goodsSpecificationDetailId,
+            isDeleted: true
+          })
+        })
+        // 新增的
+        addedComplement?.forEach((rel: any) => {
+          if (!editData[index]) {
+            editData[index] = {
+              id: variantInput.id
+            }
+            if (!editData[index].goodsVariantSpecifications) {
+              editData[index].goodsVariantSpecifications = []
+            }
+          }
+          editData[index].goodsVariantSpecifications.push({
+            specificationNameEn: rel.specificationName,
+            specificationName: rel.specificationName,
+            specificationDetailNameEn: rel.specificationDetailName,
+            specificationDetailName: rel.specificationDetailName,
+          })
+        })
+      }
 
-      //取到补集
-      let deleteComplement = variantInput?.goodsSpecificationRel?.filter((beforeItem: any) => {
-        return variantInput.relArr?.findIndex((afterItem: any) => beforeItem.goodsSpecificationDetailId === afterItem.id) === -1
-      })
-      let addedComplement = variantInput.relArr?.filter((beforeItem: any) => {
-        return variantInput.goodsSpecificationRel?.findIndex((afterItem: any) => beforeItem.id === afterItem.goodsSpecificationDetailId) === -1
-      })
-      // let complement = [...complement1, ...complement2]
-      console.info('deleteComplement', deleteComplement)
-      console.info('addedComplement', addedComplement)
-      //删除的
-      deleteComplement?.forEach((item: any) => {
-        if (!editData[index]) {
-          editData[index] = {
-            id: variantInput.id
-          }
-          if (!editData[index].goodsVariantSpecifications) {
-            editData[index].goodsVariantSpecifications = []
-          }
-        }
-        editData[index].goodsVariantSpecifications.push({
-          id: variantInput.id || variantInput.goodsSpecificationDetailId,
-          isDeleted: true
-        })
-      })
-      // 新增的
-      addedComplement?.forEach((rel: any) => {
-        if (!editData[index]) {
-          editData[index] = {
-            id: variantInput.id
-          }
-          if (!editData[index].goodsVariantSpecifications) {
-            editData[index].goodsVariantSpecifications = []
-          }
-        }
-        editData[index].goodsVariantSpecifications.push({
-          specificationNameEn: rel.specificationName,
-          specificationName: rel.specificationName,
-          specificationDetailNameEn: rel.specificationDetailName,
-          specificationDetailName: rel.specificationDetailName,
-        })
-      })
     })
 
   }
