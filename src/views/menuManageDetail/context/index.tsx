@@ -93,7 +93,11 @@ export const checkWxMenus: (wxMenus: WxMenuItem[]) => boolean = (wxMenus) => {
 export const filterWxMenus: (wxMenus: WxMenuItem[]) => WxMenuItem[] = (wxMenus) => {
   wxMenus.forEach(item => {
     item.active = undefined;
-    item.rc_preview_type = undefined;
+    (Object.keys(item) as Array<keyof WxMenuItem>).forEach((key: keyof WxMenuItem) => {
+      if (key.startsWith('rc_preview')) {
+        delete item[key]
+      }
+    });
     if (item.type === "media_id") {
       item.url = undefined;
       item.appid = undefined;

@@ -47,7 +47,7 @@ const Index = ({
       title: "Response Description",
       dataIndex: "responseDes",
       key: "responseDes",
-      render: (_text: string, record: AutoReplies) => <Link to="/reply/edit-reply-content" state={{id:record.responseId}}>{_text}</Link>
+      render: (_text: string, record: AutoReplies) => <Link to="/reply/edit-reply-content" className="text-blue-400 underline" state={{id:record.responseId}}>{_text}</Link>
     },
     {
       title: "Status",
