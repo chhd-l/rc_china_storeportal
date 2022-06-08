@@ -241,8 +241,8 @@ let routes: RouteObject[] = [
         children: [
           { index: true, element: <MpBannerList /> },
           { path: 'mpbanner-list', element: <MpBannerList /> },
-          { path: 'mpbanner-detail', element: <MpBannerDetail />, breadcrumbName: 'Mp Banner Detail' },
-          { path: 'mpbanner-add', element: <MpBannerAdd />, breadcrumbName: 'Mp Banner Add' },
+          { path: 'mpbanner-detail', element: <MpBannerDetail />, breadcrumbName: 'MP Banner Detail' },
+          { path: 'mpbanner-add', element: <MpBannerAdd />, breadcrumbName: 'MP Banner Add' },
         ],
       },
       {

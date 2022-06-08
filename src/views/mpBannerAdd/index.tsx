@@ -187,6 +187,7 @@ const MpBannerAdd = () => {
             />:null
           }
           <ProFormDigit
+            initialValue={0}
             name='sort'
             label='Sort'
             rules={[{ required: true, message: 'Please input' }]}
