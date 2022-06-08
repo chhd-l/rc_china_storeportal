@@ -101,6 +101,9 @@ const MpBannerList = () => {
           if(params.clickType){
             data.sample.clickType=params.clickType
           }
+          if(params.accountName){
+            data.sample.accountName=params.accountName
+          }
           if(params.isActive){
             data.sample.isActive=params.isActive === 'true'
           }

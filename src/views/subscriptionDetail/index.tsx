@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ContentContainer, InfoContainer, DivideArea } from '@/components/ui'
 import { getSubscriptionDetail, pauseSubscription, resumeSubscription, updateSubscriptionAddress, updateNextDeliveryDate, upsertSubscriptionComment } from '@/framework/api/subscription'
-import { Spin, Modal } from "antd"
+import { Spin, Modal, message } from "antd"
 import { useLocation } from 'react-router-dom'
 import BaseInfo from './components/BaseInfo'
 import AddressInfo from './components/AddressInfo'
@@ -12,14 +12,12 @@ import SubscriptionOrders from './components/SubscriptionOrders'
 import SubscriptionGifts from './components/SubscriptionGifts'
 import CommentWidget from '@/components/common/Comment'
 import OperateLogWidget from '@/components/common/OperateLog'
-import AddressModal from '@/components/customer/AddressModal'
 
 
 export default function SubscriptionDetail() {
   const [loading, setLoading] = useState<boolean>(false)
   const [detail, setDetail] = useState<any>({})
   const [visible, setVisible] = useState<boolean>(false)
-  const [addressVisible, setAddressVisible] = useState<boolean>(false)
   const location = useLocation();
   const state: any = location.state;
 
@@ -27,8 +25,8 @@ export default function SubscriptionDetail() {
     getSubscription()
   }, [])
 
-  const getSubscription = async () => {
-    setLoading(true)
+  const getSubscription = async (showLoadingFlag: boolean = true) => {
+    showLoadingFlag && setLoading(true);
     const data = await getSubscriptionDetail(state?.id ?? "")
     setDetail(data);
     setLoading(false)
@@ -52,23 +50,24 @@ export default function SubscriptionDetail() {
 
   const handleChooseAddress = async (address: any) => {
     const { storeId, customerId, isDefault, ...rest } = address;
-    setAddressVisible(false)
-    setLoading(true)
     const success = await updateSubscriptionAddress(detail?.id, rest);
     if (success) {
-      getSubscription()
+      await getSubscription(false)
+      message.success({className:'rc-message',content:'Operation Successful'});
+      return Promise.resolve(true)
     } else {
-      setLoading(false)
+      return Promise.resolve(false)
     }
   }
 
   const handleChangeNextDeliveryDate = async (date: string) => {
-    setLoading(false)
     const success = await updateNextDeliveryDate(detail?.id, date);
     if (success) {
-      getSubscription()
+      await getSubscription(false)
+      message.success({className:'rc-message',content:'Operation Successful'});
+      return Promise.resolve(true)
     } else {
-      setLoading(false)
+      return Promise.resolve(false)
     }
   }
 
@@ -92,7 +91,7 @@ export default function SubscriptionDetail() {
             </InfoContainer>
             <DivideArea />
             <InfoContainer>
-              <AddressInfo data={detail} onEdit={() => setAddressVisible(true)} />
+              <AddressInfo data={detail} onEdit={handleChooseAddress} />
             </InfoContainer>
             <DivideArea />
             <InfoContainer>
@@ -108,7 +107,7 @@ export default function SubscriptionDetail() {
             </InfoContainer>
             <DivideArea />
             <InfoContainer>
-              <SubscriptionOrders planningList={detail?.planingDeliveries ?? []} completedList={detail?.completedDeliveries ?? []} nextDeliveryDate={detail?.createNextDeliveryTime} onChangeDate={handleChangeNextDeliveryDate} />
+              <SubscriptionOrders planningList={detail?.planingDeliveries ?? []} completedList={detail?.completedDeliveries ?? []} nextDeliveryDate={detail?.createNextDeliveryTime} status={detail?.status} onChangeDate={handleChangeNextDeliveryDate} />
             </InfoContainer>
             <DivideArea />
             <InfoContainer>
@@ -138,12 +137,6 @@ export default function SubscriptionDetail() {
       >
         <div>{detail?.status === "PAUSED" ?  "Are you sure you want to restart this subscription?" : "Are you sure you want to pause this subscription?"}</div>
       </Modal>
-      {addressVisible ? <AddressModal
-        customerId={detail?.customer?.id}
-        visible={addressVisible}
-        onCancel={() => setAddressVisible(false)}
-        onConfirm={handleChooseAddress}
-      /> : null}
     </ContentContainer>
   )
 }

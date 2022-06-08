@@ -143,7 +143,7 @@ const Picture = ({
   }
 
   return (
-    <ContentContainer>
+    <ContentContainer className="pt-2 pb-6">
       <div className="flex flex-row mb-4">
         <Upload {...uploadProps}>
           <Button className="flex items-center" loading={uploading}>

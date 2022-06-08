@@ -132,6 +132,7 @@ const ApplicableProducts = ({
             columns={columns}
             options={false}
             search={false}
+            revalidateOnFocus={false}
             pagination={{
               hideOnSinglePage: false,
               showSizeChanger: true,

@@ -79,7 +79,7 @@ const AddAccount = () => {
   return (
     <ContentContainer className='addAccount'>
       <InfoContainer>
-        <div className='text-2xl text-medium mb-4'>{state ? 'Account Details' : 'Add Account'}</div>
+        <div className='text-2xl text-medium mb-4'>{state ? 'Edit Account' : 'Add Account'}</div>
         <Form
           initialValues={state ? state : { type: 'ServiceAccount' }}
           form={form}

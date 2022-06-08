@@ -184,7 +184,7 @@ let routes: RouteObject[] = [
           { index: true, element: <AccountList />},
           { path: 'account-list', element: <AccountList />},
           { path: 'add-account', element: <AddAccount />, breadcrumbName: 'Add Account' },
-          { path: 'account-details', element: <AddAccount />, breadcrumbName: 'Account Details' },
+          { path: 'account-details', element: <AddAccount />, breadcrumbName: 'Edit Account' },
         ],
       },
       {
@@ -218,7 +218,7 @@ let routes: RouteObject[] = [
       },
       {
         path: 'template',
-        breadcrumbName: 'Template Messag',
+        breadcrumbName: 'Template Message',
         children: [
           {
             index: true,
@@ -241,8 +241,8 @@ let routes: RouteObject[] = [
         children: [
           { index: true, element: <MpBannerList /> },
           { path: 'mpbanner-list', element: <MpBannerList /> },
-          { path: 'mpbanner-detail', element: <MpBannerDetail />, breadcrumbName: 'Mp Banner Detail' },
-          { path: 'mpbanner-add', element: <MpBannerAdd />, breadcrumbName: 'Mp Banner Add' },
+          { path: 'mpbanner-detail', element: <MpBannerDetail />, breadcrumbName: 'MP Banner Detail' },
+          { path: 'mpbanner-add', element: <MpBannerAdd />, breadcrumbName: 'MP Banner Add' },
         ],
       },
       {
@@ -251,8 +251,8 @@ let routes: RouteObject[] = [
         children: [
           { index: true, element: <MpQRList /> },
           { path: 'mpqr-list', element: <MpQRList /> },
-          { path: 'mpqr-detail', element: <MpQRDetail />, breadcrumbName: 'MpQR Detail' },
-          { path: 'mpqr-add', element: <MpQRDetail />, breadcrumbName: 'Add New MpQR' },
+          { path: 'mpqr-detail', element: <MpQRDetail />, breadcrumbName: 'MP QR Code Detail' },
+          { path: 'mpqr-add', element: <MpQRDetail />, breadcrumbName: 'Add MP QR Code' },
         ],
       },
       {

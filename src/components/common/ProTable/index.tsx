@@ -9,6 +9,7 @@ const ProTableWrap = (props: ProTableProps<any, any>) => {
   const defaultProps: ProTableProps<any, any> = {
     rowKey: 'id',
     options: false,
+    revalidateOnFocus: false,
     pagination: {
       showSizeChanger: true,
       pageSize: 10,

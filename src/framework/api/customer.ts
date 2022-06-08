@@ -64,7 +64,7 @@ export const getCustomer = async ({ customerId }: { customerId: string }) => {
     return customer
   } catch (e) {
     console.log(e)
-    return []
+    return {}
   }
 }
 
