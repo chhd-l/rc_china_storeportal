@@ -88,7 +88,7 @@ const OrderTable = ({
               </Col>
               <Col span={12} className="text-right">
                 Order ID:{item.id}
-                {item.subscriptionId ? (
+                {item.subscriptionNo ? (
                   <>
                     <br />
                     <span>
