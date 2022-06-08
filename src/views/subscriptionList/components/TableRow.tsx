@@ -11,13 +11,13 @@ interface IProps {
 const TableRow: React.FC<IProps> = ({ data, handlePauseOrRestart }) => {
   return (
     <div className="border mt-4 rounded">
-      <Row className="bg-gray1 border-b px-4 content-center justify-between">
-        <Col span={12} className="flex items-center">
+      <Row className="bg-gray1 border-b px-4 content-center justify-between" align="middle">
+        <Col span={12} className="flex items-center py-2">
           <Avatar src={data?.customer?.avatarUrl} />
           <span className="ml-2">{data?.customer?.nickName ?? ""}</span>
         </Col>
-        <Col span={12} className="text-right" style={{ lineHeight: '44px' }}>
-          Subscription ID: {data?.no ?? ""}
+        <Col span={12} className="text-right">
+          <div className="py-2">Subscription ID: {data?.no ?? ""}</div>
         </Col>
       </Row>
       <Row className="p-4 flex items-start">

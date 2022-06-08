@@ -226,6 +226,7 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
         columns={columns}
         actionRef={ref}
         options={false}
+        revalidateOnFocus={false}
         tableClassName='rc-table'
         className='VouchersListTable'
         rowKey="id"

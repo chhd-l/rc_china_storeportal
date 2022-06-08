@@ -126,7 +126,7 @@ const Graphic = ({
   }
 
   return (
-    <ContentContainer>
+    <ContentContainer className="pt-2 pb-6">
       <div className="mb-8">
         <div className="flex flex-row">
           <div className="flex flex-row items-center">

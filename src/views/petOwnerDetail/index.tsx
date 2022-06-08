@@ -34,7 +34,7 @@ const PetOwnerList = () => {
           {petOwnerId ? (
             <>
               <InfoContainer>
-                <BasicInfo id="basic-information" />
+                <BasicInfo id="basic-information" customerId={petOwnerId} />
               </InfoContainer>
               <DivideArea />
               <InfoContainer>

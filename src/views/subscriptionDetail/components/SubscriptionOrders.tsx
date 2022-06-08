@@ -3,23 +3,23 @@ import { Table, Tabs, Row, Col, Calendar, Popover, Tooltip } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import { orderStatusType } from '@/framework/constants/order'
 import { ColumnProps } from 'antd/es/table'
+import { handleReturnTime } from '@/utils/utils'
 import moment, { Moment } from 'moment'
 
 
-const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, onChangeDate } : { planningList: any[], completedList: any[], nextDeliveryDate: string, onChangeDate: (date: string) => void }) => {
+const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, status, onChangeDate } : { planningList: any[], completedList: any[], nextDeliveryDate: string, status: string, onChangeDate: (date: string) => Promise<boolean> }) => {
   const [visible, setVisible] = React.useState<boolean>(false)
+  const [loading, setLoading] = React.useState<boolean>(false)
   const navigator = useNavigate()
   const columns_tostart: ColumnProps<any>[] = [
     {
       title: 'SEQ',
       dataIndex: 'sequence',
-      className: "table-cell-align-top",
       key: 'no',
     },
     {
       title: <Row gutter={16} align="top"><Col span={20}>Product Name</Col><Col span={4}>Quantity</Col></Row>,
       dataIndex: 'pic',
-      className: "table-cell-align-top",
       key: 'p',
       render: (text: any, record: any) => (
         <div>
@@ -46,15 +46,13 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, onC
       title: 'Shipment date',
       dataIndex: 'shipmentDate',
       key: 'shi',
-      className: "table-cell-align-top",
-      render: (text: any) => text ? moment(text).format('YYYY/MM/DD HH:mm') : ""
+      render: (text: any) => status === "ONGOING" ?  handleReturnTime(text) : null
     },
     {
       title: 'Actions',
       key: 'ac',
-      className: "table-cell-align-top",
       render: (text: any, record: any) => (
-        <Popover
+        status === "ONGOING" ? <Popover
           trigger="click"
           visible={visible}
           onVisibleChange={(v: boolean) => setVisible(v)}
@@ -66,16 +64,17 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, onC
                 disabledDate={(current) => current < moment().endOf('day')}
                 onChange={(date: Moment) => {
                   setVisible(false);
-                  onChangeDate(date.utc().format())
+                  setLoading(true);
+                  onChangeDate(date.utc().format()).then(() => setLoading(false))
                 }}
               />
             </div>
           }
         >
           <Tooltip title="Select Date">
-            <span className="iconfont primary-color icon-rili text-lx"></span>
+            <span className="cursor-pointer iconfont primary-color icon-rili text-lx"></span>
           </Tooltip>
-        </Popover>
+        </Popover> : null
       )
     }
   ];
@@ -83,20 +82,19 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, onC
     {
       title: 'SEQ',
       dataIndex: 'sequence',
-      className: "table-cell-align-top",
       key: 'no',
     },
     {
       title: 'Order ID',
       dataIndex: 'tradeId',
-      className: "table-cell-align-top",
       key: 'tradeId',
+      width: '15%',
       render: (text: string, record: any) => <Link to="/order/order-detail" state={{id: record?.tradeId,status: record?.tradeState?.orderState}}>{text}</Link>
     },
     {
       title: <Row gutter={16} align="top"><Col span={20}>Product Name</Col><Col span={4}>Quantity</Col></Row>,
       dataIndex: 'pic',
-      className: "table-cell-align-top",
+      width: '40%',
       key: 'p',
       render: (text: any, record: any) => (
         <div>
@@ -122,21 +120,18 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, onC
     {
       title: 'Shipment date',
       dataIndex: 'shipmentDate',
-      className: "table-cell-align-top",
       key: 'shi',
-      render: (text: any) => text ? moment(text).format('YYYY/MM/DD HH:mm') : ""
+      render: (text: any) => handleReturnTime(text)
     },
     {
       title: 'Order status',
       dataIndex: 'ors',
-      className: "table-cell-align-top",
       key: 'ors',
       render: (text: any, record: any) => orderStatusType[record?.tradeState?.orderState]
     },
     {
       title: 'Actions',
       dataIndex: 'ac',
-      className: "table-cell-align-top",
       key: 'ac',
       render: (text: any, record: any) => <Link to="/order/order-detail" state={{id: record?.tradeId,status: record?.tradeState?.orderState}} className="cursor-pointer iconfont icon-kjafg primary-color" />
     }
@@ -150,7 +145,7 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, onC
       <div className="mt-4">
         <Tabs type="card">
           <Tabs.TabPane tab="To start" key="1">
-            <Table size="small" columns={columns_tostart} dataSource={planningList} pagination={false} className="rc-table" />
+            <Table size="small" loading={loading} columns={columns_tostart} dataSource={planningList} pagination={false} className="rc-table" />
           </Tabs.TabPane>
           <Tabs.TabPane tab="Completed" key="2">
             <Table size="small" columns={columns_completed} dataSource={completedList} pagination={false} className="rc-table" />
