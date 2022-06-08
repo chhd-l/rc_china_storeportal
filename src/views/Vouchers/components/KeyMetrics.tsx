@@ -45,7 +45,7 @@ const KeyMetrics = () => {
   const [keyMetricsList, setKeyMetricsList] = useState<KeyMetricsListProps[]>(initMetricsContent)
 
   const getVoucherKeyMetrics = async () => {
-    const res = await getVoucherKeyMetric()
+    const res = await getVoucherKeyMetric({startTime: moment().add(-7, 'day').utc(), endTime: moment().utc()})
     if (res) {
       setKeyMetricsList(
         keyMetricsList.map((el) => {
@@ -57,7 +57,7 @@ const KeyMetrics = () => {
               el.value = res.orders
               break
             case 'usageRate':
-              el.value = res.usageRate.toFixed(2) * 100 + '%'
+              el.value = (res.usageRate * 100).toFixed(2) + '%'
               break
             case 'buyers':
               el.value = res.buyers

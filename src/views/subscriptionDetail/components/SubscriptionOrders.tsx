@@ -17,8 +17,9 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, onC
       key: 'no',
     },
     {
-      title: <Row gutter={16}><Col span={20}>Product Name</Col><Col span={4}>Quantity</Col></Row>,
+      title: <Row gutter={16} align="top"><Col span={20}>Product Name</Col><Col span={4}>Quantity</Col></Row>,
       dataIndex: 'pic',
+      className: "table-cell-align-top",
       key: 'p',
       render: (text: any, record: any) => (
         <div>
@@ -93,8 +94,9 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, onC
       render: (text: string, record: any) => <Link to="/order/order-detail" state={{id: record?.tradeId,status: record?.tradeState?.orderState}}>{text}</Link>
     },
     {
-      title: <Row gutter={16}><Col span={20}>Product Name</Col><Col span={4}>Quantity</Col></Row>,
+      title: <Row gutter={16} align="top"><Col span={20}>Product Name</Col><Col span={4}>Quantity</Col></Row>,
       dataIndex: 'pic',
+      className: "table-cell-align-top",
       key: 'p',
       render: (text: any, record: any) => (
         <div>

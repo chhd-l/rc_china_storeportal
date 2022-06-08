@@ -69,16 +69,19 @@ const OrderProgress = ({
         <div className="flex flex-col text-black">
           <div className="flex flex-row items-center text-black">
             <span className="icon-dingdan iconfont text-theme-red text-xl" />
-            <span className="ml-md">Order ID:{orderId}</span>
+            <span className="ml-md">Order ID: {orderId}</span>
           </div>
           {subscriptionNo && (
-            <div
-              className="hover:cursor-pointer pl-9"
-              onClick={() => {
-                navigator('/subscription/subscription-detail', { state: { id: subscriptionId } })
-              }}
-            >
-              Subscription ID:{subscriptionNo}
+            <div className=" pl-9">
+              Subscription ID:{' '}
+              <span
+                className="text-link underline hover:cursor-pointer"
+                onClick={() => {
+                  navigator('/subscription/subscription-detail', { state: { id: subscriptionId } })
+                }}
+              >
+                {subscriptionNo}
+              </span>
             </div>
           )}
         </div>

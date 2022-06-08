@@ -28,7 +28,7 @@ const PetInformation = ({ id, customerId }: { customerId: string; id: string }) 
         <div className="grid grid-cols-2 gap-4">
           {pets.map((item: Pet, index) => (
             <div
-              className={`flex justify-between items-center border p-4 mt-4 justify-items-stretch w-full`}
+              className={`flex justify-between items-center border rounded-4 p-4 mt-4 justify-items-stretch w-full`}
               key={item.id}
             >
               <div className="flex flex-row">
@@ -48,6 +48,7 @@ const PetInformation = ({ id, customerId }: { customerId: string; id: string }) 
                 </div>
               </div>
               <Button
+                className="rounded-4"
                 type="primary"
                 danger
                 onClick={() => {

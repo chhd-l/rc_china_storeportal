@@ -3,7 +3,7 @@
  * 此部分页面逻辑较为(混乱)复杂，如遇问题，请使用www.baidu.com | 联系chhd !!!
  */
 
-import { Typography, Form, Select, Checkbox, InputNumber } from 'antd'
+import { Checkbox, Form, InputNumber, Select, Typography } from 'antd'
 import { useState } from 'react'
 const { Title } = Typography
 
@@ -72,7 +72,7 @@ const RuleSettings = ({
       >
         {({ setFieldsValue, validateFields }) => {
           return (
-            <div className="flex items-center border border-gray-300 border-solid" style={{ borderRadius: '4px' }}>
+            <div className="flex items-center border border-gray-300 border-solid" style={{ borderRadius: '4px',backgroundColor:Edit ? '#f6f6f6' : '' }}>
               <Form.Item name="discountType" className="m-0 h-8" wrapperCol={{ span: 'auto' }}>
                 <Select
                   className="Selectborder"
@@ -97,7 +97,7 @@ const RuleSettings = ({
               </Form.Item>
               {DiscountType !== 'PERCENTAGE' ? (
                 <>
-                  <span className={`w-8 text-center border-l border-r ${Edit ? 'bg-gray-100' : ''}`}>￥</span>
+                  <span className={`text-gray-400 w-8 text-center border-l border-r ${Edit ? 'bg-gray-100' : ''}`}>￥</span>
                   <Form.Item
                     name="discountValue"
                     className="m-0 flex-1 h-8 Amount1"
@@ -129,7 +129,7 @@ const RuleSettings = ({
                       {
                         validator: (_, value) => {
                           const v = Number(value) || 0
-                          return v > 0 && v < 99
+                          return v > 0 && v < 100
                             ? Promise.resolve()
                             : Promise.reject(new Error('Please enter a value between 1 and 99'))
                         },
@@ -138,7 +138,7 @@ const RuleSettings = ({
                   >
                     <InputNumber
                       onChange={(v) => {
-                        if (v < 99) {
+                        if (v < 100) {
                           setAmountOpen(true)
                         } else {
                           setAmountOpen(false)
@@ -219,7 +219,7 @@ const RuleSettings = ({
                     validateFields(['discountValue'])
                     const Amount = getFieldValue('discountValue')
                     if (DiscountType !== 'FIX_AMOUNT') {
-                      if (Amount > 99 && Amount > price) {
+                      if (Amount > 100 && Amount > price) {
                         setAmountOpen(false)
                       } else {
                         setAmountOpen(true)

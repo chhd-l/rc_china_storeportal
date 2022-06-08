@@ -35,7 +35,7 @@ export const searchTypeList: BaseListProps[] = [
   },
   {
     label: "Subscription ID",
-    key: "subscriptionId",
+    key: "subscriptionNo",
   },
   {
     label: "Phone Number",
@@ -43,7 +43,7 @@ export const searchTypeList: BaseListProps[] = [
   },
   {
     label: "Pet Owner Name",
-    key: "customerName",
+    key: "petNameLike",
   },
   {
     label: "Product Name",
@@ -51,7 +51,7 @@ export const searchTypeList: BaseListProps[] = [
   },
   {
     label: "Order Type",
-    key: "orderType",
+    key: "isSubscription",
   },
 ];
 
@@ -92,3 +92,8 @@ export const initSearchParams: OrderSearchParamsProps = {
   searchType: "orderNumber",
   searchTypeValue: "",
 };
+
+export const orderTypeList: BaseListProps[] = [
+  { label: 'Single Order', key: false },
+  { label: 'Subscription', key: true },
+];

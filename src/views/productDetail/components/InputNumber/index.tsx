@@ -24,7 +24,7 @@ const MyInputNumber: FC<Props> = ({ td, tr, val, onBlur }) => {
       prefix='￥'
       precision={2}
       onChange={e => {
-        setValue(e.target.value)
+        setValue(e)
         // onBlur
       }}
       onBlur={onBlur}
