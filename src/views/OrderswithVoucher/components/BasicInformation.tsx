@@ -46,7 +46,7 @@ const BasicInformation = ({ state }: { state: any }) => {
         <Descriptions.Item label="Discount Amount">
           {state.discountType === 'PERCENTAGE' ? state.discountValue + '%OFF' : '￥' + state.discountValue}
         </Descriptions.Item>
-        <Descriptions.Item label="Voucher Usage Period">
+        <Descriptions.Item label="Valid Period">
           {moment(state.voucherUsageBeginningOfTime).format('YYYY-MM-DD HH:mm')} to{' '}
           {moment(state.voucherUsageEndOfTimemoment).format('YYYY-MM-DD HH:mm')}
         </Descriptions.Item>

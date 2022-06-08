@@ -205,7 +205,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
         <Input placeholder="Input" disabled={Edit} />
       </Form.Item>
       <Form.Item
-        label="Voucher Usage Period"
+        label="Valid Period"
         required
         shouldUpdate={(prevValues, curValues) => prevValues.times !== curValues.times}
         wrapperCol={{ span: 8 }}
