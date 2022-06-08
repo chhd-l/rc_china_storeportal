@@ -1,4 +1,4 @@
-import { Tabs, Pagination, message, Spin } from 'antd'
+import { Tabs, Pagination, Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
 import OrderTable from '@/components/order/OrderTable'
 import { Order, OrderStatus, OrderSearchParamsProps } from '@/framework/types/order'
@@ -89,11 +89,6 @@ const PetOwnerList = () => {
       company: carrier,
     })
   }
-
-  // useEffect(()=>{
-  //   message.success({ className: 'rc-message', content: 'Operation success',duration:false })
-  //   message.error({ className: 'rc-message', content: 'Operation success',duration:false })
-  // },[])
 
   return (
     <ContentContainer>

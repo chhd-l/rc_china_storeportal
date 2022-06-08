@@ -1,6 +1,6 @@
 import { Button, DatePicker, Dropdown, Input, Select, Space } from 'antd'
 import React, { useState } from 'react'
-import { searchTypeList, initSearchParams } from '../../modules/constants'
+import { searchTypeList, initSearchParams, orderTypeList } from '../../modules/constants'
 import { MenuOutlined } from '@ant-design/icons'
 import { OrderSearchParamsProps } from '@/framework/types/order'
 import LatestReports from '../LatestReports/index'
@@ -46,22 +46,38 @@ const OrderSearch = ({ query }: { query: Function }) => {
               </Select.Option>
             ))}
           </Select>
-          <Input
-            className="rounded-4 w-4/5 -ml-1"
-            ref={inputRef}
-            value={searchParams.searchTypeValue}
-            onChange={(e) => {
-              setSearchParams({
-                ...searchParams,
-                searchTypeValue: e.target.value,
-              })
-            }}
-            placeholder={'Input ' + searchTypeList.filter((item) => item.key === searchParams.searchType)[0].label}
-            onPressEnter={() => {
-              inputRef.current!.blur()
-              query && query(searchParams)
-            }}
-          />
+          {searchParams.searchType === 'isSubscription' ? (
+            <Select
+              onChange={(value, a) => {
+                setSearchParams({ ...searchParams, searchTypeValue: value })
+              }}
+              placeholder="Please select order type"
+              className="rc-select w-4/5 -ml-1"
+            >
+              {orderTypeList.map((item, idx) => (
+                <Select.Option value={item.key} key={idx}>
+                  {item.label}
+                </Select.Option>
+              ))}
+            </Select>
+          ) : (
+            <Input
+              className="rounded-4 w-4/5 -ml-1"
+              ref={inputRef}
+              value={searchParams.searchTypeValue}
+              onChange={(e) => {
+                setSearchParams({
+                  ...searchParams,
+                  searchTypeValue: e.target.value,
+                })
+              }}
+              placeholder={'Input ' + searchTypeList.filter((item) => item.key === searchParams.searchType)[0].label}
+              onPressEnter={() => {
+                inputRef.current!.blur()
+                query && query(searchParams)
+              }}
+            />
+          )}
         </Input.Group>
         <Button
           className="w-32 mx-3 btn-primary rounded-4"

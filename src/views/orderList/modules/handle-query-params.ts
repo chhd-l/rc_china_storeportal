@@ -16,7 +16,7 @@ export const handleQueryParams = ({
   const { searchType, searchTypeValue, startTime, endTime } = searchParams
   const sample = Object.assign(
     {},
-    searchType !== '' && searchTypeValue !== ''
+    searchType !== '' && searchTypeValue !== '' && searchType !== 'isSubscription'
       ? {
           queryParameters: {
             fieldName: searchType,
@@ -27,7 +27,8 @@ export const handleQueryParams = ({
     orderState !== '' ? { orderState } : {},
     startTime !== '' ? { startDate: new Date(startTime).toISOString() } : {},
     endTime !== '' ? { endDate: new Date(endTime).toISOString() } : {},
-    shoppingCompany !== '' ? { shippingCompany:shoppingCompany } : {},
+    shoppingCompany !== '' ? { shippingCompany: shoppingCompany } : {},
+    searchType === 'isSubscription' ? { isSubscription: searchTypeValue } : {},
   )
   let params = Object.assign(
     {
