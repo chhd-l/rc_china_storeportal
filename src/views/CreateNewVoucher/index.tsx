@@ -37,7 +37,6 @@ const CreateNewVoucher = () => {
 
   useEffect(() => {
     if (state) {
-      console.info('state', state)
       getvoucherDetails(state.id)
       setVoucherType(state.voucherType)
       state.minimumBasketPrice ? setPrice(state.minimumBasketPrice === 0 ? '' : state.minimumBasketPrice) : setPriceOpen(true)
@@ -54,7 +53,7 @@ const CreateNewVoucher = () => {
 
   return (
     <ContentContainer className="mb-4">
-      <Spin spinning={spinning} tip="Loading..." className="CreateNewVoucherSpin">
+      <Spin spinning={spinning} className="CreateNewVoucherSpin">
         <Form
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 8 }}
