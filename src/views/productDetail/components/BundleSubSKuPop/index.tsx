@@ -18,9 +18,11 @@ interface Props {
 let allPageList: any = [] //点击请求到的所有数据
 
 const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelected }: Props) => {
-  const [keyVal, setKeyVal] = useState('productName')
+  const [keyVal, setKeyVal] = useState('name')
   const [categoryList, setCategoryList] = useState([])
   const [startPrice, setStartPrice] = useState<string>('')
+  const [endPrice, setEndPrice] = useState<string>('')
+  
   const [regularList, setRegularList] = useState([])
   const ref = useRef<ProFormInstance>()
   const { Option } = Select
@@ -37,8 +39,8 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
     setShowBundleChoose(false)
   }
   const selectBefore = (
-    <Select defaultValue='productName' onChange={changeKeyVal} className='select-before'>
-      <Option value='productName'>Product Name</Option>
+    <Select defaultValue='name' onChange={changeKeyVal} className='select-before'>
+      <Option value='name'>Product Name</Option>
       <Option value='sku'>SKU</Option>
     </Select>
   )
@@ -124,7 +126,12 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
               value={startPrice}
             />
             <div className='px-2'>-</div>
-            <Input addonBefore='¥' />
+            <Input addonBefore='¥' 
+            onChange={e => {
+              setEndPrice(e.target.value)
+              }}
+              // className='mr-4'
+              value={endPrice}/>
           </div>
         )
       },
@@ -184,11 +191,17 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
             sample[keyVal] = params.search
           }
           if (startPrice) {
-            sample.startPrice = startPrice
+            sample.startPrice = Number(startPrice)
+          }
+          if (endPrice) {
+            sample.endPrice = Number(endPrice)
+          }
+          if(typeof sample.marketingPrice!=='undefined'){
+            delete sample.marketingPrice
           }
           delete sample.search
           console.info('pageParams', pageParams)
-          let paramsData = {
+          let paramsData:any = {
             ...pageParams,
             isNeedTotal: true,
             sample,
