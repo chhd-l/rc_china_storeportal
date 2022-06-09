@@ -28,9 +28,9 @@ const LiveStreamingList = () => {
     setPageParams({ currentPage: page, pageSize: pageSize })
   }
 
-  const getLiveStreamingLists = async () => {
+  const getLiveStreamingLists = async (searchQueryParams = searchParams) => {
     setLoading(true)
-    const params = handleQueryParams({ searchParams, pageParams, activeKey })
+    const params = handleQueryParams({ searchParams: searchQueryParams, pageParams, activeKey })
     const res = await getLiveStreamingList(params)
     setLiveStreamingList(res.records)
     setTotal(res.total)
@@ -39,7 +39,7 @@ const LiveStreamingList = () => {
 
   const syncLiveStreams = async () => {
     setSyncLoading(true)
-    const res = await syncLiveStreaming("000001")
+    const res = await syncLiveStreaming('000001')
     if (res) {
       message.success({ className: 'rc-message', content: 'Synchronize success' })
     }
@@ -58,7 +58,7 @@ const LiveStreamingList = () => {
 
   useEffect(() => {
     getLiveStreamingLists()
-  }, [searchParams, pageParams, activeKey])
+  }, [pageParams, activeKey])
 
   useEffect(() => {
     getAccountName()
@@ -68,8 +68,9 @@ const LiveStreamingList = () => {
     <ContentContainer>
       <SearchContainer>
         <Search
-          query={(data: SearchParamsProps) => {
+          query={async (data: SearchParamsProps) => {
             setSearchParams(data)
+            await getLiveStreamingLists(data)
           }}
           miniProjList={miniProjList}
         />
@@ -80,6 +81,7 @@ const LiveStreamingList = () => {
           activeKey={activeKey}
           onChange={(key) => {
             setActiveKey(key)
+            setPageParams({ ...pageParams, currentPage: 1 })
           }}
           tabBarExtraContent={
             <Button className="flex items-center rounded-4" onClick={() => setSyncTipModalShow(true)}>
@@ -125,7 +127,7 @@ const LiveStreamingList = () => {
           // footer={null}
           // destroyOnClose
         >
-          <div>Are you sure you want yo sync ?</div>
+          <div>Are you sure you want to synchronize ?</div>
           {/*<div>Please select a mini program to synchronize</div>*/}
           {/*<Form*/}
           {/*  className="mt-lg"*/}
