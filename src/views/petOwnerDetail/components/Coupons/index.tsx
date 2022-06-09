@@ -75,7 +75,7 @@ const CouponInformation = ({ id, customerId }: CouponInfoProps) => {
           <span
             className='cursor-pointer iconfont icon-kjafg primary-color text-xl'
             onClick={() => {
-              navigator('/marketingCenter/vouchers/voucherDetails', { state: {...record, Edit: true} })
+              navigator('/marketingCenter/vouchers/voucherDetails', { state: {...record, id: record.voucherId, Edit: true} })
             }}
           />
         </Tooltip>

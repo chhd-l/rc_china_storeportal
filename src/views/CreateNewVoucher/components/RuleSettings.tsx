@@ -85,9 +85,6 @@ const RuleSettings = ({
                     })
                     setDiscountType(v)
                     if (v === 'PERCENTAGE') {
-                      setFieldsValue({
-                        Recurrence: '',
-                      })
                       validateFields(['Recurrence'])
                       price && validateFields(['minimumBasketPrice'])
                     }
@@ -165,23 +162,41 @@ const RuleSettings = ({
       </Form.Item>
       <Form.Item
         label="Recurrence"
-        name="recurrence"
         wrapperCol={{ span: 9 }}
-        rules={[
-          {
-            required: DiscountType === 'FIX_AMOUNT',
-            message: 'Please Select',
-          },
-        ]}
-      >
-        <Select
-          placeholder="Select"
-          disabled={Edit || DiscountType !== 'FIX_AMOUNT'}
-          options={[
-            { label: 'Yes', value: true },
-            { label: 'No', value: false },
-          ]}
-        />
+        shouldUpdate={(prevValues, curValues) => prevValues.discountType !== curValues.discountType}
+        >
+        {
+          ({getFieldValue}) => {
+            const type = getFieldValue('discountType')
+            return type === 'PERCENTAGE' ? (
+              <Form.Item>
+                <Select
+                  placeholder="Select"
+                  disabled={Edit || DiscountType !== 'FIX_AMOUNT'}
+                />
+              </Form.Item>
+            ) : (
+              <Form.Item
+                name="recurrence"
+                rules={[
+                  {
+                    required: DiscountType === 'FIX_AMOUNT',
+                    message: 'Please Select',
+                  },
+                ]}
+              >
+                <Select
+                  placeholder="Select"
+                  disabled={Edit || DiscountType !== 'FIX_AMOUNT'}
+                  options={[
+                    { label: 'Yes', value: true },
+                    { label: 'No', value: false },
+                  ]}
+                />
+              </Form.Item>
+            )
+          }
+        }
       </Form.Item>
       <Form.Item label="Minimum Basket Price" wrapperCol={{ span: 9 }} required={!PriceOpen} shouldUpdate={true}>
         {({ validateFields, getFieldValue, setFieldsValue }) => (

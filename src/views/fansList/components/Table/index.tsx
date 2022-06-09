@@ -76,8 +76,8 @@ const Index = ({
     },
     {
       title: 'Avatar',
-      dataIndex: 'headimgurl',
-      key: 'headimgurl',
+      dataIndex: 'headimgUrl',
+      key: 'headimgUrl',
     },
     {
       title: 'Wechat Name',
