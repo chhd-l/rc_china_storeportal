@@ -13,7 +13,7 @@ const IntelligentRecommendation = () => {
       {IntelligentRecommendationList.map((item, index) => {
         return (
           <ContentContainer className={`bg-white px-4 pl-0 ${index !== 0 && 'mt-6'}`}>
-            <Title className="ml-4" level={4}>
+            <Title className="ml-5" style={{fontSize:'16px'}} level={4}>
               {item.title}
             </Title>
             <div className="flex flex-wrap">
