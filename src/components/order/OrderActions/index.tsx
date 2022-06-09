@@ -33,8 +33,10 @@ const OrderActions = ({
   const navigator = useNavigate()
   const location = useLocation()
   const [userInfo] = useAtom(userAtom)
+  const [shipmentLoading,setShipmentLoading]=useState(false)
 
   const shipped = async (tradeShippingInfoInput: any) => {
+    setShipmentLoading(true)
     let params = {
       tradeShippingInfoInput: tradeShippingInfoInput,
       address: _.omit(orderAddress, ['isDefault', 'postCode']),
@@ -58,6 +60,7 @@ const OrderActions = ({
     } else {
       // message.error({ className: 'rc-message', content: 'Operation failed' })
     }
+    setShipmentLoading(false)
   }
 
   const completed = async () => {
@@ -138,6 +141,7 @@ const OrderActions = ({
         onCancel={() => setShipModalVisible(false)}
         shipped={shipped}
         expectedShippingDate={expectedShippingDate}
+        loading={shipmentLoading}
       />
       <Modal
         className="rc-modal"
