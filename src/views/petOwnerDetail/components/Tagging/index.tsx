@@ -65,7 +65,7 @@ const Tagging = ({ id, customerId }: { id: string; customerId: string }) => {
       <div className='text-xl font-medium'>Tagging</div>
       {/*{tagList.length > 0 ? (*/}
         <div className='flex flex-col'>
-          <div>Tag name</div>
+          <div className="py-2.5">Tag name</div>
           <Select placeholder='Select' value={optionValue} mode='multiple' onSelect={handleSelect}
                   onChange={handleChange} onDeselect={handleSearch}>
             {
