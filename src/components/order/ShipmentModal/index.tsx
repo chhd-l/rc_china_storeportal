@@ -10,16 +10,18 @@ const ShipmentModal = ({
   onCancel,
   shipped,
   expectedShippingDate,
+  loading,
 }: {
   shipModalVisible: boolean
   orderId?: string
   onCancel: Function
   shipped?: Function
   expectedShippingDate: string
+  loading: boolean
 }) => {
   const [form] = Form.useForm()
   const [carrierTypes, setCarrierTypes] = useState<CarrierType[]>([])
-  const [shippingTime, setShippingTime] = useState(moment(expectedShippingDate).format('YYYY-MM-DD'))
+  const [shippingTime, setShippingTime] = useState('')
 
   const disabledDate = (current: any) => {
     return current && current < moment().subtract(1, 'days')
@@ -40,6 +42,12 @@ const ShipmentModal = ({
     shipped && shipped(tradeShippingInfoInput)
   }
 
+  useEffect(() => {
+    if (expectedShippingDate) {
+      setShippingTime(moment(expectedShippingDate).format('YYYY-MM-DD'))
+    }
+  }, [expectedShippingDate])
+
   return (
     <Modal
       title="Arrange shipment"
@@ -54,11 +62,16 @@ const ShipmentModal = ({
         labelCol={{ span: 9, offset: 0 }}
         wrapperCol={{ span: 12, offset: 0 }}
         onFinish={shippedOrderEvent}
+        initialValues={{ shippingTime: moment(expectedShippingDate) }}
       >
         <Form.Item label="Order ID:">
           <Input value={orderId} disabled />
         </Form.Item>
-        <Form.Item label="Carrier company:" name="shippingCompany">
+        <Form.Item
+          label="Carrier company:"
+          name="shippingCompany"
+          rules={[{ required: true, message: 'Please select carrier company' }]}
+        >
           <Select placeholder="Please select">
             {carrierTypes.map((item: any) => (
               <Select.Option value={item.code} key={item.code}>
@@ -67,14 +80,22 @@ const ShipmentModal = ({
             ))}
           </Select>
         </Form.Item>
-        <Form.Item label="Carrier number:" name="trackingId">
+        <Form.Item
+          label="Carrier number:"
+          name="trackingId"
+          rules={[{ required: true, message: 'Please input carrier number' }]}
+        >
           <Input placeholder="please input" />
         </Form.Item>
-        <Form.Item label="Shipment Date:" name="shippingTime">
+        <Form.Item
+          label="Shipment Date:"
+          name="shippingTime"
+          rules={[{ required: true, message: 'Please select shipment Date' }]}
+        >
           <DatePicker
             className="w-full"
             // disabledDate={disabledDate}
-            defaultValue={moment(expectedShippingDate)}
+            // defaultValue={moment(expectedShippingDate)}
             onChange={(date, dateString) => {
               console.log(date, dateString)
               setShippingTime(dateString)
@@ -82,7 +103,7 @@ const ShipmentModal = ({
           />
         </Form.Item>
         <Form.Item wrapperCol={{ span: 24, offset: 0 }} style={{ textAlign: 'end' }}>
-          <Button type="primary" danger htmlType="submit">
+          <Button loading={loading} type="primary" danger htmlType="submit">
             Confirm
           </Button>
         </Form.Item>
