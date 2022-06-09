@@ -127,7 +127,7 @@ const LiveStreamingList = () => {
           // footer={null}
           // destroyOnClose
         >
-          <div>Are you sure you want yo sync ?</div>
+          <div>Are you sure you want to synchronize ?</div>
           {/*<div>Please select a mini program to synchronize</div>*/}
           {/*<Form*/}
           {/*  className="mt-lg"*/}
