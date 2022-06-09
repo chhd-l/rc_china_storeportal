@@ -6,7 +6,7 @@ import { CateItemProps } from '@/framework/schema/product.schema'
 import { formatMoney, handlePageParams } from '@/utils/utils'
 import { ProFormInstance } from '@ant-design/pro-form'
 import { ProColumns } from '@ant-design/pro-table'
-import { Input, Modal, Select, Space } from 'antd'
+import { Button, Input, Modal, Select, Space } from 'antd'
 import { useEffect, useRef, useState } from 'react'
 import './index.less'
 interface Props {
@@ -118,6 +118,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
         return (
           <div className='flex items-center'>
             <Input
+            placeholder='Please enter'
               addonBefore='¥'
               onChange={e => {
                 setStartPrice(e.target.value)
@@ -127,6 +128,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
             />
             <div className='px-2'>-</div>
             <Input addonBefore='¥' 
+            placeholder='Please enter'
             onChange={e => {
               setEndPrice(e.target.value)
               }}
@@ -167,7 +169,26 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
       <ProTable
         columns={columns}
         formRef={ref}
-        search={{ span: 12, labelWidth: 60, searchText: 'Search' }}
+        search={{ span: 12, labelWidth: 60, searchText: 'Search',optionRender: ({ searchText, resetText }, { form }, dom) => [
+          <Button
+            type="primary"
+            onClick={() => {
+              form?.submit()
+            }}
+          >
+            {searchText}
+          </Button>,
+          <Button
+            onClick={() => {
+              form?.resetFields()
+              setStartPrice('')
+              setEndPrice('')
+              form?.submit()
+            }}
+          >
+            {resetText}
+          </Button>,
+        ], }}
         pagination={{
           pageSize: 5,
         }}
