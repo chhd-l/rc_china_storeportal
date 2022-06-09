@@ -34,7 +34,7 @@ export const menus = [
       {
         name: 'My Orders',
         value: 'my_orders',
-        url: '/order/order-list',
+        url: '/order',
         // url: "/",
         key: 'my_orders',
       },
@@ -56,7 +56,7 @@ export const menus = [
       {
         name: 'My Subscriptions',
         value: 'my_subscriptions',
-        url: '/subscription/subscription-list',
+        url: '/subscription',
         key: 'my_subscriptions',
       }
     ]
@@ -92,7 +92,7 @@ export const menus = [
       {
         name: 'My Pet Owner',
         value: 'my_pet_owner',
-        url: '/petOwner/pet-owner-list',
+        url: '/petOwner',
         key: 'my_pet_owner',
       },
       {
