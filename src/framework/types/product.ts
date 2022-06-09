@@ -115,6 +115,7 @@ export interface ProductListItemProps {
   id: string
   no: string
   shelvesStatus: boolean
+  salesStatus: boolean
   showAll?: boolean
   checked?: boolean
   specs: string
