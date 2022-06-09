@@ -1,5 +1,5 @@
 import ProForm from '@ant-design/pro-form'
-import { Input, Upload,message,Button } from "antd";
+import { Input, Upload,message,Button,Spin } from "antd";
 import './index.less'
 import {
   ProFormDigit,
@@ -21,6 +21,7 @@ const MpBannerAdd = () => {
   const [picUrl, setPicUrl] = useState('');
   const [clickType, setClickType] = useState();
   const [list, setList] = useState<any>([])
+  const [loading, setLoading] = useState<boolean>(false)
   const layout = {
     labelCol: { span: 2 },
     wrapperCol: { span: 10 },
@@ -50,12 +51,15 @@ const MpBannerAdd = () => {
     getAccountName()
   }, [])
   const onUploadChange = ( info: any) => {
+    setLoading(true)
     if (info.file.status === 'done') {
       console.log(info.file.response.url,22222)
       formRef?.current?.setFieldsValue({ picUrl: info.file.response.url })
       setPicUrl(info.file.response.url)
+      setLoading(false)
     } else if (info.file.status === 'error') {
       message.error({ className: "rc-message", content: `${info.file.name} file upload failed.`})
+      setLoading(false)
     }
   }
   const restSearchButtons = {
@@ -77,6 +81,7 @@ const MpBannerAdd = () => {
     },
   }
   return (
+    <Spin spinning={loading}>
     <ContentContainer className='mp-banner-detail'>
       <InfoContainer title='Add New MP Banner' className="pt-0">
         <ProForm
@@ -195,6 +200,7 @@ const MpBannerAdd = () => {
         </ProForm>
       </InfoContainer>
     </ContentContainer>
+    </Spin>
   )
 }
 
