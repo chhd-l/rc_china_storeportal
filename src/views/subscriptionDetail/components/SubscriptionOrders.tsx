@@ -18,14 +18,14 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
       key: 'no',
     },
     {
-      title: <Row gutter={16} align="top"><Col span={20}>Product Name</Col><Col span={4}>Quantity</Col></Row>,
+      title: <Row gutter={16} align="middle"><Col span={18}>Product Name</Col><Col span={6}>Quantity</Col></Row>,
       dataIndex: 'pic',
       key: 'p',
       render: (text: any, record: any) => (
         <div>
           {(record?.lineItems ?? []).map((item: any, idx: number) => (
             <Row key={idx} gutter={16} className={`${(record?.lineItems ?? []).length > 1 && idx < (record?.lineItems ?? []).length - 1 ? "mb-2 border-b pb-2" : ""}`}>
-              <Col span={20}>
+              <Col span={18}>
                 <div className="flex flex-row items-center">
                   <img className="w-10 h-10 mr-2" src={item?.pic || ""} alt="" />
                   <div>
@@ -34,7 +34,7 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
                   </div>
                 </div>
               </Col>
-              <Col span={4} className="items-start text-left">
+              <Col span={6} className="items-start text-left">
                 x {item?.num}
               </Col>
             </Row>
@@ -50,35 +50,40 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
       title: 'Shipment date',
       dataIndex: 'shipmentDate',
       key: 'shi',
-      render: (text: any) => status === "ONGOING" ?  handleReturnTime(text) : null
+      render: (text: any) => status === "ONGOING" ?  <div>{text ? moment(text).format('YYYY-MM-DD') : ''}</div> : null
     },
     {
       title: 'Actions',
       key: 'ac',
       render: (text: any, record: any) => (
-        status === "ONGOING" ? <Popover
-          trigger="click"
-          visible={visible}
-          onVisibleChange={(v: boolean) => setVisible(v)}
-          content={
-            <div style={{width:300}}>
-              <Calendar
-                fullscreen={false}
-                defaultValue={nextDeliveryDate ? moment(nextDeliveryDate) : undefined}
-                disabledDate={(current) => current < moment().endOf('day')}
-                onChange={(date: Moment) => {
-                  setVisible(false);
-                  setLoading(true);
-                  onChangeDate(date.utc().format()).then(() => setLoading(false))
-                }}
-              />
-            </div>
-          }
-        >
-          <Tooltip title="Select Date">
-            <span className="cursor-pointer iconfont primary-color icon-rili text-lx"></span>
-          </Tooltip>
-        </Popover> : null
+        <div className="space-x-2">
+          {status === "ONGOING" ? <Popover
+            trigger="click"
+            visible={visible}
+            onVisibleChange={(v: boolean) => setVisible(v)}
+            content={
+              <div style={{width:300}}>
+                <Calendar
+                  fullscreen={false}
+                  defaultValue={nextDeliveryDate ? moment(nextDeliveryDate) : undefined}
+                  disabledDate={(current) => current < moment().endOf('day')}
+                  onChange={(date: Moment) => {
+                    setVisible(false);
+                    setLoading(true);
+                    onChangeDate(date.utc().format()).then(() => setLoading(false))
+                  }}
+                />
+              </div>
+            }
+          >
+            <Tooltip title="Select Date">
+              <span className="cursor-pointer iconfont primary-color icon-rili text-lx"></span>
+            </Tooltip>
+          </Popover> : null}
+          {record.tradeId ? <Tooltip title="View Order Detail">
+            <Link to="/order/order-detail" state={{id: record?.tradeId,status: record?.tradeState?.orderState}} className="cursor-pointer iconfont icon-kjafg primary-color" />
+          </Tooltip> : null}
+        </div>
       )
     }
   ];
@@ -92,11 +97,11 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
       title: 'Order ID',
       dataIndex: 'tradeId',
       key: 'tradeId',
-      width: '15%',
+      width: '20%',
       render: (text: string, record: any) => <Link to="/order/order-detail" state={{id: record?.tradeId,status: record?.tradeState?.orderState}}>{text}</Link>
     },
     {
-      title: <Row gutter={16} align="top"><Col span={20}>Product Name</Col><Col span={4}>Quantity</Col></Row>,
+      title: <Row gutter={16} align="middle"><Col span={18}>Product Name</Col><Col span={6}>Quantity</Col></Row>,
       dataIndex: 'pic',
       width: '40%',
       key: 'p',
@@ -104,7 +109,7 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
         <div>
           {(record?.lineItems ?? []).map((item: any, idx: number) => (
             <Row key={idx} gutter={16} className={`${(record?.lineItems ?? []).length > 1 && idx < (record?.lineItems ?? []).length - 1 ? "mb-2 border-b pb-2" : ""}`}>
-              <Col span={20}>
+              <Col span={18}>
                 <div className="flex flex-row items-center">
                   <img className="w-10 h-10 mr-2" src={item?.pic || ""} alt="" />
                   <div>
@@ -113,7 +118,7 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
                   </div>
                 </div>
               </Col>
-              <Col span={4} className="items-start text-left">
+              <Col span={6} className="items-start text-left">
                 x {item?.num}
               </Col>
             </Row>
@@ -129,7 +134,7 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
       title: 'Shipment date',
       dataIndex: 'shipmentDate',
       key: 'shi',
-      render: (text: any) => handleReturnTime(text)
+      render: (text: any) => <div><div>{text ? moment(text).format('YYYY-MM-DD') : ''}</div><div>{text ? moment(text).format('HH:mm:ss') : ''}</div></div>
     },
     {
       title: 'Order status',
@@ -141,7 +146,7 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
       title: 'Actions',
       dataIndex: 'ac',
       key: 'ac',
-      render: (text: any, record: any) => <Link to="/order/order-detail" state={{id: record?.tradeId,status: record?.tradeState?.orderState}} className="cursor-pointer iconfont icon-kjafg primary-color" />
+      render: (text: any, record: any) => <Tooltip title="View Order Detail"><Link to="/order/order-detail" state={{id: record?.tradeId,status: record?.tradeState?.orderState}} className="cursor-pointer iconfont icon-kjafg primary-color" /></Tooltip>
     }
   ];
   return (
@@ -152,9 +157,9 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
       </div>
       <div className="mt-4">
         <Tabs type="card">
-          <Tabs.TabPane tab="To start" key="1">
+          {status !== "COMPLETED" ? <Tabs.TabPane tab="To start" key="1">
             <Table size="small" loading={loading} columns={columns_tostart} dataSource={planningList} pagination={false} className="rc-table" />
-          </Tabs.TabPane>
+          </Tabs.TabPane> : null}
           <Tabs.TabPane tab="Completed" key="2">
             <Table size="small" columns={columns_completed} dataSource={completedList} pagination={false} className="rc-table" />
           </Tabs.TabPane>
