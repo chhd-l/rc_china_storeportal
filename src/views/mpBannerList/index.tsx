@@ -102,7 +102,7 @@ const MpBannerList = () => {
             data.sample.clickType=params.clickType
           }
           if(params.accountName){
-            data.sample.accountName=params.accountName
+            data.where.accountNameFuzzy=params.accountName
           }
           if(params.isActive){
             data.sample.isActive=params.isActive === 'true'

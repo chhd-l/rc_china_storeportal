@@ -34,7 +34,7 @@ const SubscriptionInformation = ({ customerId, id }: any) => {
       <div className="py-4 px-2 border-b text-xl font-medium">Subscription Information</div>
       <div className="px-2 py-4 flex flex-row items-center justify-end">
         <div className="flex flex-row items-center mr-10">
-          <div className="mr-4">Subscription Time Date:</div>
+          <div className="mr-4">Subscription Creation Date:</div>
           <DatePicker.RangePicker
             style={{ width: '300px' }}
             onChange={(date, dateString) => {

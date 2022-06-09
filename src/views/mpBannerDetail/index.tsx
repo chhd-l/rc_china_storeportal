@@ -1,5 +1,5 @@
 import ProForm from '@ant-design/pro-form'
-import { Input, Upload,message,Button } from "antd";
+import { Input, Upload,message,Button,Spin } from "antd";
 import './index.less'
 import {
   ProFormDigit,
@@ -23,6 +23,7 @@ const MpBannerDetail = () => {
   const [picUrl, setPicUrl] = useState('');
   const [clickType, setClickType] = useState();
   const [list, setList] = useState<any>([])
+  const [loading, setLoading] = useState<boolean>(true)
   const layout = {
     labelCol: { span: 2 },
     wrapperCol: { span: 10 },
@@ -48,10 +49,12 @@ const MpBannerDetail = () => {
     setList(lists)
   }
   const getlist = async () => {
+    setLoading(true)
     let res = await bannerGetDetailById(state.id)
     formRef?.current?.setFieldsValue(res?.bannerGetDetailById)
     setClickType(res?.bannerGetDetailById?.clickType)
     setPicUrl(res?.bannerGetDetailById?.picUrl)
+    setLoading(false)
   }
   useEffect(() => {
     getAccountName()
@@ -86,6 +89,7 @@ const MpBannerDetail = () => {
     },
   }
   return (
+    <Spin spinning={loading}>
     <ContentContainer className='mp-banner-detail'>
       <InfoContainer title='Edit MP Banner' className="pt-0">
         <ProForm
@@ -206,6 +210,7 @@ const MpBannerDetail = () => {
         </ProForm>
       </InfoContainer>
     </ContentContainer>
+    </Spin>
   )
 }
 
