@@ -48,6 +48,8 @@ const SearchHeader = ({ getFormData, getList }: SearchProps) => {
   const onReset = () => {
     form.resetFields()
     setCateId([])
+    // 重置数据
+    getFormData({})
     setTypeSelect(typeForKey[0].value) //恢复第一个选项的选择
     getList({}, true)
   }
