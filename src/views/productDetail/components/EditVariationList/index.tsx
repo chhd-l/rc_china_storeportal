@@ -393,6 +393,9 @@ const EditVariationList = (props: FormProps) => {
                                   tr={tr}
                                   val={tr[td.keyVal]}
                                   onBlur={(e: any) => {
+                                    if(e.target.value<0){
+                                      e.target.value=0
+                                    }
                                     let price = Number(e.target.value).toFixed(2)
                                     tr[td.keyVal] = price
                                     updateVations(price, index, td.keyVal, tr)
