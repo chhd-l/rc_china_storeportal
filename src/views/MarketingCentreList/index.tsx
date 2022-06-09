@@ -12,12 +12,13 @@ const MarketingCentreList = () => {
     <ContentContainer className="bg-white px-8">
       <Title level={4}>Marketing Center</Title>
       {PromotionTabList.map((item) => (
-        <div className="mb-16">
+        <div className="mb-16" key={item.title}>
           <Title level={5}>{item.title}</Title>
           <div className="grid grid-cols-3 gap-4">
             {item.children.map((el: any) => (
               <div
                 className="flex items-center justify-between p-4 bg-gray2 hover:cursor-pointer"
+                key={el.title}
                 onClick={() => {
                   navigator(el.url)
                 }}

@@ -75,7 +75,7 @@ const OrderProgress = ({
             <div className=" pl-9">
               Subscription ID:{' '}
               <span
-                className="text-link underline hover:cursor-pointer"
+                className="text-theme-red underline hover:cursor-pointer"
                 onClick={() => {
                   navigator('/subscription/subscription-detail', { state: { id: subscriptionId } })
                 }}
