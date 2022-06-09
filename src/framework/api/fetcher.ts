@@ -21,7 +21,7 @@ const ApiRoot = new ClientBuilder().config({
     if (isNeedToLogin) {
       window.location.href = '/login'
     }
-    message.error({ className: 'rc-message', content: err })
+    message.error({ className: 'rc-message', content: err === 'GqlAuthGuard' ? 'Login expired, please login again!' : err })
   }
 })
 export default ApiRoot
