@@ -51,7 +51,7 @@ const Orders = ({ state }: { state: any }) => {
         Orders
       </Typography.Title>
       <div className="flex items-center justify-end pb-4">
-        <Form.Item label="Order Time Date" className="m-0 mr-3">
+        <Form.Item label="Order Creation Date" className="m-0 mr-3">
           <DatePicker.RangePicker
             value={pickValue}
             onChange={(date, dateString) => {

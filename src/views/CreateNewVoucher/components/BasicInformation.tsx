@@ -29,34 +29,30 @@ const range = (start: number, end: number) => {
 const disabledTime = (current: any, type: string) => {
   const date = new Date()
   const disDate = new Date(current)
-  const year = date.getFullYear()
-  const disYear = disDate.getFullYear()
-  const MM = date.getMonth()
-  const disMM = disDate.getMonth()
+  // const year = date.getFullYear()
+  // const disYear = disDate.getFullYear()
+  // const MM = date.getMonth()
+  // const disMM = disDate.getMonth()
   const day = date.getDate()
   const disDay = disDate.getDate()
   const hour = date.getHours()
   const dishour = disDate.getHours()
   const minute = date.getMinutes()
-  const bool = ((disYear < year) || (disMM < MM) || (disDay < day))
+  // const bool = ((disYear < year) || (disMM < MM) || (disDay < day))
   if (type !== 'end') {
     return {
       disabledHours: () => {
         if (day === disDay) {
           return range(0, 24).splice(0, hour)
-        } else if (bool) {
-          return range(0, 0)
         } else {
-          return range(0, 24)
+          return range(0, 0)
         }
       },
       disabledMinutes: () => {
         if (day === disDay && hour === dishour) {
           return range(0, minute)
-        } else if (bool) {
-          return range(0, 0)
         } else {
-          return range(0, 60)
+          return range(0, 0)
         }
       },
     }
@@ -65,19 +61,15 @@ const disabledTime = (current: any, type: string) => {
       disabledHours: () => {
         if (day === disDay) {
           return range(0, 24).splice(0, hour + 1)
-        } else if (bool) {
-          return range(0, 0)
         } else {
-          return range(0, 24)
+          return range(0, 0)
         }
       },
       disabledMinutes: () => {
         if (day === disDay && hour + 1 === dishour) {
           return range(0, minute)
-        } else if (bool) {
-          return range(0, 0)
         } else {
-          return range(0, 60)
+          return range(0, 0)
         }
       },
     }
@@ -114,12 +106,14 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
       message.error({ className: 'rc-message', content: 'Picture upload failed!' })
       setLoading(false)
     }
+    if (!info.file.status) {
+      setLoading(false)
+    }
   }
 
   const beforeUpload = (file: RcFile) => {
     const isLt1M = file.size / 1024 / 1024 < 1
     if (!isLt1M) {
-      setLoading(false)
       message.error({ className: 'rc-message', content: 'Image must smaller than 1M!' })
     }
     return isLt1M
@@ -266,18 +260,12 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
           ]}
         />
       </Form.Item>
-      <Form.Item label="Voucher Image" className="Uploader m-0" wrapperCol={{ span: 'auto' }} required>
+      <Form.Item label="Voucher Image" className="Uploader m-0" wrapperCol={{ span: 'auto' }}>
         <div className="flex items-center">
           <Form.Item
             name="Image"
             className="m-0"
             wrapperCol={{ span: 'auto' }}
-            rules={[
-              {
-                required: true,
-                message: 'Please Select',
-              },
-            ]}
           >
             <Upload
               listType="picture-card"

@@ -5,8 +5,8 @@ const { Title } = Typography
 const IntelligentRecommendation = ({ title, span, Enable, Edit, Details, open, bgcImg }: CardType) => {
   return (
     <div
-      style={{ width: '32%', backgroundColor: '#f9fafb', borderRadius: '4px' }}
-      className="relative mt-4 ml-4"
+      style={{ width: '31.2%', backgroundColor: '#f9fafb', borderRadius: '4px' }}
+      className="relative mt-4 ml-6"
     >
       <div className="p-4 flex h-28">
         <div className="mr-3">
