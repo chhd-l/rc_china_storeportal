@@ -66,7 +66,7 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
                 <Calendar
                   fullscreen={false}
                   defaultValue={nextDeliveryDate ? moment(nextDeliveryDate) : undefined}
-                  disabledDate={(current) => current < moment().endOf('day')}
+                  disabledDate={(current) => current < moment().startOf('day')}
                   onChange={(date: Moment) => {
                     setVisible(false);
                     setLoading(true);
