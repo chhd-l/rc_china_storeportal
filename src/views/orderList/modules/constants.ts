@@ -43,7 +43,7 @@ export const searchTypeList: BaseListProps[] = [
   },
   {
     label: "Pet Owner Name",
-    key: "petNameLike",
+    key: "petOwnerName",
   },
   {
     label: "Product Name",
