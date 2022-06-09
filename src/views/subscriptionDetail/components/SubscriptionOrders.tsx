@@ -134,7 +134,7 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
       title: 'Shipment date',
       dataIndex: 'shipmentDate',
       key: 'shi',
-      render: (text: any) => <div><div>{text ? moment(text).format('YYYY-MM-DD') : ''}</div><div>{text ? moment(text).format('HH:mm:ss') : ''}</div></div>
+      render: (text: any) => <div>{text ? moment(text).format('YYYY-MM-DD') : ''}</div>
     },
     {
       title: 'Order status',
