@@ -61,6 +61,7 @@ const CommentWidget: React.FC<IProps> = ({ comments, defaultParam, handleUpsertC
     };
     setLoading(true)
     await handleUpsertComment(param)
+    form.resetFields();
     setLoading(false)
   }
   
@@ -137,8 +138,8 @@ const CommentWidget: React.FC<IProps> = ({ comments, defaultParam, handleUpsertC
           title="Delete Comment"
           visible={visible}
           okText={'Confirm'}
-          onOk={() => handleDeleteComment}
-          onCancel={() => handleCancelDelete}
+          onOk={handleDeleteComment}
+          onCancel={handleCancelDelete}
         >
           <p>Are you sure you want to delete this comment?</p>
         </Modal>

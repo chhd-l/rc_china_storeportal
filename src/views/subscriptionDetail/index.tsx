@@ -75,7 +75,7 @@ export default function SubscriptionDetail() {
   const handleUpsertComment = async (param: any) => {
     const success = await upsertSubscriptionComment(param);
     if (success) {
-      await getSubscription()
+      await getSubscription(false)
       message.success({className:'rc-message',content:'Operation Successful'});
       return Promise.resolve(true)
     } else {

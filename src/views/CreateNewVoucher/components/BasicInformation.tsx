@@ -89,22 +89,19 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
 
   const uploadButton = (
     <div>
-      {loading ? (
-        <LoadingOutlined />
-      ) : (
-        <div
-          style={{ borderColor: '#51ACF5' }}
-          className="rounded-full border border-solid p-1  border-primary w-full h-full justify-center flex items-center"
-        >
-          <PlusOutlined style={{ color: '#51ACF5' }} color="#51ACF5" />
-        </div>
-      )}
-      {/* <div style={{ marginTop: 8 }}></div> */}
+      <div
+        style={{ borderColor: '#51ACF5' }}
+        className="rounded-full border border-solid p-1  border-primary w-full h-full justify-center flex items-center"
+      >
+        <PlusOutlined style={{ color: '#51ACF5' }} color="#51ACF5" />
+      </div>
     </div>
   )
 
   const handleChange = (info: any) => {
-    setLoading(true)
+    if (info.file.status === 'uploading') {
+      setLoading(true)
+    }
     if (info.file.status === 'done') {
       // Get this url from response in real world.
       setImageUrl(info.file.response.url)
@@ -119,12 +116,11 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
   const beforeUpload = (file: RcFile) => {
     const isLt1M = file.size / 1024 / 1024 < 1
     if (!isLt1M) {
-      setLoading(false)
       message.error({ className: 'rc-message', content: 'Image must smaller than 1M!' })
     }
     return isLt1M
   }
-
+  
   return (
     <div className="bg-white px-6 pt-6 relative BasicInformation">
       <Title className="mb-8" level={4}>
@@ -293,7 +289,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
               style={{ backgroundColor: '#51ACF5', width: '100px' }}
               onChange={handleChange}
             >
-              {imageUrl ? <Image src={imageUrl} preview={false} /> : uploadButton}
+              {loading ? <LoadingOutlined /> : imageUrl ? <Image src={imageUrl} preview={false} /> : uploadButton}
             </Upload>
           </Form.Item>
           <div className="text-gray-400">
