@@ -188,7 +188,7 @@ const ManualSelection = ({
         rowKey={({ id }) => id}
         dateFormatter="string"
         pagination={{
-          pageSize: 4,
+          // pageSize: 4,
           showQuickJumper: false,
           showTotal: (total: number) => ``,
         }}
