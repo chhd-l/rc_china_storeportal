@@ -161,7 +161,7 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
             <Table size="small" loading={loading} columns={columns_tostart} dataSource={planningList} pagination={false} className="rc-table" />
           </Tabs.TabPane> : null}
           <Tabs.TabPane tab="Completed" key="2">
-            <Table size="small" columns={columns_completed} dataSource={completedList} pagination={false} className="rc-table" />
+            <Table size="small" columns={columns_completed} dataSource={completedList} pagination={false} className="rc-table" scroll={{y: 200}} />
           </Tabs.TabPane>
         </Tabs>
       </div>

@@ -1,6 +1,7 @@
 import ClientBuilder from '@rc-china-commerce/fetch/'
 // import ClientBuilder from '@/rc-china-commerce/packages/fetch/lib/index'
 import { message } from 'antd'
+import history from '@/routers/history'
 // import ClientBuilder from '@/rc-china-commerce/packages/fetch/dist/fetch/lib'
 
 // const API_URL = 'http://localhost:9000/graphql'
@@ -19,10 +20,10 @@ export const UPLOAD_API_URL = 'https://msdev.d2cgo.com/faas/upload'
 const ApiRoot = new ClientBuilder().config({
   url: API_URL,
   handleError: function (err: string, isNeedToLogin: boolean = false) {
-    if (isNeedToLogin) {
-      window.location.href = '/login'
-    }
     message.error({ className: 'rc-message', content: err === 'GqlAuthGuard' ? 'Login expired, please login again!' : err })
+    if (isNeedToLogin) {
+      history.push('/login')
+    }
   }
 })
 export default ApiRoot
