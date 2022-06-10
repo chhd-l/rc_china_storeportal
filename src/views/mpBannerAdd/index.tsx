@@ -83,7 +83,7 @@ const MpBannerAdd = () => {
   return (
     <Spin spinning={loading}>
     <ContentContainer className='mp-banner-detail'>
-      <InfoContainer title='Add New MP Banner' className="pt-0">
+      <InfoContainer title='Add New MP Banner'>
         <ProForm
           {...layout}
           formRef={formRef}
