@@ -77,7 +77,7 @@ const MenuManage = () => {
       <SearchContainer>
         <Form layout="horizontal">
           <Form.Item label="Menu Name">
-            <Input style={{width: 300}} value={name} onChange={(e) => setName(e.target.value)} />
+            <Input style={{width: 300}} placeholder="Input" value={name} onChange={(e) => setName(e.target.value)} onPressEnter={() => getList(1, name)} />
           </Form.Item>
         </Form>
         <div className="mt-4 space-x-md">
