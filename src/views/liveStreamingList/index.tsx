@@ -42,6 +42,7 @@ const LiveStreamingList = () => {
     const res = await syncLiveStreaming('000001')
     if (res) {
       message.success({ className: 'rc-message', content: 'Synchronize success' })
+      await getLiveStreamingLists()
     }
     setSyncTipModalShow(false)
     setSyncLoading(false)
@@ -70,6 +71,7 @@ const LiveStreamingList = () => {
         <Search
           query={async (data: SearchParamsProps) => {
             setSearchParams(data)
+            setPageParams({ ...pageParams, currentPage: 1 })
             await getLiveStreamingLists(data)
           }}
           miniProjList={miniProjList}
