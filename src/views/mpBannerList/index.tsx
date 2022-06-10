@@ -80,7 +80,17 @@ const MpBannerList = () => {
 
           // <SyncOutlined className="mt-6 ml-2 mr-8 text-xl " />,
         ]}
-        search={{ searchText: 'Search' }}
+        search={{
+          labelWidth: 'auto',
+          searchText: 'Search',
+          optionRender: (searchConfig,formProps,dom) => {
+            return dom.map((item: any) => {
+              return (
+                <Button {...item.props} loading={false} />
+              )
+            }).reverse()
+          }
+        }}
         columns={columns}
         request={async (params, sorter, filter) => {
           // 表单搜索项会从 params 传入，传递给后端接口。

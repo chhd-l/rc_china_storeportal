@@ -118,7 +118,7 @@ const MpQrList = () => {
               return (
                 <Button {...item.props} loading={false} />
               )
-            })
+            }).reverse()
           }
         }}
         pagination={{

@@ -55,16 +55,19 @@ const QrCodeManage = () => {
       title: 'Wechat Account',
       dataIndex: "accountName",
       valueType: "select",
+      fieldProps: {style: {width: '80%'}},
       valueEnum: list,
     },
     {
       title: "QR Code Name",
       dataIndex: "name",
+      fieldProps: {style: {width: '80%'}},
     },
     {
       title: "QR Code Type",
       dataIndex: "type",
       valueType: "select",
+      fieldProps: {style: {width: '80%'}},
       valueEnum: typeValueEnum,
     },
     {
@@ -95,12 +98,13 @@ const QrCodeManage = () => {
         search= {{
           labelWidth: 'auto',
           searchText: 'Search',
+          span: 8,
           optionRender: (searchConfig,formProps,dom) => {
             return dom.map((item: any) => {
               return (
                 <Button {...item.props} loading={false} />
               )
-            })
+            }).reverse()
           }
         }}
         rowKey='id'
