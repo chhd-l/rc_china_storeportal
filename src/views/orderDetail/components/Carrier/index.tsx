@@ -4,7 +4,7 @@ import { Carrier } from '@/framework/types/order'
 import { Timeline } from 'antd'
 
 const OrderCarrier = ({ carrier }: { carrier: Carrier[] }) => {
-  const [showMore, setShowMore] = useState(true)
+  const [showMore, setShowMore] = useState(false)
 
   return (
     <div className="flex flex-col justify-start mt-4">

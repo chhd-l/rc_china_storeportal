@@ -7,6 +7,7 @@ import { message } from 'antd'
 // 生产
 // const API_URL = 'http://20.62.176.70/faas/graphql'
 const API_URL = 'https://msdev.d2cgo.com/faas/graphql'
+// const API_URL = 'https://msstg.d2cgo.com/faas/graphql'
 
 // 开发
 // const API_URL = 'https://dtc-faas-dev-dtc-plaform-dev-yfetifgpvj.cn-shanghai.fcapp.run/graphql'
@@ -21,7 +22,7 @@ const ApiRoot = new ClientBuilder().config({
     if (isNeedToLogin) {
       window.location.href = '/login'
     }
-    message.error({ className: 'rc-message', content: err })
+    message.error({ className: 'rc-message', content: err === 'GqlAuthGuard' ? 'Login expired, please login again!' : err })
   }
 })
 export default ApiRoot

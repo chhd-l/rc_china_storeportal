@@ -88,7 +88,7 @@ const MenuManageDetail = (props: IProps) => {
         <div className="text-lg">{props.pageType === "add" ? "Add New Menu" : "Edit Menu"}</div>
         <Form layout="horizontal" className="my-4">
           <Form.Item label="Menu Name" required rules={[{required: true, message: "Please input menu name"}]}>
-            <Input style={{width: 300}} value={wxMenuItem.name} onChange={(e) => setWxMenuItem(Object.assign({}, wxMenuItem, { name: e.target.value }))} />
+            <Input style={{width: 300}} placeholder="Input" value={wxMenuItem.name} onChange={(e) => setWxMenuItem(Object.assign({}, wxMenuItem, { name: e.target.value }))} />
           </Form.Item>
         </Form>
         <div className="flex bg-gray-primary">

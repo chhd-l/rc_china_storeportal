@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table } from 'antd'
+import { Table, Tooltip } from 'antd'
 import { Link } from 'react-router-dom'
 import { ColumnProps } from 'antd/es/table'
 
@@ -17,7 +17,7 @@ const columns: ColumnProps<any>[] = [
       <div className="flex flex-row items-center">
         <img src={record?.defaultImage} className="w-10 h-10 mr-2" alt="" />
         <div>
-          <div className="w-80 truncate">{text}</div>
+          <div className="max-w-xs truncate">{text}</div>
           <span className="text-gray-400">{record?.goodsVariant?.skuNo}</span>
         </div>
       </div>
@@ -39,7 +39,7 @@ const columns: ColumnProps<any>[] = [
     title: 'Actions',
     dataIndex: "acs",
     key: 'acs',
-    render: (text: any, record: any) => <Link to="/product/product-detail" state={record?.id} className="cursor-pointer iconfont icon-kjafg primary-color" />
+    render: (text: any, record: any) => <Tooltip title="View Detail"><Link to="/product/product-detail" state={record?.id} className="cursor-pointer iconfont icon-kjafg primary-color" /></Tooltip>
   }
 ]
 

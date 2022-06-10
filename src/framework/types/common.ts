@@ -58,7 +58,7 @@ export interface InputBaseProps {
   name: string
   label?: string
   className?: string
-  type: "select" | "input"
+  type: "select" | "input" | "inputNumber"
   layout?: any
   rules?: Rule[]
 }

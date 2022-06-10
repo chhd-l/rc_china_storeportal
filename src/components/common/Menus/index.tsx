@@ -34,7 +34,7 @@ const Menus = () => {
     }
     setSelectKeys(selectedKeys);
     setOpenKeys(openKeys);
-  },[])
+  },[pathname])
 
   const onOpenChange=(opens:string[])=>{
     console.log('opens',opens)

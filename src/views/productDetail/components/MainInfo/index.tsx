@@ -192,7 +192,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
       params.goodsVariantsInput = [
         {
           // skuNo: 'test0001', //to do
-          // isWithoutSku: true,
+          isWithoutSku:true,
           shelvesStatus: 'true', //没有sku默认上架
           subscriptionPrice: values.subscriptionPrice,
           subscriptionStatus: values.subscriptionStatus,
@@ -282,7 +282,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                     <div>
                       <div className='flex justify-between  pb-2'>
                         <div className='font-black text-lg font-bold'>{steps[idx].title}</div>
-                        {detail?.id?<div>{steps?.[idx]?.rightSlot?.(showQrImg)}</div>:null}
+                        {detail?.id&&detail?.salesStatus==='1'&&detail?.shelvesStatus?<div>{steps?.[idx]?.rightSlot?.(showQrImg)}</div>:null}
                       </div>
                       {steps[idx].subTitle ? <div className='pb-4'>{steps[idx].subTitle}</div> : null}
                     </div>

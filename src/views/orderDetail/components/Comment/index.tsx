@@ -69,7 +69,7 @@ const OrderComment = ({
 
   return (
     <div className="bg-white p-4">
-      <div className="text-base font-medium pb-2 border-b mb-4">Remark</div>
+      <div className="text-base font-medium pb-2 border-b mb-4">Remarks</div>
       <div className="max-h-96 overflow-y-scroll">
         {comments.map((item, index) => {
           return (

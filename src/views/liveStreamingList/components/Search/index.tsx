@@ -86,8 +86,8 @@ const LiveStreamingSearch = ({ query, miniProjList }: { query: Function; miniPro
               setPickValue(date)
               setSearchParams({
                 ...searchParams,
-                startTime: new Date(dateString[0]).toISOString(),
-                endTime: new Date(dateString[1]).toISOString(),
+                startTime: dateString[0]?new Date(dateString[0]).toISOString():'',
+                endTime: dateString[1]?new Date(dateString[1]).toISOString():'',
               })
             }}
           />

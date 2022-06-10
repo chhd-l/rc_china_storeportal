@@ -1,6 +1,7 @@
 import { ColumnProps } from 'antd/es/table';
 import { Switch, Tooltip } from "antd";
 import { Link } from "react-router-dom";
+import { handleReturnTime } from '@/utils/utils';
 import moment from 'moment';
 
 export type TWxMenuUpdateParam = {
@@ -40,13 +41,13 @@ export const tableColumns = ({ handleDelete, changeStatus }: TableColumns) => {
       title: "Create Time",
       dataIndex: "createdAt",
       key: "createdAt",
-      render: (text) => <div>{moment(text).format('YYYY/MM/DD HH:mm:ss')}</div>
+      render: (text) => <div>{handleReturnTime(text)}</div>
     },
     {
       title: "Update Time",
       dataIndex: "lastModifiedAt",
       key: "lastModifiedAt",
-      render: (text) => <div>{moment(text).format('YYYY/MM/DD HH:mm:ss')}</div>
+      render: (text) => <div>{handleReturnTime(text)}</div>
     },
     {
       title: "Status",

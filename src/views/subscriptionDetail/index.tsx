@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { ContentContainer, InfoContainer, DivideArea } from '@/components/ui'
 import { getSubscriptionDetail, pauseSubscription, resumeSubscription, updateSubscriptionAddress, updateNextDeliveryDate, upsertSubscriptionComment } from '@/framework/api/subscription'
-import { Spin, Modal } from "antd"
+import { Spin, message } from "antd"
 import { useLocation } from 'react-router-dom'
+import { useScrollToTop } from '@/hooks'
 import BaseInfo from './components/BaseInfo'
 import AddressInfo from './components/AddressInfo'
 import ProductList from './components/ProductList'
@@ -12,31 +13,28 @@ import SubscriptionOrders from './components/SubscriptionOrders'
 import SubscriptionGifts from './components/SubscriptionGifts'
 import CommentWidget from '@/components/common/Comment'
 import OperateLogWidget from '@/components/common/OperateLog'
-import AddressModal from '@/components/customer/AddressModal'
 
 
 export default function SubscriptionDetail() {
   const [loading, setLoading] = useState<boolean>(false)
   const [detail, setDetail] = useState<any>({})
-  const [visible, setVisible] = useState<boolean>(false)
-  const [addressVisible, setAddressVisible] = useState<boolean>(false)
   const location = useLocation();
   const state: any = location.state;
+
+  useScrollToTop()
 
   useEffect(() => {
     getSubscription()
   }, [])
 
-  const getSubscription = async () => {
-    setLoading(true)
+  const getSubscription = async (showLoadingFlag: boolean = true) => {
+    showLoadingFlag && setLoading(true);
     const data = await getSubscriptionDetail(state?.id ?? "")
     setDetail(data);
     setLoading(false)
   }
 
   const handlePauseAndRestartConfirm = async () => {
-    setVisible(false)
-    setLoading(true)
     let succes = false
     if (detail?.status === "PAUSED") {
       succes = await resumeSubscription(detail?.id);
@@ -44,41 +42,44 @@ export default function SubscriptionDetail() {
       succes = await pauseSubscription(detail?.id);
     }
     if (succes) {
-      getSubscription()
+      await getSubscription(false)
+      return Promise.resolve(true)
     } else {
-      setLoading(false)
+      return Promise.resolve(false)
     }
   }
 
   const handleChooseAddress = async (address: any) => {
     const { storeId, customerId, isDefault, ...rest } = address;
-    setAddressVisible(false)
-    setLoading(true)
     const success = await updateSubscriptionAddress(detail?.id, rest);
     if (success) {
-      getSubscription()
+      await getSubscription(false)
+      message.success({className:'rc-message',content:'Operation Successful'});
+      return Promise.resolve(true)
     } else {
-      setLoading(false)
+      return Promise.resolve(false)
     }
   }
 
   const handleChangeNextDeliveryDate = async (date: string) => {
-    setLoading(false)
     const success = await updateNextDeliveryDate(detail?.id, date);
     if (success) {
-      getSubscription()
+      await getSubscription(false)
+      message.success({className:'rc-message',content:'Operation Successful'});
+      return Promise.resolve(true)
     } else {
-      setLoading(false)
+      return Promise.resolve(false)
     }
   }
 
   const handleUpsertComment = async (param: any) => {
-    setLoading(false)
     const success = await upsertSubscriptionComment(param);
     if (success) {
-      getSubscription()
+      await getSubscription(false)
+      message.success({className:'rc-message',content:'Operation Successful'});
+      return Promise.resolve(true)
     } else {
-      setLoading(false)
+      return Promise.resolve(false)
     }
   }
 
@@ -88,11 +89,11 @@ export default function SubscriptionDetail() {
         <div className="flex flex-row">
           <div className="mr-4 w-3/4">
             <InfoContainer>
-              <BaseInfo data={detail} onChange={() => setVisible(true)} />
+              <BaseInfo data={detail} onChange={handlePauseAndRestartConfirm} />
             </InfoContainer>
             <DivideArea />
             <InfoContainer>
-              <AddressInfo data={detail} onEdit={() => setAddressVisible(true)} />
+              <AddressInfo data={detail} onEdit={handleChooseAddress} />
             </InfoContainer>
             <DivideArea />
             <InfoContainer>
@@ -108,7 +109,7 @@ export default function SubscriptionDetail() {
             </InfoContainer>
             <DivideArea />
             <InfoContainer>
-              <SubscriptionOrders planningList={detail?.planingDeliveries ?? []} completedList={detail?.completedDeliveries ?? []} nextDeliveryDate={detail?.createNextDeliveryTime} onChangeDate={handleChangeNextDeliveryDate} />
+              <SubscriptionOrders planningList={detail?.planingDeliveries ?? []} completedList={detail?.completedDeliveries ?? []} nextDeliveryDate={detail?.createNextDeliveryTime} status={detail?.status} onChangeDate={handleChangeNextDeliveryDate} />
             </InfoContainer>
             <DivideArea />
             <InfoContainer>
@@ -127,23 +128,6 @@ export default function SubscriptionDetail() {
           </div>
         </div>
       </Spin>
-      <Modal
-        visible={visible}
-        className="rc-modal"
-        title={detail?.status === "PAUSED" ? "Restart Subscription" : "Pause Subscription"}
-        cancelText="Cancel"
-        okText="Confirm"
-        onCancel={() => setVisible(false)}
-        onOk={handlePauseAndRestartConfirm}
-      >
-        <div>{detail?.status === "PAUSED" ?  "Are you sure you want to restart this subscription?" : "Are you sure you want to pause this subscription?"}</div>
-      </Modal>
-      {addressVisible ? <AddressModal
-        customerId={detail?.customer?.id}
-        visible={addressVisible}
-        onCancel={() => setAddressVisible(false)}
-        onConfirm={handleChooseAddress}
-      /> : null}
     </ContentContainer>
   )
 }

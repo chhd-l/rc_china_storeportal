@@ -90,7 +90,7 @@ const Search = (props: IProps) => {
             style={{ width: '20%' }}
           >
             <Option value="noLike">Subscription ID</Option>
-            <Option value="type">Subscription Type</Option>
+            {/* <Option value="type">Subscription Type</Option> */}
             <Option value="cycle">Subscription Cycle</Option>
             <Option value="tradeIdLike">Order ID</Option>
             <Option value="phoneLike">Phone Number</Option>
@@ -113,6 +113,7 @@ const Search = (props: IProps) => {
             onChange={(e) => setVal(e.target.value)}
             onPressEnter={() => {
               inputRef.current!.blur()
+              handleSearch()
             }}
           />}
         </Input.Group>

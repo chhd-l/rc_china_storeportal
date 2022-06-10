@@ -105,7 +105,7 @@ const TableRow = ({
         ) : null}
       </div>
       <div className='w-64 flex text-12'>
-        <Tooltip title='Preview'>
+        {listData[spuIdx]?.salesStatus&&listData[spuIdx]?.shelvesStatus?<Tooltip title='Preview'>
           <Link
             to=''
             className='mr-4'
@@ -116,7 +116,7 @@ const TableRow = ({
           >
             <span className='icon iconfont icon-preview'></span>
           </Link>
-        </Tooltip>
+        </Tooltip>:null}
         <Tooltip title='Edit'>
           <a
             className='mr-4'

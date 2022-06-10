@@ -24,12 +24,13 @@ const MyInputNumber: FC<Props> = ({ td, tr, val, onBlur }) => {
       prefix='￥'
       precision={2}
       onChange={e => {
+        if(e<0){
+          e=0
+        }
         setValue(e)
-        // onBlur
       }}
       onBlur={onBlur}
       // formatter={value => Number(value)?.toFixed(2)}
-
       defaultValue={tr[td.keyVal]}
     />
   )

@@ -6,7 +6,7 @@ import { CateItemProps } from '@/framework/schema/product.schema'
 import { formatMoney, handlePageParams } from '@/utils/utils'
 import { ProFormInstance } from '@ant-design/pro-form'
 import { ProColumns } from '@ant-design/pro-table'
-import { Input, Modal, Select, Space } from 'antd'
+import { Button, Input, Modal, Select, Space } from 'antd'
 import { useEffect, useRef, useState } from 'react'
 import './index.less'
 interface Props {
@@ -18,9 +18,11 @@ interface Props {
 let allPageList: any = [] //点击请求到的所有数据
 
 const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelected }: Props) => {
-  const [keyVal, setKeyVal] = useState('productName')
+  const [keyVal, setKeyVal] = useState('name')
   const [categoryList, setCategoryList] = useState([])
   const [startPrice, setStartPrice] = useState<string>('')
+  const [endPrice, setEndPrice] = useState<string>('')
+  
   const [regularList, setRegularList] = useState([])
   const ref = useRef<ProFormInstance>()
   const { Option } = Select
@@ -37,8 +39,8 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
     setShowBundleChoose(false)
   }
   const selectBefore = (
-    <Select defaultValue='productName' onChange={changeKeyVal} className='select-before'>
-      <Option value='productName'>Product Name</Option>
+    <Select defaultValue='name' onChange={changeKeyVal} className='select-before'>
+      <Option value='name'>Product Name</Option>
       <Option value='sku'>SKU</Option>
     </Select>
   )
@@ -116,6 +118,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
         return (
           <div className='flex items-center'>
             <Input
+            placeholder='Please enter'
               addonBefore='¥'
               onChange={e => {
                 setStartPrice(e.target.value)
@@ -124,7 +127,13 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
               value={startPrice}
             />
             <div className='px-2'>-</div>
-            <Input addonBefore='¥' />
+            <Input addonBefore='¥' 
+            placeholder='Please enter'
+            onChange={e => {
+              setEndPrice(e.target.value)
+              }}
+              // className='mr-4'
+              value={endPrice}/>
           </div>
         )
       },
@@ -160,7 +169,26 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
       <ProTable
         columns={columns}
         formRef={ref}
-        search={{ span: 12, labelWidth: 60, searchText: 'Search' }}
+        search={{ span: 12, labelWidth: 60, searchText: 'Search',optionRender: ({ searchText, resetText }, { form }, dom) => [
+          <Button
+            type="primary"
+            onClick={() => {
+              form?.submit()
+            }}
+          >
+            {searchText}
+          </Button>,
+          <Button
+            onClick={() => {
+              form?.resetFields()
+              setStartPrice('')
+              setEndPrice('')
+              form?.submit()
+            }}
+          >
+            {resetText}
+          </Button>,
+        ], }}
         pagination={{
           pageSize: 5,
         }}
@@ -184,11 +212,17 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
             sample[keyVal] = params.search
           }
           if (startPrice) {
-            sample.startPrice = startPrice
+            sample.startPrice = Number(startPrice)
+          }
+          if (endPrice) {
+            sample.endPrice = Number(endPrice)
+          }
+          if(typeof sample.marketingPrice!=='undefined'){
+            delete sample.marketingPrice
           }
           delete sample.search
           console.info('pageParams', pageParams)
-          let paramsData = {
+          let paramsData:any = {
             ...pageParams,
             isNeedTotal: true,
             sample,

@@ -1,7 +1,7 @@
 import { Suspense, useEffect } from 'react'
 import { useRoutes, useNavigate, useLocation } from 'react-router-dom'
 import Router from './routers/index'
-import './App.css'
+import './App.less'
 import '@/assets/css/global.less'
 import '@/assets/css/iconfont/iconfont.css'
 import Loading from '@/assets/images/loading.gif'
