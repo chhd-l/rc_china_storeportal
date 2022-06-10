@@ -64,7 +64,7 @@ const CreateNewVoucher = () => {
     <ContentContainer className="mb-4">
       <Spin spinning={spinning} className="CreateNewVoucherSpin">
         {
-          !spinning ? (
+          (!spinning) ? (
             <Form
               labelCol={{ span: 4 }}
               wrapperCol={{ span: 8 }}
@@ -85,7 +85,8 @@ const CreateNewVoucher = () => {
               }
               onFinish={async (v) => {
                 try {
-                  setSpinning(true)
+                  // setSpinning(true)
+                  console.log('v',v)
                   v.voucherUsageBeginningOfTime = moment(v.times[0]).utc().format()
                   v.voucherUsageEndOfTime = moment(v.times[1]).utc().format()
                   v.voucherDefaultImage = v.Image?.file?.response?.url || ''
@@ -93,6 +94,7 @@ const CreateNewVoucher = () => {
                   v.minimumBasketPrice = Math.round(Number(v.minimumBasketPrice) * 100) / 100 || 0
                   v.usageQuantity = v.usageQuantity || 0
                   v.discountValue = '' + v.discountValue
+                  v.isLimitedQuantity = !!v.isLimitedQuantity
                   if (VoucherType === 'SHOP_VOUCHER') {
                     v.voucherGoodsRelated = []
                   } else {
@@ -125,6 +127,7 @@ const CreateNewVoucher = () => {
                       delete v[key]
                     }
                   }
+                  console.log('v',v)
                   let res = undefined
                   if (!state) {
                     v.voucherStatus = 'Upcoming'
