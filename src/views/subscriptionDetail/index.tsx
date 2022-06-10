@@ -13,6 +13,7 @@ import SubscriptionOrders from './components/SubscriptionOrders'
 import SubscriptionGifts from './components/SubscriptionGifts'
 import CommentWidget from '@/components/common/Comment'
 import OperateLogWidget from '@/components/common/OperateLog'
+import "./index.less"
 
 
 export default function SubscriptionDetail() {

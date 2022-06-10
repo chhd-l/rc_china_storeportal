@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Tabs, Row, Col, Calendar, Popover, Tooltip } from 'antd'
+import { Table, Tabs, Row, Col, DatePicker, Tooltip } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import { orderStatusType } from '@/framework/constants/order'
 import { ColumnProps } from 'antd/es/table'
@@ -57,29 +57,20 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
       key: 'ac',
       render: (text: any, record: any) => (
         <div className="space-x-2">
-          {status === "ONGOING" ? <Popover
-            trigger="click"
-            visible={visible}
-            onVisibleChange={(v: boolean) => setVisible(v)}
-            content={
-              <div style={{width:300}}>
-                <Calendar
-                  fullscreen={false}
-                  defaultValue={nextDeliveryDate ? moment(nextDeliveryDate) : undefined}
-                  disabledDate={(current) => current < moment().startOf('day')}
-                  onChange={(date: Moment) => {
-                    setVisible(false);
-                    setLoading(true);
-                    onChangeDate(date.utc().format()).then(() => setLoading(false))
-                  }}
-                />
-              </div>
-            }
-          >
-            <Tooltip title="Select Date">
-              <span className="cursor-pointer iconfont primary-color icon-rili text-lx"></span>
-            </Tooltip>
-          </Popover> : null}
+          {status === "ONGOING" ? <Tooltip title="Select Date">
+            <DatePicker
+              bordered={false}
+              className="change-next-date cursor-pointer iconfont primary-color icon-rili"
+              disabledDate={(current) => current < moment().startOf('day')}
+              defaultValue={nextDeliveryDate ? moment(nextDeliveryDate) : undefined}
+              onChange={(date: Moment | null) => {
+                if (date) {
+                  setLoading(true);
+                  onChangeDate(date.utc().format()).then(() => setLoading(false))
+                }
+              }}
+            />
+          </Tooltip> : null}
           {record.tradeId ? <Tooltip title="View Order Detail">
             <Link to="/order/order-detail" state={{id: record?.tradeId,status: record?.tradeState?.orderState}} className="cursor-pointer iconfont icon-kjafg primary-color" />
           </Tooltip> : null}
