@@ -284,7 +284,7 @@ const RuleSettings = ({
         className="m-0"
         shouldUpdate={(prevValues, curValues) => prevValues.usageQuantity !== curValues.usageQuantity}
       >
-        {({ setFieldsValue }) => (
+        {({ setFieldsValue, validateFields }) => (
           <div className="flex w-full">
             <Form.Item
               className="m-0 w-full"
@@ -315,6 +315,10 @@ const RuleSettings = ({
                 disabled={Edit}
                 onChange={(e) => {
                   setusageQuantityOpen(e.target.checked)
+                  setFieldsValue({
+                    isLimitedQuantity: e.target.checked,
+                  })
+                  validateFields(['usageQuantity'])
                   if (e.target.checked) {
                     setUsageQuantity('')
                     setFieldsValue({

@@ -7,7 +7,7 @@ import history from '@/routers/history'
 // const API_URL = 'https://ms.wamdy.com/faas/graphql'
 // 生产
 const API_URL = 'https://ms.wamdy.com/faas/graphql'
-// const API_URL = 'https://msdev.d2cgo.com/faas/graphql'
+// const API_URL = 'http://20.62.176.70/faas/graphql'
 // const API_URL = 'https://msstg.d2cgo.com/faas/graphql'
 
 // 开发

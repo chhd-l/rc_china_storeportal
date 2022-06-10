@@ -1,5 +1,5 @@
 import { Button, Form, Input, Select, Upload, message } from 'antd'
-import { ACCOUNT_FORM, ACCOUNT_FORM_TWO } from '@/views/addAccount/modules/form'
+import { ACCOUNT_FORM, ACCOUNT_FORM_TWO } from '@/views/accountCreate/modules/form'
 import { useLocation, useNavigate } from 'react-router'
 import { ContentContainer, InfoContainer } from '@/components/ui'
 import { createAccount, getAccountList, modifyAccount } from '@/framework/api/wechatSetting'
