@@ -27,7 +27,7 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
       render: (text: any, recout: any) => {
         return (
           <div className="flex">
-            <div className='border border-gray-200' style={{ height:'81px' }}>
+            <div className='border border-gray-200 flex items-center' style={{ height:'81px' }}>
               <Image width={80} src={recout.voucherDefaultImage} preview={false} />
             </div>
             <div className="pl-2 w-56">
