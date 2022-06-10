@@ -131,10 +131,11 @@ const TemplateMessage = () => {
           columns={columns}
           search={{
             searchText: 'Search',
+            span: 8,
             optionRender: (searchConfig, formProps, dom) => {
               return dom.map((item: any) => {
                 return <Button {...item.props} loading={false} />
-              })
+              }).reverse()
             },
           }}
           request={async (params, sorter, filter) => {

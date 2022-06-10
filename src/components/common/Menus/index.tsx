@@ -11,7 +11,7 @@ const findOpenKeysAndSelectedKeysByPathname = (menuList: any[], pathname: string
   const openKeys: any[] = [], selectedKeys: any[] = [];
   (menuList || []).forEach((parent: any) => {
     (parent.children || []).forEach((child: any) => {
-      if (child.url === pathname) {
+      if (child.url === pathname || `/${pathname.split('/')[1]}` === child.url) {
         openKeys.push(parent.key);
         selectedKeys.push(child.key);
       }

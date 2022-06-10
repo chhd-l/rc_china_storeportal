@@ -74,7 +74,6 @@ const Register = () => {
               form={form}
               wrapperCol={{ span: 24 }}
               onFinish={(values) => {
-                console.log("----form1-----", values);
                 if (values.confirmPassword !== values.password) {
                   message.error('Password verification failed')
                   return

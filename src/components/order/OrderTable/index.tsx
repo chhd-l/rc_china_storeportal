@@ -118,7 +118,7 @@ const OrderTable = ({
                         <Col span={20}>
                           <span>{product.skuName}</span>
                           <br />
-                          <span className="text-gray-400 text-sm">Variation:{product.goodsSpecifications}</span>
+                          {product.isGift ? null : <span className="text-gray-400 text-sm">Variation:{product.goodsSpecifications}</span>}
                         </Col>
                         <Col span={4} className="items-start text-left">
                           x{product.num}
