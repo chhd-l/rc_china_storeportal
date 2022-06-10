@@ -8,7 +8,7 @@ import { OptionsProps } from '@/framework/types/common'
 import { getTree } from '@/framework/normalize/product'
 import './index.less'
 import { normaliseVoucherProduct } from '@/framework/normalize/voucher'
-import { handleQueryParams } from '@/views/CreateNewVoucher/modules/handle-get-products-params'
+import { handleQueryParams } from '@/views/voucherCreate/modules/handle-get-products-params'
 
 const nameForKey: OptionsProps[] = [
   { name: 'Product Name', value: '1' },
