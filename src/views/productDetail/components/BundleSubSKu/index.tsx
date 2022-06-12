@@ -38,9 +38,9 @@ const BundleSbuSKu = ({
     }
     skuItem.goodsVariantBundleInfo[idx].bundleNumber = val
     regularList[idx].bundleNumber = val
-    if (regularList[idx].bunldeRelId) {
+    if (regularList[idx].id) {
       //编辑
-      skuItem.goodsVariantBundleInfo[idx].bunldeRelId = regularList[idx].bunldeRelId
+      skuItem.goodsVariantBundleInfo[idx].id = regularList[idx].id
     } else {
       //新增
       skuItem.goodsVariantBundleInfo[idx].subGoodsVariantId = regularList[idx].subGoodsVariantId

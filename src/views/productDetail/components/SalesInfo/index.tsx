@@ -58,7 +58,6 @@ const SalesInfo = (props: FormProps) => {
         }
       })
     })
-    debugger
     // 数量没有值的赋值1
     choosedSku.forEach((el: any) => {
       el.bundleNumber = el.bundleNumber || 1
@@ -77,13 +76,14 @@ const SalesInfo = (props: FormProps) => {
 
     detail.goodsVariantBundleInfo[idx].bundleNumber = val
     regularList[idx].bundleNumber = val
-    if (regularList[idx].bunldeRelId) {
+    if (regularList[idx].id) {
       //编辑
-      detail.goodsVariantBundleInfo[idx].id = regularList[idx].bunldeRelId
+      detail.goodsVariantBundleInfo[idx].id = regularList[idx].id
       detail.goodsVariantBundleInfo[idx].goodsVariantId = detail.skuId
+
     } else {
       //新增
-      detail.goodsVariantBundleInfo[idx].subGoodsVariantId = regularList[idx].id
+      detail.goodsVariantBundleInfo[idx].subGoodsVariantId = regularList[idx].subGoodsVariantId
       detail.goodsVariantBundleInfo[idx].skuNo = regularList[idx].skuNo
     }
     setRegularList([...regularList])
@@ -136,6 +136,15 @@ const SalesInfo = (props: FormProps) => {
       marketingPrice = getTotal(regularList, 'marketingPrice')
       subscriptionPrice = getTotal(regularList, 'subscriptionPrice')
     }
+    detail.goodsVariantBundleInfo = regularList.map((el:any)=>{
+      return {
+        bundleNumber: el.bundleNumber,
+        id: el.id,
+        goodsVariantId: el.goodsVariantId || detail.skuId,
+        subGoodsVariantId: el.subGoodsVariantId ,
+        skuNo: el.skuNo,
+      }
+    })
     props.form.setFieldsValue({
       stock: spuStock,
       subSku,
