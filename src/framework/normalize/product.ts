@@ -410,6 +410,19 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
               delete bundleInfo.stock
             }
           })
+          // let beforeBundleInfo = beforeData.goodsVariants?.find(el=>el.)
+          // for (let item in el.goodsVariantBundleInfo) {
+          //   var found = false
+          //   for (let citem in spu.goodsVariantsInput) {
+          //     if (spu.goodsVariantsInput[citem].id === beforeData.goodsVariants[item].id) {
+          //       found = true
+          //       break
+          //     }
+          //   }
+          //   if (!found) {
+          //     delArr.push(beforeData.goodsVariants[item])
+          //   }
+          // }
         }
       }
       console.info('normaliseData', normaliseData)

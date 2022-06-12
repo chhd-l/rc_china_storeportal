@@ -4,7 +4,7 @@ import { cloneDeep } from 'lodash'
 import { useContext, useEffect, useState } from 'react'
 import { DetailContext } from '../../index'
 import BundleSubSKuPop from '../BundleSubSKuPop'
-let deletedBundles: any = []
+// let deletedBundles: any = []
 const BundleSbuSKu = ({
   skuItem,
   keyVal,
@@ -20,8 +20,9 @@ const BundleSbuSKu = ({
   const { detail } = useContext(DetailContext)
   const [regularList, setRegularList] = useState<Array<any>>([])
   const handleDelete = (idx: number) => {
-    if (regularList[idx].bunldeRelId) {
-      deletedBundles = [...deletedBundles, regularList[idx]]
+    debugger
+    if (regularList[idx].id) {
+      // deletedBundles = [...deletedBundles, regularList[idx]]
       regularList[idx].isDeleted = true
     } else {
       regularList.splice(idx, 1)
@@ -42,20 +43,20 @@ const BundleSbuSKu = ({
       skuItem.goodsVariantBundleInfo[idx].bunldeRelId = regularList[idx].bunldeRelId
     } else {
       //新增
-      skuItem.goodsVariantBundleInfo[idx].subGoodsVariantId = regularList[idx].id
+      skuItem.goodsVariantBundleInfo[idx].subGoodsVariantId = regularList[idx].subGoodsVariantId
       skuItem.goodsVariantBundleInfo[idx].skuNo = regularList[idx].skuNo
     }
     caclNum(regularList)
   }
   // 计算数量
   const caclNum = (regularList: any, isAll?: boolean) => {
-    let stockArr = regularList
+    let stockArr = regularList?.filter((el:any)=>!el.isDeleted)
       ?.filter((el: any, idx: number) => {
         // console.info('regularListregularListregularListregularList', regularList)
         let skuStock = el.bundleNumber || 1
         // console.info(el, 'elelelel')
         // console.info(el.stock, skuStock, 'skuStockskuStockskuStock')
-        if (skuStock && el.stock) {
+        if (skuStock) {
           el.subSkuStock = Math.floor(el.stock / skuStock)
           // console.info('........', skuStock)
         }
@@ -97,9 +98,12 @@ const BundleSbuSKu = ({
         listPrice: el.listPrice,
         marketingPrice: el.marketingPrice,
         subscriptionPrice: el.subscriptionPrice,
+        isDeleted:!!el.isDeleted
       }
       if (el.id) {
         info.id = el.id
+      }
+      if(el.goodsVariantId){
         info.goodsVariantId = el.goodsVariantId
       }
       return info
@@ -110,19 +114,19 @@ const BundleSbuSKu = ({
     updateVations(bundleInfo, skuItemIdx, 'goodsVariantBundleInfo', skuItem)
   }
   const chooseBundleSku = (choosedSku: any) => {
-    let deletedArr =
-      regularList
-        ?.filter(el => {
-          let deletedArr =
-            choosedSku.findIndex((choosed: any) => choosed.subGoodsVariantId === el.subGoodsVariantId) === -1
-          return deletedArr
-        })
-        ?.filter(el => el.bunldeRelId) || []
-    //删除的
-    deletedBundles = [...deletedBundles, ...deletedArr]?.map(el => {
-      el.isDeleted = true
-      return el
-    })
+    // let deletedArr =
+    //   regularList
+    //     ?.filter(el => {
+    //       let deletedArr =
+    //         choosedSku.findIndex((choosed: any) => choosed.subGoodsVariantId === el.subGoodsVariantId) === -1
+    //       return deletedArr
+    //     })
+    //     ?.filter(el => el.bunldeRelId) || []
+    // //删除的
+    // deletedBundles = [...deletedBundles, ...deletedArr]?.map(el => {
+    //   el.isDeleted = true
+    //   return el
+    // })
     //匹配选择已输入的数量
     regularList.forEach(oldSku => {
       choosedSku.forEach((newSku: any) => {
@@ -133,7 +137,7 @@ const BundleSbuSKu = ({
     })
 
     //把删除的也存起来
-    choosedSku.push(...deletedBundles)
+    // choosedSku.push(...deletedBundles)
     caclNum(choosedSku, true)
   }
   useEffect(() => {
@@ -188,7 +192,7 @@ const BundleSbuSKu = ({
         isModalVisible={showBundleChoose}
         setShowBundleChoose={setShowBundleChoose}
         handleOk={chooseBundleSku}
-        defaultSelected={regularList?.filter(el => !el.isDeleted)?.map((el: any) => el?.subGoodsVariantId || el)}
+        defaultSelected={regularList}
       />
     </div>
   )

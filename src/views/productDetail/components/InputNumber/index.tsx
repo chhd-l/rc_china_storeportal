@@ -7,22 +7,32 @@ interface Props {
   tr: any
   val: string
   onBlur: any
+  type:'number'|'priceInput'
 }
-const MyInputNumber: FC<Props> = ({ td, tr, val, onBlur }) => {
+const MyInputNumber: FC<Props> = ({ td, tr, val, onBlur,type }) => {
   const [value, setValue] = useState('')
+  let props={}
+  let className = 'text-center'
+  if(type==='priceInput'){
+    props={
+      prefix:'￥',
+      precision:2
+    }
+    className='price-input text-center'
+  }
   useEffect(() => {
     setValue(val)
   }, [val])
+  
   return (
     <InputNumber
-      className='price-input text-center'
+      {...props}
+      className={className}
       placeholder='Input'
       type='number'
       min={'0'}
       value={value}
       disabled={td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0'}
-      prefix='￥'
-      precision={2}
       onChange={e => {
         if(e<0){
           e=0

@@ -17,7 +17,7 @@ interface ContextProps {
   form: any
 }
 export const VariationosContext = createContext(null as any)
-let deletedBundles: any = []
+// let deletedBundles: any = []
 const SalesInfo = (props: FormProps) => {
   const { detail, spuType } = useContext(DetailContext)
   const [variationForm, setVariationForm] = useState<any>({
@@ -39,17 +39,17 @@ const SalesInfo = (props: FormProps) => {
   }, [detail.variationForm])
   const chooseBundleSku = (choosedSku: any) => {
     console.info('.....choosedSku', choosedSku)
-    let deletedArr =
-      regularList
-        ?.filter(el => {
-          let deletedArr =
-            choosedSku.findIndex((choosed: any) => choosed.subGoodsVariantId === el.subGoodsVariantId) === -1
-          return deletedArr
-        })
-        ?.filter(el => el.bunldeRelId) || []
-    //存储删除的
-    deletedBundles = [...deletedBundles, ...deletedArr]
-    console.info('deletedArr', deletedArr)
+    // let deletedArr =
+    //   regularList
+    //     ?.filter(el => {
+    //       let deletedArr =
+    //         choosedSku.findIndex((choosed: any) => choosed.subGoodsVariantId === el.subGoodsVariantId) === -1
+    //       return deletedArr
+    //     })
+    //     ?.filter(el => el.bunldeRelId) || []
+    // //存储删除的
+    // // deletedBundles = [...deletedBundles, ...deletedArr]
+    // console.info('deletedArr', deletedArr)
     //匹配选择已输入的数量
     regularList.forEach(oldSku => {
       choosedSku.forEach((newSku: any) => {
@@ -90,10 +90,12 @@ const SalesInfo = (props: FormProps) => {
     validateNumber(regularList)
   }
   const handleDelete = (idx: number) => {
-    if (regularList[idx].bunldeRelId) {
-      deletedBundles = [...deletedBundles, regularList[idx]]
+    if (regularList[idx].id) {
+      regularList[idx].isDeleted=true
+      // deletedBundles = [...deletedBundles, regularList[idx]]
+    }else{
+      regularList.splice(idx, 1)
     }
-    regularList.splice(idx, 1)
     setRegularList([...regularList])
     validateNumber(regularList)
   }
@@ -233,7 +235,7 @@ const SalesInfo = (props: FormProps) => {
           isModalVisible={showBundleChoose}
           setShowBundleChoose={setShowBundleChoose}
           handleOk={chooseBundleSku}
-          defaultSelected={regularList?.filter(el => !el.isDeleted)?.map((el: any) => el?.subGoodsVariantId || el)}
+          defaultSelected={regularList}
         />
 
         {variationForm.variationList.filter((el: any) => !el.isDeleted)?.length ? null : (
