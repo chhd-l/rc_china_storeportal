@@ -14,7 +14,7 @@ const TableHeader = ({ tableHeader, setTableHeader, getList }: TableHeaderProps)
         el.sortDirection = ''
       }
     })
-    tableHeader[index].sortDirection = sortDirection
+    tableHeader[index+1].sortDirection = sortDirection
     setTableHeader(cloneDeep(tableHeader))
     // 接口请求
     if (sortDirection) {
@@ -27,9 +27,12 @@ const TableHeader = ({ tableHeader, setTableHeader, getList }: TableHeaderProps)
   console.info('tableHeader', tableHeader)
   return (
     <div className='table-header flex justify-stretch items-baseline w-full'>
-      {tableHeader.map((item, idx) => (
-        <div className={`flex items-center ${item.dataIndex === 'name' ? 'w-64' : 'flex-1'}`}>
+      <div className='w-64 flex py-1 pr-2 overflow-hidden'>{tableHeader[0]?.title}</div>
+      <div className=' w-3/5 overflow-hidden flex'>
+      {tableHeader.slice(1,tableHeader.length).map((item, idx) => (
+        <div className={`flex-1 flex h-full`}>
           <div> {item.title}</div>
+          {console.info('itemitem',item)}
           {item.sortDirection !== undefined ? (
             <div style={{ fontSize: '0.6rem' }} className='pl-1 cursor-pointer'>
               <div className='relative' style={{ lineHeight: 0, top: '2px' }}>
@@ -62,7 +65,9 @@ const TableHeader = ({ tableHeader, setTableHeader, getList }: TableHeaderProps)
           ) : null}
         </div>
       ))}
-      <div className='flex justify-left items-center w-64'>
+      </div>
+     
+      <div className='w-64 flex'>
         <div>Options</div>
       </div>
     </div>
