@@ -5,6 +5,7 @@ import { orderStatusType } from '@/framework/constants/order'
 import { ColumnProps } from 'antd/es/table'
 import { handleReturnTime } from '@/utils/utils'
 import moment, { Moment } from 'moment'
+import Frame from '@/assets/images/Frame.png'
 
 
 const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, status, onChangeDate } : { planningList: any[], completedList: any[], nextDeliveryDate: string, status: string, onChangeDate: (date: string) => Promise<boolean> }) => {
@@ -32,6 +33,9 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
                     <div className="max-w-xs truncate">{item?.skuName ?? ""}</div>
                     <span className="text-gray-400 text-sm">{item?.skuNo}</span>
                   </div>
+                  {
+                    item?.isGift?<span className='ml16'><img className="w-10" src={Frame} alt='' /></span>:null
+                  }
                 </div>
               </Col>
               <Col span={6} className="items-start text-left">
