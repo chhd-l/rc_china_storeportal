@@ -169,7 +169,8 @@ const RuleSettings = ({
           ({getFieldValue}) => {
             const type = getFieldValue('discountType')
             return type === 'PERCENTAGE' ? (
-              <Form.Item>
+              <Form.Item 
+              className='m-0'>
                 <Select
                   placeholder="Select"
                   disabled={Edit || DiscountType !== 'FIX_AMOUNT'}
@@ -178,6 +179,7 @@ const RuleSettings = ({
             ) : (
               <Form.Item
                 name="recurrence"
+                className='m-0'
                 rules={[
                   {
                     required: DiscountType === 'FIX_AMOUNT',

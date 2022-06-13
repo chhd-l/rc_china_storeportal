@@ -27,8 +27,30 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
       render: (text: any, recout: any) => {
         return (
           <div className="flex">
-            <div className='border border-gray-200 flex items-center' style={{ height:'81px' }}>
-              <Image width={80} src={recout.voucherDefaultImage} preview={false} />
+            <div className="border border-gray-200 flex items-center" style={{ height: '81px' }}>
+              {
+                recout.voucherDefaultImage ? (
+                  <Image width={80} src={recout.voucherDefaultImage} preview={false} />
+                ) : recout.discountType === 'PERCENTAGE' ? (
+                  <div className="h-full flex items-center text-center text-red-600" style={{width: '80px'}}>
+                    {recout.discountValue && (
+                      <span className="text-3xl font-medium flex-1">
+                        {(100 - recout.discountValue) / 10}
+                        <span className="text-sm">折</span>
+                      </span>
+                    )}
+                  </div>
+                ) : (
+                  <div className="h-full flex items-center text-center text-red-600" style={{width: '80px'}}>
+                    {recout.discountValue && (
+                      <span className="text-3xl font-medium flex-1">
+                        <span className="text-sm">￥</span>
+                        {recout.discountValue}
+                      </span>
+                    )}
+                  </div>
+                )
+              }
             </div>
             <div className="pl-2 w-56">
               <div>{text}</div>
@@ -73,13 +95,16 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
       title: 'Usage Limit',
       dataIndex: 'usageQuantity',
       hideInSearch: true,
-      render: (text: any) => text || '-'
+      render: (text: any) => text || '-',
     },
     {
       title: (
         <div className="flex items-center">
           Usage
-          <Tooltip overlayStyle={{fontSize:'12px'}} title="Number of vouchers that have been used (excluding cancelled orders)">
+          <Tooltip
+            overlayStyle={{ fontSize: '12px' }}
+            title="Number of vouchers that have been used (excluding cancelled orders)"
+          >
             <QuestionCircleOutlined className="ml-2 text-gray-400" />
           </Tooltip>
         </div>
@@ -131,7 +156,7 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
               <span
                 className="cursor-pointer ml-2 iconfont icon-kjafg text-red-500 text-base"
                 onClick={() => {
-                  navigator('/marketingCenter/vouchers/voucherDetails', { state: {...record, Edit: true} })
+                  navigator('/marketingCenter/vouchers/voucherDetails', { state: { ...record, Edit: true } })
                 }}
               />
             </Tooltip>
@@ -140,7 +165,7 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
             <span
               className="cursor-pointer ml-2 iconfont icon-dingdan text-red-500 text-xl"
               onClick={() => {
-                navigator('/marketingCenter/vouchers/orderswithVoucher', {state: record})
+                navigator('/marketingCenter/vouchers/orderswithVoucher', { state: record })
               }}
             />
           </Tooltip>
@@ -227,8 +252,8 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
         actionRef={ref}
         options={false}
         revalidateOnFocus={false}
-        tableClassName='rc-table'
-        className='VouchersListTable'
+        tableClassName="rc-table"
+        className="VouchersListTable"
         rowKey="id"
         pagination={{
           hideOnSinglePage: false,
@@ -261,7 +286,10 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
         confirmLoading={loading}
         onCancel={() => setIsModalVisible(false)}
       >
-        <p>Are you sure you want to {voucherId.statu === 'Delete' ? voucherId.statu.toLowerCase() : voucherId.statu} the item?</p>
+        <p>
+          Are you sure you want to {voucherId.statu === 'Delete' ? voucherId.statu.toLowerCase() : voucherId.statu} the
+          item?
+        </p>
       </Modal>
     </ContentContainer>
   )
