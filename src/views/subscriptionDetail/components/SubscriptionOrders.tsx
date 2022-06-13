@@ -28,8 +28,8 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
               <Col span={18}>
                 <div className="flex flex-row items-center">
                   <img className="w-10 h-10 mr-2" src={item?.pic || ""} alt="" />
-                  <div>
-                    <div className="max-w-xs truncate">{item?.skuName ?? ""}</div>
+                  <div className="flex-grow w-0">
+                    <div className="truncate">{item?.skuName ?? ""}</div>
                     <span className="text-gray-400 text-sm">{item?.skuNo}</span>
                   </div>
                 </div>
@@ -83,6 +83,7 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
       title: 'SEQ',
       dataIndex: 'sequence',
       key: 'no',
+      width: 45,
     },
     {
       title: 'Order ID',
@@ -103,8 +104,8 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
               <Col span={18}>
                 <div className="flex flex-row items-center">
                   <img className="w-10 h-10 mr-2" src={item?.pic || ""} alt="" />
-                  <div>
-                    <div className="max-w-xs truncate">{item?.skuName ?? ""}</div>
+                  <div className="flex-grow w-0">
+                    <div className="truncate">{item?.skuName ?? ""}</div>
                     <span className="text-gray-400 text-sm">{item?.skuNo}</span>
                   </div>
                 </div>
@@ -137,6 +138,7 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
       title: 'Actions',
       dataIndex: 'ac',
       key: 'ac',
+      width: 65,
       render: (text: any, record: any) => <Tooltip title="View Order Detail"><Link to="/order/order-detail" state={{id: record?.tradeId,status: record?.tradeState?.orderState}} className="cursor-pointer iconfont icon-kjafg primary-color" /></Tooltip>
     }
   ];
