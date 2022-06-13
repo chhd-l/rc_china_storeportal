@@ -4,7 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 // import 'antd/dist/antd.min.css'
-import { BrowserRouter } from "react-router-dom"
+import { BrowserRouter, unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
+import history from '@/routers/history';
 import { ConfigProvider } from 'antd';
 import LogRocket from 'logrocket';
 import setupLogRocketReact from 'logrocket-react';
@@ -14,11 +15,11 @@ ConfigProvider.config({
 });
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <HistoryRouter history={history}>
       <ConfigProvider locale={en_US} >
         <App />
       </ConfigProvider>
-    </BrowserRouter>
+    </HistoryRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

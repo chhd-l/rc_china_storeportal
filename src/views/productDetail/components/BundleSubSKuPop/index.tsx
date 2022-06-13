@@ -13,7 +13,7 @@ interface Props {
   isModalVisible: boolean
   handleOk: Function
   setShowBundleChoose: (flag: boolean) => void
-  defaultSelected: string[]
+  defaultSelected: any[]
 }
 let allPageList: any = [] //点击请求到的所有数据
 
@@ -54,7 +54,8 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
   }, [])
   useEffect(() => {
     if (defaultSelected) {
-      setSelectedRowKeys(defaultSelected)
+      let keys = defaultSelected?.filter(el => !el.isDeleted)?.map((el: any) => el?.subGoodsVariantId || el)
+      setSelectedRowKeys(keys)
     }
   }, [defaultSelected])
   const columns: ProColumns<any>[] = [
@@ -153,14 +154,37 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
       width={800}
       onOk={() => {
         // console.info('allPageList', allPageList)
+        let pageListWidtDefault=[...allPageList,...defaultSelected]
+        debugger
+        let goodsVariantId = defaultSelected?.find(el=>el.goodsVariantId)?.goodsVariantId
         let regularChoosed = selectedRowKeys.map((el: string) => {
-          let choosedItem = allPageList.find((item: any) => item.id === el)
+          let choosedItem = pageListWidtDefault.find((item: any) => item.subGoodsVariantId === el)
           if (choosedItem) {
-            choosedItem.subGoodsVariantId = choosedItem.id
+            if(goodsVariantId){
+              choosedItem.goodsVariantId = goodsVariantId
+            }
             return choosedItem
           }
         })
-        // console.info('regularChoosed', regularChoosed)
+        let delArr=[]
+        let beforeDataSelected = defaultSelected?.filter(el=>el.id)
+        for (let item in beforeDataSelected) {
+          var found = false
+          for (let citem in regularChoosed) {
+            if (regularChoosed[citem].id === beforeDataSelected[item].id) {
+              found = true
+              break
+            }
+          }
+          if (!found) {
+            delArr.push(beforeDataSelected[item])
+          }
+        }
+        delArr?.forEach(el=>{
+          el.isDeleted=true
+        })
+        regularChoosed.push(...delArr)
+        console.info('regularChoosed', regularChoosed)
         handleOk(regularChoosed)
         handleCancel()
       }}
@@ -192,6 +216,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
         pagination={{
           pageSize: 5,
         }}
+        rowKey={record => record.subGoodsVariantId}
         rowSelection={{
           preserveSelectedRowKeys: true,
           selectedRowKeys,
@@ -230,15 +255,19 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
           let res = await getBundleGoodsvariants(paramsData)
 
           let list = (res.records || []).map((el: any) => {
-            return {
+            let bundle={
               ...el,
               brandName: '',
+              subGoodsVariantId:el.id
             }
+            delete bundle.id
+            return bundle
           })
           allPageList.unshift(...list)
           // console.info('allPageList', allPageList)
           setRegularList(list)
           // console.info('res', res)
+
           return Promise.resolve({
             data: list,
             success: true,

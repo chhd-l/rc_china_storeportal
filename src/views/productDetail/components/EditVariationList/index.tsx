@@ -389,6 +389,7 @@ const EditVariationList = (props: FormProps) => {
                                 />
                               ) : (
                                 <MyInputNumber
+                                  type='priceInput'
                                   td={td}
                                   tr={tr}
                                   val={tr[td.keyVal]}
@@ -401,22 +402,7 @@ const EditVariationList = (props: FormProps) => {
                                     updateVations(price, index, td.keyVal, tr)
                                   }}
                                 />
-                                // <InputNumber
-                                //   className='price-input text-center'
-                                //   placeholder='Input'
-                                //   type='number'
-                                //   min={'0'}
-                                //   disabled={td.keyVal === 'subscriptionPrice' && tr.subscriptionStatus === '0'}
-                                //   prefix='￥'
-                                //   precision={2}
-                                //   // formatter={value => Number(value)?.toFixed(2)}
-                                //   onBlur={e => {
-                                //     let price = Number(e.target.value).toFixed(2)
-                                //     tr[td.keyVal] = price
-                                //     updateVations(price, index, td.keyVal, tr)
-                                //   }}
-                                //   defaultValue={tr[td.keyVal]}
-                                // />
+                              
                               )
                             case 'select':
                               return (
@@ -442,16 +428,18 @@ const EditVariationList = (props: FormProps) => {
                               return td.keyVal === 'stock' && spuType === 'BUNDLE' ? (
                                 <div className='text-center'>{tr[td.keyVal]}</div>
                               ) : (
-                                <Input
-                                  className='text-center'
+                                <MyInputNumber
+                                  td={td}
+                                  tr={tr}
+                                  val={tr[td.keyVal]}
                                   type='number'
-                                  min={0}
-                                  placeholder='Input'
-                                  onBlur={e => {
+                                  onBlur={(e:any) => {
+                                    if(e.target.value<'0'){
+                                      e.target.value='0'
+                                    }
                                     tr[td.keyVal] = e.target.value
                                     updateVations(e.target.value, index, td.keyVal, tr)
                                   }}
-                                  defaultValue={tr[td.keyVal]}
                                 />
                               )
                             case 'popup':

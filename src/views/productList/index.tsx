@@ -176,7 +176,8 @@ const ProductList = () => {
               </TabPane>
             ))}
           </Tabs>
-          <Spin spinning={loading}>
+          <div className="flex justify-center w-full" style={{minHeight:'20rem'}}>
+          <Spin spinning={loading} wrapperClassName="w-full">
             <TableList
               setLoading={setLoading}
               loading={loading}
@@ -186,6 +187,7 @@ const ProductList = () => {
               pages={pages}
             />
           </Spin>
+            </div>
         </TableContainer>
       </div>
     </ContentContainer>

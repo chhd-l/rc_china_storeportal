@@ -1,4 +1,4 @@
-import { Button, Table, Tooltip, Modal, message } from 'antd'
+import { Button, Table, Tooltip, Modal, message, Avatar } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import React, { useState } from 'react'
 import { Fans } from '@/framework/types/wechat'
@@ -78,6 +78,7 @@ const Index = ({
       title: 'Avatar',
       dataIndex: 'headimgUrl',
       key: 'headimgUrl',
+      render: (text: string) => text ? <Avatar size="large" src={text} /> : null,
     },
     {
       title: 'Wechat Name',

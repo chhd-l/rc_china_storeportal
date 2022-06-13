@@ -192,7 +192,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
       params.goodsVariantsInput = [
         {
           // skuNo: 'test0001', //to do
-          isWithoutSku:true,
+          // isWithoutSku:true,
           shelvesStatus: 'true', //没有sku默认上架
           subscriptionPrice: values.subscriptionPrice,
           subscriptionStatus: values.subscriptionStatus,
@@ -206,12 +206,12 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
           goodsVariantBundleInfo: detail.goodsVariantBundleInfo?.map((el: any) => {
             let bundleInfo = {
               bundleNumber: el.bundleNumber,
-              id: el.bunldeRelId,
-              goodsVariantId: el.goodsVariantId,
-              subGoodsVariantId: el.subGoodsVariantId || detail.skuId,
+              id: el.id,
+              goodsVariantId: el.goodsVariantId || detail.skuId,
+              subGoodsVariantId: el.subGoodsVariantId ,
               skuNo: el.skuNo,
             }
-            if (!el.goodsVariantId) {
+            if (!el.goodsVariantId&&!detail.skuId) {
               delete bundleInfo.goodsVariantId
             }
             if (!el.skuNo) {

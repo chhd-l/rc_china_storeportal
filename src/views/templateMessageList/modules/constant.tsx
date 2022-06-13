@@ -24,6 +24,7 @@ export const tableColumns = ({ openDelTipModal, templateTitleList, modifyTemplat
       title: 'Template ID',
       dataIndex: 'templateId',
       order: 4,
+      fieldProps: {style: {width: '80%'}},
     },
     {
       title: 'Scenario',
@@ -41,6 +42,7 @@ export const tableColumns = ({ openDelTipModal, templateTitleList, modifyTemplat
       dataIndex: 'title',
       order: 3,
       hideInTable: true,
+      fieldProps: {style: {width: '80%'}},
       valueEnum: () => {
         let data =
           templateTitleList?.map((el: any) => {
@@ -59,6 +61,7 @@ export const tableColumns = ({ openDelTipModal, templateTitleList, modifyTemplat
       initialValue: 'all',
       order: 2,
       hideInTable: true,
+      fieldProps: {style: {width: '80%'}},
       valueEnum: {
         all: { text: 'All', status: 'Default' },
         SHIPPED: { text: 'Shipped', status: 'Default' },
