@@ -2,6 +2,7 @@ import React from 'react'
 import { Divider, Steps } from 'antd'
 import { Log } from '@/framework/types/order'
 import { handleReturnTime } from '@/utils/utils'
+import { LogEventEnum } from '@/framework/constants/subscription'
 
 const OperateLogWidget: React.FC<{ logs: Log[] }> = ({ logs }) => {
   return (
@@ -13,7 +14,7 @@ const OperateLogWidget: React.FC<{ logs: Log[] }> = ({ logs }) => {
         {logs.reverse().map((item) => (
             <Steps.Step
               key={item.id}
-              title={item.event}
+              title={LogEventEnum[item.event] ?? item.event}
               description={
                 <div className="flex justify-between w-full text-gray-400 text-sm">
                   <span>{handleReturnTime(item.createdAt)}</span>
