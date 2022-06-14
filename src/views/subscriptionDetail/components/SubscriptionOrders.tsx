@@ -60,11 +60,11 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
       title: 'Actions',
       key: 'ac',
       render: (text: any, record: any) => (
-        <div className="space-x-2">
+        <div className="space-x-2 subscription-order-action">
           {status === "ONGOING" ? <Tooltip title="Select Date">
             <DatePicker
               bordered={false}
-              className="change-next-date cursor-pointer iconfont primary-color icon-rili"
+              className="change-next-date cursor-pointer iconfont primary-color text-lg icon-rili"
               disabledDate={(current) => current < moment().startOf('day')}
               defaultValue={nextDeliveryDate ? moment(nextDeliveryDate) : undefined}
               onChange={(date: Moment | null) => {
