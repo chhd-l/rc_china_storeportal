@@ -41,7 +41,7 @@ export const menus = [
       {
         name: 'Order Setting',
         value: 'order_setting',
-        url: '/order/order-setting',
+        url: '/order-setting',
         key: 'order_setting',
       },
     ],

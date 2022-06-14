@@ -1,5 +1,5 @@
 import { Tooltip, Modal, Button, message } from 'antd'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import ShipmentModal from '../ShipmentModal'
 import { useNavigate } from 'react-router-dom'
 import { OrderStatus } from '@/framework/types/order'
@@ -33,7 +33,7 @@ const OrderActions = ({
   const navigator = useNavigate()
   const location = useLocation()
   const [userInfo] = useAtom(userAtom)
-  const [shipmentLoading,setShipmentLoading]=useState(false)
+  const [shipmentLoading, setShipmentLoading] = useState(false)
 
   const shipped = async (tradeShippingInfoInput: any) => {
     setShipmentLoading(true)
@@ -57,8 +57,6 @@ const OrderActions = ({
       message.success({ className: 'rc-message', content: 'Operation success' })
       setShipModalVisible(false)
       shipOrCompleteSuccess && shipOrCompleteSuccess()
-    } else {
-      // message.error({ className: 'rc-message', content: 'Operation failed' })
     }
     setShipmentLoading(false)
   }
@@ -96,8 +94,7 @@ const OrderActions = ({
       {orderState === OrderStatus['Toship'] && origin === 'table' ? (
         <Tooltip title="Arrange shipment">
           <span
-            className="cursor-pointer ml-2 iconfont icon-dabaodaifahuo text-theme-red"
-            style={{ fontSize: '20px' }}
+            className="cursor-pointer ml-2 iconfont icon-dabaodaifahuo text-theme-red text-20"
             onClick={() => {
               setShipModalVisible(true)
             }}
@@ -118,8 +115,7 @@ const OrderActions = ({
       {orderState === OrderStatus['Shipped'] && origin === 'table' ? (
         <Tooltip title="Completed">
           <span
-            className="cursor-pointer ml-2 iconfont icon-Order text-theme-red"
-            style={{ fontSize: '20px' }}
+            className="cursor-pointer ml-2 iconfont icon-Order text-theme-red text-20"
             onClick={() => setCompleteModalVisible(true)}
           />
         </Tooltip>
@@ -128,7 +124,6 @@ const OrderActions = ({
           <Button
             type="primary"
             className="cursor-pointer ml-2 text-white rounded-4"
-            // style={{ fontSize: '20px' }}
             onClick={() => setCompleteModalVisible(true)}
           >
             Completed

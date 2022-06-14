@@ -121,9 +121,9 @@ let routes: RouteObject[] = [
           { index: true, element: <OrderList />},
           { path: 'order-list', element: <OrderList />},
           { path: 'order-detail', element: <OrderDetail />, breadcrumbName: 'Order Detail' },
-          { path: 'order-setting', element: <OrderSetting />, breadcrumbName: 'Order Setting' },
         ],
       },
+      { path: 'order-setting', element: <OrderSetting />, breadcrumbName: 'Order Setting' },
       {
         path: 'marketingCenter',
         breadcrumbName: 'Marketing Center',
