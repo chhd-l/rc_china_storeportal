@@ -42,3 +42,18 @@ export const syncLiveStreaming = async (accountId: string) => {
     return false
   }
 }
+
+//同步部分直播
+export const syncPartLiveStreaming = async (accountId: string, roomId: any) => {
+  try {
+    if (isMock) {
+      return true
+    } else {
+      let res = await ApiRoot.liveStreams().syncPartLiveStreaming(accountId, roomId)
+      return res?.liveStreamingSyncByRoomId || false
+    }
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+}

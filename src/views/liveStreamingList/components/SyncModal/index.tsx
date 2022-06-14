@@ -2,7 +2,7 @@ import { message, Modal, Pagination, Spin, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { LiveStreaming } from '@/framework/types/liveStreaming'
 import moment from 'moment'
-import { getLiveStreamingList, syncLiveStreaming } from '@/framework/api/liveStreaming'
+import { getLiveStreamingList, syncLiveStreaming, syncPartLiveStreaming } from '@/framework/api/liveStreaming'
 import { handlePageParams } from '@/utils/utils'
 import { PageParamsProps } from '@/framework/types/common'
 import { initPageParams } from '@/lib/constants'
@@ -70,13 +70,20 @@ const SyncModal = ({
     setLoading(false)
   }
 
-  const syncLiveStreams = async () => {
+  const syncPartLiveStreams = async () => {
+    if (selectedRows.length == 0) {
+      message.warning({ className: 'rc-message', content: 'Please select at least one follower' })
+      return
+    }
     setSyncLoading(true)
-    const res = await syncLiveStreaming('000001')
+    const roomIds = selectedRows.map((item) => {
+      return item.roomId
+    })
+    const res = await syncPartLiveStreaming('000001', roomIds)
     if (res) {
       message.success({ className: 'rc-message', content: 'Synchronize success' })
+      syncSuccess && syncSuccess()
     }
-    syncSuccess && syncSuccess()
     setSyncLoading(false)
   }
 
@@ -101,7 +108,7 @@ const SyncModal = ({
         title="Synchronize Live Streaming"
         closable={false}
         onCancel={() => closeSyncModal && closeSyncModal()}
-        onOk={() => syncLiveStreams()}
+        onOk={() => syncPartLiveStreams()}
         okText="Confirm"
         confirmLoading={syncLoading}
         destroyOnClose
