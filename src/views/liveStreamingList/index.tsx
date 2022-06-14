@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { ContentContainer, DivideArea, InfoContainer, SearchContainer, TableContainer } from '@/components/ui'
-import { Button, Form, message, Modal, Pagination, Select, Spin, Tabs } from 'antd'
+import { ContentContainer, DivideArea, SearchContainer, TableContainer } from '@/components/ui'
+import { Button, Pagination, Spin, Tabs } from 'antd'
 import Search from './components/Search'
 import Table from './components/Table'
 import { LiveStreaming } from '@/framework/types/liveStreaming'
 import { liveStreamTabList } from '@/views/liveStreamingList/modules/constants'
-import { getLiveStreamingList, syncLiveStreaming } from '@/framework/api/liveStreaming'
+import { getLiveStreamingList } from '@/framework/api/liveStreaming'
 import { handleQueryParams } from '@/views/liveStreamingList/modules/handle-query-params'
 import { initSearchParams, SearchParamsProps } from './modules/constants'
 import { PageParamsProps } from '@/framework/types/common'
 import { initPageParams } from '@/lib/constants'
 import { getAccountList } from '@/framework/api/wechatSetting'
+import SyncModal from '@/views/liveStreamingList/components/SyncModal'
 
 const LiveStreamingList = () => {
   const [liveStreamingList, setLiveStreamingList] = useState<LiveStreaming[]>([])
@@ -21,7 +22,6 @@ const LiveStreamingList = () => {
   const { currentPage, pageSize } = pageParams
   const [loading, setLoading] = useState(false)
   const [syncTipModalShow, setSyncTipModalShow] = useState(false)
-  const [syncLoading, setSyncLoading] = useState(false)
   const [miniProjList, setMiniProjList] = useState([])
 
   const changePage = (page: any, pageSize: any) => {
@@ -35,17 +35,6 @@ const LiveStreamingList = () => {
     setLiveStreamingList(res.records)
     setTotal(res.total)
     setLoading(false)
-  }
-
-  const syncLiveStreams = async () => {
-    setSyncLoading(true)
-    const res = await syncLiveStreaming('000001')
-    if (res) {
-      message.success({ className: 'rc-message', content: 'Synchronize success' })
-      await getLiveStreamingLists()
-    }
-    setSyncTipModalShow(false)
-    setSyncLoading(false)
   }
 
   const getAccountName = async () => {
@@ -96,7 +85,6 @@ const LiveStreamingList = () => {
             <Tabs.TabPane tab={item.label} key={item.key} />
           ))}
         </Tabs>
-
         {loading ? (
           <div className="flex justify-center items-center h-80">
             <Spin />
@@ -116,56 +104,14 @@ const LiveStreamingList = () => {
             />
           </div>
         )}
-        <Modal
-          visible={syncTipModalShow}
-          className="rc-modal"
-          title="Synchronize Live Streaming"
-          closable={false}
-          width={400}
-          onCancel={() => setSyncTipModalShow(false)}
-          onOk={() => syncLiveStreams()}
-          okText="Confirm"
-          confirmLoading={syncLoading}
-          // footer={null}
-          // destroyOnClose
-        >
-          <div>Are you sure you want to synchronize ?</div>
-          {/*<div>Please select a mini program to synchronize</div>*/}
-          {/*<Form*/}
-          {/*  className="mt-lg"*/}
-          {/*  layout="horizontal"*/}
-          {/*  onFinish={async (values) => {*/}
-          {/*    await syncLiveStreams(values)*/}
-          {/*  }}*/}
-          {/*>*/}
-          {/*  <Form.Item*/}
-          {/*    label="Mini Program"*/}
-          {/*    name="accountId"*/}
-          {/*    rules={[*/}
-          {/*      {*/}
-          {/*        required: true,*/}
-          {/*        message: 'Please select Mini Program!',*/}
-          {/*      },*/}
-          {/*    ]}*/}
-          {/*  >*/}
-          {/*    <Select placeholder="Select Mini Program">*/}
-          {/*      {miniProjList.map((el: any) => (*/}
-          {/*        <Select.Option key={el.id}>{el.accountName}</Select.Option>*/}
-          {/*      ))}*/}
-          {/*    </Select>*/}
-          {/*  </Form.Item>*/}
-          {/*  <Form.Item>*/}
-          {/*    <div className="flex justify-end mt-lg -mb-lg">*/}
-          {/*      <Button className="mr-4 rounded-4" onClick={() => setSyncTipModalShow(false)}>*/}
-          {/*        Cancel*/}
-          {/*      </Button>*/}
-          {/*      <Button className="rounded-4" type="primary" htmlType="submit" danger loading={syncLoading}>*/}
-          {/*        Confirm*/}
-          {/*      </Button>*/}
-          {/*    </div>*/}
-          {/*  </Form.Item>*/}
-          {/*</Form>*/}
-        </Modal>
+        <SyncModal
+          closeSyncModal={() => setSyncTipModalShow(false)}
+          syncTipModalShow={syncTipModalShow}
+          syncSuccess={async () => {
+            setSyncTipModalShow(false)
+            await getLiveStreamingLists()
+          }}
+        />
       </TableContainer>
     </ContentContainer>
   )
