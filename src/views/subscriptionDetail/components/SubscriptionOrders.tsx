@@ -29,7 +29,7 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
               <Col span={18}>
                 <div className="flex flex-row items-center">
                   <img className="w-10 h-10 mr-2" src={item?.pic || ""} alt="" />
-                  <div className="flex-grow w-0">
+                  <div className="mr-2">
                     <div className="truncate">{item?.skuName ?? ""}</div>
                     <span className="text-gray-400 text-sm">{item?.skuNo}</span>
                   </div>

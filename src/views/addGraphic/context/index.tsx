@@ -49,6 +49,7 @@ export function transArticleList(articleList: Article[]): any {
   return articleList.map((article) => ({
     id: article.id,
     title: article.title,
+    type:article.type,
     thumbMediaId: article.thumbMedia.assetId,
     thumbUrl: article.thumbMedia.assetLink,
     thumbPic: article.thumbMedia.picture,

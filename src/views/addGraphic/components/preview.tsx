@@ -36,7 +36,7 @@ const Preview: React.FC<IProps> = ({ onValidate }) => {
    let arr = asset.articleList.map((item:any)=>{
       return{
         ...item,
-        type:'news',
+        type:item.type,
         thumbMedia:{
           assetId: item.thumbMediaId,
           assetLink: item.thumbUrl,
