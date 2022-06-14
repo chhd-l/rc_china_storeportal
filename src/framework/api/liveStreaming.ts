@@ -28,6 +28,30 @@ export const getLiveStreamingList = async (parma: any) => {
   }
 }
 
+//获取实时的直播列表
+export const getLiveStreamingOnlineList = async (parma: any) => {
+  try {
+    if (isMock) {
+      return {
+        total: 100,
+        records: Mock.mock(liveStreamMockData).array,
+      }
+    } else {
+      let res = await ApiRoot.liveStreams().getLiveStreamingOnlineList(parma)
+      return {
+        total: res?.liveStreamingFindOnLivePage?.total || 0,
+        records: res?.liveStreamingFindOnLivePage?.records || [],
+      }
+    }
+  } catch (e) {
+    console.log(e)
+    return {
+      total: 0,
+      records: [],
+    }
+  }
+}
+
 //同步直播列表
 export const syncLiveStreaming = async (accountId: string) => {
   try {
@@ -44,12 +68,12 @@ export const syncLiveStreaming = async (accountId: string) => {
 }
 
 //同步部分直播
-export const syncPartLiveStreaming = async (accountId: string, roomId: any) => {
+export const syncPartLiveStreaming = async (liveStreamingInput:any) => {
   try {
     if (isMock) {
       return true
     } else {
-      let res = await ApiRoot.liveStreams().syncPartLiveStreaming(accountId, roomId)
+      let res = await ApiRoot.liveStreams().syncPartLiveStreaming(liveStreamingInput)
       return res?.liveStreamingSyncByRoomId || false
     }
   } catch (e) {

@@ -2,10 +2,11 @@ import { message, Modal, Pagination, Spin, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { LiveStreaming } from '@/framework/types/liveStreaming'
 import moment from 'moment'
-import { getLiveStreamingList, syncLiveStreaming, syncPartLiveStreaming } from '@/framework/api/liveStreaming'
+import { getLiveStreamingOnlineList, syncPartLiveStreaming } from '@/framework/api/liveStreaming'
 import { handlePageParams } from '@/utils/utils'
 import { PageParamsProps } from '@/framework/types/common'
 import { initPageParams } from '@/lib/constants'
+import _ from 'lodash'
 
 const SyncModal = ({
   syncTipModalShow,
@@ -62,9 +63,9 @@ const SyncModal = ({
     },
   ]
 
-  const getLiveStreamingLists = async () => {
+  const getLiveStreamingLists = async (queryPageParams = pageParams) => {
     setLoading(true)
-    const res = await getLiveStreamingList({ ...handlePageParams(pageParams), isNeedTotal: true })
+    const res = await getLiveStreamingOnlineList({ ...handlePageParams(queryPageParams) })
     setLiveStreamingList(res.records)
     setTotal(res.total)
     setLoading(false)
@@ -76,10 +77,10 @@ const SyncModal = ({
       return
     }
     setSyncLoading(true)
-    const roomIds = selectedRows.map((item) => {
-      return item.roomId
+    const liveStreamingInput = selectedRows.map((item) => {
+      return _.omit(item, ['id', 'createdAt', 'accountPrincipal','accountName'])
     })
-    const res = await syncPartLiveStreaming('000001', roomIds)
+    const res = await syncPartLiveStreaming(liveStreamingInput)
     if (res) {
       message.success({ className: 'rc-message', content: 'Synchronize success' })
       syncSuccess && syncSuccess()
@@ -89,11 +90,8 @@ const SyncModal = ({
 
   const changePage = (page: any, pageSize: any) => {
     setPageParams({ currentPage: page, pageSize: pageSize })
+    getLiveStreamingLists({ currentPage: page, pageSize: pageSize })
   }
-
-  useEffect(() => {
-    getLiveStreamingLists()
-  }, [pageParams])
 
   useEffect(() => {
     getLiveStreamingLists()
@@ -123,7 +121,7 @@ const SyncModal = ({
             <Table
               dataSource={liveStreamingList}
               columns={columns}
-              rowKey="id"
+              rowKey="roomId"
               className="rc-table"
               pagination={false}
               rowSelection={{
