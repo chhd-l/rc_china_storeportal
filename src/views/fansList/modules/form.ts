@@ -3,7 +3,7 @@ import { SearchFormItemProps } from "@/framework/types/common";
 export const formItems: SearchFormItemProps[] = [
   {
     label: "Wechat Name",
-    name: "nickname",
+    name: "name",
     placeholder: "Input",
   },
   {

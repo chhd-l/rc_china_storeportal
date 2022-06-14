@@ -44,6 +44,7 @@ const NewGraphic: React.FC = () => {
   }
 
   const handleValidate: () => Promise<boolean> = () => {
+    console.log(article,2222222)
     if (!article?.thumbMedia?.assetId) {
       message.warn({className:"rc-message", content: "Please upload thumbnail picture!"});
       return Promise.resolve(false);
@@ -64,7 +65,9 @@ const NewGraphic: React.FC = () => {
   const handleSave = async () => {
     const success = await handleValidate();
     if (success) {
+      console.log(articleList,999)
       const param = transArticleList(articleList);
+      console.log(param,8888)
       setLoading(true);
       const res = await addArticle(param);
       setLoading(false);
@@ -113,7 +116,7 @@ const NewGraphic: React.FC = () => {
             <div className="mt-4 text-right space-x-4">
               <Button disabled={loading}onClick={() => navigator("/assets/assets-management", { state: "news" })} >Cancel</Button>
               <Button loading={loading} type="primary" onClick={handleSave}>Save</Button>
-              <Button loading={loading} type="primary" onClick={handleSaveAndSync}>Save and Synchronous</Button>
+              <Button loading={loading} type="primary" onClick={handleSaveAndSync}>Save and Synchronize</Button>
             </div>
           </div>
         </div>
