@@ -39,6 +39,9 @@ const CommentWidget: React.FC<IProps> = ({ comments, defaultParam, handleUpsertC
         isDeleted: true,
       }
     });
+    form.resetFields();
+    setCurComment({});
+    setCurType("add");
     setLoading(false)
   }
 
