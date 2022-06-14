@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { ContentContainer, DivideArea, SearchContainer, TableContainer } from '@/components/ui'
-import { Button, Pagination, Spin, Tabs } from 'antd'
+import { Button, message, Modal, Pagination, Spin, Tabs } from 'antd'
 import Search from './components/Search'
 import Table from './components/Table'
 import { LiveStreaming } from '@/framework/types/liveStreaming'
 import { liveStreamTabList } from '@/views/liveStreamingList/modules/constants'
-import { getLiveStreamingList } from '@/framework/api/liveStreaming'
+import { getLiveStreamingList, syncLiveStreaming } from '@/framework/api/liveStreaming'
 import { handleQueryParams } from '@/views/liveStreamingList/modules/handle-query-params'
 import { initSearchParams, SearchParamsProps } from './modules/constants'
 import { PageParamsProps } from '@/framework/types/common'
@@ -23,6 +23,8 @@ const LiveStreamingList = () => {
   const [loading, setLoading] = useState(false)
   const [syncTipModalShow, setSyncTipModalShow] = useState(false)
   const [miniProjList, setMiniProjList] = useState([])
+  const [showSyncAllModal, setShowSyncAllModal] = useState(false)
+  const [syncAllLoading, setSyncAllLoading] = useState(false)
 
   const changePage = (page: any, pageSize: any) => {
     setPageParams({ currentPage: page, pageSize: pageSize })
@@ -35,6 +37,17 @@ const LiveStreamingList = () => {
     setLiveStreamingList(res.records)
     setTotal(res.total)
     setLoading(false)
+  }
+
+  const syncLiveStreams = async () => {
+    setSyncAllLoading(true)
+    const res = await syncLiveStreaming('000001')
+    if (res) {
+      message.success({ className: 'rc-message', content: 'Synchronize success' })
+      await getLiveStreamingLists()
+    }
+    setSyncAllLoading(false)
+    setShowSyncAllModal(false)
   }
 
   const getAccountName = async () => {
@@ -75,10 +88,16 @@ const LiveStreamingList = () => {
             setPageParams({ ...pageParams, currentPage: 1 })
           }}
           tabBarExtraContent={
-            <Button className="flex items-center rounded-4" onClick={() => setSyncTipModalShow(true)}>
-              <span className="iconfont icon-bianzu2 mr-2" />
-              Synchronize
-            </Button>
+            <div className="flex flex-row">
+              <Button className="flex items-center rounded-4 mr-md" onClick={() => setShowSyncAllModal(true)}>
+                <span className="iconfont icon-bianzu2 mr-2" />
+                Synchronize All
+              </Button>
+              <Button className="flex items-center rounded-4" onClick={() => setSyncTipModalShow(true)}>
+                <span className="iconfont icon-bianzu2 mr-2" />
+                Partial Sync
+              </Button>
+            </div>
           }
         >
           {liveStreamTabList.map((item) => (
@@ -104,14 +123,29 @@ const LiveStreamingList = () => {
             />
           </div>
         )}
-        <SyncModal
-          closeSyncModal={() => setSyncTipModalShow(false)}
-          syncTipModalShow={syncTipModalShow}
-          syncSuccess={async () => {
-            setSyncTipModalShow(false)
-            await getLiveStreamingLists()
-          }}
-        />
+        <Modal
+          visible={showSyncAllModal}
+          className="rc-modal"
+          title="Synchronize Live Streaming"
+          closable={false}
+          width={400}
+          onCancel={() => setShowSyncAllModal(false)}
+          onOk={() => syncLiveStreams()}
+          okText="Confirm"
+          confirmLoading={syncAllLoading}
+        >
+          <div>Are you sure you want to synchronize ?</div>
+        </Modal>
+        {syncTipModalShow ? (
+          <SyncModal
+            closeSyncModal={() => setSyncTipModalShow(false)}
+            syncTipModalShow={syncTipModalShow}
+            syncSuccess={async () => {
+              setSyncTipModalShow(false)
+              await getLiveStreamingLists()
+            }}
+          />
+        ) : null}
       </TableContainer>
     </ContentContainer>
   )
