@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "577357",
+      "name": "删除",
+      "font_class": "shanchu1",
+      "unicode": "e74b",
+      "unicode_decimal": 59211
+    },
+    {
       "icon_id": "30211440",
       "name": "返回-顶部",
       "font_class": "fanhui-dingbu",
@@ -582,14 +589,14 @@
     {
       "icon_id": "29688849",
       "name": "卡片",
-      "font_class": "kapian",
+      "font_class": "pet_choose",
       "unicode": "e643",
       "unicode_decimal": 58947
     },
     {
       "icon_id": "29688848",
       "name": "现金",
-      "font_class": "xianjin",
+      "font_class": "Pet_dischoose",
       "unicode": "e642",
       "unicode_decimal": 58946
     },
