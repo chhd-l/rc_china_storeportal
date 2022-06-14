@@ -1,17 +1,21 @@
 import React from 'react';
 import { Dropdown, Menu, message } from 'antd';
 import { GraphicContext, createDefaultArticle, moveArticleList } from "../context";
-import { openConfirmModal } from "@/utils/utils";
+import { openConfirmModal, uuid } from '@/utils/utils'
 import _ from 'lodash';
+import AssetsModal from './existing'
+import { useState, useEffect } from "react";
+import { Asset } from '@/framework/types/wechat'
 
 interface IProps {
   onValidate: () => Promise<boolean>
 }
 
 const Preview: React.FC<IProps> = ({ onValidate }) => {
+  const [visible, setVisible] = useState(false);
   const { articleList, currentArticleId, setCurrentArticleId, setArticleList } = React.useContext(GraphicContext);
 
-  const handleCreateNewMessage = (type: "image" | "voice" | "video" | "news") => {
+  const handleCreateNewMessage = (type: "image" | "voice" | "video" | "news" ) => {
     onValidate().then(success => {
       if (success) {
         const newArticle = createDefaultArticle(type);
@@ -19,9 +23,34 @@ const Preview: React.FC<IProps> = ({ onValidate }) => {
         setArticleList(_.cloneDeep(articleList));
         setCurrentArticleId(newArticle.id);
       }
-    })    
+    })
   }
-
+  const handleCreateNewExisting = () => {
+    if(articleList?.length<9){
+      setVisible(true);
+    }
+  }
+  const handleAssetChosen = (asset:any) => {
+    setVisible(false);
+    console.log(asset)
+   let arr = asset.articleList.map((item:any)=>{
+      return{
+        ...item,
+        type:'news',
+        thumbMedia:{
+          assetId: item.thumbMediaId,
+          assetLink: item.thumbUrl,
+          graphic:item.thumbPic ,
+          id:asset.id ,
+          picture: item.thumbPic,
+          video:item.thumbPic ,
+          voice: item.thumbPic,
+        }
+      }
+    })
+    articleList.unshift(...arr)
+    setArticleList(_.cloneDeep(articleList));
+  }
   const handleSelectMessage = async (id: string) => {
     const check = await onValidate();
     if (check) {
@@ -30,6 +59,7 @@ const Preview: React.FC<IProps> = ({ onValidate }) => {
   } 
 
   const handleDeleteMessage = () => {
+    console.log(articleList, currentArticleId)
     const _articleList = articleList.filter(art => art.id !== currentArticleId);
     setArticleList(_.cloneDeep(_articleList));
     setCurrentArticleId(_articleList[0].id);
@@ -58,12 +88,15 @@ const Preview: React.FC<IProps> = ({ onValidate }) => {
         <div onClick={() => handleCreateNewMessage("news")}>New graphic</div>
       </Menu.Item>
       <Menu.Item key="1">
-        <div onClick={() => handleCreateNewMessage("image")}>Picture message</div>
+        <div onClick={() => handleCreateNewExisting()}>Select an existing graphic</div>
       </Menu.Item>
       <Menu.Item key="2">
-        <div onClick={() => handleCreateNewMessage("voice")}>Voice message</div>
+        <div onClick={() => handleCreateNewMessage("image")}>Picture message</div>
       </Menu.Item>
       <Menu.Item key="3">
+        <div onClick={() => handleCreateNewMessage("voice")}>Voice message</div>
+      </Menu.Item>
+      <Menu.Item key="4">
         <div onClick={() => handleCreateNewMessage("video")}>Video message</div>
       </Menu.Item>
     </Menu>
@@ -90,6 +123,13 @@ const Preview: React.FC<IProps> = ({ onValidate }) => {
         {articleIdx < articleList.length - 1 ? <div className="cursor-pointer" onClick={() => handleMoveArticle("down")}><span className="iconfont icon-Frame-31 text-xl"></span></div> : null}
         {articleList.length > 1 ? <div className="cursor-pointer" onClick={confirmDelete}><span className="iconfont icon-delete text-xl" /></div> : null}
       </div>
+      <AssetsModal
+        assetType="news"
+        visible={visible}
+        onlySync={true}
+        onCancel={() => setVisible(false)}
+        onConfirm={handleAssetChosen}
+      />
     </div>
   )
 }
