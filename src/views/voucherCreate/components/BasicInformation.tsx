@@ -1,10 +1,10 @@
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
-import { Typography, Form, Input, DatePicker, Upload, Image, message, Select } from 'antd'
-import Finishedproductdisplay from './Finishedproductdisplay'
-import { useState } from 'react'
-import moment from 'moment'
-import { RcFile } from 'antd/lib/upload'
 import { UPLOAD_API_URL } from '@/framework/api/fetcher'
+import { DeleteOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons'
+import { DatePicker, Form, Image, Input, message, Select, Typography, Upload } from 'antd'
+import { RcFile } from 'antd/lib/upload'
+import moment from 'moment'
+import { useState } from 'react'
+import Finishedproductdisplay from './Finishedproductdisplay'
 const { Title } = Typography
 const { RangePicker } = DatePicker
 
@@ -115,7 +115,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
     }
     return isLt1M
   }
-  
+
   return (
     <div className="bg-white px-6 pt-6 relative BasicInformation">
       <Title className="mb-8" level={4}>
@@ -257,35 +257,56 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
           ]}
         />
       </Form.Item>
-      <Form.Item label="Voucher Image" className="Uploader m-0" wrapperCol={{ span: 'auto' }}>
-        <div className="flex items-center">
-          <Form.Item
-            name="Image"
-            className="m-0"
-            wrapperCol={{ span: 'auto' }}
-          >
-            <Upload
-              listType="picture-card"
-              accept="image/*"
-              disabled={Edit}
-              beforeUpload={beforeUpload}
-              showUploadList={false}
-              action={UPLOAD_API_URL}
-              headers={{
-                authorization: 'authorization-text',
-              }}
-              className={imageUrl ? 'imgUploadNoBorder' : 'imgUploadBorder'}
-              style={{ backgroundColor: '#51ACF5', width: '100px' }}
-              onChange={handleChange}
-            >
-              {loading ? <LoadingOutlined /> : imageUrl ? <Image src={imageUrl} preview={false} /> : uploadButton}
-            </Upload>
-          </Form.Item>
-          <div className="text-gray-400">
-            <div>The recommended size for images is 100px * 100px.</div>
-            <div className="mt-1">Image size should not exceed 1M.</div>
+      <Form.Item
+        label="Voucher Image"
+        className="Uploader m-0"
+        wrapperCol={{ span: 'auto' }}
+        shouldUpdate={(prevValues, curValues) => prevValues.Image !== curValues.Image}
+      >
+        {({ setFieldsValue }) => (
+          <div className="flex items-center">
+            <Form.Item name="Image" className="m-0" wrapperCol={{ span: 'auto' }}>
+              <Upload
+                listType="picture-card"
+                accept="image/*"
+                disabled={Edit}
+                beforeUpload={beforeUpload}
+                showUploadList={false}
+                action={UPLOAD_API_URL}
+                headers={{
+                  authorization: 'authorization-text',
+                }}
+                className={imageUrl ? 'imgUploadNoBorder' : 'imgUploadBorder'}
+                style={{ backgroundColor: '#51ACF5', width: '100px' }}
+                onChange={handleChange}
+              >
+                {loading ? (
+                  <LoadingOutlined />
+                ) : imageUrl ? (
+                  <div className="relative h-full imgHoverMeDelet overflow-hidden">
+                    <Image src={imageUrl} preview={false} />
+                    <div
+                      className="w-full absolute flex items-center justify-center imgDelete"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setImageUrl('')
+                        setFieldsValue({ Image: '' })
+                      }}
+                    >
+                      <i className='iconfont icon-shanchu1 text-white' />
+                    </div>
+                  </div>
+                ) : (
+                  uploadButton
+                )}
+              </Upload>
+            </Form.Item>
+            <div className="text-gray-400">
+              <div>The recommended size for images is 100px * 100px.</div>
+              <div className="mt-1">Image size should not exceed 1M.</div>
+            </div>
           </div>
-        </div>
+        )}
       </Form.Item>
       <Finishedproductdisplay />
     </div>
