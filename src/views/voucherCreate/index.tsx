@@ -127,7 +127,6 @@ const CreateNewVoucher = () => {
                       delete v[key]
                     }
                   }
-                  console.log('v',v)
                   let res = undefined
                   if (!state) {
                     v.voucherStatus = 'Upcoming'
