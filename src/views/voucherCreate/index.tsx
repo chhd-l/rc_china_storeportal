@@ -127,21 +127,20 @@ const CreateNewVoucher = () => {
                       delete v[key]
                     }
                   }
-                  console.log('v',v)
-                  // let res = undefined
-                  // if (!state) {
-                  //   v.voucherStatus = 'Upcoming'
-                  //   res = await createVoucher(v)
-                  // } else {
-                  //   delete v.isDeleted
-                  //   res = await updateVoucher(v)
-                  // }
-                  // if (!res) {
-                  //   throw new Error()
-                  // }
-                  // setSpinning(false)
-                  // message.success({ className: 'rc-message', content: 'Operation success' })
-                  // navigator('/marketingCenter/vouchers')
+                  let res = undefined
+                  if (!state) {
+                    v.voucherStatus = 'Upcoming'
+                    res = await createVoucher(v)
+                  } else {
+                    delete v.isDeleted
+                    res = await updateVoucher(v)
+                  }
+                  if (!res) {
+                    throw new Error()
+                  }
+                  setSpinning(false)
+                  message.success({ className: 'rc-message', content: 'Operation success' })
+                  navigator('/marketingCenter/vouchers')
                 } catch (err) {
                   console.log('err',err)
                   setSpinning(false)

@@ -1,5 +1,5 @@
 import { UPLOAD_API_URL } from '@/framework/api/fetcher'
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
+import { DeleteOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import { DatePicker, Form, Image, Input, message, Select, Typography, Upload } from 'antd'
 import { RcFile } from 'antd/lib/upload'
 import moment from 'moment'
@@ -286,14 +286,14 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
                   <div className="relative h-full imgHoverMeDelet overflow-hidden">
                     <Image src={imageUrl} preview={false} />
                     <div
-                      className="w-full absolute bottom-0 flex items-center justify-center imgDelete"
+                      className="w-full absolute flex items-center justify-center imgDelete"
                       onClick={(e) => {
                         e.stopPropagation()
                         setImageUrl('')
                         setFieldsValue({ Image: '' })
                       }}
                     >
-                      <PlusOutlined style={{ color: '#fff' }} />
+                      <i className='iconfont icon-shanchu1 text-white' />
                     </div>
                   </div>
                 ) : (
