@@ -179,7 +179,7 @@ const Index = ({
               page,
               limit: pageSize,
             })
-            getFanList(page, pageSize)
+            getFanList(page, pageSize,'page')
           },
         }}
       />
