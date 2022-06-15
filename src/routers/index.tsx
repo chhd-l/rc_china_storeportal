@@ -99,6 +99,13 @@ let routes: RouteObject[] = [
           { path: 'pet-owner-list', element: <PetOwnerList />},
           { path: 'pet-owner-detail', element: <PetOwnerDetail />, breadcrumbName: 'Pet Owner Detail' },
           { path: 'pet-detail', element: <PetDetail />, breadcrumbName: 'Pet Detail' },
+        ],
+      },
+      {
+        path: 'tag',
+        breadcrumbName: 'My Pet Owner',
+        children: [
+          { index: true, element: <TagList />},
           { path: 'tag-list', index: true, element: <TagList />, breadcrumbName: 'Tagging Setting' },
           { path: 'edit-tags', element: <EditTags />, breadcrumbName: 'Tagging Details' },
         ],

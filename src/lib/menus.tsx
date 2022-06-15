@@ -98,7 +98,7 @@ export const menus = [
       {
         name: 'Tagging Setting',
         value: 'tagging_setting',
-        url: '/petOwner/tag-list',
+        url: '/tag/tag-list',
         key: 'tagging_setting',
       },
     ],
