@@ -93,12 +93,18 @@ export const checkWxMenus: (wxMenus: WxMenuItem[]) => boolean = (wxMenus) => {
 export const filterWxMenus: (wxMenus: WxMenuItem[]) => WxMenuItem[] = (wxMenus) => {
   wxMenus.forEach(item => {
     item.active = undefined;
+    //微信api更新，需要将news类型的responst，修改type为article_id, 然后字段media_id修改成article_id
+    if (item.type === "media_id" && item.rc_preview_type === "news") {
+      item.type = "article_id";
+      item.article_id = item.media_id;
+      item.media_id = undefined;
+    }
     (Object.keys(item) as Array<keyof WxMenuItem>).forEach((key: keyof WxMenuItem) => {
       if (key.startsWith('rc_preview')) {
         delete item[key]
       }
     });
-    if (item.type === "media_id") {
+    if (item.type === "media_id" || item.type === "article_id") {
       item.url = undefined;
       item.appid = undefined;
       item.pagepath = undefined;

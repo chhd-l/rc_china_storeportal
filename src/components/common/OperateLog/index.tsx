@@ -5,13 +5,15 @@ import { handleReturnTime } from '@/utils/utils'
 import { LogEventEnum } from '@/framework/constants/subscription'
 
 const OperateLogWidget: React.FC<{ logs: Log[] }> = ({ logs }) => {
+  const subscriptionLogs = logs.slice().reverse()
+
   return (
     <div>
       <Divider>
         <span>Operation log</span>
       </Divider>
       <Steps direction="vertical" current={0}>
-        {logs.reverse().map((item) => (
+        {subscriptionLogs.map((item) => (
             <Steps.Step
               key={item.id}
               title={LogEventEnum[item.event] ?? item.event}
