@@ -44,7 +44,10 @@ const NewGraphic: React.FC = () => {
   }
 
   const handleValidate: () => Promise<boolean> = () => {
-    console.log(article,2222222)
+    if(article?.type === "news"){
+      var regular = /^(https?:\/\/)?-((\w+)+(\.\w+)*)-((\.[a-z]+)*)-((\/\w+)*)-(\?\w+\=([\w\u4e00-\u9fa5!@#\$%\^&\*\(\)_\+]+)(&\w+\=([\w\u4e00-\u9fa5!@#\$%\^&\*\(\)_\+]+))*)?-(#\w+)?$/
+      console.log(regular.test(article.contentSourceURL))
+    }
     if (!article?.thumbMedia?.assetId) {
       message.warn({className:"rc-message", content: "Please upload thumbnail picture!"});
       return Promise.resolve(false);
@@ -52,6 +55,10 @@ const NewGraphic: React.FC = () => {
     if (article.type !== "news" && !article.imageList?.length && !article.video?.assetId && !article.voice?.assetId) {
       message.warn({className:"rc-message", content: "Please upload associate asset!"});
       return Promise.resolve(false);
+    }
+    if(article.type === "news"){
+      var regular = /^\b(((https?|ftp):\/\/)?[-a-z0-9]+(\.[-a-z0-9]+)*\.(?:com|edu|gov|int|mil|net|org|biz|info|name|museum|asia|coop|aero|[a-z][a-z]|((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]\d)|\d))\b(\/[-a-z0-9_:\@&?=+,.!\/~%\$]*)?)$/
+      console.log(article)
     }
     return new Promise((resolve) => {
       formRef.current?.form?.validateFields().then(() => {
