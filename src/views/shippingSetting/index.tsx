@@ -66,7 +66,7 @@ const ShippingSetting = () => {
             <div className="flex items-center">
               <Switch checked={logisticsIntegration?.isEnabled || false} onClick={() => setStatusModalTip(true)} />
               <span
-                className="iconfont icon-a-Group437 primary-color ml-4 edit"
+                className="iconfont icon-a-Group437 primary-color ml-4 edit hover:cursor-pointer"
                 onClick={() => {
                   setShipModalVisible(true)
                 }}

@@ -99,7 +99,7 @@ const TableRow = ({
         {spu.showAll === true && spu.skus?.length > 3 ? (
           <ShowMoreButton listData={listData} spuIdx={spuIdx} list={list} setList={setList}>
             <div className='flex items-center'>
-              hide <UpOutlined  className='ml-2'/>
+              Hide <UpOutlined  className='ml-2'/>
             </div>
           </ShowMoreButton>
         ) : null}
