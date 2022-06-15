@@ -14,7 +14,6 @@ const NewVoice = React.forwardRef((props, ref) => {
   const formValueChange = (changedValue: any) => {
     onChangeFieldValue(changedValue);
   }
-
   return (
     <div>
       <div className="p-4 bg-white">

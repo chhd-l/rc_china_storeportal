@@ -31,7 +31,18 @@ const NewPicture = React.forwardRef((props, ref) => {
     imageList.push(asset);
     onChangeFieldValue({ imageList: imageList });
   }
-  
+
+  if(article?.content){
+    var srcReg = /https:[\'\"]?([^\'\"]*)[\']?/gi;//获取所有src的正则表达式
+    var arr2 = article?.content.match(srcReg);//arr2 为包含所有src标签的数组
+    console.log(arr2)
+    article.imageList=arr2?.map((item=> {
+      return{
+        picture:item
+      }
+    }))
+  }
+
   return (
     <div>
       <div className="p-4 bg-white">
