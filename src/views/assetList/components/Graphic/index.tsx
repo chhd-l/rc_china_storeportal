@@ -98,7 +98,8 @@ const Graphic = ({
 
   useEffect(() => {
     if (isReload) {
-      getMediaList({})
+      //getMediaList({})
+      changePage(1, pageParams.pageSize)
     }
   }, [isReload])
 

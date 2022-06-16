@@ -73,7 +73,7 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
           <Tooltip title='View Details'>
             <a className='mr-4' href='' onClick={(e) => {
               e.stopPropagation()
-              navigator('/petOwner/edit-tags', {
+              navigator('/tag/edit-tags', {
                 state: { id: record.id },
               })
             }} >

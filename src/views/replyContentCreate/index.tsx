@@ -43,7 +43,7 @@ const AddAccount = () => {
     form.setFieldsValue({
       assetTitle: reply?.title ?? '',
       type: reply?.responseType ?? undefined,
-      description: reply?.description ?? undefined,
+      description: reply?.responseDescribe ?? undefined,
       assetId: reply?.mediaId ?? undefined,
       message: reply?.messageContent ?? undefined,
     });
