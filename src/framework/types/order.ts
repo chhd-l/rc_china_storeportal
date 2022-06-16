@@ -1,18 +1,18 @@
-import { Address, Customer } from './customer'
+import { Address, Consumer } from './consumer'
 
 export interface Order {
   id: string
   orderNumber: string
-  tradeItem: OrderTradeItem[] | [] //对应后端lineItem
-  tradeState: TradeState
+  orderItem: OrderOrderItem[] | [] //对应后端lineItem
+  orderState: OrderState
   carrierType?: string //后端未定义这个字段
-  tradePrice: TradePrice
+  orderPrice: OrderPrice
   payInfo?: PayInfo
   subscriptionId?: string
   subscriptionNo?:string
   freshType?:string
   shippingAddress?: Address | any
-  buyer?: Customer | any
+  buyer?: Consumer | any
   carrier?: Carrier[]
   logs: Log[]
   comments: Comment[]
@@ -41,7 +41,7 @@ export interface Log {
 export interface Carrier {
   packId: string
   company: string
-  tradeItem: OrderTradeItem[]
+  orderItem: OrderOrderItem[]
   deliveries?: Deliveries[]
 }
 
@@ -57,27 +57,27 @@ export interface PayInfo {
   payTypeName: string
   appId: string
   payTime: string
-  outTradeNo: string
+  outOrderNo: string
   payWayOrderID?: string
   payWayCode?: string
 }
 
-export interface TradeState {
+export interface OrderState {
   orderState: string
 }
 
-export interface TradePrice {
-  goodsPrice: number
+export interface OrderPrice {
+  productPrice: number
   deliveryPrice: number
   totalPrice: number
   discountsPrice: number
 }
 
-export interface OrderTradeItem {
+export interface OrderOrderItem {
   skuId: string
   pic: string
   skuName: string
-  goodsSpecifications?: string
+  productSpecifications?: string
   size?: string //为符合原型展示定义的字段
   color?: string //为符合原型展示定义的字段
   num: number
@@ -121,7 +121,7 @@ export interface LogisticsIntegration {
   remark: string
   storeId: string
   key: string
-  customer: string
+  consumer: string
   pullUrl: string
   queryUrl: string
   callbackUrl: string

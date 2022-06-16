@@ -35,10 +35,10 @@ const OrderActions = ({
   const [userInfo] = useAtom(userAtom)
   const [shipmentLoading, setShipmentLoading] = useState(false)
 
-  const shipped = async (tradeShippingInfoInput: any) => {
+  const shipped = async (orderShippingInfoInput: any) => {
     setShipmentLoading(true)
     let params = {
-      tradeShippingInfoInput: tradeShippingInfoInput,
+      orderShippingInfoInput: orderShippingInfoInput,
       address: _.omit(orderAddress, ['isDefault', 'postCode']),
       orderNum: orderId,
       nowOrderState: orderState,

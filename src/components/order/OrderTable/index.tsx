@@ -1,6 +1,6 @@
 import { Avatar, Col, Empty, Row, Select } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { CarrierType, Order, OrderTradeItem } from '@/framework/types/order'
+import { CarrierType, Order, OrderOrderItem } from '@/framework/types/order'
 import { orderStatusType } from '@/framework/constants/order'
 import OrderActions from '../OrderActions'
 import './index.less'
@@ -101,9 +101,9 @@ const OrderTable = ({
             </Row>
             <Row className="p-2 flex items-start">
               <Col span={10} className="flex flex-col justify-start">
-                {item.tradeItem.map((product: OrderTradeItem, index: number) => (
+                {item.orderItem.map((product: OrderOrderItem, index: number) => (
                   <Row
-                    className={`${index !== item.tradeItem.length - 1 ? ' mb-1 pb-2' : ''} items-start`}
+                    className={`${index !== item.orderItem.length - 1 ? ' mb-1 pb-2' : ''} items-start`}
                     key={product.skuId}
                   >
                     <Col span={6}>
@@ -112,13 +112,13 @@ const OrderTable = ({
                     <Col span={16}>
                       <Row
                         className={`${
-                          item.tradeItem.length > 1 && index !== item.tradeItem.length - 1 ? 'border-b h-20 pb-2' : ''
+                          item.orderItem.length > 1 && index !== item.orderItem.length - 1 ? 'border-b h-20 pb-2' : ''
                         }`}
                       >
                         <Col span={20}>
                           <span>{product.skuName}</span>
                           <br />
-                          {product.isGift ? null : <span className="text-gray-400 text-sm">Variation:{product.goodsSpecifications}</span>}
+                          {product.isGift ? null : <span className="text-gray-400 text-sm">Variation:{product.productSpecifications}</span>}
                         </Col>
                         <Col span={4} className="items-start text-left">
                           x{product.num}
@@ -130,13 +130,13 @@ const OrderTable = ({
               </Col>
               <Col span={4} className="text-left">
                 <div>
-                  {formatMoney(item.tradePrice.totalPrice)}
+                  {formatMoney(item.orderPrice.totalPrice)}
                   <br />
                   <span className="text-gray-400 ">{item?.payInfo?.payTypeName}</span>
                 </div>
               </Col>
               <Col span={origin !== 'voucher' ? 4 : 6} className="text-left">
-                <div>{orderStatusType[item.tradeState.orderState]}</div>
+                <div>{orderStatusType[item.orderState.orderState]}</div>
               </Col>
               {origin !== 'voucher' ? (
                 <Col span={4} className="text-left">
@@ -145,7 +145,7 @@ const OrderTable = ({
               ) : null}
               <Col span={origin !== 'voucher' ? 2 : 4} className="text-left">
                 <OrderActions
-                  orderState={item.tradeState.orderState}
+                  orderState={item.orderState.orderState}
                   orderId={item.id}
                   subscriptionId={item.subscriptionId}
                   orderAddress={item.shippingAddress}

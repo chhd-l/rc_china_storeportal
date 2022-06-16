@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { TradeItem, Progress, Address, Carrier, OperationLog, Comment, Customer, Payment } from './components'
+import { OrderItem, Progress, Address, Carrier, OperationLog, Comment, Consumer, Payment } from './components'
 import { useLocation } from 'react-router-dom'
 import { initOrderDetail } from './modules/constants'
 import { ContentContainer, InfoContainer, DivideArea } from '@/components/ui'
@@ -13,11 +13,11 @@ const OrderDetail = () => {
   const {
     subscriptionNo,
     subscriptionId,
-    tradeState,
+    orderState,
     shippingAddress,
     buyer,
-    tradeItem,
-    tradePrice,
+    orderItem,
+    orderPrice,
     carrier,
     payInfo,
     logs,
@@ -51,7 +51,7 @@ const OrderDetail = () => {
               <div className="mr-4 w-3/4">
                 <InfoContainer>
                   <Progress
-                    orderState={tradeState.orderState}
+                    orderState={orderState.orderState}
                     orderId={orderId}
                     subscriptionNo={subscriptionNo}
                     subscriptionId={subscriptionId}
@@ -69,11 +69,11 @@ const OrderDetail = () => {
                 </InfoContainer>
                 <DivideArea />
                 <InfoContainer>
-                  <Customer buyer={buyer} />
+                  <Consumer buyer={buyer} />
                 </InfoContainer>
                 <DivideArea />
                 <InfoContainer>
-                  <TradeItem tradeItem={tradeItem} tradePrice={tradePrice} isSubscription={subscriptionNo !== ''} />
+                  <OrderItem orderItem={orderItem} orderPrice={orderPrice} isSubscription={subscriptionNo !== ''} />
                 </InfoContainer>
                 <DivideArea />
                 <InfoContainer>

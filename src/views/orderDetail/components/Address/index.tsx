@@ -1,4 +1,4 @@
-import { Address } from '@/framework/types/customer'
+import { Address } from '@/framework/types/consumer'
 
 const OrderAddress = ({ address }: { address: Address | any }) => {
   const { receiverName, phone, postCode, province, city, region, detail } = address

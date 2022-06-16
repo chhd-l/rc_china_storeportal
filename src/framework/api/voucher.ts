@@ -89,23 +89,23 @@ export const endVoucher = async (Id: string) => {
 }
 
 //删除优惠券绑定的商品
-export const goodsRelatedDelete = async () => {
+export const productRelatedDelete = async () => {
   try {
     //ids:string[]
-    let res = await ApiRoot.vouchers().goodsRelatedDelete([])
-    console.log('goodsRelatedDelete view data', res)
-    return res?.goodsRelatedDelete || false
+    let res = await ApiRoot.vouchers().productRelatedDelete([])
+    console.log('productRelatedDelete view data', res)
+    return res?.productRelatedDelete || false
   } catch (e) {
     console.log(e)
     return false
   }
 }
 //删除优惠券绑定的商品
-export const getCustomerVouchers = async (params: any) => {
+export const getConsumerVouchers = async (params: any) => {
   try {
     //ids:string[]
-    let res = await ApiRoot.vouchers().getCustomerVouchers(params)
-    console.log('getCustomerVouchers view data', res)
+    let res = await ApiRoot.vouchers().getConsumerVouchers(params)
+    console.log('getConsumerVouchers view data', res)
     return res
   } catch (e) {
     console.log(e)

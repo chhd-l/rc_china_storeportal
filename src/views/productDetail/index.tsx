@@ -27,9 +27,9 @@ const Product = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const getDetail = async (goodsId: string) => {
-    // let data = await getProductDetail({ storeId: '12345678', goodsId: '7d58d3fb-77a7-66b2-dfb3-dfcd21a44ead' })
-    let { afterData, beforeData } = await getProductDetail({ storeId: '12345678', goodsId })
+  const getDetail = async (productId: string) => {
+    // let data = await getProductDetail({ storeId: '12345678', productId: '7d58d3fb-77a7-66b2-dfb3-dfcd21a44ead' })
+    let { afterData, beforeData } = await getProductDetail({ storeId: '12345678', productId })
     // console.info('data', afterData)
     setBeforeData(beforeData)
     setDetail(afterData)

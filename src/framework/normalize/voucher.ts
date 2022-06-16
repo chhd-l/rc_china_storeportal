@@ -2,10 +2,10 @@ import { formatMoney } from '@/utils/utils'
 
 export const normaliseVoucherProduct = (productList: any) => {
   const getMarketPrice = (record: any) => {
-    if (record?.goodsVariants?.length <= 1) {
-      return formatMoney(record?.goodsVariants[0]?.marketingPrice)
-    } else if (record?.goodsVariants?.length > 1) {
-      let arr = record?.goodsVariants?.sort((a: any, b: any) => {
+    if (record?.productVariants?.length <= 1) {
+      return formatMoney(record?.productVariants[0]?.marketingPrice)
+    } else if (record?.productVariants?.length > 1) {
+      let arr = record?.productVariants?.sort((a: any, b: any) => {
         return a.marketingPrice - b.marketingPrice
       })
       return formatMoney(arr[0]?.marketingPrice) + '-' + formatMoney(arr[arr.length - 1]?.marketingPrice)
@@ -19,15 +19,15 @@ export const normaliseVoucherProduct = (productList: any) => {
     return result
   }
   return productList.map((el: any) => {
-    el.goodsVariants = el.goodsVariant || el.goodsVariants
+    el.productVariants = el.productVariant || el.productVariants
     return {
       id: el.id,
-      goodsName: el.goodsName,
-      defaultImage: el?.defaultImage || el?.goodsVariants[0]?.defaultImage || '',
+      productName: el.productName,
+      defaultImage: el?.defaultImage || el?.productVariants[0]?.defaultImage || '',
       spuNo: el.spuNo,
       brandId: el.brandId === 'B1' ? 'Royal Canin' : 'Eukanuba',
       marketingPrice: getMarketPrice(el),
-      stock: el?.goodsVariants?.length > 0 ? setNum(el?.goodsVariants) : 0,
+      stock: el?.productVariants?.length > 0 ? setNum(el?.productVariants) : 0,
     }
   })
 }

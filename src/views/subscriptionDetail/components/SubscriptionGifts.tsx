@@ -11,14 +11,14 @@ const columns: ColumnProps<any>[] = [
   },
   {
     title: 'Benefit Name',
-    dataIndex: 'goodsName',
-    key: 'goodsName',
+    dataIndex: 'productName',
+    key: 'productName',
     render: (text: any, record: any) => (
       <div className="flex flex-row items-center">
         <img src={record?.defaultImage} className="w-10 h-10 mr-2" alt="" />
         <div>
           <div className="max-w-xs truncate">{text}</div>
-          <span className="text-gray-400">{record?.goodsVariant?.skuNo}</span>
+          <span className="text-gray-400">{record?.productVariant?.skuNo}</span>
         </div>
       </div>
     ),
@@ -27,7 +27,7 @@ const columns: ColumnProps<any>[] = [
     title: 'Quantity',
     dataIndex: 'num',
     key: 'num',
-    render: (text: any, record: any) => <div>{record?.goodsVariant?.num}</div>
+    render: (text: any, record: any) => <div>{record?.productVariant?.num}</div>
   },
   {
     title: 'Benefit Type',

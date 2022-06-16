@@ -15,14 +15,14 @@ const setNum = (arr: any) => {
 export const columns: ProColumns<any>[] = [
   {
     title: 'Product Name',
-    dataIndex: 'goodsName',
+    dataIndex: 'productName',
     hideInSearch: true,
     render: (_, record) => {
       return (
         <div className='flex al-cneter'>
-          <img src={record.goodsVariants[0]?.defaultImage} alt='' style={{ width: '50px',height:'50px', marginRight: '10px' }} />
+          <img src={record.productVariants[0]?.defaultImage} alt='' style={{ width: '50px',height:'50px', marginRight: '10px' }} />
           <div>
-            <div>{record.goodsName}</div>
+            <div>{record.productName}</div>
           </div>
         </div>
       )
@@ -33,12 +33,12 @@ export const columns: ProColumns<any>[] = [
     dataIndex: 'Marketing Price',
     hideInSearch: true,
     render: (_, record) => {
-      if (record.goodsVariants?.length <= 1) {
+      if (record.productVariants?.length <= 1) {
         return (
-          <span>{formatMoney(record.goodsVariants[0]?.marketingPrice)}</span>
+          <span>{formatMoney(record.productVariants[0]?.marketingPrice)}</span>
         )
-      } else if (record.goodsVariants?.length > 1) {
-        let arr = record.goodsVariants.sort((a: any, b: any) => {
+      } else if (record.productVariants?.length > 1) {
+        let arr = record.productVariants.sort((a: any, b: any) => {
           return a.marketingPrice - b.marketingPrice
         })
         return (
@@ -52,15 +52,15 @@ export const columns: ProColumns<any>[] = [
     dataIndex: 'stock',
     hideInSearch: true,
     render: (_, record) => {
-      if (record.goodsVariants?.length > 0) {
+      if (record.productVariants?.length > 0) {
         return (
-          <span>{setNum(record.goodsVariants)}</span>
+          <span>{setNum(record.productVariants)}</span>
         )
       }
     },
   },
   {
-    dataIndex: 'goodsName',
+    dataIndex: 'productName',
     hideInTable: true,
     renderFormItem: (_, { type, defaultRender, ...rest }, form) => {
       return (

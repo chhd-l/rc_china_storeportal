@@ -1,4 +1,4 @@
-import { SearchParamsProps } from '@/framework/types/customer'
+import { SearchParamsProps } from '@/framework/types/consumer'
 import { PageParamsProps } from '@/framework/types/common'
 import { handlePageParams } from '@/utils/utils'
 

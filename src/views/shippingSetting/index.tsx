@@ -24,7 +24,7 @@ const ShippingSetting = () => {
     setConFirmLoading(true)
     const parameter = {
       KEY: newLogisticsIntegration.key,
-      customer: newLogisticsIntegration.customer,
+      consumer: newLogisticsIntegration.consumer,
       pullURL: newLogisticsIntegration.pullUrl,
       queryURL: newLogisticsIntegration.queryUrl,
       callbackURL: newLogisticsIntegration.callbackUrl,

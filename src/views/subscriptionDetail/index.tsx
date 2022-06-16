@@ -51,7 +51,7 @@ export default function SubscriptionDetail() {
   }
 
   const handleChooseAddress = async (address: any) => {
-    const { storeId, customerId, isDefault, ...rest } = address;
+    const { storeId, consumerId, isDefault, ...rest } = address;
     const success = await updateSubscriptionAddress(detail?.id, rest);
     if (success) {
       await getSubscription(false)
@@ -98,11 +98,11 @@ export default function SubscriptionDetail() {
             </InfoContainer>
             <DivideArea />
             <InfoContainer>
-              <ProductList productList={detail?.goodsList ?? []} freshType={detail?.freshType} />
+              <ProductList productList={detail?.productList ?? []} freshType={detail?.freshType} />
             </InfoContainer>
             <DivideArea />
             <InfoContainer>
-              <PetOwner data={detail?.customer} />
+              <PetOwner data={detail?.consumer} />
             </InfoContainer>
             <DivideArea />
             <InfoContainer>

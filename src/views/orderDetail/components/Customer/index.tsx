@@ -2,29 +2,29 @@ import { Avatar, Button } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router";
-import { Customer } from "@/framework/types/customer";
-import { getCustomer } from '@/framework/api/customer'
+import { Consumer } from "@/framework/types/consumer";
+import { getConsumer } from '@/framework/api/consumer'
 
-const CustomerInformation = ({ buyer }: { buyer: Customer | any }) => {
+const ConsumerInformation = ({ buyer }: { buyer: Consumer | any }) => {
   const navigation = useNavigate();
-  const [customer, setCustomer] = useState<any>(null)
+  const [consumer, setConsumer] = useState<any>(null)
 
-  const getCustomerDetail = async () => {
-    const res = await getCustomer({ customerId: buyer.id })
+  const getConsumerDetail = async () => {
+    const res = await getConsumer({ consumerId: buyer.id })
     console.log('1111', res)
-    setCustomer(res)
+    setConsumer(res)
   }
 
   useEffect(() => {
     if (buyer.id) {
-      getCustomerDetail()
+      getConsumerDetail()
     }
   }, [buyer.id])
 
   return (
     <div className="flex flex-row justify-between items-center">
       <div className="flex flex-row items-center">
-        <Avatar size="large" icon={<img src={customer?.image || ''} alt='' />} />
+        <Avatar size="large" icon={<img src={consumer?.image || ''} alt='' />} />
         <span className="ml-4">{buyer.name}</span>
       </div>
       <Button
@@ -32,7 +32,7 @@ const CustomerInformation = ({ buyer }: { buyer: Customer | any }) => {
         type="primary"
         danger
         onClick={() => {
-          sessionStorage.setItem('cur-pet-owner',JSON.stringify(customer))
+          sessionStorage.setItem('cur-pet-owner',JSON.stringify(consumer))
           navigation("/petOwner/pet-owner-detail", { state: { id: buyer.id } });
         }}
       >
@@ -41,4 +41,4 @@ const CustomerInformation = ({ buyer }: { buyer: Customer | any }) => {
     </div>
   );
 };
-export default CustomerInformation;
+export default ConsumerInformation;

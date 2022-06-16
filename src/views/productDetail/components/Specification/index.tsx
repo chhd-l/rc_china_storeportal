@@ -8,11 +8,11 @@ import { getAttrs } from '@/framework/api/get-product'
 
 import { selectList } from '../../modules/constant'
 import { AttributeListProps } from '@/framework/types/product'
-import { GoodsAttributeAndValue } from '@/framework/schema/product.schema'
+import { ProductAttributeAndValue } from '@/framework/schema/product.schema'
 const Specification = (props: FormProps) => {
   const { detail } = useContext(DetailContext)
   const [specificationList, setSpecificationList] = useState<AttributeListProps[]>([])
-  const [goodsAttributeValueRel, setGoodsAttributeValueRel] = useState<any>({})
+  const [productAttributeValueRel, setProductAttributeValueRel] = useState<any>({})
   useEffect(() => {
     console.info('......................', detail.cateId)
     if (detail.cateId?.length) {
@@ -35,16 +35,16 @@ const Specification = (props: FormProps) => {
     let list = data.map((item: any) => {
       item.className = 'w-1/2'
       item.type = 'select'
-      item.defaultVal = detail?.goodsAttributeValueRel
-        ?.filter((el: GoodsAttributeAndValue) => {
+      item.defaultVal = detail?.productAttributeValueRel
+        ?.filter((el: ProductAttributeAndValue) => {
           return el.attributeId === item.id
         })
-        ?.map((el: GoodsAttributeAndValue) => el.attributeValueId)
+        ?.map((el: ProductAttributeAndValue) => el.attributeValueId)
       // console.info(' item.defaultVal ', item.defaultVal)
       return item
     })
     let attributeInput: any = {}
-    detail?.goodsAttributeValueRel?.forEach((el: any) => {
+    detail?.productAttributeValueRel?.forEach((el: any) => {
       if (attributeInput[el.attributeId]?.length) {
         attributeInput[el.attributeId].push(el.attributeValueId)
       } else {
@@ -52,8 +52,8 @@ const Specification = (props: FormProps) => {
       }
     })
     console.info('attributeInput', attributeInput)
-    detail.goodsAttributeValueRelInput = attributeInput
-    setGoodsAttributeValueRel(attributeInput)
+    detail.productAttributeValueRelInput = attributeInput
+    setProductAttributeValueRel(attributeInput)
 
     setSpecificationList(list)
   }
@@ -79,12 +79,12 @@ const Specification = (props: FormProps) => {
                   labelInValue
                   onDeselect={(value: any, option: any) => {
                     console.info('value, optiononDeselectonDeselect', value, option)
-                    Object.keys(detail.goodsAttributeValueRelInput)?.forEach((el: any) => {
+                    Object.keys(detail.productAttributeValueRelInput)?.forEach((el: any) => {
                       if (el === option.attributeId) {
                         debugger
-                        let idx = detail.goodsAttributeValueRelInput[el].findIndex((cel: any) => cel === option.id)
+                        let idx = detail.productAttributeValueRelInput[el].findIndex((cel: any) => cel === option.id)
                         if (idx > -1) {
-                          detail.goodsAttributeValueRelInput[el].splice(idx, 1)
+                          detail.productAttributeValueRelInput[el].splice(idx, 1)
                         }
                       }
                     })
@@ -101,13 +101,13 @@ const Specification = (props: FormProps) => {
                     console.info('value, option', value, option)
                     console.info(option)
                     if (option[0]?.attributeId) {
-                      let newRel = Object.assign({}, goodsAttributeValueRel, {
+                      let newRel = Object.assign({}, productAttributeValueRel, {
                         // @ts-ignore
                         [option[0]?.attributeId]: value.map(el => el.value),
                       })
-                      detail.goodsAttributeValueRelInput = newRel
+                      detail.productAttributeValueRelInput = newRel
                       console.info('newRel', newRel)
-                      setGoodsAttributeValueRel(newRel)
+                      setProductAttributeValueRel(newRel)
                     }
                   }}
                 ></Select>

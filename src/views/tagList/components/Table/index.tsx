@@ -1,7 +1,7 @@
 import { Modal, Button, Table, Tooltip, Form, message } from 'antd'
 import { Link } from 'react-router-dom'
 import React, { useState, useRef } from 'react'
-import { Customer } from '@/framework/types/customer'
+import { Consumer } from '@/framework/types/consumer'
 import type { ProFormInstance } from '@ant-design/pro-form'
 import { useNavigate } from 'react-router-dom'
 import ProForm, {
@@ -11,7 +11,7 @@ import ProForm, {
 import { createTag, deleteTag } from '@/framework/api/tag'
 
 interface PetOwnerTableProps {
-  petOwnerList: Customer[],
+  petOwnerList: Consumer[],
   handleUpdate: (a: boolean) => void
   loading: boolean
 }
@@ -55,8 +55,8 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
     },
     {
       title: 'Pet Owner(s)',
-      dataIndex: 'customerCount',
-      key: 'customerCount',
+      dataIndex: 'consumerCount',
+      key: 'consumerCount',
     },
     {
       title: 'Tagging Status',

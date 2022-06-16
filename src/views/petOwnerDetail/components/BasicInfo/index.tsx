@@ -1,8 +1,8 @@
 import { Avatar } from 'antd'
-import { getCustomer } from '@/framework/api/customer'
+import { getConsumer } from '@/framework/api/consumer'
 import { useEffect, useState } from 'react'
 
-const BasicInformation = ({ id, customerId }: { id: string, customerId: string }) => {
+const BasicInformation = ({ id, consumerId }: { id: string, consumerId: string }) => {
   const [basicInformation, setBasicInformation] = useState<any>({
     id: '',
     nickname: '',
@@ -11,14 +11,14 @@ const BasicInformation = ({ id, customerId }: { id: string, customerId: string }
     image: '',
   })
   
-  const getCustomerBasicInfo = async () => {
-    const data = await getCustomer({ customerId });
+  const getConsumerBasicInfo = async () => {
+    const data = await getConsumer({ consumerId });
     setBasicInformation(data || {});
   }
 
   useEffect(() => {
     // setBasicInformation(JSON.parse(sessionStorage.getItem('cur-pet-owner') || '{}'))
-    getCustomerBasicInfo()
+    getConsumerBasicInfo()
   }, [])
   const { nickname, phone, loginTime, image } = basicInformation
   return (

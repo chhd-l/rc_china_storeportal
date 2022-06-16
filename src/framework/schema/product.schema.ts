@@ -2,7 +2,7 @@ export enum IsSupport100 {
   Yes = 'YES',
   No = 'No',
 }
-export enum GoodsType {
+export enum ProductType {
   Bundle = 'BUNDLE',
   Regular = 'REGULAR',
   Other = 'OTHER',
@@ -12,16 +12,16 @@ export enum IsShelves {
   OffShleves = 'OFF_SHELVES',
   Other = 'OTHER',
 }
-export interface GoodsAttribute {
+export interface ProductAttribute {
   id: string
   attributeName: string
   attributeNameEn: string
   // attributeRank: number
   // storeId: string
   // isDeleted: number
-  values: GoodsAttributeValue[]
+  values: ProductAttributeValue[]
 }
-export interface GoodsAttributeValue {
+export interface ProductAttributeValue {
   id: string
   attributeId: string
   attributeValueName: string
@@ -59,10 +59,10 @@ export interface CateItemProps {
   // last_modified_by: string
   // is_deleted: number
 }
-export interface GoodsSpecificationDetail {
+export interface ProductSpecificationDetail {
   id: string
-  // goodsId: string
-  goodsSpecificationId: string
+  // productId: string
+  productSpecificationId: string
   specificationDetailName: string
   // specificationDetailNameEn: string
   // storeId: string
@@ -72,22 +72,22 @@ export interface GoodsSpecificationDetail {
   // lastModifiedAt: string
   // iDeleted: string
 }
-export interface GoodsSpecification {
+export interface ProductSpecification {
   id: string
-  // GoodsId: string
+  // ProductId: string
   specificationName: string
   specificationNameEn: string
-  goodsSpecificationDetail: GoodsSpecificationDetail[]
+  productSpecificationDetail: ProductSpecificationDetail[]
   // createdAt: string
   // createdBy: string
   // lastModifiedAt: string
   // lastModifiedBy: string
   // isDeleted: Boolean
 }
-export interface GoodsVariantBundleRel {
+export interface ProductVariantBundleRel {
   id: string
-  goodsVariantId: string
-  subGoodsVariantId: string
+  productVariantId: string
+  subProductVariantId: string
   bundleNumber: number
   skuNo: string
   stock?: number
@@ -95,15 +95,15 @@ export interface GoodsVariantBundleRel {
   operator?: string
   isDeleted?: boolean
 }
-export interface GoodsSpecificationValueRel {
-  goodsSpecificationId: string
-  goodsSpecificationDetailId: string
-  // goodsVariantId: string
+export interface ProductSpecificationValueRel {
+  productSpecificationId: string
+  productSpecificationDetailId: string
+  // productVariantId: string
   id: string
 }
-export interface GoodsVariants {
+export interface ProductVariants {
   id: string
-  // goodsId: string
+  // productId: string
   skuNo: string
   stock: number
   eanCode: string
@@ -124,13 +124,13 @@ export interface GoodsVariants {
   // last_modified_at: string
   // last_modified_by: string
   // is_deleted: string //？？
-  goodsSpecificationRel: GoodsSpecificationValueRel[]
-  goodsVariantBundleInfo: GoodsVariantBundleRel[]
+  productSpecificationRel: ProductSpecificationValueRel[]
+  productVariantBundleInfo: ProductVariantBundleRel[]
 }
-export interface GoodsAssets {
+export interface ProductAssets {
   id: string
-  // goodsId: string
-  // goodsVariantId: string
+  // productId: string
+  // productVariantId: string
   artworkUrl: string
   type: string
   storeId: string
@@ -142,7 +142,7 @@ export interface GoodsAssets {
   // lastModifiedBy: string
 }
 
-export interface GoodsAttributeAndValue {
+export interface ProductAttributeAndValue {
   attributeName: string
   attributeNameEn: string
   attributeValueName: string
@@ -150,18 +150,18 @@ export interface GoodsAttributeAndValue {
   relId: string
   attributeId: string
   attributeValueId: string
-  goodsId: string
+  productId: string
 }
-export interface Goods {
+export interface Product {
   id: string
   spuNo: string
-  goodsName: string
+  productName: string
   cardName: string //？？
-  goodsDescription: string
+  productDescription: string
   isSupport100: IsSupport100 //？？
   type: string
   brandId: string //？？
-  goodsCategoryId: string //？？
+  productCategoryId: string //？？
   // shelvesStatus: IsShelves
   defaultImage: string//？？
   salesStatus: boolean //？？
@@ -179,8 +179,8 @@ export interface Goods {
   // last_modified_at: string
   // last_modified_by: string
   // is_deleted: number//？？
-  goodsSpecifications: GoodsSpecification[]
-  goodsVariants: GoodsVariants[]
-  goodsAsserts: GoodsAssets[]
-  goodsAttributeValueRel: GoodsAttributeAndValue[] //？？
+  productSpecifications: ProductSpecification[]
+  productVariants: ProductVariants[]
+  productAsserts: ProductAssets[]
+  productAttributeValueRel: ProductAttributeAndValue[] //？？
 }

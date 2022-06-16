@@ -38,8 +38,8 @@ const ShipmentModal = ({
 
   const shippedOrderEvent = (values: any) => {
     console.log('values', values)
-    const tradeShippingInfoInput = Object.assign(values, { shippingTime: new Date(shippingTime).toISOString() })
-    shipped && shipped(tradeShippingInfoInput)
+    const orderShippingInfoInput = Object.assign(values, { shippingTime: new Date(shippingTime).toISOString() })
+    shipped && shipped(orderShippingInfoInput)
   }
 
   useEffect(() => {

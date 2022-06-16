@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { GoodsAttributeAndValue } from '../schema/product.schema'
+import { ProductAttributeAndValue } from '../schema/product.schema'
 import { OptionsProps, PageProps } from './common'
 
 export interface TableHeadersItemProps {
@@ -75,14 +75,14 @@ export interface ProductDetailProps {
   // breeds: string
   cardName: string
   cateId: string
-  goodsDescription: string
+  productDescription: string
   // feedingDays: string
   // functions: string
   height: string
   assets: AssertsProps[]
   length: string
   brandList: [],
-  goodsAttributeValueRel?: GoodsAttributeAndValue[]
+  productAttributeValueRel?: ProductAttributeAndValue[]
   // attributeList: AttributeListProps[],
   categoryList?: TreeDataProps[],
   // lifeStage: string
@@ -159,7 +159,7 @@ export interface VarationsFormProps {
 }
 export interface ProductListSimpleQueryProps {
   storeId?: string
-  goodsName?: string
+  productName?: string
   cateId?: string
   productType?: string
   startStock?: string
@@ -181,11 +181,11 @@ export enum ChangeType {
 }
 
 export interface shopCateQuery extends PageProps {
-  sample?: GoodsPageSampleInput,
+  sample?: ProductPageSampleInput,
 }
-export interface GoodsPageSampleInput {
+export interface ProductPageSampleInput {
   storeId?: string
-  goodsName?: string
+  productName?: string
   cateId?: string
   type?: string
   startStock?: number
@@ -230,8 +230,8 @@ export interface ShopCategoryUpdateInput {
   isDeleted?: boolean
 }
 
-export interface ShopCategoryGoodsRelInput {
-  goodsId: string
+export interface ShopCategoryProductRelInput {
+  productId: string
   shopCategoryId: string | undefined
   storeId?: string
   createdAt?: string

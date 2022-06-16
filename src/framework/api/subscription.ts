@@ -30,12 +30,12 @@ export const getSubscriptionDetail = async (id: string) => {
   console.log("get subscriptiondetail view data:", res);
   return res?.subscriptionDetail || {}
 }
-export const getSubscriptionFindByCustomerId = async ( customerId:any ) => {
-  const res = await ApiRoot.subscriptions().subscriptionFindByCustomerId({
-    customerId
+export const getSubscriptionFindByConsumerId = async ( consumerId:any ) => {
+  const res = await ApiRoot.subscriptions().subscriptionFindByConsumerId({
+    consumerId
   });
   console.log("get subscriptiondetail view data:", res);
-  return res?.subscriptionFindByCustomerId || []
+  return res?.subscriptionFindByConsumerId || []
 }
 
 export const updateSubscriptionAddress = async (id: string, address: any) => {

@@ -1,6 +1,6 @@
 import { Button, DatePicker, Input } from 'antd'
 import React, { useState } from 'react'
-import { SearchParamsProps } from '@/framework/types/customer'
+import { SearchParamsProps } from '@/framework/types/consumer'
 import { initSearchParams } from '@/views/petOwnerList/modules/constants'
 
 const OrderSearch = ({ query }: { query: Function }) => {

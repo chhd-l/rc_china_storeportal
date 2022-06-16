@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { ProColumns } from '@ant-design/pro-table'
 import { useParams } from 'react-router-dom'
 import ManualSelection from './components/ManualSelection'
-import { detleShopCateRel, getFindShopCategoryGoodsPage, updateShopCategory } from '@/framework/api/get-product'
+import { detleShopCateRel, getFindShopCategoryProductPage, updateShopCategory } from '@/framework/api/get-product'
 import { ContentContainer } from '@/components/ui'
 import { formatMoney, handlePageParams } from '@/utils/utils'
 import { useLocation } from 'react-router'
@@ -49,7 +49,7 @@ const CategoryDetail = () => {
     setIndeterminate(false)
   }
   const setListKey = (data: any) => {
-    setKeyList(data.map((item: { shopCategoryGoodsRelationId: any }) => item.shopCategoryGoodsRelationId))
+    setKeyList(data.map((item: { shopCategoryProductRelationId: any }) => item.shopCategoryProductRelationId))
   }
   const onSelectChange = (selectedRowKeys: any, selectedRows: any) => {
     setSelectedRowKeys(selectedRowKeys)
@@ -76,20 +76,20 @@ const CategoryDetail = () => {
 
   const getList = async (page: any) => {
     setLoading(true)
-    let res = await getFindShopCategoryGoodsPage({
+    let res = await getFindShopCategoryProductPage({
       offset: page.offset,
       limit: page.limit,
       isNeedTotal: true,
       sample: {
         shopCategoryId: state.id,
-        goodsName: page.goodsName,
+        productName: page.productName,
       },
     })
-    let meta = res?.findShopCategoryGoodsPage?.meta
+    let meta = res?.findShopCategoryProductPage?.meta
     if (meta?.id) {
-      setCateInfos({ ...meta, total: res?.findShopCategoryGoodsPage?.total })
+      setCateInfos({ ...meta, total: res?.findShopCategoryProductPage?.total })
     }
-    setCheckLenght(res?.findShopCategoryGoodsPage?.records.length)
+    setCheckLenght(res?.findShopCategoryProductPage?.records.length)
     setLoading(false)
     return res
   }
@@ -123,15 +123,15 @@ const CategoryDetail = () => {
   const columns: ProColumns<any>[] = [
     {
       title: 'Product Name',
-      dataIndex: 'goodsName',
+      dataIndex: 'productName',
       hideInSearch: true,
       render: (_, record) => {
         return (
           <div className='flex al-cneter'>
-            <img src={record.goodsVariants[0]?.defaultImage} alt=''
+            <img src={record.productVariants[0]?.defaultImage} alt=''
                  style={{ width: '50px', height: '50px', marginRight: '10px' }} />
             <div>
-              <div>{record.goodsName}</div>
+              <div>{record.productName}</div>
             </div>
           </div>
         )
@@ -142,12 +142,12 @@ const CategoryDetail = () => {
       dataIndex: 'marketingPrice',
       hideInSearch: true,
       render: (_, record) => {
-        if (record.goodsVariants?.length <= 1) {
+        if (record.productVariants?.length <= 1) {
           return (
-            <span>{formatMoney(record.goodsVariants[0]?.marketingPrice)}</span>
+            <span>{formatMoney(record.productVariants[0]?.marketingPrice)}</span>
           )
-        } else if (record.goodsVariants?.length > 1) {
-          let arr = record.goodsVariants.sort((a: any, b: any) => {
+        } else if (record.productVariants?.length > 1) {
+          let arr = record.productVariants.sort((a: any, b: any) => {
             return a.marketingPrice - b.marketingPrice
           })
           return (
@@ -161,9 +161,9 @@ const CategoryDetail = () => {
       dataIndex: 'stock',
       hideInSearch: true,
       render: (_, record) => {
-        if (record.goodsVariants?.length > 0) {
+        if (record.productVariants?.length > 0) {
           return (
-            <span>{setNum(record.goodsVariants)}</span>
+            <span>{setNum(record.productVariants)}</span>
           )
         }
       },
@@ -176,7 +176,7 @@ const CategoryDetail = () => {
       render: (_, record) => {
         return (
           <Link to='' className='mr-4 text-xl' onClick={() => {
-            setCurAssetId(record.shopCategoryGoodsRelationId)
+            setCurAssetId(record.shopCategoryProductRelationId)
             setIsModalVisible(true)
           }}>
             <span className='iconfont text-xl icon-delete' />
@@ -185,7 +185,7 @@ const CategoryDetail = () => {
       },
     },
     {
-      dataIndex: 'goodsName',
+      dataIndex: 'productName',
       hideInTable: true,
       renderFormItem: (_, { type, defaultRender, ...rest }, form) => {
         return (
@@ -285,7 +285,7 @@ const CategoryDetail = () => {
               columns={columns}
               toolBarRender={false}
               rowSelection={{ selectedRowKeys, onChange: onSelectChange }}
-              rowKey='shopCategoryGoodsRelationId'
+              rowKey='shopCategoryProductRelationId'
               tableAlertRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => {
                 console.log(selectedRowKeys, selectedRows, checkLenght)
                 if (selectedRows.length === checkLenght) {
@@ -339,21 +339,21 @@ const CategoryDetail = () => {
                   currentPage: params.current,
                   pageSize: params.pageSize,
                 })
-                let tableData = await getList({ ...page, goodsName: params.goodsName })
+                let tableData = await getList({ ...page, productName: params.productName })
                 if (tableData === undefined && page.offset >= 10) {
                   tableData = await getList({
                     offset: page.offset - 10,
                     limit: page.limit,
-                    goodsName: params.goodsName,
+                    productName: params.productName,
                   })
                 }
-                if (tableData?.findShopCategoryGoodsPage?.records && tableData?.findShopCategoryGoodsPage?.records.length > 0) {
-                  setListKey(tableData?.findShopCategoryGoodsPage?.records)
+                if (tableData?.findShopCategoryProductPage?.records && tableData?.findShopCategoryProductPage?.records.length > 0) {
+                  setListKey(tableData?.findShopCategoryProductPage?.records)
                 }
                 console.log(tableData, 99)
                 return Promise.resolve({
-                  data: tableData?.findShopCategoryGoodsPage?.records || [],
-                  total: tableData?.findShopCategoryGoodsPage.total,
+                  data: tableData?.findShopCategoryProductPage?.records || [],
+                  total: tableData?.findShopCategoryProductPage.total,
                   success: true,
                 })
               }}

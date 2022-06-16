@@ -32,13 +32,13 @@ export const stepList: StepProps[] = [
 
 export const initOrderDetail={
   id: "",
-  tradeItem: [],
-  tradeState: {
+  orderItem: [],
+  orderState: {
     orderState: "",
   },
   carrierType: "",
-  tradePrice: {
-    goodsPrice: 0,
+  orderPrice: {
+    productPrice: 0,
     deliveryPrice: 0,
     totalPrice: 0,
     discountsPrice: 0,

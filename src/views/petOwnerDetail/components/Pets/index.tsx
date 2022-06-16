@@ -1,25 +1,25 @@
 import { UserOutlined } from '@ant-design/icons'
 import { Avatar, Button, Empty } from 'antd'
 import { useNavigate } from 'react-router-dom'
-import { Pet } from '@/framework/types/customer'
+import { Pet } from '@/framework/types/consumer'
 import React, { useEffect, useState } from 'react'
 import { getPetList } from '@/framework/api/get-pet'
 import './index.less'
 
-const PetInformation = ({ id, customerId }: { customerId: string; id: string }) => {
+const PetInformation = ({ id, consumerId }: { consumerId: string; id: string }) => {
   const navigator = useNavigate()
   const [pets, setPets] = useState([])
 
   const queryPetList = async () => {
-    const res = await getPetList({ customerId })
+    const res = await getPetList({ consumerId })
     setPets(res)
   }
 
   useEffect(() => {
-    if (customerId) {
+    if (consumerId) {
       queryPetList()
     }
-  }, [customerId])
+  }, [consumerId])
 
   return (
     <div id={id} className="pet-information">

@@ -13,8 +13,8 @@ const TableRow: React.FC<IProps> = ({ data, handlePauseOrRestart }) => {
     <div className="border mt-4 rounded">
       <Row className="bg-gray1 border-b px-4 content-center justify-between" align="middle">
         <Col span={12} className="flex items-center py-2">
-          <Avatar src={data?.customer?.avatarUrl} />
-          <span className="ml-2">{data?.customer?.nickName ?? ""}</span>
+          <Avatar src={data?.consumer?.avatarUrl} />
+          <span className="ml-2">{data?.consumer?.nickName ?? ""}</span>
         </Col>
         <Col span={12} className="text-right">
           <div className="py-2">Subscription ID: {data?.no ?? ""}</div>
@@ -22,20 +22,20 @@ const TableRow: React.FC<IProps> = ({ data, handlePauseOrRestart }) => {
       </Row>
       <Row className="p-4 flex items-start">
         <Col span={10} className="flex flex-col justify-start">
-          {(data?.goodsList ?? []).map((goods: any, idx: number) => (
+          {(data?.productList ?? []).map((product: any, idx: number) => (
           <Row key={idx}>
             <Col span={6}>
-              <img className="w-16 h-16 order-img" src={goods?.goodsVariant?.defaultImage || ""} alt="" />
+              <img className="w-16 h-16 order-img" src={product?.productVariant?.defaultImage || ""} alt="" />
             </Col>
             <Col span={16}>
-              <Row className={`${(data?.goodsList ?? []).length > 1 && idx < (data?.goodsList ?? []).length - 1 ? "border-b h-20 pb-2" : ""}`}>
+              <Row className={`${(data?.productList ?? []).length > 1 && idx < (data?.productList ?? []).length - 1 ? "border-b h-20 pb-2" : ""}`}>
                 <Col span={20}>
-                  <span>{goods?.goodsVariant?.name ?? ""}</span>
+                  <span>{product?.productVariant?.name ?? ""}</span>
                   <br />
-                  <span className="text-gray-400 text-sm">Variation: {(goods?.goodsSpecifications ?? []).map((vari:any) => (vari?.goodsSpecificationDetail ?? []).map((variitem:any) => variitem.specificationDetailNameEn).join(",")).join(",")}</span>
+                  <span className="text-gray-400 text-sm">Variation: {(product?.productSpecifications ?? []).map((vari:any) => (vari?.productSpecificationDetail ?? []).map((variitem:any) => variitem.specificationDetailNameEn).join(",")).join(",")}</span>
                 </Col>
                 <Col span={4} className="items-start text-left">
-                  x {goods?.goodsVariant?.num}
+                  x {product?.productVariant?.num}
                 </Col>
               </Row>
             </Col>

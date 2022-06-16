@@ -1,7 +1,7 @@
-export interface Customer {
+export interface Consumer {
   name: string;
   image: string;
-  tencentAccountList: CustomerAccount[];
+  tencentAccountList: ConsumerAccount[];
   nickname: string; //昵称
   phone: string;
   level: string;
@@ -14,8 +14,8 @@ export interface Customer {
   lastModifiedBy: string;
   lastLoginTime: string;
   tenant: []; //store 相关
-  addresses: CustomerAddress[];
-  pets: CustomerPet[];
+  addresses: ConsumerAddress[];
+  pets: ConsumerPet[];
   tags: Tag[];
   orders: any[];
   subscriptions: any[];
@@ -23,7 +23,7 @@ export interface Customer {
   devices: SmartDevice[];
 }
 
-export interface CustomerAccount {
+export interface ConsumerAccount {
   unionId: string;
   openId: string;
   userType: string;
@@ -33,7 +33,7 @@ export interface CustomerAccount {
   memberId: string;
 }
 
-export interface CustomerAddress {
+export interface ConsumerAddress {
   id: string;
   receiver: string;
   phone: string;
@@ -46,7 +46,7 @@ export interface CustomerAddress {
   region: string;
 }
 
-export interface CustomerPet {
+export interface ConsumerPet {
   image: string;
   name: string;
   breed: PetBreed;

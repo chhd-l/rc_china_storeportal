@@ -69,7 +69,7 @@ const Finishedproductdisplay = () => {
                 </div>
               </div>
             </div>
-            <div className="text-center">Note: One customer can only use once.</div>
+            <div className="text-center">Note: One consumer can only use once.</div>
           </div>
         )
       }}

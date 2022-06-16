@@ -6,7 +6,7 @@ import { useEffect, useState, useRef } from 'react'
 import { columns } from './modules/constant'
 import RuleBasedFilteringProps from './components/RuleBasedFiltering'
 import { handlePageParams } from '@/utils/utils'
-import { getESProducts, getFindShopCategoryGoodsPage, updateShopCategory } from '@/framework/api/get-product'
+import { getESProducts, getFindShopCategoryProductPage, updateShopCategory } from '@/framework/api/get-product'
 import { ContentContainer } from '@/components/ui'
 import { useLocation } from 'react-router'
 
@@ -42,23 +42,23 @@ const CategoryDetail = () => {
   })
   const getList = async (page: any) => {
     setLoading(true)
-    let res = await getFindShopCategoryGoodsPage({
+    let res = await getFindShopCategoryProductPage({
       offset: page.offset,
       limit: page.limit,
       isNeedTotal: true,
       sample: {
         shopCategoryId: state.id,
-        goodsName: page.goodsName,
+        productName: page.productName,
       },
     })
-    let meta = res?.findShopCategoryGoodsPage?.meta
+    let meta = res?.findShopCategoryProductPage?.meta
     if (meta?.id) {
-      setCateInfos({ ...meta, total: res?.findShopCategoryGoodsPage?.total })
+      setCateInfos({ ...meta, total: res?.findShopCategoryProductPage?.total })
     }
-    let shopCategoryFilterRules = res?.findShopCategoryGoodsPage?.shopCategoryFilterRules
+    let shopCategoryFilterRules = res?.findShopCategoryProductPage?.shopCategoryFilterRules
     if (shopCategoryFilterRules?.length > 0) {
       let obj = {
-        'goodsCategoryId': shopCategoryFilterRules[0].value?.split(','),
+        'productCategoryId': shopCategoryFilterRules[0].value?.split(','),
         'brand': shopCategoryFilterRules[1].value,
         'attributeValueIds': shopCategoryFilterRules[2].value !== '' ? shopCategoryFilterRules[2]?.value.split(',') : null,
         'startPrice': shopCategoryFilterRules[3]?.value ? parseFloat(shopCategoryFilterRules[3]?.value) : null,
@@ -77,8 +77,8 @@ const CategoryDetail = () => {
       hasTotal: true,
       sample: {},
     }
-    if (params.goodsCategoryId.length > 0 && params.goodsCategoryId[params.goodsCategoryId.length - 1] !== 'All Categories') {
-      data.sample.goodsCategoryId = params.goodsCategoryId[params.goodsCategoryId.length - 1]
+    if (params.productCategoryId.length > 0 && params.productCategoryId[params.productCategoryId.length - 1] !== 'All Categories') {
+      data.sample.productCategoryId = params.productCategoryId[params.productCategoryId.length - 1]
     }
     if (params.brand && params.brand !== 'All Brands') {
       data.sample.brand = params.brand
@@ -226,17 +226,17 @@ const CategoryDetail = () => {
                   currentPage: params.current,
                   pageSize: params.pageSize,
                 })
-                let tableData = await getList({ ...page, goodsName: params.goodsName })
+                let tableData = await getList({ ...page, productName: params.productName })
                 if (tableData === undefined && page.offset >= 10) {
                   tableData = await getList({
                     offset: page.offset - 10,
                     limit: page.limit,
-                    goodsName: params.goodsName,
+                    productName: params.productName,
                   })
                 }
                 return Promise.resolve({
-                  data: tableData?.findShopCategoryGoodsPage?.records || [],
-                  total: tableData?.findShopCategoryGoodsPage.total,
+                  data: tableData?.findShopCategoryProductPage?.records || [],
+                  total: tableData?.findShopCategoryProductPage.total,
                   success: true,
                 })
               }}

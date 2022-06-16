@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Modal, Table } from 'antd'
-import { getCustomerAddressList } from "@/framework/api/customer"
+import { getConsumerAddressList } from "@/framework/api/consumer"
 import { ColumnProps } from 'antd/es/table'
 
 interface IProps {
-  customerId: string
+  consumerId: string
   visible: boolean
   onConfirm: (address: any) => void
   onCancel: () => void
@@ -56,7 +56,7 @@ const AddressModal: React.FC<IProps> = (props) => {
 
   const getAddress = async () => {
     setLoading(true)
-    const data = await getCustomerAddressList(props.customerId)
+    const data = await getConsumerAddressList(props.consumerId)
     setList(data);
     setLoading(false)
   }

@@ -1,24 +1,24 @@
 import { Table, Tooltip } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { CouponCode } from '@/framework/types/customer'
-import { getCustomerVouchers } from '@/framework/api/voucher'
+import { CouponCode } from '@/framework/types/consumer'
+import { getConsumerVouchers } from '@/framework/api/voucher'
 import { useNavigate } from 'react-router-dom'
 import moment from 'moment'
 interface CouponInfoProps {
-  customerId: string;
+  consumerId: string;
   id: string;
 }
 
-const CouponInformation = ({ id, customerId }: CouponInfoProps) => {
+const CouponInformation = ({ id, consumerId }: CouponInfoProps) => {
   const [couponCodeList, setCouponCodeList] = useState<any>([])
   const navigator = useNavigate()
   useEffect(() => {
-    if (customerId !== '') {
+    if (consumerId !== '') {
       getList()
     }
-  }, [customerId])
+  }, [consumerId])
   const getList = async () => {
-    let res = await getCustomerVouchers({ customerId })
+    let res = await getConsumerVouchers({ consumerId })
     if (res.consumerVoucherDetailList?.length > 0) {
       setCouponCodeList(res.consumerVoucherDetailList)
     }

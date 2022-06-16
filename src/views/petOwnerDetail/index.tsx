@@ -34,35 +34,35 @@ const PetOwnerList = () => {
           {petOwnerId ? (
             <>
               <InfoContainer>
-                <BasicInfo id="basic-information" customerId={petOwnerId} />
+                <BasicInfo id="basic-information" consumerId={petOwnerId} />
               </InfoContainer>
               <DivideArea />
               <InfoContainer>
-              <Tagging id="tagging" customerId={petOwnerId} />
+              <Tagging id="tagging" consumerId={petOwnerId} />
               </InfoContainer>
               <DivideArea />
               <InfoContainer>
-              <Pets id="pet-information" customerId={petOwnerId} />
+              <Pets id="pet-information" consumerId={petOwnerId} />
               </InfoContainer>
               <DivideArea />
               <InfoContainer>
-              <TencentAccount id="tencent-account" customerId={petOwnerId} />
+              <TencentAccount id="tencent-account" consumerId={petOwnerId} />
               </InfoContainer>
               <DivideArea />
               <InfoContainer>
-              <Orders id="order-information" customerId={petOwnerId} />
+              <Orders id="order-information" consumerId={petOwnerId} />
               </InfoContainer>
               <DivideArea />
               <InfoContainer>
-              <Subscriptions id="subscription-information" customerId={petOwnerId} />
+              <Subscriptions id="subscription-information" consumerId={petOwnerId} />
               </InfoContainer>
               <DivideArea />
               <InfoContainer>
-              <Address id="my-address" customerId={petOwnerId} />
+              <Address id="my-address" consumerId={petOwnerId} />
               </InfoContainer>
               <DivideArea />
               <InfoContainer>
-              <Coupons id="coupon-information" customerId={petOwnerId} />
+              <Coupons id="coupon-information" consumerId={petOwnerId} />
               </InfoContainer>
               {/*<DivideArea />*/}
               {/*<InfoContainer>*/}

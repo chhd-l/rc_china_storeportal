@@ -1,6 +1,6 @@
 import { categoryList } from './../mock/categorylist'
 import { ChangeType, ProductListQueryProps, VarationProps, VarationsFormProps } from '../types/product'
-import { CateItemProps, Goods, GoodsAssets, GoodsAttribute, GoodsSpecification, GoodsVariants } from '../schema/product.schema'
+import { CateItemProps, Product, ProductAssets, ProductAttribute, ProductSpecification, ProductVariants } from '../schema/product.schema'
 import { ProductListSkuItem } from '../types/product'
 import { VarviationProps } from '@/views/productDetail/components/EditVariationList'
 import { ElementFlags } from 'typescript'
@@ -9,11 +9,11 @@ import { handleObjDataForEdit } from '@/utils/utils'
 import { map } from 'lodash'
 
 export const normaliseDetailforFe = (detail: any) => {
-  let withoutSku = !detail.goodsVariants?.[0]?.skuNo
+  let withoutSku = !detail.productVariants?.[0]?.skuNo
 
-  let { variationList, variationLists } = detail.goodsSpecifications?.length && normaliseVariationAndSpecification(detail.goodsSpecifications, detail.goodsVariants)
+  let { variationList, variationLists } = detail.productSpecifications?.length && normaliseVariationAndSpecification(detail.productSpecifications, detail.productVariants)
 
-  let choosedCate = normaliseCateIdProps(detail.goodsCategoryId, detail.listCategoryGet, [])
+  let choosedCate = normaliseCateIdProps(detail.productCategoryId, detail.listCategoryGet, [])
   let spu: any = {
     wxCodeUrl: detail.wxCodeUrl,
     id: detail.id,
@@ -22,7 +22,7 @@ export const normaliseDetailforFe = (detail: any) => {
     editChange: {
       variationList: []
     },
-    goodsAttributeValueRel: detail.goodsAttributeValueRel,
+    productAttributeValueRel: detail.productAttributeValueRel,
     // breeds: string
     cardName: detail.cardName,
     selectedCateOptions: choosedCate.map((el: any) => {
@@ -36,11 +36,11 @@ export const normaliseDetailforFe = (detail: any) => {
     categoryList: normaliseCateProps(detail.listCategoryGet),
     // attributeList: normaliseAttrProps(detail.listAttributeGet),
     brandList: detail.brandList,
-    goodsDescription: detail.goodsDescription,
+    productDescription: detail.productDescription,
     // feedingDays: detail.feedingDays,
     // functions: detail.
     height: detail.parcelSizeHeight,
-    goodsAsserts: detail.goodsAsserts?.map((el: GoodsAssets) => {
+    productAsserts: detail.productAsserts?.map((el: ProductAssets) => {
       return {
         type: el.type,
         storeId: el.storeId,
@@ -54,7 +54,7 @@ export const normaliseDetailforFe = (detail: any) => {
     // lifeStage: detail.,
     // listPrice: detail.listPrice,//??
     // marketingPrice: detail.marketingPrice//??,
-    name: detail.goodsName,
+    name: detail.productName,
     salesStatus: detail.salesStatus ? '1' : '0',
     shelvesStatus: detail.shelvesStatus,
     // size: detail.,
@@ -88,7 +88,7 @@ export const normaliseDetailforFe = (detail: any) => {
     defaultImage: '',
   }
   if (withoutSku) {
-    let sku = detail.goodsVariants?.[0]
+    let sku = detail.productVariants?.[0]
     // spu.skuNo: 'test0001', //to do
     // withoutSku: true,
     spu.subscriptionPrice = sku.subscriptionPrice
@@ -100,7 +100,7 @@ export const normaliseDetailforFe = (detail: any) => {
     spu.isSupport100 = sku.isSupport100 ? 'true' : 'false'
     spu.defaultImage = sku.defaultImage
     spu.skuId = sku.id
-    spu.regularList = sku.goodsVariantBundleInfo?.map((el: any) => {
+    spu.regularList = sku.productVariantBundleInfo?.map((el: any) => {
       let bundleInfo = {
         bunldeRelId: el.id,
         ...el
@@ -131,7 +131,7 @@ export const normaliseCateIdProps: any = (id: string, list: CateItemProps[], par
     return parentNode
   }
 }
-export const normaliseDeletedData: any | GoodsAssets = (data: any = [], beforeData: any = []) => {
+export const normaliseDeletedData: any | ProductAssets = (data: any = [], beforeData: any = []) => {
   let newData = [...data]
   for (let item in beforeData) {
     var found = false
@@ -149,7 +149,7 @@ export const normaliseDeletedData: any | GoodsAssets = (data: any = [], beforeDa
   return newData
 }
 export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
-  let goodsAsserts = (data.goodsAsserts ? [...data.goodsAsserts, data.video] : [data.video])?.filter((el: any) => el?.url)?.map((el: any) => {
+  let productAsserts = (data.productAsserts ? [...data.productAsserts, data.video] : [data.video])?.filter((el: any) => el?.url)?.map((el: any) => {
     let asset = {
       artworkUrl: el.url,
       type: el.type,
@@ -161,12 +161,12 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     }
     return asset
   })
-  goodsAsserts = data.id ? normaliseDeletedData(goodsAsserts, beforeData.goodsAsserts) : goodsAsserts
+  productAsserts = data.id ? normaliseDeletedData(productAsserts, beforeData.productAsserts) : productAsserts
   let editChangeVariationList = data.editChange?.variationList?.map((el: any, index: number) => {
     if (el) {
       el.rank = index
-      if (el.goodsSpecificationDetail?.length) {
-        el.goodsSpecificationDetail.forEach((cel: any, celIdx: number) => {
+      if (el.productSpecificationDetail?.length) {
+        el.productSpecificationDetail.forEach((cel: any, celIdx: number) => {
           if (cel) {
             cel.rank = celIdx
           }
@@ -177,12 +177,12 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
   })
   let detail: any = {
     spuNo: data.spuNo,
-    goodsName: data.name,
+    productName: data.name,
     cardName: data.cardName,
-    goodsDescription: data.goodsDescription,
+    productDescription: data.productDescription,
     type: data.type,
     brandId: data.brandId,
-    goodsCategoryId: data.cateId[data.cateId.length - 1],
+    productCategoryId: data.cateId[data.cateId.length - 1],
     shelvesStatus: data.shelvesStatus,
     salesStatus: data.salesStatus === "1",
     weight: data.weight && Number(data.weight),
@@ -192,17 +192,17 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     storeId: '12345678',
     isDeleted: false,
     operator: data.operator,
-    goodsVariants: data.goodsVariantsInput && normaliseInputVariationProps(data.goodsVariantsInput, data, beforeData),
-    // goodsAsserts: [
+    productVariants: data.productVariantsInput && normaliseInputVariationProps(data.productVariantsInput, data, beforeData),
+    // productAsserts: [
     //   {
     //     artworkUrl: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
     //     type: 'image',
     //     storeId: '12345678',
     //   },
     // ],
-    goodsAsserts,
-    goodsSpecifications: data.id ? editChangeVariationList : data.goodsSpecificationsInput && normaliseInputSpecificationProps(data.goodsSpecificationsInput),
-    goodsAttributeValueRel: data.goodsAttributeValueRelInput && normaliseInputAttrProps(data.goodsAttributeValueRelInput, beforeData.goodsAttributeValueRel)
+    productAsserts,
+    productSpecifications: data.id ? editChangeVariationList : data.productSpecificationsInput && normaliseInputSpecificationProps(data.productSpecificationsInput),
+    productAttributeValueRel: data.productAttributeValueRelInput && normaliseInputAttrProps(data.productAttributeValueRelInput, beforeData.productAttributeValueRel)
   }
   if (data.id) {
     detail.id = data.id
@@ -235,7 +235,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
         feedingDays: data.feedingDays ? Number(data.feedingDays) : 0,
         subscriptionPrice: data.subscriptionPrice ? Number(data.subscriptionPrice) : 0,
         operator: spu.operator,
-        goodsVariantSpecifications: data.relArr?.map((rel: any) => {
+        productVariantSpecifications: data.relArr?.map((rel: any) => {
           let newRel: any = {
             specificationNameEn: rel.specificationName,
             specificationName: rel.specificationName,
@@ -251,17 +251,17 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
       if (data.id) {
         newVariation.id = data.id
       }
-      if (data.goodsVariantBundleInfo) {
-        newVariation.goodsVariantBundleInfo = data.goodsVariantBundleInfo?.map((el: any) => {
+      if (data.productVariantBundleInfo) {
+        newVariation.productVariantBundleInfo = data.productVariantBundleInfo?.map((el: any) => {
           let bundleInfo = {
             bundleNumber: el.bundleNumber,
             id: el.bunldeRelId,
-            goodsVariantId: el.goodsVariantId,
-            subGoodsVariantId: el.subGoodsVariantId || data.id,
+            productVariantId: el.productVariantId,
+            subProductVariantId: el.subProductVariantId || data.id,
             skuNo: el.skuNo,
           }
-          if (!el.goodsVariantId) {
-            delete bundleInfo.goodsVariantId
+          if (!el.productVariantId) {
+            delete bundleInfo.productVariantId
           }
           if (!el.skuNo) {
             delete bundleInfo.skuNo
@@ -289,25 +289,25 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
       feedingDays: spu.feedingDays ? Number(spu.feedingDays) : 0,
       subscriptionPrice: spu.subscriptionPrice ? Number(spu.subscriptionPrice) : 0,
       operator: spu.operator,
-      goodsVariantBundleInfo: spu.goodsVariantBundleInfo
+      productVariantBundleInfo: spu.productVariantBundleInfo
     }]
-    if (!spu.goodsVariantBundleInfo) {
-      delete skuData[0].goodsVariantBundleInfo
+    if (!spu.productVariantBundleInfo) {
+      delete skuData[0].productVariantBundleInfo
     }
     editData = skuData
   }
   if (spu.id && beforeData) {
     //编辑 需要检查之前保存后的变更并返回变更
     // 页面上没展示的商品需要被删除
-    if (spu?.goodsVariantsInput?.length) {
+    if (spu?.productVariantsInput?.length) {
       let deletedSkuIdx: any = []
-      spu.editChange.goodsVariants?.forEach((el: any, index: number) => {
-        if (el?.goodsVariantSpecifications) {
+      spu.editChange.productVariants?.forEach((el: any, index: number) => {
+        if (el?.productVariantSpecifications) {
           let editspecStr = ''
-          el?.goodsVariantSpecifications.forEach((specItem: any) => {
+          el?.productVariantSpecifications.forEach((specItem: any) => {
             editspecStr = editspecStr + specItem.specificationName + '-' + specItem.specificationDetailName + '^'
           })
-          let hasSku = spu.goodsVariantsInput.find((cel: any) => {
+          let hasSku = spu.productVariantsInput.find((cel: any) => {
             let inputspecStr = ''
             cel.relArr?.forEach((relItem: any) => {
               inputspecStr = inputspecStr + relItem.specificationName + '-' + relItem.specificationDetailName + '^'
@@ -336,28 +336,28 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
       })
       if (deletedSkuIdx.length) {
         for (let i = deletedSkuIdx.length - 1;i >= 0;i--) {
-          spu.editChange.goodsVariants.splice(deletedSkuIdx[i], 1)
+          spu.editChange.productVariants.splice(deletedSkuIdx[i], 1)
         }
       }
 
     }
 
     // }
-    // beforeData.goodsVariants.filter((el: any) => el.id)
+    // beforeData.productVariants.filter((el: any) => el.id)
     // spu.variationLists.filter((el: any) => el.id)
     // skuData.filter((el: any) => el.id)
     //被删除的
     let delArr: any = []
-    for (let item in beforeData.goodsVariants) {
+    for (let item in beforeData.productVariants) {
       var found = false
-      for (let citem in spu.goodsVariantsInput) {
-        if (spu.goodsVariantsInput[citem].id === beforeData.goodsVariants[item].id) {
+      for (let citem in spu.productVariantsInput) {
+        if (spu.productVariantsInput[citem].id === beforeData.productVariants[item].id) {
           found = true
           break
         }
       }
       if (!found) {
-        delArr.push(beforeData.goodsVariants[item])
+        delArr.push(beforeData.productVariants[item])
       }
     }
     delArr = delArr.map((el: any) => {
@@ -367,13 +367,13 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
       }
       return newEl
     })
-    if (!spu.editChange.goodsVariants) {
-      spu.editChange.goodsVariants = []
+    if (!spu.editChange.productVariants) {
+      spu.editChange.productVariants = []
     }
     //无规格变有规格的情况，sku编辑有默认值，但是默认增量，需要处理
-    let addDefault = spu.id && !beforeData.goodsVariants?.[0].skuNo && skus[0]?.skuNo
+    let addDefault = spu.id && !beforeData.productVariants?.[0].skuNo && skus[0]?.skuNo
     //处理规格值转换
-    let editVariationData = spu.editChange.goodsVariants?.map((el: any, elIdx: number) => {
+    let editVariationData = spu.editChange.productVariants?.map((el: any, elIdx: number) => {
       let normaliseData: any = null
       if (el) {
         normaliseData = { ...el }
@@ -404,23 +404,23 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
         if (el?.marketingPrice) {
           normaliseData.marketingPrice = Number(el.marketingPrice)
         }
-        if (el?.goodsVariantBundleInfo?.length) {
-          el?.goodsVariantBundleInfo?.forEach((bundleInfo: any) => {
+        if (el?.productVariantBundleInfo?.length) {
+          el?.productVariantBundleInfo?.forEach((bundleInfo: any) => {
             if (bundleInfo.stock) {
               delete bundleInfo.stock
             }
           })
-          // let beforeBundleInfo = beforeData.goodsVariants?.find(el=>el.)
-          // for (let item in el.goodsVariantBundleInfo) {
+          // let beforeBundleInfo = beforeData.productVariants?.find(el=>el.)
+          // for (let item in el.productVariantBundleInfo) {
           //   var found = false
-          //   for (let citem in spu.goodsVariantsInput) {
-          //     if (spu.goodsVariantsInput[citem].id === beforeData.goodsVariants[item].id) {
+          //   for (let citem in spu.productVariantsInput) {
+          //     if (spu.productVariantsInput[citem].id === beforeData.productVariants[item].id) {
           //       found = true
           //       break
           //     }
           //   }
           //   if (!found) {
-          //     delArr.push(beforeData.goodsVariants[item])
+          //     delArr.push(beforeData.productVariants[item])
           //   }
           // }
         }
@@ -432,14 +432,14 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
 
     editData = [...editVariationData, ...delArr]
     //规格有改变的
-    spu.goodsVariantsInput?.forEach((variantInput: any, index: number) => {
+    spu.productVariantsInput?.forEach((variantInput: any, index: number) => {
       if (variantInput?.id) {
         //取到补集
-        let deleteComplement = variantInput?.goodsSpecificationRel?.filter((beforeItem: any) => {
-          return variantInput.relArr?.findIndex((afterItem: any) => beforeItem.goodsSpecificationDetailId === afterItem.id) === -1
+        let deleteComplement = variantInput?.productSpecificationRel?.filter((beforeItem: any) => {
+          return variantInput.relArr?.findIndex((afterItem: any) => beforeItem.productSpecificationDetailId === afterItem.id) === -1
         })
         let addedComplement = variantInput.relArr?.filter((beforeItem: any) => {
-          return variantInput.goodsSpecificationRel?.findIndex((afterItem: any) => beforeItem.id === afterItem.goodsSpecificationDetailId) === -1
+          return variantInput.productSpecificationRel?.findIndex((afterItem: any) => beforeItem.id === afterItem.productSpecificationDetailId) === -1
         })
         // let complement = [...complement1, ...complement2]
         console.info('deleteComplement', deleteComplement)
@@ -450,12 +450,12 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
             editData[index] = {
               id: variantInput.id
             }
-            if (!editData[index].goodsVariantSpecifications) {
-              editData[index].goodsVariantSpecifications = []
+            if (!editData[index].productVariantSpecifications) {
+              editData[index].productVariantSpecifications = []
             }
           }
-          editData[index].goodsVariantSpecifications.push({
-            id: variantInput.id || variantInput.goodsSpecificationDetailId,
+          editData[index].productVariantSpecifications.push({
+            id: variantInput.id || variantInput.productSpecificationDetailId,
             isDeleted: true
           })
         })
@@ -465,11 +465,11 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
             editData[index] = {
               id: variantInput.id
             }
-            if (!editData[index].goodsVariantSpecifications) {
-              editData[index].goodsVariantSpecifications = []
+            if (!editData[index].productVariantSpecifications) {
+              editData[index].productVariantSpecifications = []
             }
           }
-          editData[index].goodsVariantSpecifications.push({
+          editData[index].productVariantSpecifications.push({
             specificationNameEn: rel.specificationName,
             specificationName: rel.specificationName,
             specificationDetailNameEn: rel.specificationDetailName,
@@ -494,7 +494,7 @@ export const normaliseInputSpecificationProps = (data: any) => {
       specificationName: spec.name,
       specificationNameEn: spec.name,
       id: spec.id,
-      goodsSpecificationDetail: spec.specificationList.map((specDetail: any, idx: number) => {
+      productSpecificationDetail: spec.specificationList.map((specDetail: any, idx: number) => {
         return {
           rank: idx,
           specificationDetailName: specDetail.option,
@@ -507,45 +507,45 @@ export const normaliseInputSpecificationProps = (data: any) => {
     return newSpec
   })
 }
-export const normaliseInputAttrProps = (goodsAttributeValueRel: any, beforeGoodsAttributeValueRel: any) => {
+export const normaliseInputAttrProps = (productAttributeValueRel: any, beforeProductAttributeValueRel: any) => {
   let newRel: any = []
   let delArr = []
   let changedOriginArr: any = []
   // let changedParent: any = []
-  Object.keys(goodsAttributeValueRel)?.map(el => {
-    let data = goodsAttributeValueRel[el]
+  Object.keys(productAttributeValueRel)?.map(el => {
+    let data = productAttributeValueRel[el]
     if (data) {
       changedOriginArr.push(...data)
     }
   })
   //删除
   console.info('changedOriginArr', changedOriginArr)
-  if (beforeGoodsAttributeValueRel) {
-    for (let item in beforeGoodsAttributeValueRel) {
+  if (beforeProductAttributeValueRel) {
+    for (let item in beforeProductAttributeValueRel) {
       var found = false
       for (let citem in changedOriginArr) {
-        if (changedOriginArr[citem] === beforeGoodsAttributeValueRel[item].attributeValueId) {
+        if (changedOriginArr[citem] === beforeProductAttributeValueRel[item].attributeValueId) {
           found = true
           break
         }
       }
       if (!found) {
         delArr.push({
-          attributeId: beforeGoodsAttributeValueRel[item].attributeId,
-          attributeValueId: beforeGoodsAttributeValueRel[item].attributeValueId,
+          attributeId: beforeProductAttributeValueRel[item].attributeId,
+          attributeValueId: beforeProductAttributeValueRel[item].attributeValueId,
           isDeleted: true,
-          relId: beforeGoodsAttributeValueRel[item].relId,
+          relId: beforeProductAttributeValueRel[item].relId,
         })
       }
     }
   }
   //新增
-  Object.keys(goodsAttributeValueRel)?.map(el => {
-    // let filterData = beforeGoodsAttributeValueRel.filter((cel: any) => cel.attributeId === el)
+  Object.keys(productAttributeValueRel)?.map(el => {
+    // let filterData = beforeProductAttributeValueRel.filter((cel: any) => cel.attributeId === el)
     // changedParent.push(...filterData)
-    let valueArr = goodsAttributeValueRel[el]
-    if (beforeGoodsAttributeValueRel) {
-      valueArr = goodsAttributeValueRel[el]?.filter((item: any) => beforeGoodsAttributeValueRel.findIndex((citem: any) => citem.attributeValueId === item) === -1)
+    let valueArr = productAttributeValueRel[el]
+    if (beforeProductAttributeValueRel) {
+      valueArr = productAttributeValueRel[el]?.filter((item: any) => beforeProductAttributeValueRel.findIndex((citem: any) => citem.attributeValueId === item) === -1)
     }
     valueArr.forEach((rel: any) => {
       if (rel) {
@@ -564,15 +564,15 @@ export const normaliseInputAttrProps = (goodsAttributeValueRel: any, beforeGoods
   return newRel
 }
 
-export const normaliseVariationAndSpecification = (data: GoodsSpecification[], goodsVariants: GoodsVariants[]): {
+export const normaliseVariationAndSpecification = (data: ProductSpecification[], productVariants: ProductVariants[]): {
   variationList: VarationProps[], variationLists: any[]
 } => {
-  let variationList = data?.filter(el => el.goodsSpecificationDetail).map((el, idx) => {
+  let variationList = data?.filter(el => el.productSpecificationDetail).map((el, idx) => {
     let variation = {
       name: el.specificationName,
       sortIdx: idx,
       id: el.id,
-      specificationList: el.goodsSpecificationDetail?.map((spe, cidx) => {
+      specificationList: el.productSpecificationDetail?.map((spe, cidx) => {
         let newSpe = {
           option: spe.specificationDetailName,
           id: spe.id,
@@ -583,34 +583,34 @@ export const normaliseVariationAndSpecification = (data: GoodsSpecification[], g
     }
     return variation
   })
-  let variationLists = goodsVariants?.map(el => {
+  let variationLists = productVariants?.map(el => {
     let newItem = {
       ...el, sortIdx: '', spec: '', skuName: el.name,
       subscriptionStatus: el.subscriptionStatus?.toString(),
       isSupport100: el.isSupport100 ? 'true' : 'false',
       shelvesStatus: el.shelvesStatus ? 'true' : 'false',
     }
-    let name = el.goodsSpecificationRel?.map(elRel => {
-      let specDetail = data.filter(spec => spec.id === elRel.goodsSpecificationId)
-      specDetail.forEach((cElRel: GoodsSpecification) => {
-        let nameVal = cElRel.goodsSpecificationDetail.find(specDetail => specDetail.id === elRel.goodsSpecificationDetailId)?.specificationDetailName
+    let name = el.productSpecificationRel?.map(elRel => {
+      let specDetail = data.filter(spec => spec.id === elRel.productSpecificationId)
+      specDetail.forEach((cElRel: ProductSpecification) => {
+        let nameVal = cElRel.productSpecificationDetail.find(specDetail => specDetail.id === elRel.productSpecificationDetailId)?.specificationDetailName
         // @ts-ignore
         newItem[cElRel.specificationName] = nameVal
       })
     })
-    el.goodsVariantBundleInfo?.forEach((el: any) => {
+    el.productVariantBundleInfo?.forEach((el: any) => {
       Object.keys(el).forEach(bundleKey => {
         if (el[bundleKey] === null) {
           delete el[bundleKey]
         }
       })
     })
-    // el.goodsSpecificationRel.forEach(el=>{
+    // el.productSpecificationRel.forEach(el=>{
     //   newItem[el.]
     // })
-    let sortIdxArr = el.goodsSpecificationRel?.map(cel => {
-      return variationList.find(variation => variation.id === cel.goodsSpecificationId)?.specificationList.filter(specification => {
-        return specification.id === cel.goodsSpecificationDetailId
+    let sortIdxArr = el.productSpecificationRel?.map(cel => {
+      return variationList.find(variation => variation.id === cel.productSpecificationId)?.specificationList.filter(specification => {
+        return specification.id === cel.productSpecificationDetailId
       }).map(ccel => {
         return ccel.sortIdx
       })
@@ -623,12 +623,12 @@ export const normaliseVariationAndSpecification = (data: GoodsSpecification[], g
   })
   return { variationList, variationLists }
 }
-export const normalizeSpecText = (goodsSpecificationRel: any, goodsSpecifications: any): string[] => {
-  // console.info('goodsSpecificationRel', goodsSpecificationRel)
-  return goodsSpecificationRel?.map((el: any) => {
-    let specObj = goodsSpecifications.find((spec: any) => spec.id === el.goodsSpecificationId)
-    let specDetailName = specObj?.goodsSpecificationDetail?.find(
-      (specDetail: any) => specDetail.id === el.goodsSpecificationDetailId,
+export const normalizeSpecText = (productSpecificationRel: any, productSpecifications: any): string[] => {
+  // console.info('productSpecificationRel', productSpecificationRel)
+  return productSpecificationRel?.map((el: any) => {
+    let specObj = productSpecifications.find((spec: any) => spec.id === el.productSpecificationId)
+    let specDetailName = specObj?.productSpecificationDetail?.find(
+      (specDetail: any) => specDetail.id === el.productSpecificationDetailId,
     )?.specificationDetailName
     return specDetailName || ''
   })
@@ -648,17 +648,17 @@ export const normaliseChangedvaration = (beforeData: any, afterData: any) => {
   //     //标记删除
   //     if (item.id) {
   //       if (item.isDeleted) {
-  //         newEl.goodsSpecificationRel
-  //           .filter((rel: any) => rel.goodsSpecificationId === item.id)
+  //         newEl.productSpecificationRel
+  //           .filter((rel: any) => rel.productSpecificationId === item.id)
   //           .forEach((crel: any) => {
   //             crel.isDeleted = true
   //           })
   //       }
-  //       item.goodsSpecificationDetail?.forEach((cel: any) => {
+  //       item.productSpecificationDetail?.forEach((cel: any) => {
   //         if (cel.id) {
   //           if (cel.isDeleted) {
-  //             newEl.goodsSpecificationRel
-  //               .filter((rel: any) => rel.goodsSpecificationDetailId === item.id)
+  //             newEl.productSpecificationRel
+  //               .filter((rel: any) => rel.productSpecificationDetailId === item.id)
   //               .forEach((crel: any) => {
   //                 crel.isDeleted = true
   //               })
@@ -677,11 +677,11 @@ export const normalizeNullDataRemove = (params: any) => {
   return newData
 }
 
-export const normaliseProductListSku = (sku: GoodsVariants, goodsSpecifications: GoodsSpecification): ProductListSkuItem => {
+export const normaliseProductListSku = (sku: ProductVariants, productSpecifications: ProductSpecification): ProductListSkuItem => {
   let skuItem = {
     id: sku.id,
     no: sku.skuNo,
-    specs: normalizeSpecText(sku.goodsSpecificationRel, goodsSpecifications)?.join(','),
+    specs: normalizeSpecText(sku.productSpecificationRel, productSpecifications)?.join(','),
     price: sku.marketingPrice,
     stock: sku.stock
   }
@@ -689,8 +689,8 @@ export const normaliseProductListSku = (sku: GoodsVariants, goodsSpecifications:
 }
 export const normaliseProductListSpu = (spu: any): any => {
   let listItem = {
-    skus: spu.goodsVariants?.map((sku: any) => normaliseProductListSku(sku, spu.goodsSpecifications)),
-    img: spu.goodsVariants?.[0]?.defaultImage || spu.goodsAsserts?.[0]?.artworkUrl,
+    skus: spu.productVariants?.map((sku: any) => normaliseProductListSku(sku, spu.productSpecifications)),
+    img: spu.productVariants?.[0]?.defaultImage || spu.productAsserts?.[0]?.artworkUrl,
     id: spu.id,
     no: spu.spuNo,
     showAll: false,
@@ -700,7 +700,7 @@ export const normaliseProductListSpu = (spu: any): any => {
     price: 0,
     stock: 0,
     shelvesStatus: spu.shelvesStatus,
-    name: spu.goodsName,
+    name: spu.productName,
     wxCodeUrl: spu.wxCodeUrl
   }
   return listItem
@@ -708,7 +708,7 @@ export const normaliseProductListSpu = (spu: any): any => {
 export const normaliseCateProps = (data: CateItemProps[]) => {
   return getTree(data, null, 0)
 }
-export const normaliseAttrProps = (data: GoodsAttribute[]) => {
+export const normaliseAttrProps = (data: ProductAttribute[]) => {
   let attrList = data.map(item => {
     let newItem = {
       id: item.id,

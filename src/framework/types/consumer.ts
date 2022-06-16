@@ -1,7 +1,7 @@
 import { Order } from "./order";
 
 export interface PetOwner {
-  basicInformation: Customer;
+  basicInformation: Consumer;
   tagList: Tag[];
   petList: Pet[];
   tencentAccountList: TencentAccount[];
@@ -12,7 +12,7 @@ export interface PetOwner {
   orderList: Order[];
 }
 
-export interface Customer {
+export interface Consumer {
   id: string;
   image?: string;
   name?: string;
@@ -40,7 +40,7 @@ export interface Pet {
   type: string;
   isSterilized?: boolean;
   age?: string;
-  customerId?: string;
+  consumerId?: string;
 }
 
 export interface PetBreed {
@@ -70,7 +70,7 @@ export interface Address {
   detail: string;
   isDefault: boolean;
   country?: string;
-  customerId?: string;
+  consumerId?: string;
   postcode: string;
   storeId?: string;
 }

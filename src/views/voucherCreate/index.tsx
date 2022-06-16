@@ -23,7 +23,7 @@ const CreateNewVoucher = () => {
   const [selectProducts, setSelectProducts] = useState([])
   const [spinning, setSpinning] = useState(false)
 
-  //编辑voucher商品回显 voucher detail里的goodsInfoList
+  //编辑voucher商品回显 voucher detail里的productInfoList
   const getvoucherDetails = async (Id: string) => {
     try {
       setSpinning(true)
@@ -31,11 +31,11 @@ const CreateNewVoucher = () => {
       state.displayOnShop = res.displayOnShop
       state.usageQuantity = res.usageQuantity
       const arr: string[] = []
-      res.goodsInfoList.forEach((item: any) => {
+      res.productInfoList.forEach((item: any) => {
         arr.push(item.id)
       })
       setkeys(arr)
-      const vlue = normaliseVoucherProduct(res.goodsInfoList)
+      const vlue = normaliseVoucherProduct(res.productInfoList)
       setSelectProducts(vlue)
       setSpinning(false)
     } catch(err) {
@@ -96,22 +96,22 @@ const CreateNewVoucher = () => {
                   v.discountValue = '' + v.discountValue
                   v.isLimitedQuantity = !!v.isLimitedQuantity
                   if (VoucherType === 'SHOP_VOUCHER') {
-                    v.voucherGoodsRelated = []
+                    v.voucherProductRelated = []
                   } else {
                     if (state) {
-                      v.voucherGoodsRelated = keys.length
+                      v.voucherProductRelated = keys.length
                         ? keys.map((item) => ({
                             operator: 'zz',
-                            goodsId: item,
+                            productId: item,
                             storeId: '123456',
                             voucherId: state.id,
                           }))
                         : ''
                     } else {
-                      v.voucherGoodsRelated = keys.length
+                      v.voucherProductRelated = keys.length
                         ? keys.map((item) => ({
                             operator: 'zz',
-                            goodsId: item,
+                            productId: item,
                             storeId: '123456',
                           }))
                         : ''
