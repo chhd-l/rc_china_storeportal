@@ -11,6 +11,7 @@ const PetOwnerDetail = lazy(() => import('@/views/petOwnerDetail'))
 const PetDetail = lazy(() => import('@/views/petDetail'))
 const OrderList = lazy(() => import('@/views/orderList'))
 const OrderDetail = lazy(() => import('@/views/orderDetail'))
+const Payment = lazy(() => import('@/views/payment'))
 const CategoryList = lazy(() => import('@/views/categoryList'))
 const CategoryDetail = lazy(() => import('@/views/categoryDetail'))
 const CategoryManualDetail = lazy(() => import('@/views/categoryManualDetail'))
@@ -108,6 +109,14 @@ let routes: RouteObject[] = [
           { index: true, element: <TagList />},
           { path: 'tag-list', index: true, element: <TagList />, breadcrumbName: 'Tagging Setting' },
           { path: 'edit-tags', element: <EditTags />, breadcrumbName: 'Tagging Details' },
+        ],
+      },
+      {
+        path: 'payment',
+        breadcrumbName: 'Payment Settings',
+        children: [
+          { index: true, element: <Payment />,},
+          { path: 'setting-list', element: <Payment />,},
         ],
       },
       {

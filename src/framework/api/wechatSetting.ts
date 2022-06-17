@@ -5,7 +5,7 @@ import { normaliseBrands, normaliseMediaList } from '@/framework/normalize/wecha
 export const getAccountList = async (queryParams: any) => {
   try {
     let res = await ApiRoot.wechatSettings().getAccounts({ body: queryParams })
-    const accounts = res?.accounts
+    const accounts = res?.getAccountList
     //todo account manage normalize
     console.log('get wechat setting account list view data', accounts)
     return {
