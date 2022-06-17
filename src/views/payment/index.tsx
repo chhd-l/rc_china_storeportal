@@ -2,93 +2,86 @@ import { ContentContainer } from '@/components/ui'
 import ProTable, { ProColumns } from '@/components/common/ProTable'
 import { handlePageParams } from '@/utils/utils'
 import { CategoryBaseProps } from '@/framework/types/product'
-import { getShopCategories } from '@/framework/api/get-product'
+import { getShopCategories, updateShopCategory } from '@/framework/api/get-product'
 import { useEffect, useRef, useState } from 'react'
-import { Col, Divider, Row,Tooltip } from 'antd';
+import { Col, Modal, Row, Tooltip, Switch } from 'antd'
 import './index.less'
 import wx from '@/assets/images/wx.png'
+import AddCate from './components/AddCate'
 
-const PaymentSettings=() =>{
+const PaymentSettings = () => {
   const ref = useRef<any>()
-  const getList = async (page: any) => {
-    return await getShopCategories({
-      offset: page.offset,
-      limit: page.limit,
-      isNeedTotal: true,
-      sample: {
-        storeId: '12345678',
-      },
-    })
+  const [addVisible, setAddvisible] = useState(false)
+  const [checked, setChecked] = useState(false)
+  const [isSwithVisible, setIsSwithVisible] = useState(false)
+  const [status, setStatus] = useState(false)
+  const [loading, setLoading] = useState<boolean>(false)
+
+  const handleAddCate = (visible: boolean) => {
+    setAddvisible(visible)
   }
-  const columns: ProColumns<CategoryBaseProps>[] = [
-    {
-      title: 'Provider',
-      dataIndex: 'displayName',
-      align:'center'
-    },
-    {
-      title: 'Status',
-      dataIndex: 'categoryType',
-      align:'center'
-    },
-    {
-      title: 'Transaction Fee',
-      dataIndex: 'total',
-      align:'center'
-    },
-  ]
-  return(
+  const handleUpdate = (visible: boolean) => {
+    ref.current.reload()
+  }
+  const confirmSwitch = async () => {
+    setIsSwithVisible(false)
+    setChecked(!checked)
+  }
+
+  return (
     <ContentContainer>
       <div className='bg-white p-6 '>
-        <div className="mb-10">
+        <div className='mb-10'>
           <div className='text-xl font-semibold'>Supported Payment Method</div>
-          <div className="text-gray-400 mt-1">A payment method provided by a payment service provider approved by Seller Center.</div>
+          <div className='text-gray-400 mt-1'>A payment method provided by a payment service provider approved by Seller
+            Center.
+          </div>
         </div>
-        <div>
+        <div className="table-header">
           <Row>
             <Col span={8}>
               <img src={wx} alt='' />
             </Col>
-            <Col span={8}/>
-            <Col span={8}>
+            <Col span={8} />
+            <Col span={8} className='flex items-center justify-end'>
               <Tooltip title='Configure'>
                 <a className='mr-4' onClick={(e) => {
-
-                }} >
+                  setAddvisible(true)
+                }}>
                   <span className='iconfont icon-group52' />
                 </a></Tooltip>
+              <Switch checked={checked} onChange={(checked: boolean) => {
+                  setIsSwithVisible(true)
+                  setStatus(checked)
+              }} />
             </Col>
           </Row>
         </div>
-          <ProTable
-            className='my-table'
-            actionRef={ref}
-            search={false}
-            columns={columns}
-            request={async (params, sorter, filter) => {
-              // 表单搜索项会从 params 传入，传递给后端接口。
-              console.log('test sort', params, sorter, filter)
-              let page = handlePageParams({
-                currentPage: params.current,
-                pageSize: params.pageSize,
-              })
-              let tableData = await getList(page)
-              if (tableData === undefined && page.offset >= 10) {
-                tableData = await getList({
-                  offset: page.offset - 10,
-                  limit: page.limit,
-                })
-              }
-
-              return Promise.resolve({
-                data: tableData?.records || [],
-                total: tableData.total,
-                success: true,
-              })
-            }}
-            pagination={false}
-          />
+        <div className="table-content">
+          <Row className='mb-10'>
+             <Col span={8}>Provider</Col>
+             <Col span={8} style={{textAlign:'center'}}>Status</Col>
+             <Col span={8} style={{textAlign:'right'}}>Transaction Fee</Col>
+          </Row>
+          <Row>
+            <Col span={8}>1</Col>
+            <Col span={8} style={{textAlign:'center'}}>2</Col>
+            <Col span={8} style={{textAlign:'right'}}>3</Col>
+          </Row>
+        </div>
       </div>
+      <AddCate visible={addVisible} handleVisible={handleAddCate} handleUpdate={handleUpdate} />
+      <Modal
+        className='rc-modal'
+        title='Notice'
+        okText='Confirm'
+        visible={isSwithVisible}
+        onOk={confirmSwitch}
+        confirmLoading={loading}
+        onCancel={() => setIsSwithVisible(false)}
+      >
+        <p>{status ? 'Are you sure you want to enable the item ?' : 'Are you sure you want to disable the item ?'}</p>
+      </Modal>
     </ContentContainer>
   )
 }
