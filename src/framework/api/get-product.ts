@@ -24,7 +24,7 @@ import {
 export const getCategories = async ({ storeId }: { storeId: string }): Promise<CateItemProps[]> => {
   try {
     let categoryList = await ApiRoot.products().getProductCategories({ storeId })
-    return categoryList.getProductCates
+    return categoryList.productCategoryFind
   } catch (e) {
     console.log(e)
     return []
@@ -94,7 +94,7 @@ export const createProduct = async (params: any, beforeData?: any) => {
   try {
     const data = await ApiRoot.products().createProduct({ body: paramsData })
     console.info('createProduct', data)
-    return data?.createProduct
+    return data?.productCreate
   } catch (err) {
     console.info('createProduct err', err)
     return false
@@ -103,13 +103,12 @@ export const createProduct = async (params: any, beforeData?: any) => {
 export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categoryId: string }) => {
   try {
     let data = []
+    let params: any = { storeId }
     if (categoryId) {
-      const { getAttributes: attributeList } = await ApiRoot.products().getAttrList({ storeId, categoryId })
-      data = normaliseAttrProps(attributeList)
-    } else {
-      const { getAttributes: attributeList } = await ApiRoot.products().getAttrList({ storeId })
-      data = normaliseAttrProps(attributeList)
+      params.categoryId = categoryId
     }
+    const { productAttributeFindByCategoryId: attributeList } = await ApiRoot.products().getAttrList(params)
+    data = normaliseAttrProps(attributeList)
     return data
   } catch (e) {
     console.log(e)
@@ -176,7 +175,7 @@ export const getESProducts = async (params:
   any): Promise<any> => {
   try {
     const res = await ApiRoot.products().getESProductLists(params)
-    return res.getEsProducts
+    return res.productFindPageByEs
   } catch (e) {
     return []
   }
@@ -185,9 +184,9 @@ export const getESProducts = async (params:
 export const getProductDetail = async ({ storeId, productId }: { storeId: string, productId: string }) => {
   let info: any = {}
   try {
-    const { productDetail } = await ApiRoot.products().getProductDetail({ storeId, productId })
+    const { productDetailGet } = await ApiRoot.products().getProductDetail({ storeId, productId })
     // const { productDetail } = detailMock.data
-    const { listAttributeGet, listCategoryGet, findProductByProductId } = productDetail
+    const { listAttributeGet, listCategoryGet, findProductByProductId } = productDetailGet
     let detail = Object.assign({}, findProductByProductId, { listAttributeGet, listCategoryGet })
     info = normaliseDetailforFe(detail)
     // debugger
@@ -226,7 +225,7 @@ export const getScProducts = async (params: ProductListQueryProps): Promise<any>
     delete params.sample
     params.sample = { ...sample }
     const res = await ApiRoot.products().getScProducts(params)
-    const data = normaliseScProductsforFe(res.getScProducts)
+    const data = normaliseScProductsforFe(res.productFindPageV1)
     return data
   } catch (e) {
     console.log(e)
@@ -237,7 +236,7 @@ export const getScProducts = async (params: ProductListQueryProps): Promise<any>
 export const getShopCategories = async (params: shopCateQuery): Promise<any> => {
   try {
     let res = await ApiRoot.products().getShopCategoryList(params)
-    return res.getShopCategories
+    return res.shopCategoryFindPage
   } catch (e) {
     console.log(e)
   }
@@ -291,7 +290,7 @@ export const getBundleProductvariants = async (params: any) => {
   let data: any = []
   try {
     let res = await ApiRoot.products().getBundleProductvariants(params)
-    data = res?.findBundleProductVariantList || []
+    data = res?.productRegularFindPage || []
   } catch (e) {
     console.log(e)
     // return

@@ -51,11 +51,11 @@ const CategoryDetail = () => {
         productName: page.productName,
       },
     })
-    let meta = res?.findShopCategoryProductPage?.meta
+    let meta = res?.shopCategoryProductFindPage?.meta
     if (meta?.id) {
-      setCateInfos({ ...meta, total: res?.findShopCategoryProductPage?.total })
+      setCateInfos({ ...meta, total: res?.shopCategoryProductFindPage?.total })
     }
-    let shopCategoryFilterRules = res?.findShopCategoryProductPage?.shopCategoryFilterRules
+    let shopCategoryFilterRules = res?.shopCategoryProductFindPage?.shopCategoryFilterRules
     if (shopCategoryFilterRules?.length > 0) {
       let obj = {
         'productCategoryId': shopCategoryFilterRules[0].value?.split(','),
@@ -235,8 +235,8 @@ const CategoryDetail = () => {
                   })
                 }
                 return Promise.resolve({
-                  data: tableData?.findShopCategoryProductPage?.records || [],
-                  total: tableData?.findShopCategoryProductPage.total,
+                  data: tableData?.shopCategoryProductFindPage?.records || [],
+                  total: tableData?.shopCategoryProductFindPage.total,
                   success: true,
                 })
               }}
