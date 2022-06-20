@@ -50,6 +50,7 @@ const ComingSoon = lazy(() => import('@/views/comingSoon'))
 const LiveStreamingList = lazy(() => import('@/views/liveStreamingList'))
 const IntelligentRecommendation = lazy(() => import('@/views/intelligentRecommendation'))
 const AddGraphic = lazy(() => import('@/views/addGraphic'))
+const Dashboard = lazy(() => import('@/views/dashboard'))
 
 interface RouteObject {
   caseSensitive?: boolean
@@ -68,6 +69,7 @@ let routes: RouteObject[] = [
     children: [
       { index: true, element: <OrderList /> },
       { path: 'home', element: <Home /> },
+      { path: 'dashboard', element: <Dashboard /> },
       // { index: true , element:<Routes><Route  element={<Navigate to={'/Home'} />} /></Routes> },
       { path: 'shipment-list', element: <OrderList />, breadcrumbName: 'My Shipment' },
       { path: 'shipping-setting', element: <ShippingSetting />, breadcrumbName: 'Shipping Setting' },
