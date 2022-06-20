@@ -26,7 +26,7 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
   const onFinish = async (values: any) => {
     let res = await createTag({name:values.name,isEnabled:false})
     console.log(res)
-    if(res?.createTag){
+    if(res?.tagCreate){
       handleUpdate(true)
       message.success('Operate success')
       return true
@@ -39,8 +39,7 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
       id: id,
       operator: 'zz',
     }).then((res) => {
-      console.log(res,99999)
-      if(res.deleteTag){
+      if(res.tagDelete){
         setVisible(false)
         message.success('Operate success')
         handleUpdate(true)

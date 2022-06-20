@@ -36,7 +36,7 @@ const EditTags = () => {
       operator: "zz",
       storeId:"12345678"
     })
-    if(res.removeConsumerTag){
+    if(res.consumerTagDelete){
       message.success('Operate success')
       setIsModalVisible(false)
       ref.current.reload()
@@ -55,15 +55,15 @@ const EditTags = () => {
         }
       })
     console.log(res)
-    if(res?.findTagConsumerPage?.meta?.length>0){
+    if(res?.tagConsumerFindPage?.meta?.length>0){
       setCateInfos({
-        isEnabled: res?.findTagConsumerPage?.meta[0].isEnabled,
-        name: res?.findTagConsumerPage?.meta[0].name,
-        total:res?.findTagConsumerPage.total
+        isEnabled: res?.tagConsumerFindPage?.meta[0].isEnabled,
+        name: res?.tagConsumerFindPage?.meta[0].name,
+        total:res?.tagConsumerFindPage.total
       })
     }
     setLoading(false)
-    return res?.findTagConsumerPage
+    return res?.tagConsumerFindPage
   }
   const confirmSwitch = async () => {
     setLoading(true)

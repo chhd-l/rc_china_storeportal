@@ -66,7 +66,7 @@ const EditTagsModal = ({ visible, handleVisible, handleUpdate }: EditTagsModalPr
             operator: 'zz',
             storeId: '12345678',
           })
-          if (res?.addConsumerTag) {
+          if (res?.consumerTagCreate) {
             message.success('Operate success')
             handleUpdate(true)
             return true
