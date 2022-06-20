@@ -51,9 +51,9 @@ const MpBannerDetail = () => {
   const getlist = async () => {
     setLoading(true)
     let res = await bannerGetDetailById(state.id)
-    formRef?.current?.setFieldsValue(res?.bannerGetDetailById)
-    setClickType(res?.bannerGetDetailById?.clickType)
-    setPicUrl(res?.bannerGetDetailById?.picUrl)
+    formRef?.current?.setFieldsValue(res?.bannerGet)
+    setClickType(res?.bannerGet?.clickType)
+    setPicUrl(res?.bannerGet?.picUrl)
     setLoading(false)
   }
   useEffect(() => {

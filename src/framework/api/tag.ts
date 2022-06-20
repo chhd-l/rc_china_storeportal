@@ -4,7 +4,7 @@ export const getTags = async (params: any) => {
   try {
     let res = await ApiRoot.tags().getTags({ body: params })
     console.log('get tag list view data', res)
-    return res?.findTagPage
+    return res?.tagFindPage
   } catch (e) {
     console.log(e)
     return []

@@ -59,7 +59,7 @@ export const syncLiveStreaming = async (accountId: string) => {
       return true
     } else {
       let res = await ApiRoot.liveStreams().syncLiveStreaming(accountId)
-      return res?.syncLiveStreaming || false
+      return res?.liveStreamingSync || false
     }
   } catch (e) {
     console.log(e)
