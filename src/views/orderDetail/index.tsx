@@ -19,7 +19,7 @@ const OrderDetail = () => {
     orderItem,
     orderPrice,
     carrier,
-    payInfo,
+    payment,
     logs,
     comments,
     id,
@@ -77,7 +77,7 @@ const OrderDetail = () => {
                 </InfoContainer>
                 <DivideArea />
                 <InfoContainer>
-                  <Payment payInfo={payInfo} />
+                  <Payment payment={payment} />
                 </InfoContainer>
               </div>
               <div className="w-1/4">

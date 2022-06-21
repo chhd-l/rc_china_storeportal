@@ -7,7 +7,7 @@ export interface Order {
   orderState: OrderState
   carrierType?: string //后端未定义这个字段
   orderPrice: OrderPrice
-  payInfo?: PayInfo
+  payment?: Payment
   subscriptionId?: string
   subscriptionNo?:string
   freshType?:string
@@ -53,7 +53,7 @@ export interface Deliveries {
   time: string
 }
 
-export interface PayInfo {
+export interface Payment {
   payTypeName: string
   appId: string
   payTime: string

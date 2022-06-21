@@ -1,5 +1,5 @@
 import { normaliseAttrProps } from './product'
-import { OrderLogs, OrderPayInfo } from '../schema/order.schema'
+import { OrderLogs, OrderPayment } from '../schema/order.schema'
 import { Order } from '../types/order'
 import { handleReturnTime } from '@/utils/utils'
 
@@ -11,7 +11,7 @@ export enum OrderOrderStateOrderStateEnum {
   viod = 'VOID',
 }
 
-const normalisePayInfo = (payInfo: OrderPayInfo, orderState: any) => {
+const normalisePayment = (payment: OrderPayment, orderState: any) => {
   let info =
     orderState === OrderOrderStateOrderStateEnum.unpaid || orderState === 'CANCELLATION'
       ? {
@@ -22,11 +22,11 @@ const normalisePayInfo = (payInfo: OrderPayInfo, orderState: any) => {
       }
       : {
         payTypeName: 'Wechat Pay',
-        appId: payInfo.paymentId,
-        payTime: handleReturnTime(payInfo.paymentStartTime),
-        outOrderNo: payInfo.payWayOrderId,
-        payWayOrderID: payInfo.payWayOrderId,
-        payWayCode: payInfo.payWayCode,
+        appId: payment.paymentId,
+        payTime: handleReturnTime(payment.paymentStartTime),
+        outOrderNo: payment.payWayOrderId,
+        payWayOrderID: payment.payWayOrderId,
+        payWayCode: payment.payWayCode,
       }
   return info
 }
@@ -44,7 +44,7 @@ export const normaliseOrder = (data: any, expressCompanies: any): any => {
     postcode: postCode,
     isDefault,
   } = data.shippingAddress
-  let { orderState, lineItem, orderPrice, payment: payInfo, logs, delivery: shippingInfo, subscriptionId, subscriptionNo } = data
+  let { orderState, lineItem, orderPrice, payment: payment, logs, delivery: shippingInfo, subscriptionId, subscriptionNo } = data
   const company = expressCompanies.filter((item: any) => item.code === shippingInfo.shippingCompany)
   const carrierType = company.length > 0 ? company[0].nameEn : ''
   // let { orderState } = orderState
@@ -116,7 +116,7 @@ export const normaliseOrder = (data: any, expressCompanies: any): any => {
       deliveryPrice: orderPrice?.deliveryPrice || 0,
       totalPrice: orderPrice.totalPrice,
     },
-    payInfo: payInfo ? normalisePayInfo(payInfo, orderState) : {},
+    payment: payment ? normalisePayment(payment, orderState) : {},
     logs,
     comments: data?.comments,
   }

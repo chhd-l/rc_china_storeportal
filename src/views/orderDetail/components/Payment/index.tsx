@@ -1,8 +1,8 @@
 import React from 'react'
-import { PayInfo } from '@/framework/types/order'
+import { Payment } from '@/framework/types/order'
 
-const PaymentInformation = ({ payInfo }: { payInfo: PayInfo | any }) => {
-  const { payTypeName, payWayCode, payTime, payWayOrderID } = payInfo
+const PaymentInformation = ({ payment }: { payment: Payment | any }) => {
+  const { payTypeName, payWayCode, payTime, payWayOrderID } = payment
 
   return (
     <div className="flex flex-col">
