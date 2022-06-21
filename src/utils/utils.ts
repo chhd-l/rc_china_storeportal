@@ -71,7 +71,7 @@ export const handleArrDataForEdit = (before: any, after: any, diffObj: any, keyN
   if (!after) {
     return
   }
-  if (keyName === 'goodsSpecifications') {
+  if (keyName === 'productSpecifications') {
     // debugger
   }
   if (!diffObj[keyName]) {
