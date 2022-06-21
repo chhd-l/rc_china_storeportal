@@ -531,7 +531,7 @@ export const deleteReplyContent = async (id: string) => {
     }
   });
   console.log('delete replyContent view data:', data)
-  return data?.wxReplyContentUpsert ?? false
+  return data?.wxReplyContentModify ?? false
 }
 
 export const updateReplyContent = async (id: string, param: any) => {
@@ -544,7 +544,7 @@ export const updateReplyContent = async (id: string, param: any) => {
     }
   });
   console.log('disable or enable replyContent view data:', data);
-  return data?.wxReplyContentUpsert ?? false
+  return data?.wxReplyContentModify ?? false
 }
 
 export const getAutomaticResponseList = async (param: any) => {

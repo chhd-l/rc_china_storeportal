@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Search from "@/components/common/Search";
 import "./index.less";
-import { ReplyContent } from "@/framework/types/wechat";
+import { WxReplyContent } from "@/framework/types/wechat";
 import { normaliseReplyContent } from "@/framework/normalize/wechatSetting";
 import { getReplyContentList, deleteReplyContent, updateReplyContent } from "@/framework/api/wechatSetting";
 import { formItems } from "./modules/form";
@@ -15,7 +15,7 @@ import {
 } from "@/components/ui";
 
 const SelectContentModal = () => {
-  const [replyContents, setReplyContents] = useState<ReplyContent[]>([]);
+  const [replyContents, setReplyContents] = useState<WxReplyContent[]>([]);
   const [pages, setPages] = useState<{page: number, limit: number, total: number}>({page: 1, limit: 10, total: 0});
   const [quneryParams, setQueryParams] = useState<any>({});
   const [loading, setLoading] = useState<boolean>(false);

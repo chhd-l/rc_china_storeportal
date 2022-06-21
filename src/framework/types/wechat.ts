@@ -41,7 +41,7 @@ export interface AutoReplies {
   status: boolean
 }
 
-export interface ReplyContent {
+export interface WxReplyContent {
   id: string
   type: string
   description: string

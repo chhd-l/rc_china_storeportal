@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Input, Select, Table, Button } from 'antd';
-import { ReplyContent } from "@/framework/types/wechat";
+import { WxReplyContent } from "@/framework/types/wechat";
 import { getReplyContentList } from "@/framework/api/wechatSetting";
 import { normaliseReplyContent } from "@/framework/normalize/wechatSetting";
 import { ColumnProps } from "antd/es/table";
@@ -11,11 +11,11 @@ const Option = Select.Option;
 interface IProps {
   visible: boolean
   onlyEnabled: boolean
-  onConfirm: (reply: ReplyContent) => void
+  onConfirm: (reply: WxReplyContent) => void
   onCancel: () => void
 }
 
-const columns: ColumnProps<ReplyContent>[] = [
+const columns: ColumnProps<WxReplyContent>[] = [
   {
     title: "Reply Type",
     dataIndex: "type",
@@ -43,10 +43,10 @@ const ReplyModal: React.FC<IProps> = ({
 }) => {
   const [pages, setPages] = useState<{ page: number, limit: number, total: number }>({ page: 1, limit: 10, total: 0 });
   const [loading, setLoading] = useState<boolean>(false);
-  const [replyList, setReplyList] = useState<ReplyContent[]>([]);
+  const [replyList, setReplyList] = useState<WxReplyContent[]>([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [param, setParam] = useState<{ description: string, type: string }>({ description: "", type: "" });
-  const [selectedRows, setSelectedRows] = useState<ReplyContent[]>([]);
+  const [selectedRows, setSelectedRows] = useState<WxReplyContent[]>([]);
 
   useEffect(() => {
     getReplyList(1, 10, {});
