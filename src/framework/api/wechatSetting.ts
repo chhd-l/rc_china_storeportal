@@ -454,7 +454,7 @@ export const getWxMenusList = async (queryParams: any) => {
 export const updateWxMenu = async (queryParams: any) => {
   try {
     let res = await ApiRoot.wechatSettings().upsertWxMenu(queryParams)
-    const updated = res?.wxMenuUpsert
+    const updated = res?.wxMenuModify
     console.log('update wxmenu view data', updated)
     return updated || false
   } catch (e) {
