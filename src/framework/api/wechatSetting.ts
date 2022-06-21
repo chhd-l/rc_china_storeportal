@@ -552,8 +552,8 @@ export const getAutomaticResponseList = async (param: any) => {
     body: param,
     operator: 'zz'
   });
-  const list = data?.automaticResponseFindPage
-  console.log('get automaticResponse list view data:', data);
+  const list = data?.wxAutomaticResponseFindPage
+  console.log('get WxAutomaticResponse list view data:', data);
   return {
     records: list?.records ?? [],
     total: list?.total ?? 0
@@ -562,16 +562,16 @@ export const getAutomaticResponseList = async (param: any) => {
 
 export const getAutomaticResponseDetail = async (id: string) => {
   const data = await ApiRoot.wechatSettings().getAutomaticResponseDetail(id);
-  console.log('get automaticResponse detail by id view data:', data);
-  return data?.automaticResponseGet ?? {}
+  console.log('get WxAutomaticResponse detail by id view data:', data);
+  return data?.wxAutomaticResponseGet ?? {}
 }
 
 export const createAutomaticResponse = async (param: any) => {
   const data = await ApiRoot.wechatSettings().createAutomaticResponse({
     body: param
   });
-  console.log('create automaticResponse view data:', data);
-  return data?.automaticResponseCreate ?? {}
+  console.log('create WxAutomaticResponse view data:', data);
+  return data?.wxAutomaticResponseCreate ?? {}
 }
 
 export const deleteAutomaticResponse = async (id: string) => {
@@ -581,8 +581,8 @@ export const deleteAutomaticResponse = async (id: string) => {
       isDeleted: true,
     }
   });
-  console.log('delete automaticResponse view data:', data);
-  return data?.automaticResponseUpsert ?? false
+  console.log('delete WxAutomaticResponse view data:', data);
+  return data?.wxAutomaticResponseModify ?? false
 }
 
 export const updateAutomaticResponse = async (id: string, param: any) => {
@@ -590,11 +590,11 @@ export const updateAutomaticResponse = async (id: string, param: any) => {
     body: {
       isDeleted: false,
       id,
-      automaticResponseInput: param,
+      automaticResponse: param,
     }
   });
-  console.log('update automaticResponse view data:', data);
-  return data?.automaticResponseUpsert ?? false
+  console.log('update WxAutomaticResponse view data:', data);
+  return data?.wxAutomaticResponseModify ?? false
 }
 
 export const getArticlesList = async (param: any) => {

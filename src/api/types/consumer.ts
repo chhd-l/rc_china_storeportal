@@ -18,11 +18,11 @@ export interface CustomerPagedQueryResponse {
   /**
    *
    */
-  readonly results: Customer[]
+  readonly results: Consumer[]
 }
 
 
-export interface Customer {
+export interface Consumer {
   /**
    *	The unique ID of the customer.
    *
@@ -164,7 +164,7 @@ export interface Customer {
    */
   // readonly stores?: StoreKeyReference[]
   /**
-   *	Defines whether a Customer has a password.
+   *	Defines whether a Consumer has a password.
    *
    */
   // readonly authenticationMode?: AuthenticationMode

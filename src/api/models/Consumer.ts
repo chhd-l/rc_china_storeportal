@@ -25,9 +25,9 @@ import {
 /**
  * 
  * @export
- * @interface Customer
+ * @interface Consumer
  */
-export interface Customer {
+export interface Consumer {
     name: string;
     image: string;
     tencentAccount: CustomerAccount;

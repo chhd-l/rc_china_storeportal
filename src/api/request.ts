@@ -1,4 +1,4 @@
-import { Customer, CustomerPagedQueryResponse } from "./types/customer";
+import { Consumer, CustomerPagedQueryResponse } from "./types/customer";
 import { getAllCustomersQuery } from "./queries/get-all-customers-query";
 import { Config } from "./types/api/fetcher";
 import fetchGraphqlApi from "./fetchGraphqlApi";

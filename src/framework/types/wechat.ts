@@ -7,7 +7,7 @@ export interface Account {
   status: boolean
 }
 
-export interface Fans {
+export interface WxFans {
   id: string
   account: string
   accountPrincipal: string

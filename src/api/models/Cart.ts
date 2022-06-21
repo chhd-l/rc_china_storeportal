@@ -13,7 +13,7 @@
  */
 
 import {
-    Customer,
+    Consumer,
 } from './';
 
 /**
@@ -23,7 +23,7 @@ import {
  */
 export interface Cart {
     cartId: string;
-    customerId: Customer;
+    customerId: Consumer;
     storeId: string;
     createdAt: string;
     lastModifiedAt: string;

@@ -13,7 +13,7 @@
  */
 
 import {
-    Customer,
+    Consumer,
     Tag,
 } from './';
 
@@ -23,7 +23,7 @@ import {
  * @interface CustomerTag
  */
 export interface CustomerTag {
-    customer: Customer;
+    customer: Consumer;
     tag: Tag;
 }
 

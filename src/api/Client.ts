@@ -1,5 +1,5 @@
 import { ctpClient } from './BuildClient';
-import { Customer, CustomerPagedQueryResponse } from './types/customer'
+import { Consumer, CustomerPagedQueryResponse } from './types/customer'
 import {
   ApiRoot,
   createApiBuilderFromCtpClient,

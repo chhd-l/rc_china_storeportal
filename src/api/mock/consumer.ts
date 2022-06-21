@@ -1,7 +1,7 @@
-import { Customer } from "../models";
+import { Consumer } from "../models";
 import { CustomerAccountFollowStatusEnum, OrderTradeStateOrderStateEnum } from "../models";
 
-const customerData : Customer = {
+const customerData : Consumer = {
   "name": "积没住者子队",
   "image": "http://dummyimage.com/400x400",
   "level": "in eiusmod reprehenderit",
