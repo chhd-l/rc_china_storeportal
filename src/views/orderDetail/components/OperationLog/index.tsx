@@ -3,6 +3,7 @@ import { Log } from '@/framework/types/order'
 import { KeyRules } from '@/framework/types/common'
 import { handleReturnTime } from '@/utils/utils'
 import { useEffect, useState } from 'react'
+import '../../index.less'
 
 const LogEventEnum: KeyRules = {
   COMPLETE: 'Order was completed',
@@ -20,11 +21,11 @@ const OperationLog = ({ logs }: { logs: Log[] }) => {
   }, [logs])
 
   return (
-    <div>
+    <div className='OperationLog'>
       <Divider>
-        <span>Operation log</span>
+        <span>Operation logxxxxx</span>
       </Divider>
-      <Steps direction="vertical" current={0}>
+      <Steps className='virtualList' direction="vertical" current={0}>
         {curLogs.length > 0 &&
           curLogs.map((item) => (
             <Steps.Step
