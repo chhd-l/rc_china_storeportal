@@ -1,5 +1,5 @@
 export * from './Banner';
-export * from './BrandInfo';
+export * from './Brand';
 export * from './Cart';
 export * from './Customer';
 export * from './CustomerAccount';

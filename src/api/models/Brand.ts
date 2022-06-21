@@ -15,9 +15,9 @@
 /**
  * 
  * @export
- * @interface BrandInfo
+ * @interface Brand
  */
-export interface BrandInfo {
+export interface Brand {
     id: string;
     brandName: string;
     brandNickName: string;

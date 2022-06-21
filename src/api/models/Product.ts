@@ -13,7 +13,7 @@
  */
 
 import {
-    BrandInfo,
+    Brand,
     ProductAssets,
     ProductSpecifiction,
     ProductType,
@@ -43,7 +43,7 @@ export interface Product {
     marketingPrice: string;
     isSupport100: string;
     type: ProductType;
-    brandId: BrandInfo;
+    brandId: Brand;
     isShelves: boolean;
     specifictionId: ProductSpecifiction;
     defaultImage: ProductAssets;
