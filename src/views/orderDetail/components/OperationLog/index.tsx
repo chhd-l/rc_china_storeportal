@@ -23,7 +23,7 @@ const OperationLog = ({ logs }: { logs: Log[] }) => {
   return (
     <div className='OperationLog'>
       <Divider>
-        <span>Operation logxxxxx</span>
+        <span>Operation log</span>
       </Divider>
       <Steps className='virtualList' direction="vertical" current={0}>
         {curLogs.length > 0 &&
