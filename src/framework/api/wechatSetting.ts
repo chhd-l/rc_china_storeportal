@@ -603,21 +603,21 @@ export const getArticlesList = async (param: any) => {
   });
   console.log('get article list view data:', data);
   return {
-    records: data?.articlesFindPage?.records ?? [],
-    total: data?.articlesFindPage?.total ?? 0
+    records: data?.wxArticleFindPage?.records ?? [],
+    total: data?.wxArticleFindPage?.total ?? 0
   }
 }
 
 export const syncArticles = async (accountId: string) => {
   const data = await ApiRoot.wechatSettings().syncArticles(accountId);
   console.log('sync articles view data:', data);
-  return data?.articlesSync ?? false
+  return data?.wxArticleSync ?? false
 }
 
-export const deleteArticles = async (articlesId: string, mediaId: string) => {
-  const data = await ApiRoot.wechatSettings().deleteArticles(articlesId, mediaId);
+export const deleteArticles = async (id: string, mediaId: string) => {
+  const data = await ApiRoot.wechatSettings().deleteArticles(id, mediaId);
   console.log('delete articles view data:', data);
-  return data?.articlesDelete ?? false
+  return data?.wxArticleDelete ?? false
 }
 
 export const addArticle = async (param: any) => {
@@ -629,7 +629,7 @@ export const addArticle = async (param: any) => {
     }
   });
   console.log('add article view data:', data);
-  return data?.articlesCreate ?? {}
+  return data?.wxArticleCreate ?? {}
 }
 
 export const addAndSyncArticle = async (param: any) => {
@@ -641,11 +641,11 @@ export const addAndSyncArticle = async (param: any) => {
     }
   });
   console.log('add articleandsync view data:', data);
-  return data?.articlesCreateAndSync ?? {}
+  return data?.wxArticleCreateAndSync ?? {}
 }
 
 export const getArticlePreviewUrls = async (mediaId: string) => {
   const data = await ApiRoot.wechatSettings().getArticlesPreviewUrls(mediaId);
   console.log('get previewurls view data:', data);
-  return data?.articlesGetUrlFromWX ?? []
+  return data?.wxArticleGetUrlFromWX ?? []
 }

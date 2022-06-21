@@ -1,16 +1,16 @@
 import React from 'react';
-import { Article, Asset } from "@/framework/types/wechat";
+import { WxArticle, Asset } from "@/framework/types/wechat";
 import { uuid } from "@/utils/utils";
 
 interface IGrapicContext {
-  articleList: Article[]
+  articleList: WxArticle[]
   currentArticleId: string
-  onChangeFieldValue: (values: { [T in keyof Article]?: Article[T] }) => void
+  onChangeFieldValue: (values: { [T in keyof WxArticle]?: WxArticle[T] }) => void
   setCurrentArticleId: (id: string) => void
-  setArticleList: (articleList: Article[]) => void
+  setArticleList: (articleList: WxArticle[]) => void
 }
 
-export const createDefaultArticle: (type: "image" | "voice" | "video" | "news") => Article = (type) => ({
+export const createDefaultArticle: (type: "image" | "voice" | "video" | "news") => WxArticle = (type) => ({
   id: uuid(),
   title: "",
   type: type,
@@ -38,11 +38,11 @@ const GraphicContextProvider: React.FC<{ value: IGrapicContext, children: React.
   </GraphicContext.Provider>
 }
 
-export function getCurrentArticleById(articleList: Article[], id: string): Article | undefined {
+export function getCurrentArticleById(articleList: WxArticle[], id: string): WxArticle | undefined {
   return articleList.find(article => article.id === id);
 }
 
-export function transArticleList(articleList: Article[]): any {
+export function transArticleList(articleList: WxArticle[]): any {
   const imgStr = (imgList: any) => imgList.map((img: any) => `<img src="${img.picture}" />`).join("");
   const voiceStr = (voice: any) => `<audio controls><source src="${voice.voice}" /></audio>`;
   const videoStr = (video: any) => `<video controls><source src="${video.video}" type="video/mp4" /></video>`;
@@ -61,7 +61,7 @@ export function transArticleList(articleList: Article[]): any {
   }));
 }
 
-export function moveArticleList(articleList: Article[], articleId: string, direction: "up" | "down"): Article[] {
+export function moveArticleList(articleList: WxArticle[], articleId: string, direction: "up" | "down"): WxArticle[] {
   const article = getCurrentArticleById(articleList, articleId);
   const articleIdx = articleList.findIndex(article => article.id === articleId);
   if (!article || articleList.length < 2 || (articleIdx < 1 && direction === "up") || (articleIdx === articleList.length - 1 && direction === "down")) {

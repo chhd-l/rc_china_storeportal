@@ -95,7 +95,7 @@ export interface WxMenu {
   isEnabled: boolean
 }
 
-export interface Article {
+export interface WxArticle {
   id: string
   title: string
   type: "image" | "voice" | "video" | "news",
