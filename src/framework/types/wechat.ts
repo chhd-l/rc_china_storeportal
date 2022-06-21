@@ -1,4 +1,4 @@
-export interface Account {
+export interface WxAccount {
   id: string
   principal: string
   type: string

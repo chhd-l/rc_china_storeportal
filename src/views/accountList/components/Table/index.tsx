@@ -1,12 +1,12 @@
 import { Button, Switch, Table, Tooltip, Modal, Image } from "antd";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import { Account } from "@/framework/types/wechat";
+import { WxAccount } from "@/framework/types/wechat";
 import { modifyAccount } from '@/framework/api/wechatSetting'
 import './Style.less'
 
 const Index = ({ accountList, getAccounts, pages, setPages, total, loading, setLoading }: {
-  accountList: Account[],
+  accountList: WxAccount[],
   getAccounts: Function,
   setPages: Function,
   pages: any,
