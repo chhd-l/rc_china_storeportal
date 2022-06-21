@@ -18,7 +18,7 @@ const columns: ColumnProps<any>[] = [
         <img src={record?.defaultImage} className="w-10 h-10 mr-2" alt="" />
         <div>
           <div className="max-w-xs truncate">{text}</div>
-          <span className="text-gray-400">{record?.productVariant?.skuNo}</span>
+          <span className="text-gray-400">{record?.variants?.skuNo}</span>
         </div>
       </div>
     ),
@@ -27,7 +27,7 @@ const columns: ColumnProps<any>[] = [
     title: 'Quantity',
     dataIndex: 'num',
     key: 'num',
-    render: (text: any, record: any) => <div>{record?.productVariant?.num}</div>
+    render: (text: any, record: any) => <div>{record?.variants?.num}</div>
   },
   {
     title: 'Benefit Type',
