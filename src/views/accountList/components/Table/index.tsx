@@ -54,18 +54,18 @@ const Index = ({ accountList, getAccounts, pages, setPages, total, loading, setL
   const columns = [
     {
       title: "Account Principal",
-      dataIndex: "accountPrincipal",
-      key: "accountPrincipal",
+      dataIndex: "principal",
+      key: "principal",
     },
     {
       title: "Account Type",
-      dataIndex: "accountType",
-      key: "accountType",
+      dataIndex: "type",
+      key: "type",
     },
     {
       title: "Account Name",
-      dataIndex: "accountName",
-      key: "accountName",
+      dataIndex: "name",
+      key: "name",
     },
     {
       title: "Official Account Type",

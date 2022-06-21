@@ -1,4 +1,3 @@
-import { Pet } from '@/api/types/pet'
 import { getAge, handleReturnTime } from '@/utils/utils'
 
 export const normalisePet = (pet: any) => {
@@ -15,7 +14,7 @@ export const normalisePet = (pet: any) => {
   }
 }
 
-export const normalisePets = (pets: Pet[]) => {
+export const normalisePets = (pets: any[]) => {
   return pets.map((item) => {
     return normalisePet(item)
   })
