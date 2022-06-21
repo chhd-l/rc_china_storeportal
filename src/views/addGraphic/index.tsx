@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ContentContainer } from '@/components/ui';
-import { Article } from "@/framework/types/wechat";
+import { WxArticle } from "@/framework/types/wechat";
 import Preview from './components/preview';
 import NewArticle from './components/new-article';
 import NewPicture from './components/new-picture';
@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import "./index.less";
 
 const NewGraphic: React.FC = () => {
-  const [articleList, setArticleList] = useState<Article[]>([]);
+  const [articleList, setArticleList] = useState<WxArticle[]>([]);
   const [currentArticleId, setCurrentArticleId] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -33,8 +33,8 @@ const NewGraphic: React.FC = () => {
   //   formRef.current = null;
   // }, [currentArticleId]);
 
-  const onChangeFieldValue = (values: { [T in keyof Article]?: Article[T] }) => {
-    const _articleList = articleList.map((item: Article) => {
+  const onChangeFieldValue = (values: { [T in keyof WxArticle]?: WxArticle[T] }) => {
+    const _articleList = articleList.map((item: WxArticle) => {
       if (item.id === currentArticleId) {
         item = Object.assign({}, item, values);
       }

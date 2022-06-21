@@ -4,7 +4,7 @@ import Search from "@/components/common/Search";
 import "./index.less";
 import Mock from "mockjs";
 import { replyContentsSource } from "@/views/replyContents/modules/mockdata";
-import { ReplyContent } from "@/framework/types/wechat";
+import { WxReplyContent } from "@/framework/types/wechat";
 import { MODAL_FORM_ITEM } from "@/views/addAutoReply/modules/form";
 
 const column = [
@@ -35,8 +35,8 @@ const SelectContentModal = ({
   onCancel: Function;
   onConfirm: Function;
 }) => {
-  const [replyContents, setReplyContents] = useState<ReplyContent[]>([]);
-  const [selectContent, setSelectContent] = useState<ReplyContent>({
+  const [replyContents, setReplyContents] = useState<WxReplyContent[]>([]);
+  const [selectContent, setSelectContent] = useState<WxReplyContent>({
     id: "",
     type: "",
     description: "",

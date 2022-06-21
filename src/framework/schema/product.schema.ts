@@ -32,7 +32,7 @@ export interface ProductAttributeValue {
   // last_modified_by: string
   // is_deleted: string
 }
-export interface BrandInfo {
+export interface Brand {
   id: string
   name: string
   displayName: string

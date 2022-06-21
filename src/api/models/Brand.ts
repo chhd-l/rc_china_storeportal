@@ -15,19 +15,14 @@
 /**
  * 
  * @export
- * @interface CustomerAddress
+ * @interface Brand
  */
-export interface CustomerAddress {
-    receiver: string;
-    phone: string;
-    country: string;
-    province: string;
-    city: string;
-    region: string;
-    detail: string;
-    postcode: string;
-    isDefault: boolean;
+export interface Brand {
     id: string;
+    brandName: string;
+    brandNickName: string;
+    brandLogo: string;
+    isDeleted: boolean;
 }
 
 

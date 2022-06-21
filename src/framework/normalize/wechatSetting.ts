@@ -1,5 +1,5 @@
 import { normaliseAttrProps } from './product'
-import { ReplyContent, AutoReplies } from "@/framework/types/wechat"
+import { WxReplyContent, AutoReplies } from "@/framework/types/wechat"
 import { handleReturnTime } from '@/utils/utils'
 
 export const normaliseMedia = (media: any) => {
@@ -31,7 +31,7 @@ export const normaliseBrands = (data: any) => {
   })
 }
 
-export const normaliseReplyContent: (data: any) => ReplyContent[] = (data) => {
+export const normaliseReplyContent: (data: any) => WxReplyContent[] = (data) => {
   return data.map((item: any) => ({
     id: item.id,
     type: item.responseType,

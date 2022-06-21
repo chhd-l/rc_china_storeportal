@@ -1,9 +1,9 @@
 import { Image, Modal, Table, Tooltip } from 'antd'
 import React, { useState } from 'react'
-import { LiveStreaming } from '@/framework/types/liveStreaming'
+import { WxLiveStreaming } from '@/framework/types/liveStreaming'
 import moment from 'moment'
 
-const Index = ({ liveStreamingList }: { liveStreamingList: LiveStreaming[] }) => {
+const Index = ({ liveStreamingList }: { liveStreamingList: WxLiveStreaming[] }) => {
   const [imgUrl, setImgUrl] = useState('')
   const [isModalVisible, setIsModalVisible] = useState(false)
   const columns = [

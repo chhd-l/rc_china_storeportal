@@ -1,4 +1,4 @@
-export interface CustomerPagedQueryResponse {
+export interface ConsumerPagedQueryResponse {
   /**
    *
    */
@@ -18,18 +18,18 @@ export interface CustomerPagedQueryResponse {
   /**
    *
    */
-  readonly results: Customer[]
+  readonly results: Consumer[]
 }
 
 
-export interface Customer {
+export interface Consumer {
   /**
-   *	The unique ID of the customer.
+   *	The unique ID of the consumer.
    *
    */
   readonly id: string
   /**
-   *	The current version of the customer.
+   *	The current version of the consumer.
    *
    */
   readonly version: number
@@ -54,14 +54,14 @@ export interface Customer {
    */
   // readonly createdBy?: CreatedBy
   /**
-   *	The customer number can be used to create a more human-readable (in contrast to ID) identifier for the customer.
+   *	The consumer number can be used to create a more human-readable (in contrast to ID) identifier for the consumer.
    *	It should be unique across a project.
    *	Once the field was set it cannot be changed anymore.
    *
    */
-  readonly customerNumber?: string
+  readonly consumerNumber?: string
   /**
-   *	The customer's email address and the main identifier of uniqueness for a customer account.
+   *	The consumer's email address and the main identifier of uniqueness for a consumer account.
    *	Email addresses are either unique to the store they're specified for, _or_ for the entire project.
    *	For more information, see Email uniquenes.
    *
@@ -136,7 +136,7 @@ export interface Customer {
   /**
    *
    */
-  // readonly customerGroup?: CustomerGroupReference
+  // readonly consumerGroup?: ConsumerGroupReference
   /**
    *
    */
@@ -150,21 +150,21 @@ export interface Customer {
    */
   readonly salutation?: string
   /**
-   *	User-specific unique identifier for a customer.
+   *	User-specific unique identifier for a consumer.
    *	Must be unique across a project.
    *	The field can be reset using the Set Key UpdateAction
    *
    */
   readonly key?: string
   /**
-   *	References to the stores the customer account is associated with.
-   *	If no stores are specified, the customer is a global customer, and can log in using the Password Flow for global Customers.
-   *	If one or more stores are specified, the customer can only log in using the Password Flow for Customers in a Store for those specific stores.
+   *	References to the stores the consumer account is associated with.
+   *	If no stores are specified, the consumer is a global consumer, and can log in using the Password Flow for global Consumers.
+   *	If one or more stores are specified, the consumer can only log in using the Password Flow for Consumers in a Store for those specific stores.
    *
    */
   // readonly stores?: StoreKeyReference[]
   /**
-   *	Defines whether a Customer has a password.
+   *	Defines whether a Consumer has a password.
    *
    */
   // readonly authenticationMode?: AuthenticationMode

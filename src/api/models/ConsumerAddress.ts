@@ -12,23 +12,22 @@
  * Do not edit the class manually.
  */
 
-import {
-    PetBreed,
-} from './';
-
 /**
  * 
  * @export
- * @interface CustomerPet
+ * @interface ConsumerAddress
  */
-export interface CustomerPet {
-    name: string;
-    gender: string;
-    type: string;
-    breed: PetBreed;
-    image: string;
-    isSterilized: boolean;
-    birthday: Date;
+export interface ConsumerAddress {
+    receiver: string;
+    phone: string;
+    country: string;
+    province: string;
+    city: string;
+    region: string;
+    detail: string;
+    postcode: string;
+    isDefault: boolean;
+    id: string;
 }
 
 

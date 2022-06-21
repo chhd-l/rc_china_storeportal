@@ -1,7 +1,7 @@
 import { Button, Table, Tooltip, Modal, message, Avatar } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import React, { useState } from 'react'
-import { Fans } from '@/framework/types/wechat'
+import { WxFans } from '@/framework/types/wechat'
 import { handleReturnTime } from '@/utils/utils'
 import { syncFans, syncPartFans } from '@/framework/api/wechatSetting'
 import './Style.less'
@@ -15,7 +15,7 @@ const Index = ({
   loading,
   setLoading,
 }: {
-  fanList: Fans[]
+  fanList: WxFans[]
   pages: any
   setPages: Function
   getFanList: Function
@@ -76,8 +76,8 @@ const Index = ({
     },
     {
       title: 'Avatar',
-      dataIndex: 'headimgUrl',
-      key: 'headimgUrl',
+      dataIndex: 'headImgUrl',
+      key: 'headImgUrl',
       render: (text: string) => text ? <Avatar size="large" src={text} /> : null,
     },
     {

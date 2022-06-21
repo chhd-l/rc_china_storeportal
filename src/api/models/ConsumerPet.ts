@@ -12,17 +12,23 @@
  * Do not edit the class manually.
  */
 
+import {
+    PetBreed,
+} from './';
+
 /**
  * 
  * @export
- * @interface BrandInfo
+ * @interface ConsumerPet
  */
-export interface BrandInfo {
-    id: string;
-    brandName: string;
-    brandNickName: string;
-    brandLogo: string;
-    isDeleted: boolean;
+export interface ConsumerPet {
+    name: string;
+    gender: string;
+    type: string;
+    breed: PetBreed;
+    image: string;
+    isSterilized: boolean;
+    birthday: Date;
 }
 
 

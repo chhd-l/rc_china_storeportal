@@ -7,7 +7,7 @@ export interface Pet {
   image: String;
   isSterilized: Boolean;
   birthday: Date;
-  customerId: String;
+  consumerId: String;
   operator: String;
 }
 
@@ -19,6 +19,6 @@ export interface PetInput {
   image: String;
   isSterilized: Boolean;
   birthday: Date;
-  customerId: String;
+  consumerId: String;
   operator: String;
 }

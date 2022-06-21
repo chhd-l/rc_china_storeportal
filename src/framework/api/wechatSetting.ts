@@ -223,7 +223,7 @@ export const getBrands = async (storeId: string) => {
   try {
     let res = await ApiRoot.wechatSettings().getBarndList({ storeId })
     console.log('getBrands', res)
-    let list = normaliseBrands(res?.brandFindByStoreId || [])
+    let list = normaliseBrands(res?.brandFind || [])
     return list
   } catch (e) {
     console.log(e)
@@ -257,7 +257,7 @@ export const getAppQrCodes = async (queryParams: any) => {
 export const upsertAppQrCodes = async (queryParams: any) => {
   try {
     let res = await ApiRoot.wechatSettings().updateAppQrCode({ body: queryParams })
-    const upsertWxAppQRCode = res?.wxAppQRCodeUpsert
+    const upsertWxAppQRCode = res?.wxAppQRCodeModify
     console.log('upsert app qrCode view data', upsertWxAppQRCode)
     return upsertWxAppQRCode || false
   } catch (e) {
@@ -389,7 +389,7 @@ export const createTemplateMessage = async (queryParams: any) => {
 export const updateTemplateMessage = async (queryParams: any) => {
   try {
     let res = await ApiRoot.wechatSettings().modifyTemplateMessage({ body: queryParams, operator: 'zz' })
-    const modifyTemplateMessage = res?.wxTemplateMessageUplete
+    const modifyTemplateMessage = res?.wxTemplateMessageModify
     console.log('get templateItem list view data', modifyTemplateMessage)
     return modifyTemplateMessage || false
   } catch (e) {
@@ -454,7 +454,7 @@ export const getWxMenusList = async (queryParams: any) => {
 export const updateWxMenu = async (queryParams: any) => {
   try {
     let res = await ApiRoot.wechatSettings().upsertWxMenu(queryParams)
-    const updated = res?.wxMenuUpsert
+    const updated = res?.wxMenuModify
     console.log('update wxmenu view data', updated)
     return updated || false
   } catch (e) {
@@ -531,7 +531,7 @@ export const deleteReplyContent = async (id: string) => {
     }
   });
   console.log('delete replyContent view data:', data)
-  return data?.wxReplyContentUpsert ?? false
+  return data?.wxReplyContentModify ?? false
 }
 
 export const updateReplyContent = async (id: string, param: any) => {
@@ -544,7 +544,7 @@ export const updateReplyContent = async (id: string, param: any) => {
     }
   });
   console.log('disable or enable replyContent view data:', data);
-  return data?.wxReplyContentUpsert ?? false
+  return data?.wxReplyContentModify ?? false
 }
 
 export const getAutomaticResponseList = async (param: any) => {
@@ -552,8 +552,8 @@ export const getAutomaticResponseList = async (param: any) => {
     body: param,
     operator: 'zz'
   });
-  const list = data?.automaticResponseFindPage
-  console.log('get automaticResponse list view data:', data);
+  const list = data?.wxAutomaticResponseFindPage
+  console.log('get WxAutomaticResponse list view data:', data);
   return {
     records: list?.records ?? [],
     total: list?.total ?? 0
@@ -562,16 +562,16 @@ export const getAutomaticResponseList = async (param: any) => {
 
 export const getAutomaticResponseDetail = async (id: string) => {
   const data = await ApiRoot.wechatSettings().getAutomaticResponseDetail(id);
-  console.log('get automaticResponse detail by id view data:', data);
-  return data?.automaticResponseGet ?? {}
+  console.log('get WxAutomaticResponse detail by id view data:', data);
+  return data?.wxAutomaticResponseGet ?? {}
 }
 
 export const createAutomaticResponse = async (param: any) => {
   const data = await ApiRoot.wechatSettings().createAutomaticResponse({
     body: param
   });
-  console.log('create automaticResponse view data:', data);
-  return data?.automaticResponseCreate ?? {}
+  console.log('create WxAutomaticResponse view data:', data);
+  return data?.wxAutomaticResponseCreate ?? {}
 }
 
 export const deleteAutomaticResponse = async (id: string) => {
@@ -581,8 +581,8 @@ export const deleteAutomaticResponse = async (id: string) => {
       isDeleted: true,
     }
   });
-  console.log('delete automaticResponse view data:', data);
-  return data?.automaticResponseUpsert ?? false
+  console.log('delete WxAutomaticResponse view data:', data);
+  return data?.wxAutomaticResponseModify ?? false
 }
 
 export const updateAutomaticResponse = async (id: string, param: any) => {
@@ -590,11 +590,11 @@ export const updateAutomaticResponse = async (id: string, param: any) => {
     body: {
       isDeleted: false,
       id,
-      automaticResponseInput: param,
+      automaticResponse: param,
     }
   });
-  console.log('update automaticResponse view data:', data);
-  return data?.automaticResponseUpsert ?? false
+  console.log('update WxAutomaticResponse view data:', data);
+  return data?.wxAutomaticResponseModify ?? false
 }
 
 export const getArticlesList = async (param: any) => {
@@ -603,21 +603,21 @@ export const getArticlesList = async (param: any) => {
   });
   console.log('get article list view data:', data);
   return {
-    records: data?.articlesFindPage?.records ?? [],
-    total: data?.articlesFindPage?.total ?? 0
+    records: data?.wxArticleFindPage?.records ?? [],
+    total: data?.wxArticleFindPage?.total ?? 0
   }
 }
 
 export const syncArticles = async (accountId: string) => {
   const data = await ApiRoot.wechatSettings().syncArticles(accountId);
   console.log('sync articles view data:', data);
-  return data?.articlesSync ?? false
+  return data?.wxArticleSync ?? false
 }
 
-export const deleteArticles = async (articlesId: string, mediaId: string) => {
-  const data = await ApiRoot.wechatSettings().deleteArticles(articlesId, mediaId);
+export const deleteArticles = async (id: string, mediaId: string) => {
+  const data = await ApiRoot.wechatSettings().deleteArticles(id, mediaId);
   console.log('delete articles view data:', data);
-  return data?.articlesDelete ?? false
+  return data?.wxArticleDelete ?? false
 }
 
 export const addArticle = async (param: any) => {
@@ -629,7 +629,7 @@ export const addArticle = async (param: any) => {
     }
   });
   console.log('add article view data:', data);
-  return data?.articlesCreate ?? {}
+  return data?.wxArticleCreate ?? {}
 }
 
 export const addAndSyncArticle = async (param: any) => {
@@ -641,11 +641,11 @@ export const addAndSyncArticle = async (param: any) => {
     }
   });
   console.log('add articleandsync view data:', data);
-  return data?.articlesCreateAndSync ?? {}
+  return data?.wxArticleCreateAndSync ?? {}
 }
 
 export const getArticlePreviewUrls = async (mediaId: string) => {
   const data = await ApiRoot.wechatSettings().getArticlesPreviewUrls(mediaId);
   console.log('get previewurls view data:', data);
-  return data?.articlesGetUrlFromWX ?? []
+  return data?.wxArticleGetUrlFromWX ?? []
 }

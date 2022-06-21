@@ -154,7 +154,7 @@ const TemplateMessageDetail = () => {
                   />
                   <ProFormText
                     colProps={{ span: 12 }}
-                    name="pagepath"
+                    name="pagePath"
                     label="Jump Path"
                     allowClear={false}
                     placeholder="Please input Mini Program Jump Path"

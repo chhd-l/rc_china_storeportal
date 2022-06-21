@@ -13,7 +13,7 @@
  */
 
 import {
-    Customer,
+    Consumer,
     StoreAccount,
 } from './';
 
@@ -25,7 +25,7 @@ import {
 export interface Operator {
     clientId: string;
     externalUserId: string;
-    customer: Customer;
+    consumer: Consumer;
     account: StoreAccount;
     anonymouseId: string;
 }

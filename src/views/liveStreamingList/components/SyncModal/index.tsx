@@ -1,6 +1,6 @@
 import { message, Modal, Pagination, Spin, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { LiveStreaming } from '@/framework/types/liveStreaming'
+import { WxLiveStreaming } from '@/framework/types/liveStreaming'
 import moment from 'moment'
 import { getLiveStreamingOnlineList, syncPartLiveStreaming } from '@/framework/api/liveStreaming'
 import { handlePageParams } from '@/utils/utils'
@@ -17,7 +17,7 @@ const SyncModal = ({
   closeSyncModal: Function
   syncSuccess: Function
 }) => {
-  const [liveStreamingList, setLiveStreamingList] = useState<LiveStreaming[]>([])
+  const [liveStreamingList, setLiveStreamingList] = useState<WxLiveStreaming[]>([])
   const [syncLoading, setSyncLoading] = useState(false)
   const [pageParams, setPageParams] = useState<PageParamsProps>(initPageParams)
   const [total, setTotal] = useState(0)

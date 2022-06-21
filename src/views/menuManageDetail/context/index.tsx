@@ -64,7 +64,7 @@ const checkWxMenuItem: (wxMenu: WxMenuItem) => boolean = (wxMenu) => {
     return false;
   } else if (wxMenu.type === "view" && !wxMenu.url) {
     return false;
-  } else if (wxMenu.type === "miniprogram" && (!wxMenu.url || !wxMenu.appid || !wxMenu.pagepath)) {
+  } else if (wxMenu.type === "miniprogram" && (!wxMenu.url || !wxMenu.appid || !wxMenu.pagePath)) {
     return false;
   } else {
     return true;
@@ -107,11 +107,11 @@ export const filterWxMenus: (wxMenus: WxMenuItem[]) => WxMenuItem[] = (wxMenus) 
     if (item.type === "media_id" || item.type === "article_id") {
       item.url = undefined;
       item.appid = undefined;
-      item.pagepath = undefined;
+      item.pagePath = undefined;
     } else if (item.type === "view") {
       item.media_id = undefined;
       item.appid = undefined;
-      item.pagepath = undefined;
+      item.pagePath = undefined;
     } else {
       item.media_id = undefined;
     }

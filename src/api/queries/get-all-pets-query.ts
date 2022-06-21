@@ -1,6 +1,6 @@
 export const getAllPetsQuery = `
-  query getAllPets($customerId: String!){
-    pets(customerId: $customerId) {
+  query getAllPets($consumerId: String!){
+    pets(consumerId: $consumerId) {
       id,
       name,
       gender,

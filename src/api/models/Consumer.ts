@@ -13,8 +13,8 @@
  */
 
 import {
-    CustomerAccount,
-    CustomerAddress,
+    ConsumerAccount,
+    ConsumerAddress,
     Order,
     Pet,
     ProductVariant,
@@ -25,12 +25,12 @@ import {
 /**
  * 
  * @export
- * @interface Customer
+ * @interface Consumer
  */
-export interface Customer {
+export interface Consumer {
     name: string;
     image: string;
-    tencentAccount: CustomerAccount;
+    tencentAccount: ConsumerAccount;
     nickname?: string;
     phone?: string;
     level: string;
@@ -43,7 +43,7 @@ export interface Customer {
     lastModifiedBy: string;
     lastLoginTime: Date;
     tenant: Array<Store>;
-    addresses: Array<CustomerAddress>;
+    addresses: Array<ConsumerAddress>;
     pets: Array<Pet>;
     tags: Array<string>;
     subscriptions: Array<Subscription>;
