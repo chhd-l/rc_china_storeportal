@@ -15,9 +15,9 @@
 /**
  * 
  * @export
- * @interface CustomerAddress
+ * @interface ConsumerAddress
  */
-export interface CustomerAddress {
+export interface ConsumerAddress {
     receiver: string;
     phone: string;
     country: string;

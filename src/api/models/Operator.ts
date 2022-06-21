@@ -25,7 +25,7 @@ import {
 export interface Operator {
     clientId: string;
     externalUserId: string;
-    customer: Consumer;
+    consumer: Consumer;
     account: StoreAccount;
     anonymouseId: string;
 }

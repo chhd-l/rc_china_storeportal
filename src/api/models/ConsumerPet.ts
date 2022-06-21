@@ -19,9 +19,9 @@ import {
 /**
  * 
  * @export
- * @interface CustomerPet
+ * @interface ConsumerPet
  */
-export interface CustomerPet {
+export interface ConsumerPet {
     name: string;
     gender: string;
     type: string;

@@ -15,14 +15,14 @@
 /**
  * 
  * @export
- * @interface CustomerAccount
+ * @interface ConsumerAccount
  */
-export interface CustomerAccount {
+export interface ConsumerAccount {
     openId?: string;
     unionId?: string;
     memberId?: string;
     userType: string;
-    followStatus: CustomerAccountFollowStatusEnum;
+    followStatus: ConsumerAccountFollowStatusEnum;
     fllowedTime: Date;
     unfllowedTime: Date;
 }
@@ -31,7 +31,7 @@ export interface CustomerAccount {
 * @export
 * @enum {string}
 */
-export enum CustomerAccountFollowStatusEnum {
+export enum ConsumerAccountFollowStatusEnum {
     Followed = 'Followed',
     Unfollowed = 'Unfollowed'
 }

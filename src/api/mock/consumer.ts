@@ -1,7 +1,7 @@
 import { Consumer } from "../models";
-import { CustomerAccountFollowStatusEnum, OrderTradeStateOrderStateEnum } from "../models";
+import { ConsumerAccountFollowStatusEnum, OrderTradeStateOrderStateEnum } from "../models";
 
-const customerData : Consumer = {
+const consumerData : Consumer = {
   "name": "积没住者子队",
   "image": "http://dummyimage.com/400x400",
   "level": "in eiusmod reprehenderit",
@@ -137,7 +137,7 @@ const customerData : Consumer = {
   ],
   "tencentAccount": {
       "userType": "eiusmod pariatur",
-      "followStatus": CustomerAccountFollowStatusEnum.Unfollowed,
+      "followStatus": ConsumerAccountFollowStatusEnum.Unfollowed,
       "fllowedTime": new Date("1943-12-01T20:23:36.157Z"),
       "unfllowedTime": new Date("1977-06-05T04:37:36.372Z"),
       "unionId": "75",

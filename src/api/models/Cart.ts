@@ -23,7 +23,7 @@ import {
  */
 export interface Cart {
     cartId: string;
-    customerId: Consumer;
+    consumerId: Consumer;
     storeId: string;
     createdAt: string;
     lastModifiedAt: string;

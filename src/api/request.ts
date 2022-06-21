@@ -1,5 +1,5 @@
-import { Consumer, CustomerPagedQueryResponse } from "./types/customer";
-import { getAllCustomersQuery } from "./queries/get-all-customers-query";
+import { Consumer, ConsumerPagedQueryResponse } from "./types/consumer";
+import { getAllConsumersQuery } from "./queries/get-all-consumers-query";
 import { Config } from "./types/api/fetcher";
 import fetchGraphqlApi from "./fetchGraphqlApi";
 import { getAllPetsQuery } from "./queries/get-all-pets-query";
@@ -13,17 +13,17 @@ const config: Config = {
 
 export class ClientBuilder {
   public apiRoot: any = {
-    customers: this.customers,
+    consumers: this.consumers,
   };
 
-  async customers(): Promise<CustomerPagedQueryResponse | any> {
-    const { data } = await config.fetch(getAllCustomersQuery, {
+  async consumers(): Promise<ConsumerPagedQueryResponse | any> {
+    const { data } = await config.fetch(getAllConsumersQuery, {
       variables: {
         offset: 20,
       },
     });
     return {
-      customers: data?.customers,
+      consumers: data?.consumers,
     };
   }
 
@@ -36,28 +36,28 @@ export class ClientBuilder {
   }
 
   private async getPets({
-    customerId,
+    consumerId,
   }: {
-    customerId: string;
+    consumerId: string;
   }): Promise<Pet[]> {
     const { data } = await config.fetch(getAllPetsQuery, {
       variables: {
-        customerId,
+        consumerId,
       },
     });
     console.log(data);
     return data.pets;
   }
   private async deletePet({
-    customerId,
+    consumerId,
     operator,
   }: {
-    customerId: string;
+    consumerId: string;
     operator?: string;
   }): Promise<any> {
     const { data } = await config.fetch(petDeleteMutation, {
       variables: {
-        customerId,
+        consumerId,
         operator: operator || "root",
       },
     });

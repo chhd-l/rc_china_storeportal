@@ -1,5 +1,5 @@
 import { ctpClient } from './BuildClient';
-import { Consumer, CustomerPagedQueryResponse } from './types/customer'
+import { Consumer, ConsumerPagedQueryResponse } from './types/consumer'
 import {
   ApiRoot,
   createApiBuilderFromCtpClient,
@@ -17,5 +17,5 @@ const getProject = () => {
 getProject().then(console.log).catch(console.error);
 
 
-apiRoot.withProjectKey({projectKey: ''}).customers().emailConfirm
+apiRoot.withProjectKey({projectKey: ''}).consumers().emailConfirm
 // export {}

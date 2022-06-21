@@ -1,6 +1,6 @@
-export const getAllCustomersQuery = `
-  query getAllCustomers($offset: Int = 50){
-    customers(offset: $offset) {
+export const getAllConsumersQuery = `
+  query getAllConsumers($offset: Int = 50){
+    consumers(offset: $offset) {
       name
     }
   }

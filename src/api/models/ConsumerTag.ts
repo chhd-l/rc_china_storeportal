@@ -20,10 +20,10 @@ import {
 /**
  * 
  * @export
- * @interface CustomerTag
+ * @interface ConsumerTag
  */
-export interface CustomerTag {
-    customer: Consumer;
+export interface ConsumerTag {
+    consumer: Consumer;
     tag: Tag;
 }
 

@@ -13,7 +13,7 @@
  */
 
 import {
-    CustomerAddress,
+    ConsumerAddress,
     OrderBuyer,
     OrderLineItem,
     OrderPayInfo,
@@ -35,7 +35,7 @@ export interface Order {
     remark: string;
     isSubscription: boolean;
     buyer: OrderBuyer;
-    shippingAddress: CustomerAddress;
+    shippingAddress: ConsumerAddress;
     shippingInfo: OrderShippingInfo;
     tradePrice: OrderTradePrice;
     tradeState: OrderTradeState;

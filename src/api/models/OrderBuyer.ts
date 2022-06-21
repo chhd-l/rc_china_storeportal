@@ -18,9 +18,9 @@
  * @interface OrderBuyer
  */
 export interface OrderBuyer {
-    customerId: string;
-    customerName: string;
-    customerEmail: string;
+    consumerId: string;
+    consumerName: string;
+    consumerEmail: string;
     isMember: boolean;
     phone: string;
     用户等级?: string;
