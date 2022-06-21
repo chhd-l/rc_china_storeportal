@@ -257,7 +257,7 @@ export const getAppQrCodes = async (queryParams: any) => {
 export const upsertAppQrCodes = async (queryParams: any) => {
   try {
     let res = await ApiRoot.wechatSettings().updateAppQrCode({ body: queryParams })
-    const upsertWxAppQRCode = res?.wxAppQRCodeUpsert
+    const upsertWxAppQRCode = res?.wxAppQRCodeModify
     console.log('upsert app qrCode view data', upsertWxAppQRCode)
     return upsertWxAppQRCode || false
   } catch (e) {
