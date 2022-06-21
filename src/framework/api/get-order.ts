@@ -163,4 +163,28 @@ export const updateComment = async (params: any) => {
     return false
   }
 }
+export const payWayFindPage = async (params: any) => {
+  try {
+    let res = await ApiRoot.orders().payWayFindPage(params)
+    return res?.payWayFindPage || []
+  } catch (e) {
+    return []
+  }
+}
+export const payWayGet = async (params: any) => {
+  try {
+    let res = await ApiRoot.orders().payWayGet(params)
+    return res?.payWayGet || []
+  } catch (e) {
+    return []
+  }
+}
+export const payWayUpdate = async (params: any) => {
+  try {
+    let res = await ApiRoot.orders().payWayUpdate(params)
+    return res?.payWayUpdate
+  } catch (e) {
+    return false
+  }
+}
 
