@@ -15,8 +15,8 @@ export const getLiveStreamingList = async (parma: any) => {
     } else {
       let res = await ApiRoot.liveStreams().getLiveStreamingList(parma)
       return {
-        total: res?.liveStreamingFindPage?.total || 0,
-        records: res?.liveStreamingFindPage?.records || [],
+        total: res?.wxLiveStreamingFindPage?.total || 0,
+        records: res?.wxLiveStreamingFindPage?.records || [],
       }
     }
   } catch (e) {
@@ -39,8 +39,8 @@ export const getLiveStreamingOnlineList = async (parma: any) => {
     } else {
       let res = await ApiRoot.liveStreams().getLiveStreamingOnlineList(parma)
       return {
-        total: res?.liveStreamingFindOnLivePage?.total || 0,
-        records: res?.liveStreamingFindOnLivePage?.records || [],
+        total: res?.wxLiveStreamingFindOnLivePage?.total || 0,
+        records: res?.wxLiveStreamingFindOnLivePage?.records || [],
       }
     }
   } catch (e) {
@@ -59,7 +59,7 @@ export const syncLiveStreaming = async (accountId: string) => {
       return true
     } else {
       let res = await ApiRoot.liveStreams().syncLiveStreaming(accountId)
-      return res?.liveStreamingSync || false
+      return res?.wxLiveStreamingSync || false
     }
   } catch (e) {
     console.log(e)
@@ -74,7 +74,7 @@ export const syncPartLiveStreaming = async (liveStreamingInput:any) => {
       return true
     } else {
       let res = await ApiRoot.liveStreams().syncPartLiveStreaming(liveStreamingInput)
-      return res?.liveStreamingSyncByRoomId || false
+      return res?.wxLiveStreamingSyncByRoomId || false
     }
   } catch (e) {
     console.log(e)
