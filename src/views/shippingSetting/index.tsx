@@ -36,7 +36,6 @@ const ShippingSetting = () => {
       isEnabled: newLogisticsIntegration.isEnabled,
       remark: newLogisticsIntegration.remark,
       storeId: newLogisticsIntegration.storeId || '12345678',
-      operator: userInfo?.nickname || 'system',
     })
     if (res) {
       message.success({ className: 'rc-message', content: 'Operation success' })

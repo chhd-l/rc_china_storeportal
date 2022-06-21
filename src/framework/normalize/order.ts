@@ -15,24 +15,24 @@ const normalisePayInfo = (payInfo: OrderPayInfo, orderState: any) => {
   let info =
     orderState === OrderOrderStateOrderStateEnum.unpaid || orderState === 'CANCELLATION'
       ? {
-          payTypeName: '',
-          appId: '',
-          payTime: '',
-          outOrderNo: '',
-        }
+        payTypeName: '',
+        appId: '',
+        payTime: '',
+        outOrderNo: '',
+      }
       : {
-          payTypeName: 'Wechat Pay',
-          appId: payInfo.payInfoID,
-          payTime: handleReturnTime(payInfo.payStartTime),
-          outOrderNo: payInfo.payWayOrderID,
-          payWayOrderID: payInfo.payWayOrderID,
-          payWayCode: payInfo.payWayCode,
-        }
+        payTypeName: 'Wechat Pay',
+        appId: payInfo.paymentId,
+        payTime: handleReturnTime(payInfo.paymentStartTime),
+        outOrderNo: payInfo.payWayOrderId,
+        payWayOrderID: payInfo.payWayOrderId,
+        payWayCode: payInfo.payWayCode,
+      }
   return info
 }
 
 export const normaliseOrder = (data: any, expressCompanies: any): any => {
-  const { consumerId, nickName, phone, avatarUrl, openId, unionId } = data.buyer
+  const { consumerId, nickName, phone, avatarUrl, openId, unionId } = data.consumer
   const {
     receiverName,
     id,
@@ -44,7 +44,7 @@ export const normaliseOrder = (data: any, expressCompanies: any): any => {
     postcode: postCode,
     isDefault,
   } = data.shippingAddress
-  let { orderState, lineItem, orderPrice, payInfo, logs, shippingInfo, subscriptionId, subscriptionNo } = data
+  let { orderState, lineItem, orderPrice, payment: payInfo, logs, delivery: shippingInfo, subscriptionId, subscriptionNo } = data
   const company = expressCompanies.filter((item: any) => item.code === shippingInfo.shippingCompany)
   const carrierType = company.length > 0 ? company[0].nameEn : ''
   // let { orderState } = orderState
@@ -75,7 +75,7 @@ export const normaliseOrder = (data: any, expressCompanies: any): any => {
     },
     orderItem:
       lineItem?.map((item: any) => {
-        const { skuId, pic, skuName, num, price, productSpecifications,isGift } = item
+        const { skuId, pic, skuName, num, price, productSpecifications, isGift } = item
         return {
           skuId,
           pic,
@@ -90,24 +90,24 @@ export const normaliseOrder = (data: any, expressCompanies: any): any => {
     orderState: {
       orderState: orderState,
     },
-    expectedShippingDate:shippingInfo?.expectedShippingDate||'',
+    expectedShippingDate: shippingInfo?.expectedShippingDate || '',
     carrier: shippingInfo?.trackingId
       ? [
-          {
-            packId: shippingInfo.trackingId,
-            company: carrierType,
-            orderItem:
-              lineItem?.map((item: any) => {
-                const { skuId, pic, skuName } = item
-                return {
-                  skuId,
-                  pic,
-                  skuName,
-                }
-              }) || [],
-            deliveries: shippingInfo?.deliveries,
-          },
-        ]
+        {
+          packId: shippingInfo.trackingId,
+          company: carrierType,
+          orderItem:
+            lineItem?.map((item: any) => {
+              const { skuId, pic, skuName } = item
+              return {
+                skuId,
+                pic,
+                skuName,
+              }
+            }) || [],
+          deliveries: shippingInfo?.deliveryItems,
+        },
+      ]
       : [],
     carrierType: carrierType,
     orderPrice: {

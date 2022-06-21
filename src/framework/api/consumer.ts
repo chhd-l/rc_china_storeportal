@@ -56,7 +56,7 @@ export const getConsumer = async ({ consumerId }: { consumerId: string }) => {
   try {
     let res = await ApiRoot.consumers().getConsumer({ id: consumerId })
     console.log('consumer info', res)
-    return normaliseConsumer(res.consumer)
+    return normaliseConsumer(res.ConsumerGet)
   } catch (e) {
     console.log(e)
     return {}

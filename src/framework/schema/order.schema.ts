@@ -84,13 +84,13 @@ export interface OrderPrice {
 }
 
 export interface OrderPayInfo {
-  payInfoID: string
+  paymentId: string
   amount: string
-  payStartTime: string
-  payFinishTime: string
+  paymentStartTime: string
+  paymentFinishTime: string
   lastModifiedBy: string
   payWayCode: string
-  payWayOrderID: string
+  payWayOrderId: string
   paymentState: string
 }
 

@@ -18,8 +18,8 @@ export const getOrderList = async (queryOrderListParams: any): Promise<{ total: 
       let expressCompanies = await getExpressCompanyList()
       let res = await ApiRoot.orders().getOrders({ queryOrderListParams })
       console.log('query orders view list', res)
-      if (res?.orders?.records) {
-        const { records, total } = res.orders
+      if (res?.orderFindPage?.records) {
+        const { records, total } = res.orderFindPage
         let record = (records || []).map((order: any) => normaliseOrder(order, expressCompanies))
         return {
           total: total || 0,
@@ -50,7 +50,7 @@ export const getOrderDetail = async ({ orderNum }: { orderNum: string }) => {
       let expressCompanies = await getExpressCompanyList()
       let data = await ApiRoot.orders().getOrder({ storeId: '12345678', orderNum })
       console.info('res', data)
-      const detail = data?.getOrder ? normaliseOrder(data.getOrder, expressCompanies) : initOrderDetail
+      const detail = data?.orderGet ? normaliseOrder(data.orderGet, expressCompanies) : initOrderDetail
       console.info('list', detail)
       return detail
     }
@@ -71,9 +71,9 @@ export const getOrderSetting = async () => {
   }
 }
 
-export const updateOrderSetting = async (params:any) => {
+export const updateOrderSetting = async (params: any) => {
   try {
-    let res = await ApiRoot.orders().modifyOrderSetting({ body:params })
+    let res = await ApiRoot.orders().modifyOrderSetting({ body: params })
     console.info('updateOrderSetting data view', res)
     return res?.modifyOrderSetting || false
   } catch (e) {
@@ -86,7 +86,7 @@ export const getLogisticsIntegration = async () => {
   try {
     let res = await ApiRoot.orders().getLogisticsIntegration({ storeId: '12345678' })
     console.info('getLogisticsIntegration data view', res)
-    return normalizeLogisticsIntegration(res.getLogisticsIntegration || null)
+    return normalizeLogisticsIntegration(res.logisticsIntegrationGet || null)
   } catch (e) {
     console.log(e)
     return null
@@ -97,7 +97,7 @@ export const modifyLogisticsIntegration = async (params: any) => {
   try {
     let res = await ApiRoot.orders().modifyLogisticsIntegration(params)
     console.info('modifyLogisticsIntegration data view', res)
-    return res?.modifyLogisticsIntegration || false
+    return res?.logisticsIntegrationUpdate || false
   } catch (e) {
     console.log(e)
     return false
@@ -110,7 +110,7 @@ export const getExpressCompanyList = async () => {
     if (expressCompanyList === null) {
       let res = await ApiRoot.orders().getExpressCompany({ storeId: '12345678' })
       console.info('get expressCompany data view', res)
-      expressCompanyList = res.expressCompanies || []
+      expressCompanyList = res.expressCompanyFind || []
       if (expressCompanyList.length > 0) {
         session.set('express-company-list', expressCompanyList)
       }
@@ -130,7 +130,7 @@ export const shippedOrder = async (params: any) => {
     console.info('shipped order view params', params)
     let res = await ApiRoot.orders().shippedOrder({ body: params })
     console.info('shipped order data view', res)
-    return res?.shippedOrder || false
+    return res?.orderShip || false
   } catch (e) {
     console.log(e)
     return false
@@ -145,7 +145,7 @@ export const completedOrder = async (params: any) => {
     console.info('completed order view params', params)
     let res = await ApiRoot.orders().completedOrder({ body: params })
     console.info('completed order data view', res)
-    return res?.completedOrder || false
+    return res?.orderCompleted || false
   } catch (e) {
     console.log(e)
     return false
@@ -157,7 +157,7 @@ export const updateComment = async (params: any) => {
     console.info('update comment view params', params)
     let res = await ApiRoot.orders().updateComment({ body: params })
     console.info('completed order data view', res)
-    return res?.updateComment || false
+    return res?.orderCommentModify || false
   } catch (e) {
     console.log(e)
     return false
