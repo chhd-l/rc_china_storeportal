@@ -17,7 +17,7 @@ import {
 import { useAtom } from 'jotai'
 import { userAtom } from '@/store/user.store'
 
-const TemplateMessage = () => {
+const WxTemplateMessage = () => {
   const [addVisible, setAddVisible] = useState(false)
   const [industryVisible, setIndustryVisible] = useState(false)
   const [cardView, setCardView] = useState(false)
@@ -187,7 +187,7 @@ const TemplateMessage = () => {
   )
 }
 
-export default TemplateMessage
+export default WxTemplateMessage
 function useStateuseState<T>(arg0: never[]): [any, any] {
   throw new Error('Function not implemented.')
 }

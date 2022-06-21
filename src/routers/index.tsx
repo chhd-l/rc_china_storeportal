@@ -31,7 +31,7 @@ const MpBannerList = lazy(() => import('@/views/mpBannerList'))
 const MpQRList = lazy(() => import('@/views/mpQRList'))
 const QrCodeManage = lazy(() => import('@/views/qrCodeManageList'))
 const MenuManage = lazy(() => import('@/views/menuManageList'))
-const TemplateMessage = lazy(() => import('@/views/templateMessageList'))
+const WxTemplateMessage = lazy(() => import('@/views/templateMessageList'))
 const MpBannerDetail = lazy(() => import('@/views/mpBannerDetail'))
 const MpBannerAdd = lazy(() => import('@/views/mpBannerAdd'))
 const MpQRDetail = lazy(() => import('@/views/mpQRDetail'))
@@ -238,11 +238,11 @@ let routes: RouteObject[] = [
         children: [
           {
             index: true,
-            element: <TemplateMessage />,
+            element: <WxTemplateMessage />,
           },
           {
             path: 'template-message-list',
-            element: <TemplateMessage />,
+            element: <WxTemplateMessage />,
           },
           {
             path: 'template-message/:id',

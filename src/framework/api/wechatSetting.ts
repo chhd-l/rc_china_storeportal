@@ -389,7 +389,7 @@ export const createTemplateMessage = async (queryParams: any) => {
 export const updateTemplateMessage = async (queryParams: any) => {
   try {
     let res = await ApiRoot.wechatSettings().modifyTemplateMessage({ body: queryParams, operator: 'zz' })
-    const modifyTemplateMessage = res?.wxTemplateMessageUplete
+    const modifyTemplateMessage = res?.wxTemplateMessageModify
     console.log('get templateItem list view data', modifyTemplateMessage)
     return modifyTemplateMessage || false
   } catch (e) {

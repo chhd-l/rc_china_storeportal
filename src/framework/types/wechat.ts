@@ -75,7 +75,7 @@ export interface TemplateMessageItemProps {
   templateId?: string,
   url?: string,// # 用户跳转路径
   appId?: string,//# 小程序id
-  pagepath?: string,//# 小程序跳转路径
+  pagePath?: string,//# 小程序跳转路径
   status?: boolean,
   title?: string,
   primaryIndustry?: string,// # 一级行业
