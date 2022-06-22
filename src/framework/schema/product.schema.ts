@@ -62,7 +62,7 @@ export interface CateItemProps {
 export interface ProductSpecificationDetail {
   id: string
   // productId: string
-  productSpecificationId: string
+  specificationId: string
   specificationDetailName: string
   // specificationDetailNameEn: string
   // storeId: string
@@ -77,7 +77,7 @@ export interface ProductSpecification {
   // ProductId: string
   specificationName: string
   specificationNameEn: string
-  productSpecificationDetail: ProductSpecificationDetail[]
+  specificationDetails: ProductSpecificationDetail[]
   // createdAt: string
   // createdBy: string
   // lastModifiedAt: string
@@ -86,8 +86,8 @@ export interface ProductSpecification {
 }
 export interface ProductVariantBundleRel {
   id: string
-  productVariantId: string
-  subProductVariantId: string
+  variantId: string
+  subVariantId: string
   bundleNumber: number
   skuNo: string
   stock?: number
@@ -96,8 +96,8 @@ export interface ProductVariantBundleRel {
   isDeleted?: boolean
 }
 export interface ProductSpecificationValueRel {
-  productSpecificationId: string
-  productSpecificationDetailId: string
+  specificationId: string
+  specificationDetailId: string
   // productVariantId: string
   id: string
 }
@@ -124,8 +124,8 @@ export interface ProductVariants {
   // last_modified_at: string
   // last_modified_by: string
   // is_deleted: string //？？
-  productSpecificationRel: ProductSpecificationValueRel[]
-  productVariantBundleInfo: ProductVariantBundleRel[]
+  specificationRelations: ProductSpecificationValueRel[]
+  variantBundles: ProductVariantBundleRel[]
 }
 export interface ProductAssets {
   id: string
@@ -155,13 +155,13 @@ export interface ProductAttributeAndValue {
 export interface Product {
   id: string
   spuNo: string
-  productName: string
+  name: string
   cardName: string //？？
-  productDescription: string
+  description: string
   isSupport100: IsSupport100 //？？
   type: string
   brandId: string //？？
-  productCategoryId: string //？？
+  categoryId: string //？？
   // shelvesStatus: IsShelves
   defaultImage: string//？？
   salesStatus: boolean //？？
@@ -179,8 +179,8 @@ export interface Product {
   // last_modified_at: string
   // last_modified_by: string
   // is_deleted: number//？？
-  productSpecifications: ProductSpecification[]
-  productVariants: ProductVariants[]
-  productAsserts: ProductAssets[]
-  productAttributeValueRel: ProductAttributeAndValue[] //？？
+  specifications: ProductSpecification[]
+  variants: ProductVariants[]
+  asserts: ProductAssets[]
+  attributeValueRelations: ProductAttributeAndValue[] //？？
 }

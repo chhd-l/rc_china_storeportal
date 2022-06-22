@@ -189,7 +189,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     })
     debugger
     if (withoutSku) {
-      params.productVariantsInput = [
+      params.variants = [
         {
           // skuNo: 'test0001', //to do
           // isWithoutSku:true,
@@ -203,16 +203,16 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
           isSupport100: values.isSupport100,
           id: detail.skuId,
           defaultImage: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Non_photo.png',
-          productVariantBundleInfo: detail.productVariantBundleInfo?.map((el: any) => {
+          bundleInfos: detail.productVariantBundleInfo?.map((el: any) => {
             let bundleInfo = {
               bundleNumber: el.bundleNumber,
               id: el.id,
-              productVariantId: el.productVariantId || detail.skuId,
-              subProductVariantId: el.subProductVariantId ,
+              variantId: el.productVariantId || detail.skuId,
+              subVariantId: el.subProductVariantId ,
               skuNo: el.skuNo,
             }
             if (!el.productVariantId&&!detail.skuId) {
-              delete bundleInfo.productVariantId
+              delete bundleInfo.variantId
             }
             if (!el.skuNo) {
               delete bundleInfo.skuNo
@@ -222,12 +222,12 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
         },
       ]
       if (detail.productVariantBundleInfo?.length) {
-        params.productVariantsInput[0].productVariantBundleInfo = detail.productVariantBundleInfo
+        params.variants[0].bundleInfos = detail.productVariantBundleInfo
       }
       if (detail.id) {
         //编辑 全量
         if (!detail.editChange.productVariants) {
-          detail.editChange.productVariants = params.productVariantsInput
+          detail.editChange.productVariants = params.variants
         }
       }
     }
