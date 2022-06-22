@@ -51,6 +51,7 @@ const LiveStreamingList = lazy(() => import('@/views/liveStreamingList'))
 const IntelligentRecommendation = lazy(() => import('@/views/intelligentRecommendation'))
 const AddGraphic = lazy(() => import('@/views/addGraphic'))
 const Dashboard = lazy(() => import('@/views/dashboard'))
+const CustomerService = lazy(() => import('@/views/customerService'))
 
 interface RouteObject {
   caseSensitive?: boolean
@@ -114,13 +115,14 @@ let routes: RouteObject[] = [
       },
       {
         path: 'category',
-        breadcrumbName: 'Shop Category',
+        breadcrumbName: 'Shop',
         children: [
           { index: true, element: <CategoryList />,},
           { path: 'category-list', element: <CategoryList />,},
           { path: 'category-detail', element: <CategoryDetail />, breadcrumbName: 'Category Detail' },
           { path: 'category-manual-detail', element: <CategoryManualDetail />, breadcrumbName: 'Category Detail' },
           { path: 'category-list-sort', element: <CategoryListSort />, breadcrumbName: 'Category Detail' },
+          { path: 'customer-service', element: <CustomerService />, breadcrumbName: 'Customer Service' },
         ],
       },
       {

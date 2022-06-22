@@ -23,7 +23,8 @@ const AppLayout = () => {
       pathname === '/dashboard' ||
       (pathname.split('/').some((path) => path === 'category') &&
         pathname !== '/category/category-list' &&
-        pathname !== '/category') ||
+        pathname !== '/category' &&
+        pathname !== '/category/customer-service') ||
       (pathname.split('/').some((path) => path === 'marketingCenter') &&
         pathname !== '/marketingCenter/marketingCenter-list' &&
         pathname !== '/marketingCenter' &&
