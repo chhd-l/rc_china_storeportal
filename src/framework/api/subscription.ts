@@ -28,7 +28,7 @@ export const getSubscriptionDetail = async (id: string) => {
     id
   });
   console.log("get subscriptiondetail view data:", res);
-  return res?.subscriptionGet || {}
+  return res || {}
 }
 export const getSubscriptionFindByConsumerId = async (consumerId: any) => {
   const res = await ApiRoot.subscriptions().subscriptionFindByConsumerId({
