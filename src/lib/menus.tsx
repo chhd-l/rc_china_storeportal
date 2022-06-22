@@ -1,4 +1,3 @@
-import { MailOutlined, ShoppingOutlined, WechatOutlined } from '@ant-design/icons'
 // 引入icon样式文件
 // import "../assets/css/iconfont/iconfont"
 
@@ -142,6 +141,12 @@ export const menus = [
         value: 'shop_categories',
         url: '/category/category-list',
         key: 'shop_categories',
+      },
+      {
+        name: 'Customer Service',
+        value: 'customer_service',
+        url: '/category/customer-service',
+        key: 'customer_service',
       },
     ],
   },
