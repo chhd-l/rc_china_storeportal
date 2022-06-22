@@ -223,7 +223,7 @@ export const getBrands = async (storeId: string) => {
   try {
     let res = await ApiRoot.wechatSettings().getBarndList({ storeId })
     console.log('getBrands', res)
-    let list = normaliseBrands(res?.brandFind || [])
+    let list = normaliseBrands(res?.productBrandFind || [])
     return list
   } catch (e) {
     console.log(e)
