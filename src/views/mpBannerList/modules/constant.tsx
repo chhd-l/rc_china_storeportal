@@ -117,31 +117,26 @@ export const tableColumns = ({
       hideInSearch: true,
       render: (_, record) => [
         <Tooltip title='Edit'>
-          <a className='mr-4' href='' onClick={(e) => {
+          <span className='mr-4 cursor-pointer iconfont icon-a-Group437 text-red-500' onClick={(e) => {
             e.stopPropagation()
             navigator('/mpbanner/mpbanner-detail', {
               state: { id: record.id },
             })
-          }}>
-            <span className='cursor-pointer iconfont icon-a-Group437 text-red-500'/>
-          </a>
+          }} />
         </Tooltip>,
         <Tooltip title='View'>
-          <a className=' mr-4'>
-            <span className='cursor-pointer iconfont icon-bianzu'
-                  onClick={() => {
-                    console.log(record.picUrl)
-                    handlePreview(record.picUrl)
-                  }}
-            />
-          </a>
+          <span className='cursor-pointer mr-4 iconfont icon-bianzu text-red-500'
+                onClick={() => {
+                  console.log(record.picUrl)
+                  handlePreview(record.picUrl)
+                }}
+          />
         </Tooltip>,
         <Tooltip title='Delete'>
-          <Link to='' className='mr-4 text-xl' onClick={() => {
+          <span className='cursor-pointer text-xl iconfont icon-delete text-red-500' onClick={() => {
             handleDelete(record.id)
-          }}>
-            <span className='iconfont icon-delete' />
-          </Link></Tooltip>,
+          }} />
+        </Tooltip>,
       ],
     },
   ]

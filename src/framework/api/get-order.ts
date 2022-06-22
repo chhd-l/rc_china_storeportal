@@ -64,7 +64,7 @@ export const getOrderSetting = async () => {
   try {
     let res = await ApiRoot.orders().getOrderSetting({ storeId: '12345678' })
     console.info('get orderSetting data view', res)
-    return res?.orderSettings || []
+    return res || []
   } catch (e) {
     console.log(e)
     return []
@@ -75,7 +75,7 @@ export const updateOrderSetting = async (params: any) => {
   try {
     let res = await ApiRoot.orders().modifyOrderSetting({ body: params })
     console.info('updateOrderSetting data view', res)
-    return res?.modifyOrderSetting || false
+    return res?.orderSettingBatchUpdate || false
   } catch (e) {
     console.log(e)
     return false
