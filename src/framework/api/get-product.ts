@@ -44,18 +44,18 @@ export const createProduct = async (params: any, beforeData?: any) => {
   if (beforeData?.id) {
     //编辑
     let diffData: any = normaliseEditPDP(beforeData, paramsData)
-    let { productSpecifications, productVariants, productAttributeValueRel } = paramsData
-    if (productSpecifications?.length) {
-      diffData.productSpecifications = productSpecifications
+    let { specifications, variants, attributeRelations } = paramsData
+    if (specifications?.length) {
+      diffData.specifications = specifications
     }
-    if (productVariants?.length) {
-      diffData.productVariants = productVariants
+    if (variants?.length) {
+      diffData.variants = variants
     }
     paramsData = Object.assign({}, diffData, {
-      productAttributeValueRel,
+      attributeRelations,
       // spuNo: paramsData.spuNo,
       id: paramsData.id,
-      productAsserts: paramsData.productAsserts,//后面有排序处理，不太好操作先全量
+      asserts: paramsData.asserts,//后面有排序处理，不太好操作先全量
       // productName: paramsData.productName,
       // type: paramsData.type,
       // brandId: paramsData.brandId,
@@ -65,13 +65,13 @@ export const createProduct = async (params: any, beforeData?: any) => {
       // salesStatus: paramsData.salesStatus,
     })
   }
-  paramsData.productVariants?.forEach((el: any) => {
+  paramsData.variants?.forEach((el: any) => {
     if (el?.skuName) {
       el.name = el.skuName
       delete el.skuName
     }
-    if (el?.productVariantBundleInfo) {
-      el.productVariantBundleInfo?.forEach((cel: any) => {
+    if (el?.variantBundles) {
+      el.variantBundles?.forEach((cel: any) => {
         if (typeof cel.subSkuStock !== 'undefined') {
           delete cel.subSkuStock
         }
@@ -88,7 +88,11 @@ export const createProduct = async (params: any, beforeData?: any) => {
           delete cel.stock
         }
       })
+      //名字更换，
+      // el.bundleInfos = el.variantBundles
+      // delete el.variantBundles
     }
+
   })
   console.info('paramsData', paramsData)
   try {
@@ -225,7 +229,7 @@ export const getScProducts = async (params: ProductListQueryProps): Promise<any>
     delete params.sample
     params.sample = { ...sample }
     const res = await ApiRoot.products().getScProducts(params)
-    const data = normaliseScProductsforFe(res.productFindPageV1)
+    const data = normaliseScProductsforFe(res)
     return data
   } catch (e) {
     console.log(e)

@@ -98,7 +98,7 @@ export interface ProductVariantBundleRel {
 export interface ProductSpecificationValueRel {
   specificationId: string
   specificationDetailId: string
-  // productVariantId: string
+  // variantId: string
   id: string
 }
 export interface ProductVariants {
@@ -130,7 +130,7 @@ export interface ProductVariants {
 export interface ProductAssets {
   id: string
   // productId: string
-  // productVariantId: string
+  // variantId: string
   artworkUrl: string
   type: string
   storeId: string

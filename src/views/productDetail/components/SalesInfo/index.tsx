@@ -43,7 +43,7 @@ const SalesInfo = (props: FormProps) => {
     //   regularList
     //     ?.filter(el => {
     //       let deletedArr =
-    //         choosedSku.findIndex((choosed: any) => choosed.subProductVariantId === el.subProductVariantId) === -1
+    //         choosedSku.findIndex((choosed: any) => choosed.subVariantId === el.subVariantId) === -1
     //       return deletedArr
     //     })
     //     ?.filter(el => el.bunldeRelId) || []
@@ -53,7 +53,7 @@ const SalesInfo = (props: FormProps) => {
     //匹配选择已输入的数量
     regularList.forEach(oldSku => {
       choosedSku.forEach((newSku: any) => {
-        if (oldSku.subProductVariantId === newSku.subProductVariantId) {
+        if (oldSku.subVariantId === newSku.subVariantId) {
           newSku.bundleNumber = oldSku.bundleNumber || 1
         }
       })
@@ -67,24 +67,24 @@ const SalesInfo = (props: FormProps) => {
     validateNumber(choosedSku)
   }
   const onChange = (val: number, idx: number) => {
-    if (!detail.productVariantBundleInfo) {
-      detail.productVariantBundleInfo = []
+    if (!detail.variantBundles) {
+      detail.variantBundles = []
     }
-    if (!detail.productVariantBundleInfo[idx]) {
-      detail.productVariantBundleInfo[idx] = {}
+    if (!detail.variantBundles[idx]) {
+      detail.variantBundles[idx] = {}
     }
 
-    detail.productVariantBundleInfo[idx].bundleNumber = val
+    detail.variantBundles[idx].bundleNumber = val
     regularList[idx].bundleNumber = val
     if (regularList[idx].id) {
       //编辑
-      detail.productVariantBundleInfo[idx].id = regularList[idx].id
-      detail.productVariantBundleInfo[idx].productVariantId = detail.skuId
+      detail.variantBundles[idx].id = regularList[idx].id
+      detail.variantBundles[idx].variantId = detail.skuId
 
     } else {
       //新增
-      detail.productVariantBundleInfo[idx].subProductVariantId = regularList[idx].subProductVariantId
-      detail.productVariantBundleInfo[idx].skuNo = regularList[idx].skuNo
+      detail.variantBundles[idx].subVariantId = regularList[idx].subVariantId
+      detail.variantBundles[idx].skuNo = regularList[idx].skuNo
     }
     setRegularList([...regularList])
     validateNumber(regularList)
@@ -136,12 +136,12 @@ const SalesInfo = (props: FormProps) => {
       marketingPrice = getTotal(regularList, 'marketingPrice')
       subscriptionPrice = getTotal(regularList, 'subscriptionPrice')
     }
-    detail.productVariantBundleInfo = regularList.map((el:any)=>{
+    detail.variantBundles = regularList.map((el:any)=>{
       return {
         bundleNumber: el.bundleNumber,
         id: el.id,
-        productVariantId: el.productVariantId || detail.skuId,
-        subProductVariantId: el.subProductVariantId ,
+        variantId: el.variantId || detail.skuId,
+        subVariantId: el.subVariantId ,
         skuNo: el.skuNo,
       }
     })
@@ -269,7 +269,7 @@ const SalesInfo = (props: FormProps) => {
                   <div>
                     {regularList?.map((el: any, index: number) => {
                       return (
-                        <div className='flex items-center my-1' key={el.subProductVariantId}>
+                        <div className='flex items-center my-1' key={el.subVariantId}>
                           <div className='w-20'>{el.skuNo}</div>
                           <InputNumber
                             size='small'
