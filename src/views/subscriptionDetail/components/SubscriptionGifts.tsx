@@ -11,8 +11,8 @@ const columns: ColumnProps<any>[] = [
   },
   {
     title: 'Benefit Name',
-    dataIndex: 'productName',
-    key: 'productName',
+    dataIndex: 'name',
+    key: 'name',
     render: (text: any, record: any) => (
       <div className="flex flex-row items-center">
         <img src={record?.defaultImage} className="w-10 h-10 mr-2" alt="" />

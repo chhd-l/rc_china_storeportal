@@ -32,7 +32,7 @@ const TableRow: React.FC<IProps> = ({ data, handlePauseOrRestart }) => {
                 <Col span={20}>
                   <span>{product?.variants?.name ?? ""}</span>
                   <br />
-                  <span className="text-gray-400 text-sm">Variation: {(product?.specifications ?? []).map((vari:any) => (vari?.specificationDetail ?? []).map((variitem:any) => variitem.specificationDetailNameEn).join(",")).join(",")}</span>
+                  <span className="text-gray-400 text-sm">Variation: {(product?.specifications ?? []).map((vari:any) => (vari?.specificationDetails ?? []).map((variitem:any) => variitem.specificationDetailNameEn).join(",")).join(",")}</span>
                 </Col>
                 <Col span={4} className="items-start text-left">
                   x {product?.variants?.num}
