@@ -200,7 +200,9 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     //     storeId: '12345678',
     //   },
     // ],
-    goodsAsserts,
+    goodsAsserts: goodsAsserts.map((assert, assertIdx) => {
+      return Object.assign({}, assert, { rank: assertIdx })
+    }),
     goodsSpecifications: data.id ? editChangeVariationList : data.goodsSpecificationsInput && normaliseInputSpecificationProps(data.goodsSpecificationsInput),
     goodsAttributeValueRel: data.goodsAttributeValueRelInput && normaliseInputAttrProps(data.goodsAttributeValueRelInput, beforeData.goodsAttributeValueRel)
   }

@@ -12,7 +12,6 @@ interface Props {
 
 const ImgDrag: FC<Props> = ({ initAsserts, setInitAsserts, form }) => {
   const DragHandle = SortableHandle(({ img, imgIdx }: { img: any; imgIdx: number }) => {
-    console.info('sdsdsdsds', imgIdx)
     return (
       <Upload
         key={img?.key || `img-${imgIdx}`}
@@ -48,15 +47,19 @@ const ImgDrag: FC<Props> = ({ initAsserts, setInitAsserts, form }) => {
     })
     // console.info('setAssetsUrl', newAssets)
   }
-  const onSortEnd = ({ oldIndex, newIndex, collection }: { oldIndex: number; newIndex: number; collection: any }) => {
-    console.info(oldIndex, newIndex)
+  const onSortEnd = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
+    console.info(oldIndex, newIndex,'.....')
     let newAsserts = arrayMoveImmutable(initAsserts, oldIndex, newIndex)
     setInitAsserts(newAsserts)
+    form.setFieldsValue({
+      goodsAsserts: newAsserts,
+    })
   }
   return (
     <>
       <ImgSortContainer
-        axis='x'
+        axis='xy'
+        distance={1}
         useDragHandle={true}
         // key={variationIdx}
         onSortEnd={onSortEnd}

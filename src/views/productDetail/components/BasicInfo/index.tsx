@@ -105,10 +105,10 @@ const BasicInfo = ({ field, form }: FormProps) => {
           span: 20,
         }}
       >
-        {/* <div className='img-drag'>
+        <div className='img-drag'>
           <ImgDrag initAsserts={initAsserts} setInitAsserts={setInitAsserts} form={form}/>
-        </div> */}
-        <div className='flex flex-wrap'>
+        </div>
+        {/* <div className='flex flex-wrap'>
           {initAsserts?.map((img: any, index: number) => (
             <Upload
               key={img?.key || `img-${index}`}
@@ -120,7 +120,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
               showUploadList={false}
             />
           ))}
-        </div>
+        </div> */}
       </Form.Item>
       <Form.Item
         label='Product Video'
