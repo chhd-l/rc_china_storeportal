@@ -66,6 +66,7 @@ module.exports = {
         ongoingBg: 'var(--bg-status-ongoing)',
         ongoingText: 'var(--status-ongoing)',
         expiredBg: 'var(--bg-status-expired)',
+        grayTitle: '#979797',
       },
     },
   },

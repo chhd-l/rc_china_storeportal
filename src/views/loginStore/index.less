@@ -1,0 +1,76 @@
+.box{
+  height: 300px;
+  padding: 10px;
+}
+.box1{
+  padding: 20px;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 2px;
+  cursor: pointer;
+  img{
+    transform: scale(1);
+    transition: transform 0.5s ease 0s;
+  }
+  img:hover{
+    transform: scale(1.1);
+  }
+}
+
+.swiper-content{
+  width: 70%;
+  position: relative;
+  animation:mymove 1s;
+  -webkit-animation:mymove 1s; /*Safari and Chrome*/
+}
+@keyframes mymove
+{
+  from {top:50px;}
+  to {top:0;}
+}
+
+@-webkit-keyframes mymove /*Safari and Chrome*/
+{
+  from {top:50px;}
+  to {top:0;}
+}
+.slick-prev:before, .slick-next:before{
+  color: black!important;
+  font-size: 40px!important;
+  opacity:1!important;
+}
+.slick-next{
+  right: 180px!important;
+  z-index: 1000!important;
+}
+.slick-prev{
+  z-index: 1000!important;
+  left: 180px!important;
+}
+.text-center{
+  text-align: center;
+}
+.slick-prev:before{
+  content: '<'!important;
+}
+.slick-next:before{
+  content: '>'!important;
+}
+.potion-left{
+  width: 259px;
+  height: 400px;
+  position: absolute;
+  background: linear-gradient(to right, #f6f6f6, transparent);
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+}
+.potion-right{
+  width: 259px;
+  height: 400px;
+  position: absolute;
+  background: linear-gradient(to left, #f6f6f6, transparent);
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+}

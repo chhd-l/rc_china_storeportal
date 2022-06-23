@@ -2,8 +2,11 @@ import { lazy } from 'react' // 路由懒加载
 const Layout = lazy(() => import('../components/common/Layout'))
 const Home = lazy(() => import('../views/index'))
 const Login = lazy(() => import('../views/login'))
+const LoginStore = lazy(() => import('../views/loginStore'))
+const LoginBrand = lazy(() => import('../views/loginBrand'))
 const ProductList = lazy(() => import('../views/productList'))
 const AddProduct = lazy(() => import('../views/productDetail'))
+const ProductSearch = lazy(() => import('../views/productSearch'))
 const ResetPassword = lazy(() => import('../views/resetPassword'))
 const Register = lazy(() => import('../views/register'))
 const PetOwnerList = lazy(() => import('@/views/petOwnerList'))
@@ -93,6 +96,8 @@ let routes: RouteObject[] = [
           { path: 'product-list', element: <ProductList /> },
           { path: 'product-detail', element: <AddProduct />, breadcrumbName: 'Product Detail' },
           { path: 'product-add', element: <AddProduct />, breadcrumbName: 'AddProduct' },
+          { path: 'product-search', element: <ProductSearch />, breadcrumbName: 'ProductSearch' },
+          
         ],
       },
       {
@@ -124,7 +129,7 @@ let routes: RouteObject[] = [
       },
       {
         path: 'category',
-        breadcrumbName: 'Shop',
+        breadcrumbName: 'Shop Category',
         children: [
           { index: true, element: <CategoryList />,},
           { path: 'category-list', element: <CategoryList />,},
@@ -297,6 +302,8 @@ let routes: RouteObject[] = [
     ],
   },
   { path: "/login", element: <Login /> },
+  { path: "/login/store", element: <LoginStore /> },
+  { path: "/login/barnd", element: <LoginBrand /> },
   { path: "/resetPassword", element: <ResetPassword /> },
   { path: "/register", element: <Register /> },
   { path: "*", element: <Home /> },
