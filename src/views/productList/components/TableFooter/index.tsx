@@ -41,12 +41,12 @@ const TableFooter: FC<Props> = ({ children, list, getList, setLoading, loading }
     setLoading(true)
     let res = await deleteProducts({ productId })
     // listData[spuIdx].shelvesStatus = !shelvesStatus
-    if (res) {
+    if (res===true) {
       message.success({ className: 'rc-message', content: 'Operation success' })
+      await getList()
     } else {
       message.error({ className: 'rc-message', content: 'Operation failed' })
     }
-    await getList()
     setLoading(false)
   }
   return (
@@ -72,14 +72,14 @@ const TableFooter: FC<Props> = ({ children, list, getList, setLoading, loading }
               }
               setLoading(true)
               let res = await switchShelves({ productId, status: false })
-              if (res) {
+              if (res===true) {
                 message.success({ className: 'rc-message', content: 'Operation success' })
+                await getList()
               } else {
                 message.error({ className: 'rc-message', content: 'Operation failed' })
               }
               // listData[spuIdx].shelvesStatus = !shelvesStatus
               // setList(cloneDeep(listData))
-              await getList()
               setLoading(false)
             }}
           >
