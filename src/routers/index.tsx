@@ -129,7 +129,7 @@ let routes: RouteObject[] = [
       },
       {
         path: 'category',
-        breadcrumbName: 'Shop',
+        breadcrumbName: 'Shop Category',
         children: [
           { index: true, element: <CategoryList />,},
           { path: 'category-list', element: <CategoryList />,},
