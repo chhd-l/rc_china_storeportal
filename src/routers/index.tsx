@@ -4,6 +4,7 @@ const Home = lazy(() => import('../views/index'))
 const Login = lazy(() => import('../views/login'))
 const ProductList = lazy(() => import('../views/productList'))
 const AddProduct = lazy(() => import('../views/productDetail'))
+const ProductSearch = lazy(() => import('../views/productSearch'))
 const ResetPassword = lazy(() => import('../views/resetPassword'))
 const Register = lazy(() => import('../views/register'))
 const PetOwnerList = lazy(() => import('@/views/petOwnerList'))
@@ -93,6 +94,8 @@ let routes: RouteObject[] = [
           { path: 'product-list', element: <ProductList /> },
           { path: 'product-detail', element: <AddProduct />, breadcrumbName: 'Product Detail' },
           { path: 'product-add', element: <AddProduct />, breadcrumbName: 'AddProduct' },
+          { path: 'product-search', element: <ProductSearch />, breadcrumbName: 'ProductSearch' },
+          
         ],
       },
       {

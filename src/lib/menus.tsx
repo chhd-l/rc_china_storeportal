@@ -79,6 +79,12 @@ export const menus = [
         url: '/product/product-add',
         key: 'add_new_product',
       },
+      {
+        name: 'Search',
+        value: 'product_search',
+        url: '/product/product-search',
+        key: 'product_search',
+      },
     ],
   },
   {
