@@ -4,7 +4,7 @@ import { officialTypeList, statusList } from "./constants";
 export const formItems: SearchFormItemProps[] = [
   {
     label: "Account Name",
-    name: "accountName",
+    name: "name",
     placeholder: "Input",
   },
   {

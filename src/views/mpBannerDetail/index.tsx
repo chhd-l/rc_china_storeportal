@@ -23,7 +23,7 @@ const MpBannerDetail = () => {
   const [picUrl, setPicUrl] = useState('');
   const [clickType, setClickType] = useState();
   const [list, setList] = useState<any>([])
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(false)
   const layout = {
     labelCol: { span: 2 },
     wrapperCol: { span: 10 },
@@ -40,9 +40,9 @@ const MpBannerDetail = () => {
     if (!arr.length) return
     const lists: any[] = []
     arr.forEach((item) => {
-      if (item.accountType === 'MiniProgram')
+      if (item.type === 'MiniProgram')
         lists.push({
-          label: item.accountName,
+          label: item.name,
           value: item.id
         })
     })

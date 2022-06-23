@@ -101,7 +101,7 @@ const EditVariationList = (props: FormProps) => {
         detail.editChange.productVariants[index].subscriptionPrice = ''
       }
       detail.editChange.productVariants[index][propertyName] = val
-      if (propertyName === 'productVariantBundleInfo') {
+      if (propertyName === 'variantBundles') {
         //stock需要同步改变
         detail.editChange.productVariants[index].stock = tr.stock
         // detail.editChange.productVariants[index].stock = tr.stock
@@ -124,7 +124,7 @@ const EditVariationList = (props: FormProps) => {
       debugger
       if (!tr.id) {
         //新增的
-        detail.editChange.productVariants[index].productVariantSpecifications = tr.relArr?.map((rel: any) => {
+        detail.editChange.productVariants[index].specifications = tr.relArr?.map((rel: any) => {
           return {
             specificationNameEn: rel.specificationName,
             specificationName: rel.specificationName,
@@ -134,7 +134,7 @@ const EditVariationList = (props: FormProps) => {
         })
       }
     }
-    if (propertyName === 'productVariantBundleInfo') {
+    if (propertyName === 'variantBundles') {
       //同步展示库存
       setVariationList([...variationList])
     }

@@ -29,7 +29,7 @@ const AddCate = ({ visible, handleVisible, handleUpdate }: AddCateProps) => {
       categoryType: values.type === '0' ? 'MANUAL' : 'RULE_BASED',
       isDisplay: false,
     })
-    if (res.saveShopCategory.id) {
+    if (res.shopCategoryCreate.id) {
       formRef?.current?.resetFields()
       handleUpdate(true)
       return true

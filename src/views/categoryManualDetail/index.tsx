@@ -85,11 +85,11 @@ const CategoryDetail = () => {
         productName: page.productName,
       },
     })
-    let meta = res?.findShopCategoryProductPage?.meta
+    let meta = res?.shopCategoryProductFindPage?.meta
     if (meta?.id) {
-      setCateInfos({ ...meta, total: res?.findShopCategoryProductPage?.total })
+      setCateInfos({ ...meta, total: res?.shopCategoryProductFindPage?.total })
     }
-    setCheckLenght(res?.findShopCategoryProductPage?.records.length)
+    setCheckLenght(res?.shopCategoryProductFindPage?.records.length)
     setLoading(false)
     return res
   }
@@ -347,13 +347,13 @@ const CategoryDetail = () => {
                     productName: params.productName,
                   })
                 }
-                if (tableData?.findShopCategoryProductPage?.records && tableData?.findShopCategoryProductPage?.records.length > 0) {
-                  setListKey(tableData?.findShopCategoryProductPage?.records)
+                if (tableData?.shopCategoryProductFindPage?.records && tableData?.shopCategoryProductFindPage?.records.length > 0) {
+                  setListKey(tableData?.shopCategoryProductFindPage?.records)
                 }
                 console.log(tableData, 99)
                 return Promise.resolve({
-                  data: tableData?.findShopCategoryProductPage?.records || [],
-                  total: tableData?.findShopCategoryProductPage.total,
+                  data: tableData?.shopCategoryProductFindPage?.records || [],
+                  total: tableData?.shopCategoryProductFindPage.total,
                   success: true,
                 })
               }}

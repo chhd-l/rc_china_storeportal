@@ -323,3 +323,7 @@ export const headerOrigition: any = [
 export const SortContainer = SortableContainer(({ children }: { children: any }) => {
   return <ul>{children}</ul>
 })
+
+export const ImgSortContainer = SortableContainer(({ children }: { children: any }) => {
+  return <ul className='flex flex-wrap'>{children}</ul>
+})

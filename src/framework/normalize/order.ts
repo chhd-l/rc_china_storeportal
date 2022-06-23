@@ -1,5 +1,5 @@
 import { normaliseAttrProps } from './product'
-import { OrderLogs, OrderPayInfo } from '../schema/order.schema'
+import { OrderLogs, OrderPayment } from '../schema/order.schema'
 import { Order } from '../types/order'
 import { handleReturnTime } from '@/utils/utils'
 
@@ -11,28 +11,28 @@ export enum OrderOrderStateOrderStateEnum {
   viod = 'VOID',
 }
 
-const normalisePayInfo = (payInfo: OrderPayInfo, orderState: any) => {
+const normalisePayment = (payment: OrderPayment, orderState: any) => {
   let info =
     orderState === OrderOrderStateOrderStateEnum.unpaid || orderState === 'CANCELLATION'
       ? {
-          payTypeName: '',
-          appId: '',
-          payTime: '',
-          outOrderNo: '',
-        }
+        payTypeName: '',
+        appId: '',
+        payTime: '',
+        outOrderNo: '',
+      }
       : {
-          payTypeName: 'Wechat Pay',
-          appId: payInfo.payInfoID,
-          payTime: handleReturnTime(payInfo.payStartTime),
-          outOrderNo: payInfo.payWayOrderID,
-          payWayOrderID: payInfo.payWayOrderID,
-          payWayCode: payInfo.payWayCode,
-        }
+        payTypeName: 'Wechat Pay',
+        appId: payment.paymentId,
+        payTime: handleReturnTime(payment.paymentStartTime),
+        outOrderNo: payment.payWayOrderId,
+        payWayOrderID: payment.payWayOrderId,
+        payWayCode: payment.payWayCode,
+      }
   return info
 }
 
 export const normaliseOrder = (data: any, expressCompanies: any): any => {
-  const { consumerId, nickName, phone, avatarUrl, openId, unionId } = data.buyer
+  const { consumerId, nickName, phone, avatarUrl, openId, unionId } = data.consumer
   const {
     receiverName,
     id,
@@ -44,7 +44,7 @@ export const normaliseOrder = (data: any, expressCompanies: any): any => {
     postcode: postCode,
     isDefault,
   } = data.shippingAddress
-  let { orderState, lineItem, orderPrice, payInfo, logs, shippingInfo, subscriptionId, subscriptionNo } = data
+  let { orderState, lineItem, orderPrice, payment: payment, logs, delivery: shippingInfo, subscriptionId, subscriptionNo } = data
   const company = expressCompanies.filter((item: any) => item.code === shippingInfo.shippingCompany)
   const carrierType = company.length > 0 ? company[0].nameEn : ''
   // let { orderState } = orderState
@@ -75,7 +75,7 @@ export const normaliseOrder = (data: any, expressCompanies: any): any => {
     },
     orderItem:
       lineItem?.map((item: any) => {
-        const { skuId, pic, skuName, num, price, productSpecifications,isGift } = item
+        const { skuId, pic, skuName, num, price, productSpecifications, isGift } = item
         return {
           skuId,
           pic,
@@ -87,27 +87,25 @@ export const normaliseOrder = (data: any, expressCompanies: any): any => {
           isGift
         }
       }) || [],
-    orderState: {
-      orderState: orderState,
-    },
-    expectedShippingDate:shippingInfo?.expectedShippingDate||'',
+    orderState,
+    expectedShippingDate: shippingInfo?.expectedShippingDate || '',
     carrier: shippingInfo?.trackingId
       ? [
-          {
-            packId: shippingInfo.trackingId,
-            company: carrierType,
-            orderItem:
-              lineItem?.map((item: any) => {
-                const { skuId, pic, skuName } = item
-                return {
-                  skuId,
-                  pic,
-                  skuName,
-                }
-              }) || [],
-            deliveries: shippingInfo?.deliveries,
-          },
-        ]
+        {
+          packId: shippingInfo.trackingId,
+          company: carrierType,
+          orderItem:
+            lineItem?.map((item: any) => {
+              const { skuId, pic, skuName } = item
+              return {
+                skuId,
+                pic,
+                skuName,
+              }
+            }) || [],
+          deliveries: shippingInfo?.deliveryItems,
+        },
+      ]
       : [],
     carrierType: carrierType,
     orderPrice: {
@@ -116,7 +114,7 @@ export const normaliseOrder = (data: any, expressCompanies: any): any => {
       deliveryPrice: orderPrice?.deliveryPrice || 0,
       totalPrice: orderPrice.totalPrice,
     },
-    payInfo: payInfo ? normalisePayInfo(payInfo, orderState) : {},
+    payment: payment ? normalisePayment(payment, orderState) : {},
     logs,
     comments: data?.comments,
   }

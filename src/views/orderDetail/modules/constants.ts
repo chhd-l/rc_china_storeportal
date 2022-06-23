@@ -47,7 +47,7 @@ export const initOrderDetail={
   shippingAddress: {},
   buyer: {},
   carrier: [],
-  payInfo: {},
+  payment: {},
   logs: [],
   comments: [],
 }

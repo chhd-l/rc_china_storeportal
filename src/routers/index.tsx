@@ -33,7 +33,7 @@ const MpBannerList = lazy(() => import('@/views/mpBannerList'))
 const MpQRList = lazy(() => import('@/views/mpQRList'))
 const QrCodeManage = lazy(() => import('@/views/qrCodeManageList'))
 const MenuManage = lazy(() => import('@/views/menuManageList'))
-const TemplateMessage = lazy(() => import('@/views/templateMessageList'))
+const WxTemplateMessage = lazy(() => import('@/views/templateMessageList'))
 const MpBannerDetail = lazy(() => import('@/views/mpBannerDetail'))
 const MpBannerAdd = lazy(() => import('@/views/mpBannerAdd'))
 const MpQRDetail = lazy(() => import('@/views/mpQRDetail'))
@@ -53,6 +53,8 @@ const ComingSoon = lazy(() => import('@/views/comingSoon'))
 const LiveStreamingList = lazy(() => import('@/views/liveStreamingList'))
 const IntelligentRecommendation = lazy(() => import('@/views/intelligentRecommendation'))
 const AddGraphic = lazy(() => import('@/views/addGraphic'))
+const Dashboard = lazy(() => import('@/views/dashboard'))
+const CustomerService = lazy(() => import('@/views/customerService'))
 
 interface RouteObject {
   caseSensitive?: boolean
@@ -71,6 +73,7 @@ let routes: RouteObject[] = [
     children: [
       { index: true, element: <OrderList /> },
       { path: 'home', element: <Home /> },
+      { path: 'dashboard', element: <Dashboard /> },
       // { index: true , element:<Routes><Route  element={<Navigate to={'/Home'} />} /></Routes> },
       { path: 'shipment-list', element: <OrderList />, breadcrumbName: 'My Shipment' },
       { path: 'shipping-setting', element: <ShippingSetting />, breadcrumbName: 'Shipping Setting' },
@@ -123,13 +126,14 @@ let routes: RouteObject[] = [
       },
       {
         path: 'category',
-        breadcrumbName: 'Shop Category',
+        breadcrumbName: 'Shop',
         children: [
           { index: true, element: <CategoryList />,},
           { path: 'category-list', element: <CategoryList />,},
           { path: 'category-detail', element: <CategoryDetail />, breadcrumbName: 'Category Detail' },
           { path: 'category-manual-detail', element: <CategoryManualDetail />, breadcrumbName: 'Category Detail' },
           { path: 'category-list-sort', element: <CategoryListSort />, breadcrumbName: 'Category Detail' },
+          { path: 'customer-service', element: <CustomerService />, breadcrumbName: 'Customer Service' },
         ],
       },
       {
@@ -240,11 +244,11 @@ let routes: RouteObject[] = [
         children: [
           {
             index: true,
-            element: <TemplateMessage />,
+            element: <WxTemplateMessage />,
           },
           {
             path: 'template-message-list',
-            element: <TemplateMessage />,
+            element: <WxTemplateMessage />,
           },
           {
             path: 'template-message/:id',

@@ -69,7 +69,7 @@ export const orderDetailSource = (orderState: string) => {
       deliveryPrice: 0,
       totalPrice: 190,
     },
-    payInfo: function () {
+    payment: function () {
       return orderState === "UNPAID" || orderState === "CANCELLATION"
         ? {}
         : {

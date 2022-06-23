@@ -6,10 +6,6 @@ import { UploadChangeParam, UploadFile } from 'antd/lib/upload/interface'
 import { UPLOAD_API_URL } from '@/framework/api/fetcher'
 import classNames from 'classnames'
 import './index.less'
-export enum UploadType {
-  button = 'BUTTON',
-  img = 'IMG',
-}
 interface HandleProps {}
 interface UploadWrapProps {
   size?: string

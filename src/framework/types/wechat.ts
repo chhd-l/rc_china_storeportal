@@ -1,4 +1,4 @@
-export interface Account {
+export interface WxAccount {
   id: string
   principal: string
   type: string
@@ -7,7 +7,7 @@ export interface Account {
   status: boolean
 }
 
-export interface Fans {
+export interface WxFans {
   id: string
   account: string
   accountPrincipal: string
@@ -41,7 +41,7 @@ export interface AutoReplies {
   status: boolean
 }
 
-export interface ReplyContent {
+export interface WxReplyContent {
   id: string
   type: string
   description: string
@@ -75,7 +75,7 @@ export interface TemplateMessageItemProps {
   templateId?: string,
   url?: string,// # 用户跳转路径
   appId?: string,//# 小程序id
-  pagepath?: string,//# 小程序跳转路径
+  pagePath?: string,//# 小程序跳转路径
   status?: boolean,
   title?: string,
   primaryIndustry?: string,// # 一级行业
@@ -95,7 +95,7 @@ export interface WxMenu {
   isEnabled: boolean
 }
 
-export interface Article {
+export interface WxArticle {
   id: string
   title: string
   type: "image" | "voice" | "video" | "news",

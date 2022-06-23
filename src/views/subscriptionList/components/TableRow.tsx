@@ -25,17 +25,17 @@ const TableRow: React.FC<IProps> = ({ data, handlePauseOrRestart }) => {
           {(data?.productList ?? []).map((product: any, idx: number) => (
           <Row key={idx}>
             <Col span={6}>
-              <img className="w-16 h-16 order-img" src={product?.productVariant?.defaultImage || ""} alt="" />
+              <img className="w-16 h-16 order-img" src={product?.variants?.defaultImage || ""} alt="" />
             </Col>
             <Col span={16}>
               <Row className={`${(data?.productList ?? []).length > 1 && idx < (data?.productList ?? []).length - 1 ? "border-b h-20 pb-2" : ""}`}>
                 <Col span={20}>
-                  <span>{product?.productVariant?.name ?? ""}</span>
+                  <span>{product?.variants?.name ?? ""}</span>
                   <br />
-                  <span className="text-gray-400 text-sm">Variation: {(product?.productSpecifications ?? []).map((vari:any) => (vari?.productSpecificationDetail ?? []).map((variitem:any) => variitem.specificationDetailNameEn).join(",")).join(",")}</span>
+                  <span className="text-gray-400 text-sm">Variation: {(product?.specifications ?? []).map((vari:any) => (vari?.specificationDetails ?? []).map((variitem:any) => variitem.specificationDetailNameEn).join(",")).join(",")}</span>
                 </Col>
                 <Col span={4} className="items-start text-left">
-                  x {product?.productVariant?.num}
+                  x {product?.variants?.num}
                 </Col>
               </Row>
             </Col>

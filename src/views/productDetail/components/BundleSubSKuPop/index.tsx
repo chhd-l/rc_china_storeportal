@@ -54,7 +54,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
   }, [])
   useEffect(() => {
     if (defaultSelected) {
-      let keys = defaultSelected?.filter(el => !el.isDeleted)?.map((el: any) => el?.subProductVariantId || el)
+      let keys = defaultSelected?.filter(el => !el.isDeleted)?.map((el: any) => el?.subVariantId || el)
       setSelectedRowKeys(keys)
     }
   }, [defaultSelected])
@@ -156,12 +156,12 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
         // console.info('allPageList', allPageList)
         let pageListWidtDefault=[...allPageList,...defaultSelected]
         debugger
-        let productVariantId = defaultSelected?.find(el=>el.productVariantId)?.productVariantId
+        let variantId = defaultSelected?.find(el=>el.variantId)?.variantId
         let regularChoosed = selectedRowKeys.map((el: string) => {
-          let choosedItem = pageListWidtDefault.find((item: any) => item.subProductVariantId === el)
+          let choosedItem = pageListWidtDefault.find((item: any) => item.subVariantId === el)
           if (choosedItem) {
-            if(productVariantId){
-              choosedItem.productVariantId = productVariantId
+            if(variantId){
+              choosedItem.variantId = variantId
             }
             return choosedItem
           }
@@ -216,7 +216,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
         pagination={{
           pageSize: 5,
         }}
-        rowKey={record => record.subProductVariantId}
+        rowKey={record => record.subVariantId}
         rowSelection={{
           preserveSelectedRowKeys: true,
           selectedRowKeys,
@@ -258,7 +258,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
             let bundle={
               ...el,
               brandName: '',
-              subProductVariantId:el.id
+              subVariantId:el.id
             }
             delete bundle.id
             return bundle

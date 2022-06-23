@@ -3,7 +3,7 @@ import { ContentContainer, DivideArea, SearchContainer, TableContainer } from '@
 import { Button, message, Modal, Pagination, Spin, Tabs } from 'antd'
 import Search from './components/Search'
 import Table from './components/Table'
-import { LiveStreaming } from '@/framework/types/liveStreaming'
+import { WxLiveStreaming } from '@/framework/types/liveStreaming'
 import { liveStreamTabList } from '@/views/liveStreamingList/modules/constants'
 import { getLiveStreamingList, syncLiveStreaming } from '@/framework/api/liveStreaming'
 import { handleQueryParams } from '@/views/liveStreamingList/modules/handle-query-params'
@@ -14,7 +14,7 @@ import { getAccountList } from '@/framework/api/wechatSetting'
 import SyncModal from '@/views/liveStreamingList/components/SyncModal'
 
 const LiveStreamingList = () => {
-  const [liveStreamingList, setLiveStreamingList] = useState<LiveStreaming[]>([])
+  const [liveStreamingList, setLiveStreamingList] = useState<WxLiveStreaming[]>([])
   const [activeKey, setActiveKey] = useState('')
   const [searchParams, setSearchParams] = useState<SearchParamsProps>(initSearchParams)
   const [pageParams, setPageParams] = useState<PageParamsProps>(initPageParams)

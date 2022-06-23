@@ -1,6 +1,6 @@
 import { Button, Switch, Table, Tooltip } from "antd";
 import { replyTypeList } from '../../modules/constants';
-import { ReplyContent } from "@/framework/types/wechat";
+import { WxReplyContent } from "@/framework/types/wechat";
 import { useNavigate } from "react-router-dom";
 
 const Index = ({
@@ -12,7 +12,7 @@ const Index = ({
   onChangeStatus
 }: {
   loading: boolean,
-  replyContents: ReplyContent[],
+  replyContents: WxReplyContent[],
   onPageChange: Function,
   pages: any,
   onDelete: Function,
@@ -35,7 +35,7 @@ const Index = ({
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (text: any, record: ReplyContent) => (
+      render: (text: any, record: WxReplyContent) => (
       <Switch
         checked={text}
         onChange={(checked) => {
@@ -54,7 +54,7 @@ const Index = ({
       title: "Action",
       dataIndex: "action",
       key: "action",
-      render: (text: any, record: ReplyContent) => (
+      render: (text: any, record: WxReplyContent) => (
         <>
           <Tooltip title="Edit">
             <span

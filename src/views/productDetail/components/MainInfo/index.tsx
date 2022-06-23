@@ -203,16 +203,16 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
           isSupport100: values.isSupport100,
           id: detail.skuId,
           defaultImage: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Non_photo.png',
-          productVariantBundleInfo: detail.productVariantBundleInfo?.map((el: any) => {
+          bundleInfos: detail.variantBundles?.map((el: any) => {
             let bundleInfo = {
               bundleNumber: el.bundleNumber,
               id: el.id,
-              productVariantId: el.productVariantId || detail.skuId,
-              subProductVariantId: el.subProductVariantId ,
+              variantId: el.variantId || detail.skuId,
+              subVariantId: el.subVariantId ,
               skuNo: el.skuNo,
             }
-            if (!el.productVariantId&&!detail.skuId) {
-              delete bundleInfo.productVariantId
+            if (!el.variantId&&!detail.skuId) {
+              delete bundleInfo.variantId
             }
             if (!el.skuNo) {
               delete bundleInfo.skuNo
@@ -221,8 +221,8 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
           }),
         },
       ]
-      if (detail.productVariantBundleInfo?.length) {
-        params.productVariantsInput[0].productVariantBundleInfo = detail.productVariantBundleInfo
+      if (detail.variantBundles?.length) {
+        params.variants[0].bundleInfos = detail.variantBundles
       }
       if (detail.id) {
         //编辑 全量

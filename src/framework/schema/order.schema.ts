@@ -12,7 +12,7 @@ export interface OderListItem {
   shippingInfo: OrderShippingInfo
   orderPrice: OrderPrice
   orderState: OrderState
-  payInfo: OrderPayInfo
+  payment: OrderPayment
   lineItem: OrderLineItem[]
   logs: OrderLogs[]
 }
@@ -83,14 +83,14 @@ export interface OrderPrice {
   discountsPrice: number
 }
 
-export interface OrderPayInfo {
-  payInfoID: string
+export interface OrderPayment {
+  paymentId: string
   amount: string
-  payStartTime: string
-  payFinishTime: string
+  paymentStartTime: string
+  paymentFinishTime: string
   lastModifiedBy: string
   payWayCode: string
-  payWayOrderID: string
+  payWayOrderId: string
   paymentState: string
 }
 

@@ -1,4 +1,4 @@
-export interface LiveStreaming {
+export interface WxLiveStreaming {
   id: string
   name: string
   roomId: number

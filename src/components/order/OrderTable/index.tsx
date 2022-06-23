@@ -132,7 +132,7 @@ const OrderTable = ({
                 <div>
                   {formatMoney(item.orderPrice.totalPrice)}
                   <br />
-                  <span className="text-gray-400 ">{item?.payInfo?.payTypeName}</span>
+                  <span className="text-gray-400 ">{item?.payment?.payTypeName}</span>
                 </div>
               </Col>
               <Col span={origin !== 'voucher' ? 4 : 6} className="text-left">

@@ -52,7 +52,7 @@ export const updateVoucher = async (parma: any) => {
       storeId: '123456',
       operator: 'zz',
     })
-    return res?.voucherUpsert || false
+    return res?.voucherModify || false
   } catch (e) {
     console.log(e)
     return false

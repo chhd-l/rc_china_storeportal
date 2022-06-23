@@ -30,21 +30,21 @@ const BundleSbuSKu = ({
     caclNum(regularList)
   }
   const onChange = (val: number, idx: number) => {
-    if (!skuItem.productVariantBundleInfo) {
-      skuItem.productVariantBundleInfo = []
+    if (!skuItem.variantBundles) {
+      skuItem.variantBundles = []
     }
-    if (!skuItem.productVariantBundleInfo[idx]) {
-      skuItem.productVariantBundleInfo[idx] = {}
+    if (!skuItem.variantBundles[idx]) {
+      skuItem.variantBundles[idx] = {}
     }
-    skuItem.productVariantBundleInfo[idx].bundleNumber = val
+    skuItem.variantBundles[idx].bundleNumber = val
     regularList[idx].bundleNumber = val
     if (regularList[idx].id) {
       //编辑
-      skuItem.productVariantBundleInfo[idx].id = regularList[idx].id
+      skuItem.variantBundles[idx].id = regularList[idx].id
     } else {
       //新增
-      skuItem.productVariantBundleInfo[idx].subProductVariantId = regularList[idx].subProductVariantId
-      skuItem.productVariantBundleInfo[idx].skuNo = regularList[idx].skuNo
+      skuItem.variantBundles[idx].subVariantId = regularList[idx].subVariantId
+      skuItem.variantBundles[idx].skuNo = regularList[idx].skuNo
     }
     caclNum(regularList)
   }
@@ -93,7 +93,7 @@ const BundleSbuSKu = ({
       let info: any = {
         bundleNumber: el.bundleNumber || 1,
         skuNo: el.skuNo,
-        subProductVariantId: el.subProductVariantId,
+        subVariantId: el.subVariantId,
         stock: el.stock,
         listPrice: el.listPrice,
         marketingPrice: el.marketingPrice,
@@ -103,22 +103,22 @@ const BundleSbuSKu = ({
       if (el.id) {
         info.id = el.id
       }
-      if(el.productVariantId){
-        info.productVariantId = el.productVariantId
+      if(el.variantId){
+        info.variantId = el.variantId
       }
       return info
     })
     if (isAll) {
-      skuItem.productVariantBundleInfo = bundleInfo
+      skuItem.variantBundles = bundleInfo
     }
-    updateVations(bundleInfo, skuItemIdx, 'productVariantBundleInfo', skuItem)
+    updateVations(bundleInfo, skuItemIdx, 'variantBundles', skuItem)
   }
   const chooseBundleSku = (choosedSku: any) => {
     // let deletedArr =
     //   regularList
     //     ?.filter(el => {
     //       let deletedArr =
-    //         choosedSku.findIndex((choosed: any) => choosed.subProductVariantId === el.subProductVariantId) === -1
+    //         choosedSku.findIndex((choosed: any) => choosed.subVariantId === el.subVariantId) === -1
     //       return deletedArr
     //     })
     //     ?.filter(el => el.bunldeRelId) || []
@@ -130,7 +130,7 @@ const BundleSbuSKu = ({
     //匹配选择已输入的数量
     regularList.forEach(oldSku => {
       choosedSku.forEach((newSku: any) => {
-        if (oldSku.subProductVariantId === newSku.subProductVariantId) {
+        if (oldSku.subVariantId === newSku.subVariantId) {
           newSku.bundleNumber = oldSku.bundleNumber || 1
         }
       })
@@ -141,11 +141,11 @@ const BundleSbuSKu = ({
     caclNum(choosedSku, true)
   }
   useEffect(() => {
-    // console.info('testtest', skuItem?.productVariantBundleInfo)
-    if (skuItem?.productVariantBundleInfo) {
-      setRegularList(skuItem?.productVariantBundleInfo)
+    // console.info('testtest', skuItem?.variantBundles)
+    if (skuItem?.variantBundles) {
+      setRegularList(skuItem?.variantBundles)
     }
-  }, [skuItem?.productVariantBundleInfo])
+  }, [skuItem?.variantBundles])
   return (
     <div className='flex items-center' style={{ minWidth: '6rem' }}>
       <div
@@ -167,7 +167,7 @@ const BundleSbuSKu = ({
           ?.filter(el => !el.isDeleted)
           ?.map((el: any, index: number) => {
             return (
-              <div className='flex items-center my-1' key={el.subProductVariantId}>
+              <div className='flex items-center my-1' key={el.subVariantId}>
                 <div className='w-20'>{el.skuNo}</div>
                 <InputNumber
                   size='small'

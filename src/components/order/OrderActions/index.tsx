@@ -46,8 +46,7 @@ const OrderActions = ({
         openId: orderBuyer.openId,
         unionId: orderBuyer.unionId,
         nickName: orderBuyer.name,
-      },
-      operator: userInfo?.nickname || 'system',
+      }
     }
     if (subscriptionId) {
       params = Object.assign(params, { isSubscription: true, subscriptionId })
@@ -63,9 +62,9 @@ const OrderActions = ({
 
   const completed = async () => {
     const res = await completedOrder({
+      storeId: '123456',
       orderNum: orderId,
       nowOrderState: orderState,
-      operator: userInfo?.nickname || 'system',
     })
     if (res) {
       message.success({ className: 'rc-message', content: 'Operation success' })

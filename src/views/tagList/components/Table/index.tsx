@@ -70,16 +70,12 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
       render: (text: any, record: any) => (
         <>
           <Tooltip title='View Details'>
-            <a className='mr-4' href='' onClick={(e) => {
+            <span className='cursor-pointer iconfont icon-kjafg primary-color mr-4' onClick={(e) => {
               e.stopPropagation()
               navigator('/tag/edit-tags', {
                 state: { id: record.id },
               })
-            }} >
-            <span
-              className='cursor-pointer iconfont icon-kjafg primary-color mr-4'
-            />
-            </a>
+            }} />
           </Tooltip>
           <Tooltip title='Delete'>
             <span className='cursor-pointer ml-2 iconfont icon-delete text-red-500' onClick={() => {

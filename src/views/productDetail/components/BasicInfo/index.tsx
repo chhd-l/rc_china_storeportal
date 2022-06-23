@@ -9,6 +9,7 @@ import { EditOutlined } from '@ant-design/icons'
 import ProForm from '@ant-design/pro-form'
 import { useForm } from 'antd/lib/form/Form'
 import { getBrands } from '@/framework/api/wechatSetting'
+import ImgDrag from '../ImgDrag'
 interface uploadHandleProps {
   url: string
   idx: number
@@ -104,7 +105,10 @@ const BasicInfo = ({ field, form }: FormProps) => {
           span: 20,
         }}
       >
-        <div className='flex flex-wrap'>
+        <div className='img-drag'>
+          <ImgDrag initAsserts={initAsserts} setInitAsserts={setInitAsserts} form={form}/>
+        </div>
+        {/* <div className='flex flex-wrap'>
           {initAsserts?.map((img: any, index: number) => (
             <Upload
               key={img?.key || `img-${index}`}
@@ -116,7 +120,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
               showUploadList={false}
             />
           ))}
-        </div>
+        </div> */}
       </Form.Item>
       <Form.Item
         label='Product Video'
