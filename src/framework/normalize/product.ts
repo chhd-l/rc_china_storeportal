@@ -649,11 +649,11 @@ export const normalizeNullDataRemove = (params: any) => {
   return newData
 }
 
-export const normaliseProductListSku = (sku: any, goodsSpecifications: any): ProductListSkuItem => {
+export const normaliseProductListSku = (sku: any, specifications: any): ProductListSkuItem => {
   let skuItem = {
     id: sku.id,
     no: sku.skuNo,
-    specs: normalizeSpecText(sku.goodsSpecificationRel, goodsSpecifications)?.join(','),
+    specs: normalizeSpecText(sku.specificationRelations, specifications)?.join(','),
     price: sku.marketingPrice,
     stock: sku.stock
   }
