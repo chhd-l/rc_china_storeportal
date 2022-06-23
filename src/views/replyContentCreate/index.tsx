@@ -166,7 +166,7 @@ const AddAccount = () => {
               <Button
                 danger
                 onClick={() => {
-                  navigator("/reply/reply-contents");
+                  navigator(-1);
                 }}
               >
                 Cancel
