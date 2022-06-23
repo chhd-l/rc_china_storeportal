@@ -2,6 +2,8 @@ import { lazy } from 'react' // 路由懒加载
 const Layout = lazy(() => import('../components/common/Layout'))
 const Home = lazy(() => import('../views/index'))
 const Login = lazy(() => import('../views/login'))
+const LoginStore = lazy(() => import('../views/loginStore'))
+const LoginBrand = lazy(() => import('../views/loginBrand'))
 const ProductList = lazy(() => import('../views/productList'))
 const AddProduct = lazy(() => import('../views/productDetail'))
 const ResetPassword = lazy(() => import('../views/resetPassword'))
@@ -297,6 +299,8 @@ let routes: RouteObject[] = [
     ],
   },
   { path: "/login", element: <Login /> },
+  { path: "/login/store", element: <LoginStore /> },
+  { path: "/login/barnd", element: <LoginBrand /> },
   { path: "/resetPassword", element: <ResetPassword /> },
   { path: "/register", element: <Register /> },
   { path: "*", element: <Home /> },
