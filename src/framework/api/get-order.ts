@@ -18,8 +18,8 @@ export const getOrderList = async (queryOrderListParams: any): Promise<{ total: 
       let expressCompanies = await getExpressCompanyList()
       let res = await ApiRoot.orders().getOrders({ queryOrderListParams })
       console.log('query orders view list', res)
-      if (res?.orderFindPage?.records) {
-        const { records, total } = res.orderFindPage
+      if (res?.records) {
+        const { records, total } = res
         let record = (records || []).map((order: any) => normaliseOrder(order, expressCompanies))
         return {
           total: total || 0,
@@ -50,7 +50,7 @@ export const getOrderDetail = async ({ orderNum }: { orderNum: string }) => {
       let expressCompanies = await getExpressCompanyList()
       let data = await ApiRoot.orders().getOrder({ storeId: '12345678', orderNum })
       console.info('res', data)
-      const detail = data?.orderGet ? normaliseOrder(data.orderGet, expressCompanies) : initOrderDetail
+      const detail = data ? normaliseOrder(data, expressCompanies) : initOrderDetail
       console.info('list', detail)
       return detail
     }
@@ -110,7 +110,7 @@ export const getExpressCompanyList = async () => {
     if (expressCompanyList === null) {
       let res = await ApiRoot.orders().getExpressCompany({ storeId: '12345678' })
       console.info('get expressCompany data view', res)
-      expressCompanyList = res.expressCompanyFind || []
+      expressCompanyList = res || []
       if (expressCompanyList.length > 0) {
         session.set('express-company-list', expressCompanyList)
       }
@@ -130,7 +130,7 @@ export const shippedOrder = async (params: any) => {
     console.info('shipped order view params', params)
     let res = await ApiRoot.orders().shippedOrder({ body: params })
     console.info('shipped order data view', res)
-    return res?.orderShip || false
+    return res
   } catch (e) {
     console.log(e)
     return false
@@ -145,7 +145,7 @@ export const completedOrder = async (params: any) => {
     console.info('completed order view params', params)
     let res = await ApiRoot.orders().completedOrder({ body: params })
     console.info('completed order data view', res)
-    return res?.orderCompleted || false
+    return res
   } catch (e) {
     console.log(e)
     return false

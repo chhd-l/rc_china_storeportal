@@ -87,9 +87,7 @@ export const normaliseOrder = (data: any, expressCompanies: any): any => {
           isGift
         }
       }) || [],
-    orderState: {
-      orderState: orderState,
-    },
+    orderState,
     expectedShippingDate: shippingInfo?.expectedShippingDate || '',
     carrier: shippingInfo?.trackingId
       ? [
