@@ -8,14 +8,14 @@ import { useParams } from 'react-router-dom'
 import EditTagsModal from './components/EditTagsModal'
 import { ContentContainer } from '@/components/ui'
 import { handlePageParams } from '@/utils/utils'
-import { detailTag, removeCustomerTag, updateTag } from '@/framework/api/tag'
+import { detailTag, removeConsumerTag, updateTag } from '@/framework/api/tag'
 import { useLocation } from 'react-router'
 
 const EditTags = () => {
   const { state }: any = useLocation();
   const [isSwithVisible, setIsSwithVisible] = useState(false)
   const [status, setStatus] = useState(false)
-  const [customerId, setCustomerId] = useState<any>('')
+  const [consumerId, setConsumerId] = useState<any>('')
   const [show, setShow] = useState(false)
   const [name, setName] = useState('')
   const [manualSelectionVisible, setManualSelectionVisible] = useState<boolean>(false)
@@ -30,13 +30,13 @@ const EditTags = () => {
   const confirmDelete = async () => {
 
     setLoading(true)
-   let res = await removeCustomerTag({
-      customerId:customerId,
+   let res = await removeConsumerTag({
+      consumerId:consumerId,
       tagId: state.id,
       operator: "zz",
       storeId:"12345678"
     })
-    if(res.removeCustomerTag){
+    if(res.consumerTagDelete){
       message.success('Operate success')
       setIsModalVisible(false)
       ref.current.reload()
@@ -55,15 +55,15 @@ const EditTags = () => {
         }
       })
     console.log(res)
-    if(res?.findTagCustomerPage?.meta?.length>0){
+    if(res?.tagConsumerFindPage?.meta?.length>0){
       setCateInfos({
-        isEnabled: res?.findTagCustomerPage?.meta[0].isEnabled,
-        name: res?.findTagCustomerPage?.meta[0].name,
-        total:res?.findTagCustomerPage.total
+        isEnabled: res?.tagConsumerFindPage?.meta[0].isEnabled,
+        name: res?.tagConsumerFindPage?.meta[0].name,
+        total:res?.tagConsumerFindPage.total
       })
     }
     setLoading(false)
-    return res?.findTagCustomerPage
+    return res?.tagConsumerFindPage
   }
   const confirmSwitch = async () => {
     setLoading(true)
@@ -95,19 +95,19 @@ const EditTags = () => {
       title: 'Profile Photo',
       dataIndex: 'image',
       key: 'image',
-      render: (text: any, record: any) => <Avatar size="large" icon={<img src={record?.customer?.avatarUrl} alt='' />} />,
+      render: (text: any, record: any) => <Avatar size="large" icon={<img src={record?.consumer?.avatarUrl} alt='' />} />,
     },
     {
       title: 'WeChat Name',
       dataIndex: 'nickname',
       key: 'nickname',
-      render: (text: any, record: any) => record?.customer?.nickName||''
+      render: (text: any, record: any) => record?.consumer?.nickName||''
     },
     {
       title: 'Phone Number',
       dataIndex: 'phone',
       key: 'phone',
-      render: (text: any, record: any) => record?.customer?.phone||''
+      render: (text: any, record: any) => record?.consumer?.phone||''
     },
     {
       title: 'Options',
@@ -116,7 +116,7 @@ const EditTags = () => {
         <>
           <Tooltip title="Delete">
             <span className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl" onClick={() => {
-              setCustomerId(record.customer.id)
+              setConsumerId(record.consumer.id)
               setIsModalVisible(true)
             }} />
           </Tooltip>
@@ -211,12 +211,12 @@ const EditTags = () => {
                 currentPage: params.current,
                 pageSize: params.pageSize,
               })
-              let tableData = await getList({ ...page, goodsName: params.goodsName })
+              let tableData = await getList({ ...page, productName: params.productName })
               if (tableData === undefined && page.offset >= 10) {
                 tableData = await getList({
                   offset: page.offset - 10,
                   limit: page.limit,
-                  goodsName: params.goodsName,
+                  productName: params.productName,
                 })
               }
               console.log(tableData, 99)

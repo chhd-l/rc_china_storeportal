@@ -5,7 +5,7 @@ import { SubscriptionStatus, SubscriptionType } from "./modules/constants"
 import { Link } from 'react-router-dom'
 import moment from "moment";
 
-const SubscriptionInformation = ({ customerId, id }: any) => {
+const SubscriptionInformation = ({ consumerId, id }: any) => {
   const [subscriptionList, setSubscriptionList] = useState([])
   const [pages, setPages] = useState<{page:number,limit:number}>({page:1,limit:10});
   const [total, setTotal] = useState(0)
@@ -18,7 +18,7 @@ const SubscriptionInformation = ({ customerId, id }: any) => {
      offset: current * limit - limit,
      limit: limit,
      isNeedTotal: true,
-     sample: { customer:{id:customerId} },
+     sample: { consumer:{id:consumerId} },
      where: param.where,
    } )
     setPages({page: current,limit:limit})
@@ -64,8 +64,8 @@ const SubscriptionInformation = ({ customerId, id }: any) => {
           <div className="border mt-4" key={item.subscriptionId}>
             <Row className="bg-gray1 border-b p-4">
               <Col span={12} className="flex items-center">
-                <Avatar icon={<img src={item?.customer?.avatarUrl} alt={''} />} />
-                <span className="ml-2">{item?.customer?.nickName ?? ""}</span>
+                <Avatar icon={<img src={item?.consumer?.avatarUrl} alt={''} />} />
+                <span className="ml-2">{item?.consumer?.nickName ?? ""}</span>
               </Col>
               <Col span={12} className="text-right">
                 <div>subscription ID:{item?.no ?? ""}</div>
@@ -73,29 +73,29 @@ const SubscriptionInformation = ({ customerId, id }: any) => {
             </Row>
             <Row className="p-2 flex items-start">
               <Col span={8} className="flex flex-col justify-start">
-                {item.goodsList?.map((product: any, index: number) => (
+                {item.productList?.map((product: any, index: number) => (
                   <Row
                     gutter={24}
-                    className={`${index !== item.goodsList.length - 1 ? ' mb-1 pb-2' : ''} items-start`}
+                    className={`${index !== item.productList.length - 1 ? ' mb-1 pb-2' : ''} items-start`}
                     key={index}
                   >
                     <Col span={6}>
-                      <img src={product?.goodsVariant?.defaultImage || ""} className="w-16 h-16 order-img" alt="" />
+                      <img src={product?.productVariant?.defaultImage || ""} className="w-16 h-16 order-img" alt="" />
                     </Col>
                     <Col span={18}>
                       <Row
                         gutter={24}
                         className={`${
-                          item.goodsList.length > 1 && index !== item.goodsList.length - 1 ? 'border-b h-20 pb-2' : ''
+                          item.productList.length > 1 && index !== item.productList.length - 1 ? 'border-b h-20 pb-2' : ''
                         }`}
                       >
                         <Col span={20}>
-                          <span>{product?.goodsVariant?.name ?? ""}</span>
+                          <span>{product?.productVariant?.name ?? ""}</span>
                           <br />
-                          <span className="text-gray-400 text-sm">Variation:{(product?.goodsSpecifications ?? []).map((vari:any) => (vari?.goodsSpecificationDetail ?? []).map((variitem:any) => variitem.specificationDetailNameEn).join(",")).join(",")}</span>
+                          <span className="text-gray-400 text-sm">Variation:{(product?.productSpecifications ?? []).map((vari:any) => (vari?.specificationDetails ?? []).map((variitem:any) => variitem.specificationDetailNameEn).join(",")).join(",")}</span>
                         </Col>
                         <Col span={4} className="items-start text-left">
-                          x{product?.goodsVariant?.num}
+                          x{product?.productVariant?.num}
                         </Col>
                       </Row>
                     </Col>

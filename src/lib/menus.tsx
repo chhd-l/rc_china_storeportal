@@ -124,6 +124,21 @@ export const menus = [
     ],
   },
   {
+    name: 'Finance',
+    value: 'finance',
+    url: '',
+    key: 'finance',
+    icon: <span className='icon iconfont icon-a-bianzu14' />,
+    children: [
+      {
+        name: 'Payment Settings',
+        value: 'payment_settings',
+        url: '/payment/setting-list',
+        key: 'payment_settings',
+      },
+    ],
+  },
+  {
     name: 'Shop',
     value: 'shop',
     url: '',

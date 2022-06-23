@@ -3,7 +3,7 @@ import { ADD_AUTO_REPLY_FORM } from "./modules/form";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ReplyModal from "@/components/wechat/ReplyModal";
-import { ReplyContent } from "@/framework/types/wechat";
+import { WxReplyContent } from "@/framework/types/wechat";
 import { ContentContainer, InfoContainer } from "@/components/ui";
 import { createAutomaticResponse, updateAutomaticResponse } from "@/framework/api/wechatSetting";
 import { SearchOutlined } from "@ant-design/icons";
@@ -63,7 +63,7 @@ const AddAccount = () => {
     }
   };
 
-  const setReplyDes = (selectReplyContent: ReplyContent) => {
+  const setReplyDes = (selectReplyContent: WxReplyContent) => {
     setReply(selectReplyContent);
     form.setFieldsValue({ description: selectReplyContent.description });
     setModalVisible(false);

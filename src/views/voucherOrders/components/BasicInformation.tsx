@@ -52,7 +52,7 @@ const BasicInformation = ({ state }: { state: any }) => {
         </Descriptions.Item>
         <Descriptions.Item label="Voucher Type">{VoucherType.find(item => item.value === state.voucherType)?.label}</Descriptions.Item>
         <Descriptions.Item label="Applicable Products">
-          {state.voucherType === 'SHOP_VOUCHER' ? 'All Products' : `${state?.voucherGoodsRelated?.length} Products`}
+          {state.voucherType === 'SHOP_VOUCHER' ? 'All Products' : `${state?.voucherProductRelated?.length} Products`}
         </Descriptions.Item>
         {/* <Descriptions.Item label="Quantity">Hangzhou, Zhejiang</Descriptions.Item>
                 <Descriptions.Item label="Claimed">empty</Descriptions.Item> */}

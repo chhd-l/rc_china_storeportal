@@ -1,6 +1,6 @@
 import { Table } from "antd";
 import React from "react";
-import { SmartDevice } from "@/framework/types/customer";
+import { SmartDevice } from "@/framework/types/consumer";
 
 interface SmartDeviceInfoProps {
   smartDeviceList: SmartDevice[];

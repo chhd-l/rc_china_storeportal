@@ -9,10 +9,10 @@ import { initSearchParams } from '@/views/orderList/modules/constants'
 
 interface OrderInfoProps {
   id: string
-  customerId: string
+  consumerId: string
 }
 
-const OrderInformation = ({ id, customerId }: OrderInfoProps) => {
+const OrderInformation = ({ id, consumerId }: OrderInfoProps) => {
   const [orderList, setOrderList] = useState<any[]>([])
   const [pageParams, setPageParams] = useState<PageParamsProps>({
     currentPage: 1,
@@ -23,7 +23,7 @@ const OrderInformation = ({ id, customerId }: OrderInfoProps) => {
   const [searchParams, setSearchParams] = useState<OrderSearchParamsProps>(initSearchParams)
   const [carrier, setCarrier] = useState('')
 
-  const getCustomerOrders = async ({
+  const getConsumerOrders = async ({
     searchParams,
     pageParams,
     carrier,
@@ -34,7 +34,7 @@ const OrderInformation = ({ id, customerId }: OrderInfoProps) => {
   }) => {
     let params = handleQueryParams({ searchParams, pageParams, orderState: '', shoppingCompany: carrier })
     console.log('query orders view params', params)
-    const res = await getOrderList({ ...params, sample: { ...params.sample, customerId } })
+    const res = await getOrderList({ ...params, sample: { ...params.sample, consumerId } })
     console.log('res', res)
     setOrderList(res.records)
     setTotal(res.total)
@@ -42,7 +42,7 @@ const OrderInformation = ({ id, customerId }: OrderInfoProps) => {
 
   const changePage = async (page: any, pageSize: any) => {
     setPageParams({ currentPage: page, pageSize })
-    await getCustomerOrders({
+    await getConsumerOrders({
       searchParams,
       pageParams: { currentPage: page, pageSize },
       carrier,
@@ -50,10 +50,10 @@ const OrderInformation = ({ id, customerId }: OrderInfoProps) => {
   }
 
   useEffect(() => {
-    if (customerId !== '') {
-      getCustomerOrders({ searchParams, pageParams, carrier })
+    if (consumerId !== '') {
+      getConsumerOrders({ searchParams, pageParams, carrier })
     }
-  }, [customerId])
+  }, [consumerId])
   return (
     <div id={id}>
       <div className="text-xl font-medium">Order Information</div>
@@ -63,7 +63,7 @@ const OrderInformation = ({ id, customerId }: OrderInfoProps) => {
           className="rounded-4 w-64"
           onChange={(date, dateString) => {
             console.log(date, dateString)
-            getCustomerOrders({
+            getConsumerOrders({
               searchParams: { ...searchParams, startTime: dateString[0], endTime: dateString[1] },
               pageParams,
               carrier,
@@ -76,7 +76,7 @@ const OrderInformation = ({ id, customerId }: OrderInfoProps) => {
         shipOrCompleteSuccess={getOrderList}
         changeCarrier={(value: string) => {
           setCarrier(value)
-          getCustomerOrders({
+          getConsumerOrders({
             searchParams,
             pageParams,
             carrier,

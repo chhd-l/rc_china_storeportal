@@ -34,12 +34,12 @@ const TableFooter: FC<Props> = ({ children, list, getList, setLoading, loading }
   }, [list])
   const comfirmDelete = async () => {
     setShowDeletePop(false)
-    let goodsId = list.filter(el => el.checked)?.map(el => el.id)
-    if (!goodsId?.length) {
+    let productId = list.filter(el => el.checked)?.map(el => el.id)
+    if (!productId?.length) {
       return
     }
     setLoading(true)
-    let res = await deleteProducts({ goodsId })
+    let res = await deleteProducts({ productId })
     // listData[spuIdx].shelvesStatus = !shelvesStatus
     if (res) {
       message.success({ className: 'rc-message', content: 'Operation success' })
@@ -66,12 +66,12 @@ const TableFooter: FC<Props> = ({ children, list, getList, setLoading, loading }
           <Button
             className='mr-4'
             onClick={async () => {
-              let goodsId = list.filter(el => el.checked)?.map(el => el.id)
-              if (!goodsId?.length) {
+              let productId = list.filter(el => el.checked)?.map(el => el.id)
+              if (!productId?.length) {
                 return
               }
               setLoading(true)
-              let res = await switchShelves({ goodsId, status: false })
+              let res = await switchShelves({ productId, status: false })
               if (res) {
                 message.success({ className: 'rc-message', content: 'Operation success' })
               } else {
@@ -91,12 +91,12 @@ const TableFooter: FC<Props> = ({ children, list, getList, setLoading, loading }
             className='mr-4'
             type='primary'
             onClick={async () => {
-              let goodsId = list.filter(el => el.checked)?.map(el => el.id)
-              if (!goodsId?.length) {
+              let productId = list.filter(el => el.checked)?.map(el => el.id)
+              if (!productId?.length) {
                 return
               }
               setLoading(true)
-              let res = await switchShelves({ goodsId, status: true })
+              let res = await switchShelves({ productId, status: true })
               if (res) {
                 message.success({ className: 'rc-message', content: 'Operation success' })
               } else {

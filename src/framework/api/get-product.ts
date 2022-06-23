@@ -1,12 +1,12 @@
 import ApiRoot from './fetcher'
-import { CateItemProps, Goods } from '../schema/product.schema'
+import { CateItemProps, Product } from '../schema/product.schema'
 import {
   ProductDetailProps,
   ProductListProps,
   ProductListQueryProps,
   SaveShopCategoryInput,
   ShopCategoryFilterRulesInput,
-  ShopCategoryGoodsRelInput,
+  ShopCategoryProductRelInput,
   ShopCategoryUpdateInput,
   shopCateQuery,
 } from '../types/product'
@@ -24,15 +24,15 @@ import {
 export const getCategories = async ({ storeId }: { storeId: string }): Promise<CateItemProps[]> => {
   try {
     let categoryList = await ApiRoot.products().getProductCategories({ storeId })
-    return categoryList.getProductCates
+    return categoryList.productCategoryFind
   } catch (e) {
     console.log(e)
     return []
   }
 }
-export const getFindShopCategoryGoodsPage = async (params: any): Promise<any> => {
+export const getFindShopCategoryProductPage = async (params: any): Promise<any> => {
   try {
-    return await ApiRoot.products().findShopCategoryGoodsPage(params)
+    return await ApiRoot.products().findShopCategoryProductPage(params)
   } catch (e) {
     console.log(e)
     return []
@@ -44,34 +44,34 @@ export const createProduct = async (params: any, beforeData?: any) => {
   if (beforeData?.id) {
     //编辑
     let diffData: any = normaliseEditPDP(beforeData, paramsData)
-    let { goodsSpecifications, goodsVariants, goodsAttributeValueRel } = paramsData
-    if (goodsSpecifications?.length) {
-      diffData.goodsSpecifications = goodsSpecifications
+    let { specifications, variants, attributeRelations } = paramsData
+    if (specifications?.length) {
+      diffData.specifications = specifications
     }
-    if (goodsVariants?.length) {
-      diffData.goodsVariants = goodsVariants
+    if (variants?.length) {
+      diffData.variants = variants
     }
     paramsData = Object.assign({}, diffData, {
-      goodsAttributeValueRel,
+      attributeRelations,
       // spuNo: paramsData.spuNo,
       id: paramsData.id,
-      goodsAsserts: paramsData.goodsAsserts,//后面有排序处理，不太好操作先全量
-      // goodsName: paramsData.goodsName,
+      asserts: paramsData.asserts,//后面有排序处理，不太好操作先全量
+      // productName: paramsData.productName,
       // type: paramsData.type,
       // brandId: paramsData.brandId,
-      // goodsCategoryId: paramsData.goodsCategoryId,
+      // productCategoryId: paramsData.productCategoryId,
       shelvesStatus: params.shelvesStatus,
       // defaultImage: paramsData.defaultImage,
       // salesStatus: paramsData.salesStatus,
     })
   }
-  paramsData.goodsVariants?.forEach((el: any) => {
+  paramsData.variants?.forEach((el: any) => {
     if (el?.skuName) {
       el.name = el.skuName
       delete el.skuName
     }
-    if (el?.goodsVariantBundleInfo) {
-      el.goodsVariantBundleInfo?.forEach((cel: any) => {
+    if (el?.variantBundles) {
+      el.variantBundles?.forEach((cel: any) => {
         if (typeof cel.subSkuStock !== 'undefined') {
           delete cel.subSkuStock
         }
@@ -88,13 +88,17 @@ export const createProduct = async (params: any, beforeData?: any) => {
           delete cel.stock
         }
       })
+      //名字更换，
+      // el.bundleInfos = el.variantBundles
+      // delete el.variantBundles
     }
+
   })
   console.info('paramsData', paramsData)
   try {
     const data = await ApiRoot.products().createProduct({ body: paramsData })
     console.info('createProduct', data)
-    return data?.createProduct
+    return data?.productCreate
   } catch (err) {
     console.info('createProduct err', err)
     return false
@@ -103,13 +107,12 @@ export const createProduct = async (params: any, beforeData?: any) => {
 export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categoryId: string }) => {
   try {
     let data = []
+    let params: any = { storeId }
     if (categoryId) {
-      const { getAttributes: attributeList } = await ApiRoot.products().getAttrList({ storeId, categoryId })
-      data = normaliseAttrProps(attributeList)
-    } else {
-      const { getAttributes: attributeList } = await ApiRoot.products().getAttrList({ storeId })
-      data = normaliseAttrProps(attributeList)
+      params.categoryId = categoryId
     }
+    const { productAttributeFindByCategoryId: attributeList } = await ApiRoot.products().getAttrList(params)
+    data = normaliseAttrProps(attributeList)
     return data
   } catch (e) {
     console.log(e)
@@ -119,11 +122,11 @@ export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categ
 
 export const getProduct = async ({
   storeId,
-  goodsId,
-}: { storeId: string, goodsId: string }): Promise<ProductDetailProps> => {
+  productId,
+}: { storeId: string, productId: string }): Promise<ProductDetailProps> => {
   // debugger
   try {
-    const detailinfo = await ApiRoot.products().getProductBySpu({ storeId, goodsId })
+    const detailinfo = await ApiRoot.products().getProductBySpu({ storeId, productId })
     // const detailinfo = detail
     const normalizedData = normaliseDetailforFe(detailinfo)
     return normalizedData
@@ -138,7 +141,7 @@ export const getProduct = async ({
 export const getAllProducts = async (params: ProductListQueryProps): Promise<ProductListProps> => {
   try {
     const res = await ApiRoot.products().getAllProducts(params)
-    const list = res.products.map((product: Goods) => normaliseProductListSpu(product))
+    const list = res.products.map((product: Product) => normaliseProductListSpu(product))
     let data = {
       products: list,
       all: 'string',
@@ -176,30 +179,30 @@ export const getESProducts = async (params:
   any): Promise<any> => {
   try {
     const res = await ApiRoot.products().getESProductLists(params)
-    return res.getEsProducts
+    return res.productFindPageByEs
   } catch (e) {
     return []
   }
 }
 
-export const getProductDetail = async ({ storeId, goodsId }: { storeId: string, goodsId: string }) => {
+export const getProductDetail = async ({ storeId, productId }: { storeId: string, productId: string }) => {
   let info: any = {}
   try {
-    const { productDetail } = await ApiRoot.products().getProductDetail({ storeId, goodsId })
+    const { productDetailGet } = await ApiRoot.products().getProductDetail({ storeId, productId })
     // const { productDetail } = detailMock.data
-    const { listAttributeGet, listCategoryGet, findGoodsByGoodsId } = productDetail
-    let detail = Object.assign({}, findGoodsByGoodsId, { listAttributeGet, listCategoryGet })
+    const { listAttributeGet, listCategoryGet, findProductByProductId } = productDetailGet
+    let detail = Object.assign({}, findProductByProductId, { listAttributeGet, listCategoryGet })
     info = normaliseDetailforFe(detail)
     // debugger
-    return { afterData: info, beforeData: findGoodsByGoodsId }
+    return { afterData: info, beforeData: findProductByProductId }
   } catch (e) {
     console.log(e)
     return { afterData: info, beforeData: {} }
   }
 }
-export const deleteProducts = async ({ goodsId }: { goodsId: string[] }) => {
+export const deleteProducts = async ({ productId }: { productId: string[] }) => {
   try {
-    const data = await ApiRoot.products().deleteMutation({ goodsId, storeId: '12345678' })
+    const data = await ApiRoot.products().deleteMutation({ productId, storeId: '12345678' })
     return true
   } catch (e) {
     console.log(e)
@@ -209,9 +212,9 @@ export const deleteProducts = async ({ goodsId }: { goodsId: string[] }) => {
 }
 
 
-export const switchShelves = async ({ goodsId, status }: { goodsId: string[], status: boolean }) => {
+export const switchShelves = async ({ productId, status }: { productId: string[], status: boolean }) => {
   try {
-    const data = await ApiRoot.products().switchShelvesMutation({ goodsId, status })
+    const data = await ApiRoot.products().switchShelvesMutation({ productId, status })
     return true
   } catch (e) {
     console.log(e)
@@ -226,7 +229,7 @@ export const getScProducts = async (params: ProductListQueryProps): Promise<any>
     delete params.sample
     params.sample = { ...sample }
     const res = await ApiRoot.products().getScProducts(params)
-    const data = normaliseScProductsforFe(res.getScProducts)
+    const data = normaliseScProductsforFe(res)
     return data
   } catch (e) {
     console.log(e)
@@ -237,15 +240,15 @@ export const getScProducts = async (params: ProductListQueryProps): Promise<any>
 export const getShopCategories = async (params: shopCateQuery): Promise<any> => {
   try {
     let res = await ApiRoot.products().getShopCategoryList(params)
-    return res.getShopCategories
+    return res.shopCategoryFindPage
   } catch (e) {
     console.log(e)
   }
 }
 
-export const createShopCategoryGoodsRel = async (params: ShopCategoryGoodsRelInput[]): Promise<any> => {
+export const createShopCategoryProductRel = async (params: ShopCategoryProductRelInput[]): Promise<any> => {
   try {
-    let res = await ApiRoot.products().createShopCategoryGoodsRel({ body: params })
+    let res = await ApiRoot.products().createShopCategoryProductRel({ body: params })
   } catch (e) {
     console.log(e)
   }
@@ -287,11 +290,11 @@ export const detleShopCateRel = async (id: (string | number)[]): Promise<any> =>
 }
 
 
-export const getBundleGoodsvariants = async (params: any) => {
+export const getBundleProductvariants = async (params: any) => {
   let data: any = []
   try {
-    let res = await ApiRoot.products().getBundleGoodsvariants(params)
-    data = res?.findBundleGoodsVariantList || []
+    let res = await ApiRoot.products().getBundleProductvariants(params)
+    data = res?.productRegularFindPage || []
   } catch (e) {
     console.log(e)
     // return

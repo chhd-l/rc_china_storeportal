@@ -36,7 +36,7 @@ const ShippingSettingModal = ({
         }}
         initialValues={{
           key: logisticsIntegration?.key,
-          customer: logisticsIntegration?.customer,
+          consumer: logisticsIntegration?.consumer,
           pullUrl: logisticsIntegration?.pullUrl || 'http://poll.kuaidi100.com/poll',
           queryUrl: logisticsIntegration?.queryUrl || 'http://poll.kuaidi100.com/poll/query.do',
           callbackUrl: logisticsIntegration?.callbackUrl,
@@ -45,8 +45,8 @@ const ShippingSettingModal = ({
         <Form.Item label="Key:" name="key" rules={[{ required: true, message: 'Please input key' }]}>
           <Input placeholder="Please input key" />
         </Form.Item>
-        <Form.Item label="Customer:" name="customer" rules={[{ required: true, message: 'Please input customer' }]}>
-          <Input placeholder="Please input customer" />
+        <Form.Item label="Consumer:" name="consumer" rules={[{ required: true, message: 'Please input consumer' }]}>
+          <Input placeholder="Please input consumer" />
         </Form.Item>
         <Form.Item label="Pull URL:" name="pullUrl">
           <Input disabled placeholder="please input user name" />

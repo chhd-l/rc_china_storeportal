@@ -92,7 +92,7 @@ const Search = (props: IProps) => {
             <Option value="noLike">Subscription ID</Option>
             {/* <Option value="type">Subscription Type</Option> */}
             <Option value="cycle">Subscription Cycle</Option>
-            <Option value="tradeIdLike">Order ID</Option>
+            <Option value="orderIdLike">Order ID</Option>
             <Option value="phoneLike">Phone Number</Option>
             <Option value="wechatNameLike">Wechat Name</Option>
             <Option value="productNameLike">Product Name</Option>

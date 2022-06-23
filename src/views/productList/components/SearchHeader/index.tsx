@@ -12,7 +12,7 @@ interface SearchProps {
   getList: Function
 }
 const nameForKey: OptionsProps[] = [
-  { name: 'Product Name', value: 'goodsName' },
+  { name: 'Product Name', value: 'productName' },
   { name: 'SKU', value: 'sku' },
   { name: 'SPU', value: 'spu' },
 ]
@@ -39,8 +39,8 @@ const SearchHeader = ({ getFormData, getList }: SearchProps) => {
     const val = {
       cateId: cateId[cateId.length - 1]?.value,
       startStock: values.startStock,
-      [values.selectName]: values.goodsName,
-      [values.type]: values.GoodsType,
+      [values.selectName]: values.productName,
+      [values.type]: values.ProductType,
       endStock: values.endStock,
     }
     getFormData(val)
@@ -91,7 +91,7 @@ const SearchHeader = ({ getFormData, getList }: SearchProps) => {
                 </Select>
                 {/* <SelectKey list={nameForKey} /> */}
               </Form.Item>
-              <Form.Item name='goodsName' className='flex-1 no-border-radius-left'>
+              <Form.Item name='productName' className='flex-1 no-border-radius-left'>
                 <Input placeholder={`Please Input`} />
               </Form.Item>
             </Input.Group>
@@ -104,7 +104,7 @@ const SearchHeader = ({ getFormData, getList }: SearchProps) => {
                   placeholder='Select a option and change input text above'
                   className='ant-select-left no-border-radius-right'
                   onChange={v => {
-                    form.setFieldsValue({ GoodsType: '' })
+                    form.setFieldsValue({ ProductType: '' })
                     setTypeSelect(v)
                   }}
                 >
@@ -116,7 +116,7 @@ const SearchHeader = ({ getFormData, getList }: SearchProps) => {
                 </Select>
                 {/* <SelectKey list={typeForKey} /> */}
               </Form.Item>
-              <Form.Item className='flex-1 no-border-radius-left' name='GoodsType'>
+              <Form.Item className='flex-1 no-border-radius-left' name='ProductType'>
                 <Select placeholder='Choose Product Type' allowClear>
                   {typeSelect === typeForKey[0].value
                     ? chooseProductType.map((el: any) => (

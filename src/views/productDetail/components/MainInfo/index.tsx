@@ -93,30 +93,30 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     console.info('shelvesStatus', shelvesStatus)
     //组装product数据
     console.log(values, detail)
-    // let withoutSku = detail.id ? !detail.variationForm?.variationList?.length : !detail.goodsSpecificationsInput?.length
+    // let withoutSku = detail.id ? !detail.variationForm?.variationList?.length : !detail.productSpecificationsInput?.length
     let withoutSku =
       Array.from(document.getElementsByClassName('get-variation-name'))
         .filter((el: any) => el.value !== undefined)
         ?.filter(el => !el.className.includes('hidden'))?.length === 0
     let noDataErrMsg = ''
     // 校验name
-    let goodsSpecificationsNameArr: any = Array.from(document.getElementsByClassName('get-variation-name'))
+    let productSpecificationsNameArr: any = Array.from(document.getElementsByClassName('get-variation-name'))
       .filter((el: any) => el.value !== undefined)
       ?.filter(el => !el.className.includes('hidden'))
       .map((el: any) => el.value)
-    goodsSpecificationsNameArr?.forEach((el: any) => {
+    productSpecificationsNameArr?.forEach((el: any) => {
       if (el === '') {
         noDataErrMsg = 'Please input Specification Name'
       }
     })
-    let goodsSpecificationsDetailArr: any = Array.from(document.getElementsByClassName('get-variation-option'))
+    let productSpecificationsDetailArr: any = Array.from(document.getElementsByClassName('get-variation-option'))
       .filter((el: any) => el.value !== undefined)
       ?.filter(el => !el.className.includes('hidden'))
       .map((el: any) => el.value)
     if (!noDataErrMsg) {
       // 校验option
 
-      goodsSpecificationsDetailArr?.forEach((el: any) => {
+      productSpecificationsDetailArr?.forEach((el: any) => {
         if (el === '') {
           noDataErrMsg = 'Please input Specification Option'
         }
@@ -132,7 +132,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
             variantsKeyLableRel[el.keyVal] = el.label
           })
         noDataErrMsg =
-          detail.goodsVariantsInput?.length && validateNullData(detail.goodsVariantsInput, variantsKeyLableRel)
+          detail.productVariantsInput?.length && validateNullData(detail.productVariantsInput, variantsKeyLableRel)
       }
       if (noDataErrMsg) {
         message.error({ className: 'rc-message', content: noDataErrMsg })
@@ -142,10 +142,10 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
       let repeatErrMsg = ''
       let repeatNameArr: any = []
       let repeatOptionArr: any = []
-      console.info('goodsSpecificationsNameArr', goodsSpecificationsNameArr)
-      console.info('goodsSpecificationsDetailArr', goodsSpecificationsDetailArr)
+      console.info('productSpecificationsNameArr', productSpecificationsNameArr)
+      console.info('productSpecificationsDetailArr', productSpecificationsDetailArr)
       // //校验同一个商品的option需要判断是否重复 不区分大小写，规格名称不能重复
-      goodsSpecificationsNameArr?.forEach((el: any) => {
+      productSpecificationsNameArr?.forEach((el: any) => {
         let name = el?.toLowerCase()
         if (repeatNameArr.includes(name)) {
           repeatErrMsg = 'Name repeat'
@@ -154,7 +154,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
         repeatNameArr.push(name)
       })
       if (!repeatErrMsg) {
-        goodsSpecificationsDetailArr?.forEach((el: any) => {
+        productSpecificationsDetailArr?.forEach((el: any) => {
           let name = el?.toLowerCase()
           if (repeatOptionArr.includes(name)) {
             repeatErrMsg = 'Option repeat'
@@ -164,15 +164,15 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
         })
       }
       // 同一spu下，sku丶sku name丶ean需要唯一
-      if (detail.goodsVariantsInput) {
+      if (detail.productVariantsInput) {
         if (!repeatErrMsg) {
-          repeatErrMsg = validateRepeat(detail.goodsVariantsInput, 'skuNo', 'SkuNo repeat')
+          repeatErrMsg = validateRepeat(detail.productVariantsInput, 'skuNo', 'SkuNo repeat')
         }
         if (!repeatErrMsg) {
-          repeatErrMsg = validateRepeat(detail.goodsVariantsInput, 'skuName', 'SkuName repeat')
+          repeatErrMsg = validateRepeat(detail.productVariantsInput, 'skuName', 'SkuName repeat')
         }
         if (!repeatErrMsg) {
-          repeatErrMsg = validateRepeat(detail.goodsVariantsInput, 'eanCode', 'EanCode repeat')
+          repeatErrMsg = validateRepeat(detail.productVariantsInput, 'eanCode', 'EanCode repeat')
         }
       }
       if (repeatErrMsg) {
@@ -189,7 +189,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     })
     debugger
     if (withoutSku) {
-      params.goodsVariantsInput = [
+      params.productVariantsInput = [
         {
           // skuNo: 'test0001', //to do
           // isWithoutSku:true,
@@ -203,16 +203,16 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
           isSupport100: values.isSupport100,
           id: detail.skuId,
           defaultImage: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Non_photo.png',
-          goodsVariantBundleInfo: detail.goodsVariantBundleInfo?.map((el: any) => {
+          bundleInfos: detail.variantBundles?.map((el: any) => {
             let bundleInfo = {
               bundleNumber: el.bundleNumber,
               id: el.id,
-              goodsVariantId: el.goodsVariantId || detail.skuId,
-              subGoodsVariantId: el.subGoodsVariantId ,
+              variantId: el.variantId || detail.skuId,
+              subVariantId: el.subVariantId ,
               skuNo: el.skuNo,
             }
-            if (!el.goodsVariantId&&!detail.skuId) {
-              delete bundleInfo.goodsVariantId
+            if (!el.variantId&&!detail.skuId) {
+              delete bundleInfo.variantId
             }
             if (!el.skuNo) {
               delete bundleInfo.skuNo
@@ -221,13 +221,13 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
           }),
         },
       ]
-      if (detail.goodsVariantBundleInfo?.length) {
-        params.goodsVariantsInput[0].goodsVariantBundleInfo = detail.goodsVariantBundleInfo
+      if (detail.variantBundles?.length) {
+        params.variants[0].bundleInfos = detail.variantBundles
       }
       if (detail.id) {
         //编辑 全量
-        if (!detail.editChange.goodsVariants) {
-          detail.editChange.goodsVariants = params.goodsVariantsInput
+        if (!detail.editChange.productVariants) {
+          detail.editChange.productVariants = params.productVariantsInput
         }
       }
     }

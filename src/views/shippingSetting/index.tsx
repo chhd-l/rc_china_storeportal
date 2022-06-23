@@ -24,7 +24,7 @@ const ShippingSetting = () => {
     setConFirmLoading(true)
     const parameter = {
       KEY: newLogisticsIntegration.key,
-      customer: newLogisticsIntegration.customer,
+      consumer: newLogisticsIntegration.consumer,
       pullURL: newLogisticsIntegration.pullUrl,
       queryURL: newLogisticsIntegration.queryUrl,
       callbackURL: newLogisticsIntegration.callbackUrl,
@@ -36,7 +36,6 @@ const ShippingSetting = () => {
       isEnabled: newLogisticsIntegration.isEnabled,
       remark: newLogisticsIntegration.remark,
       storeId: newLogisticsIntegration.storeId || '12345678',
-      operator: userInfo?.nickname || 'system',
     })
     if (res) {
       message.success({ className: 'rc-message', content: 'Operation success' })

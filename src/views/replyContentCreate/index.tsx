@@ -11,7 +11,7 @@ import AssetsModal from "@/components/wechat/AssetsModal";
 import { Asset } from "@/framework/types/wechat";
 import { Container, ContentContainer, InfoContainer } from "@/components/ui";
 import { createReplyContent, updateReplyContent, getReplyContentDetail } from "@/framework/api/wechatSetting";
-import { ReplyContent } from "@/framework/types/wechat";
+import { WxReplyContent } from "@/framework/types/wechat";
 import { normaliseReplyContent } from "@/framework/normalize/wechatSetting";
 import { SearchOutlined } from "@ant-design/icons";
 

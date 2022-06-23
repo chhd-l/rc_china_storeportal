@@ -1,17 +1,17 @@
 import { CloseOutlined } from '@ant-design/icons'
-import { Tag } from '@/framework/types/customer'
-import { getCustomTags } from '@/framework/api/customer'
+import { Tag } from '@/framework/types/consumer'
+import { getCustomTags } from '@/framework/api/consumer'
 import { useEffect, useState } from 'react'
 import { Empty, Select } from 'antd'
-import { addCustomerTag, getTags, removeCustomerTag } from '@/framework/api/tag'
+import { addConsumerTag, getTags, removeConsumerTag } from '@/framework/api/tag'
 
-const Tagging = ({ id, customerId }: { id: string; customerId: string }) => {
+const Tagging = ({ id, consumerId }: { id: string; consumerId: string }) => {
   const [tagList, setTagList] = useState<Tag[]>([])
   const [option, setOption] = useState([])
   const [optionValue, setOptionValue] = useState([])
 
   const getTagList = async () => {
-    const res = await getCustomTags({ customerId })
+    const res = await getCustomTags({ consumerId })
     console.log(res, 9999)
     if (res && res.length > 0) {
       let arr: any = res.map(item => item.id)
@@ -20,8 +20,8 @@ const Tagging = ({ id, customerId }: { id: string; customerId: string }) => {
     setTagList(res)
   }
   const deleteTag = async (id: any) => {
-    let res = await removeCustomerTag({
-      customerId: customerId,
+    let res = await removeConsumerTag({
+      consumerId: consumerId,
       tagId: id,
       operator: 'zz',
       storeId: '12345678',
@@ -29,8 +29,8 @@ const Tagging = ({ id, customerId }: { id: string; customerId: string }) => {
 
   }
   const handleSelect = async (value: string[]) => {
-    await addCustomerTag({
-      customerIds: [customerId],
+    await addConsumerTag({
+      consumerIds: [consumerId],
       tagId: value,
       operator: 'zz',
       storeId: '12345678',

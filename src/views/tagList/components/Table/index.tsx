@@ -1,7 +1,7 @@
 import { Modal, Button, Table, Tooltip, Form, message } from 'antd'
 import { Link } from 'react-router-dom'
 import React, { useState, useRef } from 'react'
-import { Customer } from '@/framework/types/customer'
+import { Consumer } from '@/framework/types/consumer'
 import type { ProFormInstance } from '@ant-design/pro-form'
 import { useNavigate } from 'react-router-dom'
 import ProForm, {
@@ -11,7 +11,7 @@ import ProForm, {
 import { createTag, deleteTag } from '@/framework/api/tag'
 
 interface PetOwnerTableProps {
-  petOwnerList: Customer[],
+  petOwnerList: Consumer[],
   handleUpdate: (a: boolean) => void
   loading: boolean
 }
@@ -26,7 +26,7 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
   const onFinish = async (values: any) => {
     let res = await createTag({name:values.name,isEnabled:false})
     console.log(res)
-    if(res?.createTag){
+    if(res?.tagCreate){
       handleUpdate(true)
       message.success('Operate success')
       return true
@@ -39,8 +39,7 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
       id: id,
       operator: 'zz',
     }).then((res) => {
-      console.log(res,99999)
-      if(res.deleteTag){
+      if(res.tagDelete){
         setVisible(false)
         message.success('Operate success')
         handleUpdate(true)
@@ -55,8 +54,8 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
     },
     {
       title: 'Pet Owner(s)',
-      dataIndex: 'customerCount',
-      key: 'customerCount',
+      dataIndex: 'consumerCount',
+      key: 'consumerCount',
     },
     {
       title: 'Tagging Status',
@@ -71,16 +70,12 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
       render: (text: any, record: any) => (
         <>
           <Tooltip title='View Details'>
-            <a className='mr-4' href='' onClick={(e) => {
+            <span className='cursor-pointer iconfont icon-kjafg primary-color mr-4' onClick={(e) => {
               e.stopPropagation()
               navigator('/tag/edit-tags', {
                 state: { id: record.id },
               })
-            }} >
-            <span
-              className='cursor-pointer iconfont icon-kjafg primary-color mr-4'
-            />
-            </a>
+            }} />
           </Tooltip>
           <Tooltip title='Delete'>
             <span className='cursor-pointer ml-2 iconfont icon-delete text-red-500' onClick={() => {

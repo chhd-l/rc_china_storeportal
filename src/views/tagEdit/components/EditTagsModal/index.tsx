@@ -6,8 +6,8 @@ import { useState, useEffect, useRef } from 'react'
 import ProTable from '@/components/common/ProTable'
 import { ProColumns } from '@ant-design/pro-table'
 import { handlePageParams } from '@/utils/utils'
-import { getPetOwnerList } from '@/framework/api/customer'
-import { addCustomerTag } from '@/framework/api/tag'
+import { getPetOwnerList } from '@/framework/api/consumer'
+import { addConsumerTag } from '@/framework/api/tag'
 import { useLocation } from 'react-router'
 export type EditTagsModalProps = {
   visible: boolean;
@@ -60,13 +60,13 @@ const EditTagsModal = ({ visible, handleVisible, handleUpdate }: EditTagsModalPr
       visible={visible}
       onFinish={async () => {
         if (selectedRowKeys.length > 0) {
-          let res = await addCustomerTag({
-            customerIds: selectedRowKeys,
+          let res = await addConsumerTag({
+            consumerIds: selectedRowKeys,
             tagId: state.id,
             operator: 'zz',
             storeId: '12345678',
           })
-          if (res?.addCustomerTag) {
+          if (res?.consumerTagCreate) {
             message.success('Operate success')
             handleUpdate(true)
             return true

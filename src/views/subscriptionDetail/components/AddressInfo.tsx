@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Spin } from 'antd'
-import AddressModal from '@/components/customer/AddressModal'
+import AddressModal from '@/components/consumer/AddressModal'
 
 const AddressInfo = ({ data, onEdit } : { data: any, onEdit: (address: any) => Promise<boolean> }) => {
   const [visible, setVisible] = React.useState<boolean>(false)
@@ -32,7 +32,7 @@ const AddressInfo = ({ data, onEdit } : { data: any, onEdit: (address: any) => P
         </div>
       </div>
       {visible ? <AddressModal
-        customerId={data?.customer?.id}
+        consumerId={data?.consumer?.id}
         visible={visible}
         onCancel={() => setVisible(false)}
         onConfirm={handleEdit}

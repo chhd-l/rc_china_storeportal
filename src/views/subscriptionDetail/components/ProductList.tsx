@@ -12,14 +12,14 @@ const ProductList = ({ productList, freshType }: { productList: any[], freshType
     },
     {
       title: 'Product',
-      dataIndex: 'goodsName',
-      key: 'goodsName',
+      dataIndex: 'productName',
+      key: 'productName',
       render: (text: any, record: any) => (
         <div className="flex flex-row items-center">
-          <img src={record?.goodsVariant?.defaultImage} className="w-10 h-10 mr-2" alt="" />
+          <img src={record?.variants?.defaultImage} className="w-10 h-10 mr-2" alt="" />
           <div>
-            <div className="max-w-xs truncate">{record?.goodsVariant?.name}</div>
-            <span className="text-gray-400">{record?.goodsVariant?.skuNo}</span>
+            <div className="max-w-xs truncate">{record?.variants?.name}</div>
+            <span className="text-gray-400">{record?.variants?.skuNo}</span>
           </div>
         </div>
       ),
@@ -28,13 +28,13 @@ const ProductList = ({ productList, freshType }: { productList: any[], freshType
       title: 'Unit price',
       dataIndex: 'price',
       key: 'price',
-      render: (text: any, record: any) => <div>{formatMoney(record?.goodsVariant?.subscriptionPrice)}</div>,
+      render: (text: any, record: any) => <div>{formatMoney(record?.variants?.subscriptionPrice)}</div>,
     },
     {
       title: 'Quantity',
       dataIndex: 'num',
       key: 'num',
-      render: (text: any, record: any) => <div>{record?.goodsVariant?.num}</div>
+      render: (text: any, record: any) => <div>{record?.variants?.num}</div>
     },
     {
       title: 'Freshness',
@@ -45,7 +45,7 @@ const ProductList = ({ productList, freshType }: { productList: any[], freshType
     {
       title: 'Subtotal',
       key: 'Subtotal',
-      render: (text: any, record: any) => <div>{formatMoney(record?.goodsVariant?.subscriptionPrice * record?.goodsVariant?.num)}</div>,
+      render: (text: any, record: any) => <div>{formatMoney(record?.variants?.subscriptionPrice * record?.variants?.num)}</div>,
     },
   ]
   return (

@@ -1,17 +1,17 @@
 import Table from './components/Table'
 import React, { useEffect, useState } from 'react'
-import { Customer } from '@/framework/types/customer'
+import { Consumer } from '@/framework/types/consumer'
 import Search from './components/Search'
 import { ContentContainer, SearchContainer, TableContainer } from '@/components/ui'
 import { Divider, Pagination, Spin } from 'antd'
-import { getPetOwnerList } from '@/framework/api/customer'
-import { SearchParamsProps } from '@/framework/types/customer'
+import { getPetOwnerList } from '@/framework/api/consumer'
+import { SearchParamsProps } from '@/framework/types/consumer'
 import { initSearchParams } from '@/views/petOwnerList/modules/constants'
 import { handleQueryParams } from '@/views/petOwnerList/modules/handle-query-params'
 import { PageParamsProps } from '@/framework/types/common'
 
 const PetOwnerList = () => {
-  const [petOwnerList, setPetOwnerList] = useState<Customer[]>([])
+  const [petOwnerList, setPetOwnerList] = useState<Consumer[]>([])
   const [searchParams, setSearchParams] = useState<SearchParamsProps>(initSearchParams)
   const [pageParams, setPageParams] = useState<PageParamsProps>({
     currentPage: 1,
@@ -25,7 +25,7 @@ const PetOwnerList = () => {
     setPageParams({ currentPage: page, pageSize: pageSize })
   }
 
-  const getCustomers = async () => {
+  const getConsumers = async () => {
     setLoading(true)
     let params = handleQueryParams({ searchParams, pageParams })
     console.log(params)
@@ -36,7 +36,7 @@ const PetOwnerList = () => {
   }
 
   useEffect(() => {
-    getCustomers()
+    getConsumers()
   }, [searchParams, pageParams])
 
   return (

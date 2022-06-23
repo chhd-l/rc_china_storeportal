@@ -2,7 +2,7 @@ import Table from "./components/Table";
 import React, { useEffect, useState } from "react";
 import { formItems } from "./modules/form";
 import Search from "./components/search";
-import { Fans } from "@/framework/types/wechat";
+import { WxFans } from "@/framework/types/wechat";
 import {
   ContentContainer,
   DivideArea,
@@ -15,8 +15,8 @@ import "./index.less"
 // import { fansDetailListSource } from "@/views/fansDetail/modules/mockdata";
 
 const FanList = () => {
-  const [fanList, setFanList] = useState<Fans[]>([]);
-  const [params, setParams] = useState<Fans[]>([]);
+  const [fanList, setFanList] = useState<WxFans[]>([]);
+  const [params, setParams] = useState<WxFans[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [pages, setPages] = useState({
     page: 1,

@@ -7,7 +7,7 @@ import { Button, Form, Input, Select, Upload, DatePicker, InputNumber } from "an
 import { ContentContainer, InfoContainer } from "@/components/ui"
 import "./index.less"
 import ReplyModal from "@/components/wechat/ReplyModal";
-import { ReplyContent } from "@/framework/types/wechat";
+import { WxReplyContent } from "@/framework/types/wechat";
 import { createQrCode } from "@/framework/api/wechatSetting";
 import { useNavigate } from "react-router";
 import { useState } from "react";
@@ -58,7 +58,7 @@ const disabledDate = (cut: any) => {
   return !((pickTime > dateTime) && ((pickTime - dateTime < time) && (pickTime - dateTime >= 0)))
 }
 
-const handleChooseReplyContent = (reply: ReplyContent) => {
+const handleChooseReplyContent = (reply: WxReplyContent) => {
   setReply(reply);
   form.setFieldsValue({ description: reply.description });
   setVisible(false);

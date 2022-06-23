@@ -124,6 +124,7 @@ const Video = ({
               onChange={(e) => {
                 setSearchParams({ ...searchParams, description: e.target.value })
               }}
+              onPressEnter={() => getMediaList({})}
             />
           </div>
           <div className="flex flex-row items-center">

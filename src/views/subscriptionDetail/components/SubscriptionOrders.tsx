@@ -75,8 +75,8 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
               }}
             />
           </Tooltip> : null}
-          {record.tradeId ? <Tooltip title="View Order Detail">
-            <Link to="/order/order-detail" state={{id: record?.tradeId,status: record?.tradeState?.orderState}} className="cursor-pointer iconfont icon-kjafg primary-color" />
+          {record.orderId ? <Tooltip title="View Order Detail">
+            <Link to="/order/order-detail" state={{id: record?.orderId,status: record?.orderState?.orderState}} className="cursor-pointer iconfont icon-kjafg primary-color" />
           </Tooltip> : null}
         </div>
       )
@@ -91,10 +91,10 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
     },
     {
       title: 'Order ID',
-      dataIndex: 'tradeId',
-      key: 'tradeId',
+      dataIndex: 'orderId',
+      key: 'orderId',
       width: '20%',
-      render: (text: string, record: any) => <Link to="/order/order-detail" state={{id: record?.tradeId,status: record?.tradeState?.orderState}}>{text}</Link>
+      render: (text: string, record: any) => <Link to="/order/order-detail" state={{id: record?.orderId,status: record?.orderState?.orderState}}>{text}</Link>
     },
     {
       title: <Row gutter={16} align="middle"><Col span={18}>Product Name</Col><Col span={6}>Quantity</Col></Row>,
@@ -136,14 +136,14 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
       title: 'Order status',
       dataIndex: 'ors',
       key: 'ors',
-      render: (text: any, record: any) => orderStatusType[record?.tradeState?.orderState]
+      render: (text: any, record: any) => orderStatusType[record?.orderState?.orderState]
     },
     {
       title: 'Actions',
       dataIndex: 'ac',
       key: 'ac',
       width: 65,
-      render: (text: any, record: any) => <Tooltip title="View Order Detail"><Link to="/order/order-detail" state={{id: record?.tradeId,status: record?.tradeState?.orderState}} className="cursor-pointer iconfont icon-kjafg primary-color" /></Tooltip>
+      render: (text: any, record: any) => <Tooltip title="View Order Detail"><Link to="/order/order-detail" state={{id: record?.orderId,status: record?.orderState?.orderState}} className="cursor-pointer iconfont icon-kjafg primary-color" /></Tooltip>
     }
   ];
   return (

@@ -4,7 +4,7 @@ export const getTags = async (params: any) => {
   try {
     let res = await ApiRoot.tags().getTags({ body: params })
     console.log('get tag list view data', res)
-    return res?.findTagPage
+    return res?.tagFindPage
   } catch (e) {
     console.log(e)
     return []
@@ -42,9 +42,9 @@ export const detailTag = async (params: any) => {
     return []
   }
 }
-export const addCustomerTag = async (params: any) => {
+export const addConsumerTag = async (params: any) => {
   try {
-    let res = await ApiRoot.tags().addCustomerTag(params)
+    let res = await ApiRoot.tags().addConsumerTag(params)
     console.log('get tag list view data', res)
     return res
   } catch (e) {
@@ -52,9 +52,9 @@ export const addCustomerTag = async (params: any) => {
     return []
   }
 }
-export const removeCustomerTag = async (params: any) => {
+export const removeConsumerTag = async (params: any) => {
   try {
-    let res = await ApiRoot.tags().removeCustomerTag(params)
+    let res = await ApiRoot.tags().removeConsumerTag(params)
     console.log('get tag list view data', res)
     return res
   } catch (e) {

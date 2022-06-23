@@ -22,7 +22,7 @@ export const orderDetailSource = (orderState: string) => {
       postCode: "@zip",
       isDefault: 1,
     },
-    "tradeItem|1-2": [
+    "orderItem|1-2": [
       {
         skuId: "@id",
         pic: "https://d2cstgstorage.z13.web.core.windows.net/fr/fr-229732-master.jpg",
@@ -33,7 +33,7 @@ export const orderDetailSource = (orderState: string) => {
         price: 198,
       },
     ],
-    tradeState: {
+    orderState: {
       orderState: function () {
         const index = Math.floor(Math.random() * 5);
         return orderState === ""
@@ -47,7 +47,7 @@ export const orderDetailSource = (orderState: string) => {
             {
               packId: Mock.Random.id(),
               company: "SF",
-              tradeItem: [
+              orderItem: [
                 {
                   skuId: Mock.Random.id(),
                   pic: "https://d2cstgstorage.z13.web.core.windows.net/fr/fr-229732-master.jpg",
@@ -63,20 +63,20 @@ export const orderDetailSource = (orderState: string) => {
     carrierType: function () {
       return orderState == "SHIPPED" || orderState == "COMPLETED" ? "SF" : "";
     },
-    tradePrice: {
-      goodsPrice: 198,
+    orderPrice: {
+      productPrice: 198,
       discountsPrice: 8,
       deliveryPrice: 0,
       totalPrice: 190,
     },
-    payInfo: function () {
+    payment: function () {
       return orderState === "UNPAID" || orderState === "CANCELLATION"
         ? {}
         : {
             payTypeName: "Wechat Pay",
             appId: Mock.Random.id(),
             payTime: Mock.Random.datetime(),
-            outTradeNo: Mock.Random.id(),
+            outOrderNo: Mock.Random.id(),
           };
     },
     logs: [

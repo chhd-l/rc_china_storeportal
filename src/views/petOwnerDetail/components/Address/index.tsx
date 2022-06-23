@@ -1,15 +1,15 @@
 import { Table } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { Address } from '@/framework/types/customer'
+import { Address } from '@/framework/types/consumer'
 import { getAddressList } from '@/framework/api/get-address'
 import './Style.less'
 
-const MyAddress = ({ id, customerId }: { id: string; customerId: string }) => {
+const MyAddress = ({ id, consumerId }: { id: string; consumerId: string }) => {
   const [addressList, setAddressList] = useState<Address[]>([])
 
   const getAddresses = async () => {
     const res = await getAddressList({
-      customerId,
+      consumerId,
     })
     setAddressList(res)
   }

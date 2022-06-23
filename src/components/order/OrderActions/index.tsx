@@ -35,10 +35,10 @@ const OrderActions = ({
   const [userInfo] = useAtom(userAtom)
   const [shipmentLoading, setShipmentLoading] = useState(false)
 
-  const shipped = async (tradeShippingInfoInput: any) => {
+  const shipped = async (orderShippingInfoInput: any) => {
     setShipmentLoading(true)
     let params = {
-      tradeShippingInfoInput: tradeShippingInfoInput,
+      orderShippingInfoInput: orderShippingInfoInput,
       address: _.omit(orderAddress, ['isDefault', 'postCode']),
       orderNum: orderId,
       nowOrderState: orderState,
@@ -46,8 +46,7 @@ const OrderActions = ({
         openId: orderBuyer.openId,
         unionId: orderBuyer.unionId,
         nickName: orderBuyer.name,
-      },
-      operator: userInfo?.nickname || 'system',
+      }
     }
     if (subscriptionId) {
       params = Object.assign(params, { isSubscription: true, subscriptionId })
@@ -63,9 +62,9 @@ const OrderActions = ({
 
   const completed = async () => {
     const res = await completedOrder({
+      storeId: '123456',
       orderNum: orderId,
       nowOrderState: orderState,
-      operator: userInfo?.nickname || 'system',
     })
     if (res) {
       message.success({ className: 'rc-message', content: 'Operation success' })

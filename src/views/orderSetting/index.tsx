@@ -51,7 +51,7 @@ const OrderSetting = () => {
   useEffect(() => {
     getOrderSettings()
   }, [])
-
+  
   return (
     <ContentContainer>
       <DivideArea />

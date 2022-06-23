@@ -20,7 +20,7 @@ export const messageList = {
     templateId: "@ic",
     url: "@url",// # 用户跳转路径
     appId: "@id",//# 小程序id
-    pagepath: "@url",//# 小程序跳转路径
+    pagePath: "@url",//# 小程序跳转路径
     status: "@boolean",
     title: "@name",
     primaryIndustry: "@name",// # 一级行业

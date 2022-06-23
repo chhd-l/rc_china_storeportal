@@ -1,7 +1,7 @@
 import { Table } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { TencentAccount } from '@/framework/types/customer'
-import { getCustomAccount } from '@/framework/api/customer'
+import { TencentAccount } from '@/framework/types/consumer'
+import { getCustomAccount } from '@/framework/api/consumer'
 
 const columns = [
   {
@@ -36,11 +36,11 @@ const columns = [
   },
 ]
 
-const TencentAccounts = ({ id, customerId }: { id: string; customerId: string }) => {
+const TencentAccounts = ({ id, consumerId }: { id: string; consumerId: string }) => {
   const [tencentAccountList, setTencentAccountList] = useState<TencentAccount[]>([])
 
   const getTencentAccount = async () => {
-    const res = await getCustomAccount({ customerId })
+    const res = await getCustomAccount({ consumerId })
     setTencentAccountList([res])
   }
 

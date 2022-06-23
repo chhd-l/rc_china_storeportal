@@ -6,7 +6,7 @@ import { useState, useEffect, useRef } from 'react'
 import ProTable from '@/components/common/ProTable'
 import { ProColumns } from '@ant-design/pro-table'
 import {
-  createShopCategoryGoodsRel,
+  createShopCategoryProductRel,
   getCategories,
   getESProducts,
 } from '@/framework/api/get-product'
@@ -39,7 +39,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
     console.log('selectedRowKeys changed: ', selectedRowKeys, selectedRows)
     let data = selectedRows.map((item: any) => {
       return {
-        goodsId: item.id,
+        productId: item.id,
         shopCategoryId: state.id,
         storeId: item.storeId,
       }
@@ -62,16 +62,16 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
   const manualColumns: ProColumns<any>[] = [
     {
       title: 'Products',
-      dataIndex: 'goodsName',
+      dataIndex: 'productName',
       hideInSearch: true,
       render: (_, record) => {
         return (
           <div className='flex al-cneter'>
             <img
-              src={record.defaultImage ? record.defaultImage : record.goodsVariants?.length > 0 ? record.goodsVariants[0].defaultImage : ''}
+              src={record.defaultImage ? record.defaultImage : record.productVariants?.length > 0 ? record.productVariants[0].defaultImage : ''}
               alt='' style={{ width: '50px', marginRight: '10px' }} />
             <div>
-              <div>{record.goodsName}</div>
+              <div>{record.productName}</div>
               <div className='text-gray-400'>{record.spuNo}</div>
             </div>
           </div>
@@ -94,12 +94,12 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
       hideInSearch: true,
       // sorter: (a, b) => a.lowestPrice - b.lowestPrice,
       render: (_, record) => {
-        if (record.goodsVariants?.length <= 1) {
+        if (record.productVariants?.length <= 1) {
           return (
-            <span>{formatMoney(record.goodsVariants[0]?.marketingPrice)}</span>
+            <span>{formatMoney(record.productVariants[0]?.marketingPrice)}</span>
           )
-        } else if (record.goodsVariants?.length > 1) {
-          let arr = record.goodsVariants.sort((a: any, b: any) => {
+        } else if (record.productVariants?.length > 1) {
+          let arr = record.productVariants.sort((a: any, b: any) => {
             return a.marketingPrice - b.marketingPrice
           })
           return (
@@ -112,7 +112,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
     {
       title: 'Category:',
       hideInTable: true,
-      dataIndex: 'goodsCategoryId',
+      dataIndex: 'productCategoryId',
       fieldProps: {
         options: mockOptions,
         fieldNames: {
@@ -168,9 +168,9 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
       dataIndex: 'stock',
       hideInSearch: true,
       render: (_, record) => {
-        if (record.goodsVariants?.length > 0) {
+        if (record.productVariants?.length > 0) {
           return (
-            <span>{setNum(record.goodsVariants)}</span>
+            <span>{setNum(record.productVariants)}</span>
           )
         }
       },
@@ -209,7 +209,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
       visible={visible}
       onFinish={async () => {
         if (saveList.length > 0) {
-          createShopCategoryGoodsRel(saveList)
+          createShopCategoryProductRel(saveList)
           handleUpdate(true)
           message.success('Operate success')
           return true
@@ -242,8 +242,8 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
             hasTotal: true,
             sample: {},
           }
-          if (params.goodsCategoryId?.length > 0) {
-            data.sample.goodsCategoryId = params.goodsCategoryId[params.goodsCategoryId.length - 1]
+          if (params.productCategoryId?.length > 0) {
+            data.sample.productCategoryId = params.productCategoryId[params.productCategoryId.length - 1]
           }
           if (params.startPrice!=='') {
             data.sample.startPrice = params.startPrice
@@ -260,7 +260,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
             } else if (params.selectName === '2') {
               data.sample.sku = params.username
             } else {
-              data.sample.goodsName = params.username
+              data.sample.productName = params.username
             }
           }
           let tableData = await getESProducts(data)

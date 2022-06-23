@@ -42,11 +42,11 @@ const AddVariation = ({}: AddVariationProps) => {
           if (!variationData[variationIdx]) {
             variationData[variationIdx] = {}
           }
-          if (!variationData[variationIdx].goodsSpecificationDetail) {
-            variationData[variationIdx].goodsSpecificationDetail = []
+          if (!variationData[variationIdx].specificationDetails) {
+            variationData[variationIdx].specificationDetails = []
           }
-          if (!variationData[variationIdx].goodsSpecificationDetail[specificationIdx]) {
-            variationData[variationIdx].goodsSpecificationDetail[specificationIdx] = {}
+          if (!variationData[variationIdx].specificationDetails[specificationIdx]) {
+            variationData[variationIdx].specificationDetails[specificationIdx] = {}
           }
           if (variationForm.variationList[variationIdx].id) {
             variationData[variationIdx].id = variationForm.variationList[variationIdx].id
@@ -55,12 +55,12 @@ const AddVariation = ({}: AddVariationProps) => {
             variationData[variationIdx].specificationNameEn = variationForm.variationList[variationIdx].name
           }
           if (variationForm.variationList[variationIdx].specificationList[specificationIdx].id) {
-            variationData[variationIdx].goodsSpecificationDetail[specificationIdx].id =
+            variationData[variationIdx].specificationDetails[specificationIdx].id =
               variationForm.variationList[variationIdx].specificationList[specificationIdx].id
           }
-          variationData[variationIdx].goodsSpecificationDetail[specificationIdx].specificationDetailName =
+          variationData[variationIdx].specificationDetails[specificationIdx].specificationDetailName =
             e.target.value
-          variationData[variationIdx].goodsSpecificationDetail[specificationIdx].specificationDetailNameEn =
+          variationData[variationIdx].specificationDetails[specificationIdx].specificationDetailNameEn =
             e.target.value
         }
 
@@ -120,25 +120,25 @@ const AddVariation = ({}: AddVariationProps) => {
       if (!variationData[variationIdx]) {
         variationData[variationIdx] = {}
       }
-      if (!variationData[variationIdx].goodsSpecificationDetail) {
-        variationData[variationIdx].goodsSpecificationDetail = []
+      if (!variationData[variationIdx].specificationDetails) {
+        variationData[variationIdx].specificationDetails = []
       }
-      if (!variationData[variationIdx].goodsSpecificationDetail[specificationIdx]) {
-        variationData[variationIdx].goodsSpecificationDetail[specificationIdx] = {}
+      if (!variationData[variationIdx].specificationDetails[specificationIdx]) {
+        variationData[variationIdx].specificationDetails[specificationIdx] = {}
       }
       if (variationForm.variationList[variationIdx].specificationList[specificationIdx]?.id) {
         // debugger
         variationData[variationIdx].id = variationForm.variationList[variationIdx].id
-        variationData[variationIdx].goodsSpecificationDetail[specificationIdx].id =
+        variationData[variationIdx].specificationDetails[specificationIdx].id =
           variationForm.variationList[variationIdx].specificationList[specificationIdx].id
-        variationData[variationIdx].goodsSpecificationDetail[specificationIdx].isDeleted = true
+        variationData[variationIdx].specificationDetails[specificationIdx].isDeleted = true
       } else {
-        variationData[variationIdx].goodsSpecificationDetail.splice(specificationIdx, 1)
-        let hasChangedGoodsSpecificationDetail = variationData[variationIdx].goodsSpecificationDetail.filter(
+        variationData[variationIdx].specificationDetails.splice(specificationIdx, 1)
+        let hasChangedProductSpecificationDetail = variationData[variationIdx].specificationDetails.filter(
           (el: any) => el,
         )
-        if (!hasChangedGoodsSpecificationDetail?.length) {
-          delete variationData[variationIdx].goodsSpecificationDetail
+        if (!hasChangedProductSpecificationDetail?.length) {
+          delete variationData[variationIdx].specificationDetails
           if (!variationData[variationIdx]?.specificationName) {
             variationData.splice(variationIdx, 1)
           }
@@ -199,7 +199,7 @@ const AddVariation = ({}: AddVariationProps) => {
     setVariationForm(cloneDeep(variationForm))
   }
   const updateVations = ({ variationList }: { variationList: any }) => {
-    // detail.goodsSpecificationsInput = variationList
+    // detail.productSpecificationsInput = variationList
   }
 
   const handleAddSpecification = (variationIdx: number) => {

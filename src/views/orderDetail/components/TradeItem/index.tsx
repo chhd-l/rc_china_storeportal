@@ -1,7 +1,7 @@
 import { Table } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { DownOutlined, UpOutlined } from '@ant-design/icons'
-import { OrderTradeItem, TradePrice } from '@/framework/types/order'
+import { OrderOrderItem, OrderPrice } from '@/framework/types/order'
 import { formatMoney } from '@/utils/utils'
 import { cloneDeep } from 'lodash'
 
@@ -52,16 +52,16 @@ const subscriptionColumn = {
 }
 
 const OrderInformation = ({
-  tradeItem,
-  tradePrice,
+  orderItem,
+  orderPrice,
   isSubscription,
 }: {
-  tradeItem: OrderTradeItem[]
-  tradePrice: TradePrice
+  orderItem: OrderOrderItem[]
+  orderPrice: OrderPrice
   isSubscription: boolean
 }) => {
   const [showMore, setShowMore] = useState(true)
-  const { goodsPrice, discountsPrice, deliveryPrice, totalPrice } = tradePrice
+  const { productPrice, discountsPrice, deliveryPrice, totalPrice } = orderPrice
   const [columns, setColumns] = useState(column)
 
   useEffect(() => {
@@ -79,7 +79,7 @@ const OrderInformation = ({
         <span className="text-left text-base ml-md">Order Information</span>
       </div>
       <div className="pl-8 w-full">
-        <Table columns={columns} dataSource={tradeItem} pagination={false} rowKey="skuId" className="rc-table" />
+        <Table columns={columns} dataSource={orderItem} pagination={false} rowKey="skuId" className="rc-table" />
         <div className="flex flex-col mt-4 ">
           <div
             className="flex justify-end mb-4 items-center hover:cursor-pointer"
@@ -99,7 +99,7 @@ const OrderInformation = ({
                 <span>Order amount</span>
               </div>
               <div className="flex flex-col text-right w-1/4">
-                <span>{formatMoney(goodsPrice)}</span>
+                <span>{formatMoney(productPrice)}</span>
                 <span>{formatMoney(discountsPrice)}</span>
                 <span>{formatMoney(deliveryPrice)}</span>
                 <span className="text-theme-red">{formatMoney(totalPrice)}</span>

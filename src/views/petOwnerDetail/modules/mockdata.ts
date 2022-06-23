@@ -23,7 +23,7 @@ export const petDetailSource={
   'type|1':['DOG','CAT'],
   'isSterilized|1': [true,false],
   age: 1,
-  customerId: "@id"
+  consumerId: "@id"
 }
 
 export const petListSource={
@@ -88,8 +88,8 @@ export const petOwnerDetailSource = {
   ],
   "subscriptionList|2": [
     {
-      customerImg: "",
-      customerName: "@cname",
+      consumerImg: "",
+      consumerName: "@cname",
       subscriptionId: "@id",
       products: [
         {

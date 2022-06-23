@@ -10,8 +10,8 @@ export const handleQueryParams = (params: any) => {
     hasTotal: true,
     sample: {},
   }
-  if (params.goodsCategoryId?.length > 0) {
-    data.sample.goodsCategoryId = params.goodsCategoryId[params.goodsCategoryId.length - 1]
+  if (params.productCategoryId?.length > 0) {
+    data.sample.productCategoryId = params.productCategoryId[params.productCategoryId.length - 1]
   }
   if (params.startPrice) {
     data.sample.startPrice = params.startPrice
@@ -28,7 +28,7 @@ export const handleQueryParams = (params: any) => {
     } else if (params.selectName === '2') {
       data.sample.sku = params.username
     } else {
-      data.sample.goodsName = params.username
+      data.sample.productName = params.username
     }
   }
   return data

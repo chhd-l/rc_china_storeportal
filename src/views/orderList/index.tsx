@@ -15,7 +15,7 @@ import './index.less'
 import { ConfigProvider } from 'antd'
 import en_US from 'antd/lib/locale/en_US'
 
-const PetOwnerList = () => {
+const OrderList = () => {
   const [orderList, setOrderList] = useState<Order[]>([])
   const [activeKey, setActiveKey] = useState('')
   const [searchParams, setSearchParams] = useState<OrderSearchParamsProps>(initSearchParams)
@@ -151,4 +151,4 @@ const PetOwnerList = () => {
     </ContentContainer>
   )
 }
-export default PetOwnerList
+export default OrderList

@@ -1,14 +1,14 @@
 import Table from './components/Table'
 import React, { useEffect, useState } from 'react'
 import Search from '@/components/common/Search'
-import { Account } from '@/framework/types/wechat'
+import { WxAccount } from '@/framework/types/wechat'
 import { formItems } from './modules/form'
 import { ContentContainer, DivideArea, SearchContainer, TableContainer } from '@/components/ui'
 import { getAccountList } from '@/framework/api/wechatSetting'
 import "./index.less"
 
 const AccountList = () => {
-  const [accountList, setAccountList] = useState<Account[]>([]);
+  const [accountList, setAccountList] = useState<WxAccount[]>([]);
   const [loading, setLoading] = useState<boolean>(false)
   const [pages, setPages] = useState({
     page: 1,

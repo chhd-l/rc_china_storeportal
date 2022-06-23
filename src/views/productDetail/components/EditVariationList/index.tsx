@@ -87,25 +87,25 @@ const EditVariationList = (props: FormProps) => {
   const updateVations = (val: any, index: any, propertyName: any, tr: any) => {
     console.info(val, index, propertyName, tr, '(e,index,propertyName,tr)')
     if (detail.id) {
-      if (!detail.editChange.goodsVariants) {
-        detail.editChange.goodsVariants = []
+      if (!detail.editChange.productVariants) {
+        detail.editChange.productVariants = []
       }
-      if (!detail.editChange.goodsVariants[index]) {
-        detail.editChange.goodsVariants[index] = {}
+      if (!detail.editChange.productVariants[index]) {
+        detail.editChange.productVariants[index] = {}
       }
       if (tr.id) {
-        detail.editChange.goodsVariants[index].id = tr.id
+        detail.editChange.productVariants[index].id = tr.id
       }
       if (propertyName === 'subscriptionStatus' && val === '0') {
         //处理订阅状态为no的时候订阅价格为0
-        detail.editChange.goodsVariants[index].subscriptionPrice = ''
+        detail.editChange.productVariants[index].subscriptionPrice = ''
       }
-      detail.editChange.goodsVariants[index][propertyName] = val
-      if (propertyName === 'goodsVariantBundleInfo') {
+      detail.editChange.productVariants[index][propertyName] = val
+      if (propertyName === 'variantBundles') {
         //stock需要同步改变
-        detail.editChange.goodsVariants[index].stock = tr.stock
-        // detail.editChange.goodsVariants[index].stock = tr.stock
-        // detail.editChange.goodsVariants[index].stock = tr.stock
+        detail.editChange.productVariants[index].stock = tr.stock
+        // detail.editChange.productVariants[index].stock = tr.stock
+        // detail.editChange.productVariants[index].stock = tr.stock
       }
       //处理类型转换
       if (
@@ -116,15 +116,15 @@ const EditVariationList = (props: FormProps) => {
         propertyName === 'listPrice' ||
         propertyName === 'subscriptionPrice'
       ) {
-        detail.editChange.goodsVariants[index][propertyName] = Number(val)
+        detail.editChange.productVariants[index][propertyName] = Number(val)
       }
       if (propertyName === 'isSupport100') {
-        detail.editChange.goodsVariants[index][propertyName] = val === 'true' ? true : false
+        detail.editChange.productVariants[index][propertyName] = val === 'true' ? true : false
       }
       debugger
       if (!tr.id) {
         //新增的
-        detail.editChange.goodsVariants[index].goodsVariantSpecifications = tr.relArr?.map((rel: any) => {
+        detail.editChange.productVariants[index].specifications = tr.relArr?.map((rel: any) => {
           return {
             specificationNameEn: rel.specificationName,
             specificationName: rel.specificationName,
@@ -134,12 +134,12 @@ const EditVariationList = (props: FormProps) => {
         })
       }
     }
-    if (propertyName === 'goodsVariantBundleInfo') {
+    if (propertyName === 'variantBundles') {
       //同步展示库存
       setVariationList([...variationList])
     }
-    detail.goodsVariantsInput = variationList
-    detail.goodsSpecificationsInput = variationForm.variationList
+    detail.productVariantsInput = variationList
+    detail.productSpecificationsInput = variationForm.variationList
   }
 
   const calcDescartes = (array: any) => {
@@ -239,8 +239,8 @@ const EditVariationList = (props: FormProps) => {
             specificationName: formData[idx]?.name || `Variation${idx + 1}`,
             specificationDetailName: spec.option,
           }
-          if (formData[idx]?.goodsSpecificationId) {
-            newEl.relArr[idx].goodsSpecificationId = formData[idx]?.goodsSpecificationId
+          if (formData[idx]?.productSpecificationId) {
+            newEl.relArr[idx].productSpecificationId = formData[idx]?.productSpecificationId
           }
           if (spec.id) {
             newEl.relArr[idx].id = spec.id
@@ -276,7 +276,7 @@ const EditVariationList = (props: FormProps) => {
       // debugger
       return newEl
     })
-    detail.goodsVariantsInput = list //编辑的时候需要赋值todo
+    detail.productVariantsInput = list //编辑的时候需要赋值todo
     setVariationList(cloneDeep(list))
     // return list
   }

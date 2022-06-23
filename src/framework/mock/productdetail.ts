@@ -5,13 +5,13 @@ import { categoryList } from "./categorylist"
 export const detail = {
   "id": "75af31b5-119e-123e-807e-b61a0f94ea5d",
   "spuNo": "88821",
-  "goodsName": "Modifyed Name two",
-  "cardName": "Test Goods Card",
-  "goodsDescription": "This is test info",
+  "productName": "Modifyed Name two",
+  "cardName": "Test Product Card",
+  "productDescription": "This is test info",
   "isSupport100": "YES",
   "type": "REGULAR",
   "brandId": "123342",
-  "goodsCategoryId": "12",
+  "productCategoryId": "12",
   "shelvesStatus": "ON_SHELVES",
   "defaultImage": "www.baidu.com",
   "salesStatus": 0,
@@ -29,17 +29,17 @@ export const detail = {
   categoryList,
   // attributeList,
   brandList,
-  "goodsSpecifications": [
+  "productSpecifications": [
     {
       "id": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
-      "GoodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "ProductId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "specificationName": "形状2",
       "specificationNameEn": "shape",
-      "goodsSpecificationDetail": [
+      "specificationDetails": [
         {
           "id": "041d9dce-13cc-22b6-848f-fafc0ef9282a",
-          "goodsId": null,
-          "goodsSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
+          "productId": null,
+          "productSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
           "specificationDetailName": "圆形test",
           "specificationDetailNameEn": "circle ii",
           "storeId": null,
@@ -51,8 +51,8 @@ export const detail = {
         },
         {
           "id": "265a54ca-e53e-7014-06a4-dfc0557398b2",
-          "goodsId": null,
-          "goodsSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
+          "productId": null,
+          "productSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
           "specificationDetailName": "圆形",
           "specificationDetailNameEn": "circle",
           "storeId": null,
@@ -64,8 +64,8 @@ export const detail = {
         },
         {
           "id": "334050c1-c702-73bf-1d70-55851e3deeb3",
-          "goodsId": null,
-          "goodsSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
+          "productId": null,
+          "productSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
           "specificationDetailName": "三角形",
           "specificationDetailNameEn": "tangle",
           "storeId": null,
@@ -77,8 +77,8 @@ export const detail = {
         },
         {
           "id": "34329262-e2c0-49e2-5c07-f791748c3d24",
-          "goodsId": null,
-          "goodsSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
+          "productId": null,
+          "productSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
           "specificationDetailName": "三角形",
           "specificationDetailNameEn": "tangle",
           "storeId": null,
@@ -90,8 +90,8 @@ export const detail = {
         },
         {
           "id": "3c8cc14a-0de8-544a-ddbb-37ffb0fdee89",
-          "goodsId": null,
-          "goodsSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
+          "productId": null,
+          "productSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
           "specificationDetailName": "三角形",
           "specificationDetailNameEn": "tangle",
           "storeId": null,
@@ -103,8 +103,8 @@ export const detail = {
         },
         {
           "id": "475371ba-2c90-22a1-3dda-8720446e8097",
-          "goodsId": null,
-          "goodsSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
+          "productId": null,
+          "productSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
           "specificationDetailName": "三角形",
           "specificationDetailNameEn": "tangle",
           "storeId": null,
@@ -116,8 +116,8 @@ export const detail = {
         },
         {
           "id": "6cb85a04-9b17-2330-666c-0aa21d706dc8",
-          "goodsId": null,
-          "goodsSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
+          "productId": null,
+          "productSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
           "specificationDetailName": "三角形",
           "specificationDetailNameEn": "tangle",
           "storeId": null,
@@ -129,8 +129,8 @@ export const detail = {
         },
         {
           "id": "9968c6d6-f797-19bb-990f-ea7b53d060a2",
-          "goodsId": null,
-          "goodsSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
+          "productId": null,
+          "productSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
           "specificationDetailName": "三角形",
           "specificationDetailNameEn": "tangle",
           "storeId": null,
@@ -142,8 +142,8 @@ export const detail = {
         },
         {
           "id": "ccce2ba5-e5bb-03fd-3e23-fa23ed86cd33",
-          "goodsId": null,
-          "goodsSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
+          "productId": null,
+          "productSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
           "specificationDetailName": "三角形",
           "specificationDetailNameEn": "tangle",
           "storeId": null,
@@ -155,8 +155,8 @@ export const detail = {
         },
         {
           "id": "dcccef15-44dd-546e-a8aa-f167a0b116fd",
-          "goodsId": null,
-          "goodsSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
+          "productId": null,
+          "productSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
           "specificationDetailName": "三角形",
           "specificationDetailNameEn": "tangle",
           "storeId": null,
@@ -168,8 +168,8 @@ export const detail = {
         },
         {
           "id": "e520c34a-ad99-4f17-460b-198175df41d0",
-          "goodsId": null,
-          "goodsSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
+          "productId": null,
+          "productSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
           "specificationDetailName": "三角形",
           "specificationDetailNameEn": "tangle",
           "storeId": null,
@@ -188,14 +188,14 @@ export const detail = {
     },
     {
       "id": "c84bddca-ede8-b6bd-fb87-19bd70762a31",
-      "GoodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "ProductId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "specificationName": "颜色",
       "specificationNameEn": "color",
-      "goodsSpecificationDetail": [
+      "specificationDetails": [
         {
           "id": "98063da4-fbf2-201d-9f6a-251facabff25",
-          "goodsId": null,
-          "goodsSpecificationId": "c84bddca-ede8-b6bd-fb87-19bd70762a31",
+          "productId": null,
+          "productSpecificationId": "c84bddca-ede8-b6bd-fb87-19bd70762a31",
           "specificationDetailName": "蓝色",
           "specificationDetailNameEn": "blue",
           "storeId": null,
@@ -207,8 +207,8 @@ export const detail = {
         },
         {
           "id": "f1f2cdff-b338-e807-c652-de2afaee030f",
-          "goodsId": null,
-          "goodsSpecificationId": "c84bddca-ede8-b6bd-fb87-19bd70762a31",
+          "productId": null,
+          "productSpecificationId": "c84bddca-ede8-b6bd-fb87-19bd70762a31",
           "specificationDetailName": "红色",
           "specificationDetailNameEn": "red",
           "storeId": null,
@@ -227,14 +227,14 @@ export const detail = {
     },
     {
       "id": "sssss",
-      "GoodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "ProductId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "specificationName": "颜色",
       "specificationNameEn": "color",
-      "goodsSpecificationDetail": [
+      "specificationDetails": [
         {
           "id": "0d0e6568-0816-a21f-8819-e088b453ae07",
-          "goodsId": null,
-          "goodsSpecificationId": "sssss",
+          "productId": null,
+          "productSpecificationId": "sssss",
           "specificationDetailName": "蓝色",
           "specificationDetailNameEn": "blue",
           "storeId": null,
@@ -246,8 +246,8 @@ export const detail = {
         },
         {
           "id": "3d66d065-0733-5bf2-e574-550bdfea6e4a",
-          "goodsId": null,
-          "goodsSpecificationId": "sssss",
+          "productId": null,
+          "productSpecificationId": "sssss",
           "specificationDetailName": "红色",
           "specificationDetailNameEn": "red",
           "storeId": null,
@@ -259,8 +259,8 @@ export const detail = {
         },
         {
           "id": "4add9729-31c2-e1e3-14e4-685fd01f412a",
-          "goodsId": null,
-          "goodsSpecificationId": "sssss",
+          "productId": null,
+          "productSpecificationId": "sssss",
           "specificationDetailName": "蓝色",
           "specificationDetailNameEn": "blue",
           "storeId": null,
@@ -272,8 +272,8 @@ export const detail = {
         },
         {
           "id": "4bf7c5d0-5875-a09d-2ffe-4fdab34b85a1",
-          "goodsId": null,
-          "goodsSpecificationId": "sssss",
+          "productId": null,
+          "productSpecificationId": "sssss",
           "specificationDetailName": "蓝色",
           "specificationDetailNameEn": "blue",
           "storeId": null,
@@ -285,8 +285,8 @@ export const detail = {
         },
         {
           "id": "557529d4-81f4-1a47-49fa-65f0412b221d",
-          "goodsId": null,
-          "goodsSpecificationId": "sssss",
+          "productId": null,
+          "productSpecificationId": "sssss",
           "specificationDetailName": "红色",
           "specificationDetailNameEn": "red",
           "storeId": null,
@@ -298,8 +298,8 @@ export const detail = {
         },
         {
           "id": "5bd990b4-04e6-04ee-0d55-29f49bba2de2",
-          "goodsId": null,
-          "goodsSpecificationId": "sssss",
+          "productId": null,
+          "productSpecificationId": "sssss",
           "specificationDetailName": "红色",
           "specificationDetailNameEn": "red",
           "storeId": null,
@@ -311,8 +311,8 @@ export const detail = {
         },
         {
           "id": "5f02dcdc-f265-24b9-8910-d398a67e794a",
-          "goodsId": null,
-          "goodsSpecificationId": "sssss",
+          "productId": null,
+          "productSpecificationId": "sssss",
           "specificationDetailName": "红色",
           "specificationDetailNameEn": "red",
           "storeId": null,
@@ -324,8 +324,8 @@ export const detail = {
         },
         {
           "id": "7521098a-ab8c-ff22-0c11-cb7c44d7e176",
-          "goodsId": null,
-          "goodsSpecificationId": "sssss",
+          "productId": null,
+          "productSpecificationId": "sssss",
           "specificationDetailName": "红色",
           "specificationDetailNameEn": "red",
           "storeId": null,
@@ -337,8 +337,8 @@ export const detail = {
         },
         {
           "id": "7b3982c0-96e8-ff2d-6e78-ff70269f2565",
-          "goodsId": null,
-          "goodsSpecificationId": "sssss",
+          "productId": null,
+          "productSpecificationId": "sssss",
           "specificationDetailName": "红色",
           "specificationDetailNameEn": "red",
           "storeId": null,
@@ -350,8 +350,8 @@ export const detail = {
         },
         {
           "id": "7de3beaf-a389-5926-535a-5cb20ac566cc",
-          "goodsId": null,
-          "goodsSpecificationId": "sssss",
+          "productId": null,
+          "productSpecificationId": "sssss",
           "specificationDetailName": "红色",
           "specificationDetailNameEn": "red",
           "storeId": null,
@@ -363,8 +363,8 @@ export const detail = {
         },
         {
           "id": "7e54ae25-0a7f-1308-fd6d-0d9ab95d2890",
-          "goodsId": null,
-          "goodsSpecificationId": "sssss",
+          "productId": null,
+          "productSpecificationId": "sssss",
           "specificationDetailName": "蓝色",
           "specificationDetailNameEn": "blue",
           "storeId": null,
@@ -376,8 +376,8 @@ export const detail = {
         },
         {
           "id": "b55ff6ae-23c9-dc14-e0f2-76dfd1a92409",
-          "goodsId": null,
-          "goodsSpecificationId": "sssss",
+          "productId": null,
+          "productSpecificationId": "sssss",
           "specificationDetailName": "红色",
           "specificationDetailNameEn": "red",
           "storeId": null,
@@ -389,8 +389,8 @@ export const detail = {
         },
         {
           "id": "da4065fd-321e-9e74-d221-26d2389c35e7",
-          "goodsId": null,
-          "goodsSpecificationId": "sssss",
+          "productId": null,
+          "productSpecificationId": "sssss",
           "specificationDetailName": "蓝色",
           "specificationDetailNameEn": "blue",
           "storeId": null,
@@ -402,8 +402,8 @@ export const detail = {
         },
         {
           "id": "e25fe70c-c172-8eb1-d587-b2e429b73a29",
-          "goodsId": null,
-          "goodsSpecificationId": "sssss",
+          "productId": null,
+          "productSpecificationId": "sssss",
           "specificationDetailName": "蓝色",
           "specificationDetailNameEn": "blue",
           "storeId": null,
@@ -415,8 +415,8 @@ export const detail = {
         },
         {
           "id": "e94008d0-e1cc-daba-1291-615784317381",
-          "goodsId": null,
-          "goodsSpecificationId": "sssss",
+          "productId": null,
+          "productSpecificationId": "sssss",
           "specificationDetailName": "蓝色",
           "specificationDetailNameEn": "blue",
           "storeId": null,
@@ -428,8 +428,8 @@ export const detail = {
         },
         {
           "id": "f635b76a-f562-bed7-6d6b-2ebbc42c28c3",
-          "goodsId": null,
-          "goodsSpecificationId": "sssss",
+          "productId": null,
+          "productSpecificationId": "sssss",
           "specificationDetailName": "蓝色",
           "specificationDetailNameEn": "blue",
           "storeId": null,
@@ -447,10 +447,10 @@ export const detail = {
       "isDeleted": false
     }
   ],
-  "goodsVariants": [
+  "productVariants": [
     {
       "id": "08c511d0-bc80-ad68-a56f-52c2287cd6c4",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "skuNo": "1231232",
       "eanCode": "3212123",
       "name": "this is test",
@@ -470,11 +470,11 @@ export const detail = {
       "lastModifiedAt": "",
       "lastModifiedBy": null,
       "isDeleted": "",
-      "goodsSpecificationRel": null
+      "productSpecificationRel": null
     },
     {
       "id": "2055bb62-019c-a576-7c73-35cad8dffc35",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "skuNo": "9098",
       "eanCode": "9899",
       "name": "test sku",
@@ -494,24 +494,24 @@ export const detail = {
       "lastModifiedAt": "",
       "lastModifiedBy": null,
       "isDeleted": "",
-      "goodsSpecificationRel": [
+      "productSpecificationRel": [
         {
-          "goodsSpecificationId": null,
-          "goodsSpecificationDetailId": null,
-          "goodsVariantId": "2055bb62-019c-a576-7c73-35cad8dffc35",
+          "productSpecificationId": null,
+          "productSpecificationDetailId": null,
+          "variantId": "2055bb62-019c-a576-7c73-35cad8dffc35",
           "relId": "068dac2e-d225-d09e-61b7-20313fe22c91"
         },
         {
-          "goodsSpecificationId": "sssss",
-          "goodsSpecificationDetailId": "3d66d065-0733-5bf2-e574-550bdfea6e4a",
-          "goodsVariantId": "2055bb62-019c-a576-7c73-35cad8dffc35",
+          "productSpecificationId": "sssss",
+          "productSpecificationDetailId": "3d66d065-0733-5bf2-e574-550bdfea6e4a",
+          "variantId": "2055bb62-019c-a576-7c73-35cad8dffc35",
           "relId": "238ebc01-cc3e-43ff-efff-39bb412fe9e4"
         }
       ]
     },
     {
       "id": "2fde6f65-a83a-0760-b9a1-be9411376461",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "skuNo": "9098",
       "eanCode": "9899",
       "name": "test sku",
@@ -531,24 +531,24 @@ export const detail = {
       "lastModifiedAt": "",
       "lastModifiedBy": null,
       "isDeleted": "",
-      "goodsSpecificationRel": [
+      "productSpecificationRel": [
         {
-          "goodsSpecificationId": null,
-          "goodsSpecificationDetailId": null,
-          "goodsVariantId": "2fde6f65-a83a-0760-b9a1-be9411376461",
+          "productSpecificationId": null,
+          "productSpecificationDetailId": null,
+          "variantId": "2fde6f65-a83a-0760-b9a1-be9411376461",
           "relId": "927b5188-2b5c-1324-31a4-0c5e840bf3fa"
         },
         {
-          "goodsSpecificationId": null,
-          "goodsSpecificationDetailId": null,
-          "goodsVariantId": "2fde6f65-a83a-0760-b9a1-be9411376461",
+          "productSpecificationId": null,
+          "productSpecificationDetailId": null,
+          "variantId": "2fde6f65-a83a-0760-b9a1-be9411376461",
           "relId": "64560182-60f0-f428-99ce-6f4811a7813d"
         }
       ]
     },
     {
       "id": "35746076-ca72-5b71-aff9-7bf39af42338",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "skuNo": "1231232",
       "eanCode": "3212123",
       "name": "this is test",
@@ -568,11 +568,11 @@ export const detail = {
       "lastModifiedAt": "",
       "lastModifiedBy": null,
       "isDeleted": "",
-      "goodsSpecificationRel": null
+      "productSpecificationRel": null
     },
     {
       "id": "43cdee8c-83d2-d3a5-d882-c9feff9f2ad4",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "skuNo": "1231232",
       "eanCode": "3212123",
       "name": "this is test",
@@ -592,11 +592,11 @@ export const detail = {
       "lastModifiedAt": "",
       "lastModifiedBy": null,
       "isDeleted": "",
-      "goodsSpecificationRel": null
+      "productSpecificationRel": null
     },
     {
       "id": "4c911ae6-af38-f165-98d7-e4ccbfdd2439",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "skuNo": "9098",
       "eanCode": "9899",
       "name": "test sku",
@@ -616,24 +616,24 @@ export const detail = {
       "lastModifiedAt": "",
       "lastModifiedBy": null,
       "isDeleted": "",
-      "goodsSpecificationRel": [
+      "productSpecificationRel": [
         {
-          "goodsSpecificationId": null,
-          "goodsSpecificationDetailId": null,
-          "goodsVariantId": "4c911ae6-af38-f165-98d7-e4ccbfdd2439",
+          "productSpecificationId": null,
+          "productSpecificationDetailId": null,
+          "variantId": "4c911ae6-af38-f165-98d7-e4ccbfdd2439",
           "relId": "382226ae-7e3c-1014-a220-06c9c699dd66"
         },
         {
-          "goodsSpecificationId": "sssss",
-          "goodsSpecificationDetailId": "7b3982c0-96e8-ff2d-6e78-ff70269f2565",
-          "goodsVariantId": "4c911ae6-af38-f165-98d7-e4ccbfdd2439",
+          "productSpecificationId": "sssss",
+          "productSpecificationDetailId": "7b3982c0-96e8-ff2d-6e78-ff70269f2565",
+          "variantId": "4c911ae6-af38-f165-98d7-e4ccbfdd2439",
           "relId": "73618d00-6246-5fd0-4f32-7ddc646aecc9"
         }
       ]
     },
     {
       "id": "66d97776-847b-414d-2de1-9f5c79ed3000",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "skuNo": "1231232",
       "eanCode": "3212123",
       "name": "this is test",
@@ -653,11 +653,11 @@ export const detail = {
       "lastModifiedAt": "",
       "lastModifiedBy": null,
       "isDeleted": "",
-      "goodsSpecificationRel": null
+      "productSpecificationRel": null
     },
     {
       "id": "9acb4403-1a58-0d12-2a75-cf9633967986",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "skuNo": "1231232",
       "eanCode": "3212123",
       "name": "this is test",
@@ -677,11 +677,11 @@ export const detail = {
       "lastModifiedAt": "",
       "lastModifiedBy": null,
       "isDeleted": "",
-      "goodsSpecificationRel": null
+      "productSpecificationRel": null
     },
     {
       "id": "9b9948a8-943e-f0ae-055b-63cf167ba641",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "skuNo": "1231232",
       "eanCode": "3212123",
       "name": "this is test",
@@ -701,11 +701,11 @@ export const detail = {
       "lastModifiedAt": "",
       "lastModifiedBy": null,
       "isDeleted": "",
-      "goodsSpecificationRel": null
+      "productSpecificationRel": null
     },
     {
       "id": "9cef49b3-b737-07e0-bf5a-47fdf17881b6",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "skuNo": "1231232",
       "eanCode": "3212123",
       "name": "this is test",
@@ -725,11 +725,11 @@ export const detail = {
       "lastModifiedAt": "",
       "lastModifiedBy": null,
       "isDeleted": "",
-      "goodsSpecificationRel": null
+      "productSpecificationRel": null
     },
     {
       "id": "a4a606d2-895b-385b-2a2b-c78269792cb0",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "skuNo": "1231232",
       "eanCode": "3212123",
       "name": "this is test",
@@ -749,11 +749,11 @@ export const detail = {
       "lastModifiedAt": "",
       "lastModifiedBy": null,
       "isDeleted": "",
-      "goodsSpecificationRel": null
+      "productSpecificationRel": null
     },
     {
       "id": "acfa8b34-03b3-4eef-db71-7a3bd277f58e",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "skuNo": "9098",
       "eanCode": "9899",
       "name": "test sku",
@@ -773,24 +773,24 @@ export const detail = {
       "lastModifiedAt": "",
       "lastModifiedBy": null,
       "isDeleted": "",
-      "goodsSpecificationRel": [
+      "productSpecificationRel": [
         {
-          "goodsSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
-          "goodsSpecificationDetailId": "265a54ca-e53e-7014-06a4-dfc0557398b2",
-          "goodsVariantId": "acfa8b34-03b3-4eef-db71-7a3bd277f58e",
+          "productSpecificationId": "035d8bc5-ac78-0691-2d12-f739d8a5d425",
+          "productSpecificationDetailId": "265a54ca-e53e-7014-06a4-dfc0557398b2",
+          "variantId": "acfa8b34-03b3-4eef-db71-7a3bd277f58e",
           "relId": "236264a8-c259-2397-4ac3-45539c8241f6"
         },
         {
-          "goodsSpecificationId": "c84bddca-ede8-b6bd-fb87-19bd70762a31",
-          "goodsSpecificationDetailId": "f1f2cdff-b338-e807-c652-de2afaee030f",
-          "goodsVariantId": "acfa8b34-03b3-4eef-db71-7a3bd277f58e",
+          "productSpecificationId": "c84bddca-ede8-b6bd-fb87-19bd70762a31",
+          "productSpecificationDetailId": "f1f2cdff-b338-e807-c652-de2afaee030f",
+          "variantId": "acfa8b34-03b3-4eef-db71-7a3bd277f58e",
           "relId": "e8097d43-4a75-ee24-5bf3-5a89ea3de978"
         }
       ]
     },
     {
       "id": "b1d3ce27-8131-afbe-162c-39198fb23b43",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "skuNo": "9098",
       "eanCode": "9899",
       "name": "test sku",
@@ -810,24 +810,24 @@ export const detail = {
       "lastModifiedAt": "",
       "lastModifiedBy": null,
       "isDeleted": "",
-      "goodsSpecificationRel": [
+      "productSpecificationRel": [
         {
-          "goodsSpecificationId": null,
-          "goodsSpecificationDetailId": null,
-          "goodsVariantId": "b1d3ce27-8131-afbe-162c-39198fb23b43",
+          "productSpecificationId": null,
+          "productSpecificationDetailId": null,
+          "variantId": "b1d3ce27-8131-afbe-162c-39198fb23b43",
           "relId": "04e8fe28-7ec4-9e7d-407e-d26dbf003c9e"
         },
         {
-          "goodsSpecificationId": "sssss",
-          "goodsSpecificationDetailId": "557529d4-81f4-1a47-49fa-65f0412b221d",
-          "goodsVariantId": "b1d3ce27-8131-afbe-162c-39198fb23b43",
+          "productSpecificationId": "sssss",
+          "productSpecificationDetailId": "557529d4-81f4-1a47-49fa-65f0412b221d",
+          "variantId": "b1d3ce27-8131-afbe-162c-39198fb23b43",
           "relId": "aff03ffd-5122-60d4-3ec1-5af1e6ed76e6"
         }
       ]
     },
     {
       "id": "b6b158c0-18d0-55e9-1c52-ad7e5b8970d8",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "skuNo": "9098",
       "eanCode": "9899",
       "name": "test sku",
@@ -847,24 +847,24 @@ export const detail = {
       "lastModifiedAt": "",
       "lastModifiedBy": null,
       "isDeleted": "",
-      "goodsSpecificationRel": [
+      "productSpecificationRel": [
         {
-          "goodsSpecificationId": null,
-          "goodsSpecificationDetailId": null,
-          "goodsVariantId": "b6b158c0-18d0-55e9-1c52-ad7e5b8970d8",
+          "productSpecificationId": null,
+          "productSpecificationDetailId": null,
+          "variantId": "b6b158c0-18d0-55e9-1c52-ad7e5b8970d8",
           "relId": "906a1824-31f0-444b-d446-d710a71cce1a"
         },
         {
-          "goodsSpecificationId": "sssss",
-          "goodsSpecificationDetailId": "b55ff6ae-23c9-dc14-e0f2-76dfd1a92409",
-          "goodsVariantId": "b6b158c0-18d0-55e9-1c52-ad7e5b8970d8",
+          "productSpecificationId": "sssss",
+          "productSpecificationDetailId": "b55ff6ae-23c9-dc14-e0f2-76dfd1a92409",
+          "variantId": "b6b158c0-18d0-55e9-1c52-ad7e5b8970d8",
           "relId": "d51b0860-66d0-710b-5b3b-ea09daff65ed"
         }
       ]
     },
     {
       "id": "b8ff2802-2141-8d09-bf51-9918e58fb39c",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "skuNo": "9098",
       "eanCode": "9899",
       "name": "test sku",
@@ -884,24 +884,24 @@ export const detail = {
       "lastModifiedAt": "",
       "lastModifiedBy": null,
       "isDeleted": "",
-      "goodsSpecificationRel": [
+      "productSpecificationRel": [
         {
-          "goodsSpecificationId": null,
-          "goodsSpecificationDetailId": null,
-          "goodsVariantId": "b8ff2802-2141-8d09-bf51-9918e58fb39c",
+          "productSpecificationId": null,
+          "productSpecificationDetailId": null,
+          "variantId": "b8ff2802-2141-8d09-bf51-9918e58fb39c",
           "relId": "21424f70-c9fa-cc03-2754-14fdf7c890b2"
         },
         {
-          "goodsSpecificationId": "sssss",
-          "goodsSpecificationDetailId": "7de3beaf-a389-5926-535a-5cb20ac566cc",
-          "goodsVariantId": "b8ff2802-2141-8d09-bf51-9918e58fb39c",
+          "productSpecificationId": "sssss",
+          "productSpecificationDetailId": "7de3beaf-a389-5926-535a-5cb20ac566cc",
+          "variantId": "b8ff2802-2141-8d09-bf51-9918e58fb39c",
           "relId": "6c60209f-9198-7dcc-b046-afab2bba710c"
         }
       ]
     },
     {
       "id": "bc4f7d51-ccde-f15f-be93-e3a4a8d2107e",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "skuNo": "9098",
       "eanCode": "9899",
       "name": "test sku",
@@ -921,24 +921,24 @@ export const detail = {
       "lastModifiedAt": "",
       "lastModifiedBy": null,
       "isDeleted": "",
-      "goodsSpecificationRel": [
+      "productSpecificationRel": [
         {
-          "goodsSpecificationId": null,
-          "goodsSpecificationDetailId": null,
-          "goodsVariantId": "bc4f7d51-ccde-f15f-be93-e3a4a8d2107e",
+          "productSpecificationId": null,
+          "productSpecificationDetailId": null,
+          "variantId": "bc4f7d51-ccde-f15f-be93-e3a4a8d2107e",
           "relId": "04f6f9e2-1fa7-5e3c-6832-9f4a7d11baa6"
         },
         {
-          "goodsSpecificationId": "sssss",
-          "goodsSpecificationDetailId": "7521098a-ab8c-ff22-0c11-cb7c44d7e176",
-          "goodsVariantId": "bc4f7d51-ccde-f15f-be93-e3a4a8d2107e",
+          "productSpecificationId": "sssss",
+          "productSpecificationDetailId": "7521098a-ab8c-ff22-0c11-cb7c44d7e176",
+          "variantId": "bc4f7d51-ccde-f15f-be93-e3a4a8d2107e",
           "relId": "d34eabf4-2dc2-3c16-9a75-d3612b030d81"
         }
       ]
     },
     {
       "id": "d1952f85-2607-f413-1ed7-3a0dbd49e936",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "skuNo": "9098",
       "eanCode": "9899",
       "name": "test sku",
@@ -958,24 +958,24 @@ export const detail = {
       "lastModifiedAt": "",
       "lastModifiedBy": null,
       "isDeleted": "",
-      "goodsSpecificationRel": [
+      "productSpecificationRel": [
         {
-          "goodsSpecificationId": null,
-          "goodsSpecificationDetailId": null,
-          "goodsVariantId": "d1952f85-2607-f413-1ed7-3a0dbd49e936",
+          "productSpecificationId": null,
+          "productSpecificationDetailId": null,
+          "variantId": "d1952f85-2607-f413-1ed7-3a0dbd49e936",
           "relId": "6d271b4f-adcb-c385-79e3-99e68bf44e60"
         },
         {
-          "goodsSpecificationId": "sssss",
-          "goodsSpecificationDetailId": "5bd990b4-04e6-04ee-0d55-29f49bba2de2",
-          "goodsVariantId": "d1952f85-2607-f413-1ed7-3a0dbd49e936",
+          "productSpecificationId": "sssss",
+          "productSpecificationDetailId": "5bd990b4-04e6-04ee-0d55-29f49bba2de2",
+          "variantId": "d1952f85-2607-f413-1ed7-3a0dbd49e936",
           "relId": "b4d98096-35a0-5416-1ace-9e3d0da25890"
         }
       ]
     },
     {
       "id": "df1eab61-fed2-3621-b793-1f92241a7da4",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "skuNo": "1231232",
       "eanCode": "3212123",
       "name": "this is test",
@@ -995,11 +995,11 @@ export const detail = {
       "lastModifiedAt": "",
       "lastModifiedBy": null,
       "isDeleted": "",
-      "goodsSpecificationRel": null
+      "productSpecificationRel": null
     },
     {
       "id": "e0d5da38-b8cc-acab-7656-8773f314e945",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "skuNo": "9098",
       "eanCode": "9899",
       "name": "test sku",
@@ -1019,24 +1019,24 @@ export const detail = {
       "lastModifiedAt": "",
       "lastModifiedBy": null,
       "isDeleted": "",
-      "goodsSpecificationRel": [
+      "productSpecificationRel": [
         {
-          "goodsSpecificationId": null,
-          "goodsSpecificationDetailId": null,
-          "goodsVariantId": "e0d5da38-b8cc-acab-7656-8773f314e945",
+          "productSpecificationId": null,
+          "productSpecificationDetailId": null,
+          "variantId": "e0d5da38-b8cc-acab-7656-8773f314e945",
           "relId": "33e448e9-f3aa-6ca9-55f9-7b4752d27706"
         },
         {
-          "goodsSpecificationId": "sssss",
-          "goodsSpecificationDetailId": "5f02dcdc-f265-24b9-8910-d398a67e794a",
-          "goodsVariantId": "e0d5da38-b8cc-acab-7656-8773f314e945",
+          "productSpecificationId": "sssss",
+          "productSpecificationDetailId": "5f02dcdc-f265-24b9-8910-d398a67e794a",
+          "variantId": "e0d5da38-b8cc-acab-7656-8773f314e945",
           "relId": "f08e4970-762a-0403-1432-6880d238040a"
         }
       ]
     },
     {
       "id": "ec944a15-f7f2-bd66-cb7e-e5c7f63730cf",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
       "skuNo": "1231232",
       "eanCode": "3212123",
       "name": "this is test",
@@ -1056,14 +1056,14 @@ export const detail = {
       "lastModifiedAt": "",
       "lastModifiedBy": null,
       "isDeleted": "",
-      "goodsSpecificationRel": null
+      "productSpecificationRel": null
     }
   ],
-  "goodsAsserts": [
+  "productAsserts": [
     {
       "id": "00cba2d1-7b62-655a-c251-b5a4815a",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.00cba2d1-7b62-655a-c251-b5a4815a.com",
       "type": "vedio",
       "storeId": "123241",
@@ -1074,8 +1074,8 @@ export const detail = {
     },
     {
       "id": "0ffae636-28ce-7cdc-3fbc-39ccc5c1",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu.com",
       "type": "vedio",
       "storeId": "123241",
@@ -1086,8 +1086,8 @@ export const detail = {
     },
     {
       "id": "1efbf841-24d6-ea4a-9cc4-a3f8218d",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu.com",
       "type": "vedio",
       "storeId": "123241",
@@ -1098,8 +1098,8 @@ export const detail = {
     },
     {
       "id": "2ce9bfc4-48a9-88db-b6a3-c26b2961",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu2.com",
       "type": "image",
       "storeId": "123132",
@@ -1110,8 +1110,8 @@ export const detail = {
     },
     {
       "id": "361c20e0-d0eb-780d-94f5-a7dde6df",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu2.com",
       "type": "image",
       "storeId": "123132",
@@ -1122,8 +1122,8 @@ export const detail = {
     },
     {
       "id": "3bc7fa92-ddb1-2288-b764-aea9fff4",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu.com",
       "type": "vedio",
       "storeId": "123241",
@@ -1134,8 +1134,8 @@ export const detail = {
     },
     {
       "id": "3ea80814-aebf-f42a-abd5-26efbb86",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu2.com",
       "type": "image",
       "storeId": "123132",
@@ -1146,8 +1146,8 @@ export const detail = {
     },
     {
       "id": "44e4b29c-e260-7f01-2281-05c6d60d",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu.com",
       "type": "vedio",
       "storeId": "123241",
@@ -1158,8 +1158,8 @@ export const detail = {
     },
     {
       "id": "4516c8ad-976c-0003-3521-7400dd5d",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu.com",
       "type": "vedio",
       "storeId": "123241",
@@ -1170,8 +1170,8 @@ export const detail = {
     },
     {
       "id": "53e1534e-9dd7-c479-6e92-6576ac54",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu2.com",
       "type": "image",
       "storeId": "123132",
@@ -1182,8 +1182,8 @@ export const detail = {
     },
     {
       "id": "617d3d6b-6a82-7270-63b6-3847820c",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu.com",
       "type": "vedio",
       "storeId": "123241",
@@ -1194,8 +1194,8 @@ export const detail = {
     },
     {
       "id": "6f708bbb-3b4d-8a04-3e62-ea8297d3",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu2.com",
       "type": "image",
       "storeId": "123132",
@@ -1206,8 +1206,8 @@ export const detail = {
     },
     {
       "id": "7939146c-5b4b-160a-5d89-7306a576",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu2.com",
       "type": "image",
       "storeId": "123132",
@@ -1218,8 +1218,8 @@ export const detail = {
     },
     {
       "id": "891c8342-3fd1-f643-e193-7919ff73",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu2.com",
       "type": "image",
       "storeId": "123132",
@@ -1230,8 +1230,8 @@ export const detail = {
     },
     {
       "id": "92207ad6-6836-1ca4-8282-2ff5b265",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu2.com",
       "type": "image",
       "storeId": "123132",
@@ -1242,8 +1242,8 @@ export const detail = {
     },
     {
       "id": "947a75a9-f0fc-a7ee-57b2-6aab04e6",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu2.com",
       "type": "image",
       "storeId": "123132",
@@ -1254,8 +1254,8 @@ export const detail = {
     },
     {
       "id": "955d0541-6692-b570-7512-e67b043b",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu2.com",
       "type": "image",
       "storeId": "123132",
@@ -1266,8 +1266,8 @@ export const detail = {
     },
     {
       "id": "9c5a51a2-66c9-4b11-ba2b-4c6e7e85",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu.com",
       "type": "vedio",
       "storeId": "123241",
@@ -1278,8 +1278,8 @@ export const detail = {
     },
     {
       "id": "a1c39796-b9bf-5857-3c9d-70cf95f0",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu2.com",
       "type": "image",
       "storeId": "123132",
@@ -1290,8 +1290,8 @@ export const detail = {
     },
     {
       "id": "a1dc5427-1b8a-5d9b-81d4-9226180c",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu.com",
       "type": "vedio",
       "storeId": "123241",
@@ -1302,8 +1302,8 @@ export const detail = {
     },
     {
       "id": "b9c074b4-f176-9475-6650-ccd73f0a",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu2.com",
       "type": "image",
       "storeId": "123132",
@@ -1314,8 +1314,8 @@ export const detail = {
     },
     {
       "id": "d2e03991-4da4-6807-730b-8f436a54",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu.com",
       "type": "vedio",
       "storeId": "123241",
@@ -1326,8 +1326,8 @@ export const detail = {
     },
     {
       "id": "d46e2665-9302-6db7-cc56-b592ab24",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu.com",
       "type": "vedio",
       "storeId": "123241",
@@ -1338,8 +1338,8 @@ export const detail = {
     },
     {
       "id": "f10c8478-848f-5269-7873-c1639487",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu2.com",
       "type": "image",
       "storeId": "123132",
@@ -1350,8 +1350,8 @@ export const detail = {
     },
     {
       "id": "f7c71582-8cd6-c24a-11b1-ee519927",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu.com",
       "type": "vedio",
       "storeId": "123241",
@@ -1362,8 +1362,8 @@ export const detail = {
     },
     {
       "id": "ff95497a-30fb-cff0-4671-c7a5cf9f",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
-      "goodsVariantId": null,
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d",
+      "variantId": null,
       "artworkUrl": "www.baidu.com",
       "type": "vedio",
       "storeId": "123241",
@@ -1373,7 +1373,7 @@ export const detail = {
       "lastModifiedBy": null
     }
   ],
-  "goodsAttributeValueRel": [
+  "productAttributeValueRel": [
     {
       "attributeName": "Functions",
       "attributeNameEn": "Functions",
@@ -1382,7 +1382,7 @@ export const detail = {
       "relId": "05b62ec9-6b32-db8e-4899-c473f30804e9",
       "attributeId": "0a24460c-9389-0628-aca1-993268bf6ebc",
       "attributeValueId": "03b694b6-cb5d-727d-94ae-c7fedb57",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
     },
     {
       "attributeName": "Functions",
@@ -1392,7 +1392,7 @@ export const detail = {
       "relId": "11b85709-8cc9-7f9c-85b8-dd1b2b956fe2",
       "attributeId": "0a24460c-9389-0628-aca1-993268bf6ebc",
       "attributeValueId": "f2859f24-1a65-e9bd-5196-1b4918e4",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
     },
     {
       "attributeName": "Life Stage",
@@ -1402,7 +1402,7 @@ export const detail = {
       "relId": "13cd8fbe-cb8f-043c-6826-fd167061c488",
       "attributeId": "be8494ec-7631-c660-79a2-791c91d99a81",
       "attributeValueId": "36b0e2cc-7883-c729-94c5-2eb60661",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
     },
     {
       "attributeName": "Functions",
@@ -1412,7 +1412,7 @@ export const detail = {
       "relId": "19e1db24-8811-334a-e78e-43b5582ba3fb",
       "attributeId": "0a24460c-9389-0628-aca1-993268bf6ebc",
       "attributeValueId": "f2859f24-1a65-e9bd-5196-1b4918e4",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
     },
     {
       "attributeName": "Functions",
@@ -1422,7 +1422,7 @@ export const detail = {
       "relId": "3cc9ddc0-f051-d230-09a0-bd92609ac021",
       "attributeId": "0a24460c-9389-0628-aca1-993268bf6ebc",
       "attributeValueId": "f2859f24-1a65-e9bd-5196-1b4918e4",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
     },
     {
       "attributeName": "Functions",
@@ -1432,7 +1432,7 @@ export const detail = {
       "relId": "71ca948d-d45c-984c-5d31-b385f2188aab",
       "attributeId": "0a24460c-9389-0628-aca1-993268bf6ebc",
       "attributeValueId": "e21a0a54-5f54-e4ed-7099-aa978ced",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
     },
     {
       "attributeName": "Functions",
@@ -1442,7 +1442,7 @@ export const detail = {
       "relId": "8debae33-09c1-f01c-0415-763685424303",
       "attributeId": "0a24460c-9389-0628-aca1-993268bf6ebc",
       "attributeValueId": "f2859f24-1a65-e9bd-5196-1b4918e4",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
     },
     {
       "attributeName": "Life Stage",
@@ -1452,7 +1452,7 @@ export const detail = {
       "relId": "9d838d60-d3cf-f324-05a9-14d986a923f4",
       "attributeId": "be8494ec-7631-c660-79a2-791c91d99a81",
       "attributeValueId": "36b0e2cc-7883-c729-94c5-2eb60661",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
     },
     {
       "attributeName": "Functions",
@@ -1462,7 +1462,7 @@ export const detail = {
       "relId": "b6150f1a-181c-ce58-e3c8-99fec5bb153c",
       "attributeId": "0a24460c-9389-0628-aca1-993268bf6ebc",
       "attributeValueId": "e21a0a54-5f54-e4ed-7099-aa978ced",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
     },
     {
       "attributeName": "Breeds",
@@ -1472,7 +1472,7 @@ export const detail = {
       "relId": "bc34db34-7402-20f0-c92c-3f29c247af5f",
       "attributeId": "b0987fa6-cb54-a0df-d891-872f69c9e042",
       "attributeValueId": "7e2f280c-99fa-463d-a8c8-aafc71db",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
     },
     {
       "attributeName": "Breeds",
@@ -1482,7 +1482,7 @@ export const detail = {
       "relId": "c19a9680-b7b3-c920-87e9-102afdae92d6",
       "attributeId": "b0987fa6-cb54-a0df-d891-872f69c9e042",
       "attributeValueId": "7e2f280c-99fa-463d-a8c8-aafc71db",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
     },
     {
       "attributeName": "Life Stage",
@@ -1492,7 +1492,7 @@ export const detail = {
       "relId": "d290677a-265e-f844-2286-7e576ae6f759",
       "attributeId": "be8494ec-7631-c660-79a2-791c91d99a81",
       "attributeValueId": "36b0e2cc-7883-c729-94c5-2eb60661",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
     },
     {
       "attributeName": "Functions",
@@ -1502,7 +1502,7 @@ export const detail = {
       "relId": "f5da4151-71e5-dc3d-aae5-d539909f03ab",
       "attributeId": "0a24460c-9389-0628-aca1-993268bf6ebc",
       "attributeValueId": "f2859f24-1a65-e9bd-5196-1b4918e4",
-      "goodsId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
+      "productId": "75af31b5-119e-123e-807e-b61a0f94ea5d"
     }
   ]
 }

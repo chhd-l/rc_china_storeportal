@@ -54,7 +54,7 @@ const TableRow = ({
     setIsModalVisible(false)
     setLoading(true)
     try {
-      await deleteProducts({ goodsId: [id] })
+      await deleteProducts({ productId: [id] })
       await getList()
       setLoading(false)
     } catch (err) {
@@ -138,7 +138,7 @@ const TableRow = ({
                 let { shelvesStatus } = listData[spuIdx]
                 try {
                   setLoading(true)
-                  let res = await switchShelves({ goodsId: [listData[spuIdx]?.id], status: !shelvesStatus })
+                  let res = await switchShelves({ productId: [listData[spuIdx]?.id], status: !shelvesStatus })
                   if (res) {
                     message.success({ className: 'rc-message', content: 'Operation success' })
                   } else {

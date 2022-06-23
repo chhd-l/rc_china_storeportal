@@ -35,7 +35,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
   const handleEditorChange = (html: string) => {
     setEditorHtml(html)
     form.setFieldsValue({
-      goodsDescription: html,
+      productDescription: html,
     })
     // console.info('editorHtml', html)
   }
@@ -44,7 +44,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
     newAssets[idx] = { url, type, id }
     setInitAsserts(newAssets)
     form.setFieldsValue({
-      goodsAsserts: newAssets,
+      productAsserts: newAssets,
     })
     // console.info('setAssetsUrl', newAssets)
   }
@@ -55,18 +55,18 @@ const BasicInfo = ({ field, form }: FormProps) => {
     })
   }
   useEffect(() => {
-    if (detail?.goodsAsserts) {
+    if (detail?.productAsserts) {
       let newAssets = [...initAsserts]
-      detail?.goodsAsserts
+      detail?.productAsserts
         ?.filter((el: any) => el.type === 'image')
         .forEach((img: any, idx: number) => {
           newAssets[idx] = { url: img.url, id: img.id, type: img.type || 'image', key: img.id }
         })
-      let videoUrl = detail?.goodsAsserts?.find((el: any) => el.type === 'video')
+      let videoUrl = detail?.productAsserts?.find((el: any) => el.type === 'video')
       videoUrl && handleVideoUrl(videoUrl)
       setInitAsserts(newAssets)
     }
-  }, [detail?.goodsAsserts])
+  }, [detail?.productAsserts])
   const getBrandList = async () => {
     let list = await getBrands('12345678')
     setBrandList(list)
@@ -98,7 +98,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         labelCol={{
           span: 4,
         }}
-        name='goodsAsserts'
+        name='productAsserts'
         className='tips-wrap'
         data-tips={`Product Image:<p>Every photos should have fine resolution - pixel doesn't appear breaking when zooming in<p>Product image can add up to 9 photos</p>`}
         wrapperCol={{
@@ -185,7 +185,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
       </Form.Item> */}
       <Form.Item
         label='Product Description'
-        name='goodsDescription'
+        name='productDescription'
         className='tips-wrap'
         data-tips={`Product Description:
         Should like<br/>
@@ -199,11 +199,11 @@ const BasicInfo = ({ field, form }: FormProps) => {
         wrapperCol={{
           span: 20,
         }}
-        // initialValue={detail.goodsDescription}
+        // initialValue={detail.productDescription}
         rules={[{ required: true, message: 'Missing Product Description' }]}
         labelCol={{ span: 4 }}
       >
-        <Wangeditor defaultValue={detail.goodsDescription} onChange={handleEditorChange} />
+        <Wangeditor defaultValue={detail.productDescription} onChange={handleEditorChange} />
       </Form.Item>
       <Form.Item
         className=' with-no-margin'

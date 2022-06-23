@@ -11,6 +11,7 @@ const PetOwnerDetail = lazy(() => import('@/views/petOwnerDetail'))
 const PetDetail = lazy(() => import('@/views/petDetail'))
 const OrderList = lazy(() => import('@/views/orderList'))
 const OrderDetail = lazy(() => import('@/views/orderDetail'))
+const Payment = lazy(() => import('@/views/payment'))
 const CategoryList = lazy(() => import('@/views/categoryList'))
 const CategoryDetail = lazy(() => import('@/views/categoryDetail'))
 const CategoryManualDetail = lazy(() => import('@/views/categoryManualDetail'))
@@ -30,7 +31,7 @@ const MpBannerList = lazy(() => import('@/views/mpBannerList'))
 const MpQRList = lazy(() => import('@/views/mpQRList'))
 const QrCodeManage = lazy(() => import('@/views/qrCodeManageList'))
 const MenuManage = lazy(() => import('@/views/menuManageList'))
-const TemplateMessage = lazy(() => import('@/views/templateMessageList'))
+const WxTemplateMessage = lazy(() => import('@/views/templateMessageList'))
 const MpBannerDetail = lazy(() => import('@/views/mpBannerDetail'))
 const MpBannerAdd = lazy(() => import('@/views/mpBannerAdd'))
 const MpQRDetail = lazy(() => import('@/views/mpQRDetail'))
@@ -111,6 +112,14 @@ let routes: RouteObject[] = [
           { index: true, element: <TagList />},
           { path: 'tag-list', index: true, element: <TagList />, breadcrumbName: 'Tagging Setting' },
           { path: 'edit-tags', element: <EditTags />, breadcrumbName: 'Tagging Details' },
+        ],
+      },
+      {
+        path: 'payment',
+        breadcrumbName: 'Payment Settings',
+        children: [
+          { index: true, element: <Payment />,},
+          { path: 'setting-list', element: <Payment />,},
         ],
       },
       {
@@ -233,11 +242,11 @@ let routes: RouteObject[] = [
         children: [
           {
             index: true,
-            element: <TemplateMessage />,
+            element: <WxTemplateMessage />,
           },
           {
             path: 'template-message-list',
-            element: <TemplateMessage />,
+            element: <WxTemplateMessage />,
           },
           {
             path: 'template-message/:id',

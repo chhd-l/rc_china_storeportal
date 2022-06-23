@@ -1,9 +1,9 @@
 import { normaliseAttrProps } from './product'
-import { TradeLogs, TradePayInfo } from '../schema/order.schema'
+import { OrderLogs, OrderPayment } from '../schema/order.schema'
 import { Order } from '../types/order'
 import { handleReturnTime } from '@/utils/utils'
 
-export enum TradeTradeStateOrderStateEnum {
+export enum OrderOrderStateOrderStateEnum {
   unpaid = 'UNPAID',
   toShip = 'TO_SHIP',
   shipped = 'SHIPPED',
@@ -11,28 +11,28 @@ export enum TradeTradeStateOrderStateEnum {
   viod = 'VOID',
 }
 
-const normalisePayInfo = (payInfo: TradePayInfo, orderState: any) => {
+const normalisePayment = (payment: OrderPayment, orderState: any) => {
   let info =
-    orderState === TradeTradeStateOrderStateEnum.unpaid || orderState === 'CANCELLATION'
+    orderState === OrderOrderStateOrderStateEnum.unpaid || orderState === 'CANCELLATION'
       ? {
-          payTypeName: '',
-          appId: '',
-          payTime: '',
-          outTradeNo: '',
-        }
+        payTypeName: '',
+        appId: '',
+        payTime: '',
+        outOrderNo: '',
+      }
       : {
-          payTypeName: 'Wechat Pay',
-          appId: payInfo.payInfoID,
-          payTime: handleReturnTime(payInfo.payStartTime),
-          outTradeNo: payInfo.payWayOrderID,
-          payWayOrderID: payInfo.payWayOrderID,
-          payWayCode: payInfo.payWayCode,
-        }
+        payTypeName: 'Wechat Pay',
+        appId: payment.paymentId,
+        payTime: handleReturnTime(payment.paymentStartTime),
+        outOrderNo: payment.payWayOrderId,
+        payWayOrderID: payment.payWayOrderId,
+        payWayCode: payment.payWayCode,
+      }
   return info
 }
 
 export const normaliseOrder = (data: any, expressCompanies: any): any => {
-  const { customerId, nickName, phone, avatarUrl, openId, unionId } = data.buyer
+  const { consumerId, nickName, phone, avatarUrl, openId, unionId } = data.consumer
   const {
     receiverName,
     id,
@@ -44,10 +44,10 @@ export const normaliseOrder = (data: any, expressCompanies: any): any => {
     postcode: postCode,
     isDefault,
   } = data.shippingAddress
-  let { tradeState, lineItem, tradePrice, payInfo, logs, shippingInfo, subscriptionId, subscriptionNo } = data
+  let { orderState, lineItem, orderPrice, payment: payment, logs, delivery: shippingInfo, subscriptionId, subscriptionNo } = data
   const company = expressCompanies.filter((item: any) => item.code === shippingInfo.shippingCompany)
   const carrierType = company.length > 0 ? company[0].nameEn : ''
-  let { orderState } = tradeState
+  // let { orderState } = orderState
   let orderItem = {
     orderNumber: data.orderNumber,
     id: data._id,
@@ -55,7 +55,7 @@ export const normaliseOrder = (data: any, expressCompanies: any): any => {
     subscriptionNo: subscriptionNo || '',
     freshType: data?.freshType || '',
     buyer: {
-      id: customerId,
+      id: consumerId,
       name: nickName,
       phone,
       image: avatarUrl,
@@ -73,50 +73,48 @@ export const normaliseOrder = (data: any, expressCompanies: any): any => {
       postCode,
       isDefault,
     },
-    tradeItem:
+    orderItem:
       lineItem?.map((item: any) => {
-        const { skuId, pic, skuName, num, price, goodsSpecifications,isGift } = item
+        const { skuId, pic, skuName, num, price, productSpecifications, isGift } = item
         return {
           skuId,
           pic,
           skuName,
-          goodsSpecifications,
+          productSpecifications,
           num,
           price,
           freshType: data?.freshType || '',
           isGift
         }
       }) || [],
-    tradeState: {
-      orderState: orderState,
-    },
-    expectedShippingDate:shippingInfo?.expectedShippingDate||'',
+    orderState,
+    expectedShippingDate: shippingInfo?.expectedShippingDate || '',
     carrier: shippingInfo?.trackingId
       ? [
-          {
-            packId: shippingInfo.trackingId,
-            company: carrierType,
-            tradeItem:
-              lineItem?.map((item: any) => {
-                const { skuId, pic, skuName } = item
-                return {
-                  skuId,
-                  pic,
-                  skuName,
-                }
-              }) || [],
-            deliveries: shippingInfo?.deliveries,
-          },
-        ]
+        {
+          packId: shippingInfo.trackingId,
+          company: carrierType,
+          orderItem:
+            lineItem?.map((item: any) => {
+              const { skuId, pic, skuName } = item
+              return {
+                skuId,
+                pic,
+                skuName,
+              }
+            }) || [],
+          deliveries: shippingInfo?.deliveryItems,
+        },
+      ]
       : [],
     carrierType: carrierType,
-    tradePrice: {
-      goodsPrice: tradePrice.goodsPrice,
-      discountsPrice: tradePrice?.discountsPrice || 0,
-      deliveryPrice: tradePrice?.deliveryPrice || 0,
-      totalPrice: tradePrice.totalPrice,
+    orderPrice: {
+      productPrice: orderPrice.productPrice,
+      discountsPrice: orderPrice?.discountsPrice || 0,
+      deliveryPrice: orderPrice?.deliveryPrice || 0,
+      totalPrice: orderPrice.totalPrice,
     },
-    payInfo: payInfo ? normalisePayInfo(payInfo, orderState) : {},
+    payment: payment ? normalisePayment(payment, orderState) : {},
     logs,
     comments: data?.comments,
   }
@@ -134,7 +132,7 @@ export const normalizeLogisticsIntegration = (logisticsIntegration: any) => {
     remark: remark || '',
     storeId: storeId || '12345678',
     key: newParameter.KEY || '',
-    customer: newParameter.customer || '',
+    consumer: newParameter.consumer || '',
     pullUrl: newParameter.pullURL || '',
     queryUrl: newParameter.queryURL || '',
     callbackUrl: newParameter.callbackURL || '',

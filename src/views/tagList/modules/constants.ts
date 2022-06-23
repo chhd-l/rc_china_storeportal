@@ -1,4 +1,4 @@
-import { SearchParamsProps } from '@/framework/types/customer'
+import { SearchParamsProps } from '@/framework/types/consumer'
 
 export const initSearchParams: SearchParamsProps = {
   name: '',

@@ -1,5 +1,5 @@
 import ProTable from '@/components/common/ProTable'
-import { getBundleGoodsvariants, getCategories } from '@/framework/api/get-product'
+import { getBundleProductvariants, getCategories } from '@/framework/api/get-product'
 // import { categoryList } from '@/framework/mock/categorylist'
 import { getTree } from '@/framework/normalize/product'
 import { CateItemProps } from '@/framework/schema/product.schema'
@@ -54,7 +54,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
   }, [])
   useEffect(() => {
     if (defaultSelected) {
-      let keys = defaultSelected?.filter(el => !el.isDeleted)?.map((el: any) => el?.subGoodsVariantId || el)
+      let keys = defaultSelected?.filter(el => !el.isDeleted)?.map((el: any) => el?.subVariantId || el)
       setSelectedRowKeys(keys)
     }
   }, [defaultSelected])
@@ -156,12 +156,12 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
         // console.info('allPageList', allPageList)
         let pageListWidtDefault=[...allPageList,...defaultSelected]
         debugger
-        let goodsVariantId = defaultSelected?.find(el=>el.goodsVariantId)?.goodsVariantId
+        let variantId = defaultSelected?.find(el=>el.variantId)?.variantId
         let regularChoosed = selectedRowKeys.map((el: string) => {
-          let choosedItem = pageListWidtDefault.find((item: any) => item.subGoodsVariantId === el)
+          let choosedItem = pageListWidtDefault.find((item: any) => item.subVariantId === el)
           if (choosedItem) {
-            if(goodsVariantId){
-              choosedItem.goodsVariantId = goodsVariantId
+            if(variantId){
+              choosedItem.variantId = variantId
             }
             return choosedItem
           }
@@ -216,7 +216,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
         pagination={{
           pageSize: 5,
         }}
-        rowKey={record => record.subGoodsVariantId}
+        rowKey={record => record.subVariantId}
         rowSelection={{
           preserveSelectedRowKeys: true,
           selectedRowKeys,
@@ -252,13 +252,13 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
             isNeedTotal: true,
             sample,
           }
-          let res = await getBundleGoodsvariants(paramsData)
+          let res = await getBundleProductvariants(paramsData)
 
           let list = (res.records || []).map((el: any) => {
             let bundle={
               ...el,
               brandName: '',
-              subGoodsVariantId:el.id
+              subVariantId:el.id
             }
             delete bundle.id
             return bundle

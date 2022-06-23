@@ -1,4 +1,4 @@
-import { GoodsAttributeAndValue } from "./product.schema"
+import { ProductAttributeAndValue } from "./product.schema"
 
 export interface OderListItem {
   _id: string
@@ -7,29 +7,29 @@ export interface OderListItem {
   currencyCode: string
   remark: string
   isSubscription: Boolean
-  buyer: TradeBuyer
-  shippingAddress: CustomerAddress
-  shippingInfo: TradeShippingInfo
-  tradePrice: TradePrice
-  tradeState: TradeState
-  payInfo: TradePayInfo
-  lineItem: TradeLineItem[]
-  logs: TradeLogs[]
+  buyer: OrderBuyer
+  shippingAddress: ConsumerAddress
+  shippingInfo: OrderShippingInfo
+  orderPrice: OrderPrice
+  orderState: OrderState
+  payment: OrderPayment
+  lineItem: OrderLineItem[]
+  logs: OrderLogs[]
 }
 
-export interface TradeBuyer {
-  customerId: string
-  customerName: string
+export interface OrderBuyer {
+  consumerId: string
+  consumerName: string
   nickName: string
-  customerEmail: string
+  consumerEmail: string
   isMember: Boolean
   phone: string
-  customerLevel: string
+  consumerLevel: string
 }
 
-export interface CustomerAddress {
+export interface ConsumerAddress {
   id: string
-  customerId?: string
+  consumerId?: string
   receiver?: string
   receiverName?: string
   phone: string
@@ -42,31 +42,31 @@ export interface CustomerAddress {
   region: string
 }
 
-export interface TradeShippingInfo {
+export interface OrderShippingInfo {
   shippingTime: string//Time
   expectedShippingDate: string//Time
   shippingCompany: string
   trackingId: string
   isReturn: string
   status: string
-  deliverys: TradeShippingInfoDeliverys
+  deliverys: OrderShippingInfoDeliverys
 }
-export interface TradeShippingInfoDeliverys {
+export interface OrderShippingInfoDeliverys {
   time: string
   context: string
   areaCode: string
   areaName: string
   status: string
 }
-export enum TradeTradeStateOrderStateEnum {
+export enum OrderOrderStateOrderStateEnum {
   UNPAID,
   TO_SHIP,
   SHIPPED,
   COMPLETED,
   VOID
 }
-export interface TradeState {
-  orderState: TradeTradeStateOrderStateEnum
+export interface OrderState {
+  orderState: OrderOrderStateOrderStateEnum
   createdAt: string//Time
   createdby: string
   lastModifiedAt: string//Time
@@ -75,26 +75,26 @@ export interface TradeState {
   storeId: string
 }
 
-export interface TradePrice {
-  goodsPrice: number
+export interface OrderPrice {
+  productPrice: number
   deliveryPrice: number
   totalPrice: number
   taxRate: number
   discountsPrice: number
 }
 
-export interface TradePayInfo {
-  payInfoID: string
+export interface OrderPayment {
+  paymentId: string
   amount: string
-  payStartTime: string
-  payFinishTime: string
+  paymentStartTime: string
+  paymentFinishTime: string
   lastModifiedBy: string
   payWayCode: string
-  payWayOrderID: string
+  payWayOrderId: string
   paymentState: string
 }
 
-export interface TradeLineItem {
+export interface OrderLineItem {
   id: string
   spuId: string
   spuNo: string
@@ -106,29 +106,29 @@ export interface TradeLineItem {
   num: number
   description: string
   price: number
-  goodsSpecifications: string
+  productSpecifications: string
   bundle: Boolean
   bundleSkuNos: [string]
-  goodsAttributeAndValues: GoodsAttributeAndValue[]
+  productAttributeAndValues: ProductAttributeAndValue[]
   feedingDays: number
 }
 
-export enum TradeLogsIdEnum {
+export enum OrderLogsIdEnum {
   initialization,
   pay,
   shiped,
   complete
 }
 
-export enum TradeLogsEventEnum {
+export enum OrderLogsEventEnum {
   initialization,
   pay,
   ship,
   complete
 }
-export interface TradeLogs {
-  id: TradeLogsIdEnum
-  event: TradeLogsEventEnum
+export interface OrderLogs {
+  id: OrderLogsIdEnum
+  event: OrderLogsEventEnum
   staus: Boolean
   createdAt: string //Time
   createdby: string

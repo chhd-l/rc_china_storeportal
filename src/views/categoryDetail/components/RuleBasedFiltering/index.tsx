@@ -9,7 +9,7 @@ import ProForm, {
 } from '@ant-design/pro-form'
 import { useEffect, useRef, useState } from 'react'
 import {
-  createShopCategoryGoodsRel,
+  createShopCategoryProductRel,
   getAttrs,
   getCategories,
   getESProducts,
@@ -37,7 +37,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
   const [brandList, setBrandList] = useState([])
   const [loading, setLoading] = useState(false)
   const [saveParams, setSaveParams] = useState<any>({
-    goodsCategoryId:'All Categories',
+    productCategoryId:'All Categories',
     brand:'All Brands'
   })
   const [speciList, setSpeciList] = useState([])
@@ -76,8 +76,8 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
       hasTotal: true,
       sample: {},
     }
-    if (params.goodsCategoryIds && params.goodsCategoryIds !== 'All Categories') {
-      data.sample.goodsCategoryId = params.goodsCategoryIds
+    if (params.productCategoryIds && params.productCategoryIds !== 'All Categories') {
+      data.sample.productCategoryId = params.productCategoryIds
     }
     if (params.brand && params.brand !== 'All Brands') {
       data.sample.brand = params.brand
@@ -150,8 +150,8 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
       let obj = [
         {
           shopCategoryId: state.id,
-          name: 'goodsCategoryId',
-          value: saveParams?.goodsCategoryId.length>0?saveParams?.goodsCategoryId.join():'',
+          name: 'productCategoryId',
+          value: saveParams?.productCategoryId.length>0?saveParams?.productCategoryId.join():'',
           rank:1
         },
         {
@@ -195,12 +195,12 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
       if(productList.length>0){
         let data = productList.map((item: any) => {
           return {
-            goodsId: item.id,
+            productId: item.id,
             shopCategoryId: state.id,
             storeId: item.storeId,
           }
         })
-        createShopCategoryGoodsRel(data).then(res=>{
+        createShopCategoryProductRel(data).then(res=>{
           resolve(true)
           handleSucces(true)
         })
@@ -252,8 +252,8 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
             submitter={restSearchButtons}
             onValuesChange={() => {
               let selected = { ...formRef.current?.getFieldsFormatValue?.() }
-              if (selected?.goodsCategoryId?.length >= 1) {
-                selected.goodsCategoryId = selected.goodsCategoryId[selected.goodsCategoryId.length - 1]
+              if (selected?.productCategoryId?.length >= 1) {
+                selected.productCategoryId = selected.productCategoryId[selected.productCategoryId.length - 1]
               }
               let tagArr: string[] = []
               delete selected.startPrice
@@ -274,8 +274,8 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
             }}
             layout='horizontal'
             onFinish={async (values) => {
-              if (values.goodsCategoryId?.length >= 1) {
-                values.goodsCategoryIds = values.goodsCategoryId[values.goodsCategoryId.length - 1]
+              if (values.productCategoryId?.length >= 1) {
+                values.productCategoryIds = values.productCategoryId[values.productCategoryId.length - 1]
               }
               setSaveParams(values)
               getList(values)
@@ -298,7 +298,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
                   textAlign:'left'
                 },
               }}
-              name='goodsCategoryId'
+              name='productCategoryId'
               label='Product Category'
               initialValue={['All Categories']}
             />
@@ -369,13 +369,13 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
                     className='border border-solid border-gray-200 flex'
                   >
                     <img
-                      src={el.goodsVariants[0]?.defaultImage}
+                      src={el.productVariants[0]?.defaultImage}
                       className='m-auto '
                       style={{ maxHeight: 60, maxWidth: 60 }}
                     />
                   </div>
                   <div className='overflow-ellipsis overflow-hidden whitespace-nowrap'>
-                    {el.goodsName}
+                    {el.productName}
                   </div>
                 </div>
               ))}

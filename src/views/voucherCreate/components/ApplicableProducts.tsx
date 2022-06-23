@@ -38,14 +38,14 @@ const ApplicableProducts = ({
   const columns: ProColumns<any, string>[] = [
     {
       title: 'Products',
-      dataIndex: 'goodsName',
+      dataIndex: 'productName',
       hideInSearch: true,
       render: (_, record) => {
         return (
           <div className="flex al-cneter">
             <img src={record?.defaultImage} alt="" style={{ width: '50px', marginRight: '10px' }} />
             <div>
-              <div>{record.goodsName}</div>
+              <div>{record.productName}</div>
               <div className="text-gray-400">spu:{record.spuNo}</div>
             </div>
           </div>

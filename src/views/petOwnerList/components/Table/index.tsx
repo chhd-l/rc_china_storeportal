@@ -1,10 +1,10 @@
 import { Avatar, Table, Tooltip } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import React from 'react'
-import { Customer } from '@/framework/types/customer'
+import { Consumer } from '@/framework/types/consumer'
 
 interface PetOwnerTableProps {
-  petOwnerList: Customer[]
+  petOwnerList: Consumer[]
 }
 
 const Index = ({ petOwnerList }: PetOwnerTableProps) => {

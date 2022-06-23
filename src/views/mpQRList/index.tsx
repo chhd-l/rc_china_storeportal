@@ -43,8 +43,8 @@ const MpQrList = () => {
     if(!arr.length) return
     const lists: any = {}
     arr.forEach((item) => {
-      if(item.accountType === 'MiniProgram') {
-        lists[item.id] = { text: item.accountName, status: "Success"}
+      if(item.type === 'MiniProgram') {
+        lists[item.id] = { text: item.name, status: "Success"}
       }
     })
     setList(lists)

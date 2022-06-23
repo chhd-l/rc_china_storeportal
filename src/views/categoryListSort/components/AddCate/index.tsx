@@ -22,7 +22,7 @@ const AddCate = ({ visible, handleVisible,handleUpdate }: AddCateProps) => {
      isDisplay:false
    })
     console.log(res)
-    if(res.saveShopCategory.id){
+    if(res.shopCategoryCreate.id){
       handleUpdate(true)
       return true
     } else {
