@@ -6,9 +6,9 @@ import history from '@/routers/history'
 
 let isShowingError = false
 
-// const API_URL = 'http://localhost:9000/graphql'
+const API_URL = 'http://localhost:9000/graphql'
 // 生产
-const API_URL = 'https://msstg.fivefen.com/faas/graphql'
+// const API_URL = 'https://msstg.fivefen.com/faas/graphql'
 // const API_URL = 'http://20.62.176.70/faas/graphql'
 // const API_URL = 'https://msstg.d2cgo.com/faas/graphql'
 
