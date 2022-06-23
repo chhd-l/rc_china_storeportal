@@ -18,9 +18,9 @@ const AppLayout = () => {
     if (
       (pathname.split('/').some((path) => path === 'product') &&
         pathname !== '/product/product-list' &&
-        pathname !== '/product') ||
+        pathname !== '/product'&&pathname !== '/product/product-search') ||
       pathname === '/assets/add-graphic' ||
-      pathname === '/dashboard' ||
+      pathname === '/dashboard' || 
       (pathname.split('/').some((path) => path === 'category') &&
         pathname !== '/category/category-list' &&
         pathname !== '/category' &&
