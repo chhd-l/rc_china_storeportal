@@ -5,6 +5,9 @@ import {
   ProductListProps,
   ProductListQueryProps,
   SaveShopCategoryInput,
+  SearchCreateType,
+  SearchListType,
+  SearchUpdateType,
   ShopCategoryFilterRulesInput,
   ShopCategoryProductRelInput,
   ShopCategoryUpdateInput,
@@ -19,6 +22,7 @@ import {
   normaliseScProductsforFe,
   normalizeNullDataRemove,
 } from '../normalize/product'
+import { PageProps } from '../types/common'
 // import { detailMock } from '../mock/productdetail'
 
 export const getCategories = async ({ storeId }: { storeId: string }): Promise<CateItemProps[]> => {
@@ -303,3 +307,43 @@ export const getBundleProductvariants = async (params: any) => {
 }
 
 
+export const HotSearchVisibleSwitch = async ({ storeId, status }: { storeId: string, status: boolean }): Promise<CateItemProps[]> => {
+  try {
+    let categoryList = await ApiRoot.products().hotSearchVisibleSwitch({ storeId, status })
+    return categoryList
+  } catch (e) {
+    console.log(e)
+    return []
+  }
+}
+
+
+export const getHotSearchFindPage = async (params: PageProps<SearchListType>): Promise<any> => {
+  try {
+    let categoryList = await ApiRoot.products().hotSearchFindPage(params)
+    return categoryList
+  } catch (e) {
+    console.log(e)
+    return []
+  }
+}
+
+export const hotSearchUpdate = async (params: SearchUpdateType): Promise<any> => {
+  try {
+    let categoryList = await ApiRoot.products().hotSearchUpdate(params)
+    return categoryList
+  } catch (e) {
+    console.log(e)
+    return []
+  }
+}
+
+export const hotSearchCreate = async (params: SearchCreateType): Promise<any> => {
+  try {
+    let categoryList = await ApiRoot.products().hotSearchCreate(params)
+    return categoryList
+  } catch (e) {
+    console.log(e)
+    return []
+  }
+}

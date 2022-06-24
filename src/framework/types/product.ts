@@ -241,3 +241,21 @@ export interface ShopCategoryProductRelInput {
   isDeleted?: string
 }
 
+export type SearchListType = {
+  topName?: string;
+  storeId: string;
+  status?: boolean;
+}
+
+export type SearchUpdateType = {
+  storeId: string;
+  status?: boolean;
+  isDeleted?: boolean
+}
+
+export type SearchCreateType = {
+  storeId: string;
+  status: boolean
+  priority: number
+  topName: string
+}
