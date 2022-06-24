@@ -26,7 +26,6 @@
     "@types/react-dom": "^17.0.14",
     "@wangeditor/editor": "^5.0.1",
     "@wangeditor/editor-for-react": "^1.0.2",
-    "ahooks": "^3.5.0",
     "antd": "^4.19.2",
     "array-move": "^4.0.0",
     "axios": "^0.27.2",
