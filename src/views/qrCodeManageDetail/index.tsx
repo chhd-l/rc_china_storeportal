@@ -90,7 +90,7 @@ const handleChooseReplyContent = (reply: WxReplyContent) => {
               message: "Please input QR Code Name!",
             },
           ]}>
-            <Input placeholder='input' />
+            <Input placeholder='Input' />
           </Form.Item>
 
           <Form.Item label='QR Code Type' name='type' rules={[
@@ -99,7 +99,7 @@ const handleChooseReplyContent = (reply: WxReplyContent) => {
               message: "Please select QR Code Type!",
             },
           ]}>
-            <Select onChange={QRCodeType} placeholder='select' options={typeValueEnum} />
+            <Select onChange={QRCodeType} placeholder='Select' options={typeValueEnum} />
           </Form.Item>
 
           {
@@ -110,7 +110,7 @@ const handleChooseReplyContent = (reply: WxReplyContent) => {
                   message: "Please select QR Code Type!",
                 },
               ]}>
-                <DatePicker disabledDate={disabledDate} style={{width: '100%'}} placeholder='select' />
+                <DatePicker disabledDate={disabledDate} style={{width: '100%'}} placeholder='Select' />
               </Form.Item>
             ) : null
           }
@@ -124,7 +124,7 @@ const handleChooseReplyContent = (reply: WxReplyContent) => {
                   message: "Please input Scenario ID!",
                 },
               ]}>
-                <InputNumber min={0} style={{width: '100%'}} placeholder='input'/>
+                <InputNumber min={0} style={{width: '100%'}} placeholder='Input'/>
               </Form.Item>
             ) : (
               <Form.Item label='Scenario STR' name='scenarioStr' key='scenarioStr' rules={[
@@ -134,7 +134,7 @@ const handleChooseReplyContent = (reply: WxReplyContent) => {
                   message: "Please input Scenario STR, and do not contain _",
                 },
               ]}>
-                <Input placeholder='input' />
+                <Input placeholder='Input' />
               </Form.Item>
             )
           }
