@@ -9,7 +9,7 @@ const MarketingCentreList = () => {
   const navigator = useNavigate()
 
   return (
-    <ContentContainer className="bg-white px-8">
+    <ContentContainer className="bg-white px-8 mt-6">
       <Title level={4}>Marketing Center</Title>
       {PromotionTabList.map((item) => (
         <div className="mb-16" key={item.title}>
