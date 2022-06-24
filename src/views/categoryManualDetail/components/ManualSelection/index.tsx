@@ -68,7 +68,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
         return (
           <div className='flex al-cneter'>
             <img
-              src={record.defaultImage ? record.defaultImage : record.productVariants?.length > 0 ? record.productVariants[0].defaultImage : ''}
+              src={record.defaultImage ? record.defaultImage : record.variants?.length > 0 ? record.variants[0].defaultImage : ''}
               alt='' style={{ width: '50px', marginRight: '10px' }} />
             <div>
               <div>{record.productName}</div>
@@ -94,12 +94,12 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
       hideInSearch: true,
       // sorter: (a, b) => a.lowestPrice - b.lowestPrice,
       render: (_, record) => {
-        if (record.productVariants?.length <= 1) {
+        if (record.variants?.length <= 1) {
           return (
-            <span>{formatMoney(record.productVariants[0]?.marketingPrice)}</span>
+            <span>{formatMoney(record.variants[0]?.marketingPrice)}</span>
           )
-        } else if (record.productVariants?.length > 1) {
-          let arr = record.productVariants.sort((a: any, b: any) => {
+        } else if (record.variants?.length > 1) {
+          let arr = record.variants.sort((a: any, b: any) => {
             return a.marketingPrice - b.marketingPrice
           })
           return (
@@ -168,9 +168,9 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
       dataIndex: 'stock',
       hideInSearch: true,
       render: (_, record) => {
-        if (record.productVariants?.length > 0) {
+        if (record.variants?.length > 0) {
           return (
-            <span>{setNum(record.productVariants)}</span>
+            <span>{setNum(record.variants)}</span>
           )
         }
       },

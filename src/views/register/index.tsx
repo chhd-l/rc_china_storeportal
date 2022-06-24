@@ -9,7 +9,7 @@ import {
 import { REGISTER_FORM } from './modules/form'
 import { FormItemProps } from '@/framework/types/common'
 import { register, verifyMesssage } from '@/framework/api/login-user'
-import { brandFind } from '@/framework/api/banner'
+import { brandFind, storeFind } from '@/framework/api/banner'
 
 const { Option } = Select
 
@@ -28,6 +28,8 @@ const Register = () => {
     REGISTERSTEPENUM['REGISTERINFOR'],
   )
   const [barndList, setBarndList] = useState([])
+  const [storeList, setStoreList] = useState([])
+  const [stores, setStores] = useState([])
   const [phoneNumber, setPhoneNumber] = useState('')
   const [verifyCode, setVerifyCode] = useState('')
   const [errVerifyCode, setErrVerifyCode] = useState(false)
@@ -68,6 +70,20 @@ const Register = () => {
   useEffect(() => {
     getBarnd()
   }, [])
+  const handleChange = async(value:any, option:any) => {
+    let res = await storeFind('98da256e-9562-40a3-b359-6d59d0dd24cc',value)
+    setStoreList(res)
+  }
+  const handleChangeTwo = async(value:any, option:any) => {
+    let arr = option.length>0&&option.map((item: { id: any; companyId: any, brandId: any })=>{
+      return{
+        id:item.id,
+        companyId:item.companyId,
+        brandId:item.brandId
+      }
+    })
+    setStores(arr)
+  }
   return (
     <div className='h-screen bg-gray1 flex justify-center items-center'>
       <div className='flex flex-row  justify-center'>
@@ -85,12 +101,17 @@ const Register = () => {
               form={form}
               wrapperCol={{ span: 24 }}
               onFinish={(values) => {
-                console.log(values)
+                console.log(values,stores)
                 if (values.confirmPassword !== values.password) {
                   message.error('Password verification failed')
                   return
                 }
-                register({ ...values }).then(id => {
+                register({
+                  username: values.username,
+                  phone: values.phone,
+                  password: values.password,
+                  stores
+                }).then(id => {
                   if (id) {
                     setTempUserId(id)
                     setPhoneNumber(values.phone)
@@ -113,19 +134,31 @@ const Register = () => {
                 </Form.Item>
               ))}
               <Form.Item name='barnd' rules={[{ required: true, message: 'Please Select brand!' }]}>
-                <Select placeholder='Select brand'>
+                <Select placeholder='Select brand' mode="multiple" onChange={handleChange}>
                   {
                     barndList.length > 0 && barndList.map((item: any) => {
                       return(
-                        <Option value={item.id}>{item.name}</Option>
+                        <Option key={item.id} value={item.id}>{item.name}</Option>
                       )
                     })
                   }
                 </Select>
               </Form.Item>
               <Form.Item name='store' rules={[{ required: true, message: 'Please Select store!' }]}>
-                <Select placeholder='Select store' disabled>
-                  <Option value='jack'>Jack</Option>
+                <Select placeholder='Select store' disabled={storeList.length<=0} mode="multiple" onChange={handleChangeTwo}>
+                  {
+                    storeList.length > 0 && storeList.map((item: any) => {
+                      return(
+                        <Option
+                          id={item.id}
+                          brandId={item.brandId}
+                          companyId={item.companyId}
+                          key={item.id}
+                          value={item.id}
+                        >{item.name}</Option>
+                      )
+                    })
+                  }
                 </Select>
               </Form.Item>
               <Form.Item wrapperCol={{ span: 24 }} className='text-center'>
