@@ -67,7 +67,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     data?.forEach((el: any) => {
       if (el) {
         Object.keys(keyLableRel)?.forEach(keyName => {
-          if (el?.[keyName]) {
+          if (el?.[keyName]||el?.[keyName]===0) {
             // console.info('has name', keyName)
           } else {
             console.info('no name', keyName)
@@ -222,7 +222,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
         },
       ]
       if (detail.variantBundles?.length) {
-        params.variants[0].bundleInfos = detail.variantBundles
+        params.productVariantsInput[0].bundleInfos = detail.variantBundles
       }
       if (detail.id) {
         //编辑 全量
