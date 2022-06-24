@@ -67,7 +67,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     data?.forEach((el: any) => {
       if (el) {
         Object.keys(keyLableRel)?.forEach(keyName => {
-          if (el?.[keyName]) {
+          if (el?.[keyName]||el?.[keyName]===0) {
             // console.info('has name', keyName)
           } else {
             console.info('no name', keyName)
@@ -202,8 +202,8 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
           feedingDays: Number(values.feedingDays),
           isSupport100: values.isSupport100,
           id: detail.skuId,
-          defaultImage: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Non_photo.png',
-          bundleInfos: detail.variantBundles?.map((el: any) => {
+          defaultImage: values?.productAsserts?.find((el:any)=>el.url)?.url||'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Non_photo.png',
+          variantBundles: detail.variantBundles?.map((el: any) => {
             let bundleInfo = {
               bundleNumber: el.bundleNumber,
               id: el.id,
@@ -222,7 +222,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
         },
       ]
       if (detail.variantBundles?.length) {
-        params.variants[0].bundleInfos = detail.variantBundles
+        params.productVariantsInput[0].variantBundles = detail.variantBundles
       }
       if (detail.id) {
         //编辑 全量

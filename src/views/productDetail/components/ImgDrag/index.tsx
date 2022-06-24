@@ -43,7 +43,7 @@ const ImgDrag: FC<Props> = ({ initAsserts, setInitAsserts, form }) => {
     newAssets[idx] = { url, type, id }
     setInitAsserts(newAssets)
     form.setFieldsValue({
-      goodsAsserts: newAssets,
+      productAsserts: newAssets,
     })
     // console.info('setAssetsUrl', newAssets)
   }
@@ -52,7 +52,7 @@ const ImgDrag: FC<Props> = ({ initAsserts, setInitAsserts, form }) => {
     let newAsserts = arrayMoveImmutable(initAsserts, oldIndex, newIndex)
     setInitAsserts(newAsserts)
     form.setFieldsValue({
-      goodsAsserts: newAsserts,
+      productAsserts: newAsserts,
     })
   }
   return (
