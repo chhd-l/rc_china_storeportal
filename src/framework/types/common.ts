@@ -16,11 +16,12 @@ export enum FormItemType {
   Upload,
   Digit,
 }
-export interface PageProps {
+export interface PageProps<T = Record<string, any>> {
   offset: number
   limit: number
   isNeedTotal: boolean
   operator?: string
+  sample?: T
 }
 export interface FormItemProps {
   name: string

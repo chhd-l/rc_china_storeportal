@@ -96,16 +96,15 @@ let routes: RouteObject[] = [
           { path: 'product-list', element: <ProductList /> },
           { path: 'product-detail', element: <AddProduct />, breadcrumbName: 'Product Detail' },
           { path: 'product-add', element: <AddProduct />, breadcrumbName: 'AddProduct' },
-          { path: 'product-search', element: <ProductSearch />, breadcrumbName: 'ProductSearch' },
-          
+          { path: 'product-search', element: <ProductSearch />, breadcrumbName: 'Search' },
         ],
       },
       {
         path: 'petOwner',
         breadcrumbName: 'My Pet Owner',
         children: [
-          { index: true, element: <PetOwnerList />},
-          { path: 'pet-owner-list', element: <PetOwnerList />},
+          { index: true, element: <PetOwnerList /> },
+          { path: 'pet-owner-list', element: <PetOwnerList /> },
           { path: 'pet-owner-detail', element: <PetOwnerDetail />, breadcrumbName: 'Pet Owner Detail' },
           { path: 'pet-detail', element: <PetDetail />, breadcrumbName: 'Pet Detail' },
         ],
@@ -114,7 +113,7 @@ let routes: RouteObject[] = [
         path: 'tag',
         breadcrumbName: 'My Pet Owner',
         children: [
-          { index: true, element: <TagList />},
+          { index: true, element: <TagList /> },
           { path: 'tag-list', index: true, element: <TagList />, breadcrumbName: 'Tagging Setting' },
           { path: 'edit-tags', element: <EditTags />, breadcrumbName: 'Tagging Details' },
         ],
@@ -123,16 +122,16 @@ let routes: RouteObject[] = [
         path: 'payment',
         breadcrumbName: 'Payment Settings',
         children: [
-          { index: true, element: <Payment />,},
-          { path: 'setting-list', element: <Payment />,},
+          { index: true, element: <Payment /> },
+          { path: 'setting-list', element: <Payment /> },
         ],
       },
       {
         path: 'category',
         breadcrumbName: 'Shop Category',
         children: [
-          { index: true, element: <CategoryList />,},
-          { path: 'category-list', element: <CategoryList />,},
+          { index: true, element: <CategoryList /> },
+          { path: 'category-list', element: <CategoryList /> },
           { path: 'category-detail', element: <CategoryDetail />, breadcrumbName: 'Category Detail' },
           { path: 'category-manual-detail', element: <CategoryManualDetail />, breadcrumbName: 'Category Detail' },
           { path: 'category-list-sort', element: <CategoryListSort />, breadcrumbName: 'Category Detail' },
@@ -143,8 +142,8 @@ let routes: RouteObject[] = [
         path: 'order',
         breadcrumbName: 'My Orders',
         children: [
-          { index: true, element: <OrderList />},
-          { path: 'order-list', element: <OrderList />},
+          { index: true, element: <OrderList /> },
+          { path: 'order-list', element: <OrderList /> },
           { path: 'order-detail', element: <OrderDetail />, breadcrumbName: 'Order Detail' },
         ],
       },
@@ -153,31 +152,27 @@ let routes: RouteObject[] = [
         path: 'marketingCenter',
         breadcrumbName: 'Marketing Center',
         children: [
-          { index: true, element: <MarketingCentreList />},
-          { path: 'marketingCenter-list', element: <MarketingCentreList />},
-          { 
+          { index: true, element: <MarketingCentreList /> },
+          { path: 'marketingCenter-list', element: <MarketingCentreList /> },
+          {
             path: 'vouchers',
             breadcrumbName: 'Vouchers',
             children: [
-              { index: true, element: <Vouchers />, },
-              { path: 'createNewVoucher', element: <CreateNewVoucher />, breadcrumbName: 'Create New Voucher'},
-              { path: 'voucherDetails', element: <CreateNewVoucher />, breadcrumbName: 'voucher Details'},
-              { path: 'orderswithVoucher', element: <OrderswithVoucher />, breadcrumbName: 'Orders with Voucher'},
-            ]
+              { index: true, element: <Vouchers /> },
+              { path: 'createNewVoucher', element: <CreateNewVoucher />, breadcrumbName: 'Create New Voucher' },
+              { path: 'voucherDetails', element: <CreateNewVoucher />, breadcrumbName: 'voucher Details' },
+              { path: 'orderswithVoucher', element: <OrderswithVoucher />, breadcrumbName: 'Orders with Voucher' },
+            ],
           },
           {
             path: 'promotions',
             breadcrumbName: 'Discount Promotions',
-            children: [
-              { index: true, element: <ComingSoon />, },
-            ]
+            children: [{ index: true, element: <ComingSoon /> }],
           },
           {
             path: 'liveStreaming',
             breadcrumbName: 'Live Streaming',
-            children: [
-              { index: true, element: <LiveStreamingList />, },
-            ]
+            children: [{ index: true, element: <LiveStreamingList /> }],
           },
           {
             path: 'intelligentRecommendation',
@@ -191,7 +186,7 @@ let routes: RouteObject[] = [
             path: 'comingSoon',
             element: <ComingSoon />,
           },
-        ]
+        ],
       },
       {
         path: 'subscription',
@@ -206,8 +201,8 @@ let routes: RouteObject[] = [
         path: 'account',
         breadcrumbName: 'Account Management',
         children: [
-          { index: true, element: <AccountList />},
-          { path: 'account-list', element: <AccountList />},
+          { index: true, element: <AccountList /> },
+          { path: 'account-list', element: <AccountList /> },
           { path: 'add-account', element: <AddAccount />, breadcrumbName: 'Add Account' },
           { path: 'account-details', element: <AddAccount />, breadcrumbName: 'Edit Account' },
         ],
@@ -228,7 +223,7 @@ let routes: RouteObject[] = [
           { index: true, element: <ReplyContents /> },
           { path: 'reply-contents', element: <ReplyContents /> },
           { path: 'add-reply-content', element: <AddReplyContent />, breadcrumbName: 'Add New Reply Content' },
-          { path: 'edit-reply-content', element: <AddReplyContent />, breadcrumbName: 'Edit Reply Content' }
+          { path: 'edit-reply-content', element: <AddReplyContent />, breadcrumbName: 'Edit Reply Content' },
         ],
       },
       {
@@ -284,9 +279,13 @@ let routes: RouteObject[] = [
         path: 'menuManagempqr',
         breadcrumbName: 'Menu Management',
         children: [
-          { index: true, element: <MenuManage />},
-          { path: 'menu-manage-list', element: <MenuManage />},
-          { path: 'menu-manage-detail/:id', element: <MenuManageDetail pageType="edit" />, breadcrumbName: 'MenuManage Detail' },
+          { index: true, element: <MenuManage /> },
+          { path: 'menu-manage-list', element: <MenuManage /> },
+          {
+            path: 'menu-manage-detail/:id',
+            element: <MenuManageDetail pageType="edit" />,
+            breadcrumbName: 'MenuManage Detail',
+          },
           { path: 'menu-manage-add', element: <MenuManageDetail pageType="add" />, breadcrumbName: 'MenuManage Add' },
         ],
       },
@@ -294,19 +293,19 @@ let routes: RouteObject[] = [
         path: 'QrcodeManage',
         breadcrumbName: 'QR Code Management',
         children: [
-          { index: true, element: <QrCodeManage />},
-          { path: 'qrcode-manage-list', element: <QrCodeManage />},
+          { index: true, element: <QrCodeManage /> },
+          { path: 'qrcode-manage-list', element: <QrCodeManage /> },
           { path: 'qrcode-manage-add', element: <QrCodeManageDetail />, breadcrumbName: 'Add New QrCodeManage' },
         ],
       },
     ],
   },
-  { path: "/login", element: <Login /> },
-  { path: "/login/store", element: <LoginStore /> },
-  { path: "/login/barnd", element: <LoginBrand /> },
-  { path: "/resetPassword", element: <ResetPassword /> },
-  { path: "/register", element: <Register /> },
-  { path: "*", element: <Home /> },
+  { path: '/login', element: <Login /> },
+  { path: '/login/store', element: <LoginStore /> },
+  { path: '/login/barnd', element: <LoginBrand /> },
+  { path: '/resetPassword', element: <ResetPassword /> },
+  { path: '/register', element: <Register /> },
+  { path: '*', element: <Home /> },
 ]
 
 // The useRoutes() hook allows you to define your routes as JavaScript objects
