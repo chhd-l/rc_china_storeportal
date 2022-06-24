@@ -202,7 +202,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
           feedingDays: Number(values.feedingDays),
           isSupport100: values.isSupport100,
           id: detail.skuId,
-          defaultImage: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Non_photo.png',
+          defaultImage: values?.productAsserts?.find((el:any)=>el.url)?.url||'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Non_photo.png',
           variantBundles: detail.variantBundles?.map((el: any) => {
             let bundleInfo = {
               bundleNumber: el.bundleNumber,
