@@ -203,7 +203,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
           isSupport100: values.isSupport100,
           id: detail.skuId,
           defaultImage: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Non_photo.png',
-          bundleInfos: detail.variantBundles?.map((el: any) => {
+          variantBundles: detail.variantBundles?.map((el: any) => {
             let bundleInfo = {
               bundleNumber: el.bundleNumber,
               id: el.id,
@@ -222,7 +222,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
         },
       ]
       if (detail.variantBundles?.length) {
-        params.productVariantsInput[0].bundleInfos = detail.variantBundles
+        params.productVariantsInput[0].variantBundles = detail.variantBundles
       }
       if (detail.id) {
         //编辑 全量
