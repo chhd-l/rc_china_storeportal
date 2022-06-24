@@ -5,7 +5,7 @@ import { officialTypeList } from '@/views/accountList/modules/constants'
 export const ACCOUNT_FORM: FormItemProps[] = [
   {
     label: "Account Principal",
-    name: "accountPrincipal",
+    name: "principal",
     placeholder: "Input",
     rules: [
       {
@@ -16,7 +16,7 @@ export const ACCOUNT_FORM: FormItemProps[] = [
   },
   {
     label: "Account Type",
-    name: "accountType",
+    name: "type",
     placeholder: "Select",
     type: "select",
     rules: [
@@ -39,7 +39,7 @@ export const ACCOUNT_FORM: FormItemProps[] = [
     ],
   },
   {
-    name: "accountName",
+    name: "name",
     label: "Account Name",
     placeholder: "Input",
     rules: [
@@ -157,7 +157,7 @@ export const ACCOUNT_FORM: FormItemProps[] = [
 export const ACCOUNT_FORM_TWO: FormItemProps[] = [
   {
     label: "Account Principal",
-    name: "accountPrincipal",
+    name: "principal",
     placeholder: "Input",
     rules: [
       {
@@ -168,7 +168,7 @@ export const ACCOUNT_FORM_TWO: FormItemProps[] = [
   },
   {
     label: "Account Type",
-    name: "accountType",
+    name: "type",
     placeholder: "Select",
     type: "select",
     rules: [
@@ -191,7 +191,7 @@ export const ACCOUNT_FORM_TWO: FormItemProps[] = [
     ],
   },
   {
-    name: "accountName",
+    name: "name",
     label: "Account Name",
     placeholder: "Input",
     rules: [
@@ -235,7 +235,7 @@ export const ACCOUNT_FORM_TWO: FormItemProps[] = [
   },
   {
     label: "Associated Account",
-    name: "associatedAccount",
+    name: "associatedWxAccountId",
     placeholder: "Select",
     type: "select",
     rules: [
