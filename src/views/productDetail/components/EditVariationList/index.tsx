@@ -124,7 +124,7 @@ const EditVariationList = (props: FormProps) => {
       debugger
       if (!tr.id) {
         //新增的
-        detail.editChange.productVariants[index].specifications = tr.relArr?.map((rel: any) => {
+        detail.editChange.productVariants[index].specificationRelations = tr.relArr?.map((rel: any) => {
           return {
             specificationNameEn: rel.specificationName,
             specificationName: rel.specificationName,

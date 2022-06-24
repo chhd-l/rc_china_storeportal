@@ -37,7 +37,7 @@ const ChooseCate = ({ handleCate, setShowCatePop, detail, setProductName, setSpu
     }
   }, [])
   return (
-    <div className='bg-gray-50  py-6 px-20 text-left addProduct'>
+    <div className='bg-gray-50  pb-6 px-20 text-left addProduct'>
       <div className='bg-white py-6 px-8'>
         <div>
           <div className='font-black text-lg'>Add a New Product</div>

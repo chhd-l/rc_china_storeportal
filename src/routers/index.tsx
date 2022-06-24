@@ -296,7 +296,7 @@ let routes: RouteObject[] = [
         children: [
           { index: true, element: <QrCodeManage />},
           { path: 'qrcode-manage-list', element: <QrCodeManage />},
-          { path: 'qrcode-manage-add', element: <QrCodeManageDetail />, breadcrumbName: 'Add New QrCodeManage' },
+          { path: 'qrcode-manage-add', element: <QrCodeManageDetail />, breadcrumbName: 'Add New QR Code' },
         ],
       },
     ],

@@ -57,10 +57,10 @@ const AddAccount = () => {
   const getlist = async () => {
     let res = await getAccountList({ offset: 0, limit: 1000, sample: { storeId: '12345678' } })
     if (res?.records.length > 0) {
-      let arr = res.records.filter((item: any) => item.accountType === 'ServiceAccount').map((item: any) => {
+      let arr = res.records.filter((item: any) => item.type === 'ServiceAccount').map((item: any) => {
         return {
           value: item.id,
-          label: item.accountName,
+          label: item.name,
         }
       })
       setList(arr)
@@ -91,7 +91,7 @@ const AddAccount = () => {
           {
             ServiceAccount === 'ServiceAccount' ? (
               ACCOUNT_FORM.map((item) => {
-                return item.name === 'accountType' ? (
+                return item.name === 'type' ? (
                   <Form.Item
                     label={item.label}
                     key={item.name}
@@ -147,7 +147,7 @@ const AddAccount = () => {
               })
             ) : (
               ACCOUNT_FORM_TWO.map((item) => {
-                return item.name === 'accountType' ? (
+                return item.name === 'type' ? (
                   <Form.Item
                     label={item.label}
                     key={item.name}

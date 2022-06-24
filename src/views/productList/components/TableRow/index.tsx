@@ -139,12 +139,12 @@ const TableRow = ({
                 try {
                   setLoading(true)
                   let res = await switchShelves({ productId: [listData[spuIdx]?.id], status: !shelvesStatus })
-                  if (res) {
+                  if (res===true) {
                     message.success({ className: 'rc-message', content: 'Operation success' })
+                    await getList()
                   } else {
                     message.error({ className: 'rc-message', content: 'Operation failed' })
                   }
-                  await getList()
                 } catch (err) {
                   console.info('err', err)
                 }

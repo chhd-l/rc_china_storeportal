@@ -12,7 +12,6 @@ const Tagging = ({ id, consumerId }: { id: string; consumerId: string }) => {
 
   const getTagList = async () => {
     const res = await getCustomTags({ consumerId })
-    console.log(res, 9999)
     if (res && res.length > 0) {
       let arr: any = res.map(item => item.id)
       setOptionValue(arr)
@@ -20,7 +19,7 @@ const Tagging = ({ id, consumerId }: { id: string; consumerId: string }) => {
     setTagList(res)
   }
   const deleteTag = async (id: any) => {
-    let res = await removeConsumerTag({
+    await removeConsumerTag({
       consumerId: consumerId,
       tagId: id,
       operator: 'zz',
@@ -70,7 +69,7 @@ const Tagging = ({ id, consumerId }: { id: string; consumerId: string }) => {
                   onChange={handleChange} onDeselect={handleSearch}>
             {
               option.length > 0 && option.map((item: any) =>
-                <Select.Option value={item.id} key={item.id}>{item.name}</Select.Option>,
+                <Select.Option disabled={item.type === 'SYSTEM'} value={item.id} key={item.id}>{item.name}</Select.Option>,
               )
             }
           </Select>

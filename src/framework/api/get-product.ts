@@ -89,7 +89,7 @@ export const createProduct = async (params: any, beforeData?: any) => {
         }
       })
       //名字更换，
-      // el.bundleInfos = el.variantBundles
+      // el.variantBundles = el.variantBundles
       // delete el.variantBundles
     }
 
@@ -202,7 +202,7 @@ export const getProductDetail = async ({ storeId, productId }: { storeId: string
 }
 export const deleteProducts = async ({ productId }: { productId: string[] }) => {
   try {
-    const data = await ApiRoot.products().deleteMutation({ productId, storeId: '12345678' })
+    const data = await ApiRoot.products().deleteMutation({ ids: productId, storeId: '12345678' })
     return true
   } catch (e) {
     console.log(e)
@@ -214,7 +214,7 @@ export const deleteProducts = async ({ productId }: { productId: string[] }) => 
 
 export const switchShelves = async ({ productId, status }: { productId: string[], status: boolean }) => {
   try {
-    const data = await ApiRoot.products().switchShelvesMutation({ productId, status })
+    const data = await ApiRoot.products().switchShelvesMutation({ ids: productId, status })
     return true
   } catch (e) {
     console.log(e)
