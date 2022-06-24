@@ -6,7 +6,7 @@ import { FC, useContext, useEffect, useState } from 'react'
 import { headerOrigition, steps } from '../../modules/constant'
 import { InfoContainer, DivideArea } from '@/components/ui'
 import { DetailContext } from '../../index'
-import { createProduct } from '@/framework/api/get-product'
+import { createProduct, switchShelves } from '@/framework/api/get-product'
 import { useNavigate } from 'react-router-dom'
 import { useAtom } from 'jotai'
 import { userAtom } from '@/store/user.store'
@@ -20,7 +20,7 @@ interface MainInfoProps {
 }
 
 const { Link } = Anchor
-let shelvesStatus = true
+let shelvesStatus:any = undefined
 const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeData }) => {
   const { pathname } = useLocation()
   const [form] = Form.useForm()
@@ -184,9 +184,11 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
 
     let params = Object.assign({}, detail, values, {
       type: spuType,
-      shelvesStatus,
       operator: userInfo?.username || 'system',
     })
+    if(typeof shelvesStatus!=='undefined'){
+      params.shelvesStatus = shelvesStatus
+    }
     debugger
     if (withoutSku) {
       params.productVariantsInput = [
@@ -236,6 +238,9 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     setLoading(true)
     let data = await createProduct(params, beforeData)
     console.info('data', data)
+    if(typeof shelvesStatus!=='undefined' && detail.id){
+    data = await switchShelves({ productId: [detail.id], status: shelvesStatus })
+    }
     if (data === true) {
       message.success({ className: 'rc-message', content: 'Operate success' })
       navigator('/product/product-list')
@@ -339,7 +344,9 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                   className='ml-4'
                   type='primary'
                   onClick={() => {
-                    shelvesStatus = true
+                    // shelvesStatus = true
+                    debugger
+                    console.info("shelvesStatus",shelvesStatus)
                     form.submit()
                   }}
                 >
