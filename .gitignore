@@ -28,3 +28,4 @@ yarn-error.log*
 /src/rc-china-commerce
 
 
+src/framework/api/fetcher.ts

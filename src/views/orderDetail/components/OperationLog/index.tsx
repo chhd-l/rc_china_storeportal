@@ -25,7 +25,7 @@ const OperationLog = ({ logs }: { logs: Log[] }) => {
       <Divider>
         <span>Operation log</span>
       </Divider>
-      <Steps className='virtualList' direction="vertical" current={0}>
+      <Steps className={`${curLogs.length > 8 ?'virtualList' : ''}`} direction="vertical" current={0}>
         {curLogs.length > 0 &&
           curLogs.map((item) => (
             <Steps.Step
