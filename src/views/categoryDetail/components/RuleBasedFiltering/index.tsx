@@ -362,14 +362,14 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
             <div className='my-3'>Filtering Results</div>
             <Spin spinning={loading}>
             <div className='flex flex-wrap' style={{ maxHeight: '250px', overflow: 'scroll' }}>
-              {productList?.map((el: any) => (
+              {productList.length>0&&productList.map((el: any) => (
                 <div key={el.id} style={{ width: 60 }} className='mb-3 mr-2'>
                   <div
                     style={{ height: 60 }}
                     className='border border-solid border-gray-200 flex'
                   >
                     <img
-                      src={el.productVariants[0]?.defaultImage}
+                      src={el.variants[0]?.defaultImage}
                       className='m-auto '
                       style={{ maxHeight: 60, maxWidth: 60 }}
                     />
