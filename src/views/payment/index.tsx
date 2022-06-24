@@ -8,7 +8,7 @@ import { Col, Modal, Row, Tooltip, Switch } from 'antd'
 import './index.less'
 import wx from '@/assets/images/wx.png'
 import AddCate from './components/AddCate'
-import { payWayFindPage } from '@/framework/api/get-order'
+import { payWayFindPage, payWayUpdate } from '@/framework/api/get-order'
 
 const PaymentSettings = () => {
   const ref = useRef<any>()
@@ -27,7 +27,13 @@ const PaymentSettings = () => {
   }
   const confirmSwitch = async () => {
     setIsSwithVisible(false)
-    setChecked(!checked)
+    let res = await payWayUpdate({
+      id:list[0].id,
+      status:status?'ACTIVE':'INACTIVE'
+    })
+    if(res){
+      getList()
+    }
   }
   const getList = async() => {
     let res = await payWayFindPage({
@@ -37,6 +43,7 @@ const PaymentSettings = () => {
     })
     if(res.records){
       setList(res.records)
+      setChecked(res.records[0].status==='ACTIVE')
     }
   }
   useEffect(()=>{
