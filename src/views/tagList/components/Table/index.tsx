@@ -77,12 +77,15 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
               })
             }} />
           </Tooltip>
-          <Tooltip title='Delete'>
-            <span className='cursor-pointer ml-2 iconfont icon-delete text-red-500' onClick={() => {
-              setId(record.id)
-              setVisible(true)
-            }} />
-          </Tooltip>
+          {
+            record.type !== 'SYSTEM' && 
+            <Tooltip title='Delete'>
+              <span className='cursor-pointer ml-2 iconfont icon-delete text-red-500' onClick={() => {
+                setId(record.id)
+                setVisible(true)
+              }} />
+            </Tooltip>
+          }
         </>
       ),
     },

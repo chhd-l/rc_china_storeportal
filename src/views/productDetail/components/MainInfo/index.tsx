@@ -6,7 +6,7 @@ import { FC, useContext, useEffect, useState } from 'react'
 import { headerOrigition, steps } from '../../modules/constant'
 import { InfoContainer, DivideArea } from '@/components/ui'
 import { DetailContext } from '../../index'
-import { createProduct } from '@/framework/api/get-product'
+import { createProduct, switchShelves } from '@/framework/api/get-product'
 import { useNavigate } from 'react-router-dom'
 import { useAtom } from 'jotai'
 import { userAtom } from '@/store/user.store'
@@ -20,7 +20,7 @@ interface MainInfoProps {
 }
 
 const { Link } = Anchor
-let shelvesStatus = true
+let shelvesStatus:any = undefined
 const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeData }) => {
   const { pathname } = useLocation()
   const [form] = Form.useForm()
@@ -67,7 +67,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     data?.forEach((el: any) => {
       if (el) {
         Object.keys(keyLableRel)?.forEach(keyName => {
-          if (el?.[keyName]) {
+          if (el?.[keyName]||el?.[keyName]===0) {
             // console.info('has name', keyName)
           } else {
             console.info('no name', keyName)
@@ -184,9 +184,11 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
 
     let params = Object.assign({}, detail, values, {
       type: spuType,
-      shelvesStatus,
       operator: userInfo?.username || 'system',
     })
+    if(typeof shelvesStatus!=='undefined'){
+      params.shelvesStatus = shelvesStatus
+    }
     debugger
     if (withoutSku) {
       params.productVariantsInput = [
@@ -202,8 +204,8 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
           feedingDays: Number(values.feedingDays),
           isSupport100: values.isSupport100,
           id: detail.skuId,
-          defaultImage: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Non_photo.png',
-          bundleInfos: detail.variantBundles?.map((el: any) => {
+          defaultImage: values?.productAsserts?.find((el:any)=>el.url)?.url||'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Non_photo.png',
+          variantBundles: detail.variantBundles?.map((el: any) => {
             let bundleInfo = {
               bundleNumber: el.bundleNumber,
               id: el.id,
@@ -222,7 +224,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
         },
       ]
       if (detail.variantBundles?.length) {
-        params.variants[0].bundleInfos = detail.variantBundles
+        params.productVariantsInput[0].variantBundles = detail.variantBundles
       }
       if (detail.id) {
         //编辑 全量
@@ -236,6 +238,9 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     setLoading(true)
     let data = await createProduct(params, beforeData)
     console.info('data', data)
+    if(typeof shelvesStatus!=='undefined' && detail.id){
+    data = await switchShelves({ productId: [detail.id], status: shelvesStatus })
+    }
     if (data === true) {
       message.success({ className: 'rc-message', content: 'Operate success' })
       navigator('/product/product-list')
@@ -339,7 +344,9 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                   className='ml-4'
                   type='primary'
                   onClick={() => {
-                    shelvesStatus = true
+                    // shelvesStatus = true
+                    debugger
+                    console.info("shelvesStatus",shelvesStatus)
                     form.submit()
                   }}
                 >

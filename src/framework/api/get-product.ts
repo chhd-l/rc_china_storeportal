@@ -93,7 +93,7 @@ export const createProduct = async (params: any, beforeData?: any) => {
         }
       })
       //名字更换，
-      // el.bundleInfos = el.variantBundles
+      // el.variantBundles = el.variantBundles
       // delete el.variantBundles
     }
 
