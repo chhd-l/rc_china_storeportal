@@ -60,3 +60,13 @@ export const bannerUpdate = async (params:any,operator:string) => {
       return []
     }
   }
+  export const storeFind = async (companyId:string, brandIds:any) => {
+    try {
+      let res = await ApiRoot.banner().storeFind(companyId,brandIds)
+      console.log('get tag list view data', res)
+      return res.storeFind||[]
+    } catch (e) {
+      console.log(e)
+      return []
+    }
+  }

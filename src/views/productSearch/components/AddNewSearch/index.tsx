@@ -2,7 +2,7 @@
 
 
 import { PlusOutlined } from '@ant-design/icons';
-import  { ModalForm,  ProFormDigit,  ProFormText } from '@ant-design/pro-form';
+import ProForm, { ModalForm,  ProFormDigit,  ProFormText } from '@ant-design/pro-form';
 import { Button, message } from 'antd';
 
 const waitTime = (time: number = 100) => {

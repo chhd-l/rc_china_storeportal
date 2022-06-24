@@ -21,9 +21,9 @@ const MpQrDetail = () => {
     if (!arr.length) return
     const lists: any[] = []
     arr.forEach((item) => {
-      if (item.accountType === 'MiniProgram')
+      if (item.type === 'MiniProgram')
         lists.push({
-          label: item.accountName,
+          label: item.name,
           value: item.id
         })
     })
