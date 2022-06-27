@@ -38,7 +38,7 @@ message.success({ className: 'rc-message', content: 'Operation success' })
   },{
     manual:true
   })
-  
+
   const onOk = () => {
     if (type === 'notice') {
       setChecked(!checked)
@@ -50,6 +50,7 @@ message.success({ className: 'rc-message', content: 'Operation success' })
     setType('')
   }
 
+  const refreshTable=()=>actionRef?.current?.reload();
   const onChange = () => {
     setVisible(true)
     setType('notice')
@@ -76,7 +77,7 @@ message.success({ className: 'rc-message', content: 'Operation success' })
         },
       },
       render: (_, record) => (
-        <Switch checked={record.action} onChange={(val) => run(record.id, { status: val })} />
+        <Switch checked={record.status} onChange={(val) => run(record.id, { status: val })} />
       ),
     },
     {
@@ -160,7 +161,7 @@ message.success({ className: 'rc-message', content: 'Operation success' })
             <Switch checked={checked} onChange={onChange} className="ml-4" />
           </div>
         }
-        toolBarRender={() => [<AddNewSearch />]}
+        toolBarRender={() => [<AddNewSearch  refreshTable={refreshTable}/>]}
       />
       <TipsModal type={type} visible={visible} onOk={onOk} onCancel={() => {
         setType('')

@@ -14,7 +14,10 @@ const waitTime = (time: number = 100) => {
   });
 };
 
-const AddNewSearch= () => {
+type AddNewSearchProps={
+  refreshTable:()=>void
+}
+const AddNewSearch= ({refreshTable}:AddNewSearchProps) => {
   return (
     <ModalForm<{
       topName: string;
@@ -37,6 +40,7 @@ const AddNewSearch= () => {
         await hotSearchCreate({...values,storeId:'12345678',status:true});
         console.log(values);
         message.success({ className: 'rc-message', content: 'Operation success' })
+        refreshTable()
         return true;
       }}
     >
