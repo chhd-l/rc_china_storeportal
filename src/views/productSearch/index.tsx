@@ -8,16 +8,9 @@ import { getHotSearchFindPage, hotSearchUpdate } from '@/framework/api/get-produ
 import { handlePageParams } from '@/utils/utils'
 import { useRequest } from 'ahooks'
 import AddNewSearch from './components/AddNewSearch'
+import { RecordItem } from './type'
 
-type GithubIssueItem = {
-  id: string
-  topName: string
-  status: boolean
-  priority: number
-  action: boolean
-  isDeleted: boolean
-  storeId: string
-}
+
 
 const ProductSearch = () => {
   const actionRef = useRef<ActionType>()
@@ -50,7 +43,7 @@ const ProductSearch = () => {
     setVisible(true)
   }
 
-  const columns: ProColumns<GithubIssueItem>[] = [
+  const columns: ProColumns<RecordItem>[] = [
     {
       title: 'Top Search Name',
       dataIndex: 'topName',
