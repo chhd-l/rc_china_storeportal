@@ -108,12 +108,7 @@ export const normaliseOrder = (data: any, expressCompanies: any): any => {
       ]
       : [],
     carrierType: carrierType,
-    orderPrice: {
-      productPrice: orderPrice.productPrice,
-      discountsPrice: orderPrice?.discountsPrice || 0,
-      deliveryPrice: orderPrice?.deliveryPrice || 0,
-      totalPrice: orderPrice.totalPrice,
-    },
+    orderPrice,
     payment: payment ? normalisePayment(payment, orderState) : {},
     logs,
     comments: data?.comments,

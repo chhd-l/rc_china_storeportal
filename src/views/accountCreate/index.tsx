@@ -70,7 +70,7 @@ const AddAccount = () => {
   }
   useEffect(() => {
     if (state) {
-      setServiceAccount(state.accountType)
+      setServiceAccount(state.type)
       setQrCodePath(state?.qrCodePath ?? '')
       setPertificatePah(state?.certificatePath ?? '')
     }

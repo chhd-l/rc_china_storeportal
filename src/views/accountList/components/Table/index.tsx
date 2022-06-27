@@ -61,6 +61,7 @@ const Index = ({ accountList, getAccounts, pages, setPages, total, loading, setL
       title: "Account Type",
       dataIndex: "type",
       key: "type",
+      render: (_text: string) => _text === "ServiceAccount" ? "Service Account" : "Mini Program"
     },
     {
       title: "Account Name",

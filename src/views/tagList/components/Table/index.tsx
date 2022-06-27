@@ -28,7 +28,7 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
     console.log(res)
     if(res?.tagCreate){
       handleUpdate(true)
-      message.success('Operate success')
+      message.success({ className: "rc-message", content: 'Operate success'})
       return true
     } else {
       return false
@@ -41,7 +41,7 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
     }).then((res) => {
       if(res.tagDelete){
         setVisible(false)
-        message.success('Operate success')
+        message.success({ className: "rc-message", content: 'Operate success'})
         handleUpdate(true)
       }
     })
@@ -72,7 +72,7 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
           <Tooltip title='View Details'>
             <span className='cursor-pointer iconfont icon-kjafg primary-color mr-4' onClick={(e) => {
               e.stopPropagation()
-              navigator('/tag/edit-tags', {
+              navigator('/edit-tags', {
                 state: { id: record.id },
               })
             }} />
