@@ -1,17 +1,29 @@
 import React, { useEffect, useState,useRef } from "react";
 import Slider from "react-slick";
-import src from "@/assets/images/cs.jpg"
 import "./index.less";
-
+import { useLocation } from 'react-router'
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { userFindStoreIds } from '@/framework/api/banner'
+import { userAtom } from '@/store/user.store'
+import { useAtom } from 'jotai'
 
 const LoginBarnd = () => {
+  const { state }: any = useLocation();
+  const [userInfo] = useAtom(userAtom)
+  const [data, setData] = useState([])
+  useEffect(() => {
+    getList()
+  }, [state.id])
+  const getList = async () => {
+   let res = await userFindStoreIds("98da256e-9562-40a3-b359-6d59d0dd24cc",userInfo?.id,state.id)
+    setData(res)
+  }
   const settings = {
     // dots: true,
     speed:500,
     infinite: true,
-    slidesToShow: 5,
+    slidesToShow: data.length<5?data.length:5,
     slidesToScroll: 1,
     autoplay: false,
   };
@@ -25,39 +37,18 @@ const LoginBarnd = () => {
         <div className='potion-left'/>
         <div className="potion-right"/>
         <Slider {...settings}>
-          <div className='box'>
-            <div className="box1 drop-shadow-md">
-              <img src={src} alt='' />
-              <div className='text'>godve godve godve godve godve godve godve godve godve godve godve godve</div>
-            </div>
-          </div> <div className='box'>
-            <div className="box1 drop-shadow-md">
-              <img src={src} alt='' />
-              <div className='text'>godve godve godve godve</div>
-            </div>
-          </div> <div className='box'>
-            <div className="box1 drop-shadow-md">
-              <img src={src} alt='' />
-              <div className='text'>godve godve godve godve</div>
-            </div>
-          </div> <div className='box'>
-            <div className="box1 drop-shadow-md">
-              <img src={src} alt='' />
-              <div className='text'>godve godve godve godve</div>
-            </div>
-          </div>
-          <div className='box'>
-            <div className="box1 drop-shadow-md">
-              <img src={src} alt='' />
-              <div className='text'>godve godve godve godve</div>
-            </div>
-          </div>
-          <div className='box'>
-            <div className="box1 drop-shadow-md">
-              <img src={src} alt='' />
-              <div className='text'>godve godve godve godve</div>
-            </div>
-          </div>
+          {
+            data.map((item:{ logo: string | undefined; name:string; },index)=>{
+              return(
+                <div className='box'key={index}>
+                  <div className="box1 drop-shadow-md">
+                    <img src={item?.logo} alt='' />
+                    <div className='text'>{item?.name}</div>
+                  </div>
+                </div>
+                )
+            })
+          }
         </Slider>
       </div>
     </div>

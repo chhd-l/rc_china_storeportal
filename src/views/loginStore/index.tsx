@@ -1,20 +1,39 @@
 import React, { useEffect, useState,useRef } from "react";
 import Slider from "react-slick";
+import { useNavigate } from 'react-router-dom'
+import { useAtom } from 'jotai'
 import src from "@/assets/images/Frame.png"
 import "./index.less";
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { userFindBrandIds } from '@/framework/api/banner'
+import { userAtom } from '@/store/user.store'
 
 const LoginStore = () => {
+  const [userInfo] = useAtom(userAtom)
+  const navigator = useNavigate()
+  const [data, setData] = useState([])
+  useEffect(() => {
+    list()
+  }, [])
+  const list = async() => {
+    const id = userInfo?.id
+    let res=await userFindBrandIds("98da256e-9562-40a3-b359-6d59d0dd24cc",id)
+    console.log(res)
+    setData(res)
+  }
   const settings = {
     // dots: true,
     speed:500,
     infinite: true,
-    slidesToShow: 5,
+    slidesToShow: data.length<5?data.length:5,
     slidesToScroll: 1,
     autoplay: false,
   };
+  const handleClick = async(item: any) => {
+    navigator("/login/barnd", { state: { id: item.id } });
+  }
   return (
     <div className="h-screen bg-gray1 flex justify-center items-center">
       <div className="swiper-content">
@@ -25,48 +44,18 @@ const LoginStore = () => {
         <div className='potion-left'/>
         <div className="potion-right"/>
         <Slider {...settings}>
-          <div className='box'>
-            <div className="box1 flex flex-col items-center justify-center drop-shadow-md">
-              <img src={src} alt='' className="mb-10"/>
-              <div>godve</div>
-            </div>
-          </div>
-          <div className='box'>
-            <div className="box1 flex flex-col items-center justify-center drop-shadow-md">
-              <img src={src} alt='' className="mb-10"/>
-              <div>godve</div>
-            </div>
-          </div>
-          <div className='box'>
-            <div className="box1 flex flex-col items-center justify-center drop-shadow-md">
-              <img src={src} alt='' className="mb-10"/>
-              <div>godve</div>
-            </div>
-          </div>
-          <div className='box'>
-            <div className="box1 flex flex-col items-center justify-center drop-shadow-md">
-              <img src={src} alt='' className="mb-10"/>
-              <div>godve</div>
-            </div>
-          </div>
-          <div className='box'>
-            <div className="box1 flex flex-col items-center justify-center drop-shadow-md">
-              <img src={src} alt='' className="mb-10"/>
-              <div>godve</div>
-            </div>
-          </div>
-          <div className='box'>
-            <div className="box1 flex flex-col items-center justify-center drop-shadow-md">
-              <img src={src} alt='' className="mb-10"/>
-              <div>godve</div>
-            </div>
-          </div>
-          <div className='box'>
-            <div className="box1 flex flex-col items-center justify-center drop-shadow-md">
-              <img src={src} alt='' className="mb-10"/>
-              <div>godve</div>
-            </div>
-          </div>
+          {
+            data.map((item: { logo: string | undefined; name:string; }, index: any)=>{
+              return(
+                <div className='box' key={index} onClick={()=>handleClick(item)}>
+                  <div className="boxs flex flex-col items-center justify-center drop-shadow-md">
+                    <img src={item.logo} alt='' className="mb-10" style={{width:'40%'}}/>
+                    <div>{item.name}</div>
+                  </div>
+                </div>
+                )
+            })
+          }
         </Slider>
       </div>
     </div>
