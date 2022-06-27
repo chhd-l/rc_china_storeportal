@@ -313,7 +313,7 @@ export const getBundleProductvariants = async (params: any) => {
 
 export const HotSearchVisibleSwitch = async (params: SwitchType): Promise<CateItemProps[]> => {
   try {
-    let categoryList = await ApiRoot.products().hotSearchVisibleSwitch(params)
+    let categoryList = await ApiRoot.products().hotSearchVisibleSwitch(params.status, params.storeId)
     return categoryList
   } catch (e) {
     console.log(e)
