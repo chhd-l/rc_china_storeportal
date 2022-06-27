@@ -6,13 +6,6 @@ import { PlusOutlined } from '@ant-design/icons';
 import  { ModalForm,  ProFormDigit,  ProFormText } from '@ant-design/pro-form';
 import { Button, message } from 'antd';
 
-const waitTime = (time: number = 100) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(true);
-    }, time);
-  });
-};
 
 type AddNewSearchProps={
   refreshTable:()=>void
