@@ -9,6 +9,8 @@ import { useAtom } from "jotai";
 import { userAtom } from "@/store/user.store";
 import { getCookie, setCookie } from "@/utils/utils";
 import LogRocket from 'logrocket';
+
+import { userFindBrandIds } from '@/framework/api/banner'
 // import axios from "axios";
 
 const formItems: FormItemProps[] = [
@@ -67,7 +69,6 @@ const Login = () => {
   useEffect(() => {
     console.log('isRemember', isRemember)
   }, [isRemember])
-
   return (
     <div className="h-screen bg-gray1 flex justify-center items-center login-content">
       <div className="flex flex-row  justify-center ">
