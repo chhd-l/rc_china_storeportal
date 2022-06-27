@@ -82,7 +82,7 @@ export const menus = [
       {
         name: 'Search',
         value: 'product_search',
-        url: '/product/product-search',
+        url: '/product-search',
         key: 'product_search',
       },
     ],
@@ -103,7 +103,7 @@ export const menus = [
       {
         name: 'Tagging Setting',
         value: 'tagging_setting',
-        url: '/tag/tag-list',
+        url: '/tag-list',
         key: 'tagging_setting',
       },
     ],
@@ -124,7 +124,7 @@ export const menus = [
       {
         name: 'Intelligent Recommendation',
         value: 'IntelligentRecommendation',
-        url: '/marketingCenter/intelligentRecommendation/intelligentRecommendation-list',
+        url: '/intelligentRecommendation-list',
         key: 'IntelligentRecommendation',
       },
     ],
@@ -166,7 +166,7 @@ export const menus = [
       {
         name: 'Customer Service',
         value: 'customer_service',
-        url: '/category/customer-service',
+        url: '/customer-service',
         key: 'customer_service',
       },
     ],
