@@ -26,7 +26,9 @@ const CustomerService = () => {
 
   const getCustomerService = async () => {
     const res = await getStoreSetting('store_客服开关')
-    setServiceInfo(res)
+    if(JSON.stringify(res) !== '[]') {
+      setServiceInfo(res)
+    }
   }
 
   useEffect(() => {
