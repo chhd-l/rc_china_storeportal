@@ -20,6 +20,7 @@ interface TableColumnsProps {
   changeStatus: (e: boolean, id: string) => void;
   handlePreview: (e: string) => void;
   navigator: any
+  list:any
 }
 
 interface ColumnsProps {
@@ -40,12 +41,14 @@ export const tableColumns = ({
                                handleDelete,
                                changeStatus,
                                navigator,
+                               list
                              }: TableColumnsProps) => {
 
   const columns: ProColumns<ColumnsProps>[] = [
     {
       title: 'Mini Program',
-      dataIndex: 'accountName'
+      dataIndex: 'accountName',
+      valueEnum: handleValueEnum(list)
     },
     {
       title: 'Banner Name',
