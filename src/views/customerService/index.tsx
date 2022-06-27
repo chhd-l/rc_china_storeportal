@@ -6,7 +6,7 @@ import './index.less'
 const CustomerService = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [serviceInfo, setServiceInfo] = useState({
-    isEnabled: false
+    isEnabled: true
   })
 
   const handleOk = async () => {
