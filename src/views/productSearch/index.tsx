@@ -81,7 +81,9 @@ const ProductSearch = () => {
       key: 'option',
       render: (_, record) => (
         <Tooltip title="Delete">
-          <Link className="ml-3" to="" onClick={() => SetDeleteId(record.id)}>
+          <Link className="ml-3" to="" onClick={() => { 
+            setVisible(true)
+            SetDeleteId(record.id)}}>
             <span className="iconfont icon-delete" />
           </Link>
         </Tooltip>
@@ -96,8 +98,7 @@ const ProductSearch = () => {
         cardBordered
         className="searchTable"
         tableClassName="rc-table"
-        request={async (params, sorter, filter) => {
-          console.log('page', params)
+        request={async (params) => {
           let page = handlePageParams({
             currentPage: params.current,
             pageSize: params.pageSize,
@@ -136,22 +137,6 @@ const ProductSearch = () => {
               })
               .reverse()
           },
-        }}
-        // form={{
-        //   // 由于配置了 transform，提交的参与与定义的不同这里需要转化一下
-        //   syncToUrl: (values, type) => {
-        //     if (type === 'get') {
-        //       return {
-        //         ...values,
-        //         created_at: [values.startTime, values.endTime],
-        //       }
-        //     }
-        //     return values
-        //   },
-        // }}
-        pagination={{
-          pageSize: 5,
-          onChange: (page) => console.log(page),
         }}
         dateFormatter="string"
         headerTitle={
