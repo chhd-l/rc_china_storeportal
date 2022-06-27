@@ -72,6 +72,7 @@ export interface OrderPrice {
   deliveryPrice: number
   totalPrice: number
   discountsPrice: number
+  vipDiscountsPrice:number
 }
 
 export interface OrderOrderItem {

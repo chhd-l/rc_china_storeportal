@@ -77,7 +77,12 @@ let routes: RouteObject[] = [
       { path: 'dashboard', element: <Dashboard /> },
       // { index: true , element:<Routes><Route  element={<Navigate to={'/Home'} />} /></Routes> },
       { path: 'shipment-list', element: <OrderList />, breadcrumbName: 'My Shipment' },
-      { path: 'shipping-setting', element: <ShippingSetting />, breadcrumbName: 'Shipping Setting' },
+      { path: 'shipping-setting', element: <ShippingSetting />, breadcrumbName: 'Shipping Setting' },      
+      { path: 'product-search', element: <ProductSearch />, breadcrumbName: 'Product Search' },
+      { path: 'tag-list', element: <TagList />, breadcrumbName: 'Tagging Setting' },
+      { path: 'edit-tags', element: <EditTags />, breadcrumbName: 'Tagging Details' },
+      { path: 'intelligentRecommendation-list', element: <IntelligentRecommendation />, breadcrumbName: "Intelligent Recommendation" },
+      { path: 'customer-service', element: <CustomerService />, breadcrumbName: 'Customer Service' },
       {
         path: 'assets',
         breadcrumbName: 'Assets Management',
@@ -96,8 +101,6 @@ let routes: RouteObject[] = [
           { path: 'product-list', element: <ProductList /> },
           { path: 'product-detail', element: <AddProduct />, breadcrumbName: 'Product Detail' },
           { path: 'product-add', element: <AddProduct />, breadcrumbName: 'AddProduct' },
-          { path: 'product-search', element: <ProductSearch />, breadcrumbName: 'ProductSearch' },
-          
         ],
       },
       {
@@ -108,15 +111,6 @@ let routes: RouteObject[] = [
           { path: 'pet-owner-list', element: <PetOwnerList />},
           { path: 'pet-owner-detail', element: <PetOwnerDetail />, breadcrumbName: 'Pet Owner Detail' },
           { path: 'pet-detail', element: <PetDetail />, breadcrumbName: 'Pet Detail' },
-        ],
-      },
-      {
-        path: 'tag',
-        breadcrumbName: 'My Pet Owner',
-        children: [
-          { index: true, element: <TagList />},
-          { path: 'tag-list', index: true, element: <TagList />, breadcrumbName: 'Tagging Setting' },
-          { path: 'edit-tags', element: <EditTags />, breadcrumbName: 'Tagging Details' },
         ],
       },
       {
@@ -136,7 +130,6 @@ let routes: RouteObject[] = [
           { path: 'category-detail', element: <CategoryDetail />, breadcrumbName: 'Category Detail' },
           { path: 'category-manual-detail', element: <CategoryManualDetail />, breadcrumbName: 'Category Detail' },
           { path: 'category-list-sort', element: <CategoryListSort />, breadcrumbName: 'Category Detail' },
-          { path: 'customer-service', element: <CustomerService />, breadcrumbName: 'Customer Service' },
         ],
       },
       {
@@ -178,14 +171,6 @@ let routes: RouteObject[] = [
             children: [
               { index: true, element: <LiveStreamingList />, },
             ]
-          },
-          {
-            path: 'intelligentRecommendation',
-            breadcrumbName: 'Intelligent Recommendation',
-            children: [
-              { index: true, element: <IntelligentRecommendation /> },
-              { path: 'intelligentRecommendation-list', element: <IntelligentRecommendation /> },
-            ],
           },
           {
             path: 'comingSoon',
@@ -296,7 +281,7 @@ let routes: RouteObject[] = [
         children: [
           { index: true, element: <QrCodeManage />},
           { path: 'qrcode-manage-list', element: <QrCodeManage />},
-          { path: 'qrcode-manage-add', element: <QrCodeManageDetail />, breadcrumbName: 'Add New QrCodeManage' },
+          { path: 'qrcode-manage-add', element: <QrCodeManageDetail />, breadcrumbName: 'Add New QR Code' },
         ],
       },
     ],

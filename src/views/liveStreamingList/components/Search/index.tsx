@@ -27,8 +27,8 @@ const LiveStreamingSearch = ({ query, miniProjList }: { query: Function; miniPro
             }}
           >
             {miniProjList.map((el) => (
-              <Select.Option key={el.id} value={el.accountName}>
-                {el.accountName}
+              <Select.Option key={el.id} value={el.name}>
+                {el.name}
               </Select.Option>
             ))}
           </Select>

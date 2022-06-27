@@ -38,12 +38,13 @@ const MpBannerAdd = () => {
     if (!arr.length) return
     const lists: any[] = []
     arr.forEach((item) => {
-      if (item.accountType === 'MiniProgram' && item.isActive)
+      if (item.type === 'MiniProgram' && item.isActive)
         lists.push({
-          label: item.accountName,
+          label: item.name,
           value: item.id
         })
     })
+    console.log(lists)
     setList(lists)
   }
 

@@ -158,7 +158,7 @@ export const createMedia = async (queryParams: any) => {
       ),
       operator: queryParams.operator || 'system',
     })
-    const addMedia = res?.wxAccountCreate
+    const addMedia = res?.wxMediaCreate
     console.log('create media view data', addMedia)
     return addMedia || false
   } catch (e) {

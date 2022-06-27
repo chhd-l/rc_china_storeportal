@@ -2,12 +2,13 @@ import ProTable from '@/components/common/ProTable'
 import './index.less'
 import { Link } from 'react-router-dom'
 import { Button, Modal } from 'antd'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { tableColumns } from './modules/constant'
 import { ContentContainer } from '@/components/ui'
 import { bannerDeleteById, bannerUpdate, getBannerFindPage } from '@/framework/api/banner'
 import { handlePageParams } from '@/utils/utils'
 import { useNavigate } from 'react-router-dom'
+import { getAccountList } from '@/framework/api/wechatSetting'
 
 const MpBannerList = () => {
   const ref = useRef<any>()
@@ -15,6 +16,7 @@ const MpBannerList = () => {
   const [previewImage, setPreviewImage] = useState<string>('')
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [loading, setLoading] = useState<boolean>(false)
+  const [list, setList] = useState<any>([])
   const [curAssetId, setCurAssetId] = useState('')
   const [isSwithVisible, setIsSwithVisible] = useState(false)
   const [status, setStatus] = useState(false)
@@ -60,12 +62,38 @@ const MpBannerList = () => {
     console.log(res)
     return res?.bannerFindPage
   }
+  const getAccountName = async () => {
+    let res = await getAccountList({
+      limit: 100,
+      offset: 0,
+      sample: { storeId: "12345678" },
+    })
+    depy(res?.records || [])
+  }
+  const depy = (arr: any[]) => {
+    if (!arr.length) return
+    const lists: any[] = []
+    arr.forEach((item) => {
+      if (item.type === 'MiniProgram' && item.isActive)
+        lists.push({
+          label: item.name,
+          value: item.id
+        })
+    })
+    console.log(lists)
+    setList(lists)
+  }
+
+  useEffect(() => {
+    getAccountName()
+  }, [])
 
   const columns = tableColumns({
     handlePreview,
     changeStatus,
     handleDelete,
     navigator,
+    list
   })
   return (
     <ContentContainer className='mp-banner-list'>
@@ -112,7 +140,7 @@ const MpBannerList = () => {
             data.sample.clickType=params.clickType
           }
           if(params.accountName){
-            data.where.accountNameFuzzy=params.accountName
+            data.where.accountNameFuzzy= list.find((item: { value: any })=>item.value===params.accountName).label
           }
           if(params.isActive){
             data.sample.isActive=params.isActive === 'true'

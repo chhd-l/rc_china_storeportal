@@ -70,7 +70,7 @@ const AddAccount = () => {
   }
   useEffect(() => {
     if (state) {
-      setServiceAccount(state.accountType)
+      setServiceAccount(state.type)
       setQrCodePath(state?.qrCodePath ?? '')
       setPertificatePah(state?.certificatePath ?? '')
     }
@@ -91,7 +91,7 @@ const AddAccount = () => {
           {
             ServiceAccount === 'ServiceAccount' ? (
               ACCOUNT_FORM.map((item) => {
-                return item.name === 'accountType' ? (
+                return item.name === 'type' ? (
                   <Form.Item
                     label={item.label}
                     key={item.name}
@@ -147,7 +147,7 @@ const AddAccount = () => {
               })
             ) : (
               ACCOUNT_FORM_TWO.map((item) => {
-                return item.name === 'accountType' ? (
+                return item.name === 'type' ? (
                   <Form.Item
                     label={item.label}
                     key={item.name}

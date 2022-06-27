@@ -8,7 +8,7 @@ import { Col, Modal, Row, Tooltip, Switch } from 'antd'
 import './index.less'
 import wx from '@/assets/images/wx.png'
 import AddCate from './components/AddCate'
-import { payWayFindPage } from '@/framework/api/get-order'
+import { payWayFindPage, payWayUpdate } from '@/framework/api/get-order'
 
 const PaymentSettings = () => {
   const ref = useRef<any>()
@@ -27,7 +27,13 @@ const PaymentSettings = () => {
   }
   const confirmSwitch = async () => {
     setIsSwithVisible(false)
-    setChecked(!checked)
+    let res = await payWayUpdate({
+      id:list[0].id,
+      status:status?'ACTIVE':'INACTIVE'
+    })
+    if(res){
+      getList()
+    }
   }
   const getList = async() => {
     let res = await payWayFindPage({
@@ -37,6 +43,7 @@ const PaymentSettings = () => {
     })
     if(res.records){
       setList(res.records)
+      setChecked(res.records[0].status==='ACTIVE')
     }
   }
   useEffect(()=>{
@@ -73,13 +80,13 @@ const PaymentSettings = () => {
         </div>
         <div className="table-content">
           <Row className='mb-10'>
-             <Col span={8}>Provider</Col>
-             <Col span={16} style={{textAlign:'center'}}>Status</Col>
+             <Col span={8} className="col3 text-lg">Provider</Col>
+             <Col span={16} style={{textAlign:'center'}} className="col3 text-lg">Status</Col>
              {/*<Col span={8} style={{textAlign:'right'}}>Transaction Fee</Col>*/}
           </Row>
           <Row>
-            <Col span={8}>{list[0]?.name||''}</Col>
-            <Col span={16} style={{textAlign:'center'}}>{list[0]?.status||''}</Col>
+            <Col span={8} className="col6 text-gray-400">{list[0]?.name||''}</Col>
+            <Col span={16} className="col6 text-gray-400" style={{textAlign:'center'}}>{list[0]?.status||''}</Col>
             {/*<Col span={8} style={{textAlign:'right'}}>3</Col>*/}
           </Row>
         </div>
