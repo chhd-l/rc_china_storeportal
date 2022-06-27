@@ -80,13 +80,13 @@ const PaymentSettings = () => {
         </div>
         <div className="table-content">
           <Row className='mb-10'>
-             <Col span={8} className="col3">Provider</Col>
-             <Col span={16} style={{textAlign:'center'}} className="col3">Status</Col>
+             <Col span={8} className="col3 text-lg">Provider</Col>
+             <Col span={16} style={{textAlign:'center'}} className="col3 text-lg">Status</Col>
              {/*<Col span={8} style={{textAlign:'right'}}>Transaction Fee</Col>*/}
           </Row>
           <Row>
-            <Col span={8} className="col6">{list[0]?.name||''}</Col>
-            <Col span={16} className="col6" style={{textAlign:'center'}}>{list[0]?.status||''}</Col>
+            <Col span={8} className="col6 text-gray-400">{list[0]?.name||''}</Col>
+            <Col span={16} className="col6 text-gray-400" style={{textAlign:'center'}}>{list[0]?.status||''}</Col>
             {/*<Col span={8} style={{textAlign:'right'}}>3</Col>*/}
           </Row>
         </div>
