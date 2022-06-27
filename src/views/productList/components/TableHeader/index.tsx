@@ -26,7 +26,7 @@ const TableHeader = ({ tableHeader, setTableHeader, getList }: TableHeaderProps)
   }
   console.info('tableHeader', tableHeader)
   return (
-    <div className='table-header flex justify-stretch items-baseline w-full'>
+    <div className='table-header flex justify-stretch items-baseline w-full' style={{border:0}}>
       <div className='w-64 flex py-1 pr-2 overflow-hidden'>{tableHeader[0]?.title}</div>
       <div className=' w-3/5 overflow-hidden flex'>
       {tableHeader.slice(1,tableHeader.length).map((item, idx) => (
