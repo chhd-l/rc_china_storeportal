@@ -259,3 +259,8 @@ export type SearchCreateType = {
   priority: number
   topName: string
 }
+
+export type SwitchType = {
+  storeId: string;
+  status: boolean
+}
