@@ -98,6 +98,9 @@ export const createProduct = async (params: any, beforeData?: any) => {
     }
 
   })
+  paramsData.asserts?.forEach((el: any, idx: number) => {
+    el.rank = idx + 1
+  })
   console.info('paramsData', paramsData)
   try {
     const data = await ApiRoot.products().createProduct({ body: paramsData })

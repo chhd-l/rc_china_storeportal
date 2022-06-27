@@ -61,7 +61,7 @@ const OrderInformation = ({
   isSubscription: boolean
 }) => {
   const [showMore, setShowMore] = useState(true)
-  const { productPrice, discountsPrice, deliveryPrice, totalPrice } = orderPrice
+  const { productPrice, discountsPrice, deliveryPrice, totalPrice,vipDiscountsPrice } = orderPrice
   const [columns, setColumns] = useState(column)
 
   useEffect(() => {
@@ -100,7 +100,7 @@ const OrderInformation = ({
               </div>
               <div className="flex flex-col text-right w-1/4">
                 <span>{formatMoney(productPrice)}</span>
-                <span>{formatMoney(discountsPrice)}</span>
+                <span>{formatMoney(discountsPrice+vipDiscountsPrice)}</span>
                 <span>{formatMoney(deliveryPrice)}</span>
                 <span className="text-theme-red">{formatMoney(totalPrice)}</span>
               </div>

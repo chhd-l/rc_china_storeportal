@@ -56,7 +56,7 @@ const LiveStreamingList = () => {
       offset: 0,
       sample: { storeId: '12345678' },
     })
-    setMiniProjList((res?.records || []).filter((item: any) => item.accountType === 'MiniProgram'))
+    setMiniProjList((res?.records || []).filter((item: any) => item.type === 'MiniProgram'))
   }
 
   useEffect(() => {

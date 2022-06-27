@@ -36,6 +36,7 @@ export interface Log {
   status: string
   id: string
   event: string
+  operatorType?: string
 }
 
 export interface Carrier {
@@ -71,6 +72,7 @@ export interface OrderPrice {
   deliveryPrice: number
   totalPrice: number
   discountsPrice: number
+  vipDiscountsPrice:number
 }
 
 export interface OrderOrderItem {
