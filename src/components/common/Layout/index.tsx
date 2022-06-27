@@ -19,6 +19,8 @@ const AppLayout = () => {
   useEffect(() => {
     if (pathname === '/dashboard') {
       setDashboard(true)
+    } else {
+      setDashboard(false)
     }
     if (
       (pathname.split('/').some((path) => path === 'product') &&
