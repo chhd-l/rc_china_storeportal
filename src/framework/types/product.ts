@@ -248,7 +248,7 @@ export type SearchListType = {
 }
 
 export type SearchUpdateType = {
-  storeId: string;
+  id: string;
   status?: boolean;
   isDeleted?: boolean
 }

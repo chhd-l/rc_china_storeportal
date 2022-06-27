@@ -6,7 +6,7 @@ type TipsModalProps=ModalProps & {
   type:string
 }
 const TipsModal=({visible,type,...restProps}:TipsModalProps)=>{
-  
+  console.log('type',type)
   return  <Modal
   className="deleteModal"
   okText='Confirm'
