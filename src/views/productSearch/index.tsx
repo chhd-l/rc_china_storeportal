@@ -4,20 +4,13 @@ import ProTable, { ActionType, ProColumns } from '@/components/common/ProTable'
 import './index.less'
 import { Link } from 'react-router-dom'
 import TipsModal from './components/TipsModal'
-import { getHotSearchFindPage, hotSearchUpdate } from '@/framework/api/get-product'
+import { getHotSearchFindPage, hotSearchUpdate, HotSearchVisibleSwitch } from '@/framework/api/get-product'
 import { handlePageParams } from '@/utils/utils'
 import { useRequest } from 'ahooks'
 import AddNewSearch from './components/AddNewSearch'
+import { RecordItem } from './type'
 
-type GithubIssueItem = {
-  id: string
-  topName: string
-  status: boolean
-  priority: number
-  action: boolean
-  isDeleted: boolean
-  storeId: string
-}
+
 
 const ProductSearch = () => {
   const actionRef = useRef<ActionType>()
@@ -26,6 +19,7 @@ const ProductSearch = () => {
   const [checked, setChecked] = useState(false)
   const [deleteId, SetDeleteId] = useState('')
 
+  // 更新status/删除数据
   const { run } = useRequest(
     async (storeId, status) => {
       const res = await hotSearchUpdate({ storeId, ...status })
@@ -36,9 +30,16 @@ const ProductSearch = () => {
     },
   )
 
+  // Search is visible on shop
+  const {run:runSwitch}=useRequest(async(status)=>{
+ const res=await   HotSearchVisibleSwitch({storeId:'12345678',status})
+  },{
+    manual:true
+  })
   const onOk = () => {
     if (type === 'notice') {
       setChecked(!checked)
+      runSwitch(!checked)
     } else {
       run(deleteId, { isDeleted: true })
     }
@@ -46,11 +47,11 @@ const ProductSearch = () => {
   }
 
   const onChange = () => {
-    setType('notice')
     setVisible(true)
+    setType('notice')
   }
 
-  const columns: ProColumns<GithubIssueItem>[] = [
+  const columns: ProColumns<RecordItem>[] = [
     {
       title: 'Top Search Name',
       dataIndex: 'topName',
@@ -81,7 +82,9 @@ const ProductSearch = () => {
       key: 'option',
       render: (_, record) => (
         <Tooltip title="Delete">
-          <Link className="ml-3" to="" onClick={() => SetDeleteId(record.id)}>
+          <Link className="ml-3" to="" onClick={() => { 
+            setVisible(true)
+            SetDeleteId(record.id)}}>
             <span className="iconfont icon-delete" />
           </Link>
         </Tooltip>
@@ -96,8 +99,7 @@ const ProductSearch = () => {
         cardBordered
         className="searchTable"
         tableClassName="rc-table"
-        request={async (params, sorter, filter) => {
-          console.log('page', params)
+        request={async (params) => {
           let page = handlePageParams({
             currentPage: params.current,
             pageSize: params.pageSize,
@@ -136,22 +138,6 @@ const ProductSearch = () => {
               })
               .reverse()
           },
-        }}
-        // form={{
-        //   // 由于配置了 transform，提交的参与与定义的不同这里需要转化一下
-        //   syncToUrl: (values, type) => {
-        //     if (type === 'get') {
-        //       return {
-        //         ...values,
-        //         created_at: [values.startTime, values.endTime],
-        //       }
-        //     }
-        //     return values
-        //   },
-        // }}
-        pagination={{
-          pageSize: 5,
-          onChange: (page) => console.log(page),
         }}
         dateFormatter="string"
         headerTitle={
