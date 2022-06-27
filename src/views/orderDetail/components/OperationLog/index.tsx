@@ -37,7 +37,7 @@ const OperationLog = ({ logs }: { logs: Log[] }) => {
                   <span>By {item.createdBy}</span>
                 </div>
               }
-              icon={<span className="icon-dingdan iconfont text-theme-red text-xl" />}
+              icon={<div className={`${item.operatorType === 'MP' ? 'OperationLogMP' : 'OperationLogSC'} w-8 h-8`} />}
             />
           ))}
       </Steps>

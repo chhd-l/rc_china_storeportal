@@ -12,6 +12,7 @@ import {
   ShopCategoryProductRelInput,
   ShopCategoryUpdateInput,
   shopCateQuery,
+  SwitchType,
 } from '../types/product'
 import {
   normaliseAttrProps,
@@ -310,9 +311,9 @@ export const getBundleProductvariants = async (params: any) => {
 }
 
 
-export const HotSearchVisibleSwitch = async ({ storeId, status }: { storeId: string, status: boolean }): Promise<CateItemProps[]> => {
+export const HotSearchVisibleSwitch = async (params: SwitchType): Promise<CateItemProps[]> => {
   try {
-    let categoryList = await ApiRoot.products().hotSearchVisibleSwitch({ storeId, status })
+    let categoryList = await ApiRoot.products().hotSearchVisibleSwitch(params)
     return categoryList
   } catch (e) {
     console.log(e)

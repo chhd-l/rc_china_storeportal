@@ -3,12 +3,13 @@ import { Divider, Steps } from 'antd'
 import { Log } from '@/framework/types/order'
 import { handleReturnTime } from '@/utils/utils'
 import { LogEventEnum } from '@/framework/constants/subscription'
+import './index.less'
 
 const OperateLogWidget: React.FC<{ logs: Log[] }> = ({ logs }) => {
   const subscriptionLogs = logs.slice().reverse()
 
   return (
-    <div>
+    <div className='SubscriptionOperationLog'>
       <Divider>
         <span>Operation log</span>
       </Divider>
@@ -23,7 +24,7 @@ const OperateLogWidget: React.FC<{ logs: Log[] }> = ({ logs }) => {
                   <span>By {item.createdBy}</span>
                 </div>
               }
-              icon={<span className="icon-dingdan iconfont text-theme-red text-xl" />}
+              icon={<div className={`${item.operatorType === 'MP' ? 'OperationLogMP' : 'OperationLogSC'} w-8 h-8`} />}
             />
           ))}
       </Steps>

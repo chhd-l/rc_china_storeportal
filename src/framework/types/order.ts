@@ -9,14 +9,14 @@ export interface Order {
   orderPrice: OrderPrice
   payment?: Payment
   subscriptionId?: string
-  subscriptionNo?:string
-  freshType?:string
+  subscriptionNo?: string
+  freshType?: string
   shippingAddress?: Address | any
   buyer?: Consumer | any
   carrier?: Carrier[]
   logs: Log[]
   comments: Comment[]
-  expectedShippingDate?:string
+  expectedShippingDate?: string
 }
 
 export interface Comment {
@@ -85,8 +85,8 @@ export interface OrderOrderItem {
   num: number
   description?: string //不知道是不是规格
   price: number
-  freshType?:string
-  isGift?:boolean
+  freshType?: string
+  isGift?: boolean
 }
 
 export enum OrderStatus {

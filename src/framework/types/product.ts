@@ -248,7 +248,7 @@ export type SearchListType = {
 }
 
 export type SearchUpdateType = {
-  storeId: string;
+  id: string;
   status?: boolean;
   isDeleted?: boolean
 }
@@ -258,4 +258,9 @@ export type SearchCreateType = {
   status: boolean
   priority: number
   topName: string
+}
+
+export type SwitchType = {
+  storeId: string;
+  status: boolean
 }

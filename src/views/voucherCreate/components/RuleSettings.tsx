@@ -166,14 +166,13 @@ const RuleSettings = ({
         shouldUpdate={(prevValues, curValues) => prevValues.discountType !== curValues.discountType}
         >
         {
-          ({getFieldValue}) => {
+          ({getFieldValue, setFieldsValue}) => {
             const type = getFieldValue('discountType')
             return type === 'PERCENTAGE' ? (
-              <Form.Item 
-              className='m-0'>
+              <Form.Item className='m-0'>
                 <Select
                   placeholder="Select"
-                  disabled={Edit || DiscountType !== 'FIX_AMOUNT'}
+                  disabled={Edit || PriceOpen || DiscountType !== 'FIX_AMOUNT'}
                 />
               </Form.Item>
             ) : (
@@ -190,6 +189,16 @@ const RuleSettings = ({
                 <Select
                   placeholder="Select"
                   disabled={Edit || DiscountType !== 'FIX_AMOUNT'}
+                  onChange={(v) => {
+                    if(v) {
+                      setFieldsValue({
+                        minimumBasketPrice: '',
+                      })
+                      setPriceOpen(true)
+                    } else {
+                      setPriceOpen(false)
+                    }
+                  }}
                   options={[
                     { label: 'Yes', value: true },
                     { label: 'No', value: false },

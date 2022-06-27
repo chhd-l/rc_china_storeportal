@@ -1,4 +1,4 @@
-import { Button,  Switch, Tooltip } from 'antd'
+import { Button,  message,  Switch, Tooltip } from 'antd'
 import { useRef, useState } from 'react'
 import ProTable, { ActionType, ProColumns } from '@/components/common/ProTable'
 import './index.less'
@@ -21,9 +21,10 @@ const ProductSearch = () => {
 
   // 更新status/删除数据
   const { run } = useRequest(
-    async (storeId, status) => {
-      const res = await hotSearchUpdate({ storeId, ...status })
-      console.log('res', res)
+    async (id, status) => {
+     await hotSearchUpdate({ id, ...status })
+      message.success({ className: 'rc-message', content: 'Operation success' })
+      actionRef?.current?.reload();
     },
     {
       manual: true,
@@ -32,10 +33,12 @@ const ProductSearch = () => {
 
   // Search is visible on shop
   const {run:runSwitch}=useRequest(async(status)=>{
- const res=await   HotSearchVisibleSwitch({storeId:'12345678',status})
+await   HotSearchVisibleSwitch({storeId:'12345678',status})
+message.success({ className: 'rc-message', content: 'Operation success' })
   },{
     manual:true
   })
+
   const onOk = () => {
     if (type === 'notice') {
       setChecked(!checked)
@@ -44,8 +47,10 @@ const ProductSearch = () => {
       run(deleteId, { isDeleted: true })
     }
     setVisible(false)
+    setType('')
   }
 
+  const refreshTable=()=>actionRef?.current?.reload();
   const onChange = () => {
     setVisible(true)
     setType('notice')
@@ -66,14 +71,13 @@ const ProductSearch = () => {
       dataIndex: 'status',
       valueType: 'select',
       valueEnum: {
-        Enable: { text: 'Enable', status: 'Enable' },
-        Disable: {
+        true: { text: 'Enable' },
+        false: {
           text: 'Disable',
-          status: 'Disable',
         },
       },
       render: (_, record) => (
-        <Switch checked={record.action} onChange={(checked) => run(record.id, { status: checked })} />
+        <Switch checked={record.status} onChange={(val) => run(record.id, { status: val })} />
       ),
     },
     {
@@ -83,6 +87,7 @@ const ProductSearch = () => {
       render: (_, record) => (
         <Tooltip title="Delete">
           <Link className="ml-3" to="" onClick={() => { 
+            setType('delete')
             setVisible(true)
             SetDeleteId(record.id)}}>
             <span className="iconfont icon-delete" />
@@ -104,12 +109,19 @@ const ProductSearch = () => {
             currentPage: params.current,
             pageSize: params.pageSize,
           })
+          
+         delete params.current
+         delete params.pageSize
+         if(params.status){
+          params.status=  JSON.parse(params.status)
+         }
           const tableData = await getHotSearchFindPage({
             offset: page.offset,
             isNeedTotal: true,
             limit: page.limit,
-            sample: { storeId: '12345678' },
+            sample: { storeId: '12345678',...params },
           })
+          setChecked(tableData.isVisibleOnShop)
           return Promise.resolve({
             data: tableData?.records || [],
             total: tableData?.total || 0,
@@ -139,6 +151,9 @@ const ProductSearch = () => {
               .reverse()
           },
         }}
+        pagination={{
+          showQuickJumper:false
+        }}
         dateFormatter="string"
         headerTitle={
           <div className="flex flex-row items-top text-grayTitle text-14">
@@ -146,9 +161,11 @@ const ProductSearch = () => {
             <Switch checked={checked} onChange={onChange} className="ml-4" />
           </div>
         }
-        toolBarRender={() => [<AddNewSearch />]}
+        toolBarRender={() => [<AddNewSearch  refreshTable={refreshTable}/>]}
       />
-      <TipsModal type={type} visible={visible} onOk={onOk} onCancel={() => setVisible(false)} />
+      <TipsModal type={type} visible={visible} onOk={onOk} onCancel={() => {
+        setType('')
+        setVisible(false)}} />
     </>
   )
 }
