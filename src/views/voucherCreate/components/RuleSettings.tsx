@@ -86,6 +86,10 @@ const RuleSettings = ({
                     })
                     setDiscountType(v)
                     if (v === 'PERCENTAGE') {
+                      setRecurrence(false)
+                      setFieldsValue({
+                        recurrence: false,
+                      })
                       validateFields(['Recurrence'])
                       price && validateFields(['minimumBasketPrice'])
                     }
@@ -196,7 +200,6 @@ const RuleSettings = ({
                   disabled={Edit || DiscountType !== 'FIX_AMOUNT'}
                   onChange={(v) => {
                     setRecurrence(v)
-                    setPriceOpen(v)
                     if(v) {
                       setFieldsValue({
                         minimumBasketPrice: '',
@@ -259,7 +262,7 @@ const RuleSettings = ({
                   controls={false}
                   placeholder="Input"
                   className="w-full rounded-l-none"
-                  disabled={Edit}
+                  disabled={Edit || PriceOpen}
                 />
               </div>
             </Form.Item>
@@ -273,6 +276,7 @@ const RuleSettings = ({
                 if (e.target.checked) {
                   setFieldsValue({
                     minimumBasketPrice: '',
+                    recurrence: false
                   })
                   setPrice('')
                   setAmountOpen(true)
