@@ -62,7 +62,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
   const manualColumns: ProColumns<any>[] = [
     {
       title: 'Products',
-      dataIndex: 'productName',
+      dataIndex: 'name',
       hideInSearch: true,
       render: (_, record) => {
         return (
@@ -71,7 +71,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
               src={record.defaultImage ? record.defaultImage : record.variants?.length > 0 ? record.variants[0].defaultImage : ''}
               alt='' style={{ width: '50px', marginRight: '10px' }} />
             <div>
-              <div>{record.productName}</div>
+              <div>{record.name}</div>
               <div className='text-gray-400'>{record.spuNo}</div>
             </div>
           </div>
@@ -112,7 +112,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
     {
       title: 'Category:',
       hideInTable: true,
-      dataIndex: 'productCategoryId',
+      dataIndex: 'categoryId',
       fieldProps: {
         options: mockOptions,
         fieldNames: {
@@ -260,7 +260,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
             } else if (params.selectName === '2') {
               data.sample.sku = params.username
             } else {
-              data.sample.productName = params.username
+              data.sample.name = params.username
             }
           }
           let tableData = await getESProducts(data)
