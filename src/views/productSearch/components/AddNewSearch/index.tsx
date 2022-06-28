@@ -45,6 +45,7 @@ const AddNewSearch= ({refreshTable}:AddNewSearchProps) => {
       name="priority"
       min={0}
       fieldProps={{ precision: 0 }}
+      initialValue={0}
 />
     </ModalForm>
   );
