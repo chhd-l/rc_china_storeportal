@@ -27,7 +27,7 @@ const ProductSearch = () => {
       actionRef?.current?.reload();
     },
     {
-      manual: true,
+      manual: true,  // 手动执行
     },
   )
 
@@ -39,7 +39,9 @@ message.success({ className: 'rc-message', content: 'Operation success' })
     manual:true
   })
 
+  // 弹窗确认
   const onOk = () => {
+    // type  区分visible on shop开关或者删除
     if (type === 'notice') {
       setChecked(!checked)
       runSwitch(!checked)
@@ -49,8 +51,11 @@ message.success({ className: 'rc-message', content: 'Operation success' })
     setVisible(false)
   }
 
+  // 新增数据刷新列表
   const refreshTable=()=>actionRef?.current?.reload();
-  const onChange = () => {
+
+  // Top Search is visible on shop开关
+  const onSwitchChange = () => {
     setVisible(true)
     setType('notice')
   }
@@ -150,7 +155,7 @@ message.success({ className: 'rc-message', content: 'Operation success' })
         headerTitle={
           <div className="flex flex-row items-top text-grayTitle text-14">
             Top Search is visible on shop
-            <Switch checked={checked} onChange={onChange} className="ml-4" />
+            <Switch checked={checked} onChange={onSwitchChange} className="ml-4" />
           </div>
         }
         toolBarRender={() => [<AddNewSearch  refreshTable={refreshTable}/>]}
