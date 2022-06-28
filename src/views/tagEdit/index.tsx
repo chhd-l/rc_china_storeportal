@@ -109,17 +109,18 @@ const EditTags = () => {
       key: 'phone',
       render: (text: any, record: any) => record?.consumer?.phone||''
     },
+    state.type && 
     {
       title: 'Options',
       key: 'Options',
       render: (text: any, record: any) => (
         <>
-          <Tooltip title="Delete">
-            <span className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl" onClick={() => {
-              setConsumerId(record.consumer.id)
-              setIsModalVisible(true)
-            }} />
-          </Tooltip>
+        <Tooltip title="Delete">
+          <span className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl" onClick={() => {
+            setConsumerId(record.consumer.id)
+            setIsModalVisible(true)
+          }} />
+        </Tooltip>
         </>
       ),
     },
@@ -185,14 +186,17 @@ const EditTags = () => {
             <div className='search-title'>
               <div className='text-xl list-title'>Pet Owner List</div>
             </div>
-            <Button
-              type='primary'
-              onClick={() => {
-                setManualSelectionVisible(true)
-              }}
-            >
-              + Add New Pet Owner
-            </Button>
+            {
+              state.type && 
+              <Button
+                type='primary'
+                onClick={() => {
+                  setManualSelectionVisible(true)
+                }}
+              >
+                + Add New Pet Owner
+              </Button>
+            }
           </div>
           <ProTable
             loading={false}
