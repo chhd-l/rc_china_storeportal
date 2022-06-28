@@ -68,6 +68,14 @@ const Graphic = ({
               onClick={() => handleViewDetail(record)}
             />
           </Tooltip>
+          {
+            record.status? <Tooltip title="publish">
+            <span
+              className="cursor-pointer ml-2 iconfont icon-dingdan primary-color text-xl"
+              onClick={() => {}}
+            />
+            </Tooltip>:null
+          }
           <Tooltip title="Delete">
             <span
               className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl"
