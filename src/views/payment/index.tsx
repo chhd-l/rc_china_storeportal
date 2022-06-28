@@ -69,7 +69,7 @@ const PaymentSettings = () => {
                 <a className='mr-4' onClick={(e) => {
                   setAddvisible(true)
                 }}>
-                  <span className='iconfont icon-group52' />
+                  <span className='iconfont icon-group52' style={{fontSize:'20px'}} />
                 </a></Tooltip>
               <Switch checked={checked} onChange={(checked: boolean) => {
                   setIsSwithVisible(true)

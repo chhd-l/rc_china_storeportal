@@ -12,7 +12,7 @@ import { userAtom } from '@/store/user.store'
 
 const LoginStore = () => {
   const [userInfo] = useAtom(userAtom)
-  const navigator = useNavigate()
+  const navigate = useNavigate()
   const [data, setData] = useState([])
   useEffect(() => {
     list()
@@ -32,7 +32,7 @@ const LoginStore = () => {
     autoplay: false,
   };
   const handleClick = async(item: any) => {
-    navigator("/login/barnd", { state: { id: item.id } });
+    navigate("/login/barnd", { state: { id: item.id } });
   }
   return (
     <div className="h-screen bg-gray1 flex justify-center items-center">
