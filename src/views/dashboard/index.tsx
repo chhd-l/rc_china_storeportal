@@ -8,8 +8,8 @@ const Dashboard = () => {
     return <div className="dashboard flex items-center justify-between flex-wrap">
         {
             body.map((item: any, idx: number) => (
-                <div className='block' key={idx} onClick={() => navigator(item.url)}>
-                    <div className={`${item.img} bgImg`}/>
+                <div className='block' key={idx}>
+                    <div className={`${item.img} bgImg cursor-pointer`} onClick={() => navigator(item.url)}/>
                     <div className='title'>{item.title}</div>
                     <div className='span'>{item.span}</div>
                 </div>

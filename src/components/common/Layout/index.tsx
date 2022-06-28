@@ -27,7 +27,6 @@ const AppLayout = () => {
         pathname !== '/product/product-list' &&
         pathname !== '/product'&&pathname !== '/product/product-search') ||
       pathname === '/assets/add-graphic' ||
-      pathname === '/dashboard' || 
       (pathname.split('/').some((path) => path === 'category') &&
         pathname !== '/category/category-list' &&
         pathname !== '/category' &&
