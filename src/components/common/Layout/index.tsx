@@ -80,7 +80,7 @@ const AppLayout = () => {
           <Content
             className={`site-layout-background ${dashboard ? 'dashboard_01_bg' : ''}`}
             style={{
-              margin: isOpen ? '59px 2% 0' : dashboard ? '59px 0 0' : '59px 10% 0',
+              margin: isOpen ? '59px 2% 20px' : '59px 10% 0',
             }}
           >
             <Outlet />
