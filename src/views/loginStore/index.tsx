@@ -27,7 +27,7 @@ const LoginStore = () => {
     // dots: true,
     speed:500,
     infinite: true,
-    slidesToShow: data.length<5?data.length:5,
+    slidesToShow: data.length>2?3:data.length,
     slidesToScroll: 1,
     autoplay: false,
   };
@@ -36,20 +36,25 @@ const LoginStore = () => {
   }
   return (
     <div className="h-screen bg-gray1 flex justify-center items-center">
-      <div className="swiper-content">
+      <div className="swiper-contents" style={{width:data.length>2?'800px':data.length>1?'540px':'400px'}}>
         <div className="text-center">
+
           <h2 className="text-2xl font-semibold">Please select the brand of your store</h2>
           <h4 className="text-base mb-10">Let us provide you with better service</h4>
         </div>
-        {/*<div className='potion-left'/>*/}
-        {/*<div className="potion-right"/>*/}
+        {
+          data.length>3? <div className='potion-left'/>:null
+        }
+        {
+          data.length>3?<div className="potion-right"/>:null
+        }
         <Slider {...settings}>
           {
             data.map((item: { logo: string | undefined; name:string; }, index: any)=>{
               return(
                 <div className='box' key={index} onClick={()=>handleClick(item)}>
                   <div className="boxs flex flex-col items-center justify-center drop-shadow-md">
-                    <img src={item.logo} alt='' className="mb-10" style={{width:'40%'}}/>
+                    <img src={item.logo} alt='' className="mb-10"/>
                     <div>{item.name}</div>
                   </div>
                 </div>
