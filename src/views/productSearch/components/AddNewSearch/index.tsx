@@ -26,8 +26,8 @@ const AddNewSearch= ({refreshTable}:AddNewSearchProps) => {
       }
       autoFocusFirstInput
       modalProps={{
-        onCancel: () => console.log('run'),
-        okText:'Confirm'
+        okText:'Confirm',
+        destroyOnClose: true,
       }}
       submitTimeout={2000}
       onFinish={async (values) => {
