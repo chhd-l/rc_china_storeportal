@@ -41,8 +41,8 @@ const LoginStore = () => {
           <h2 className="text-2xl font-semibold">Please select the brand of your store</h2>
           <h4 className="text-base mb-10">Let us provide you with better service</h4>
         </div>
-        <div className='potion-left'/>
-        <div className="potion-right"/>
+        {/*<div className='potion-left'/>*/}
+        {/*<div className="potion-right"/>*/}
         <Slider {...settings}>
           {
             data.map((item: { logo: string | undefined; name:string; }, index: any)=>{
