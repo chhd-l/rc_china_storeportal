@@ -242,8 +242,8 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
             hasTotal: true,
             sample: {},
           }
-          if (params.productCategoryId?.length > 0) {
-            data.sample.productCategoryId = params.productCategoryId[params.productCategoryId.length - 1]
+          if (params.categoryId?.length > 0) {
+            data.sample.categoryId = params.categoryId[params.categoryId.length - 1]
           }
           if (params.startPrice!=='') {
             data.sample.startPrice = params.startPrice
