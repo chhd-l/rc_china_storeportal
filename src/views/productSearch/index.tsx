@@ -135,7 +135,7 @@ message.success({ className: 'rc-message', content: 'Operation success' })
           labelWidth: 'auto',
           span: 12,
           searchText: 'Search',
-          optionRender: (searchConfig, formProps, dom) => {
+          optionRender: (_, __, dom) => {
             return dom
               .map((item: any) => {
                 return <Button {...item.props} loading={false} />
