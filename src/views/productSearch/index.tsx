@@ -133,7 +133,7 @@ message.success({ className: 'rc-message', content: 'Operation success' })
         rowKey="id"
         search={{
           labelWidth: 'auto',
-          span: 10,
+          span: 12,
           searchText: 'Search',
           optionRender: (searchConfig, formProps, dom) => {
             return dom
