@@ -42,6 +42,7 @@ const RuleSettings = ({
   Edit,
 }: RuleSettingsType) => {
   const [AmountOpen, setAmountOpen] = useState(true)
+  const [recurrence, setRecurrence] = useState(false)
   const [MinimumBasketPrice, setMinimumBasketPrice] = useState<string | number>('')
   const [UsageQuantity, setUsageQuantity] = useState<string | number>('')
 
@@ -168,11 +169,15 @@ const RuleSettings = ({
         {
           ({getFieldValue, setFieldsValue}) => {
             const type = getFieldValue('discountType')
-            return type === 'PERCENTAGE' ? (
+            return type === 'PERCENTAGE' || PriceOpen ? (
               <Form.Item className='m-0'>
                 <Select
                   placeholder="Select"
+                  value={false}
                   disabled={Edit || PriceOpen || DiscountType !== 'FIX_AMOUNT'}
+                  options={[
+                    { label: 'No', value: false },
+                  ]}
                 />
               </Form.Item>
             ) : (
@@ -190,13 +195,12 @@ const RuleSettings = ({
                   placeholder="Select"
                   disabled={Edit || DiscountType !== 'FIX_AMOUNT'}
                   onChange={(v) => {
+                    setRecurrence(v)
+                    setPriceOpen(v)
                     if(v) {
                       setFieldsValue({
                         minimumBasketPrice: '',
                       })
-                      setPriceOpen(true)
-                    } else {
-                      setPriceOpen(false)
                     }
                   }}
                   options={[
@@ -255,14 +259,14 @@ const RuleSettings = ({
                   controls={false}
                   placeholder="Input"
                   className="w-full rounded-l-none"
-                  disabled={Edit || PriceOpen}
+                  disabled={Edit}
                 />
               </div>
             </Form.Item>
             <Checkbox
               className="ml-4 mt-1.5 h-8"
               checked={PriceOpen}
-              disabled={Edit}
+              disabled={Edit || recurrence}
               onChange={(e) => {
                 const Amount = getFieldValue('discountValue')
                 setPriceOpen(e.target.checked)

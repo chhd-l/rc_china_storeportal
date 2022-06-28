@@ -103,7 +103,7 @@ export const menus = [
       {
         name: 'Tagging Setting',
         value: 'tagging_setting',
-        url: '/tag-list',
+        url: '/tags/tag-list',
         key: 'tagging_setting',
       },
     ],

@@ -31,7 +31,9 @@ const Header = ({ userInfo }: { userInfo: User | null }) => {
   return (
     <header style={{ height: "51px", verticalAlign: 'center',zIndex:"99" }} className="flex bg-white w-full items-cente fixed overflow-hidden boxShodow">
       <div className="flex flex-row h-1/2 m-auto mr-0 ml-5 flex-none w-28">
-        <img src={logo} alt="" className=" w-28 h-4/5 m-auto" />
+        <img src={logo} alt="" className=" w-28 h-4/5 m-auto" onClick={() => {
+          navigate('/dashboard')
+        }} />
       </div>
       <div className="grow">
         <RouteBreadcrumb />
