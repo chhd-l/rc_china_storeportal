@@ -19,7 +19,8 @@ const AddNewSearch= ({refreshTable}:AddNewSearchProps) => {
     width={322}
       title="Add New Top Search"
       trigger={
-        <Button key="button" icon={<PlusOutlined />} type="primary">
+        <Button key="button" type="primary" className='flex items-center'>
+          <PlusOutlined />
           Add
         </Button>
       }
@@ -31,7 +32,6 @@ const AddNewSearch= ({refreshTable}:AddNewSearchProps) => {
       submitTimeout={2000}
       onFinish={async (values) => {
         await hotSearchCreate({...values,storeId:'12345678',status:true});
-        console.log(values);
         message.success({ className: 'rc-message', content: 'Operation success' })
         refreshTable()
         return true;
