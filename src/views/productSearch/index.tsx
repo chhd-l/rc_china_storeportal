@@ -131,13 +131,6 @@ message.success({ className: 'rc-message', content: 'Operation success' })
         editable={{
           type: 'multiple',
         }}
-        columnsState={{
-          persistenceKey: 'pro-table-singe-demos',
-          persistenceType: 'localStorage',
-          onChange(value) {
-            console.log('value: ', value)
-          },
-        }}
         rowKey="id"
         search={{
           labelWidth: 'auto',
