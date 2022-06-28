@@ -1,4 +1,4 @@
-import { Button, Select, Input, Pagination, Table, Tooltip } from 'antd'
+import { Button, Select, Input, Pagination, Table, Tooltip,Modal } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Asset } from '@/framework/types/wechat'
 import { getArticlesList } from '@/framework/api/wechatSetting'
@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router'
 import { initPageParams } from '@/lib/constants'
 import ArticleDetail from './detail';
 import moment from "moment";
+import { updateShopCategory } from '@/framework/api/get-product'
 
 const Graphic = ({
   isReload = false,
@@ -68,6 +69,16 @@ const Graphic = ({
               onClick={() => handleViewDetail(record)}
             />
           </Tooltip>
+          {
+            record.status? <Tooltip title="publish">
+            <span
+              className="cursor-pointer ml-2 iconfont icon-dingdan primary-color text-xl"
+              onClick={() => {
+                setIsModalVisible(true)
+              }}
+            />
+            </Tooltip>:null
+          }
           <Tooltip title="Delete">
             <span
               className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl"
@@ -78,6 +89,7 @@ const Graphic = ({
       ),
     },
   ]
+  const [isModalVisible, setIsModalVisible] = useState(false)
   const navigator = useNavigate()
   const [articlesList, setArticlesList] = useState<any[]>([])
   const [pageParams, setPageParams] = useState<PageParamsProps>(initPageParams)
@@ -125,7 +137,9 @@ const Graphic = ({
     setArticlesList(res.records)
     setLoading(false)
   }
+  const confirmOk = async () => {
 
+  }
   return (
     <ContentContainer className="pt-2 pb-6">
       <div className="mb-8">
@@ -217,6 +231,17 @@ const Graphic = ({
         synced={chosedArticleSynced}
         mediaId={mediaId}
       /> : null}
+      <Modal
+        className='rc-modal'
+        title='Delete Item'
+        okText='Confirm'
+        visible={isModalVisible}
+        onOk={confirmOk}
+        confirmLoading={loading}
+        onCancel={() => setIsModalVisible(false)}
+      >
+        <p>Are you sure you want to publish the item?</p>
+      </Modal>
     </ContentContainer>
   )
 }

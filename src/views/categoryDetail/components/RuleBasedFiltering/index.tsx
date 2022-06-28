@@ -375,7 +375,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
                     />
                   </div>
                   <div className='overflow-ellipsis overflow-hidden whitespace-nowrap'>
-                    {el.productName}
+                    {el.name}
                   </div>
                 </div>
               ))}

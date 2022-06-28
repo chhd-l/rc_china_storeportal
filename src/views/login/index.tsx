@@ -48,7 +48,7 @@ const Login = () => {
 
   const handleLogin = (e: any) => {
     try {
-      navigate("/dashboard");
+      navigate("/login/store");
     } catch (err) {
       setLoginError("error");
     }

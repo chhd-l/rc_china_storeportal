@@ -4,6 +4,7 @@ import { searchTypeList, initSearchParams, orderTypeList } from '../../modules/c
 import { MenuOutlined } from '@ant-design/icons'
 import { OrderSearchParamsProps } from '@/framework/types/order'
 import LatestReports from '../LatestReports/index'
+import './index.less'
 
 const OrderSearch = ({ query }: { query: Function }) => {
   const [searchParams, setSearchParams] = useState<OrderSearchParamsProps>(initSearchParams)
@@ -31,14 +32,14 @@ const OrderSearch = ({ query }: { query: Function }) => {
         <Button className="ml-3 rounded-4" icon={<MenuOutlined style={{ color: '#979797' }} />} />
       </div>
       <div className="flex flex-row items-center mt-4 text-left">
-        <Input.Group compact>
+        <Input.Group compact className="order-search-input-group">
           <Select
             onChange={(value, a) => {
               setSearchParams({ ...searchParams, searchType: value })
             }}
             getPopupContainer={(trigger: any) => trigger.parentNode}
             value={searchParams.searchType}
-            className="rc-select w-1/5"
+            className="rc-select w-1/5 order-search-left-select"
           >
             {searchTypeList.map((item, idx) => (
               <Select.Option value={item.key} key={idx}>
@@ -52,7 +53,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
                 setSearchParams({ ...searchParams, searchTypeValue: value })
               }}
               placeholder="Please select order type"
-              className="rc-select w-4/5 -ml-1"
+              className="rc-select w-4/5 order-search-right-select"
             >
               {orderTypeList.map((item, idx) => (
                 <Select.Option value={item.key} key={idx}>
@@ -62,7 +63,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
             </Select>
           ) : (
             <Input
-              className="rounded-4 w-4/5 -ml-1"
+              className="rounded-4 w-4/5 order-search-right-input"
               ref={inputRef}
               value={searchParams.searchTypeValue}
               onChange={(e) => {

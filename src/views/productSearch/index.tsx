@@ -3,7 +3,7 @@ import { useRef, useState } from 'react'
 import ProTable, { ActionType, ProColumns } from '@/components/common/ProTable'
 import './index.less'
 import { Link } from 'react-router-dom'
-import TipsModal from './components/TipsModal'
+import TipsModal, {  TipsType } from './components/TipsModal'
 import { getHotSearchFindPage, hotSearchUpdate, HotSearchVisibleSwitch } from '@/framework/api/get-product'
 import { handlePageParams } from '@/utils/utils'
 import { useRequest } from 'ahooks'
@@ -15,7 +15,7 @@ import { RecordItem } from './type'
 const ProductSearch = () => {
   const actionRef = useRef<ActionType>()
   const [visible, setVisible] = useState(false)
-  const [type, setType] = useState('')
+  const [type, setType] = useState<TipsType>('delete')
   const [checked, setChecked] = useState(false)
   const [deleteId, SetDeleteId] = useState('')
 
@@ -27,7 +27,7 @@ const ProductSearch = () => {
       actionRef?.current?.reload();
     },
     {
-      manual: true,
+      manual: true,  // 手动执行
     },
   )
 
@@ -39,7 +39,9 @@ message.success({ className: 'rc-message', content: 'Operation success' })
     manual:true
   })
 
+  // 弹窗确认
   const onOk = () => {
+    // type  区分visible on shop开关或者删除
     if (type === 'notice') {
       setChecked(!checked)
       runSwitch(!checked)
@@ -47,11 +49,13 @@ message.success({ className: 'rc-message', content: 'Operation success' })
       run(deleteId, { isDeleted: true })
     }
     setVisible(false)
-    setType('')
   }
 
+  // 新增数据刷新列表
   const refreshTable=()=>actionRef?.current?.reload();
-  const onChange = () => {
+
+  // Top Search is visible on shop开关
+  const onSwitchChange = () => {
     setVisible(true)
     setType('notice')
   }
@@ -121,7 +125,7 @@ message.success({ className: 'rc-message', content: 'Operation success' })
             limit: page.limit,
             sample: { storeId: '12345678',...params },
           })
-          setChecked(tableData.isVisibleOnShop)
+          setChecked(tableData?.isVisibleOnShop)
           return Promise.resolve({
             data: tableData?.records || [],
             total: tableData?.total || 0,
@@ -134,9 +138,9 @@ message.success({ className: 'rc-message', content: 'Operation success' })
         rowKey="id"
         search={{
           labelWidth: 'auto',
-          span: 10,
+          span: 12,
           searchText: 'Search',
-          optionRender: (searchConfig, formProps, dom) => {
+          optionRender: (_, __, dom) => {
             return dom
               .map((item: any) => {
                 return <Button {...item.props} loading={false} />
@@ -151,13 +155,12 @@ message.success({ className: 'rc-message', content: 'Operation success' })
         headerTitle={
           <div className="flex flex-row items-top text-grayTitle text-14">
             Top Search is visible on shop
-            <Switch checked={checked} onChange={onChange} className="ml-4" />
+            <Switch checked={checked} onChange={onSwitchChange} className="ml-4" />
           </div>
         }
         toolBarRender={() => [<AddNewSearch  refreshTable={refreshTable}/>]}
       />
       <TipsModal type={type} visible={visible} onOk={onOk} onCancel={() => {
-        setType('')
         setVisible(false)}} />
     </>
   )
