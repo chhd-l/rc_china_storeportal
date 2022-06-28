@@ -1,8 +1,8 @@
 import ApiRoot from './fetcher'
 
-export const register = async ({ username, password, phone,stores }: { username: string, password: string, phone: string,stores:any }) => {
+export const register = async ({ username, password, phone, stores }: { username: string, password: string, phone: string, stores: any }) => {
   try {
-    const { userCreate } = await ApiRoot.users().register({ username, password, phone,stores })
+    const { userCreate } = await ApiRoot.users().register({ username, password, phone, stores })
     console.log(userCreate.id)
     await ApiRoot.users().sendMessage({ userId: userCreate.id })
     return userCreate.id
@@ -14,8 +14,8 @@ export const register = async ({ username, password, phone,stores }: { username:
 
 export const verifyMesssage = async ({ userId, code }: { userId: string, code: string }) => {
   try {
-    await ApiRoot.users().verifyMessage({ userId, code })
-    return true
+    const data = await ApiRoot.users().verifyMessage({ userId, code })
+    return data?.verifyMessage ?? false
   } catch (e) {
     return false
   }
