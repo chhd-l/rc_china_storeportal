@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Input, Button, Form, message, Select } from 'antd'
+import { Input, Button, Form, Select } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import {
   SellerLogoPanel,
@@ -103,7 +103,6 @@ const Register = () => {
               onFinish={(values) => {
                 console.log(values,stores)
                 if (values.confirmPassword !== values.password) {
-                  message.error('Password verification failed')
                   return
                 }
                 register({
@@ -116,8 +115,6 @@ const Register = () => {
                     setTempUserId(id)
                     setPhoneNumber(values.phone)
                     registerToNext()
-                  } else {
-                    message.error('Register failed！')
                   }
                 })
               }}
