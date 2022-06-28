@@ -73,7 +73,7 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
             <span className='cursor-pointer iconfont icon-kjafg primary-color mr-4' onClick={(e) => {
               e.stopPropagation()
               navigator('/tags/edit-tags', {
-                state: { id: record.id },
+                state: { id: record.id, type: record.type !== 'SYSTEM' },
               })
             }} />
           </Tooltip>
