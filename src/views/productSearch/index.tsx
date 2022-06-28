@@ -3,7 +3,7 @@ import { useRef, useState } from 'react'
 import ProTable, { ActionType, ProColumns } from '@/components/common/ProTable'
 import './index.less'
 import { Link } from 'react-router-dom'
-import TipsModal from './components/TipsModal'
+import TipsModal, {  TipsType } from './components/TipsModal'
 import { getHotSearchFindPage, hotSearchUpdate, HotSearchVisibleSwitch } from '@/framework/api/get-product'
 import { handlePageParams } from '@/utils/utils'
 import { useRequest } from 'ahooks'
@@ -15,7 +15,7 @@ import { RecordItem } from './type'
 const ProductSearch = () => {
   const actionRef = useRef<ActionType>()
   const [visible, setVisible] = useState(false)
-  const [type, setType] = useState('')
+  const [type, setType] = useState<TipsType>('delete')
   const [checked, setChecked] = useState(false)
   const [deleteId, SetDeleteId] = useState('')
 
@@ -47,7 +47,6 @@ message.success({ className: 'rc-message', content: 'Operation success' })
       run(deleteId, { isDeleted: true })
     }
     setVisible(false)
-    setType('')
   }
 
   const refreshTable=()=>actionRef?.current?.reload();
@@ -121,7 +120,7 @@ message.success({ className: 'rc-message', content: 'Operation success' })
             limit: page.limit,
             sample: { storeId: '12345678',...params },
           })
-          setChecked(tableData.isVisibleOnShop)
+          setChecked(tableData?.isVisibleOnShop)
           return Promise.resolve({
             data: tableData?.records || [],
             total: tableData?.total || 0,
@@ -130,13 +129,6 @@ message.success({ className: 'rc-message', content: 'Operation success' })
         }}
         editable={{
           type: 'multiple',
-        }}
-        columnsState={{
-          persistenceKey: 'pro-table-singe-demos',
-          persistenceType: 'localStorage',
-          onChange(value) {
-            console.log('value: ', value)
-          },
         }}
         rowKey="id"
         search={{
@@ -164,7 +156,6 @@ message.success({ className: 'rc-message', content: 'Operation success' })
         toolBarRender={() => [<AddNewSearch  refreshTable={refreshTable}/>]}
       />
       <TipsModal type={type} visible={visible} onOk={onOk} onCancel={() => {
-        setType('')
         setVisible(false)}} />
     </>
   )

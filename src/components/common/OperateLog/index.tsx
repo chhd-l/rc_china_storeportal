@@ -13,7 +13,7 @@ const OperateLogWidget: React.FC<{ logs: Log[] }> = ({ logs }) => {
       <Divider>
         <span>Operation log</span>
       </Divider>
-      <Steps direction="vertical" current={0}>
+      <Steps className={`${subscriptionLogs.length > 8 ?'virtualList' : ''}`} direction="vertical" current={0}>
         {subscriptionLogs.map((item) => (
             <Steps.Step
               key={item.id}

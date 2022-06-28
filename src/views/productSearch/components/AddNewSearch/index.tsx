@@ -19,19 +19,19 @@ const AddNewSearch= ({refreshTable}:AddNewSearchProps) => {
     width={322}
       title="Add New Top Search"
       trigger={
-        <Button key="button" icon={<PlusOutlined />} type="primary">
+        <Button key="button" type="primary" className='flex items-center'>
+          <PlusOutlined />
           Add
         </Button>
       }
       autoFocusFirstInput
       modalProps={{
-        onCancel: () => console.log('run'),
-        okText:'Confirm'
+        okText:'Confirm',
+        destroyOnClose: true,
       }}
       submitTimeout={2000}
       onFinish={async (values) => {
         await hotSearchCreate({...values,storeId:'12345678',status:true});
-        console.log(values);
         message.success({ className: 'rc-message', content: 'Operation success' })
         refreshTable()
         return true;
@@ -45,6 +45,7 @@ const AddNewSearch= ({refreshTable}:AddNewSearchProps) => {
       name="priority"
       min={0}
       fieldProps={{ precision: 0 }}
+      initialValue={0}
 />
     </ModalForm>
   );

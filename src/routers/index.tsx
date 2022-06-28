@@ -79,10 +79,17 @@ let routes: RouteObject[] = [
       { path: 'shipment-list', element: <OrderList />, breadcrumbName: 'My Shipment' },
       { path: 'shipping-setting', element: <ShippingSetting />, breadcrumbName: 'Shipping Setting' },      
       { path: 'product-search', element: <ProductSearch />, breadcrumbName: 'Product Search' },
-      { path: 'tag-list', element: <TagList />, breadcrumbName: 'Tagging Setting' },
-      { path: 'edit-tags', element: <EditTags />, breadcrumbName: 'Tagging Details' },
       { path: 'intelligentRecommendation-list', element: <IntelligentRecommendation />, breadcrumbName: "Intelligent Recommendation" },
       { path: 'customer-service', element: <CustomerService />, breadcrumbName: 'Customer Service' },
+      {
+        path: "tags",
+        breadcrumbName: "Tagging Setting",
+        children: [
+          { index: true, element: <TagList /> },
+          { path: "tag-list", element: <TagList /> },
+          { path: "edit-tags", element: <EditTags />, breadcrumbName: "Tagging Details" },
+        ],
+      },
       {
         path: 'assets',
         breadcrumbName: 'Assets Management',
@@ -100,7 +107,7 @@ let routes: RouteObject[] = [
           { index: true, element: <ProductList /> },
           { path: 'product-list', element: <ProductList /> },
           { path: 'product-detail', element: <AddProduct />, breadcrumbName: 'Product Detail' },
-          { path: 'product-add', element: <AddProduct />, breadcrumbName: 'AddProduct' },
+          { path: 'product-add', element: <AddProduct />, breadcrumbName: 'Add Product' },
         ],
       },
       {
