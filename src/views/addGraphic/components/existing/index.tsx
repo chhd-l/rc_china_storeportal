@@ -62,6 +62,18 @@ const voiceColumns = [
   }
 ];
 
+const list = {
+  // 未同步
+  NOT_SYNCED:'Not synced',
+  // 已同步
+  SYCHRONIZED:'Synchronized',
+  // 审核中
+  AUDITING:'Auditing',
+  // 审核成功
+  PULISHED:'Pulished',
+  // 审核失败
+  AUDIT_FAILED:'Audit Failed',
+}
 const videoColumns = [
   {
     title: 'Title',
@@ -86,6 +98,7 @@ const videoColumns = [
   }
 ];
 
+// @ts-ignore
 const graphicColumns = [
   {
     title: "Graphic main cover",
@@ -108,7 +121,10 @@ const graphicColumns = [
     title: 'Status',
     dataIndex: 'status',
     key: 'status',
-    render: (_text: boolean) => _text ? "Sychronized" : "Not synced"
+    render: (_text: boolean,record: any) => {
+      // @ts-ignore
+      return list[`${record.status}`]
+    }
   }
 ]
 
