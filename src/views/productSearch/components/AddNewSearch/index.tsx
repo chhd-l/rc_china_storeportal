@@ -31,10 +31,13 @@ const AddNewSearch= ({refreshTable}:AddNewSearchProps) => {
       }}
       submitTimeout={2000}
       onFinish={async (values) => {
-        await hotSearchCreate({...values,storeId:'12345678',status:true});
-        message.success({ className: 'rc-message', content: 'Operation success' })
-        refreshTable()
-        return true;
+     const result=   await hotSearchCreate({...values,storeId:'12345678',status:true});
+     if(!result.hotSearchCreate){
+      return false
+     }
+     message.success({ className: 'rc-message', content: 'Operation success' })
+     refreshTable()
+     return true;
       }}
     >
       <ProFormText width="md" name="topName" label="
