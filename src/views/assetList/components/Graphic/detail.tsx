@@ -5,7 +5,7 @@ import moment from 'moment';
 
 interface IProps {
   mediaId: string
-  synced: boolean
+  synced: string
   visible: boolean
   articleList: any[]
   createdAt: string
@@ -23,10 +23,14 @@ const ArticleDetail: React.FC<IProps> = ({ mediaId, synced, visible, articleList
       return Promise.resolve(true);
     }
     setLoading(true)
-    const urls = await getArticlePreviewUrls(mediaId)
+    var urls: any[]
+    if (synced!=='PULISHED'){
+       urls = await getArticlePreviewUrls(mediaId)
+    }
+
     setList(list.map((item: any, idx: number) => ({
       ...item,
-      previewUrl: urls[idx]
+      previewUrl: synced==='PULISHED'?item.downURL:urls[idx]
     })));
     setLoading(false);
   }
@@ -59,7 +63,7 @@ const ArticleDetail: React.FC<IProps> = ({ mediaId, synced, visible, articleList
             <a
               className={`cursor-pointer ml-2 iconfont icon-kjafg text-xl ${synced ? "primary-color" : "text-gray-400"}`}
               href={record?.previewUrl}
-              target="_blank"
+              target="_blank" rel="noreferrer"
             />
           </Tooltip>
         </>

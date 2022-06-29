@@ -1,7 +1,5 @@
-import { ProductForCateProps } from "@/framework/types/product";
 import { ProColumns } from "@ant-design/pro-table";
 import { Button,Space,Input } from "antd";
-import { getESProducts } from '@/framework/api/get-product'
 import { formatMoney } from '@/utils/utils'
 const { Search } = Input
 
@@ -15,14 +13,14 @@ const setNum = (arr: any) => {
 export const columns: ProColumns<any>[] = [
   {
     title: 'Product Name',
-    dataIndex: 'productName',
+    dataIndex: 'name',
     hideInSearch: true,
     render: (_, record) => {
       return (
         <div className='flex al-cneter'>
-          <img src={record.productVariants[0]?.defaultImage} alt='' style={{ width: '50px',height:'50px', marginRight: '10px' }} />
+          <img src={record.variants[0]?.defaultImage} alt='' style={{ width: '50px',height:'50px', marginRight: '10px' }} />
           <div>
-            <div>{record.productName}</div>
+            <div>{record.name}</div>
           </div>
         </div>
       )
@@ -33,12 +31,12 @@ export const columns: ProColumns<any>[] = [
     dataIndex: 'Marketing Price',
     hideInSearch: true,
     render: (_, record) => {
-      if (record.productVariants?.length <= 1) {
+      if (record.variants?.length <= 1) {
         return (
-          <span>{formatMoney(record.productVariants[0]?.marketingPrice)}</span>
+          <span>{formatMoney(record.variants[0]?.marketingPrice)}</span>
         )
-      } else if (record.productVariants?.length > 1) {
-        let arr = record.productVariants.sort((a: any, b: any) => {
+      } else if (record.variants?.length > 1) {
+        let arr = record.variants.sort((a: any, b: any) => {
           return a.marketingPrice - b.marketingPrice
         })
         return (
@@ -52,15 +50,15 @@ export const columns: ProColumns<any>[] = [
     dataIndex: 'stock',
     hideInSearch: true,
     render: (_, record) => {
-      if (record.productVariants?.length > 0) {
+      if (record.variants?.length > 0) {
         return (
-          <span>{setNum(record.productVariants)}</span>
+          <span>{setNum(record.variants)}</span>
         )
       }
     },
   },
   {
-    dataIndex: 'productName',
+    dataIndex: 'name',
     hideInTable: true,
     renderFormItem: (_, { type, defaultRender, ...rest }, form) => {
       return (

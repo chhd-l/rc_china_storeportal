@@ -37,6 +37,7 @@ export interface Log {
   id: string
   event: string
   operatorType?: string
+  description?: string
 }
 
 export interface Carrier {

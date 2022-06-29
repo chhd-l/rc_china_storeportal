@@ -108,7 +108,7 @@ const graphicColumns = [
     title: 'Status',
     dataIndex: 'status',
     key: 'status',
-    render: (_text: boolean) => _text ? "Sychronized" : "Not synced"
+    render: (_text: boolean) =>  "pulished"
   }
 ]
 
@@ -123,7 +123,7 @@ const AssetsModal = (props: IProps) => {
 
   const getList = async (currentPage: number) => {
     const params = props.assetType === "news" ? {
-      sample: props.onlySync ? { status: true } : undefined,
+      sample: props.onlySync ? { status: 'PULISHED' } : undefined,
       offset: currentPage * 10 - 10,
       limit: 10,
     } : {
