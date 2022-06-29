@@ -5,6 +5,7 @@ import { useLocation } from 'react-router'
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { userFindStoreIds } from '@/framework/api/banner'
+import { swithStore } from '@/framework/api/login-user'
 import { userAtom } from '@/store/user.store'
 import { useAtom } from 'jotai'
 import { useNavigate } from 'react-router-dom'
@@ -30,7 +31,9 @@ const LoginBarnd = () => {
     autoplay: false,
   };
   const handleClick = async(item: any) => {
-    navigator("/dashboard");
+    if (await swithStore(item.id)) {
+      navigator("/dashboard");
+    }
   }
   return (
     <div className="h-screen bg-gray1 flex justify-center items-center">

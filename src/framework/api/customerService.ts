@@ -3,7 +3,7 @@ import ApiRoot from "./fetcher"
 
 export const getStoreSettings = async () => {
     try {
-        let res = await ApiRoot.stores().getStoreSettings()
+        let res = await ApiRoot().stores().getStoreSettings()
         return res || []
     } catch (e) {
         console.log(e)
@@ -13,7 +13,7 @@ export const getStoreSettings = async () => {
 
 export const getStoreSetting = async (code: string) => {
     try {
-        let res = await ApiRoot.stores().getStoreSetting({ code })
+        let res = await ApiRoot().stores().getStoreSetting({ code })
         return res || []
     } catch (e) {
         console.log(e)
@@ -24,7 +24,7 @@ export const getStoreSetting = async (code: string) => {
 export const updateStoreSetting = async (params: any) => {
     try {
         console.log('params', params)
-        let res = await ApiRoot.stores().updateStoreSetting({ body: params })
+        let res = await ApiRoot().stores().updateStoreSetting({ body: params })
         return res || []
     } catch (e) {
         console.log(e)

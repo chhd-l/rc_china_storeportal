@@ -3,14 +3,14 @@ import { normalisePets, normalisePet } from '@/framework/normalize/consumer'
 import Mock from 'mockjs'
 import { petListSource, petDetailSource } from '@/views/petOwnerDetail/modules/mockdata'
 
-const isMock=false
+const isMock = false
 
 export const getPetList = async ({ consumerId }: { consumerId: string }) => {
   try {
-    if(isMock){
+    if (isMock) {
       return Mock.mock(petListSource).array
-    }else{
-      const pets = await ApiRoot.pets().getPets({ consumerId })
+    } else {
+      const pets = await ApiRoot().pets().getPets({ consumerId })
       return normalisePets(pets)
     }
   } catch (e) {
@@ -21,8 +21,8 @@ export const getPetList = async ({ consumerId }: { consumerId: string }) => {
 
 export const getPetDetail = async ({ id }: { id: string }) => {
   try {
-    const pet = await ApiRoot.pets().getPet({ id })
-    console.log('pet',pet)
+    const pet = await ApiRoot().pets().getPet({ id })
+    console.log('pet', pet)
     return normalisePet(pet)
   } catch (e) {
     console.log(e)

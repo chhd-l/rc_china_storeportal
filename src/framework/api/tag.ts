@@ -2,7 +2,7 @@ import ApiRoot from './fetcher'
 
 export const getTags = async (params: any) => {
   try {
-    let res = await ApiRoot.tags().getTags({ body: params })
+    let res = await ApiRoot().tags().getTags({ body: params })
     console.log('get tag list view data', res)
     return res?.tagFindPage
   } catch (e) {
@@ -13,7 +13,7 @@ export const getTags = async (params: any) => {
 
 export const createTag = async (params: any) => {
   try {
-    let res = await ApiRoot.tags().createTag({ body: params })
+    let res = await ApiRoot().tags().createTag({ body: params })
     console.log('get tag list view data', res)
     return res
 
@@ -24,7 +24,7 @@ export const createTag = async (params: any) => {
 }
 export const deleteTag = async (params: any) => {
   try {
-    let res = await ApiRoot.tags().deleteTag(params)
+    let res = await ApiRoot().tags().deleteTag(params)
     console.log('get tag list view data', res)
     return res
   } catch (e) {
@@ -34,7 +34,7 @@ export const deleteTag = async (params: any) => {
 }
 export const detailTag = async (params: any) => {
   try {
-    let res = await ApiRoot.tags().detailTag({ body: params })
+    let res = await ApiRoot().tags().detailTag({ body: params })
     console.log('get tag list view data', res)
     return res
   } catch (e) {
@@ -44,7 +44,7 @@ export const detailTag = async (params: any) => {
 }
 export const addConsumerTag = async (params: any) => {
   try {
-    let res = await ApiRoot.tags().addConsumerTag(params)
+    let res = await ApiRoot().tags().addConsumerTag(params)
     console.log('get tag list view data', res)
     return res
   } catch (e) {
@@ -54,7 +54,7 @@ export const addConsumerTag = async (params: any) => {
 }
 export const removeConsumerTag = async (params: any) => {
   try {
-    let res = await ApiRoot.tags().removeConsumerTag(params)
+    let res = await ApiRoot().tags().removeConsumerTag(params)
     console.log('get tag list view data', res)
     return res
   } catch (e) {
@@ -64,7 +64,7 @@ export const removeConsumerTag = async (params: any) => {
 }
 export const updateTag = async (params: any) => {
   try {
-    let res = await ApiRoot.tags().updateTag(params)
+    let res = await ApiRoot().tags().updateTag(params)
     console.log('get tag list view data', res)
     return res
   } catch (e) {

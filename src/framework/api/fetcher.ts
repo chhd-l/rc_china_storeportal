@@ -1,5 +1,5 @@
-// import ClientBuilder from '@rc-china-commerce/fetch/'
-import ClientBuilder from '@/rc-china-commerce/packages/fetch/lib/index'
+import ClientBuilder from '@rc-china-commerce/fetch/'
+// import ClientBuilder from '@/rc-china-commerce/packages/fetch/lib/index'
 import { message } from 'antd'
 import history from '@/routers/history'
 // import ClientBuilder from '@/rc-china-commerce/packages/fetch/dist/fetch/lib'
@@ -19,16 +19,19 @@ const API_URL = 'https://msstg.fivefen.com/faas/graphql'
 
 export const UPLOAD_API_URL = 'https://msstg.fivefen.com/faas/upload'
 
-const ApiRoot = new ClientBuilder().config({
-  url: API_URL,
-  handleError: function (err: string, isNeedToLogin: boolean = false) {
-    if (!isShowingError) {
-      message.error({ className: 'rc-message', content: err === 'GqlAuthGuard' ? 'Login expired, please login again!' : err, onClose: () => { isShowingError = false } })
-      isShowingError = true
-    }
-    if (isNeedToLogin) {
-      history.push('/login')
-    }
+const handleError: (err: string, isNeedToLogin: boolean) => void = (err, isNeedToLogin = false) => {
+  if (!isShowingError) {
+    message.error({ className: 'rc-message', content: err === 'GqlAuthGuard' ? 'Login expired, please login again!' : err, onClose: () => { isShowingError = false } })
+    isShowingError = true
   }
-})
+  if (isNeedToLogin) {
+    history.push('/login')
+  }
+}
+
+const ApiRoot = ({ url = API_URL, isShowError = true }: { url?: string, isShowError?: boolean } = { url: API_URL, isShowError: true }) => new ClientBuilder().config({
+  url: url,
+  handleError: handleError
+}).config({ url, isShowError: isShowError })
+
 export default ApiRoot

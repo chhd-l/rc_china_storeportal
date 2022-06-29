@@ -13,7 +13,7 @@ export const getLiveStreamingList = async (parma: any) => {
         records: Mock.mock(liveStreamMockData).array,
       }
     } else {
-      let res = await ApiRoot.liveStreams().getLiveStreamingList(parma)
+      let res = await ApiRoot().liveStreams().getLiveStreamingList(parma)
       return {
         total: res?.wxLiveStreamingFindPage?.total || 0,
         records: res?.wxLiveStreamingFindPage?.records || [],
@@ -37,7 +37,7 @@ export const getLiveStreamingOnlineList = async (parma: any) => {
         records: Mock.mock(liveStreamMockData).array,
       }
     } else {
-      let res = await ApiRoot.liveStreams().getLiveStreamingOnlineList(parma)
+      let res = await ApiRoot().liveStreams().getLiveStreamingOnlineList(parma)
       return {
         total: res?.wxLiveStreamingFindOnLivePage?.total || 0,
         records: res?.wxLiveStreamingFindOnLivePage?.records || [],
@@ -58,7 +58,7 @@ export const syncLiveStreaming = async (accountId: string) => {
     if (isMock) {
       return true
     } else {
-      let res = await ApiRoot.liveStreams().syncLiveStreaming(accountId)
+      let res = await ApiRoot().liveStreams().syncLiveStreaming(accountId)
       return res?.wxLiveStreamingSync || false
     }
   } catch (e) {
@@ -68,12 +68,12 @@ export const syncLiveStreaming = async (accountId: string) => {
 }
 
 //同步部分直播
-export const syncPartLiveStreaming = async (liveStreamingInput:any) => {
+export const syncPartLiveStreaming = async (liveStreamingInput: any) => {
   try {
     if (isMock) {
       return true
     } else {
-      let res = await ApiRoot.liveStreams().syncPartLiveStreaming(liveStreamingInput)
+      let res = await ApiRoot().liveStreams().syncPartLiveStreaming(liveStreamingInput)
       return res?.wxLiveStreamingSyncByRoomId || false
     }
   } catch (e) {

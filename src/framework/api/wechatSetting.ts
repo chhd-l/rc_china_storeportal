@@ -4,7 +4,7 @@ import { normaliseBrands, normaliseMediaList } from '@/framework/normalize/wecha
 // 查询 account
 export const getAccountList = async (queryParams: any) => {
   try {
-    let res = await ApiRoot.wechatSettings().getAccounts({ body: queryParams })
+    let res = await ApiRoot().wechatSettings().getAccounts({ body: queryParams })
     const accounts = res?.wxAccountFindPage
     //todo account manage normalize
     console.log('get wechat setting account list view data', accounts)
@@ -25,7 +25,7 @@ export const getFansList = async (queryParams: any) => {
   try {
     //todo 查询参数处理
     const params = queryParams
-    let res = await ApiRoot.wechatSettings().getFans({ body: params })
+    let res = await ApiRoot().wechatSettings().getFans({ body: params })
     const fansList = res?.wxFansFindPage
     //todo fans manage normalize
     console.log('get wechat setting fans list view data', fansList)
@@ -46,7 +46,7 @@ export const createAccount = async (queryParams: any) => {
   try {
     //todo 新增参数处理
     const params = queryParams
-    let res = await ApiRoot.wechatSettings().addAccount({ body: params })
+    let res = await ApiRoot().wechatSettings().addAccount({ body: params })
     const account = res?.wxAccountCreate
     //todo account manage normalize
     console.log('create account view data', account)
@@ -66,7 +66,7 @@ export const syncAccount = async (queryParams: any) => {
       // isActive,
       // accountType
     }
-    let res = await ApiRoot.wechatSettings().addAccount(params)
+    let res = await ApiRoot().wechatSettings().addAccount(params)
     const syncAccount = res?.wxAccountCreate
     console.log('sync account view data', syncAccount)
     return syncAccount || false
@@ -81,7 +81,7 @@ export const modifyAccount = async (queryParams: any) => {
   try {
     //todo 编辑参数处理（改了什么传什么，加上isDeleted就是删除接口）
     const params = queryParams
-    let res = await ApiRoot.wechatSettings().modifyAccount({ body: params })
+    let res = await ApiRoot().wechatSettings().modifyAccount({ body: params })
     const modifySuccess = res?.wxAccountUpdate
     return modifySuccess || false
   } catch (e) {
@@ -92,7 +92,7 @@ export const modifyAccount = async (queryParams: any) => {
 // 同步全部粉丝
 export const syncFans = async () => {
   try {
-    let res = await ApiRoot.wechatSettings().syncFans({ accountId: '000001' })
+    let res = await ApiRoot().wechatSettings().syncFans({ accountId: '000001' })
     const syncSuccess = res?.wxFansSync
     console.log('sync fans view data', syncSuccess)
     return syncSuccess || false
@@ -109,7 +109,7 @@ export const syncPartFans = async (syncParams: any) => {
       accountId: '000001',
       openIds: syncParams,
     }
-    let res = await ApiRoot.wechatSettings().syncPartFans(params)
+    let res = await ApiRoot().wechatSettings().syncPartFans(params)
     const syncSuccess = res?.wxFansSyncPartly
     console.log('sync fans view data', syncSuccess)
     return syncSuccess || false
@@ -121,7 +121,7 @@ export const syncPartFans = async (syncParams: any) => {
 
 export const getMedias = async (queryParams: any) => {
   try {
-    let res = await ApiRoot.wechatSettings().getMedias({ body: { ...queryParams, accountId: '000001' } })
+    let res = await ApiRoot().wechatSettings().getMedias({ body: { ...queryParams, accountId: '000001' } })
     const mediaList = res?.wxMediaFindPage
     mediaList.records = normaliseMediaList(mediaList.records)
     console.log('get wechat setting media list view data', mediaList)
@@ -140,7 +140,7 @@ export const getMedias = async (queryParams: any) => {
 
 export const createMedia = async (queryParams: any) => {
   try {
-    let res = await ApiRoot.wechatSettings().createMedia({
+    let res = await ApiRoot().wechatSettings().createMedia({
       mediaInput: Object.assign(
         {
           accountId: '000001',
@@ -169,7 +169,7 @@ export const createMedia = async (queryParams: any) => {
 
 export const createMediaAndSync = async (queryParams: any) => {
   try {
-    let res = await ApiRoot.wechatSettings().createMediaAndSync({
+    let res = await ApiRoot().wechatSettings().createMediaAndSync({
       mediaInput: Object.assign(
         {
           accountId: '000001',
@@ -198,7 +198,7 @@ export const createMediaAndSync = async (queryParams: any) => {
 
 export const updateMedia = async (queryParams: any) => {
   try {
-    let res = await ApiRoot.wechatSettings().modifyMedia(queryParams)
+    let res = await ApiRoot().wechatSettings().modifyMedia(queryParams)
     const modifyMedia = res?.wxMediaUpdate
     console.log('create media view data', modifyMedia)
     return modifyMedia || false
@@ -210,7 +210,7 @@ export const updateMedia = async (queryParams: any) => {
 
 export const syncMedias = async (type: string) => {
   try {
-    let res = await ApiRoot.wechatSettings().syncMedia({ accountId: '000001', type })
+    let res = await ApiRoot().wechatSettings().syncMedia({ accountId: '000001', type })
     const syncSuccess = res?.wxMediaSync
     console.log('sync media view data', syncSuccess)
     return syncSuccess || false
@@ -221,7 +221,7 @@ export const syncMedias = async (type: string) => {
 }
 export const getBrands = async (storeId: string) => {
   try {
-    let res = await ApiRoot.wechatSettings().getBarndList({ storeId })
+    let res = await ApiRoot().wechatSettings().getBarndList({ storeId })
     console.log('getBrands', res)
     let list = normaliseBrands(res || [])
     return list
@@ -236,7 +236,7 @@ export const getAppQrCodes = async (queryParams: any) => {
   try {
     //todo 查询参数处理
     const params = queryParams
-    let res = await ApiRoot.wechatSettings().getAppQrCodes({ body: params })
+    let res = await ApiRoot().wechatSettings().getAppQrCodes({ body: params })
     const findWxAppQRCodePage = res?.wxAppQRCodeFindPage
     //todo fans manage normalize
     console.log('get appQrCode list view data', findWxAppQRCodePage)
@@ -256,7 +256,7 @@ export const getAppQrCodes = async (queryParams: any) => {
 // 新增、编辑、删除 小程序二维码
 export const upsertAppQrCodes = async (queryParams: any) => {
   try {
-    let res = await ApiRoot.wechatSettings().updateAppQrCode({ body: queryParams })
+    let res = await ApiRoot().wechatSettings().updateAppQrCode({ body: queryParams })
     const upsertWxAppQRCode = res?.wxAppQRCodeModify
     console.log('upsert app qrCode view data', upsertWxAppQRCode)
     return upsertWxAppQRCode || false
@@ -271,7 +271,7 @@ export const getQrCodes = async (queryParams: any) => {
   try {
     //todo 查询参数处理
     const params = queryParams
-    let res = await ApiRoot.wechatSettings().getQrCodes({ body: params })
+    let res = await ApiRoot().wechatSettings().getQrCodes({ body: params })
     const qrCodeList = res?.wxQrCodeFindPage
     //todo fans manage normalize
     console.log('get qrCode list view data', qrCodeList)
@@ -292,7 +292,7 @@ export const getQrCodes = async (queryParams: any) => {
 export const createQrCode = async (queryParams: any) => {
   try {
     //todo 参数处理 编辑参数加id,删除参数加id and isDeleted
-    let res = await ApiRoot.wechatSettings().addQrCode({ input: queryParams, operator: 'cc' })
+    let res = await ApiRoot().wechatSettings().addQrCode({ input: queryParams, operator: 'cc' })
     const addQrCode = res?.wxQrCodeCreate
     console.log('upsert app qrCode view data', addQrCode)
     return addQrCode
@@ -310,7 +310,7 @@ export const getTemplateItems = async (queryParams: any) => {
       limit: 10,
       accountId: '000001',
     }
-    let res = await ApiRoot.wechatSettings().getTemplateItems({ body: params })
+    let res = await ApiRoot().wechatSettings().getTemplateItems({ body: params })
     const templateItemList = res?.wxTemplateItemFindPage
     console.log('get templateItem list view data', templateItemList)
     return {
@@ -328,7 +328,7 @@ export const getTemplateItems = async (queryParams: any) => {
 
 export const syncTemplateItem = async (params: { operator: string }) => {
   try {
-    let res = await ApiRoot.wechatSettings().syncTemplateItem(Object.assign(params, { accountId: '000001' }))
+    let res = await ApiRoot().wechatSettings().syncTemplateItem(Object.assign(params, { accountId: '000001' }))
     const syncTemplateItem = res?.wxTemplateItemSync
     console.log('sync template item view data', syncTemplateItem)
     return syncTemplateItem || false
@@ -344,7 +344,7 @@ export const getTemplateMessages = async (queryParams: any) => {
     const params = Object.assign(queryParams, {
       accountId: '000001',
     })
-    let res = await ApiRoot.wechatSettings().getTemplateMessages({ body: params })
+    let res = await ApiRoot().wechatSettings().getTemplateMessages({ body: params })
     const templateMessageList = res?.wxTemplateMessageFindPage
     console.log('get templateItem list view data', templateMessageList)
     return {
@@ -362,7 +362,7 @@ export const getTemplateMessages = async (queryParams: any) => {
 
 export const getTemplateDetail = async (id: string) => {
   try {
-    let res = await ApiRoot.wechatSettings().getTemplateMessageDetail(id)
+    let res = await ApiRoot().wechatSettings().getTemplateMessageDetail(id)
     const templateMessageDetails = res?.wxTemplateMessageGet
     console.log('get template message detail view data', templateMessageDetails)
     return templateMessageDetails
@@ -375,7 +375,7 @@ export const getTemplateDetail = async (id: string) => {
 // 新增TemplateMessage
 export const createTemplateMessage = async (queryParams: any) => {
   try {
-    let res = await ApiRoot.wechatSettings().createTemplateMessage({ body: queryParams })
+    let res = await ApiRoot().wechatSettings().createTemplateMessage({ body: queryParams })
     const createTemplateMessage = res?.wxTemplateMessageCreate
     console.log('get templateItem list view data', createTemplateMessage)
     return createTemplateMessage || false
@@ -388,7 +388,7 @@ export const createTemplateMessage = async (queryParams: any) => {
 // 编辑、删除TemplateMessage
 export const updateTemplateMessage = async (queryParams: any) => {
   try {
-    let res = await ApiRoot.wechatSettings().modifyTemplateMessage({ body: queryParams, operator: 'zz' })
+    let res = await ApiRoot().wechatSettings().modifyTemplateMessage({ body: queryParams, operator: 'zz' })
     const modifyTemplateMessage = res?.wxTemplateMessageModify
     console.log('get templateItem list view data', modifyTemplateMessage)
     return modifyTemplateMessage || false
@@ -400,7 +400,7 @@ export const updateTemplateMessage = async (queryParams: any) => {
 
 export const getIndustry = async () => {
   try {
-    let res = await ApiRoot.wechatSettings().getAllIndustry('000001')
+    let res = await ApiRoot().wechatSettings().getAllIndustry('000001')
     const industry = res?.wxIndustryGet
     console.log('get industry view data', industry)
     return industry
@@ -412,7 +412,7 @@ export const getIndustry = async () => {
 
 export const syncIndustry = async () => {
   try {
-    let res = await ApiRoot.wechatSettings().syncIndustry({ accountId: '000001' })
+    let res = await ApiRoot().wechatSettings().syncIndustry({ accountId: '000001' })
     const syncIndustry = res?.wxIndustrySync
     console.log('sync industry view data', syncIndustry)
     return syncIndustry
@@ -430,7 +430,7 @@ export const syncIndustry = async () => {
 export const getWxMenusList = async (queryParams: any) => {
   try {
     const params = queryParams
-    let res = await ApiRoot.wechatSettings().getWxMenus({ body: params })
+    let res = await ApiRoot().wechatSettings().getWxMenus({ body: params })
     const list = res?.wxMenuFindPage
     console.log('get wxmenus view data', list)
     return {
@@ -453,7 +453,7 @@ export const getWxMenusList = async (queryParams: any) => {
  */
 export const updateWxMenu = async (queryParams: any) => {
   try {
-    let res = await ApiRoot.wechatSettings().upsertWxMenu(queryParams)
+    let res = await ApiRoot().wechatSettings().upsertWxMenu(queryParams)
     const updated = res?.wxMenuModify
     console.log('update wxmenu view data', updated)
     return updated || false
@@ -470,7 +470,7 @@ export const updateWxMenu = async (queryParams: any) => {
  */
 export const createWxMenu = async (name: string, wxMenusContent: string, description: string) => {
   try {
-    let res = await ApiRoot.wechatSettings().createWxMenu({
+    let res = await ApiRoot().wechatSettings().createWxMenu({
       accountId: '000001',
       name,
       description,
@@ -487,7 +487,7 @@ export const createWxMenu = async (name: string, wxMenusContent: string, descrip
 
 export const getWxMenuDetail = async (id: string) => {
   try {
-    let data = await ApiRoot.wechatSettings().getWxMenuDetailById(id)
+    let data = await ApiRoot().wechatSettings().getWxMenuDetailById(id)
     console.log('get wxmenu detail view data', data)
     return data?.wxMenuGet
   } catch (e) {
@@ -497,7 +497,7 @@ export const getWxMenuDetail = async (id: string) => {
 }
 
 export const getReplyContentList = async (queryParams: any) => {
-  const data = await ApiRoot.wechatSettings().getReplyContentList({ body: queryParams })
+  const data = await ApiRoot().wechatSettings().getReplyContentList({ body: queryParams })
   const list = data?.wxReplyContentFindPage
   console.log('get replyContent view data:', list)
   return {
@@ -507,14 +507,14 @@ export const getReplyContentList = async (queryParams: any) => {
 }
 
 export const getReplyContentDetail = async (id: string) => {
-  const res = await ApiRoot.wechatSettings().getReplyContentDetail(id)
+  const res = await ApiRoot().wechatSettings().getReplyContentDetail(id)
   const data = res?.wxReplyContentGet
   console.log('get replyContent detail by id view data:', data)
   return data ?? {}
 }
 
 export const createReplyContent = async (params: any) => {
-  const data = await ApiRoot.wechatSettings().createReplyContent({
+  const data = await ApiRoot().wechatSettings().createReplyContent({
     body: params,
     operator: 'zz'
   })
@@ -523,7 +523,7 @@ export const createReplyContent = async (params: any) => {
 }
 
 export const deleteReplyContent = async (id: string) => {
-  const data = await ApiRoot.wechatSettings().modifyReplyContent({
+  const data = await ApiRoot().wechatSettings().modifyReplyContent({
     body: {
       id,
       isDeleted: true,
@@ -535,7 +535,7 @@ export const deleteReplyContent = async (id: string) => {
 }
 
 export const updateReplyContent = async (id: string, param: any) => {
-  const data = await ApiRoot.wechatSettings().modifyReplyContent({
+  const data = await ApiRoot().wechatSettings().modifyReplyContent({
     body: {
       id: id,
       isDeleted: false,
@@ -548,7 +548,7 @@ export const updateReplyContent = async (id: string, param: any) => {
 }
 
 export const getAutomaticResponseList = async (param: any) => {
-  const data = await ApiRoot.wechatSettings().getAutomaticResponseList({
+  const data = await ApiRoot().wechatSettings().getAutomaticResponseList({
     body: param,
     operator: 'zz'
   })
@@ -561,13 +561,13 @@ export const getAutomaticResponseList = async (param: any) => {
 }
 
 export const getAutomaticResponseDetail = async (id: string) => {
-  const data = await ApiRoot.wechatSettings().getAutomaticResponseDetail(id)
+  const data = await ApiRoot().wechatSettings().getAutomaticResponseDetail(id)
   console.log('get WxAutomaticResponse detail by id view data:', data)
   return data?.wxAutomaticResponseGet ?? {}
 }
 
 export const createAutomaticResponse = async (param: any) => {
-  const data = await ApiRoot.wechatSettings().createAutomaticResponse({
+  const data = await ApiRoot().wechatSettings().createAutomaticResponse({
     body: param
   })
   console.log('create WxAutomaticResponse view data:', data)
@@ -575,7 +575,7 @@ export const createAutomaticResponse = async (param: any) => {
 }
 
 export const deleteAutomaticResponse = async (id: string) => {
-  const data = await ApiRoot.wechatSettings().updateAutomaticResponse({
+  const data = await ApiRoot().wechatSettings().updateAutomaticResponse({
     body: {
       id,
       isDeleted: true,
@@ -586,7 +586,7 @@ export const deleteAutomaticResponse = async (id: string) => {
 }
 
 export const updateAutomaticResponse = async (id: string, param: any) => {
-  const data = await ApiRoot.wechatSettings().updateAutomaticResponse({
+  const data = await ApiRoot().wechatSettings().updateAutomaticResponse({
     body: {
       isDeleted: false,
       id,
@@ -598,7 +598,7 @@ export const updateAutomaticResponse = async (id: string, param: any) => {
 }
 
 export const getArticlesList = async (param: any) => {
-  const data = await ApiRoot.wechatSettings().getArticlesList({
+  const data = await ApiRoot().wechatSettings().getArticlesList({
     body: param
   })
   console.log('get article list view data:', data)
@@ -609,19 +609,19 @@ export const getArticlesList = async (param: any) => {
 }
 
 export const syncArticles = async (accountId: string) => {
-  const data = await ApiRoot.wechatSettings().syncArticles(accountId)
+  const data = await ApiRoot().wechatSettings().syncArticles(accountId)
   console.log('sync articles view data:', data)
   return data?.wxArticleSync ?? false
 }
 
 export const deleteArticles = async (id: string, mediaId: string) => {
-  const data = await ApiRoot.wechatSettings().deleteArticles(id, mediaId)
+  const data = await ApiRoot().wechatSettings().deleteArticles(id, mediaId)
   console.log('delete articles view data:', data)
   return data?.wxArticleDelete ?? false
 }
 
 export const addArticle = async (param: any) => {
-  const data = await ApiRoot.wechatSettings().addArticles({
+  const data = await ApiRoot().wechatSettings().addArticles({
     body: {
       accountId: '000001',
       operator: 'zz',
@@ -633,7 +633,7 @@ export const addArticle = async (param: any) => {
 }
 
 export const addAndSyncArticle = async (param: any) => {
-  const data = await ApiRoot.wechatSettings().addAndSyncArticles({
+  const data = await ApiRoot().wechatSettings().addAndSyncArticles({
     body: {
       accountId: '000001',
       operator: 'zz',
@@ -645,7 +645,7 @@ export const addAndSyncArticle = async (param: any) => {
 }
 
 export const getArticlePreviewUrls = async (mediaId: string) => {
-  const data = await ApiRoot.wechatSettings().getArticlesPreviewUrls(mediaId)
+  const data = await ApiRoot().wechatSettings().getArticlesPreviewUrls(mediaId)
   console.log('get previewurls view data:', data)
   return data?.wxArticleGetUrlFromWX ?? []
 }
