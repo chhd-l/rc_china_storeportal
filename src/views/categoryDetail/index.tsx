@@ -42,14 +42,18 @@ const CategoryDetail = () => {
   })
   const getList = async (page: any) => {
     setLoading(true)
+    let sample = {
+      shopCategoryId: state.id,
+      name: undefined,
+    }
+    if(page.name!==''){
+      sample.name = page.name
+    }
     let res = await getFindShopCategoryProductPage({
       offset: page.offset,
       limit: page.limit,
       isNeedTotal: true,
-      sample: {
-        shopCategoryId: state.id,
-        productName: page.productName,
-      },
+      sample
     })
     let meta = res?.shopCategoryProductFindPage?.meta
     if (meta?.id) {
@@ -67,6 +71,7 @@ const CategoryDetail = () => {
         'filterTagsTwo': shopCategoryFilterRules[6]?.value !== '' ? shopCategoryFilterRules[6]?.value.split(',') : [],
       }
       setEditParams(obj)
+      console.log(obj,888)
       getProductList(obj)
     }
     setLoading(false)
@@ -84,7 +89,7 @@ const CategoryDetail = () => {
       data.sample.brand = params.brand
     }
     if (params.attributeValueIds) {
-      data.sample.attributeRelation = [{attributeValueIds:params.attributeValueIds}]
+      data.sample.attributeRelations = [{attributeValueIds:params.attributeValueIds}]
     }
     if (params.startPrice) {
       data.sample.startPrice = params.startPrice
@@ -226,17 +231,18 @@ const CategoryDetail = () => {
                   currentPage: params.current,
                   pageSize: params.pageSize,
                 })
-                let tableData = await getList({ ...page, productName: params.productName })
+                console.log(params)
+                let tableData = await getList({ ...page, name: params.name })
                 if (tableData === undefined && page.offset >= 10) {
                   tableData = await getList({
                     offset: page.offset - 10,
                     limit: page.limit,
-                    productName: params.productName,
+                    name: params.name,
                   })
                 }
                 return Promise.resolve({
                   data: tableData?.shopCategoryProductFindPage?.records || [],
-                  total: tableData?.shopCategoryProductFindPage.total,
+                  total: tableData?.shopCategoryProductFindPage?.total||0,
                   success: true,
                 })
               }}

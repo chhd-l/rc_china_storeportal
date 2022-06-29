@@ -76,14 +76,19 @@ const CategoryDetail = () => {
 
   const getList = async (page: any) => {
     setLoading(true)
+
+    let sample = {
+      shopCategoryId: state.id,
+      name: undefined,
+    }
+    if(page.name!==''){
+      sample.name = page.name
+    }
     let res = await getFindShopCategoryProductPage({
       offset: page.offset,
       limit: page.limit,
       isNeedTotal: true,
-      sample: {
-        shopCategoryId: state.id,
-        productName: page.productName,
-      },
+      sample
     })
     let meta = res?.shopCategoryProductFindPage?.meta
     if (meta?.id) {
@@ -123,15 +128,15 @@ const CategoryDetail = () => {
   const columns: ProColumns<any>[] = [
     {
       title: 'Product Name',
-      dataIndex: 'productName',
+      dataIndex: 'name',
       hideInSearch: true,
       render: (_, record) => {
         return (
           <div className='flex al-cneter'>
-            <img src={record.productVariants[0]?.defaultImage} alt=''
+            <img src={record.variants[0]?.defaultImage} alt=''
                  style={{ width: '50px', height: '50px', marginRight: '10px' }} />
             <div>
-              <div>{record.productName}</div>
+              <div>{record.name}</div>
             </div>
           </div>
         )
@@ -142,12 +147,12 @@ const CategoryDetail = () => {
       dataIndex: 'marketingPrice',
       hideInSearch: true,
       render: (_, record) => {
-        if (record.productVariants?.length <= 1) {
+        if (record.variants?.length <= 1) {
           return (
-            <span>{formatMoney(record.productVariants[0]?.marketingPrice)}</span>
+            <span>{formatMoney(record.variants[0]?.marketingPrice)}</span>
           )
-        } else if (record.productVariants?.length > 1) {
-          let arr = record.productVariants.sort((a: any, b: any) => {
+        } else if (record.variants?.length > 1) {
+          let arr = record.variants.sort((a: any, b: any) => {
             return a.marketingPrice - b.marketingPrice
           })
           return (
@@ -161,9 +166,9 @@ const CategoryDetail = () => {
       dataIndex: 'stock',
       hideInSearch: true,
       render: (_, record) => {
-        if (record.productVariants?.length > 0) {
+        if (record.variants?.length > 0) {
           return (
-            <span>{setNum(record.productVariants)}</span>
+            <span>{setNum(record.variants)}</span>
           )
         }
       },
@@ -185,7 +190,7 @@ const CategoryDetail = () => {
       },
     },
     {
-      dataIndex: 'productName',
+      dataIndex: 'name',
       hideInTable: true,
       renderFormItem: (_, { type, defaultRender, ...rest }, form) => {
         return (
@@ -309,16 +314,8 @@ const CategoryDetail = () => {
                     <span>{selectedRowKeys.length} products selected</span>
                     <Button onClick={() => {
                       if (selectedRows.length > 0) {
-
                         setCurAssetId(selectedRowKeys)
                         setIsModalVisible(true)
-                        // detleShopCateRel(selectedRowKeys).then((res) => {
-                        //   if (res) {
-                        //
-                        //     setIsModalVisible(false)
-                        //     ref.current.reload()
-                        //   }
-                        // })
                       }
                     }}>Delete</Button>
                   </Space>
@@ -339,21 +336,21 @@ const CategoryDetail = () => {
                   currentPage: params.current,
                   pageSize: params.pageSize,
                 })
-                let tableData = await getList({ ...page, productName: params.productName })
+                let tableData = await getList({ ...page, name: params.name })
+                console.log(tableData)
                 if (tableData === undefined && page.offset >= 10) {
                   tableData = await getList({
                     offset: page.offset - 10,
                     limit: page.limit,
-                    productName: params.productName,
+                    name: params.name,
                   })
                 }
                 if (tableData?.shopCategoryProductFindPage?.records && tableData?.shopCategoryProductFindPage?.records.length > 0) {
                   setListKey(tableData?.shopCategoryProductFindPage?.records)
                 }
-                console.log(tableData, 99)
                 return Promise.resolve({
                   data: tableData?.shopCategoryProductFindPage?.records || [],
-                  total: tableData?.shopCategoryProductFindPage.total,
+                  total: tableData?.shopCategoryProductFindPage?.total||0,
                   success: true,
                 })
               }}

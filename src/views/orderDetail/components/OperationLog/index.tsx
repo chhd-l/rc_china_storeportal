@@ -30,7 +30,7 @@ const OperationLog = ({ logs }: { logs: Log[] }) => {
           curLogs.map((item) => (
             <Steps.Step
               key={item.id}
-              title={LogEventEnum[item.event]}
+              title={item?.description||LogEventEnum[item.event]}
               description={
                 <div className="flex justify-between w-full text-gray-400 text-sm">
                   <span>{handleReturnTime(item.createdAt)}</span>

@@ -83,7 +83,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
       data.sample.brand = params.brand
     }
     if (params.attributeValueIds?.length>0) {
-      data.sample.attributeRelation = [{attributeValueIds:params.attributeValueIds}]
+      data.sample.attributeRelations = [{attributeValueIds:params.attributeValueIds}]
     }
 
     if (params.startPrice) {

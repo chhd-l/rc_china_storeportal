@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { ImgSortContainer } from '../../modules/constant'
 import { SortableElement, SortableHandle } from 'react-sortable-hoc'
 import Upload from '../UploadList'
@@ -11,6 +11,7 @@ interface Props {
 }
 
 const ImgDrag: FC<Props> = ({ initAsserts, setInitAsserts, form }) => {
+  const [firstIn,setFirstIn] = useState(true)
   const DragHandle = SortableHandle(({ img, imgIdx }: { img: any; imgIdx: number }) => {
     return (
       <Upload
@@ -55,6 +56,16 @@ const ImgDrag: FC<Props> = ({ initAsserts, setInitAsserts, form }) => {
       productAsserts: newAsserts,
     })
   }
+  useEffect(()=>{
+    // if(firstIn){
+      setFirstIn(false)
+      setTimeout(()=>{
+        console.info('setFirstIn....',document.getElementsByClassName('upload-list-wrap'))
+        //@ts-ignore
+        document.getElementsByClassName('upload-list-wrap')?.[0]?.click()
+      },0)
+    // }
+  },[])
   return (
     <>
       <ImgSortContainer
