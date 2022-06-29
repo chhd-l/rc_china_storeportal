@@ -55,7 +55,7 @@ const Graphic = ({
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      render: (_text: boolean) => _text ? "Sychronized" : "Not synced"
+      // render: (_text: boolean) => _text ? "Sychronized" : "Not synced"
     },
     {
       title: 'Action',
@@ -70,7 +70,7 @@ const Graphic = ({
             />
           </Tooltip>
           {
-            record.status? <Tooltip title="publish">
+            record.status==='Sychronized'? <Tooltip title="publish">
             <span
               className="cursor-pointer ml-2 iconfont icon-dingdan primary-color text-xl"
               onClick={() => {
