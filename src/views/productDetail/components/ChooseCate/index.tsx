@@ -95,6 +95,11 @@ const ChooseCate = ({ handleCate, setShowCatePop, detail, setProductName, setSpu
               setProductName(value.name || '')
               setSpuType(value.type)
               setShowCatePop(false)
+              setTimeout(()=>{
+                console.info('setFirstInllllllllll',document.getElementsByClassName('upload-list-wrap'))
+                //@ts-ignore
+                document.getElementsByClassName('upload-list-wrap')?.[0]?.click()
+              },1000)
               handleCate(value)
             }}
           >
