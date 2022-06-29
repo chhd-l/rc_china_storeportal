@@ -176,41 +176,26 @@ const ShopCategories = () => {
           if (record.categoryType === 'MANUAL') {
             return [
               <Tooltip title='Add Poducts'>
-                <a className='mr-4' href='' onClick={(e) => {
-                  e.stopPropagation()
-                  navigator('/category/category-manual-detail', {
-                    state: { id: record.id },
-                  })
-                }} >
-                  <span className='iconfont icon-jiahao' />
-                </a>
+                <Link to="/category/category-manual-detail" state={{ id: record.id }} className='mr-2 iconfont icon-jiahao text-xl' />
               </Tooltip>,
               <Tooltip title='Delete'>
-                <Link to='' className='mr-4 text-xl' onClick={() => {
+                <span className='mr-2 text-xl iconfont icon-delete cursor-pointer primary-color' onClick={() => {
                   setIsModalVisible(true)
                   setCurAssetId(record.id)
-                }}>
-                  <span className='iconfont icon-delete' />
-                </Link></Tooltip>,
+                }} />
+              </Tooltip>,
             ]
           } else {
             return [
               <Tooltip title='Set Filtering Rules'>
-                <a className='mr-4' href='' onClick={(e) => {
-                  e.stopPropagation()
-                  navigator('/category/category-detail', {
-                    state: { id: record.id },
-                  })
-                }} >
-                  <span className='iconfont icon-group52' />
-                </a></Tooltip>,
+                <Link className='mr-2 iconfont icon-group52 text-xl' to="/category/category-detail" state={{ id: record.id }}/>
+              </Tooltip>,
               <Tooltip title='Delete'>
-                <Link to='' className='mr-4 text-xl' onClick={() => {
+                <span className='mr-2 text-xl iconfont icon-delete cursor-pointer primary-color' onClick={() => {
                   setIsModalVisible(true)
                   setCurAssetId(record.id)
-                }}>
-                  <span className='iconfont icon-delete' />
-                </Link></Tooltip>,
+                }} />
+              </Tooltip>,
             ]
           }
 
@@ -218,40 +203,31 @@ const ShopCategories = () => {
           if (record.categoryType === 'MANUAL') {
             return [
               <Tooltip title='Details'>
-                <a className='mr-4' href='' onClick={(e) => {
-                  e.stopPropagation()
-                  navigator('/category/category-manual-detail', {
-                    state: { id: record.id },
-                  })
-                }} >
-                  <span className='iconfont icon-category-details' />
-                </a></Tooltip>,
+                <Link to="/category/category-manual-detail" state={{ id: record.id }} className='mr-2 iconfont icon-category-details text-xl'/>
+              </Tooltip>,
               <Tooltip title='Delete'>
-                <Link to='' className='mr-4 text-xl' onClick={() => {
+                <span  className='mr-2 text-xl iconfont icon-delete cursor-pointer primary-color' onClick={() => {
                   setIsModalVisible(true)
                   setCurAssetId(record.id)
-                }}>
-                  <span className='iconfont icon-delete mr-4' />
-                </Link></Tooltip>,
+                }}/>
+              </Tooltip>,
             ]
           } else {
             return [
               <Tooltip title='Details'>
-                <a className='mr-4' href='' onClick={(e) => {
+                <Link to="/category/category-detail" state={{ id: record.id }} className='mr-2 iconfont icon-category-details text-xl' onClick={(e) => {
                   e.stopPropagation()
                   navigator('/category/category-detail', {
                     state: { id: record.id },
                   })
-                }} >
-                  <span className='iconfont icon-category-details' />
-                </a></Tooltip>,
+                }} />
+              </Tooltip>,
               <Tooltip title='Delete'>
-                <Link to='' className='mr-4 text-xl' onClick={() => {
+                <span className='mr-2 text-xl iconfont icon-delete cursor-pointer primary-color' onClick={() => {
                   setIsModalVisible(true)
                   setCurAssetId(record.id)
-                }}>
-                  <span className='iconfont icon-delete' />
-                </Link></Tooltip>,
+                }}/>
+               </Tooltip>,
             ]
           }
         }
