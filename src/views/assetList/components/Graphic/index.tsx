@@ -1,15 +1,13 @@
-import { Button, Select, Input, Pagination, Table, Tooltip,Modal } from 'antd'
+import { Button, Input, Modal, Pagination, Select, Table, Tooltip,message } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { Asset } from '@/framework/types/wechat'
-import { getArticlesList } from '@/framework/api/wechatSetting'
+import { getArticlesList, wxArticlePublish } from '@/framework/api/wechatSetting'
 import { ContentContainer } from '@/components/ui'
 import { PageParamsProps } from '@/framework/types/common'
 import { handlePageParams } from '@/utils/utils'
 import { useNavigate } from 'react-router'
 import { initPageParams } from '@/lib/constants'
-import ArticleDetail from './detail';
-import moment from "moment";
-import { updateShopCategory } from '@/framework/api/get-product'
+import ArticleDetail from './detail'
+import moment from 'moment'
 
 const Graphic = ({
   isReload = false,
@@ -24,13 +22,25 @@ const Graphic = ({
   const [chosedArticleList, setChosedArticleList] = useState<any[]>([]);
   const [createdDate, setCreatedDate] = useState<string>("");
   const [mediaId, setMediaId] = useState<string>("");
-  const [chosedArticleSynced, setChosedArticleSynced] = useState<boolean>(false)
+  const [chosedArticleSynced, setChosedArticleSynced] = useState<string>("")
+  const list = {
+    // 未同步
+    NOT_SYNCED:'Not synced',
+    // 已同步
+    SYCHRONIZED:'Synchronized',
+    // 审核中
+    AUDITING:'Auditing',
+    // 审核成功
+    PULISHED:'Pulished',
+    // 审核失败
+    AUDIT_FAILED:'Audit Failed',
+  }
   const handleViewDetail = (record: any) => {
     setChosedArticleList(record?.articleList || [])
     setCreatedDate(record?.createdAt || "")
     setMediaId(record?.mediaId);
     setModalVisible(true);
-    setChosedArticleSynced(record?.status ?? false);
+    setChosedArticleSynced(record?.status);
   }
   const column = [
     {
@@ -55,7 +65,10 @@ const Graphic = ({
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      // render: (_text: boolean) => _text ? "Sychronized" : "Not synced"
+      render: (_text: boolean,record:any) => {
+        // @ts-ignore
+        return list[`${record.status}`]
+      }
     },
     {
       title: 'Action',
@@ -63,18 +76,22 @@ const Graphic = ({
       key: 'action',
       render: (text: any, record: any) => (
         <>
-          <Tooltip title="View Details">
+          {
+            record.status==='SYCHRONIZED'|| record.status==='PULISHED'?
+              <Tooltip title="View Details">
             <span
               className="cursor-pointer ml-2 iconfont icon-kjafg primary-color text-lg"
               onClick={() => handleViewDetail(record)}
             />
-          </Tooltip>
+              </Tooltip>:null
+          }
           {
-            record.status==='Sychronized'? <Tooltip title="publish">
+            record.status==='SYCHRONIZED'? <Tooltip title="publish">
             <span
               className="cursor-pointer ml-2 iconfont icon-dingdan primary-color text-xl"
               onClick={() => {
                 setIsModalVisible(true)
+                setMediaId(record?.mediaId);
               }}
             />
             </Tooltip>:null
@@ -126,7 +143,7 @@ const Graphic = ({
         isNeedTotal: true,
         sample: title || status ? {
           title,
-          status: status === '1' ? false : status === '2' ? true : undefined
+          status
         } : undefined,
       },
       handlePageParams(curPageParams),
@@ -138,7 +155,16 @@ const Graphic = ({
     setLoading(false)
   }
   const confirmOk = async () => {
-
+    setLoading(true)
+    let res = await wxArticlePublish(mediaId)
+    if(res){
+      setIsModalVisible(false)
+      message.success({ className: 'rc-message', content: 'Operation success' })
+      getMediaList({})
+      setLoading(false)
+    } else {
+      setLoading(false)
+    }
   }
   return (
     <ContentContainer className="pt-2 pb-6">
@@ -163,11 +189,15 @@ const Graphic = ({
               value={searchParams.status}
               allowClear
               onChange={(val) => {
+                console.log(val,999)
                 setSearchParams({ ...searchParams, status: val })
               }}
             >
-              <Select.Option value="1">Not Synced</Select.Option>
-              <Select.Option value="2">Synchronized</Select.Option>
+              <Select.Option value="NOT_SYNCED">Not Synced</Select.Option>
+              <Select.Option value="SYCHRONIZED">Synchronized</Select.Option>
+              <Select.Option value="AUDITING">Auditing</Select.Option>
+              <Select.Option value="PULISHED">Pulished</Select.Option>
+              <Select.Option value="AUDIT_FAILED">Audit Failed</Select.Option>
             </Select>
           </div>
         </div>

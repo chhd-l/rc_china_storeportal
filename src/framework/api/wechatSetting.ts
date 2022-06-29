@@ -649,3 +649,7 @@ export const getArticlePreviewUrls = async (mediaId: string) => {
   console.log('get previewurls view data:', data)
   return data?.wxArticleGetUrlFromWX ?? []
 }
+export const wxArticlePublish = async (mediaId: string) => {
+  const data = await ApiRoot.wechatSettings().wxArticlePublish(mediaId)
+  return data?.wxArticlePublish
+}
