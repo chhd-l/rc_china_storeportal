@@ -37,7 +37,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
   const [brandList, setBrandList] = useState([])
   const [loading, setLoading] = useState(false)
   const [saveParams, setSaveParams] = useState<any>({
-    productCategoryId:'All Categories',
+    categoryId:'All Categories',
     brand:'All Brands'
   })
   const [speciList, setSpeciList] = useState([])
@@ -76,8 +76,8 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
       hasTotal: true,
       sample: {},
     }
-    if (params.productCategoryIds && params.productCategoryIds !== 'All Categories') {
-      data.sample.productCategoryId = params.productCategoryIds
+    if (params.categoryIds && params.categoryIds !== 'All Categories') {
+      data.sample.categoryId = params.categoryIds
     }
     if (params.brand && params.brand !== 'All Brands') {
       data.sample.brand = params.brand
@@ -150,8 +150,8 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
       let obj = [
         {
           shopCategoryId: state.id,
-          name: 'productCategoryId',
-          value: saveParams?.productCategoryId.length>0?saveParams?.productCategoryId.join():'',
+          name: 'categoryId',
+          value: saveParams?.categoryId.length>0?saveParams?.categoryId.join():'',
           rank:1
         },
         {
@@ -252,8 +252,8 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
             submitter={restSearchButtons}
             onValuesChange={() => {
               let selected = { ...formRef.current?.getFieldsFormatValue?.() }
-              if (selected?.productCategoryId?.length >= 1) {
-                selected.productCategoryId = selected.productCategoryId[selected.productCategoryId.length - 1]
+              if (selected?.categoryId?.length >= 1) {
+                selected.categoryId = selected.categoryId[selected.categoryId.length - 1]
               }
               let tagArr: string[] = []
               delete selected.startPrice
@@ -274,8 +274,8 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
             }}
             layout='horizontal'
             onFinish={async (values) => {
-              if (values.productCategoryId?.length >= 1) {
-                values.productCategoryIds = values.productCategoryId[values.productCategoryId.length - 1]
+              if (values.categoryId?.length >= 1) {
+                values.categoryIds = values.categoryId[values.categoryId.length - 1]
               }
               setSaveParams(values)
               getList(values)
@@ -298,7 +298,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
                   textAlign:'left'
                 },
               }}
-              name='productCategoryId'
+              name='categoryId'
               label='Product Category'
               initialValue={['All Categories']}
             />

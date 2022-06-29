@@ -159,12 +159,15 @@ const EditTags = () => {
                   </div> :
                   <div className='edit-name flex items-center'>
                     <span className='edit-display-name'>{cateInfos.name}</span>
-                    <span style={{ color: '#ee4d2d' }}
-                          className='iconfont icon-shop-cate-edit'
-                          onClick={() => {
-                            setShow(true)
-                            setName(cateInfos.name)
-                          }} />
+                    {
+                      state.type && 
+                      <span style={{ color: '#ee4d2d' }}
+                            className='iconfont icon-shop-cate-edit'
+                            onClick={() => {
+                              setShow(true)
+                              setName(cateInfos.name)
+                            }} />
+                    }
                   </div>
               }
             </div>
@@ -172,6 +175,7 @@ const EditTags = () => {
               <Switch
                 className='ml-3'
                 checked={cateInfos.isEnabled}
+                disabled={!state.type}
                 onChange={(checked: boolean) => {
                   setIsSwithVisible(true)
                   setStatus(checked)

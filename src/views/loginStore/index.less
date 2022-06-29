@@ -1,14 +1,25 @@
+.swiper-contents{
+  position: relative;
+  animation:mymove 1s;
+  -webkit-animation:mymove 1s; /*Safari and Chrome*/
+}
+
 .box{
+  text-align: -webkit-center;
+  width: 250px;
   height: 300px;
   padding: 10px;
 }
+
 .boxs{
+  width: 250px;
   padding: 20px;
   height: 100%;
   background: #ffffff;
   border-radius: 2px;
   cursor: pointer;
   img{
+    width: 40%;
     transform: scale(1);
     transition: transform 0.5s ease 0s;
   }
@@ -17,13 +28,7 @@
   }
 }
 
-.swiper-content{
-  min-width: 40%;
-  max-width: 70%;
-  position: relative;
-  animation:mymove 1s;
-  -webkit-animation:mymove 1s; /*Safari and Chrome*/
-}
+
 @keyframes mymove
 {
   from {top:50px;}
