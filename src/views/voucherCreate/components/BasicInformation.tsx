@@ -1,9 +1,10 @@
 import { UPLOAD_API_URL } from '@/framework/api/fetcher'
-import { DeleteOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons'
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import { DatePicker, Form, Image, Input, message, Select, Typography, Upload } from 'antd'
 import { RcFile } from 'antd/lib/upload'
 import moment from 'moment'
 import { useState } from 'react'
+import { useLocation } from 'react-router'
 import Finishedproductdisplay from './Finishedproductdisplay'
 const { Title } = Typography
 const { RangePicker } = DatePicker
@@ -78,6 +79,7 @@ const disabledTime = (current: any, type: string) => {
 
 const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, Edit }: BasicInformationType) => {
   const [loading, setLoading] = useState(false)
+  const { state }: any = useLocation()
 
   const uploadButton = (
     <div>
@@ -129,7 +131,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
               VoucherType === 'SHOP_VOUCHER' ? 'VoucherTypeBoxShadow' : 'border'
             } border-gray-300 border-solid relative`}
             style={{ borderRadius: '5px' }}
-            onClick={() => !Edit && setVoucherType('SHOP_VOUCHER')}
+            onClick={() => !state && setVoucherType('SHOP_VOUCHER')}
           >
             <span className="mr-1 ShopVoucherImg" />
             <span className="w-32 text-gray-500">Shop Voucher</span>
@@ -145,7 +147,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
             className={`flex ml-5 pl-2 pr-3 py-3 items-center ${
               VoucherType === 'PRODUCT_VOUCHER' ? 'VoucherTypeBoxShadow' : 'border'
             } border-gray-300 border-solid relative`}
-            onClick={() => !Edit && setVoucherType('PRODUCT_VOUCHER')}
+            onClick={() => !state && setVoucherType('PRODUCT_VOUCHER')}
             style={{ borderRadius: '5px' }}
           >
             <span className="mr-1 ProductVoucherImg" />
