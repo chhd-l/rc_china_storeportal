@@ -86,10 +86,10 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
       data.sample.attributeRelations = [{attributeValueIds:params.attributeValueIds}]
     }
 
-    if (params.startPrice) {
+    if (params.startPrice!=='') {
       data.sample.startPrice = params.startPrice
     }
-    if (params.endPrice) {
+    if (params.endPrice!=='') {
       data.sample.endPrice = params.endPrice
     }
     let res = await getESProducts(data)
