@@ -240,7 +240,13 @@ const RuleSettings = ({
               ]}
             >
               <div className="flex">
-                <span className='bg-gray-100 text-gray-400 w-10 text-center border border-l-0 flex items-center justify-center border-l'>
+                <span 
+                  className='bg-gray-100 text-gray-400 w-10 text-center border border-l-0 flex items-center justify-center border-l'
+                  style={{
+                    borderTopLeftRadius: '4px',
+                    borderBottomLeftRadius: '4px',
+                  }}  
+                >
                   ￥
                 </span>
                 <InputNumber
