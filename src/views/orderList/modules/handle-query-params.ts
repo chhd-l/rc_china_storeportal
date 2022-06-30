@@ -34,7 +34,6 @@ export const handleQueryParams = ({
     {
       isNeedTotal: true,
       storeId: '12345678',
-      operator: 'zz',
     },
     handlePageParams(pageParams),
     { sample: sample },

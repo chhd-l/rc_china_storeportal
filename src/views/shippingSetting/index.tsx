@@ -4,13 +4,10 @@ import SettingModal from './components/Modal'
 import { ContentContainer, InfoContainer } from '@/components/ui'
 import './index.less'
 import { getLogisticsIntegration, modifyLogisticsIntegration } from '@/framework/api/get-order'
-import { useAtom } from 'jotai'
-import { userAtom } from '@/store/user.store'
 
 const ShippingSetting = () => {
   const [shipModalVisible, setShipModalVisible] = useState(false)
   const [logisticsIntegration, setLogisticsIntegration] = useState<any>(null)
-  const [userInfo] = useAtom(userAtom)
   const [statusModalTip, setStatusModalTip] = useState(false)
   const [confirmLoading, setConFirmLoading] = useState(false)
 
@@ -40,8 +37,6 @@ const ShippingSetting = () => {
     if (res) {
       message.success({ className: 'rc-message', content: 'Operation success' })
       setLogisticsIntegration(newLogisticsIntegration)
-    } else {
-      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
     setStatusModalTip(false)
     setShipModalVisible(false)
