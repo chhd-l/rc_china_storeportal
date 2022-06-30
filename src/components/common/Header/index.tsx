@@ -31,7 +31,7 @@ const Header = ({ userInfo }: { userInfo: User | null }) => {
   return (
     <header style={{ height: "51px", verticalAlign: 'center',zIndex:"99" }} className="flex bg-white w-full items-cente fixed overflow-hidden boxShodow">
       <div className="flex flex-row h-1/2 m-auto mr-0 ml-5 flex-none w-28">
-        <img src={logo} alt="" className=" w-28 h-4/5 m-auto" onClick={() => {
+        <img src={logo} alt="" className=" w-28 h-4/5 m-auto cursor-pointer" onClick={() => {
           navigate('/dashboard')
         }} />
       </div>
@@ -41,7 +41,7 @@ const Header = ({ userInfo }: { userInfo: User | null }) => {
       <div className="h-full flex-none" style={{ lineHeight: "51px", width: "150px" }}>
         <Dropdown overlay={MenuComp(navigate)} placement="bottom" arrow>
           <span className="h-full inline-block cursor-pointer">
-            <img className="inline-block align-middle" src={userIcon}/>
+            <img alt="" className="inline-block align-middle" src={userIcon}/>
             <span className="align-middle ml-2">{userInfo?.username}</span>
           </span>
         </Dropdown>

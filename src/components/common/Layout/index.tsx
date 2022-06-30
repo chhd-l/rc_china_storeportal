@@ -6,7 +6,6 @@ import { Layout } from 'antd'
 import { useAtom } from 'jotai'
 import { userAtom } from '@/store/user.store'
 import { useEffect, useState } from 'react'
-import './index.less'
 
 const { Content, Sider } = Layout
 
@@ -14,14 +13,8 @@ const AppLayout = () => {
   const { pathname } = useLocation()
   const [userInfo] = useAtom(userAtom)
   const [isOpen, setIsOpen] = useState(true)
-  const [dashboard, setDashboard] = useState(false)
 
   useEffect(() => {
-    if (pathname === '/dashboard') {
-      setDashboard(true)
-    } else {
-      setDashboard(false)
-    }
     if (
       (pathname.split('/').some((path) => path === 'product') &&
         pathname !== '/product/product-list' &&
@@ -78,7 +71,7 @@ const AppLayout = () => {
         </Sider> */}
         <Layout style={{ marginLeft: isOpen ? 200 : 0 }}>
           <Content
-            className={`site-layout-background ${dashboard ? 'dashboard_01_bg' : ''}`}
+            className='site-layout-background'
             style={{
               margin: isOpen ? '59px 2% 20px' : '59px 10% 0',
             }}
