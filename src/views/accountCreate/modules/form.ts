@@ -136,7 +136,7 @@ export const ACCOUNT_FORM: FormItemProps[] = [
   },
   {
     name: "certificatePath",
-    label: "Pertificate Path",
+    label: "Certificate Path",
     placeholder: "Click to select",
     type: "upload",
   },
@@ -248,7 +248,7 @@ export const ACCOUNT_FORM_TWO: FormItemProps[] = [
   },
   {
     name: "certificatePath",
-    label: "Pertificate Path",
+    label: "Certificate Path",
     placeholder: "Click to select",
     type: "upload",
   },
