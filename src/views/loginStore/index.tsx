@@ -32,7 +32,7 @@ const LoginStore = () => {
     autoplay: false,
   };
   const handleClick = async(item: any) => {
-    navigate("/login/barnd", { state: { id: item.id } });
+    navigate("/login/barnd", { state: { id: item.id, name:item.name } });
   }
   return (
     <div className="h-screen bg-gray1 flex justify-center items-center">
