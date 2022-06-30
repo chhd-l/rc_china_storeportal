@@ -39,7 +39,7 @@ const LoginBarnd = () => {
     <div className="h-screen bg-gray1 flex justify-center items-center">
       <div className="swiper-content" style={{width:data.length>2?'800px':data.length>1?'540px':'400px'}}>
         <div className="text-center">
-          <h2 className="text-2xl font-semibold">Please select a store of <span className="text-red-500">New Balance</span> brand</h2>
+          <h2 className="text-2xl font-semibold">Please select a store of <span className="text-red-500">{state.name}</span> brand</h2>
           <h4 className="text-base mb-10">Let us provide you with better service</h4>
         </div>
         {

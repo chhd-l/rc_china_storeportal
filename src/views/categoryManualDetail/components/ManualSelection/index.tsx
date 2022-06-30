@@ -248,7 +248,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
           if (params.startPrice!=='') {
             data.sample.startPrice = params.startPrice
           }
-          if (params.endPrice) {
+          if (params.endPrice!=='') {
             data.sample.endPrice = params.endPrice
           }
           if (params.brand) {
