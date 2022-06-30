@@ -41,7 +41,7 @@ const PaymentSettings = () => {
       limit: 10,
       isNeedTotal: true
     })
-    if(res.records){
+    if(res?.records){
       setList(res.records)
       setChecked(res.records[0].status==='ACTIVE')
     }

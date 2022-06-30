@@ -167,24 +167,24 @@ export const updateComment = async (params: any) => {
 
 export const payWayFindPage = async (params: any) => {
   try {
-    let res = await ApiRoot().orders().payWayFindPage(params)
-    return res?.payWayFindPage || []
+    let res = await ApiRoot({url:apis?.payment}).orders().payWayFindPage(params)
+    return res
   } catch (e) {
     return []
   }
 }
 export const payWayGet = async (params: any) => {
   try {
-    let res = await ApiRoot().orders().payWayGet(params)
-    return res?.payWayGet || []
+    let res = await ApiRoot({url:apis?.payment}).orders().payWayGet(params)
+    return res
   } catch (e) {
     return []
   }
 }
 export const payWayUpdate = async (params: any) => {
   try {
-    let res = await ApiRoot().orders().payWayUpdate(params)
-    return res?.payWayUpdate
+    let res = await ApiRoot({url:apis?.payment}).orders().payWayUpdate(params)
+    return res
   } catch (e) {
     return false
   }

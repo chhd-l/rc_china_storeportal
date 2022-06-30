@@ -18,6 +18,7 @@ const API_CONFIG: IApiConfig = {
     orderList:"http://localhost:7000/graphql",
     orderDetail:"http://localhost:7000/graphql",
     voucher:"http://localhost:7000/graphql",
+    payment:"http://localhost:7000/graphql",
   },
   production: {
     auth: "https://fc-sc-auth-dev-selercenter-umayykwqea.cn-shanghai.fcapp.run/graphql",
