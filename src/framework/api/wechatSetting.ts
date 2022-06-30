@@ -1,10 +1,11 @@
 import ApiRoot from '@/framework/api/fetcher'
 import { normaliseBrands, normaliseMediaList } from '@/framework/normalize/wechatSetting'
+import apis from '@/framework/config/api-config';
 
 // 查询 account
 export const getAccountList = async (queryParams: any) => {
   try {
-    let res = await ApiRoot().wechatSettings().getAccounts({ body: queryParams })
+    let res = await ApiRoot({ url: apis?.wx_account }).wechatSettings().getAccounts({ body: queryParams })
     const accounts = res?.wxAccountFindPage
     //todo account manage normalize
     console.log('get wechat setting account list view data', accounts)
@@ -25,7 +26,7 @@ export const getFansList = async (queryParams: any) => {
   try {
     //todo 查询参数处理
     const params = queryParams
-    let res = await ApiRoot().wechatSettings().getFans({ body: params })
+    let res = await ApiRoot({ url: apis?.wx_fans }).wechatSettings().getFans({ body: params })
     const fansList = res?.wxFansFindPage
     //todo fans manage normalize
     console.log('get wechat setting fans list view data', fansList)
@@ -46,7 +47,7 @@ export const createAccount = async (queryParams: any) => {
   try {
     //todo 新增参数处理
     const params = queryParams
-    let res = await ApiRoot().wechatSettings().addAccount({ body: params })
+    let res = await ApiRoot({ url: apis?.wx_account }).wechatSettings().addAccount({ body: params })
     const account = res?.wxAccountCreate
     //todo account manage normalize
     console.log('create account view data', account)
@@ -81,7 +82,7 @@ export const modifyAccount = async (queryParams: any) => {
   try {
     //todo 编辑参数处理（改了什么传什么，加上isDeleted就是删除接口）
     const params = queryParams
-    let res = await ApiRoot().wechatSettings().modifyAccount({ body: params })
+    let res = await ApiRoot({ url: apis?.wx_account }).wechatSettings().modifyAccount({ body: params })
     const modifySuccess = res?.wxAccountUpdate
     return modifySuccess || false
   } catch (e) {
@@ -92,7 +93,7 @@ export const modifyAccount = async (queryParams: any) => {
 // 同步全部粉丝
 export const syncFans = async () => {
   try {
-    let res = await ApiRoot().wechatSettings().syncFans({ accountId: '000001' })
+    let res = await ApiRoot({ url: apis?.wx_fans }).wechatSettings().syncFans({ accountId: '000001' })
     const syncSuccess = res?.wxFansSync
     console.log('sync fans view data', syncSuccess)
     return syncSuccess || false
@@ -109,7 +110,7 @@ export const syncPartFans = async (syncParams: any) => {
       accountId: '000001',
       openIds: syncParams,
     }
-    let res = await ApiRoot().wechatSettings().syncPartFans(params)
+    let res = await ApiRoot({ url: apis?.wx_fans }).wechatSettings().syncPartFans(params)
     const syncSuccess = res?.wxFansSyncPartly
     console.log('sync fans view data', syncSuccess)
     return syncSuccess || false
