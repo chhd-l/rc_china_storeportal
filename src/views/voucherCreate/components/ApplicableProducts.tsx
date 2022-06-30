@@ -104,48 +104,16 @@ const ApplicableProducts = ({
       <Title className="m-0 mb-6" level={4}>
         Applicable Products
       </Title>
-      {!selectProducts.length ? (
-        <div className="flex items-center pl-12">
-          <span className="mr-8">Applicable Products</span>
-          {VoucherType === 'SHOP_VOUCHER' ? (
+      {
+        VoucherType === 'SHOP_VOUCHER' ? (
+          <div className="flex items-center pl-12">
+            <span className="mr-8">Applicable Products</span>
             <span>all products</span>
-          ) : (
-            <Button
-              className="flex items-center m-0 text-white"
-              type="primary"
-              danger
-              disabled={Edit}
-              ghost
-              icon={<PlusOutlined />}
-              onClick={() => setSelectProductsModal(true)}
-            >
-              Add Products
-            </Button>
-          )}
-        </div>
-      ) : (
-        <div className="flex">
-          <span className="mr-8">Applicable Products</span>
-          <ProTable
-            actionRef={ref}
-            className="w-9/12"
-            columns={columns}
-            options={false}
-            search={false}
-            revalidateOnFocus={false}
-            pagination={{
-              hideOnSinglePage: false,
-              showSizeChanger: true,
-              showQuickJumper: true,
-              defaultPageSize: 10,
-              showTotal: () => <></>,
-            }}
-            dataSource={selectProducts}
-            rowKey="id"
-            toolBarRender={() => [
-              <div className="text-gray-400">
-                <span className="text-black">{selectProducts.length}</span> Product(s) Selected
-              </div>,
+          </div>
+        ) : !selectProducts.length ? (
+          (
+            <div className="flex items-center pl-12">
+              <span className="mr-8">Applicable Products</span>
               <Button
                 className="flex items-center m-0 text-white"
                 type="primary"
@@ -156,11 +124,48 @@ const ApplicableProducts = ({
                 onClick={() => setSelectProductsModal(true)}
               >
                 Add Products
-              </Button>,
-            ]}
-          />
-        </div>
-      )}
+              </Button>
+            </div>
+          )
+        ) : (
+          <div className="flex">
+            <span className="mr-8">Applicable Products</span>
+            <ProTable
+              actionRef={ref}
+              className="w-9/12"
+              columns={columns}
+              options={false}
+              search={false}
+              revalidateOnFocus={false}
+              pagination={{
+                hideOnSinglePage: false,
+                showSizeChanger: true,
+                showQuickJumper: true,
+                defaultPageSize: 10,
+                showTotal: () => <></>,
+              }}
+              dataSource={selectProducts}
+              rowKey="id"
+              toolBarRender={() => [
+                <div className="text-gray-400">
+                  <span className="text-black">{selectProducts.length}</span> Product(s) Selected
+                </div>,
+                <Button
+                  className="flex items-center m-0 text-white"
+                  type="primary"
+                  danger
+                  disabled={Edit}
+                  ghost
+                  icon={<PlusOutlined />}
+                  onClick={() => setSelectProductsModal(true)}
+                >
+                  Add Products
+                </Button>,
+              ]}
+            />
+          </div>
+        )
+      }
       <ManualSelection
         visible={selectProductsModal}
         selectProductChange={selectProductChange}
