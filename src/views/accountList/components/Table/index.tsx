@@ -83,7 +83,7 @@ const Index = ({ accountList, getAccounts, pages, setPages, total, loading, setL
             setItem({
               isActive: v,
               id: record.id,
-              accountType: record.accountType
+              type: record.type
             })
             setIsOpen(true)
           }} />
