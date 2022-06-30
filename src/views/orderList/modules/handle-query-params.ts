@@ -33,7 +33,6 @@ export const handleQueryParams = ({
   let params = Object.assign(
     {
       isNeedTotal: true,
-      storeId: '12345678',
     },
     handlePageParams(pageParams),
     { sample: sample },
