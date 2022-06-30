@@ -80,7 +80,7 @@ const SubscriptionInformation = ({ consumerId, id }: any) => {
                     key={index}
                   >
                     <Col span={6}>
-                      <img src={product?.productVariant?.defaultImage || ""} className="w-16 h-16 order-img" alt="" />
+                      <img src={product?.variants?.defaultImage || ""} className="w-16 h-16 order-img" alt="" />
                     </Col>
                     <Col span={18}>
                       <Row
@@ -90,12 +90,12 @@ const SubscriptionInformation = ({ consumerId, id }: any) => {
                         }`}
                       >
                         <Col span={20}>
-                          <span>{product?.productVariant?.name ?? ""}</span>
+                          <span>{product?.variants?.name ?? ""}</span>
                           <br />
-                          <span className="text-gray-400 text-sm">Variation:{(product?.productSpecifications ?? []).map((vari:any) => (vari?.specificationDetails ?? []).map((variitem:any) => variitem.specificationDetailNameEn).join(",")).join(",")}</span>
+                          <span className="text-gray-400 text-sm">Variation:{(product?.specifications ?? []).map((vari:any) => (vari?.specificationDetails ?? []).map((variitem:any) => variitem.specificationDetailNameEn).join(",")).join(",")}</span>
                         </Col>
                         <Col span={4} className="items-start text-left">
-                          x{product?.productVariant?.num}
+                          x{product?.variants?.num}
                         </Col>
                       </Row>
                     </Col>

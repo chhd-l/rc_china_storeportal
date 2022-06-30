@@ -498,7 +498,7 @@ export const getWxMenuDetail = async (id: string) => {
 }
 
 export const getReplyContentList = async (queryParams: any) => {
-  const data = await ApiRoot().wechatSettings().getReplyContentList({ body: queryParams })
+  const data = await ApiRoot({ url: apis?.wx_reply }).wechatSettings().getReplyContentList({ body: queryParams })
   const list = data?.wxReplyContentFindPage
   console.log('get replyContent view data:', list)
   return {
@@ -508,27 +508,25 @@ export const getReplyContentList = async (queryParams: any) => {
 }
 
 export const getReplyContentDetail = async (id: string) => {
-  const res = await ApiRoot().wechatSettings().getReplyContentDetail(id)
+  const res = await ApiRoot({ url: apis?.wx_reply }).wechatSettings().getReplyContentDetail(id)
   const data = res?.wxReplyContentGet
   console.log('get replyContent detail by id view data:', data)
   return data ?? {}
 }
 
 export const createReplyContent = async (params: any) => {
-  const data = await ApiRoot().wechatSettings().createReplyContent({
+  const data = await ApiRoot({ url: apis?.wx_reply }).wechatSettings().createReplyContent({
     body: params,
-    operator: 'zz'
   })
   console.log('create replyContent view data:', data)
   return data?.wxReplyContentCreate ?? {}
 }
 
 export const deleteReplyContent = async (id: string) => {
-  const data = await ApiRoot().wechatSettings().modifyReplyContent({
+  const data = await ApiRoot({ url: apis?.wx_reply }).wechatSettings().modifyReplyContent({
     body: {
       id,
       isDeleted: true,
-      operator: 'zz',
     }
   })
   console.log('delete replyContent view data:', data)
@@ -536,11 +534,10 @@ export const deleteReplyContent = async (id: string) => {
 }
 
 export const updateReplyContent = async (id: string, param: any) => {
-  const data = await ApiRoot().wechatSettings().modifyReplyContent({
+  const data = await ApiRoot({ url: apis?.wx_reply }).wechatSettings().modifyReplyContent({
     body: {
       id: id,
       isDeleted: false,
-      operator: 'zz',
       replyContent: param,
     }
   })
@@ -549,9 +546,8 @@ export const updateReplyContent = async (id: string, param: any) => {
 }
 
 export const getAutomaticResponseList = async (param: any) => {
-  const data = await ApiRoot().wechatSettings().getAutomaticResponseList({
+  const data = await ApiRoot({ url: apis?.wx_reply }).wechatSettings().getAutomaticResponseList({
     body: param,
-    operator: 'zz'
   })
   const list = data?.wxAutomaticResponseFindPage
   console.log('get WxAutomaticResponse list view data:', data)
@@ -562,13 +558,13 @@ export const getAutomaticResponseList = async (param: any) => {
 }
 
 export const getAutomaticResponseDetail = async (id: string) => {
-  const data = await ApiRoot().wechatSettings().getAutomaticResponseDetail(id)
+  const data = await ApiRoot({ url: apis?.wx_reply }).wechatSettings().getAutomaticResponseDetail(id)
   console.log('get WxAutomaticResponse detail by id view data:', data)
   return data?.wxAutomaticResponseGet ?? {}
 }
 
 export const createAutomaticResponse = async (param: any) => {
-  const data = await ApiRoot().wechatSettings().createAutomaticResponse({
+  const data = await ApiRoot({ url: apis?.wx_reply }).wechatSettings().createAutomaticResponse({
     body: param
   })
   console.log('create WxAutomaticResponse view data:', data)
@@ -576,7 +572,7 @@ export const createAutomaticResponse = async (param: any) => {
 }
 
 export const deleteAutomaticResponse = async (id: string) => {
-  const data = await ApiRoot().wechatSettings().updateAutomaticResponse({
+  const data = await ApiRoot({ url: apis?.wx_reply }).wechatSettings().updateAutomaticResponse({
     body: {
       id,
       isDeleted: true,
@@ -587,7 +583,7 @@ export const deleteAutomaticResponse = async (id: string) => {
 }
 
 export const updateAutomaticResponse = async (id: string, param: any) => {
-  const data = await ApiRoot().wechatSettings().updateAutomaticResponse({
+  const data = await ApiRoot({ url: apis?.wx_reply }).wechatSettings().updateAutomaticResponse({
     body: {
       isDeleted: false,
       id,

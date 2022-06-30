@@ -32,7 +32,6 @@ const AutoReplyList = () => {
       offset: page * limit - limit,
       limit: limit,
       isNeedTotal: true,
-      operator: 'zz',
       sample: param.name || param.type || param.keywords || param.status !== undefined ? {
         accountName: param?.name ?? undefined,
         matchType: param?.type ?? undefined,
