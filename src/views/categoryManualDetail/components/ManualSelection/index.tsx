@@ -55,7 +55,6 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
     return result
   }
   const getCategoriesList = async () => {
-    console.log(state,9992999)
     let res = await getCategories({ storeId: '12345678' })
     setMockOptions(getTree(res, null, 0))
   }

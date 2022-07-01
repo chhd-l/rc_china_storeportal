@@ -1,10 +1,6 @@
 import { ContentContainer } from '@/components/ui'
-import ProTable, { ProColumns } from '@/components/common/ProTable'
-import { handlePageParams } from '@/utils/utils'
-import { CategoryBaseProps } from '@/framework/types/product'
-import { getShopCategories, updateShopCategory } from '@/framework/api/get-product'
 import { useEffect, useRef, useState } from 'react'
-import { Col, Modal, Row, Tooltip, Switch } from 'antd'
+import { Col, Modal, Row, Tooltip, Switch,message } from 'antd'
 import './index.less'
 import wx from '@/assets/images/wx.png'
 import AddCate from './components/AddCate'
@@ -31,7 +27,9 @@ const PaymentSettings = () => {
       id:list[0].id,
       status:status?'ACTIVE':'INACTIVE'
     })
+    console.log(res)
     if(res){
+      message.success({ className: 'rc-message', content: 'Operation success' })
       getList()
     }
   }
