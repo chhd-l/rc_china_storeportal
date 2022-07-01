@@ -237,7 +237,7 @@ export const getAppQrCodes = async (queryParams: any) => {
   try {
     //todo 查询参数处理
     const params = queryParams
-    let res = await ApiRoot().wechatSettings().getAppQrCodes({ body: params })
+    let res = await ApiRoot({ url: apis?.wx_qrcode }).wechatSettings().getAppQrCodes({ body: params })
     const findWxAppQRCodePage = res?.wxAppQRCodeFindPage
     //todo fans manage normalize
     console.log('get appQrCode list view data', findWxAppQRCodePage)
@@ -257,7 +257,7 @@ export const getAppQrCodes = async (queryParams: any) => {
 // 新增、编辑、删除 小程序二维码
 export const upsertAppQrCodes = async (queryParams: any) => {
   try {
-    let res = await ApiRoot().wechatSettings().updateAppQrCode({ body: queryParams })
+    let res = await ApiRoot({ url: apis?.wx_qrcode }).wechatSettings().updateAppQrCode({ body: queryParams })
     const upsertWxAppQRCode = res?.wxAppQRCodeModify
     console.log('upsert app qrCode view data', upsertWxAppQRCode)
     return upsertWxAppQRCode || false
@@ -272,7 +272,7 @@ export const getQrCodes = async (queryParams: any) => {
   try {
     //todo 查询参数处理
     const params = queryParams
-    let res = await ApiRoot().wechatSettings().getQrCodes({ body: params })
+    let res = await ApiRoot({ url: apis?.wx_qrcode }).wechatSettings().getQrCodes({ body: params })
     const qrCodeList = res?.wxQrCodeFindPage
     //todo fans manage normalize
     console.log('get qrCode list view data', qrCodeList)
@@ -293,7 +293,7 @@ export const getQrCodes = async (queryParams: any) => {
 export const createQrCode = async (queryParams: any) => {
   try {
     //todo 参数处理 编辑参数加id,删除参数加id and isDeleted
-    let res = await ApiRoot().wechatSettings().addQrCode({ input: queryParams, operator: 'cc' })
+    let res = await ApiRoot({ url: apis?.wx_qrcode }).wechatSettings().addQrCode({ input: queryParams })
     const addQrCode = res?.wxQrCodeCreate
     console.log('upsert app qrCode view data', addQrCode)
     return addQrCode

@@ -51,7 +51,6 @@ const MpQrDetail = () => {
     setLoading(true);
     const success = await upsertAppQrCodes({
       ...param,
-      operator: 'zz',
     });
     if (success) {
       navigator('/mpqr/mpqr-list')

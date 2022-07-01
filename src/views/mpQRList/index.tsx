@@ -32,7 +32,6 @@ const MpQrList = () => {
     const items = {
       id: id,
       isDeleted: true,
-      operator: 'zz'
     }
     await upsertAppQrCodes(items)
     formRef?.current!.submit()
