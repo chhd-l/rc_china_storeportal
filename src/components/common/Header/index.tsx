@@ -6,6 +6,8 @@ import { Dropdown, Menu } from "antd";
 import { useNavigate } from "react-router";
 import "./index.less"
 
+import storeImg from '@/assets/images/store.png';
+
 const MenuComp = (navigate: Function) => {
   
   return (
@@ -37,6 +39,10 @@ const Header = ({ userInfo }: { userInfo: User | null }) => {
       </div>
       <div className="grow">
         <RouteBreadcrumb />
+      </div>
+      <div style={{marginRight: 40}} className="flex items-center cursor-pointer" onClick={() => navigate('/login/store')}>
+        <span className="mr-2">{localStorage.getItem('rc_sc_login_brand')} - {localStorage.getItem('rc_sc_login_store')}</span>
+        <img src={storeImg} width="16" height="16" alt="store" />
       </div>
       <div className="h-full flex-none" style={{ lineHeight: "51px", width: "150px" }}>
         <Dropdown overlay={MenuComp(navigate)} placement="bottom" arrow>

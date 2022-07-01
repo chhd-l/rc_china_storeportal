@@ -32,6 +32,7 @@ const LoginStore = () => {
     autoplay: false,
   };
   const handleClick = async(item: any) => {
+    localStorage.setItem('rc_sc_login_brand', item.name);
     navigate("/login/barnd", { state: { id: item.id, name:item.name } });
   }
   return (

@@ -6,6 +6,7 @@ import { tableColumns, TWxMenuUpdateParam } from "./modules/constant"
 import { ContentContainer, SearchContainer, TableContainer, DivideArea } from "@/components/ui"
 import { getWxMenusList, updateWxMenu } from '@/framework/api/wechatSetting'
 import { WxMenu } from '@/framework/types/wechat'
+import { openConfirmModal } from '@/utils/utils';
 
 import { PageProps } from '@/framework/types/common'
 
@@ -44,15 +45,23 @@ const MenuManage = () => {
   }
 
   const changeStatus = async (updateParam: TWxMenuUpdateParam) => {
-    setLoading(true)
-    const updated = await updateWxMenu(updateParam)
-    if (updated) {
-      setCurrent(1)
-      getList(1)
-    } else {
-      setLoading(false);
-      message.error({ className: "rc-message", content: "Status update failed" })
-    }
+    openConfirmModal({
+      title: updateParam.isEnabled ? 'Enable Item' : 'Disable Item',
+      content: `Are you sure you want to ${updateParam.isEnabled ? 'enable' : 'disable'} this item?`,
+      onOk: () => {
+        setLoading(true)
+        updateWxMenu(updateParam).then((updated: boolean) => {
+          if (updated) {
+            message.success({className: "rc-message", content: "Operate Successful" });
+            setCurrent(1)
+            getList(1)
+          } else {
+            setLoading(false);
+            message.error({ className: "rc-message", content: "Status update failed" })
+          }
+        })
+      }
+    })
   }
   const handleDelete = (updateParam: TWxMenuUpdateParam) => {
     setIsModalVisible(true)
@@ -62,6 +71,7 @@ const MenuManage = () => {
     setLoading(true)
     const deleted = await updateWxMenu(pendingToDelete)
     if (deleted) {
+      message.success({className: "rc-message", content: "Operate Successful" });
       setIsModalVisible(false)
       setCurrent(1)
       getList(1)

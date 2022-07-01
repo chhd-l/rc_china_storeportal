@@ -32,6 +32,7 @@ const LoginBarnd = () => {
   };
   const handleClick = async(item: any) => {
     if (await swithStore(item.id)) {
+      localStorage.setItem('rc_sc_login_store', item?.name);
       navigator("/dashboard");
     }
   }
