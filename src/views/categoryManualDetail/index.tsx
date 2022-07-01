@@ -25,7 +25,7 @@ const CategoryDetail = () => {
   const [name, setName] = useState('')
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const [manualSelectionVisible, setManualSelectionVisible] = useState<boolean>(false)
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(false)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [isSwithVisible, setIsSwithVisible] = useState(false)
   const [status, setStatus] = useState(false)
@@ -57,7 +57,8 @@ const CategoryDetail = () => {
   const confirmDelete = async () => {
     setLoading(true)
     detleShopCateRel(curAssetId).then((res) => {
-      if (res) {
+      console.log(res,888888888)
+      if (res.shopCategoryProductRelDelete) {
         setIsModalVisible(false)
         setSelectedRowKeys([])
         ref?.current?.reload()
@@ -76,7 +77,7 @@ const CategoryDetail = () => {
 
   const getList = async (page: any) => {
     setLoading(true)
-
+    console.log(state.id,99999999)
     let sample = {
       shopCategoryId: state.id,
       name: undefined,
@@ -90,7 +91,7 @@ const CategoryDetail = () => {
       isNeedTotal: true,
       sample
     })
-    let meta = res?.shopCategoryProductFindPage?.meta
+      let meta = res?.shopCategoryProductFindPage?.meta
     if (meta?.id) {
       setCateInfos({ ...meta, total: res?.shopCategoryProductFindPage?.total })
     }
@@ -117,7 +118,6 @@ const CategoryDetail = () => {
   }
 
   useEffect(() => {
-
   }, [])
   const handleManualVisible = (visible: boolean) => {
     setManualSelectionVisible(visible)
@@ -180,12 +180,12 @@ const CategoryDetail = () => {
       valueType: 'option',
       render: (_, record) => {
         return (
-          <Link to='' className='mr-4 text-xl' onClick={() => {
+          <span className='mr-4 text-xl cursor-pointer primary-color' onClick={() => {
             setCurAssetId(record.shopCategoryProductRelationId)
             setIsModalVisible(true)
           }}>
             <span className='iconfont text-xl icon-delete' />
-          </Link>
+          </span>
         )
       },
     },
@@ -292,7 +292,6 @@ const CategoryDetail = () => {
               rowSelection={{ selectedRowKeys, onChange: onSelectChange }}
               rowKey='shopCategoryProductRelationId'
               tableAlertRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => {
-                console.log(selectedRowKeys, selectedRows, checkLenght)
                 if (selectedRows.length === checkLenght) {
                   setCheckAll(true)
                   setIndeterminate(false)
