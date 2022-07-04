@@ -1,12 +1,6 @@
 import './index.less'
 import { Button, Select, Spin, Tag } from 'antd'
-import ProForm, {
-  ModalForm,
-  ProFormCascader,
-  ProFormInstance,
-  ProFormMoney,
-  ProFormSelect,
-} from '@ant-design/pro-form'
+import ProForm, { ModalForm, ProFormCascader, ProFormInstance, ProFormMoney, ProFormSelect } from '@ant-design/pro-form'
 import { useEffect, useRef, useState } from 'react'
 import {
   createShopCategoryProductRel,
@@ -20,15 +14,21 @@ import { getBrands } from '@/framework/api/get-product'
 import { useLocation } from 'react-router'
 
 export interface RuleBasedFilteringProps {
-  visible: boolean;
-  handleVisible: (visible: boolean) => void;
-  handleSucces: (visible: boolean) => void;
-  productLists: any;
-  editParams: any;
+  visible: boolean
+  handleVisible: (visible: boolean) => void
+  handleSucces: (visible: boolean) => void
+  productLists: any
+  editParams: any
 }
 
-const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,editParams }: RuleBasedFilteringProps) => {
-  const { state }: any = useLocation();
+const RuleBasedFiltering = ({
+  visible,
+  handleVisible,
+  handleSucces,
+  productLists,
+  editParams,
+}: RuleBasedFilteringProps) => {
+  const { state }: any = useLocation()
   const formRef = useRef<ProFormInstance>()
   const [filterTags, setFilterTags] = useState<string[]>([])
   const [filterTagsTwo, setFilterTagsTwo] = useState<string[]>([])
@@ -37,8 +37,8 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
   const [brandList, setBrandList] = useState([])
   const [loading, setLoading] = useState(false)
   const [saveParams, setSaveParams] = useState<any>({
-    categoryId:'All Categories',
-    brand:'All Brands'
+    categoryId: 'All Categories',
+    brand: 'All Brands',
   })
   const [speciList, setSpeciList] = useState([])
   const [list, setList] = useState<any>()
@@ -82,40 +82,40 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
     if (params.brand && params.brand !== 'All Brands') {
       data.sample.brand = params.brand
     }
-    if (params.attributeValueIds?.length>0) {
-      data.sample.attributeRelations = [{attributeValueIds:params.attributeValueIds}]
+    if (params.attributeValueIds?.length > 0) {
+      data.sample.attributeRelations = [{ attributeValueIds: params.attributeValueIds }]
     }
 
-    if (params.startPrice!=='') {
+    if (params.startPrice !== '') {
       data.sample.startPrice = params.startPrice
     }
-    if (params.endPrice!=='') {
+    if (params.endPrice !== '') {
       data.sample.endPrice = params.endPrice
     }
     let res = await getESProducts(data)
-    setProductList(res?.records||[])
+    setProductList(res?.records || [])
     setLoading(false)
   }
 
   useEffect(() => {
-    if(visible){
+    if (visible) {
       getBrandList()
       getCategoriesList()
-      if(productLists?.length>0){
+      if (productLists?.length > 0) {
         setProductList(productLists)
       }
       init()
     }
-  }, [productLists,visible])
+  }, [productLists, visible])
 
   const init = () => {
-    if(editParams.filterTags.length===0){
-      editParams.filterTags=['All Categories', 'All Brands']
+    if (editParams.filterTags.length === 0) {
+      editParams.filterTags = ['All Categories', 'All Brands']
     }
-    if(!editParams.attributeValueIds){
+    if (!editParams.attributeValueIds) {
       editParams.attributeValueIds = []
     }
-    setSaveParams({...saveParams,...editParams })
+    setSaveParams({ ...saveParams, ...editParams })
     setFilterTags(editParams.filterTags)
     setFilterTagsTwo(editParams.filterTagsTwo)
     formRef?.current?.setFieldsValue(editParams)
@@ -134,81 +134,85 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
         <Button key='submit' type='primary' onClick={() => submit?.()}>
           Search
         </Button>,
-        <Button key='rest' onClick={() => {
-          setFilterTags(['All Categories', 'All Brands'])
-          setFilterTagsTwo([])
-          setProductList([])
-          resetFields()
-        }}>
+        <Button
+          key='rest'
+          onClick={() => {
+            setFilterTags(['All Categories', 'All Brands'])
+            setFilterTagsTwo([])
+            setProductList([])
+            resetFields()
+          }}
+        >
           Reset
         </Button>,
       ]
     },
   }
   const waitTime = () => {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       let obj = [
         {
           shopCategoryId: state.id,
           name: 'categoryId',
-          value: saveParams?.categoryId.length>0?saveParams?.categoryId.join():'',
-          rank:1
+          value: saveParams?.categoryId.length > 0 ? saveParams?.categoryId.join() : '',
+          rank: 1,
         },
         {
           shopCategoryId: state.id,
           name: 'brand',
           value: saveParams?.brand,
-          rank:2
+          rank: 2,
         },
         {
           shopCategoryId: state.id,
           name: 'attributeValueIds',
-          value: saveParams?.attributeValueIds?.length>0?saveParams.attributeValueIds.join():'',
-          rank:3
+          value: saveParams?.attributeValueIds?.length > 0 ? saveParams.attributeValueIds.join() : '',
+          rank: 3,
         },
         {
           shopCategoryId: state.id,
           name: 'startPrice',
-          value: saveParams?.startPrice?saveParams?.startPrice.toString():'',
-          rank:4
+          value: saveParams?.startPrice ? saveParams?.startPrice.toString() : '',
+          rank: 4,
         },
         {
           shopCategoryId: state.id,
           name: 'endPrice',
-          value: saveParams?.endPrice?saveParams?.endPrice.toString():'',
-          rank:5
+          value: saveParams?.endPrice ? saveParams?.endPrice.toString() : '',
+          rank: 5,
         },
         {
           shopCategoryId: state.id,
           name: 'filterTags',
-          value: filterTags.length>0?filterTags.join():'',
-          rank:6
+          value: filterTags.length > 0 ? filterTags.join() : '',
+          rank: 6,
         },
         {
           shopCategoryId: state.id,
           name: 'filterTagsTwo',
-          value: filterTagsTwo.length>0?filterTagsTwo.join():'',
-          rank:7
+          value: filterTagsTwo.length > 0 ? filterTagsTwo.join() : '',
+          rank: 7,
         },
       ]
       shopCategoryFilterRules(obj)
-      if(productList.length>0){
+      if (productList.length > 0) {
         let data = productList.map((item: any) => {
           return {
             productId: item.id,
             shopCategoryId: state.id,
-            storeId: item.storeId,
+            // storeId: item.storeId,
           }
         })
-        createShopCategoryProductRel(data).then(res=>{
+        debugger
+        createShopCategoryProductRel(data).then(res => {
           resolve(true)
           handleSucces(true)
         })
-      }else {
+      } else {
         resolve(true)
       }
-    });
-  };
+    })
+  }
   // @ts-ignore
   return (
     <ModalForm
@@ -217,8 +221,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
         <>
           <div>Set Filtering Rules</div>
           <div className='text-gray-400 font-normal text-xs'>
-            If your products meet the filtering rule criteria, they will
-            auyomatically be added into your shop category
+            If your products meet the filtering rule criteria, they will auyomatically be added into your shop category
           </div>
         </>
       }
@@ -235,7 +238,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
       layout='horizontal'
       visible={visible}
       onFinish={async () => {
-        if(await waitTime()){
+        if (await waitTime()) {
           return true
         }
       }}
@@ -273,7 +276,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
               setFilterTags(tagArr)
             }}
             layout='horizontal'
-            onFinish={async (values) => {
+            onFinish={async values => {
               if (values.categoryId?.length >= 1) {
                 values.categoryIds = values.categoryId[values.categoryId.length - 1]
               }
@@ -287,15 +290,18 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
               fieldProps={{
                 changeOnSelect: false,
                 onChange: onChange,
-                options: [{
-                  value: 'All Categories',
-                  label: 'All Categories',
-                }, ...mockOptions],
+                options: [
+                  {
+                    value: 'All Categories',
+                    label: 'All Categories',
+                  },
+                  ...mockOptions,
+                ],
                 getPopupContainer: triggerNode => triggerNode.parentNode,
                 dropdownClassName: 'productlist-choose-cate common-dropdown-cascader',
                 placeholder: 'Category Name',
-                style:{
-                  textAlign:'left'
+                style: {
+                  textAlign: 'left',
                 },
               }}
               name='categoryId'
@@ -319,8 +325,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
                 options={speciList}
                 mode='multiple'
                 placeholder='Please select'
-              >
-              </Select>
+              ></Select>
             </ProForm.Item>
             <div className='flex'>
               <ProFormMoney
@@ -331,9 +336,7 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
                 customSymbol='￥'
                 min={0}
               />
-              <span className='relative'>
-                -
-              </span>
+              <span className='relative'>-</span>
               <ProFormMoney
                 labelCol={{ span: 0 }}
                 wrapperCol={{ span: 22 }}
@@ -347,39 +350,37 @@ const RuleBasedFiltering = ({ visible, handleVisible,handleSucces,productLists,e
         <div className='w-2/5 rule-right'>
           <div>
             <div className='mb-3'>Set Filtering Rules</div>
-            {filterTags?.length>0&&filterTags.map((el: any) => (
-              <Tag className='ml-2' key={el}>
-                {el}
-              </Tag>
-            ))}
-            {filterTagsTwo?.length>0&&filterTagsTwo.map((el: any) => (
-              <Tag className='ml-2 mt-2' key={el}>
-                {el}
-              </Tag>
-            ))}
+            {filterTags?.length > 0 &&
+              filterTags.map((el: any) => (
+                <Tag className='ml-2' key={el}>
+                  {el}
+                </Tag>
+              ))}
+            {filterTagsTwo?.length > 0 &&
+              filterTagsTwo.map((el: any) => (
+                <Tag className='ml-2 mt-2' key={el}>
+                  {el}
+                </Tag>
+              ))}
           </div>
           <div>
             <div className='my-3'>Filtering Results</div>
             <Spin spinning={loading}>
-            <div className='flex flex-wrap' style={{ maxHeight: '250px', overflow: 'scroll' }}>
-              {productList.length>0&&productList.map((el: any) => (
-                <div key={el.id} style={{ width: 60 }} className='mb-3 mr-2'>
-                  <div
-                    style={{ height: 60 }}
-                    className='border border-solid border-gray-200 flex'
-                  >
-                    <img
-                      src={el.variants[0]?.defaultImage}
-                      className='m-auto '
-                      style={{ maxHeight: 60, maxWidth: 60 }}
-                    />
-                  </div>
-                  <div className='overflow-ellipsis overflow-hidden whitespace-nowrap'>
-                    {el.name}
-                  </div>
-                </div>
-              ))}
-            </div>
+              <div className='flex flex-wrap' style={{ maxHeight: '250px', overflow: 'scroll' }}>
+                {productList.length > 0 &&
+                  productList.map((el: any) => (
+                    <div key={el.id} style={{ width: 60 }} className='mb-3 mr-2'>
+                      <div style={{ height: 60 }} className='border border-solid border-gray-200 flex'>
+                        <img
+                          src={el.variants[0]?.defaultImage}
+                          className='m-auto '
+                          style={{ maxHeight: 60, maxWidth: 60 }}
+                        />
+                      </div>
+                      <div className='overflow-ellipsis overflow-hidden whitespace-nowrap'>{el.name}</div>
+                    </div>
+                  ))}
+              </div>
             </Spin>
           </div>
         </div>

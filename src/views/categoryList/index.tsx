@@ -41,9 +41,7 @@ const ShopCategories = () => {
       offset: page.offset,
       limit: page.limit,
       isNeedTotal: true,
-      sample: {
-        storeId: '12345678',
-      },
+      sample: {},
     })
   }
 
@@ -52,7 +50,7 @@ const ShopCategories = () => {
     updateShopCategory({
       id: curAssetId,
       isDeleted: true,
-    }).then((res) => {
+    }).then(res => {
       if (res) {
         setIsModalVisible(false)
         ref.current.reload()
@@ -66,7 +64,7 @@ const ShopCategories = () => {
     updateShopCategory({
       id: curAssetId,
       isDisplay: status,
-    }).then((res) => {
+    }).then(res => {
       if (res) {
         setIsSwithVisible(false)
         ref.current.reload()
@@ -75,8 +73,7 @@ const ShopCategories = () => {
     setLoading(false)
   }
 
-  useEffect(() => {
-  }, [])
+  useEffect(() => {}, [])
 
   const columns: ProColumns<CategoryBaseProps>[] = [
     {
@@ -87,47 +84,56 @@ const ShopCategories = () => {
         if (editClickIndex === index && show) {
           return (
             <Input.Group compact>
-              <Input style={{ width: '200px' }} defaultValue={record.displayName} onChange={(e) => {
-                setName(e.target.value)
-              }} />
-              <Button icon={<CheckOutlined />} onClick={() => {
-                console.log(name)
-                updateShopCategory({
-                  id: record.id,
-                  displayName: name,
-                  isDisplay: record.isDisplay ? record.isDisplay : false,
-                }).then((res) => {
-                  if (res) {
-                    setShow(false)
-                    ref.current.reload()
-                  }
-                })
-              }} />
-              <Button icon={<CloseOutlined />} onClick={() => {
-                setName('')
-                setShow(false)
-              }} />
+              <Input
+                style={{ width: '200px' }}
+                defaultValue={record.displayName}
+                onChange={e => {
+                  setName(e.target.value)
+                }}
+              />
+              <Button
+                icon={<CheckOutlined />}
+                onClick={() => {
+                  console.log(name)
+                  updateShopCategory({
+                    id: record.id,
+                    displayName: name,
+                    isDisplay: record.isDisplay ? record.isDisplay : false,
+                  }).then(res => {
+                    if (res) {
+                      setShow(false)
+                      ref.current.reload()
+                    }
+                  })
+                }}
+              />
+              <Button
+                icon={<CloseOutlined />}
+                onClick={() => {
+                  setName('')
+                  setShow(false)
+                }}
+              />
             </Input.Group>
           )
         } else if (index === editIndex) {
           return (
             <div className='edit-name'>
               <span className='edit-display-name'>{record.displayName}</span>
-              <span style={{ color: '#ee4d2d' }}
-                    className='iconfont icon-shop-cate-edit'
-                    onClick={() => {
-                      setEditClickIndex(index)
-                      setEditIndex(index)
-                      setShow(true)
-                      setName(record.displayName)
-                    }}
+              <span
+                style={{ color: '#ee4d2d' }}
+                className='iconfont icon-shop-cate-edit'
+                onClick={() => {
+                  setEditClickIndex(index)
+                  setEditIndex(index)
+                  setShow(true)
+                  setName(record.displayName)
+                }}
               />
             </div>
           )
         } else {
-          return (
-            <span>{record.displayName}</span>
-          )
+          return <span>{record.displayName}</span>
         }
       },
     },
@@ -145,9 +151,7 @@ const ShopCategories = () => {
     {
       title: 'Product(s)',
       dataIndex: 'total',
-      render: (_, record) => (
-        <span>{record.total ? record.total : 0}</span>
-      ),
+      render: (_, record) => <span>{record.total ? record.total : 0}</span>,
     },
     {
       title: 'Status',
@@ -176,58 +180,86 @@ const ShopCategories = () => {
           if (record.categoryType === 'MANUAL') {
             return [
               <Tooltip title='Add Poducts'>
-                <Link to="/category/category-manual-detail" state={{ id: record.id }} className='mr-2 iconfont icon-jiahao text-xl' />
+                <Link
+                  to='/category/category-manual-detail'
+                  state={{ id: record.id }}
+                  className='mr-2 iconfont icon-jiahao text-xl'
+                />
               </Tooltip>,
               <Tooltip title='Delete'>
-                <span className='mr-2 text-xl iconfont icon-delete cursor-pointer primary-color' onClick={() => {
-                  setIsModalVisible(true)
-                  setCurAssetId(record.id)
-                }} />
+                <span
+                  className='mr-2 text-xl iconfont icon-delete cursor-pointer primary-color'
+                  onClick={() => {
+                    setIsModalVisible(true)
+                    setCurAssetId(record.id)
+                  }}
+                />
               </Tooltip>,
             ]
           } else {
             return [
               <Tooltip title='Set Filtering Rules'>
-                <Link className='mr-2 iconfont icon-group52 text-xl' to="/category/category-detail" state={{ id: record.id }}/>
+                <Link
+                  className='mr-2 iconfont icon-group52 text-xl'
+                  to='/category/category-detail'
+                  state={{ id: record.id }}
+                />
               </Tooltip>,
               <Tooltip title='Delete'>
-                <span className='mr-2 text-xl iconfont icon-delete cursor-pointer primary-color' onClick={() => {
-                  setIsModalVisible(true)
-                  setCurAssetId(record.id)
-                }} />
+                <span
+                  className='mr-2 text-xl iconfont icon-delete cursor-pointer primary-color'
+                  onClick={() => {
+                    setIsModalVisible(true)
+                    setCurAssetId(record.id)
+                  }}
+                />
               </Tooltip>,
             ]
           }
-
         } else {
           if (record.categoryType === 'MANUAL') {
             return [
               <Tooltip title='Details'>
-                <Link to="/category/category-manual-detail" state={{ id: record.id }} className='mr-2 iconfont icon-category-details text-xl'/>
+                <Link
+                  to='/category/category-manual-detail'
+                  state={{ id: record.id }}
+                  className='mr-2 iconfont icon-category-details text-xl'
+                />
               </Tooltip>,
               <Tooltip title='Delete'>
-                <span  className='mr-2 text-xl iconfont icon-delete cursor-pointer primary-color' onClick={() => {
-                  setIsModalVisible(true)
-                  setCurAssetId(record.id)
-                }}/>
+                <span
+                  className='mr-2 text-xl iconfont icon-delete cursor-pointer primary-color'
+                  onClick={() => {
+                    setIsModalVisible(true)
+                    setCurAssetId(record.id)
+                  }}
+                />
               </Tooltip>,
             ]
           } else {
             return [
               <Tooltip title='Details'>
-                <Link to="/category/category-detail" state={{ id: record.id }} className='mr-2 iconfont icon-category-details text-xl' onClick={(e) => {
-                  e.stopPropagation()
-                  navigator('/category/category-detail', {
-                    state: { id: record.id },
-                  })
-                }} />
+                <Link
+                  to='/category/category-detail'
+                  state={{ id: record.id }}
+                  className='mr-2 iconfont icon-category-details text-xl'
+                  onClick={e => {
+                    e.stopPropagation()
+                    navigator('/category/category-detail', {
+                      state: { id: record.id },
+                    })
+                  }}
+                />
               </Tooltip>,
               <Tooltip title='Delete'>
-                <span className='mr-2 text-xl iconfont icon-delete cursor-pointer primary-color' onClick={() => {
-                  setIsModalVisible(true)
-                  setCurAssetId(record.id)
-                }}/>
-               </Tooltip>,
+                <span
+                  className='mr-2 text-xl iconfont icon-delete cursor-pointer primary-color'
+                  onClick={() => {
+                    setIsModalVisible(true)
+                    setCurAssetId(record.id)
+                  }}
+                />
+              </Tooltip>,
             ]
           }
         }
