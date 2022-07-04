@@ -1,9 +1,7 @@
-import { CloseOutlined } from '@ant-design/icons'
 import { Tag } from '@/framework/types/consumer'
-import { getCustomTags } from '@/framework/api/consumer'
 import { useEffect, useState } from 'react'
 import { Empty, Select } from 'antd'
-import { addConsumerTag, getTags, removeConsumerTag } from '@/framework/api/tag'
+import { addConsumerTag, getCustomTags, getTags, removeConsumerTag } from '@/framework/api/tag'
 
 const Tagging = ({ id, consumerId }: { id: string; consumerId: string }) => {
   const [tagList, setTagList] = useState<Tag[]>([])
@@ -22,8 +20,6 @@ const Tagging = ({ id, consumerId }: { id: string; consumerId: string }) => {
     await removeConsumerTag({
       consumerId: consumerId,
       tagId: id,
-      operator: 'zz',
-      storeId: '12345678',
     })
 
   }
@@ -31,8 +27,6 @@ const Tagging = ({ id, consumerId }: { id: string; consumerId: string }) => {
     await addConsumerTag({
       consumerIds: [consumerId],
       tagId: value,
-      operator: 'zz',
-      storeId: '12345678',
     })
   }
   const handleSearch = (value: string) => {
@@ -47,7 +41,6 @@ const Tagging = ({ id, consumerId }: { id: string; consumerId: string }) => {
       offset: 0,
       limit: 10000,
       isNeedTotal: true,
-      operator: 'zz',
     })
     if (res.records) {
       setOption(res.records)

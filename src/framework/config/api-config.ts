@@ -8,6 +8,8 @@ type TApiConfig = {
   product: string
   product_es_list: string
   product_search: string
+  tag:string
+  address:string
 }
 
 interface IApiConfig {
@@ -34,6 +36,7 @@ const API_CONFIG: IApiConfig = {
     product: "https://fc-com-product-dev-common-szrflwfhhy.cn-shanghai.fcapp.run/graphql",
     product_es_list: "https://fc-com-es-list-dev-common-hdggvbqeut.cn-shanghai.fcapp.run/graphql",
     product_search: "https://fc-sc-pt-search-dev-selercenter-gehwotganj.cn-shanghai.fcapp.run/graphql",
+    tag:"https://fc-sc-tag-dev-selercenter-dddvbzlymt.cn-shanghai.fcapp.run/graphql"
   },
   production: {
     auth: "https://fc-sc-auth-dev-selercenter-umayykwqea.cn-shanghai.fcapp.run/graphql",
@@ -52,6 +55,7 @@ const API_CONFIG: IApiConfig = {
     product: "https://fc-com-product-dev-common-szrflwfhhy.cn-shanghai.fcapp.run/graphql",
     product_es_list: "https://fc-com-es-list-dev-common-hdggvbqeut.cn-shanghai.fcapp.run/graphql",
     product_search: "https://fc-sc-pt-search-dev-selercenter-gehwotganj.cn-shanghai.fcapp.run/graphql",
+    tag:"https://fc-sc-tag-dev-selercenter-dddvbzlymt.cn-shanghai.fcapp.run/graphql"
   }
 }
 
