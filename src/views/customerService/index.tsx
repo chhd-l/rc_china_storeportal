@@ -49,7 +49,7 @@ const CustomerService = () => {
           <Switch checked={serviceInfo.isEnabled} onChange={() => setIsModalVisible(true)} />
         </div>
       </div>
-      <Modal title="Notice" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title="Notice" visible={isModalVisible} onOk={handleOk} okText='Confirm' onCancel={handleCancel}>
         <p>Are you sure {serviceInfo.isEnabled ? 'disabled' : 'enable'} this item ?</p>
       </Modal>
     </div>
