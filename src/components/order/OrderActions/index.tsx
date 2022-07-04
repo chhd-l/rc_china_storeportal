@@ -62,7 +62,6 @@ const OrderActions = ({
 
   const completed = async () => {
     const res = await completedOrder({
-      storeId: '123456',
       orderNum: orderId,
       nowOrderState: orderState,
     })

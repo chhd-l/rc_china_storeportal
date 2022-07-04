@@ -8112,7 +8112,7 @@
     "picocolors" "^0.2.1"
     "source-map" "^0.6.1"
 
-"postcss@^8.3.5", "postcss@^8.4.12", "postcss@^8.4.7":
+"postcss@^8.3.5", "postcss@^8.4.12", "postcss@^8.4.4", "postcss@^8.4.7":
   "integrity" "sha512-E398TUmfAYFPBSdzgeieK2Y1+1cpdxJx8yXbK/m57nRhKSmk1GB2tO4lbLBtlkfPQTDKfe4Xqv1ASWPpayPEig=="
   "resolved" "https://registry.npmmirror.com/postcss/-/postcss-8.4.14.tgz"
   "version" "8.4.14"
@@ -9781,7 +9781,7 @@
   "resolved" "https://registry.npmmirror.com/symbol-tree/-/symbol-tree-3.2.4.tgz"
   "version" "3.2.4"
 
-"tailwindcss@^3.0.23":
+"tailwindcss@^3.0.2":
   "integrity" "sha512-H3uMmZNWzG6aqmg9q07ZIRNIawoiEcNFKDfL+YzOPuPsXuDXxJxB9icqzLgdzKNwjG3SAro2h9SYav8ewXNgig=="
   "resolved" "https://registry.npmmirror.com/tailwindcss/-/tailwindcss-3.0.24.tgz"
   "version" "3.0.24"

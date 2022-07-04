@@ -9,7 +9,9 @@ const Dashboard = () => {
       <div className='ContentArea flex items-center justify-between flex-wrap m-auto'>
         {body.map((item: any, idx: number) => (
           <div className="block" key={idx}>
-            <div className={`${item.img} bgImg cursor-pointer`} onClick={() => navigator(item.url)} />
+            <div className='bgImg cursor-pointer' onClick={() => navigator(item.url)} >
+              <img src={item.img} alt="" />
+            </div>
             <div className="title">{item.title}</div>
             <div className="span">{item.span}</div>
           </div>

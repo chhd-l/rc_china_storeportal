@@ -101,18 +101,14 @@ const CreateNewVoucher = () => {
                     if (state) {
                       v.voucherProductRelated = keys.length
                         ? keys.map((item) => ({
-                            operator: 'zz',
                             productId: item,
-                            storeId: '123456',
                             voucherId: state.id,
                           }))
                         : ''
                     } else {
                       v.voucherProductRelated = keys.length
                         ? keys.map((item) => ({
-                            operator: 'zz',
                             productId: item,
-                            storeId: '123456',
                           }))
                         : ''
                     }
