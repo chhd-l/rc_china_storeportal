@@ -8,7 +8,7 @@ import { FormProps } from '@/framework/types/common'
 import { EditOutlined } from '@ant-design/icons'
 import ProForm from '@ant-design/pro-form'
 import { useForm } from 'antd/lib/form/Form'
-import { getBrands } from '@/framework/api/wechatSetting'
+import { getBrands } from '@/framework/api/get-product'
 import ImgDrag from '../ImgDrag'
 interface uploadHandleProps {
   url: string

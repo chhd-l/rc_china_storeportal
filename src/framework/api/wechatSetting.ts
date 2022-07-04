@@ -1,6 +1,6 @@
 import ApiRoot from '@/framework/api/fetcher'
 import { normaliseBrands, normaliseMediaList } from '@/framework/normalize/wechatSetting'
-import apis from '@/framework/config/api-config';
+import apis from '@/framework/config/api-config'
 
 // 查询 account
 export const getAccountList = async (queryParams: any) => {
@@ -220,17 +220,6 @@ export const syncMedias = async (type: string) => {
     return false
   }
 }
-export const getBrands = async (storeId: string) => {
-  try {
-    let res = await ApiRoot().wechatSettings().getBarndList({ storeId })
-    console.log('getBrands', res)
-    let list = normaliseBrands(res || [])
-    return list
-  } catch (e) {
-    console.log(e)
-    return []
-  }
-}
 
 // 查询 小程序二维码
 export const getAppQrCodes = async (queryParams: any) => {
@@ -311,7 +300,7 @@ export const getTemplateItems = async (queryParams: any) => {
       limit: 10,
       accountId: '000001',
     }
-    let res = await ApiRoot().wechatSettings().getTemplateItems({ body: params })
+    let res = await ApiRoot({ url: apis?.wx_template }).wechatSettings().getTemplateItems({ body: params })
     const templateItemList = res?.wxTemplateItemFindPage
     console.log('get templateItem list view data', templateItemList)
     return {
@@ -327,9 +316,9 @@ export const getTemplateItems = async (queryParams: any) => {
   }
 }
 
-export const syncTemplateItem = async (params: { operator: string }) => {
+export const syncTemplateItem = async () => {
   try {
-    let res = await ApiRoot().wechatSettings().syncTemplateItem(Object.assign(params, { accountId: '000001' }))
+    let res = await ApiRoot({ url: apis?.wx_template }).wechatSettings().syncTemplateItem({ accountId: '000001' })
     const syncTemplateItem = res?.wxTemplateItemSync
     console.log('sync template item view data', syncTemplateItem)
     return syncTemplateItem || false
@@ -345,7 +334,7 @@ export const getTemplateMessages = async (queryParams: any) => {
     const params = Object.assign(queryParams, {
       accountId: '000001',
     })
-    let res = await ApiRoot().wechatSettings().getTemplateMessages({ body: params })
+    let res = await ApiRoot({ url: apis?.wx_template }).wechatSettings().getTemplateMessages({ body: params })
     const templateMessageList = res?.wxTemplateMessageFindPage
     console.log('get templateItem list view data', templateMessageList)
     return {
@@ -363,7 +352,7 @@ export const getTemplateMessages = async (queryParams: any) => {
 
 export const getTemplateDetail = async (id: string) => {
   try {
-    let res = await ApiRoot().wechatSettings().getTemplateMessageDetail(id)
+    let res = await ApiRoot({ url: apis?.wx_template }).wechatSettings().getTemplateMessageDetail(id)
     const templateMessageDetails = res?.wxTemplateMessageGet
     console.log('get template message detail view data', templateMessageDetails)
     return templateMessageDetails
@@ -376,7 +365,7 @@ export const getTemplateDetail = async (id: string) => {
 // 新增TemplateMessage
 export const createTemplateMessage = async (queryParams: any) => {
   try {
-    let res = await ApiRoot().wechatSettings().createTemplateMessage({ body: queryParams })
+    let res = await ApiRoot({ url: apis?.wx_template }).wechatSettings().createTemplateMessage({ body: queryParams })
     const createTemplateMessage = res?.wxTemplateMessageCreate
     console.log('get templateItem list view data', createTemplateMessage)
     return createTemplateMessage || false
@@ -389,7 +378,7 @@ export const createTemplateMessage = async (queryParams: any) => {
 // 编辑、删除TemplateMessage
 export const updateTemplateMessage = async (queryParams: any) => {
   try {
-    let res = await ApiRoot().wechatSettings().modifyTemplateMessage({ body: queryParams, operator: 'zz' })
+    let res = await ApiRoot({ url: apis?.wx_template }).wechatSettings().modifyTemplateMessage({ body: queryParams })
     const modifyTemplateMessage = res?.wxTemplateMessageModify
     console.log('get templateItem list view data', modifyTemplateMessage)
     return modifyTemplateMessage || false
@@ -401,7 +390,7 @@ export const updateTemplateMessage = async (queryParams: any) => {
 
 export const getIndustry = async () => {
   try {
-    let res = await ApiRoot().wechatSettings().getAllIndustry('000001')
+    let res = await ApiRoot({ url: apis?.wx_template }).wechatSettings().getAllIndustry('000001')
     const industry = res?.wxIndustryGet
     console.log('get industry view data', industry)
     return industry
@@ -413,7 +402,7 @@ export const getIndustry = async () => {
 
 export const syncIndustry = async () => {
   try {
-    let res = await ApiRoot().wechatSettings().syncIndustry({ accountId: '000001' })
+    let res = await ApiRoot({ url: apis?.wx_template }).wechatSettings().syncIndustry({ accountId: '000001' })
     const syncIndustry = res?.wxIndustrySync
     console.log('sync industry view data', syncIndustry)
     return syncIndustry

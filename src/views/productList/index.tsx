@@ -102,7 +102,7 @@ const ProductList = () => {
     let params: any = {
       sample: sampleParams,
       isNeedTotal: true,
-      operator: userInfo?.nickname || 'system',
+      // operator: userInfo?.nickname || 'system',
     }
     if (sort?.sortKey) {
       if (sort.sortDirection === 'ascend' && sort.sortKey === 'price') {

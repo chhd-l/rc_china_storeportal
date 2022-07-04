@@ -26,7 +26,7 @@ const AddCate = ({ visible, handleVisible, handleUpdate, id }: AddCateProps) => 
   const getDetail = async (id: any) => {
     let res = await payWayGet(id)
     console.log(res, 9999)
-    if (res.id) {
+    if (res?.id) {
       let obj = {
         account: res.settings.find((i: { code: string }) => i.code === 'WECHAT_PAY_MCH_ID')?.value || '',
         number: res.settings.find((i: { code: string }) => i.code === 'WECHAT_PAY_MCH_CERTIFICATE_SERIAL_NUMBER')?.value || '',
