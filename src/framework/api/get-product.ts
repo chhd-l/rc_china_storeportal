@@ -121,7 +121,7 @@ export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categ
     if (categoryId) {
       params.categoryId = categoryId
     }
-    const { productAttributeFindByCategoryId: attributeList } = await ApiRoot().products().getAttrList(params)
+    const { productAttributeFindByCategoryId: attributeList } = await ApiRoot({ url: apis?.product }).products().getAttrList(params)
     data = normaliseAttrProps(attributeList)
     return data
   } catch (e) {

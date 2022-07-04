@@ -58,10 +58,8 @@ const AddVariation = ({}: AddVariationProps) => {
             variationData[variationIdx].specificationDetails[specificationIdx].id =
               variationForm.variationList[variationIdx].specificationList[specificationIdx].id
           }
-          variationData[variationIdx].specificationDetails[specificationIdx].specificationDetailName =
-            e.target.value
-          variationData[variationIdx].specificationDetails[specificationIdx].specificationDetailNameEn =
-            e.target.value
+          variationData[variationIdx].specificationDetails[specificationIdx].specificationDetailName = e.target.value
+          variationData[variationIdx].specificationDetails[specificationIdx].specificationDetailNameEn = e.target.value
         }
 
         // let changedVariationList = detail.editChange.variationList
@@ -133,6 +131,19 @@ const AddVariation = ({}: AddVariationProps) => {
           variationForm.variationList[variationIdx].specificationList[specificationIdx].id
         variationData[variationIdx].specificationDetails[specificationIdx].isDeleted = true
       } else {
+        let specificationDetailName =
+          variationData[variationIdx].specificationDetails[specificationIdx]?.specificationDetailName
+        for (let idxs = detail.editChange.productVariants.length; idxs--; idxs < 1) {
+          let sku = detail.editChange.productVariants[idxs]
+          if (sku) {
+            let matched = sku?.specificationRelations.find((specItem: any) => {
+              return specItem.specificationDetailName === specificationDetailName
+            })
+            if (matched) {
+              detail.editChange.productVariants.splice(idxs, 1)
+            }
+          }
+        }
         variationData[variationIdx].specificationDetails.splice(specificationIdx, 1)
         let hasChangedProductSpecificationDetail = variationData[variationIdx].specificationDetails.filter(
           (el: any) => el,
@@ -165,7 +176,7 @@ const AddVariation = ({}: AddVariationProps) => {
         }
         variationData[variationIdx].id = variationForm.variationList[variationIdx].id
         variationData[variationIdx].isDeleted = variationForm.variationList[variationIdx].isDeleted
-      }else{
+      } else {
         variationData.splice(variationIdx, 1)
       }
     }
