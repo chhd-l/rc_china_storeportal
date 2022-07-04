@@ -1,6 +1,6 @@
 import ApiRoot from '@/framework/api/fetcher'
 import { normaliseBrands, normaliseMediaList } from '@/framework/normalize/wechatSetting'
-import apis from '@/framework/config/api-config';
+import apis from '@/framework/config/api-config'
 
 // 查询 account
 export const getAccountList = async (queryParams: any) => {
@@ -218,17 +218,6 @@ export const syncMedias = async (type: string) => {
   } catch (e) {
     console.log(e)
     return false
-  }
-}
-export const getBrands = async (storeId: string) => {
-  try {
-    let res = await ApiRoot().wechatSettings().getBarndList({ storeId })
-    console.log('getBrands', res)
-    let list = normaliseBrands(res || [])
-    return list
-  } catch (e) {
-    console.log(e)
-    return []
   }
 }
 

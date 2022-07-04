@@ -13,7 +13,7 @@ import {
 import { formatMoney, handlePageParams } from '@/utils/utils'
 import { OptionsProps } from '@/framework/types/common'
 import { getTree } from '@/framework/normalize/product'
-import { getBrands } from '@/framework/api/wechatSetting'
+import { getBrands } from '@/framework/api/get-product'
 import { useLocation } from 'react-router'
 
 const { Option } = Select

@@ -21,8 +21,6 @@ export const handleQueryParams = ({
     handlePageParams(pageParams),
     {
       isNeedTotal: true,
-      storeId: '12345678',
-      operator: 'zz',
     },
     { sample: sample },
   )

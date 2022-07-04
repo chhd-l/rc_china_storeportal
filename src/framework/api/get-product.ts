@@ -1,3 +1,4 @@
+import apis from '../config/api-config'
 import ApiRoot from './fetcher'
 import { CateItemProps, Product } from '../schema/product.schema'
 import {
@@ -24,11 +25,12 @@ import {
   normalizeNullDataRemove,
 } from '../normalize/product'
 import { PageProps } from '../types/common'
+import { normaliseBrands } from '../normalize/wechatSetting'
 // import { detailMock } from '../mock/productdetail'
 
 export const getCategories = async ({ storeId }: { storeId: string }): Promise<CateItemProps[]> => {
   try {
-    let categoryList = await ApiRoot().products().getProductCategories({ storeId })
+    let categoryList = await ApiRoot({ url: apis?.sc_product }).products().getProductCategories({ storeId })
     return categoryList.productCategoryFind
   } catch (e) {
     console.log(e)
@@ -104,7 +106,7 @@ export const createProduct = async (params: any, beforeData?: any) => {
   })
   console.info('paramsData', paramsData)
   try {
-    const data = await ApiRoot().products().createProduct({ body: paramsData })
+    const data = await ApiRoot({ url: apis?.sc_product }).products().createProduct({ body: paramsData })
     console.info('createProduct', data)
     return data?.productCreate
   } catch (err) {
@@ -134,7 +136,7 @@ export const getProduct = async ({
 }: { storeId: string, productId: string }): Promise<ProductDetailProps> => {
   // debugger
   try {
-    const detailinfo = await ApiRoot().products().getProductBySpu({ storeId, productId })
+    const detailinfo = await ApiRoot({ url: apis?.sc_product }).products().getProductBySpu({ storeId, productId })
     // const detailinfo = detail
     const normalizedData = normaliseDetailforFe(detailinfo)
     return normalizedData
@@ -148,7 +150,7 @@ export const getProduct = async ({
 
 export const getAllProducts = async (params: ProductListQueryProps): Promise<ProductListProps> => {
   try {
-    const res = await ApiRoot().products().getAllProducts(params)
+    const res = await ApiRoot({ url: apis?.sc_product }).products().getAllProducts(params)
     const list = res.products.map((product: Product) => normaliseProductListSpu(product))
     let data = {
       products: list,
@@ -172,21 +174,21 @@ export const getAllProducts = async (params: ProductListQueryProps): Promise<Pro
   }
 }
 
-export const getProductBySpuId = async (params: ProductListQueryProps) => {
-  const data = await ApiRoot().products().getAllProducts(params)
-  try {
-  } catch (e) {
-    console.log(e)
-    // return
-  }
-  return data
-}
+// export const getProductBySpuId = async (params: ProductListQueryProps) => {
+//   const data = await ApiRoot().products().getAllProducts(params)
+//   try {
+//   } catch (e) {
+//     console.log(e)
+//     // return
+//   }
+//   return data
+// }
 
 
 export const getESProducts = async (params:
   any): Promise<any> => {
   try {
-    const res = await ApiRoot().products().getESProductLists(params)
+    const res = await ApiRoot({ url: apis?.product_es_list }).products().getESProductLists(params)
     return res.productFindPageByEs
   } catch (e) {
     return []
@@ -196,9 +198,9 @@ export const getESProducts = async (params:
 export const getProductDetail = async ({ storeId, productId }: { storeId: string, productId: string }) => {
   let info: any = {}
   try {
-    const { productDetailGet } = await ApiRoot().products().getProductDetail({ storeId, productId })
+    const res = await ApiRoot({ url: apis?.sc_product }).products().getProductDetail({ storeId, productId })
     // const { productDetail } = detailMock.data
-    const { listAttributeGet, listCategoryGet, findProductByProductId } = productDetailGet
+    const { listAttributeGet, listCategoryGet, findProductByProductId } = res
     let detail = Object.assign({}, findProductByProductId, { listAttributeGet, listCategoryGet })
     info = normaliseDetailforFe(detail)
     // debugger
@@ -210,7 +212,7 @@ export const getProductDetail = async ({ storeId, productId }: { storeId: string
 }
 export const deleteProducts = async ({ productId }: { productId: string[] }) => {
   try {
-    const data = await ApiRoot().products().deleteMutation({ ids: productId, storeId: '12345678' })
+    const data = await ApiRoot({ url: apis?.sc_product }).products().deleteMutation({ ids: productId, storeId: '12345678' })
     return true
   } catch (e) {
     console.log(e)
@@ -222,7 +224,7 @@ export const deleteProducts = async ({ productId }: { productId: string[] }) => 
 
 export const switchShelves = async ({ productId, status }: { productId: string[], status: boolean }) => {
   try {
-    const data = await ApiRoot().products().switchShelvesMutation({ ids: productId, status })
+    const data = await ApiRoot({ url: apis?.sc_product }).products().switchShelvesMutation({ ids: productId, status })
     return true
   } catch (e) {
     console.log(e)
@@ -236,7 +238,7 @@ export const getScProducts = async (params: ProductListQueryProps): Promise<any>
     let sample = normalizeNullDataRemove(params.sample)
     delete params.sample
     params.sample = { ...sample }
-    const res = await ApiRoot().products().getScProducts(params)
+    const res = await ApiRoot({ url: apis?.sc_product }).products().getScProducts(params)
     const data = normaliseScProductsforFe(res)
     return data
   } catch (e) {
@@ -301,7 +303,7 @@ export const detleShopCateRel = async (id: (string | number)[]): Promise<any> =>
 export const getBundleProductvariants = async (params: any) => {
   let data: any = []
   try {
-    let res = await ApiRoot().products().getBundleProductvariants(params)
+    let res = await ApiRoot({ url: apis?.sc_product }).products().getBundleProductvariants(params)
     data = res?.productRegularFindPage || []
   } catch (e) {
     console.log(e)
@@ -313,7 +315,7 @@ export const getBundleProductvariants = async (params: any) => {
 
 export const HotSearchVisibleSwitch = async (params: SwitchType): Promise<CateItemProps[]> => {
   try {
-    let categoryList = await ApiRoot().products().hotSearchVisibleSwitch(params.status, params.storeId)
+    let categoryList = await ApiRoot({ url: apis?.product_search }).products().hotSearchVisibleSwitch(params.status, params.storeId)
     return categoryList
   } catch (e) {
     console.log(e)
@@ -324,7 +326,7 @@ export const HotSearchVisibleSwitch = async (params: SwitchType): Promise<CateIt
 
 export const getHotSearchFindPage = async (params: PageProps<SearchListType>): Promise<any> => {
   try {
-    let categoryList = await ApiRoot().products().hotSearchFindPage(params)
+    let categoryList = await ApiRoot({ url: apis?.product }).products().hotSearchFindPage(params)
     return categoryList
   } catch (e) {
     console.log(e)
@@ -334,7 +336,7 @@ export const getHotSearchFindPage = async (params: PageProps<SearchListType>): P
 
 export const hotSearchUpdate = async (params: SearchUpdateType): Promise<any> => {
   try {
-    let categoryList = await ApiRoot().products().hotSearchUpdate(params)
+    let categoryList = await ApiRoot({ url: apis?.product_search }).products().hotSearchUpdate(params)
     return categoryList
   } catch (e) {
     console.log(e)
@@ -344,8 +346,20 @@ export const hotSearchUpdate = async (params: SearchUpdateType): Promise<any> =>
 
 export const hotSearchCreate = async (params: SearchCreateType): Promise<any> => {
   try {
-    let categoryList = await ApiRoot().products().hotSearchCreate(params)
+    let categoryList = await ApiRoot({ url: apis?.product_search }).products().hotSearchCreate(params)
     return categoryList
+  } catch (e) {
+    console.log(e)
+    return []
+  }
+}
+
+export const getBrands = async (storeId: string) => {
+  try {
+    let res = await ApiRoot({ url: apis?.sc_product }).products().getBarndList()
+    console.log('getBrands', res)
+    let list = normaliseBrands(res || [])
+    return list
   } catch (e) {
     console.log(e)
     return []
