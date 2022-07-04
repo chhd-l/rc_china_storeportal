@@ -1,6 +1,6 @@
 import { Menu } from "antd";
 import { Link, useLocation } from "react-router-dom";
-import { menus, initActive } from "@/lib/menus";
+import { menus } from "@/lib/menus";
 import { useEffect, useState } from 'react'
 import { session } from '@/utils/global'
 // import "./index.less"
@@ -27,6 +27,10 @@ const Menus = () => {
 
   useEffect(()=>{
     console.log(333333,pathname)
+    if(pathname === '/dashboard') {
+      session.set('openMenuKeys', []);
+      session.set('selectedMenuKeys', [])
+    }
     let { openKeys, selectedKeys } = findOpenKeysAndSelectedKeysByPathname(menus, pathname);
     if (!openKeys.length || !selectedKeys.length) {
       openKeys = session.get('openMenuKeys') || [];
