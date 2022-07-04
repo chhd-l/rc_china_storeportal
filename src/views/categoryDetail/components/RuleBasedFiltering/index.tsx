@@ -16,7 +16,7 @@ import {
   shopCategoryFilterRules,
 } from '@/framework/api/get-product'
 import { getTree } from '@/framework/normalize/product'
-import { getBrands } from '@/framework/api/wechatSetting'
+import { getBrands } from '@/framework/api/get-product'
 import { useLocation } from 'react-router'
 
 export interface RuleBasedFilteringProps {
