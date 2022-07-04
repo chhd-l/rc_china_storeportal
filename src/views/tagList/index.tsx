@@ -34,7 +34,6 @@ const PetOwnerList = () => {
     let obj:any = {
       ...page,
       isNeedTotal: true,
-      operator: 'zz',
       sample: {},
     }
     if (searchParams.name) {

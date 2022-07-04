@@ -1,3 +1,4 @@
+import apis from '@/framework/config/api-config'
 import ApiRoot from './fetcher'
 import { normaliseConsumer, normalisePetOwnerList, normalisePetOwnerTagList } from '@/framework/normalize/consumer'
 
@@ -41,17 +42,6 @@ export const getCustomAccount = async ({ consumerId }: { consumerId: string }) =
   }
 }
 
-export const getCustomTags = async ({ consumerId }: { consumerId: string }) => {
-  try {
-    let res = await ApiRoot().consumers().getConsumerTags(consumerId)
-    console.log('consumerTags', res)
-    return normalisePetOwnerTagList(res || [])
-  } catch (e) {
-    console.log(e)
-    return []
-  }
-}
-
 export const getConsumer = async ({ consumerId }: { consumerId: string }) => {
   try {
     let res = await ApiRoot().consumers().getConsumer({ id: consumerId })
@@ -64,7 +54,7 @@ export const getConsumer = async ({ consumerId }: { consumerId: string }) => {
 }
 
 export const getConsumerAddressList = async (consumerId: string) => {
-  const res = await ApiRoot().addresses().getAddresses({ consumerId })
+  const res = await ApiRoot({url:apis?.address}).addresses().getAddresses({ consumerId })
   console.log('get consumer addresses view data:', res)
   return res || []
 }

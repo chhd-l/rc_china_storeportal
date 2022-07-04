@@ -85,7 +85,9 @@ const WxTemplateMessage = () => {
     setIndustryVisible(true)
   }
   const Synchronous = async () => {
-    await syncTemplateItem({ operator: userInfo?.username || 'system' })
+    if (await syncTemplateItem()) {
+      message.success({ className: 'rc-message', content: 'Operation success' })
+    }
   }
 
   const getTemplateMessageList = async () => {

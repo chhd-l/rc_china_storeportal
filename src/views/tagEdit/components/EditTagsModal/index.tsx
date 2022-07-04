@@ -63,10 +63,8 @@ const EditTagsModal = ({ visible, handleVisible, handleUpdate }: EditTagsModalPr
           let res = await addConsumerTag({
             consumerIds: selectedRowKeys,
             tagId: state.id,
-            operator: 'zz',
-            storeId: '12345678',
           })
-          if (res?.consumerTagCreate) {
+          if (res) {
             message.success('Operate success')
             handleUpdate(true)
             return true
