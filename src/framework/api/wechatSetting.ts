@@ -420,7 +420,7 @@ export const syncIndustry = async () => {
 export const getWxMenusList = async (queryParams: any) => {
   try {
     const params = queryParams
-    let res = await ApiRoot().wechatSettings().getWxMenus({ body: params })
+    let res = await ApiRoot({ url: apis?.wx_menu }).wechatSettings().getWxMenus({ body: params })
     const list = res?.wxMenuFindPage
     console.log('get wxmenus view data', list)
     return {
@@ -443,7 +443,7 @@ export const getWxMenusList = async (queryParams: any) => {
  */
 export const updateWxMenu = async (queryParams: any) => {
   try {
-    let res = await ApiRoot().wechatSettings().upsertWxMenu(queryParams)
+    let res = await ApiRoot({ url: apis?.wx_menu }).wechatSettings().upsertWxMenu(queryParams)
     const updated = res?.wxMenuModify
     console.log('update wxmenu view data', updated)
     return updated || false
@@ -460,15 +460,18 @@ export const updateWxMenu = async (queryParams: any) => {
  */
 export const createWxMenu = async (name: string, wxMenusContent: string, description: string) => {
   try {
-    let res = await ApiRoot().wechatSettings().createWxMenu({
+    let res = await ApiRoot({ url: apis?.wx_menu }).wechatSettings().createWxMenu({
       accountId: '000001',
       name,
       description,
       content: wxMenusContent,
-      operator: 'zz'
     })
     console.log('create wxmenu view data', res)
-    return true
+    if (res?.wxMenuCreate?.id) {
+      return true
+    } else {
+      return false
+    }
   } catch (e) {
     console.log(e)
     return false
@@ -477,7 +480,7 @@ export const createWxMenu = async (name: string, wxMenusContent: string, descrip
 
 export const getWxMenuDetail = async (id: string) => {
   try {
-    let data = await ApiRoot().wechatSettings().getWxMenuDetailById(id)
+    let data = await ApiRoot({ url: apis?.wx_menu }).wechatSettings().getWxMenuDetailById(id)
     console.log('get wxmenu detail view data', data)
     return data?.wxMenuGet
   } catch (e) {

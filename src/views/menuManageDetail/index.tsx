@@ -70,10 +70,8 @@ const MenuManageDetail = (props: IProps) => {
     }
     setLoading(false)
     if (success) {
-      message.success({ className: 'rc-message', content: 'Save menu success' })
+      message.success({ className: 'rc-message', content: 'Operation success' })
       navigator('/menuManagempqr/menu-manage-list')
-    } else {
-      message.error({ className: 'rc-message', content: 'Save menu failed' })
     }
   }
 
