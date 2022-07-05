@@ -6,6 +6,7 @@ type TApiConfig = {
   wx_qrcode: string
   wx_template: string
   wx_menu: string
+  wx_banner: string
   sc_product: string
   product: string
   product_es_list: string
@@ -29,6 +30,7 @@ const API_CONFIG: IApiConfig = {
     wx_qrcode: "https://fc-sc-wx-qrcode-dev-selercenter-mniqujdhge.cn-shanghai.fcapp.run/graphql",
     wx_template: "https://fc-sc-wtemplate-dev-selercenter-xdguwkwlif.cn-shanghai.fcapp.run/graphql",
     wx_menu: "https://fc-sc-wx-menu-dev-selercenter-pqewrpffbx.cn-shanghai.fcapp.run/graphql",
+    wx_banner: "https://fc-sc-wx-banner-dev-selercenter-zajrrjdhgn.cn-shanghai.fcapp.run/graphql",
     address: "https://fc-com-address-dev-common-sifkzgpahy.cn-shanghai.fcapp.run/graphql",
     orderCreate: "https://fc-mp-or-create-dev-miniprogram-oldnuaupiz.cn-shanghai.fcapp.run/graphql",
     orderList: "https://fc-com-der-list-dev-common-vbypvtabkd.cn-shanghai.fcapp.run/graphql",
@@ -53,6 +55,7 @@ const API_CONFIG: IApiConfig = {
     wx_qrcode: "https://fc-sc-wx-qrcode-dev-selercenter-mniqujdhge.cn-shanghai.fcapp.run/graphql",
     wx_template: "https://fc-sc-wtemplate-dev-selercenter-xdguwkwlif.cn-shanghai.fcapp.run/graphql",
     wx_menu: "https://fc-sc-wx-menu-dev-selercenter-pqewrpffbx.cn-shanghai.fcapp.run/graphql",
+    wx_banner: "https://fc-sc-wx-banner-dev-selercenter-zajrrjdhgn.cn-shanghai.fcapp.run/graphql",
     address: "https://fc-com-address-dev-common-sifkzgpahy.cn-shanghai.fcapp.run/graphql",
     orderCreate: "https://fc-mp-or-create-dev-miniprogram-oldnuaupiz.cn-shanghai.fcapp.run/graphql",
     orderList: "https://fc-com-der-list-dev-common-vbypvtabkd.cn-shanghai.fcapp.run/graphql",
