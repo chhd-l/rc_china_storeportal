@@ -1,58 +1,58 @@
+import { hotSearchCreate } from '@/framework/api/get-product'
+import { PlusOutlined } from '@ant-design/icons'
+import { ModalForm, ProFormDigit, ProFormText } from '@ant-design/pro-form'
+import { Button, message } from 'antd'
 
-
-
-import { hotSearchCreate } from '@/framework/api/get-product';
-import { PlusOutlined } from '@ant-design/icons';
-import  { ModalForm,  ProFormDigit,  ProFormText } from '@ant-design/pro-form';
-import { Button, message } from 'antd';
-
-
-type AddNewSearchProps={
-  refreshTable:()=>void
+type AddNewSearchProps = {
+  refreshTable: () => void
 }
-const AddNewSearch= ({refreshTable}:AddNewSearchProps) => {
+const AddNewSearch = ({ refreshTable }: AddNewSearchProps) => {
   return (
     <ModalForm<{
-      topName: string;
-      priority: number;
+      topName: string
+      priority: number
     }>
-    width={322}
-      title="Add New Top Search"
+      width={322}
+      title='Add New Top Search'
       trigger={
-        <Button key="button" type="primary" className='flex items-center'>
+        <Button key='button' type='primary' className='flex items-center'>
           <PlusOutlined />
           Add
         </Button>
       }
       autoFocusFirstInput
       modalProps={{
-        okText:'Confirm',
+        okText: 'Confirm',
         destroyOnClose: true,
       }}
       submitTimeout={2000}
-      onFinish={async (values) => {
-     const result=   await hotSearchCreate({...values,storeId:'12345678',status:true});
-     if(!result.hotSearchCreate){
-      return false
-     }
-     message.success({ className: 'rc-message', content: 'Operation success' })
-     refreshTable()
-     return true;
+      onFinish={async values => {
+        const result = await hotSearchCreate({ ...values, storeId: '12345678' })
+        if (!result.hotSearchCreate) {
+          return false
+        }
+        message.success({ className: 'rc-message', content: 'Operation success' })
+        refreshTable()
+        return true
       }}
     >
-      <ProFormText width="md" name="topName" label="
-      To Search Name"  placeholder="Input"/>
+      <ProFormText
+        width='md'
+        name='topName'
+        label='
+      To Search Name'
+        placeholder='Input'
+      />
       <ProFormDigit
-      width="md"
-      label="Priority"
-      name="priority"
-      min={0}
-      fieldProps={{ precision: 0 }}
-      initialValue={0}
-/>
+        width='md'
+        label='Priority'
+        name='priority'
+        min={0}
+        fieldProps={{ precision: 0 }}
+        initialValue={0}
+      />
     </ModalForm>
-  );
-};
-
+  )
+}
 
 export default AddNewSearch
