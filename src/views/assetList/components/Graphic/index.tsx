@@ -7,6 +7,7 @@ import { handlePageParams } from '@/utils/utils'
 import { useNavigate } from 'react-router'
 import { initPageParams } from '@/lib/constants'
 import ArticleDetail from './detail'
+import PublishIcon from '@/components/icons/publish-icon'
 import moment from 'moment'
 
 const Graphic = ({
@@ -86,14 +87,14 @@ const Graphic = ({
               </Tooltip>:null
           }
           {
-            record.status==='SYCHRONIZED'? <Tooltip title="publish">
-            <span
-              className="cursor-pointer ml-2 iconfont icon-dingdan primary-color text-xl"
-              onClick={() => {
-                setIsModalVisible(true)
-                setMediaId(record?.mediaId);
-              }}
-            />
+            record.status==='SYCHRONIZED'? <Tooltip title="Publish">
+              <PublishIcon
+                className="cursor-pointer ml-2"
+                onClick={() => {
+                  setIsModalVisible(true)
+                  setMediaId(record?.mediaId);
+                }}
+              />
             </Tooltip>:null
           }
           <Tooltip title="Delete">
@@ -263,7 +264,7 @@ const Graphic = ({
       /> : null}
       <Modal
         className='rc-modal'
-        title='Delete Item'
+        title='Publish Item'
         okText='Confirm'
         visible={isModalVisible}
         onOk={confirmOk}
