@@ -35,7 +35,7 @@ const MpBannerList = () => {
   }
   const confirmDelete = async () => {
     setLoading(true)
-    bannerDeleteById(curAssetId, '222').then((res) => {
+    bannerDeleteById(curAssetId).then((res) => {
       if (res) {
         setIsModalVisible(false)
         ref.current.reload()
@@ -48,7 +48,7 @@ const MpBannerList = () => {
     bannerUpdate({
       id: curAssetId,
       isActive: status,
-    },'zzz').then((res) => {
+    }).then((res) => {
       if (res) {
         setIsSwithVisible(false)
         ref.current.reload()

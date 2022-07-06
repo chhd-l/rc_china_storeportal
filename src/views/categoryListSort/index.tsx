@@ -2,18 +2,14 @@ import { Button, Alert, Switch, Input, Popconfirm, Modal } from 'antd'
 import { EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons'
 import './index.less'
 import { useEffect, useState, useRef } from 'react'
-import {
-  getShopCategories,
-} from '@/framework/api/get-product'
+import { getShopCategories } from '@/framework/api/get-product'
 const ShopCategories = () => {
-  const getList = async() => {
+  const getList = async () => {
     await getShopCategories({
       offset: 0,
-      limit:10,
+      limit: 10,
       isNeedTotal: true,
-      sample: {
-        storeId: '12345678',
-      },
+      sample: {},
     })
   }
   useEffect(() => {

@@ -5,11 +5,7 @@ import { useParams } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import ProTable from '@/components/common/ProTable'
 import { ProColumns } from '@ant-design/pro-table'
-import {
-  createShopCategoryProductRel,
-  getCategories,
-  getESProducts,
-} from '@/framework/api/get-product'
+import { createShopCategoryProductRel, getCategories, getESProducts } from '@/framework/api/get-product'
 import { formatMoney, handlePageParams } from '@/utils/utils'
 import { OptionsProps } from '@/framework/types/common'
 import { getTree } from '@/framework/normalize/product'
@@ -18,17 +14,17 @@ import { useLocation } from 'react-router'
 
 const { Option } = Select
 export type ManualSelectionProps = {
-  visible: boolean;
-  handleVisible: (visible: boolean) => void;
-  handleUpdate: (visible: boolean) => void;
-};
+  visible: boolean
+  handleVisible: (visible: boolean) => void
+  handleUpdate: (visible: boolean) => void
+}
 const nameForKey: OptionsProps[] = [
   { name: 'Product Name', value: '1' },
   { name: 'SKU', value: '2' },
   { name: 'SPU', value: '3' },
 ]
-const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectionProps) => {
-  const { state }: any = useLocation();
+const ManualSelection = ({ visible, handleVisible, handleUpdate }: ManualSelectionProps) => {
+  const { state }: any = useLocation()
   const params = useParams()
   const [brandList, setBrandList] = useState([])
   const [mockOptions, setMockOptions] = useState<Array<any>>([])
@@ -41,7 +37,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
       return {
         productId: item.id,
         shopCategoryId: state.id,
-        storeId: item.storeId,
+        // storeId: item.storeId,
       }
     })
     setSaveList(data)
@@ -50,7 +46,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
   const setNum = (arr: any) => {
     let result = 0
     for (let i = 0; i < arr.length; i++) {
-      result += Number(arr[i].stock)// 点开看 有两个值
+      result += Number(arr[i].stock) // 点开看 有两个值
     }
     return result
   }
@@ -67,8 +63,16 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
         return (
           <div className='flex al-cneter'>
             <img
-              src={record.defaultImage ? record.defaultImage : record.variants?.length > 0 ? record.variants[0].defaultImage : ''}
-              alt='' style={{ width: '50px', marginRight: '10px' }} />
+              src={
+                record.defaultImage
+                  ? record.defaultImage
+                  : record.variants?.length > 0
+                  ? record.variants[0].defaultImage
+                  : ''
+              }
+              alt=''
+              style={{ width: '50px', marginRight: '10px' }}
+            />
             <div>
               <div>{record.name}</div>
               <div className='text-gray-400'>{record.spuNo}</div>
@@ -81,11 +85,9 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
       title: 'Brand',
       dataIndex: 'brandId',
       hideInSearch: true,
-      render: (_, record)=>{
-        return(
-          <span>{record.brandId==='B1'?'Royal Canin':'Eukanuba'}</span>
-        )
-      }
+      render: (_, record) => {
+        return <span>{record.brandId === 'B1' ? 'Royal Canin' : 'Eukanuba'}</span>
+      },
     },
     {
       title: 'Price(s)',
@@ -94,9 +96,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
       // sorter: (a, b) => a.lowestPrice - b.lowestPrice,
       render: (_, record) => {
         if (record.variants?.length <= 1) {
-          return (
-            <span>{formatMoney(record.variants[0]?.marketingPrice)}</span>
-          )
+          return <span>{formatMoney(record.variants[0]?.marketingPrice)}</span>
         } else if (record.variants?.length > 1) {
           let arr = record.variants.sort((a: any, b: any) => {
             return a.marketingPrice - b.marketingPrice
@@ -129,7 +129,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
             <Input.Group compact className='flex'>
               <Form.Item name='selectName'>
                 <Select
-                  defaultValue="1"
+                  defaultValue='1'
                   style={{ width: 140 }}
                   placeholder='Select a option and change input text above'
                 >
@@ -168,9 +168,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
       hideInSearch: true,
       render: (_, record) => {
         if (record.variants?.length > 0) {
-          return (
-            <span>{setNum(record.variants)}</span>
-          )
+          return <span>{setNum(record.variants)}</span>
         }
       },
     },
@@ -178,12 +176,7 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
       renderFormItem: (_, { type, defaultRender, ...rest }, form) => {
         return (
           <div className='flex jus-space-around'>
-            <ProFormMoney
-              label='Markting Price'
-              name='startPrice'
-              customSymbol='￥'
-              min='0'
-            />
+            <ProFormMoney label='Markting Price' name='startPrice' customSymbol='￥' min='0' />
             <span> - </span>
             <ProFormMoney min='0' name='endPrice' customSymbol='￥' />
           </div>
@@ -215,12 +208,11 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
         } else {
           return false
         }
-
       }}
       submitter={{
-        searchConfig:{
-          submitText:'Confirm'
-        }
+        searchConfig: {
+          submitText: 'Confirm',
+        },
       }}
       onVisibleChange={handleVisible}
     >
@@ -244,10 +236,10 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
           if (params.categoryId?.length > 0) {
             data.sample.categoryId = params.categoryId[params.categoryId.length - 1]
           }
-          if (params.startPrice!=='') {
+          if (params.startPrice !== '') {
             data.sample.startPrice = params.startPrice
           }
-          if (params.endPrice!=='') {
+          if (params.endPrice !== '') {
             data.sample.endPrice = params.endPrice
           }
           if (params.brand) {
@@ -283,15 +275,22 @@ const ManualSelection = ({ visible, handleVisible,handleUpdate }: ManualSelectio
           searchText: 'Search',
           className: 'my-search',
           optionRender: ({ searchText, resetText }, { form }, dom) => [
-            <Button type='primary'
-                    onClick={() => {
-                      form?.submit()
-                    }}
-            >{searchText}</Button>,
-            <Button onClick={() => {
-              form?.resetFields()
-              form?.submit()
-            }}>{resetText}</Button>,
+            <Button
+              type='primary'
+              onClick={() => {
+                form?.submit()
+              }}
+            >
+              {searchText}
+            </Button>,
+            <Button
+              onClick={() => {
+                form?.resetFields()
+                form?.submit()
+              }}
+            >
+              {resetText}
+            </Button>,
           ],
         }}
       />

@@ -101,7 +101,7 @@ const MpBannerDetail = () => {
           let res = await bannerUpdate({
               id:state.id,
               ...values
-            },'111')
+            })
             if(res.bannerUpdate){
               navigator('/mpbanner/mpbanner-list')
             }

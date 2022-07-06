@@ -17,7 +17,7 @@ const API_URL = 'https://msstg.fivefen.com/faas/graphql'
 
 // const API_URL = `${process.env.REACT_APP_BASE_URL}/graphql`
 
-export const UPLOAD_API_URL = 'https://msstg.fivefen.com/faas/upload'
+export const UPLOAD_API_URL = 'https://fc-com-upload-dev-common-rzqhcekwtz.cn-shanghai.fcapp.run/upload'
 
 const handleError: (err: string, isNeedToLogin: boolean) => void = (err, isNeedToLogin = false) => {
   if (!isShowingError) {

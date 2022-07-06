@@ -1,20 +1,16 @@
 import './index.less'
-import ProForm, {
-  ModalForm,
-  ProFormRadio,
-  ProFormText,
-} from '@ant-design/pro-form'
+import ProForm, { ModalForm, ProFormRadio, ProFormText } from '@ant-design/pro-form'
 import { useRef } from 'react'
 
-import type { ProFormInstance } from '@ant-design/pro-form'
+import { ProFormInstance } from '@ant-design/pro-form'
 import { AddCateOptions } from '../../modules/constant'
 import { saveShopCategory } from '@/framework/api/get-product'
 import { userAtom } from '@/store/user.store'
 import { useAtom } from 'jotai'
 
 interface AddCateProps {
-  visible: boolean;
-  handleVisible: (a: boolean) => void;
+  visible: boolean
+  handleVisible: (a: boolean) => void
   handleUpdate: (a: boolean) => void
 }
 
@@ -24,7 +20,7 @@ const AddCate = ({ visible, handleVisible, handleUpdate }: AddCateProps) => {
   const onFinish = async (values: any) => {
     let res = await saveShopCategory({
       name: userInfo?.name,
-      storeId: '12345678',
+      // storeId: '12345678',
       displayName: values.displayName,
       categoryType: values.type === '0' ? 'MANUAL' : 'RULE_BASED',
       isDisplay: false,
@@ -48,7 +44,7 @@ const AddCate = ({ visible, handleVisible, handleUpdate }: AddCateProps) => {
       //     disabled: true,
       //   },
       // }}
-      onVisibleChange={(value) => {
+      onVisibleChange={value => {
         handleVisible(value)
         formRef?.current?.resetFields()
       }}
@@ -64,12 +60,7 @@ const AddCate = ({ visible, handleVisible, handleUpdate }: AddCateProps) => {
           placeholder='Enter a Category Name'
         />
       </ProForm.Group>
-      <ProFormRadio.Group
-        name='type'
-        initialValue={'0'}
-        label='Category Type'
-        options={AddCateOptions}
-      />
+      <ProFormRadio.Group name='type' initialValue={'0'} label='Category Type' options={AddCateOptions} />
     </ModalForm>
   )
 }

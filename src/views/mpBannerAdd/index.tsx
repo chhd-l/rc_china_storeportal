@@ -93,7 +93,7 @@ const MpBannerAdd = () => {
             console.info(values)
             bannerCreate({
               ...values
-            },'111')
+            })
             navigator('/mpbanner/mpbanner-list')
           }}
           submitter={restSearchButtons}

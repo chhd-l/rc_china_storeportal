@@ -242,25 +242,25 @@ export interface ShopCategoryProductRelInput {
 }
 
 export type SearchListType = {
-  topName?: string;
-  storeId: string;
-  status?: boolean;
+  topName?: string
+  storeId: string
+  status?: boolean
 }
 
 export type SearchUpdateType = {
-  id: string;
-  status?: boolean;
+  id: string
+  status?: boolean
   isDeleted?: boolean
 }
 
 export type SearchCreateType = {
-  storeId: string;
-  status: boolean
+  storeId: string
+  status?: boolean
   priority: number
   topName: string
 }
 
 export type SwitchType = {
-  storeId: string;
+  storeId: string
   status: boolean
 }

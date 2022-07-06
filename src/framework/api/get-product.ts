@@ -39,7 +39,7 @@ export const getCategories = async ({ storeId }: { storeId: string }): Promise<C
 }
 export const getFindShopCategoryProductPage = async (params: any): Promise<any> => {
   try {
-    return await ApiRoot().products().findShopCategoryProductPage(params)
+    return await ApiRoot({ url: apis?.shop_category }).products().findShopCategoryProductPage(params)
   } catch (e) {
     console.log(e)
     return []
@@ -249,7 +249,7 @@ export const getScProducts = async (params: ProductListQueryProps): Promise<any>
 
 export const getShopCategories = async (params: shopCateQuery): Promise<any> => {
   try {
-    let res = await ApiRoot().products().getShopCategoryList(params)
+    let res = await ApiRoot({ url: apis?.shop_category }).products().getShopCategoryList(params)
     return res.shopCategoryFindPage
   } catch (e) {
     console.log(e)
@@ -258,7 +258,7 @@ export const getShopCategories = async (params: shopCateQuery): Promise<any> => 
 
 export const createShopCategoryProductRel = async (params: ShopCategoryProductRelInput[]): Promise<any> => {
   try {
-    let res = await ApiRoot().products().createShopCategoryProductRel({ body: params })
+    let res = await ApiRoot({ url: apis?.shop_category }).products().createShopCategoryProductRel({ body: params })
   } catch (e) {
     console.log(e)
   }
@@ -266,7 +266,7 @@ export const createShopCategoryProductRel = async (params: ShopCategoryProductRe
 
 export const updateShopCategory = async (params: any): Promise<any> => {
   try {
-    let res = await ApiRoot().products().updateShopCategory({ body: params })
+    let res = await ApiRoot({ url: apis?.shop_category }).products().updateShopCategory({ body: params })
     return res
   } catch (e) {
     console.log(e)
@@ -275,8 +275,9 @@ export const updateShopCategory = async (params: any): Promise<any> => {
 
 export const shopCategoryFilterRules = async (params: ShopCategoryFilterRulesInput[]): Promise<any> => {
   console.log(params, 2222222)
+  debugger
   try {
-    let res = await ApiRoot().products().shopCategoryFilterRules({ body: params })
+    let res = await ApiRoot({ url: apis?.shop_category }).products().shopCategoryFilterRules({ body: params })
   } catch (e) {
     console.log(e)
   }
@@ -284,7 +285,7 @@ export const shopCategoryFilterRules = async (params: ShopCategoryFilterRulesInp
 
 export const saveShopCategory = async (params: SaveShopCategoryInput): Promise<any> => {
   try {
-    let res = await ApiRoot().products().saveShopCategory({ body: params })
+    let res = await ApiRoot({ url: apis?.shop_category }).products().saveShopCategory({ body: params })
     return res
   } catch (e) {
     console.log(e)
@@ -293,7 +294,7 @@ export const saveShopCategory = async (params: SaveShopCategoryInput): Promise<a
 
 export const detleShopCateRel = async (id: (string | number)[]): Promise<any> => {
   try {
-    return await ApiRoot().products().detleShopCateRel({ id })
+    return await ApiRoot({ url: apis?.shop_category }).products().detleShopCateRel({ id })
   } catch (e) {
     console.log(e)
   }

@@ -3,7 +3,7 @@ import apis from '../config/api-config'
 
 export const getBannerFindPage = async (params: any) => {
   try {
-    let res = await ApiRoot().banner().bannerFindPage(params)
+    let res = await ApiRoot({ url: apis?.wx_banner }).banner().bannerFindPage(params)
     console.log('get tag list view data', res)
     return res
   } catch (e) {
@@ -11,9 +11,9 @@ export const getBannerFindPage = async (params: any) => {
     return []
   }
 }
-export const bannerCreate = async (params: any, operator: string) => {
+export const bannerCreate = async (params: any) => {
   try {
-    let res = await ApiRoot().banner().bannerCreate(params, operator)
+    let res = await ApiRoot({ url: apis?.wx_banner }).banner().bannerCreate(params)
     console.log('get tag list view data', res)
     return res
   } catch (e) {
@@ -23,7 +23,7 @@ export const bannerCreate = async (params: any, operator: string) => {
 }
 export const bannerGetDetailById = async (id: string) => {
   try {
-    let res = await ApiRoot().banner().bannerGetDetailById(id)
+    let res = await ApiRoot({ url: apis?.wx_banner }).banner().bannerGetDetailById(id)
     console.log('get tag list view data', res)
     return res
   } catch (e) {
@@ -31,9 +31,9 @@ export const bannerGetDetailById = async (id: string) => {
     return []
   }
 }
-export const bannerUpdate = async (params: any, operator: string) => {
+export const bannerUpdate = async (params: any) => {
   try {
-    let res = await ApiRoot().banner().bannerUpdate(params, operator)
+    let res = await ApiRoot({ url: apis?.wx_banner }).banner().bannerUpdate(params)
     console.log('get tag list view data', res)
     return res
   } catch (e) {
@@ -41,9 +41,9 @@ export const bannerUpdate = async (params: any, operator: string) => {
     return []
   }
 }
-export const bannerDeleteById = async (id: string, operator: string) => {
+export const bannerDeleteById = async (id: string) => {
   try {
-    let res = await ApiRoot().banner().bannerDeleteById(id, operator)
+    let res = await ApiRoot({ url: apis?.wx_banner }).banner().bannerDeleteById(id)
     console.log('get tag list view data', res)
     return res
   } catch (e) {
@@ -53,7 +53,7 @@ export const bannerDeleteById = async (id: string, operator: string) => {
 }
 export const brandFind = async (companyId: string) => {
   try {
-    let res = await ApiRoot().banner().brandFind(companyId)
+    let res = await ApiRoot({ url: apis?.auth }).banner().brandFind(companyId)
     console.log('get tag list view data', res)
     return res.brandFind || []
   } catch (e) {
@@ -63,7 +63,7 @@ export const brandFind = async (companyId: string) => {
 }
 export const storeFind = async (companyId: string, brandIds: any) => {
   try {
-    let res = await ApiRoot().banner().storeFind(companyId, brandIds)
+    let res = await ApiRoot({ url: apis?.auth }).banner().storeFind(companyId, brandIds)
     console.log('get tag list view data', res)
     return res.storeFind || []
   } catch (e) {
