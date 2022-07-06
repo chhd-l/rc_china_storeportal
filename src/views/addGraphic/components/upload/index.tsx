@@ -39,7 +39,6 @@ const MyUpload: React.FC<IProps> = (props) => {
           type: props.assetType,
           url: file.response.url,
           fileExtension: name.substr(name.lastIndexOf('.') + 1),
-          operator: "system",
         })
         setUploading(false)
         if (res) {

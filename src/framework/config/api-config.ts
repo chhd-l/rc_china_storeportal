@@ -7,6 +7,7 @@ type TApiConfig = {
   wx_template: string
   wx_menu: string
   wx_banner: string
+  wx_assets: string
   sc_product: string
   product: string
   product_es_list: string
@@ -31,6 +32,7 @@ const API_CONFIG: IApiConfig = {
     wx_template: "https://fc-sc-wtemplate-dev-selercenter-xdguwkwlif.cn-shanghai.fcapp.run/graphql",
     wx_menu: "https://fc-sc-wx-menu-dev-selercenter-pqewrpffbx.cn-shanghai.fcapp.run/graphql",
     wx_banner: "https://fc-sc-wx-banner-dev-selercenter-zajrrjdhgn.cn-shanghai.fcapp.run/graphql",
+    wx_assets: "http://localhost:7000/graphql",
     orderList: "https://fc-com-der-list-dev-common-vbypvtabkd.cn-shanghai.fcapp.run/graphql",
     orderDetail: "https://fc-com-r-detail-dev-common-osunrnujbz.cn-shanghai.fcapp.run/graphql",
     order_action: 'https://fc-sc-or-action-dev-selercenter-juostbwarp.cn-shanghai.fcapp.run/graphql',
@@ -45,10 +47,10 @@ const API_CONFIG: IApiConfig = {
     tag: "https://fc-sc-tag-dev-selercenter-dddvbzlymt.cn-shanghai.fcapp.run/graphql",
     shop_category: 'https://fc-sc-scategory-dev-selercenter-hvtejlkgbh.cn-shanghai.fcapp.run/graphql',
     common_pet: "https://fc-com-pet-dev-common-oecjgzxfmp.cn-shanghai.fcapp.run/graphql",
-    address_list:"https://fc-com-ess-list-dev-common-quileiwebv.cn-shanghai.fcapp.run/graphql",
-    consumer:'https://fc-sc-consumer-dev-selercenter-ybuuesxcai.cn-shanghai.fcapp.run/graphql',
-    storeSetting:'https://fc-com-setting-dev-common-dmgwlxbcvr.cn-shanghai.fcapp.run/graphql',
-    liveStreaming:'https://fc-com-treaming-dev-common-unckjafhvm.cn-shanghai.fcapp.run/graphql'
+    address_list: "https://fc-com-ess-list-dev-common-quileiwebv.cn-shanghai.fcapp.run/graphql",
+    consumer: 'https://fc-sc-consumer-dev-selercenter-ybuuesxcai.cn-shanghai.fcapp.run/graphql',
+    storeSetting: 'https://fc-com-setting-dev-common-dmgwlxbcvr.cn-shanghai.fcapp.run/graphql',
+    liveStreaming: 'https://fc-com-treaming-dev-common-unckjafhvm.cn-shanghai.fcapp.run/graphql'
   },
   production: {
     auth: "https://fc-sc-auth-dev-selercenter-umayykwqea.cn-shanghai.fcapp.run/graphql",
@@ -59,6 +61,7 @@ const API_CONFIG: IApiConfig = {
     wx_template: "https://fc-sc-wtemplate-dev-selercenter-xdguwkwlif.cn-shanghai.fcapp.run/graphql",
     wx_menu: "https://fc-sc-wx-menu-dev-selercenter-pqewrpffbx.cn-shanghai.fcapp.run/graphql",
     wx_banner: "https://fc-sc-wx-banner-dev-selercenter-zajrrjdhgn.cn-shanghai.fcapp.run/graphql",
+    wx_assets: "http://localhost:7000/graphql",
     orderList: "https://fc-com-der-list-dev-common-vbypvtabkd.cn-shanghai.fcapp.run/graphql",
     orderDetail: "https://fc-com-r-detail-dev-common-osunrnujbz.cn-shanghai.fcapp.run/graphql",
     order_action: 'https://fc-sc-or-action-dev-selercenter-juostbwarp.cn-shanghai.fcapp.run/graphql',
@@ -73,10 +76,10 @@ const API_CONFIG: IApiConfig = {
     tag: "https://fc-sc-tag-dev-selercenter-dddvbzlymt.cn-shanghai.fcapp.run/graphql",
     shop_category: 'https://fc-sc-scategory-dev-selercenter-hvtejlkgbh.cn-shanghai.fcapp.run/graphql',
     common_pet: "https://fc-com-pet-dev-common-oecjgzxfmp.cn-shanghai.fcapp.run/graphql",
-    address_list:"https://fc-com-ess-list-dev-common-quileiwebv.cn-shanghai.fcapp.run/graphql",
-    consumer:'https://fc-sc-consumer-dev-selercenter-ybuuesxcai.cn-shanghai.fcapp.run/graphql',
-    storeSetting:'https://fc-com-setting-dev-common-dmgwlxbcvr.cn-shanghai.fcapp.run/graphql',
-    liveStreaming:'https://fc-com-treaming-dev-common-unckjafhvm.cn-shanghai.fcapp.run/graphql'
+    address_list: "https://fc-com-ess-list-dev-common-quileiwebv.cn-shanghai.fcapp.run/graphql",
+    consumer: 'https://fc-sc-consumer-dev-selercenter-ybuuesxcai.cn-shanghai.fcapp.run/graphql',
+    storeSetting: 'https://fc-com-setting-dev-common-dmgwlxbcvr.cn-shanghai.fcapp.run/graphql',
+    liveStreaming: 'https://fc-com-treaming-dev-common-unckjafhvm.cn-shanghai.fcapp.run/graphql'
   }
 }
 

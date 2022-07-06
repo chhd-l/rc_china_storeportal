@@ -114,7 +114,6 @@ const Voice = ({
           type: 'voice',
           url: file.response.url,
           fileExtension: name.substr(name.lastIndexOf('.') + 1),
-          operator: userName,
         })
         setUploading(false)
         if (res) {
