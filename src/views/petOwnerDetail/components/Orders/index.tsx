@@ -1,7 +1,7 @@
 import { DatePicker, Pagination } from 'antd'
 import React, { useEffect, useState } from 'react'
 import OrderTable from '@/components/order/OrderTable'
-import { getOrderList } from '@/framework/api/get-order'
+import { getOrderList } from '@/framework/api/order'
 import { PageParamsProps } from '@/framework/types/common'
 import { handleQueryParams } from '@/views/orderList/modules/handle-query-params'
 import { OrderSearchParamsProps } from '@/framework/types/order'

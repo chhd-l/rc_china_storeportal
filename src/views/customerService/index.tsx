@@ -1,4 +1,4 @@
-import { getStoreSetting, updateStoreSetting } from '@/framework/api/customerService'
+import { getStoreSetting, updateStoreSetting } from '@/framework/api/storeSetting'
 import { message, Modal, Switch } from 'antd'
 import { useEffect, useState } from 'react'
 import './index.less'

@@ -6,7 +6,7 @@ import ProForm, {
 } from '@ant-design/pro-form'
 import { useEffect, useRef, useState } from 'react'
 import type { ProFormInstance } from '@ant-design/pro-form'
-import { payWayGet, payWayUpdate } from '@/framework/api/get-order'
+import { payWayGet, payWayUpdate } from '@/framework/api/payment'
 
 interface AddCateProps {
   visible: boolean;

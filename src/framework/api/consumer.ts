@@ -1,6 +1,6 @@
 import apis from '@/framework/config/api-config'
 import ApiRoot from './fetcher'
-import { normaliseConsumer, normalisePetOwnerList, normalisePetOwnerTagList } from '@/framework/normalize/consumer'
+import { normaliseConsumer, normalisePetOwnerList } from '@/framework/normalize/consumer'
 
 interface ConsumerSample {
   nickName?: string
@@ -22,7 +22,7 @@ interface QueryParamsProps {
 
 export const getPetOwnerList = async (queryParams: any) => {
   try {
-    let res = await ApiRoot().consumers().getConsumers(queryParams)
+    let res = await ApiRoot({url:apis?.consumer}).consumers().getConsumers(queryParams)
     console.log('petOwnerList', res)
     return Object.assign(res, { records: normalisePetOwnerList(res.records) })
   } catch (e) {
@@ -33,7 +33,7 @@ export const getPetOwnerList = async (queryParams: any) => {
 
 export const getCustomAccount = async ({ consumerId }: { consumerId: string }) => {
   try {
-    let res = await ApiRoot().consumers().getConsumerAccounts(consumerId)
+    let res = await ApiRoot({url:apis?.consumer}).consumers().getConsumerAccounts(consumerId)
     console.log('consumerAccount', res)
     return res
   } catch (e) {
@@ -44,9 +44,9 @@ export const getCustomAccount = async ({ consumerId }: { consumerId: string }) =
 
 export const getConsumer = async ({ consumerId }: { consumerId: string }) => {
   try {
-    let res = await ApiRoot().consumers().getConsumer({ id: consumerId })
+    let res = await ApiRoot({url:apis?.consumer}).consumers().getConsumer({ id: consumerId })
     console.log('consumer info', res)
-    return normaliseConsumer(res.consumerGet)
+    return normaliseConsumer(res)
   } catch (e) {
     console.log(e)
     return {}

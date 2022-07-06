@@ -3,7 +3,7 @@ import { Divider, message, Modal, Switch } from 'antd'
 import SettingModal from './components/Modal'
 import { ContentContainer, InfoContainer } from '@/components/ui'
 import './index.less'
-import { getLogisticsIntegration, modifyLogisticsIntegration } from '@/framework/api/get-order'
+import { getLogisticsIntegration, modifyLogisticsIntegration } from '@/framework/api/order'
 
 const ShippingSetting = () => {
   const [shipModalVisible, setShipModalVisible] = useState(false)

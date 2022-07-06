@@ -122,7 +122,7 @@ export const syncPartFans = async (syncParams: any) => {
 
 export const getMedias = async (queryParams: any) => {
   try {
-    let res = await ApiRoot().wechatSettings().getMedias({ body: { ...queryParams, accountId: '000001' } })
+    let res = await ApiRoot({ url: apis?.wx_assets }).wechatSettings().getMedias({ body: { ...queryParams, accountId: '000001' } })
     const mediaList = res?.wxMediaFindPage
     mediaList.records = normaliseMediaList(mediaList.records)
     console.log('get wechat setting media list view data', mediaList)
@@ -141,7 +141,7 @@ export const getMedias = async (queryParams: any) => {
 
 export const createMedia = async (queryParams: any) => {
   try {
-    let res = await ApiRoot().wechatSettings().createMedia({
+    let res = await ApiRoot({ url: apis?.wx_assets }).wechatSettings().createMedia({
       mediaInput: Object.assign(
         {
           accountId: '000001',
@@ -157,7 +157,6 @@ export const createMedia = async (queryParams: any) => {
           }
           : {},
       ),
-      operator: queryParams.operator || 'system',
     })
     const addMedia = res?.wxMediaCreate
     console.log('create media view data', addMedia)
@@ -170,7 +169,7 @@ export const createMedia = async (queryParams: any) => {
 
 export const createMediaAndSync = async (queryParams: any) => {
   try {
-    let res = await ApiRoot().wechatSettings().createMediaAndSync({
+    let res = await ApiRoot({ url: apis?.wx_assets }).wechatSettings().createMediaAndSync({
       mediaInput: Object.assign(
         {
           accountId: '000001',
@@ -186,7 +185,6 @@ export const createMediaAndSync = async (queryParams: any) => {
           }
           : {},
       ),
-      operator: queryParams.operator || 'system',
     })
     const mediaAsset = res?.wxMediaCreateAndSyc
     console.log('create mediaAndSync view data', mediaAsset)
@@ -199,7 +197,7 @@ export const createMediaAndSync = async (queryParams: any) => {
 
 export const updateMedia = async (queryParams: any) => {
   try {
-    let res = await ApiRoot().wechatSettings().modifyMedia(queryParams)
+    let res = await ApiRoot({ url: apis?.wx_assets }).wechatSettings().modifyMedia(queryParams)
     const modifyMedia = res?.wxMediaUpdate
     console.log('create media view data', modifyMedia)
     return modifyMedia || false
@@ -211,7 +209,7 @@ export const updateMedia = async (queryParams: any) => {
 
 export const syncMedias = async (type: string) => {
   try {
-    let res = await ApiRoot().wechatSettings().syncMedia({ accountId: '000001', type })
+    let res = await ApiRoot({ url: apis?.wx_assets }).wechatSettings().syncMedia({ accountId: '000001', type })
     const syncSuccess = res?.wxMediaSync
     console.log('sync media view data', syncSuccess)
     return syncSuccess || false
@@ -587,7 +585,7 @@ export const updateAutomaticResponse = async (id: string, param: any) => {
 }
 
 export const getArticlesList = async (param: any) => {
-  const data = await ApiRoot().wechatSettings().getArticlesList({
+  const data = await ApiRoot({ url: apis?.wx_assets }).wechatSettings().getArticlesList({
     body: param
   })
   console.log('get article list view data:', data)
@@ -598,22 +596,21 @@ export const getArticlesList = async (param: any) => {
 }
 
 export const syncArticles = async (accountId: string) => {
-  const data = await ApiRoot().wechatSettings().syncArticles(accountId)
+  const data = await ApiRoot({ url: apis?.wx_assets }).wechatSettings().syncArticles(accountId)
   console.log('sync articles view data:', data)
   return data?.wxArticleSync ?? false
 }
 
 export const deleteArticles = async (id: string, mediaId: string) => {
-  const data = await ApiRoot().wechatSettings().deleteArticles(id, mediaId)
+  const data = await ApiRoot({ url: apis?.wx_assets }).wechatSettings().deleteArticles(id, mediaId)
   console.log('delete articles view data:', data)
   return data?.wxArticleDelete ?? false
 }
 
 export const addArticle = async (param: any) => {
-  const data = await ApiRoot().wechatSettings().addArticles({
+  const data = await ApiRoot({ url: apis?.wx_assets }).wechatSettings().addArticles({
     body: {
       accountId: '000001',
-      operator: 'zz',
       articleList: param
     }
   })
@@ -622,10 +619,9 @@ export const addArticle = async (param: any) => {
 }
 
 export const addAndSyncArticle = async (param: any) => {
-  const data = await ApiRoot().wechatSettings().addAndSyncArticles({
+  const data = await ApiRoot({ url: apis?.wx_assets }).wechatSettings().addAndSyncArticles({
     body: {
       accountId: '000001',
-      operator: 'zz',
       articleList: param
     }
   })
@@ -634,11 +630,11 @@ export const addAndSyncArticle = async (param: any) => {
 }
 
 export const getArticlePreviewUrls = async (mediaId: string) => {
-  const data = await ApiRoot().wechatSettings().getArticlesPreviewUrls(mediaId)
+  const data = await ApiRoot({ url: apis?.wx_assets }).wechatSettings().getArticlesPreviewUrls(mediaId)
   console.log('get previewurls view data:', data)
   return data?.wxArticleGetUrlFromWX ?? []
 }
 export const wxArticlePublish = async (mediaId: string) => {
-  const data = await ApiRoot().wechatSettings().wxArticlePublish(mediaId)
-  return data?.wxArticlePublish
+  const data = await ApiRoot({ url: apis?.wx_assets }).wechatSettings().wxArticlePublish(mediaId)
+  return data?.wxArticlePublish ?? false
 }

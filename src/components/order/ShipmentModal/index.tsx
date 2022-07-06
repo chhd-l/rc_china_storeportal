@@ -1,7 +1,7 @@
 import { Modal, Form, Input, Button, Select, DatePicker } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { CarrierType } from '@/framework/types/order'
-import { getExpressCompanyList } from '@/framework/api/get-order'
+import { getExpressCompanyList } from '@/framework/api/order'
 import moment from 'moment'
 
 const ShipmentModal = ({
