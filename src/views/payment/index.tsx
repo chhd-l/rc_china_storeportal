@@ -4,7 +4,7 @@ import { Col, Modal, Row, Tooltip, Switch,message } from 'antd'
 import './index.less'
 import wx from '@/assets/images/wx.png'
 import AddCate from './components/AddCate'
-import { payWayFindPage, payWayUpdate } from '@/framework/api/get-order'
+import { payWayFindPage, payWayUpdate } from '@/framework/api/payment'
 
 const PaymentSettings = () => {
   const ref = useRef<any>()

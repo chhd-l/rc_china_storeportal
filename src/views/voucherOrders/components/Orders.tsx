@@ -4,7 +4,7 @@ import OrderTable from '@/components/order/OrderTable'
 import { OrderSearchParamsProps } from '@/framework/types/order'
 import { PageParamsProps } from '@/framework/types/common'
 import { handleQueryParams } from '../modules/handle-query-params'
-import { getOrderList } from '@/framework/api/get-order'
+import { getOrderList } from '@/framework/api/order'
 import { initSearchParams } from '@/views/orderList/modules/constants'
 import { initPageParams } from '@/lib/constants'
 

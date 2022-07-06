@@ -3,7 +3,7 @@ import { OrderItem, Progress, Address, Carrier, OperationLog, Comment, Consumer,
 import { useLocation } from 'react-router-dom'
 import { initOrderDetail } from './modules/constants'
 import { ContentContainer, InfoContainer, DivideArea } from '@/components/ui'
-import { getOrderDetail } from '@/framework/api/get-order'
+import { getOrderDetail } from '@/framework/api/order'
 import { Empty, Spin } from 'antd'
 
 const OrderDetail = () => {

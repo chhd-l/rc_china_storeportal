@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, InputNumber, message, Spin, Switch } from 'antd'
 import { ContentContainer, InfoContainer, DivideArea } from '@/components/ui'
-import { getOrderSetting, updateOrderSetting } from '@/framework/api/get-order'
+import { getOrderSetting, updateOrderSetting } from '@/framework/api/order'
 import { OrderSettingItem } from '@/framework/types/order'
 
 const OrderSetting = () => {

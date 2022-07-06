@@ -5,7 +5,7 @@ import { orderStatusType } from '@/framework/constants/order'
 import OrderActions from '../OrderActions'
 import './index.less'
 import { KeyRules } from '@/framework/types/common'
-import { getExpressCompanyList } from '@/framework/api/get-order'
+import { getExpressCompanyList } from '@/framework/api/order'
 import { formatMoney } from '@/utils/utils'
 
 // const orderStatusType: KeyRules = {
