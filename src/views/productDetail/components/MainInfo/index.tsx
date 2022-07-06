@@ -20,7 +20,7 @@ interface MainInfoProps {
 }
 
 const { Link } = Anchor
-let shelvesStatus:any = undefined
+let shelvesStatus: any = undefined
 const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeData }) => {
   const { pathname } = useLocation()
   const [form] = Form.useForm()
@@ -67,7 +67,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     data?.forEach((el: any) => {
       if (el) {
         Object.keys(keyLableRel)?.forEach(keyName => {
-          if (el?.[keyName]||el?.[keyName]===0) {
+          if (el?.[keyName] || el?.[keyName] === 0) {
             // console.info('has name', keyName)
           } else {
             console.info('no name', keyName)
@@ -184,9 +184,9 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
 
     let params = Object.assign({}, detail, values, {
       type: spuType,
-      operator: userInfo?.username || 'system',
+      // operator: userInfo?.username || 'system',
     })
-    if(typeof shelvesStatus!=='undefined'){
+    if (typeof shelvesStatus !== 'undefined') {
       params.shelvesStatus = shelvesStatus
     }
     debugger
@@ -204,16 +204,18 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
           feedingDays: Number(values.feedingDays),
           isSupport100: values.isSupport100,
           id: detail.skuId,
-          defaultImage: values?.productAsserts?.find((el:any)=>el.url)?.url||'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Non_photo.png',
+          defaultImage:
+            values?.productAsserts?.find((el: any) => el.url)?.url ||
+            'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Non_photo.png',
           variantBundles: detail.variantBundles?.map((el: any) => {
             let bundleInfo = {
               bundleNumber: el.bundleNumber,
               id: el.id,
               variantId: el.variantId || detail.skuId,
-              subVariantId: el.subVariantId ,
+              subVariantId: el.subVariantId,
               skuNo: el.skuNo,
             }
-            if (!el.variantId&&!detail.skuId) {
+            if (!el.variantId && !detail.skuId) {
               delete bundleInfo.variantId
             }
             if (!el.skuNo) {
@@ -238,8 +240,8 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     setLoading(true)
     let data = await createProduct(params, beforeData)
     console.info('data', data)
-    if(typeof shelvesStatus!=='undefined' && detail.id){
-    data = await switchShelves({ productId: [detail.id], status: shelvesStatus })
+    if (typeof shelvesStatus !== 'undefined' && detail.id) {
+      data = await switchShelves({ productId: [detail.id], status: shelvesStatus })
     }
     if (data === true) {
       message.success({ className: 'rc-message', content: 'Operate success' })
@@ -287,7 +289,9 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                     <div>
                       <div className='flex justify-between  pb-2'>
                         <div className='font-black text-lg font-bold'>{steps[idx].title}</div>
-                        {detail?.id&&detail?.salesStatus==='1'&&detail?.shelvesStatus?<div>{steps?.[idx]?.rightSlot?.(showQrImg)}</div>:null}
+                        {detail?.id && detail?.salesStatus === '1' && detail?.shelvesStatus ? (
+                          <div>{steps?.[idx]?.rightSlot?.(showQrImg)}</div>
+                        ) : null}
                       </div>
                       {steps[idx].subTitle ? <div className='pb-4'>{steps[idx].subTitle}</div> : null}
                     </div>
@@ -346,7 +350,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
                   onClick={() => {
                     // shelvesStatus = true
                     debugger
-                    console.info("shelvesStatus",shelvesStatus)
+                    console.info('shelvesStatus', shelvesStatus)
                     form.submit()
                   }}
                 >

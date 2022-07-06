@@ -191,7 +191,7 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     parcelSizeWidth: data.width,
     storeId: '12345678',
     isDeleted: false,
-    operator: data.operator,
+    // operator: data.operator,
     variants: data.productVariantsInput && normaliseInputVariationProps(data.productVariantsInput, data, beforeData),
     // productAsserts: [
     //   {
