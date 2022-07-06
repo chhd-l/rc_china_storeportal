@@ -54,7 +54,7 @@ export const getConsumer = async ({ consumerId }: { consumerId: string }) => {
 }
 
 export const getConsumerAddressList = async (consumerId: string) => {
-  const res = await ApiRoot({url:apis?.address}).addresses().getAddresses({ consumerId })
+  const res = await ApiRoot({url:apis?.address_list}).addresses().getAddresses({ consumerId })
   console.log('get consumer addresses view data:', res)
   return res || []
 }
