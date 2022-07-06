@@ -189,6 +189,36 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     if (typeof shelvesStatus !== 'undefined') {
       params.shelvesStatus = shelvesStatus
     }
+    // 处理删除新增option的时候sku没有被同步删除
+    if (detail.id) {
+      let specificationDetailList: any = []
+      detail.variationForm?.variationList?.map((el: any) => {
+        let detailList = el.specificationList
+        if (detailList) {
+          specificationDetailList.push(...detailList)
+        }
+      })
+      let deletedSkuIdx: number[] = []
+      if (detail.editChange?.productVariants?.length) {
+        detail.editChange.productVariants?.forEach((el: any, idx: number) => {
+          el?.specificationRelations?.forEach((specEl: any, specIdx: number) => {
+            debugger
+            let inData = specificationDetailList.find(
+              (detailEl: any) => detailEl.option == specEl.specificationDetailName,
+            )
+            debugger
+            if (!inData) {
+              deletedSkuIdx.push(idx)
+            }
+          })
+        })
+        for (let i = detail.editChange.productVariants?.length; i > -1; i--) {
+          if (deletedSkuIdx.find((deleteIdx: number) => deleteIdx === i)) {
+            detail.editChange.productVariants.splice(i, 1)
+          }
+        }
+      }
+    }
     debugger
     if (withoutSku) {
       params.productVariantsInput = [
