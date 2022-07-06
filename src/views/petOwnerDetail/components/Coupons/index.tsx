@@ -12,17 +12,18 @@ interface CouponInfoProps {
 const CouponInformation = ({ id, consumerId }: CouponInfoProps) => {
   const [couponCodeList, setCouponCodeList] = useState<any>([])
   const navigator = useNavigate()
+
+  const getList = async () => {
+    let res = await getConsumerVouchers({ consumerId })
+    setCouponCodeList(res)
+  }
+
   useEffect(() => {
     if (consumerId !== '') {
       getList()
     }
   }, [consumerId])
-  const getList = async () => {
-    let res = await getConsumerVouchers({ consumerId })
-    if (res.consumerVoucherDetailList?.length > 0) {
-      setCouponCodeList(res.consumerVoucherDetailList)
-    }
-  }
+
   const columns = [
     {
       title: 'Voucher Name',

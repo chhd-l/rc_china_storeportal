@@ -41,7 +41,7 @@ const TencentAccounts = ({ id, consumerId }: { id: string; consumerId: string })
 
   const getTencentAccount = async () => {
     const res = await getCustomAccount({ consumerId })
-    setTencentAccountList([res])
+    setTencentAccountList(res)
   }
 
   useEffect(() => {
