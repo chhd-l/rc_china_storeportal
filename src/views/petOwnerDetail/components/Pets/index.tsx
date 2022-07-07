@@ -3,7 +3,7 @@ import { Avatar, Button, Empty } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { Pet } from '@/framework/types/consumer'
 import React, { useEffect, useState } from 'react'
-import { getPetList } from '@/framework/api/get-pet'
+import { getPetList } from '@/framework/api/pet'
 import './index.less'
 
 const PetInformation = ({ id, consumerId }: { consumerId: string; id: string }) => {
