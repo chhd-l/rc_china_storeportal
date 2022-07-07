@@ -29,11 +29,6 @@ const columns = [
     dataIndex: 'followedTime',
     key: 'followedTime',
   },
-  {
-    title: 'Unfollowed Time',
-    dataIndex: 'unfollowedTime',
-    key: 'unfollowedTime',
-  },
 ]
 
 const TencentAccounts = ({ id, consumerId }: { id: string; consumerId: string }) => {
