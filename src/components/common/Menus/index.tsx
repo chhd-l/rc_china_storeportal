@@ -26,14 +26,19 @@ const Menus = () => {
   const [openKeys,setOpenKeys]=useState<any[]>([])
 
   useEffect(()=>{
-    console.log(333333,pathname)
-    let { openKeys, selectedKeys } = findOpenKeysAndSelectedKeysByPathname(menus, pathname);
-    if (!openKeys.length || !selectedKeys.length) {
-      openKeys = session.get('openMenuKeys') || [];
-      selectedKeys = session.get('selectedMenuKeys') || [];
+    // console.log(333333,pathname)
+    if (pathname === "/dashboard") {
+      setOpenKeys([]);
+      setSelectKeys(['dashboard']);
+    } else {
+      let { openKeys, selectedKeys } = findOpenKeysAndSelectedKeysByPathname(menus, pathname);
+      if (!openKeys.length || !selectedKeys.length) {
+        openKeys = session.get('openMenuKeys') || [];
+        selectedKeys = session.get('selectedMenuKeys') || [];
+      }
+      setSelectKeys(selectedKeys);
+      setOpenKeys(openKeys);
     }
-    setSelectKeys(selectedKeys);
-    setOpenKeys(openKeys);
   },[pathname])
 
   const onOpenChange=(opens:string[])=>{
@@ -56,6 +61,9 @@ const Menus = () => {
       onOpenChange={onOpenChange}
       onSelect={onSelect}
     >
+      <Menu.Item key="dashboard" style={{paddingLeft: 48, backgroundColor: '#fff'}}>
+        <Link to="/dashboard" style={{ fontSize: "13px" }}>Dashboard</Link>
+      </Menu.Item>
       {menus.map(({ key, icon, name, children }) => (
         <SubMenu key={key} icon={icon} title={name} >
           {children?.map((subMenu) => (

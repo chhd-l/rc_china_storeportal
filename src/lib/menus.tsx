@@ -3,21 +3,6 @@
 
 export const menus = [
   {
-    name: 'Dashboard',
-    value: 'dashboard',
-    url: '',
-    key: 'dashboard',
-    icon: <span className='icon iconfont  icon-a-bianzu10' />,
-    children: [
-      {
-        name: 'dashboard',
-        value: 'my_dashboard',
-        url: '/dashboard',
-        key: 'my_dashboard',
-      },
-    ],
-  },
-  {
     name: 'Shipment',
     value: 'shipment',
     url: '',
