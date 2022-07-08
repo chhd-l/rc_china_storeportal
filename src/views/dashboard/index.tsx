@@ -6,10 +6,10 @@ const Dashboard = () => {
   const navigator = useNavigate()
   return (
     <div className="dashboard">
-      <div className='ContentArea flex items-center justify-between flex-wrap m-auto'>
+      <div className='ContentArea flex justify-between flex-wrap'>
         {body.map((item: any, idx: number) => (
           <div className="block" key={idx}>
-            <div className='bgImg cursor-pointer' onClick={() => navigator(item.url)} >
+            <div className='cursor-pointer' onClick={() => navigator(item.url)} >
               <img src={item.img} alt="" />
             </div>
             <div className="title">{item.title}</div>
