@@ -2,6 +2,7 @@ import { Table } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { TencentAccount } from '@/framework/types/consumer'
 import { getCustomAccount } from '@/framework/api/consumer'
+import moment from 'moment'
 
 const columns = [
   {
@@ -23,11 +24,13 @@ const columns = [
     title: 'Follow Status',
     dataIndex: 'followStatus',
     key: 'followStatus',
+    render:(text:any,record:any)=>`${text==='1'?'Followed':''}`
   },
   {
     title: 'Followed Time',
     dataIndex: 'followedTime',
     key: 'followedTime',
+    render:(text:any,record:any)=>`${text?moment(text).format('YYYY-MM-DD HH:mm:ss'):''}`
   },
 ]
 
