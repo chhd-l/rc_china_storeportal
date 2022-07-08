@@ -27,10 +27,6 @@ const Menus = () => {
 
   useEffect(()=>{
     console.log(333333,pathname)
-    if(pathname === '/dashboard') {
-      session.set('openMenuKeys', []);
-      session.set('selectedMenuKeys', [])
-    }
     let { openKeys, selectedKeys } = findOpenKeysAndSelectedKeysByPathname(menus, pathname);
     if (!openKeys.length || !selectedKeys.length) {
       openKeys = session.get('openMenuKeys') || [];
