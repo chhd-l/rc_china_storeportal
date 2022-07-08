@@ -13,7 +13,7 @@ interface ConsumerWhere {
 }
 
 interface QueryParamsProps {
-  isNeedTotal: boolean
+  withTotal: boolean
   limit: number
   offset: number
   sample?: ConsumerSample
@@ -22,7 +22,7 @@ interface QueryParamsProps {
 
 export const getPetOwnerList = async (queryParams: any) => {
   try {
-    let res = await ApiRoot({url:apis?.consumer}).consumers().getConsumers(queryParams)
+    let res = await ApiRoot({ url: apis?.consumer }).consumers().getConsumers(queryParams)
     console.log('petOwnerList', res)
     return Object.assign(res, { records: normalisePetOwnerList(res.records) })
   } catch (e) {
@@ -33,7 +33,7 @@ export const getPetOwnerList = async (queryParams: any) => {
 
 export const getCustomAccount = async ({ consumerId }: { consumerId: string }) => {
   try {
-    let res = await ApiRoot({url:apis?.consumer}).consumers().getConsumerAccounts(consumerId)
+    let res = await ApiRoot({ url: apis?.consumer }).consumers().getConsumerAccounts(consumerId)
     console.log('consumerAccount', res)
     return res
   } catch (e) {
@@ -44,7 +44,7 @@ export const getCustomAccount = async ({ consumerId }: { consumerId: string }) =
 
 export const getConsumer = async ({ consumerId }: { consumerId: string }) => {
   try {
-    let res = await ApiRoot({url:apis?.consumer}).consumers().getConsumer({ id: consumerId })
+    let res = await ApiRoot({ url: apis?.consumer }).consumers().getConsumer({ id: consumerId })
     console.log('consumer info', res)
     return normaliseConsumer(res)
   } catch (e) {
@@ -54,7 +54,7 @@ export const getConsumer = async ({ consumerId }: { consumerId: string }) => {
 }
 
 export const getConsumerAddressList = async (consumerId: string) => {
-  const res = await ApiRoot({url:apis?.address_list}).addresses().getAddresses({ consumerId })
+  const res = await ApiRoot({ url: apis?.address_list }).addresses().getAddresses({ consumerId })
   console.log('get consumer addresses view data:', res)
   return res || []
 }

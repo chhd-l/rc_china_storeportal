@@ -230,7 +230,7 @@ const ManualSelection = ({ visible, handleVisible, handleUpdate }: ManualSelecti
           })
           let data: any = {
             ...page,
-            hasTotal: true,
+            withTotal: true,
             sample: {},
           }
           if (params.categoryId?.length > 0) {

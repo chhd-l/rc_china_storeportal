@@ -8,7 +8,7 @@ const ShopCategories = () => {
     await getShopCategories({
       offset: 0,
       limit: 10,
-      isNeedTotal: true,
+      withTotal: true,
       sample: {},
     })
   }

@@ -276,9 +276,9 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
     if (data === true) {
       message.success({ className: 'rc-message', content: 'Operate success' })
       navigator('/product/product-list')
-    } else {
-      setLoading(false)
-      message.error({ className: 'rc-message', content: 'Operate failed' })
+      // } else {
+      //   setLoading(false)
+      //   message.error({ className: 'rc-message', content: 'Operate failed' })
     }
   }
   const showQrImg = () => {

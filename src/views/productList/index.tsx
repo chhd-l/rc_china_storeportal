@@ -101,7 +101,7 @@ const ProductList = () => {
     let pageParams = handlePageParams({ currentPage, pageSize })
     let params: any = {
       sample: sampleParams,
-      isNeedTotal: true,
+      withTotal: true,
       // operator: userInfo?.nickname || 'system',
     }
     if (sort?.sortKey) {
@@ -176,18 +176,18 @@ const ProductList = () => {
               </TabPane>
             ))}
           </Tabs>
-          <div className="flex justify-center w-full" style={{minHeight:'20rem'}}>
-          <Spin spinning={loading} wrapperClassName="w-full">
-            <TableList
-              setLoading={setLoading}
-              loading={loading}
-              getList={getList}
-              listData={listData}
-              handlePagination={handlePagination}
-              pages={pages}
-            />
-          </Spin>
-            </div>
+          <div className='flex justify-center w-full' style={{ minHeight: '20rem' }}>
+            <Spin spinning={loading} wrapperClassName='w-full'>
+              <TableList
+                setLoading={setLoading}
+                loading={loading}
+                getList={getList}
+                listData={listData}
+                handlePagination={handlePagination}
+                pages={pages}
+              />
+            </Spin>
+          </div>
         </TableContainer>
       </div>
     </ContentContainer>

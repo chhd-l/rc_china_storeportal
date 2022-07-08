@@ -1,6 +1,6 @@
 import { ContentContainer } from '@/components/ui'
 import { useEffect, useRef, useState } from 'react'
-import { Col, Modal, Row, Tooltip, Switch,message } from 'antd'
+import { Col, Modal, Row, Tooltip, Switch, message } from 'antd'
 import './index.less'
 import wx from '@/assets/images/wx.png'
 import AddCate from './components/AddCate'
@@ -24,39 +24,39 @@ const PaymentSettings = () => {
   const confirmSwitch = async () => {
     setIsSwithVisible(false)
     let res = await payWayUpdate({
-      id:list[0].id,
-      status:status?'ACTIVE':'INACTIVE'
+      id: list[0].id,
+      status: status ? 'ACTIVE' : 'INACTIVE',
     })
     console.log(res)
-    if(res){
+    if (res) {
       message.success({ className: 'rc-message', content: 'Operation success' })
       getList()
     }
   }
-  const getList = async() => {
+  const getList = async () => {
     let res = await payWayFindPage({
       offset: 0,
       limit: 10,
-      isNeedTotal: true
+      withTotal: true,
     })
-    if(res?.records){
+    if (res?.records) {
       setList(res.records)
-      setChecked(res.records[0].status==='ACTIVE')
+      setChecked(res.records[0].status === 'ACTIVE')
     }
   }
-  useEffect(()=>{
+  useEffect(() => {
     getList()
-  },[])
+  }, [])
   return (
     <ContentContainer>
       <div className='bg-white p-6 '>
         <div className='mb-10'>
           <div className='text-xl font-semibold'>Supported Payment Method</div>
-          <div className='text-gray-400 mt-1'>A payment method provided by a payment service provider approved by Seller
-            Center.
+          <div className='text-gray-400 mt-1'>
+            A payment method provided by a payment service provider approved by Seller Center.
           </div>
         </div>
-        <div className="table-header">
+        <div className='table-header'>
           <Row>
             <Col span={8}>
               <img src={wx} alt='' />
@@ -64,32 +64,52 @@ const PaymentSettings = () => {
             <Col span={8} />
             <Col span={8} className='flex items-center justify-end'>
               <Tooltip title='Configure'>
-                <a className='mr-4' onClick={(e) => {
-                  setAddvisible(true)
-                }}>
-                  <span className='iconfont icon-group52' style={{fontSize:'20px'}} />
-                </a></Tooltip>
-              <Switch checked={checked} onChange={(checked: boolean) => {
+                <a
+                  className='mr-4'
+                  onClick={e => {
+                    setAddvisible(true)
+                  }}
+                >
+                  <span className='iconfont icon-group52' style={{ fontSize: '20px' }} />
+                </a>
+              </Tooltip>
+              <Switch
+                checked={checked}
+                onChange={(checked: boolean) => {
                   setIsSwithVisible(true)
                   setStatus(checked)
-              }} />
+                }}
+              />
             </Col>
           </Row>
         </div>
-        <div className="table-content">
+        <div className='table-content'>
           <Row className='mb-10'>
-             <Col span={8} className="col3 text-lg">Provider</Col>
-             <Col span={16} style={{textAlign:'center'}} className="col3 text-lg">Status</Col>
-             {/*<Col span={8} style={{textAlign:'right'}}>Transaction Fee</Col>*/}
+            <Col span={8} className='col3 text-lg'>
+              Provider
+            </Col>
+            <Col span={16} style={{ textAlign: 'center' }} className='col3 text-lg'>
+              Status
+            </Col>
+            {/*<Col span={8} style={{textAlign:'right'}}>Transaction Fee</Col>*/}
           </Row>
           <Row>
-            <Col span={8} className="col6 text-gray-400">{list[0]?.name||''}</Col>
-            <Col span={16} className="col6 text-gray-400" style={{textAlign:'center'}}>{list[0]?.status||''}</Col>
+            <Col span={8} className='col6 text-gray-400'>
+              {list[0]?.name || ''}
+            </Col>
+            <Col span={16} className='col6 text-gray-400' style={{ textAlign: 'center' }}>
+              {list[0]?.status || ''}
+            </Col>
             {/*<Col span={8} style={{textAlign:'right'}}>3</Col>*/}
           </Row>
         </div>
       </div>
-      <AddCate id={list[0]?.id||null} visible={addVisible} handleVisible={handleAddCate} handleUpdate={handleUpdate} />
+      <AddCate
+        id={list[0]?.id || null}
+        visible={addVisible}
+        handleVisible={handleAddCate}
+        handleUpdate={handleUpdate}
+      />
       <Modal
         className='rc-modal'
         title='Notice'

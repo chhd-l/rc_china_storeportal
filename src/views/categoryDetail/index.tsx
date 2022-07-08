@@ -11,7 +11,7 @@ import { ContentContainer } from '@/components/ui'
 import { useLocation } from 'react-router'
 
 const CategoryDetail = () => {
-  const { state }: any = useLocation();
+  const { state }: any = useLocation()
   const ref = useRef<any>()
   const [ruleBasedVisible, setRuleBasedVisible] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -24,8 +24,7 @@ const CategoryDetail = () => {
     filterTags: [],
     filterTagsTwo: [],
   })
-  useEffect(() => {
-  }, [])
+  useEffect(() => {}, [])
   const handleRuleBaseVisible = (visible: boolean) => {
     setRuleBasedVisible(visible)
   }
@@ -46,14 +45,14 @@ const CategoryDetail = () => {
       shopCategoryId: state.id,
       name: undefined,
     }
-    if(page.name!==''){
+    if (page.name !== '') {
       sample.name = page.name
     }
     let res = await getFindShopCategoryProductPage({
       offset: page.offset,
       limit: page.limit,
-      isNeedTotal: true,
-      sample
+      withTotal: true,
+      sample,
     })
     let meta = res?.shopCategoryProductFindPage?.meta
     if (meta?.id) {
@@ -62,16 +61,17 @@ const CategoryDetail = () => {
     let shopCategoryFilterRules = res?.shopCategoryProductFindPage?.shopCategoryFilterRules
     if (shopCategoryFilterRules?.length > 0) {
       let obj = {
-        'productCategoryId': shopCategoryFilterRules[0].value?.split(','),
-        'brand': shopCategoryFilterRules[1].value,
-        'attributeValueIds': shopCategoryFilterRules[2].value !== '' ? shopCategoryFilterRules[2]?.value.split(',') : null,
-        'startPrice': shopCategoryFilterRules[3]?.value ? parseFloat(shopCategoryFilterRules[3]?.value) : null,
-        'endPrice': shopCategoryFilterRules[4]?.value ? parseFloat(shopCategoryFilterRules[4]?.value) : null,
-        'filterTags': shopCategoryFilterRules[5]?.value !== '' ? shopCategoryFilterRules[5]?.value.split(',') : [],
-        'filterTagsTwo': shopCategoryFilterRules[6]?.value !== '' ? shopCategoryFilterRules[6]?.value.split(',') : [],
+        productCategoryId: shopCategoryFilterRules[0].value?.split(','),
+        brand: shopCategoryFilterRules[1].value,
+        attributeValueIds:
+          shopCategoryFilterRules[2].value !== '' ? shopCategoryFilterRules[2]?.value.split(',') : null,
+        startPrice: shopCategoryFilterRules[3]?.value ? parseFloat(shopCategoryFilterRules[3]?.value) : null,
+        endPrice: shopCategoryFilterRules[4]?.value ? parseFloat(shopCategoryFilterRules[4]?.value) : null,
+        filterTags: shopCategoryFilterRules[5]?.value !== '' ? shopCategoryFilterRules[5]?.value.split(',') : [],
+        filterTagsTwo: shopCategoryFilterRules[6]?.value !== '' ? shopCategoryFilterRules[6]?.value.split(',') : [],
       }
       setEditParams(obj)
-      console.log(obj,888)
+      console.log(obj, 888)
       getProductList(obj)
     }
     setLoading(false)
@@ -79,17 +79,20 @@ const CategoryDetail = () => {
   }
   const getProductList = async (params: any) => {
     let data: any = {
-      hasTotal: true,
+      withTotal: true,
       sample: {},
     }
-    if (params.productCategoryId.length > 0 && params.productCategoryId[params.productCategoryId.length - 1] !== 'All Categories') {
+    if (
+      params.productCategoryId.length > 0 &&
+      params.productCategoryId[params.productCategoryId.length - 1] !== 'All Categories'
+    ) {
       data.sample.productCategoryId = params.productCategoryId[params.productCategoryId.length - 1]
     }
     if (params.brand && params.brand !== 'All Brands') {
       data.sample.brand = params.brand
     }
     if (params.attributeValueIds) {
-      data.sample.attributeRelations = [{attributeValueIds:params.attributeValueIds}]
+      data.sample.attributeRelations = [{ attributeValueIds: params.attributeValueIds }]
     }
     if (params.startPrice) {
       data.sample.startPrice = params.startPrice
@@ -105,17 +108,16 @@ const CategoryDetail = () => {
     updateShopCategory({
       id: state.id,
       isDisplay: status,
-    }).then((res) => {
+    }).then(res => {
       if (res) {
         setIsSwithVisible(false)
         setCateInfos({
           ...cateInfos,
-          isDisplay:status
+          isDisplay: status,
         })
         setLoading(false)
       }
     })
-
   }
 
   return (
@@ -125,39 +127,52 @@ const CategoryDetail = () => {
           <div className='bg-white mb-8 px-6 py-4'>
             <div className='flex justify-between'>
               <div className='font-bold text-lg'>
-                {
-                  show ? <div>
-                      <Input.Group compact>
-                        <Input style={{ width: '200px' }} defaultValue={cateInfos.displayName} onChange={(e) => {
+                {show ? (
+                  <div>
+                    <Input.Group compact>
+                      <Input
+                        style={{ width: '200px' }}
+                        defaultValue={cateInfos.displayName}
+                        onChange={e => {
                           setName(e.target.value)
-                        }} />
-                        <Button icon={<CheckOutlined />} onClick={() => {
+                        }}
+                      />
+                      <Button
+                        icon={<CheckOutlined />}
+                        onClick={() => {
                           updateShopCategory({
-                            id:state.id,
+                            id: state.id,
                             displayName: name,
-                          }).then((res) => {
+                          }).then(res => {
                             if (res) {
                               setShow(false)
                               ref.current.reload()
                             }
                           })
-                        }} />
-                        <Button icon={<CloseOutlined />} onClick={() => {
+                        }}
+                      />
+                      <Button
+                        icon={<CloseOutlined />}
+                        onClick={() => {
                           setName('')
                           setShow(false)
-                        }} />
-                      </Input.Group>
-                    </div> :
-                    <div className='edit-name'>
-                      <span className='edit-display-name'>{cateInfos.displayName}</span>
-                      <span style={{ color: '#ee4d2d' }}
-                            className='iconfont icon-shop-cate-edit'
-                            onClick={() => {
-                              setShow(true)
-                              setName(cateInfos.displayName)
-                            }} />
-                    </div>
-                }
+                        }}
+                      />
+                    </Input.Group>
+                  </div>
+                ) : (
+                  <div className='edit-name'>
+                    <span className='edit-display-name'>{cateInfos.displayName}</span>
+                    <span
+                      style={{ color: '#ee4d2d' }}
+                      className='iconfont icon-shop-cate-edit'
+                      onClick={() => {
+                        setShow(true)
+                        setName(cateInfos.displayName)
+                      }}
+                    />
+                  </div>
+                )}
               </div>
               <div>
                 <Tooltip title={!cateInfos?.total ? 'This category cannot be activated as it contains no product' : ''}>
@@ -176,8 +191,9 @@ const CategoryDetail = () => {
             <div className='text-gray-400 mt-4'>
               Created By:{' '}
               <span className='text-black mx-2'>
-            {cateInfos.name} {' | '} {cateInfos.categoryType === 'MANUAL' ? 'Manual Selection' : 'Rule-based Filtering'}
-          </span>{' '}
+                {cateInfos.name} {' | '}{' '}
+                {cateInfos.categoryType === 'MANUAL' ? 'Manual Selection' : 'Rule-based Filtering'}
+              </span>{' '}
               Product(s): <span className='text-black mx-2'>{cateInfos.total}</span>
             </div>
           </div>
@@ -186,8 +202,8 @@ const CategoryDetail = () => {
               <div>
                 <div className='text-base font-semibold'>Product List</div>
                 <div className='text-gray-400 py-2 text-xs'>
-                  If your products meet the filtering rule criteria,they will
-                  automatically be added into your shop category
+                  If your products meet the filtering rule criteria,they will automatically be added into your shop
+                  category
                 </div>
                 <div>
                   Set Filtering Rules:
@@ -208,8 +224,7 @@ const CategoryDetail = () => {
                 onClick={() => {
                   handleRuleBaseVisible(true)
                 }}
-                icon={<span style={{ color: '#fff',marginRight:'5px' }}
-                  className='iconfont icon-shop-cate-edit' />}
+                icon={<span style={{ color: '#fff', marginRight: '5px' }} className='iconfont icon-shop-cate-edit' />}
               >
                 Edit Filtering Rules
               </Button>
@@ -242,7 +257,7 @@ const CategoryDetail = () => {
                 }
                 return Promise.resolve({
                   data: tableData?.shopCategoryProductFindPage?.records || [],
-                  total: tableData?.shopCategoryProductFindPage?.total||0,
+                  total: tableData?.shopCategoryProductFindPage?.total || 0,
                   success: true,
                 })
               }}

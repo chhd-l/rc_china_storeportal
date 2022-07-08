@@ -22,7 +22,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
   const [categoryList, setCategoryList] = useState([])
   const [startPrice, setStartPrice] = useState<string>('')
   const [endPrice, setEndPrice] = useState<string>('')
-  
+
   const [regularList, setRegularList] = useState([])
   const ref = useRef<ProFormInstance>()
   const { Option } = Select
@@ -119,7 +119,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
         return (
           <div className='flex items-center'>
             <Input
-            placeholder='Please enter'
+              placeholder='Please enter'
               addonBefore='¥'
               onChange={e => {
                 setStartPrice(e.target.value)
@@ -128,13 +128,15 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
               value={startPrice}
             />
             <div className='px-2'>-</div>
-            <Input addonBefore='¥' 
-            placeholder='Please enter'
-            onChange={e => {
-              setEndPrice(e.target.value)
+            <Input
+              addonBefore='¥'
+              placeholder='Please enter'
+              onChange={e => {
+                setEndPrice(e.target.value)
               }}
               // className='mr-4'
-              value={endPrice}/>
+              value={endPrice}
+            />
           </div>
         )
       },
@@ -154,20 +156,20 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
       width={800}
       onOk={() => {
         // console.info('allPageList', allPageList)
-        let pageListWidtDefault=[...allPageList,...defaultSelected]
+        let pageListWidtDefault = [...allPageList, ...defaultSelected]
         debugger
-        let variantId = defaultSelected?.find(el=>el.variantId)?.variantId
+        let variantId = defaultSelected?.find(el => el.variantId)?.variantId
         let regularChoosed = selectedRowKeys.map((el: string) => {
           let choosedItem = pageListWidtDefault.find((item: any) => item.subVariantId === el)
           if (choosedItem) {
-            if(variantId){
+            if (variantId) {
               choosedItem.variantId = variantId
             }
             return choosedItem
           }
         })
-        let delArr=[]
-        let beforeDataSelected = defaultSelected?.filter(el=>el.id)
+        let delArr = []
+        let beforeDataSelected = defaultSelected?.filter(el => el.id)
         for (let item in beforeDataSelected) {
           var found = false
           for (let citem in regularChoosed) {
@@ -180,8 +182,8 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
             delArr.push(beforeDataSelected[item])
           }
         }
-        delArr?.forEach(el=>{
-          el.isDeleted=true
+        delArr?.forEach(el => {
+          el.isDeleted = true
         })
         regularChoosed.push(...delArr)
         console.info('regularChoosed', regularChoosed)
@@ -193,26 +195,31 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
       <ProTable
         columns={columns}
         formRef={ref}
-        search={{ span: 12, labelWidth: 60, searchText: 'Search',optionRender: ({ searchText, resetText }, { form }, dom) => [
-          <Button
-            type="primary"
-            onClick={() => {
-              form?.submit()
-            }}
-          >
-            {searchText}
-          </Button>,
-          <Button
-            onClick={() => {
-              form?.resetFields()
-              setStartPrice('')
-              setEndPrice('')
-              form?.submit()
-            }}
-          >
-            {resetText}
-          </Button>,
-        ], }}
+        search={{
+          span: 12,
+          labelWidth: 60,
+          searchText: 'Search',
+          optionRender: ({ searchText, resetText }, { form }, dom) => [
+            <Button
+              type='primary'
+              onClick={() => {
+                form?.submit()
+              }}
+            >
+              {searchText}
+            </Button>,
+            <Button
+              onClick={() => {
+                form?.resetFields()
+                setStartPrice('')
+                setEndPrice('')
+                form?.submit()
+              }}
+            >
+              {resetText}
+            </Button>,
+          ],
+        }}
         pagination={{
           pageSize: 5,
         }}
@@ -242,23 +249,23 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
           if (endPrice) {
             sample.endPrice = Number(endPrice)
           }
-          if(typeof sample.marketingPrice!=='undefined'){
+          if (typeof sample.marketingPrice !== 'undefined') {
             delete sample.marketingPrice
           }
           delete sample.search
           console.info('pageParams', pageParams)
-          let paramsData:any = {
+          let paramsData: any = {
             ...pageParams,
-            isNeedTotal: true,
+            withTotal: true,
             sample,
           }
           let res = await getBundleProductvariants(paramsData)
 
           let list = (res.records || []).map((el: any) => {
-            let bundle={
+            let bundle = {
               ...el,
               brandName: '',
-              subVariantId:el.id
+              subVariantId: el.id,
             }
             delete bundle.id
             return bundle

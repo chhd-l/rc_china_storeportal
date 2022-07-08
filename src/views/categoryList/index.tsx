@@ -40,7 +40,7 @@ const ShopCategories = () => {
     return await getShopCategories({
       offset: page.offset,
       limit: page.limit,
-      isNeedTotal: true,
+      withTotal: true,
       sample: {},
     })
   }

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Table, Modal, message, Form, Input } from "antd"
+import { Button, Table, Modal, message, Form, Input } from 'antd'
 import { useNavigate } from 'react-router-dom'
-import "./index.less"
-import { tableColumns, TWxMenuUpdateParam } from "./modules/constant"
-import { ContentContainer, SearchContainer, TableContainer, DivideArea } from "@/components/ui"
+import './index.less'
+import { tableColumns, TWxMenuUpdateParam } from './modules/constant'
+import { ContentContainer, SearchContainer, TableContainer, DivideArea } from '@/components/ui'
 import { getWxMenusList, updateWxMenu } from '@/framework/api/wechatSetting'
 import { WxMenu } from '@/framework/types/wechat'
-import { openConfirmModal } from '@/utils/utils';
+import { openConfirmModal } from '@/utils/utils'
 
 import { PageProps } from '@/framework/types/common'
 
@@ -17,19 +17,19 @@ const MenuManage = () => {
   const [total, setTotal] = useState<number>(0)
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
   const [pendingToDelete, setPendingToDelete] = useState<any>({})
-  const [name, setName] = useState<string>("")
+  const [name, setName] = useState<string>('')
 
   const navigator = useNavigate()
 
-  const getList = async (pageNumber: number, menuName: string = "") => {
+  const getList = async (pageNumber: number, menuName: string = '') => {
     const param: PageProps = {
       offset: pageNumber * 10 - 10,
       limit: 10,
-      isNeedTotal: true,
+      withTotal: true,
     }
     setLoading(true)
     const res = await getWxMenusList({ ...param, sample: menuName ? { name: menuName } : undefined })
-    console.log("page data:", res);
+    console.log('page data:', res)
     setLoading(false)
     setList(res.records)
     setTotal(res.total)
@@ -40,7 +40,7 @@ const MenuManage = () => {
   }, [])
 
   const handleReset = () => {
-    setName("")
+    setName('')
     getList(1)
   }
 
@@ -52,15 +52,15 @@ const MenuManage = () => {
         setLoading(true)
         updateWxMenu(updateParam).then((updated: boolean) => {
           if (updated) {
-            message.success({className: "rc-message", content: "Operate Successful" });
+            message.success({ className: 'rc-message', content: 'Operate Successful' })
             setCurrent(1)
             getList(1)
           } else {
-            setLoading(false);
-            message.error({ className: "rc-message", content: "Status update failed" })
+            setLoading(false)
+            message.error({ className: 'rc-message', content: 'Status update failed' })
           }
         })
-      }
+      },
     })
   }
   const handleDelete = (updateParam: TWxMenuUpdateParam) => {
@@ -71,54 +71,64 @@ const MenuManage = () => {
     setLoading(true)
     const deleted = await updateWxMenu(pendingToDelete)
     if (deleted) {
-      message.success({className: "rc-message", content: "Operate Successful" });
+      message.success({ className: 'rc-message', content: 'Operate Successful' })
       setIsModalVisible(false)
       setCurrent(1)
       getList(1)
     } else {
       setLoading(false)
-      message.error({ className: "rc-message", content: "Delete failed" })
+      message.error({ className: 'rc-message', content: 'Delete failed' })
     }
   }
   const columns = tableColumns({ changeStatus, handleDelete })
-  
+
   return (
-    <ContentContainer className="menu-manage">
+    <ContentContainer className='menu-manage'>
       <SearchContainer>
-        <Form layout="horizontal">
-          <Form.Item label="Menu Name">
-            <Input style={{width: 300}} placeholder="Input" value={name} onChange={(e) => setName(e.target.value)} onPressEnter={() => getList(1, name)} />
+        <Form layout='horizontal'>
+          <Form.Item label='Menu Name'>
+            <Input
+              style={{ width: 300 }}
+              placeholder='Input'
+              value={name}
+              onChange={e => setName(e.target.value)}
+              onPressEnter={() => getList(1, name)}
+            />
           </Form.Item>
         </Form>
-        <div className="mt-4 space-x-md">
-          <Button type="primary" onClick={() => getList(1, name)}>Search</Button>
+        <div className='mt-4 space-x-md'>
+          <Button type='primary' onClick={() => getList(1, name)}>
+            Search
+          </Button>
           <Button onClick={handleReset}>Reset</Button>
         </div>
       </SearchContainer>
       <DivideArea />
       <TableContainer>
-        <div className="btn-area py-4">
-          <Button type="primary" onClick={() => navigator('/menuManagempqr/menu-manage-add')}>+ Add</Button>
+        <div className='btn-area py-4'>
+          <Button type='primary' onClick={() => navigator('/menuManagempqr/menu-manage-add')}>
+            + Add
+          </Button>
         </div>
         <Table
           columns={columns}
           dataSource={list}
           loading={loading}
-          className="rc-table"
+          className='rc-table'
           pagination={{
             current: current,
             pageSize: 10,
             total: total,
-            onChange: (page) => {
+            onChange: page => {
               setCurrent(page)
               getList(page)
-            }
+            },
           }}
         />
       </TableContainer>
       <Modal
-        className="rc-modal"
-        title="Delete Item"
+        className='rc-modal'
+        title='Delete Item'
         okText='Confirm'
         visible={isModalVisible}
         onOk={confirmDelete}

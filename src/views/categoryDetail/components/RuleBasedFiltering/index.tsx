@@ -73,7 +73,7 @@ const RuleBasedFiltering = ({
   const getList = async (params: any) => {
     setLoading(true)
     let data: any = {
-      hasTotal: true,
+      withTotal: true,
       sample: {},
     }
     if (params.categoryIds && params.categoryIds !== 'All Categories') {

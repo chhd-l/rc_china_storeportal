@@ -19,7 +19,7 @@ export enum FormItemType {
 export interface PageProps<T = Record<string, any>> {
   offset: number
   limit: number
-  isNeedTotal: boolean
+  withTotal: boolean
   operator?: string
   sample?: T
 }

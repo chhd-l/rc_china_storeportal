@@ -7,7 +7,7 @@ export const handleQueryParams = (params: any) => {
   })
   let data: any = {
     ...page,
-    hasTotal: true,
+    withTotal: true,
     sample: {},
   }
   if (params.productCategoryId?.length > 0) {

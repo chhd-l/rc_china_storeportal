@@ -14,7 +14,7 @@ import { useLocation } from 'react-router'
 const { Search } = Input
 
 const CategoryDetail = () => {
-  const { state }: any = useLocation();
+  const { state }: any = useLocation()
   const params = useParams()
   const [keyList, setKeyList] = useState([])
   const [checkLenght, setCheckLenght] = useState(0)
@@ -56,8 +56,8 @@ const CategoryDetail = () => {
   }
   const confirmDelete = async () => {
     setLoading(true)
-    detleShopCateRel(curAssetId).then((res) => {
-      console.log(res,888888888)
+    detleShopCateRel(curAssetId).then(res => {
+      console.log(res, 888888888)
       if (res.shopCategoryProductRelDelete) {
         setIsModalVisible(false)
         setSelectedRowKeys([])
@@ -70,28 +70,28 @@ const CategoryDetail = () => {
   const setNum = (arr: any) => {
     let result = 0
     for (let i = 0; i < arr.length; i++) {
-      result += Number(arr[i].stock)// 点开看 有两个值
+      result += Number(arr[i].stock) // 点开看 有两个值
     }
     return result
   }
 
   const getList = async (page: any) => {
     setLoading(true)
-    console.log(state.id,99999999)
+    console.log(state.id, 99999999)
     let sample = {
       shopCategoryId: state.id,
       name: undefined,
     }
-    if(page.name!==''){
+    if (page.name !== '') {
       sample.name = page.name
     }
     let res = await getFindShopCategoryProductPage({
       offset: page.offset,
       limit: page.limit,
-      isNeedTotal: true,
-      sample
+      withTotal: true,
+      sample,
     })
-      let meta = res?.shopCategoryProductFindPage?.meta
+    let meta = res?.shopCategoryProductFindPage?.meta
     if (meta?.id) {
       setCateInfos({ ...meta, total: res?.shopCategoryProductFindPage?.total })
     }
@@ -104,21 +104,19 @@ const CategoryDetail = () => {
     updateShopCategory({
       id: state.id,
       isDisplay: status,
-    }).then((res) => {
+    }).then(res => {
       if (res) {
         setIsSwithVisible(false)
         setCateInfos({
           ...cateInfos,
-          isDisplay:status
+          isDisplay: status,
         })
         setLoading(false)
       }
     })
-
   }
 
-  useEffect(() => {
-  }, [])
+  useEffect(() => {}, [])
   const handleManualVisible = (visible: boolean) => {
     setManualSelectionVisible(visible)
   }
@@ -133,8 +131,11 @@ const CategoryDetail = () => {
       render: (_, record) => {
         return (
           <div className='flex al-cneter'>
-            <img src={record.variants[0]?.defaultImage} alt=''
-                 style={{ width: '50px', height: '50px', marginRight: '10px' }} />
+            <img
+              src={record.variants[0]?.defaultImage}
+              alt=''
+              style={{ width: '50px', height: '50px', marginRight: '10px' }}
+            />
             <div>
               <div>{record.name}</div>
             </div>
@@ -148,9 +149,7 @@ const CategoryDetail = () => {
       hideInSearch: true,
       render: (_, record) => {
         if (record.variants?.length <= 1) {
-          return (
-            <span>{formatMoney(record.variants[0]?.marketingPrice)}</span>
-          )
+          return <span>{formatMoney(record.variants[0]?.marketingPrice)}</span>
         } else if (record.variants?.length > 1) {
           let arr = record.variants.sort((a: any, b: any) => {
             return a.marketingPrice - b.marketingPrice
@@ -167,9 +166,7 @@ const CategoryDetail = () => {
       hideInSearch: true,
       render: (_, record) => {
         if (record.variants?.length > 0) {
-          return (
-            <span>{setNum(record.variants)}</span>
-          )
+          return <span>{setNum(record.variants)}</span>
         }
       },
     },
@@ -180,10 +177,13 @@ const CategoryDetail = () => {
       valueType: 'option',
       render: (_, record) => {
         return (
-          <span className='mr-4 text-xl cursor-pointer primary-color' onClick={() => {
-            setCurAssetId(record.shopCategoryProductRelationId)
-            setIsModalVisible(true)
-          }}>
+          <span
+            className='mr-4 text-xl cursor-pointer primary-color'
+            onClick={() => {
+              setCurAssetId(record.shopCategoryProductRelationId)
+              setIsModalVisible(true)
+            }}
+          >
             <span className='iconfont text-xl icon-delete' />
           </span>
         )
@@ -195,9 +195,14 @@ const CategoryDetail = () => {
       renderFormItem: (_, { type, defaultRender, ...rest }, form) => {
         return (
           <Space direction='vertical' className='search-input'>
-            <Search placeholder='Search Products' onSearch={() => {
-              form.submit()
-            }} size='large' style={{ width: 400 }} />
+            <Search
+              placeholder='Search Products'
+              onSearch={() => {
+                form.submit()
+              }}
+              size='large'
+              style={{ width: 400 }}
+            />
           </Space>
         )
       },
@@ -206,46 +211,58 @@ const CategoryDetail = () => {
 
   // @ts-ignore
   return (
-
     <ContentContainer>
       <Spin spinning={loading}>
         <div className='category-detail'>
           <div className='bg-white mb-8 px-6 py-4'>
             <div className='flex justify-between'>
               <div className='font-bold text-lg'>
-                {
-                  show ? <div>
-                      <Input.Group compact>
-                        <Input style={{ width: '200px' }} defaultValue={cateInfos.displayName} onChange={(e) => {
+                {show ? (
+                  <div>
+                    <Input.Group compact>
+                      <Input
+                        style={{ width: '200px' }}
+                        defaultValue={cateInfos.displayName}
+                        onChange={e => {
                           setName(e.target.value)
-                        }} />
-                        <Button icon={<CheckOutlined />} onClick={() => {
+                        }}
+                      />
+                      <Button
+                        icon={<CheckOutlined />}
+                        onClick={() => {
                           updateShopCategory({
-                            id:state.id,
+                            id: state.id,
                             displayName: name,
-                          }).then((res) => {
+                          }).then(res => {
                             if (res) {
                               setShow(false)
                               ref.current.reload()
                             }
                           })
-                        }} />
-                        <Button icon={<CloseOutlined />} onClick={() => {
+                        }}
+                      />
+                      <Button
+                        icon={<CloseOutlined />}
+                        onClick={() => {
                           setName('')
                           setShow(false)
-                        }} />
-                      </Input.Group>
-                    </div> :
-                    <div className='edit-name'>
-                      <span className='edit-display-name'>{cateInfos.displayName}</span>
-                      <span style={{ color: '#ee4d2d' }}
-                            className='iconfont icon-shop-cate-edit'
-                            onClick={() => {
-                              setShow(true)
-                              setName(cateInfos.displayName)
-                            }} />
-                    </div>
-                }
+                        }}
+                      />
+                    </Input.Group>
+                  </div>
+                ) : (
+                  <div className='edit-name'>
+                    <span className='edit-display-name'>{cateInfos.displayName}</span>
+                    <span
+                      style={{ color: '#ee4d2d' }}
+                      className='iconfont icon-shop-cate-edit'
+                      onClick={() => {
+                        setShow(true)
+                        setName(cateInfos.displayName)
+                      }}
+                    />
+                  </div>
+                )}
               </div>
               <div>
                 <Tooltip title={!cateInfos?.total ? 'This category cannot be activated as it contains no product' : ''}>
@@ -264,8 +281,9 @@ const CategoryDetail = () => {
             <div className='text-gray-400 mt-4'>
               Created By:{' '}
               <span className='text-black mx-2'>
-            {cateInfos.name} {' | '} {cateInfos.categoryType === 'MANUAL' ? 'Manual Selection' : 'Rule-based Filtering'}
-          </span>{' '}
+                {cateInfos.name} {' | '}{' '}
+                {cateInfos.categoryType === 'MANUAL' ? 'Manual Selection' : 'Rule-based Filtering'}
+              </span>{' '}
               Product(s): <span className='text-black mx-2'>{cateInfos.total}</span>
             </div>
           </div>
@@ -303,20 +321,24 @@ const CategoryDetail = () => {
                 }
                 return (
                   <span>
-                  <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll} />
-          </span>
+                    <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll} />
+                  </span>
                 )
               }}
               tableAlertOptionRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => {
                 return (
                   <Space size={16}>
                     <span>{selectedRowKeys.length} products selected</span>
-                    <Button onClick={() => {
-                      if (selectedRows.length > 0) {
-                        setCurAssetId(selectedRowKeys)
-                        setIsModalVisible(true)
-                      }
-                    }}>Delete</Button>
+                    <Button
+                      onClick={() => {
+                        if (selectedRows.length > 0) {
+                          setCurAssetId(selectedRowKeys)
+                          setIsModalVisible(true)
+                        }
+                      }}
+                    >
+                      Delete
+                    </Button>
                   </Space>
                 )
               }}
@@ -344,12 +366,15 @@ const CategoryDetail = () => {
                     name: params.name,
                   })
                 }
-                if (tableData?.shopCategoryProductFindPage?.records && tableData?.shopCategoryProductFindPage?.records.length > 0) {
+                if (
+                  tableData?.shopCategoryProductFindPage?.records &&
+                  tableData?.shopCategoryProductFindPage?.records.length > 0
+                ) {
                   setListKey(tableData?.shopCategoryProductFindPage?.records)
                 }
                 return Promise.resolve({
                   data: tableData?.shopCategoryProductFindPage?.records || [],
-                  total: tableData?.shopCategoryProductFindPage?.total||0,
+                  total: tableData?.shopCategoryProductFindPage?.total || 0,
                   success: true,
                 })
               }}
@@ -380,7 +405,9 @@ const CategoryDetail = () => {
             confirmLoading={loading}
             onCancel={() => setIsSwithVisible(false)}
           >
-            <p>{status ? 'Are you sure you want to enable the item ?' : 'Are you sure you want to disable the item ?'}</p>
+            <p>
+              {status ? 'Are you sure you want to enable the item ?' : 'Are you sure you want to disable the item ?'}
+            </p>
           </Modal>
         </div>
       </Spin>

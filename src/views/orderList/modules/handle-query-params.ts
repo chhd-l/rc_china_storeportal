@@ -18,11 +18,11 @@ export const handleQueryParams = ({
     {},
     searchType !== '' && searchTypeValue !== '' && searchType !== 'isSubscription'
       ? {
-          queryParameters: {
-            fieldName: searchType,
-            fieldValue: searchTypeValue,
-          },
-        }
+        queryParameters: {
+          fieldName: searchType,
+          fieldValue: searchTypeValue,
+        },
+      }
       : {},
     orderState !== '' ? { orderState } : {},
     startTime !== '' ? { startDate: new Date(startTime).toISOString() } : {},
@@ -32,7 +32,7 @@ export const handleQueryParams = ({
   )
   let params = Object.assign(
     {
-      isNeedTotal: true,
+      withTotal: true,
     },
     handlePageParams(pageParams),
     { sample: sample },

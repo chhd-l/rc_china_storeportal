@@ -21,7 +21,7 @@ export const handleQueryParams = ({
   })
   let params = Object.assign(
     {
-      isNeedTotal: true,
+      withTotal: true,
       accountId: '000001',
     },
     handlePageParams(pageParams),

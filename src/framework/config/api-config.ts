@@ -38,7 +38,7 @@ const API_CONFIG: IApiConfig = {
     order_action: 'https://fc-sc-or-action-dev-selercenter-juostbwarp.cn-shanghai.fcapp.run/fc-sc-order-action/graphql',
     voucher: "https://fc-com-voucher-dev-common-sfkvithbhy.cn-shanghai.fcapp.run/fc-com-voucher/graphql",
     payment: "https://fc-com-payment-dev-common-szirsgqhhy.cn-shanghai.fcapp.run/fc-com-payment/graphql",
-    sc_product: "https://fc-sc-product-dev-selercenter-gabxrpcpbl.cn-shanghai.fcapp.run/fc-sc-product/graphql",
+    sc_product: "http://localhost:7000/fc-sc-product/graphql",
     product: "https://fc-com-product-dev-common-szrflwfhhy.cn-shanghai.fcapp.run/fc-com-product/graphql",
     product_es_list: "https://fc-com-es-list-dev-common-hdggvbqeut.cn-shanghai.fcapp.run/fc-com-product-es-list/graphql",
     product_search: "https://fc-sc-pt-search-dev-selercenter-gehwotganj.cn-shanghai.fcapp.run/fc-sc-product-search/graphql",

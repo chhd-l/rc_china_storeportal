@@ -10,13 +10,13 @@ import { getPetOwnerList } from '@/framework/api/consumer'
 import { addConsumerTag } from '@/framework/api/tag'
 import { useLocation } from 'react-router'
 export type EditTagsModalProps = {
-  visible: boolean;
-  handleVisible: (visible: boolean) => void;
-  handleUpdate: (visible: boolean) => void;
-};
+  visible: boolean
+  handleVisible: (visible: boolean) => void
+  handleUpdate: (visible: boolean) => void
+}
 
 const EditTagsModal = ({ visible, handleVisible, handleUpdate }: EditTagsModalProps) => {
-  const { state }: any = useLocation();
+  const { state }: any = useLocation()
   const params = useParams()
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const ref = useRef<any>()
@@ -36,7 +36,6 @@ const EditTagsModal = ({ visible, handleVisible, handleUpdate }: EditTagsModalPr
       title: 'WeChat Name',
       dataIndex: 'nickname',
       key: 'nickname',
-
     },
     {
       title: 'Phone Number',
@@ -72,7 +71,6 @@ const EditTagsModal = ({ visible, handleVisible, handleUpdate }: EditTagsModalPr
         } else {
           return false
         }
-
       }}
       submitter={{
         searchConfig: {
@@ -95,7 +93,7 @@ const EditTagsModal = ({ visible, handleVisible, handleUpdate }: EditTagsModalPr
           })
           let data: any = {
             ...page,
-            isNeedTotal: true,
+            withTotal: true,
             sample: {},
           }
           if (params.nickname) {
@@ -128,15 +126,22 @@ const EditTagsModal = ({ visible, handleVisible, handleUpdate }: EditTagsModalPr
           searchText: 'Search',
           className: 'my-search',
           optionRender: ({ searchText, resetText }, { form }, dom) => [
-            <Button type='primary'
-                    onClick={() => {
-                      form?.submit()
-                    }}
-            >{searchText}</Button>,
-            <Button onClick={() => {
-              form?.resetFields()
-              form?.submit()
-            }}>{resetText}</Button>,
+            <Button
+              type='primary'
+              onClick={() => {
+                form?.submit()
+              }}
+            >
+              {searchText}
+            </Button>,
+            <Button
+              onClick={() => {
+                form?.resetFields()
+                form?.submit()
+              }}
+            >
+              {resetText}
+            </Button>,
           ],
         }}
       />

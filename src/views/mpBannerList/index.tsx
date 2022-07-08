@@ -23,7 +23,7 @@ const MpBannerList = () => {
   const handlePreview = (img: string) => {
     setPreviewImage(img)
   }
-  const changeStatus = (checked: boolean,id:string) => {
+  const changeStatus = (checked: boolean, id: string) => {
     console.log(checked, id)
     setStatus(checked)
     setCurAssetId(id)
@@ -35,7 +35,7 @@ const MpBannerList = () => {
   }
   const confirmDelete = async () => {
     setLoading(true)
-    bannerDeleteById(curAssetId).then((res) => {
+    bannerDeleteById(curAssetId).then(res => {
       if (res) {
         setIsModalVisible(false)
         ref.current.reload()
@@ -48,7 +48,7 @@ const MpBannerList = () => {
     bannerUpdate({
       id: curAssetId,
       isActive: status,
-    }).then((res) => {
+    }).then(res => {
       if (res) {
         setIsSwithVisible(false)
         ref.current.reload()
@@ -66,18 +66,18 @@ const MpBannerList = () => {
     let res = await getAccountList({
       limit: 100,
       offset: 0,
-      sample: { storeId: "12345678" },
+      sample: { storeId: '12345678' },
     })
     depy(res?.records || [])
   }
   const depy = (arr: any[]) => {
     if (!arr.length) return
     const lists: any[] = []
-    arr.forEach((item) => {
+    arr.forEach(item => {
       if (item.type === 'MiniProgram' && item.isActive)
         lists.push({
           label: item.name,
-          value: item.id
+          value: item.id,
         })
     })
     console.log(lists)
@@ -93,7 +93,7 @@ const MpBannerList = () => {
     changeStatus,
     handleDelete,
     navigator,
-    list
+    list,
   })
   return (
     <ContentContainer className='mp-banner-list'>
@@ -111,13 +111,13 @@ const MpBannerList = () => {
         search={{
           labelWidth: 'auto',
           searchText: 'Search',
-          optionRender: (searchConfig,formProps,dom) => {
-            return dom.map((item: any) => {
-              return (
-                <Button {...item.props} loading={false} />
-              )
-            }).reverse()
-          }
+          optionRender: (searchConfig, formProps, dom) => {
+            return dom
+              .map((item: any) => {
+                return <Button {...item.props} loading={false} />
+              })
+              .reverse()
+          },
         }}
         columns={columns}
         request={async (params, sorter, filter) => {
@@ -129,21 +129,21 @@ const MpBannerList = () => {
           })
           let data: any = {
             ...page,
-            isNeedTotal: true,
+            withTotal: true,
             sample: {},
-            where:{}
+            where: {},
           }
-          if(params.name){
-            data.where.nameFuzzy=params.name
+          if (params.name) {
+            data.where.nameFuzzy = params.name
           }
-          if(params.clickType){
-            data.sample.clickType=params.clickType
+          if (params.clickType) {
+            data.sample.clickType = params.clickType
           }
-          if(params.accountName){
-            data.where.accountNameFuzzy= list.find((item: { value: any })=>item.value===params.accountName).label
+          if (params.accountName) {
+            data.where.accountNameFuzzy = list.find((item: { value: any }) => item.value === params.accountName).label
           }
-          if(params.isActive){
-            data.sample.isActive=params.isActive === 'true'
+          if (params.isActive) {
+            data.sample.isActive = params.isActive === 'true'
           }
           let tableData = await getList(data)
           if (tableData === undefined && page.offset >= 10) {

@@ -4,7 +4,7 @@ import ApiRoot from './fetcher'
 //获取优惠券列表
 export const getVouchers = async (parma: any) => {
   try {
-    let res = await ApiRoot({url:apis?.voucher}).vouchers().getVouchers({ ...parma, isNeedTotal: true })
+    let res = await ApiRoot({ url: apis?.voucher }).vouchers().getVouchers({ ...parma, withTotal: true })
     return {
       total: res?.total || 0,
       records: res?.records || [],
@@ -21,7 +21,7 @@ export const getVouchers = async (parma: any) => {
 //获取优惠券详情
 export const getVoucherById = async (Id: string) => {
   try {
-    let res = await ApiRoot({url:apis?.voucher}).vouchers().getVoucherById(Id)
+    let res = await ApiRoot({ url: apis?.voucher }).vouchers().getVoucherById(Id)
     console.log('get voucher by id view data', res)
     return res
   } catch (e) {
@@ -33,7 +33,7 @@ export const getVoucherById = async (Id: string) => {
 //创建优惠券
 export const createVoucher = async (parma: any) => {
   try {
-    let res = await ApiRoot({url:apis?.voucher}).vouchers().createVoucher(parma)
+    let res = await ApiRoot({ url: apis?.voucher }).vouchers().createVoucher(parma)
     return res
   } catch (e) {
     console.log(e)
@@ -44,7 +44,7 @@ export const createVoucher = async (parma: any) => {
 //编辑优惠券
 export const updateVoucher = async (parma: any) => {
   try {
-    let res = await ApiRoot({url:apis?.voucher}).vouchers().updateVoucher(parma)
+    let res = await ApiRoot({ url: apis?.voucher }).vouchers().updateVoucher(parma)
     return res
   } catch (e) {
     console.log(e)
@@ -55,7 +55,7 @@ export const updateVoucher = async (parma: any) => {
 //删除优惠券
 export const deleteVoucher = async (Id: string) => {
   try {
-    let res = await ApiRoot({url:apis?.voucher}).vouchers().deleteVoucher(Id)
+    let res = await ApiRoot({ url: apis?.voucher }).vouchers().deleteVoucher(Id)
     console.log('delete voucher view data', res)
     return res
   } catch (e) {
@@ -67,7 +67,7 @@ export const deleteVoucher = async (Id: string) => {
 //end 优惠券
 export const endVoucher = async (Id: string) => {
   try {
-    let res = await ApiRoot({url:apis?.voucher}).vouchers().voucherActivityEnd({
+    let res = await ApiRoot({ url: apis?.voucher }).vouchers().voucherActivityEnd({
       voucherId: Id,
       voucherStatus: 'Expired',
     })
@@ -83,7 +83,7 @@ export const endVoucher = async (Id: string) => {
 export const productRelatedDelete = async () => {
   try {
     //ids:string[]
-    let res = await ApiRoot({url:apis?.voucher}).vouchers().productRelatedDelete([])
+    let res = await ApiRoot({ url: apis?.voucher }).vouchers().productRelatedDelete([])
     console.log('productRelatedDelete view data', res)
     return res
   } catch (e) {
@@ -95,7 +95,7 @@ export const productRelatedDelete = async () => {
 //获取PO优惠券列表
 export const getConsumerVouchers = async (params: any) => {
   try {
-    let res = await ApiRoot({url:apis?.voucher}).vouchers().getConsumerVouchers(params)
+    let res = await ApiRoot({ url: apis?.voucher }).vouchers().getConsumerVouchers(params)
     console.log('getConsumerVouchers view data', res)
     return res
   } catch (e) {
@@ -106,7 +106,7 @@ export const getConsumerVouchers = async (params: any) => {
 
 export const getVoucherKeyMetric = async (parmas: any) => {
   try {
-    let res = await ApiRoot({url:apis?.voucher}).vouchers().getVoucherKeyMetric(parmas)
+    let res = await ApiRoot({ url: apis?.voucher }).vouchers().getVoucherKeyMetric(parmas)
     console.log('getVoucherKeyMetric view data', res)
     return res
   } catch (e) {

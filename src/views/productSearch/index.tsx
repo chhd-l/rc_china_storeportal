@@ -1,16 +1,14 @@
-import { Button,  message,  Switch, Tooltip } from 'antd'
+import { Button, message, Switch, Tooltip } from 'antd'
 import { useRef, useState } from 'react'
 import ProTable, { ActionType, ProColumns } from '@/components/common/ProTable'
 import './index.less'
 import { Link } from 'react-router-dom'
-import TipsModal, {  TipsType } from './components/TipsModal'
+import TipsModal, { TipsType } from './components/TipsModal'
 import { getHotSearchFindPage, hotSearchUpdate, HotSearchVisibleSwitch } from '@/framework/api/get-product'
 import { handlePageParams } from '@/utils/utils'
 import { useRequest } from 'ahooks'
 import AddNewSearch from './components/AddNewSearch'
 import { RecordItem } from './type'
-
-
 
 const ProductSearch = () => {
   const actionRef = useRef<ActionType>()
@@ -22,22 +20,25 @@ const ProductSearch = () => {
   // 更新status/删除数据
   const { run } = useRequest(
     async (id, status) => {
-     await hotSearchUpdate({ id, ...status })
+      await hotSearchUpdate({ id, ...status })
       message.success({ className: 'rc-message', content: 'Operation success' })
-      actionRef?.current?.reload();
+      actionRef?.current?.reload()
     },
     {
-      manual: true,  // 手动执行
+      manual: true, // 手动执行
     },
   )
 
   // Search is visible on shop
-  const {run:runSwitch}=useRequest(async(status)=>{
-await   HotSearchVisibleSwitch({storeId:'12345678',status})
-message.success({ className: 'rc-message', content: 'Operation success' })
-  },{
-    manual:true
-  })
+  const { run: runSwitch } = useRequest(
+    async status => {
+      await HotSearchVisibleSwitch({ storeId: '12345678', status })
+      message.success({ className: 'rc-message', content: 'Operation success' })
+    },
+    {
+      manual: true,
+    },
+  )
 
   // 弹窗确认
   const onOk = () => {
@@ -52,7 +53,7 @@ message.success({ className: 'rc-message', content: 'Operation success' })
   }
 
   // 新增数据刷新列表
-  const refreshTable=()=>actionRef?.current?.reload();
+  const refreshTable = () => actionRef?.current?.reload()
 
   // Top Search is visible on shop开关
   const onSwitchChange = () => {
@@ -80,21 +81,24 @@ message.success({ className: 'rc-message', content: 'Operation success' })
           text: 'Disable',
         },
       },
-      render: (_, record) => (
-        <Switch checked={record.status} onChange={(val) => run(record.id, { status: val })} />
-      ),
+      render: (_, record) => <Switch checked={record.status} onChange={val => run(record.id, { status: val })} />,
     },
     {
       title: 'Action',
       valueType: 'option',
       key: 'option',
       render: (_, record) => (
-        <Tooltip title="Delete">
-          <Link className="ml-3" to="" onClick={() => { 
-            setType('delete')
-            setVisible(true)
-            SetDeleteId(record.id)}}>
-            <span className="iconfont icon-delete" />
+        <Tooltip title='Delete'>
+          <Link
+            className='ml-3'
+            to=''
+            onClick={() => {
+              setType('delete')
+              setVisible(true)
+              SetDeleteId(record.id)
+            }}
+          >
+            <span className='iconfont icon-delete' />
           </Link>
         </Tooltip>
       ),
@@ -106,24 +110,24 @@ message.success({ className: 'rc-message', content: 'Operation success' })
         columns={columns}
         actionRef={actionRef}
         cardBordered
-        className="searchTable"
-        tableClassName="rc-table"
-        request={async (params) => {
+        className='searchTable'
+        tableClassName='rc-table'
+        request={async params => {
           let page = handlePageParams({
             currentPage: params.current,
             pageSize: params.pageSize,
           })
-          
-         delete params.current
-         delete params.pageSize
-         if(params.status){
-          params.status=  JSON.parse(params.status)
-         }
+
+          delete params.current
+          delete params.pageSize
+          if (params.status) {
+            params.status = JSON.parse(params.status)
+          }
           const tableData = await getHotSearchFindPage({
             offset: page.offset,
-            isNeedTotal: true,
+            withTotal: true,
             limit: page.limit,
-            sample: { storeId: '12345678',...params },
+            sample: { storeId: '12345678', ...params },
           })
           setChecked(tableData?.isVisibleOnShop)
           return Promise.resolve({
@@ -135,7 +139,7 @@ message.success({ className: 'rc-message', content: 'Operation success' })
         editable={{
           type: 'multiple',
         }}
-        rowKey="id"
+        rowKey='id'
         search={{
           labelWidth: 'auto',
           span: 12,
@@ -149,19 +153,25 @@ message.success({ className: 'rc-message', content: 'Operation success' })
           },
         }}
         pagination={{
-          showQuickJumper:false
+          showQuickJumper: false,
         }}
-        dateFormatter="string"
+        dateFormatter='string'
         headerTitle={
-          <div className="flex flex-row items-top text-grayTitle text-14">
+          <div className='flex flex-row items-top text-grayTitle text-14'>
             Top Search is visible on shop
-            <Switch checked={checked} onChange={onSwitchChange} className="ml-4" />
+            <Switch checked={checked} onChange={onSwitchChange} className='ml-4' />
           </div>
         }
-        toolBarRender={() => [<AddNewSearch  refreshTable={refreshTable}/>]}
+        toolBarRender={() => [<AddNewSearch refreshTable={refreshTable} />]}
       />
-      <TipsModal type={type} visible={visible} onOk={onOk} onCancel={() => {
-        setVisible(false)}} />
+      <TipsModal
+        type={type}
+        visible={visible}
+        onOk={onOk}
+        onCancel={() => {
+          setVisible(false)
+        }}
+      />
     </>
   )
 }

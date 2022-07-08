@@ -20,7 +20,7 @@ export const handleQueryParams = ({
   let params = Object.assign(
     handlePageParams(pageParams),
     {
-      isNeedTotal: true,
+      withTotal: true,
     },
     { sample: sample },
   )

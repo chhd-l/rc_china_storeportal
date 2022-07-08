@@ -18,7 +18,7 @@ export const handleQueryParams = ({
   )
   let params = Object.assign(
     {
-      isNeedTotal: true,
+      withTotal: true,
     },
     handlePageParams(pageParams),
     JSON.stringify(sample) !== '{}' ? { sample: sample } : {},
