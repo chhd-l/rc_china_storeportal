@@ -203,7 +203,7 @@ const ManualSelection = ({ visible, handleVisible, handleUpdate }: ManualSelecti
         if (saveList.length > 0) {
           createShopCategoryProductRel(saveList)
           handleUpdate(true)
-          message.success('Operate success')
+          message.success({ className: "rc-message", content: 'Operate success' })
           return true
         } else {
           return false

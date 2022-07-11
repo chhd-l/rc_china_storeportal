@@ -2,7 +2,7 @@ import { Button, Table, Tooltip, Modal, message, Avatar } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import React, { useState } from 'react'
 import { WxFans } from '@/framework/types/wechat'
-import { handleReturnTime } from '@/utils/utils'
+import { handleReturnTime, openConfirmModal } from '@/utils/utils'
 import { syncFans, syncPartFans } from '@/framework/api/wechatSetting'
 import './Style.less'
 
@@ -24,48 +24,46 @@ const Index = ({
   setLoading: Function
 }) => {
   const navigator = useNavigate()
-  const [isModalVisible, setIsModalVisible] = useState(false)
   const [ListChek, setListChek] = useState<React.Key[]>([])
 
-  const handleCancel = () => {
-    setListChek([])
-    setIsModalVisible(false)
+  const handlOk = () => {
+    openConfirmModal({
+      title: "Synchronize All Fan Information",
+      content: "Are you sure you want to sync ? The number of fans islarge, please wait",
+      onOk: () => {
+        message.info({
+          className: 'rc-message',
+          content: 'The fans information is synchronizing. Once finished, the information will be updated automatically.'
+        });
+        setLoading(true);
+        syncFans().then(() => {
+          message.success({ className: 'rc-message', content: 'Fans Synchronization successful' });
+          getFanList();
+        })
+      }
+    });
   }
 
-  const handlOk = async () => {
-    message.info({
-      className: 'rc-message',
-      content: 'The fans information is synchronizing. Once finished, the information will be updated automatically.'
-    })
-    setLoading(true)
-    if (!ListChek.length) {
-      syncFans()
-        .then(() => {
-          message.success({ className: 'rc-message', content: 'Fans Synchronization succeeded' })
-          getFanList()
+  const handleSyncPart = () => {
+    openConfirmModal({
+      title: "Synchronize All Openid",
+      content: "Are you sure you want yo sync ?",
+      onOk: () => {
+        message.info({
+          className: 'rc-message',
+          content: 'The fans information is synchronizing. Once finished, the information will be updated automatically.'
+        });
+        setLoading(true);
+        syncPartFans(ListChek).then(() => {
+          message.success({ className: 'rc-message', content: 'Fans Synchronization successful' });
+          getFanList();
         })
-        .catch(() => {
-          message.error({ className: 'rc-message', content: 'Fans Synchronization failed' })
-        })
-    } else {
-      syncPartFans(ListChek)
-        .then(() => {
-          message.success({ className: 'rc-message', content: 'Fans Synchronization succeeded' })
-          getFanList()
-        })
-        .catch(() => {
-          message.error({ className: 'rc-message', content: 'Fans Synchronization failed' })
-        })
-    }
-    setIsModalVisible(false)
+      }
+    });
   }
 
-  const changeSelect = (selectedRowKeys: React.Key[], selectRowKeysAll: any[]) => {
-    const arr: React.Key[] = []
-    selectRowKeysAll.forEach((item) => {
-      arr.push(item.openId)
-    })
-    setListChek(arr)
+  const changeSelect = (selectedRowKeys: React.Key[]) => {
+    setListChek(selectedRowKeys);
   }
 
   const columns = [
@@ -130,14 +128,14 @@ const Index = ({
           <span className="iconfont icon-bianzu2 mr-2" />
           Synchronize All Openid
         </Button> */}
-        <Button className="mr-4" onClick={() => setIsModalVisible(true)}>
+        <Button className="mr-4" onClick={handlOk}>
           <span className="iconfont icon-bianzu2 mr-2" />
           Synchronize All Fan Information
         </Button>
         <Button
           onClick={() => {
             if (ListChek.length) {
-              setIsModalVisible(true)
+              handleSyncPart()
             } else {
               message.warning({ className: 'rc-message', content: 'Please select at least one follower' })
             }
@@ -146,29 +144,13 @@ const Index = ({
           <span className="iconfont icon-bianzu2 mr-2" />
           Partial sync
         </Button>
-        <Modal
-          visible={isModalVisible}
-          className="rc-modal"
-          title={!ListChek.length ? 'Synchronize All Fan Information' : 'Synchronize All Openid'}
-          closable={false}
-          width={400}
-          onCancel={handleCancel}
-          onOk={handlOk}
-          okText="Confirm"
-        >
-          <div>
-            {!ListChek.length
-              ? 'Are you sure you want to sync ? The number of fans islarge, please wait'
-              : 'Are you sure you want yo sync ?'}
-          </div>
-        </Modal>
       </div>
       <Table
-        rowSelection={{ onChange: changeSelect }}
+        rowSelection={{ selectedRowKeys: ListChek, onChange: changeSelect }}
         loading={loading}
         dataSource={fanList}
         columns={columns}
-        rowKey="id"
+        rowKey="openId"
         className="rc-table"
         pagination={{
           current: pages.page,

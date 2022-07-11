@@ -45,8 +45,6 @@ const OrderComment = ({
       form.resetFields()
       setCurType('new')
       updateSuccess && updateSuccess()
-    } else {
-      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
   }
 
@@ -62,8 +60,6 @@ const OrderComment = ({
       message.success({ className: 'rc-message', content: 'Operation success' })
       setDelModalShow(false)
       updateSuccess && updateSuccess()
-    } else {
-      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
   }
 

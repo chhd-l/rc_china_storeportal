@@ -124,7 +124,7 @@ const Picture = ({
       console.log('upload file',file)
       setUploading(true)
       if (file.status === 'done') {
-        message.success(`${name} file uploaded successfully`)
+        message.success({ className: 'rc-message', content: `${name} file uploaded successfully`})
         const res = await createMedia({
           type: 'image',
           url: file.response.url,
@@ -136,7 +136,7 @@ const Picture = ({
         }
       } else if (file.status === 'error') {
         setUploading(false)
-        message.error(`${name} file upload failed.`)
+        message.error({ className: 'rc-message', content: `${name} file upload failed.`})
       }
     },
   }

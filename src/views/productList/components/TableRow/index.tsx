@@ -142,8 +142,6 @@ const TableRow = ({
                   if (res===true) {
                     message.success({ className: 'rc-message', content: 'Operation success' })
                     await getList()
-                  } else {
-                    message.error({ className: 'rc-message', content: 'Operation failed' })
                   }
                 } catch (err) {
                   console.info('err', err)

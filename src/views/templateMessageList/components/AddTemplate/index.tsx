@@ -31,8 +31,6 @@ const AddTemplate: FC<Props> = ({ visible, handleVisible, addSuccess }) => {
     if (res) {
       addSuccess && addSuccess()
       message.success({ className: 'rc-message', content: 'Operation success' })
-    } else {
-      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
   }
 

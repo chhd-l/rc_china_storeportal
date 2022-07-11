@@ -235,8 +235,6 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
       setIsModalVisible(false)
       message.success({ className: 'rc-message', content: 'Operation success' })
       ref.current?.reload()
-    } else {
-      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
     setLoading(false)
   }

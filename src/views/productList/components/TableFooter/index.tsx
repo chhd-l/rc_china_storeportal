@@ -44,8 +44,6 @@ const TableFooter: FC<Props> = ({ children, list, getList, setLoading, loading }
     if (res===true) {
       message.success({ className: 'rc-message', content: 'Operation success' })
       await getList()
-    } else {
-      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
     setLoading(false)
   }
@@ -75,8 +73,6 @@ const TableFooter: FC<Props> = ({ children, list, getList, setLoading, loading }
               if (res===true) {
                 message.success({ className: 'rc-message', content: 'Operation success' })
                 await getList()
-              } else {
-                message.error({ className: 'rc-message', content: 'Operation failed' })
               }
               // listData[spuIdx].shelvesStatus = !shelvesStatus
               // setList(cloneDeep(listData))
@@ -99,8 +95,6 @@ const TableFooter: FC<Props> = ({ children, list, getList, setLoading, loading }
               let res = await switchShelves({ productId, status: true })
               if (res) {
                 message.success({ className: 'rc-message', content: 'Operation success' })
-              } else {
-                message.error({ className: 'rc-message', content: 'Operation failed' })
               }
               // listData[spuIdx].shelvesStatus = !shelvesStatus
               // setList(cloneDeep(listData))

@@ -15,7 +15,7 @@ const BasicForm: FC<Record<string, any>> = () => {
       <ProForm
         onFinish={async (values) => {
           console.log(values);
-          message.success("提交成功");
+          message.success({ className: "rc-message", content: "提交成功" });
         }}
       >
         <ProFormList

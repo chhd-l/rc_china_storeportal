@@ -41,9 +41,9 @@ const UploadWrap = (props: UploadWrapProps) => {
         console.log(info.file, info.fileList)
       }
       if (info.file.status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully`)
+        message.success({ className: 'rc-message', content: `${info.file.name} file uploaded successfully` })
       } else if (info.file.status === 'error') {
-        message.error(`${info.file.name} file upload failed.`)
+        message.error({ className: 'rc-message', content: `${info.file.name} file upload failed.` })
       }
     },
   }
@@ -84,11 +84,11 @@ const UploadWrap = (props: UploadWrapProps) => {
   const beforeUpload = (file: any) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || props.type === 'video'
     if (!isJpgOrPng && props.type === 'image') {
-      message.error('You can only upload JPG/PNG file!')
+      message.error({ className: 'rc-message', content: 'You can only upload JPG/PNG file!' })
     }
     const isLt2M = (file.size / 1024 / 1024 < 2 && props.type === 'image') || props.type === 'video'
     if (!isLt2M) {
-      message.error('Image must smaller than 2MB!')
+      message.error({ className: 'rc-message', content: 'Image must smaller than 2MB!' })
     }
     return isJpgOrPng && isLt2M
   }

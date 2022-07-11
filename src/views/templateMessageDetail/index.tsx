@@ -32,8 +32,6 @@ const TemplateMessageDetail = () => {
     if (res) {
       message.success({ className: 'rc-message', content: 'Operation success' })
       navigation('/template/template-message-list')
-    } else {
-      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
   }
 

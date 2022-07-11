@@ -64,7 +64,7 @@ const EditTagsModal = ({ visible, handleVisible, handleUpdate }: EditTagsModalPr
             tagId: state.id,
           })
           if (res) {
-            message.success('Operate success')
+            message.success({ className: "rc-message", content: 'Operate success' })
             handleUpdate(true)
             return true
           }

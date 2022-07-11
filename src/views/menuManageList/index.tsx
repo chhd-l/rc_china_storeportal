@@ -57,7 +57,6 @@ const MenuManage = () => {
             getList(1)
           } else {
             setLoading(false)
-            message.error({ className: 'rc-message', content: 'Status update failed' })
           }
         })
       },
@@ -77,7 +76,6 @@ const MenuManage = () => {
       getList(1)
     } else {
       setLoading(false)
-      message.error({ className: 'rc-message', content: 'Delete failed' })
     }
   }
   const columns = tableColumns({ changeStatus, handleDelete })

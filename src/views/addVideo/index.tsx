@@ -41,11 +41,11 @@ const AddAccount = () => {
       const { name } = file
       console.log('upload file', file)
       if (file.status === 'done') {
-        message.success(`${name} file uploaded successfully`)
+        message.success({ className: 'rc-message', content: `${name} file uploaded successfully` })
         form.setFieldsValue({ url: file.response.url })
         setFileExtension(name.substr(name.lastIndexOf('.') + 1))
       } else if (file.status === 'error') {
-        message.error(`${name} file upload failed.`)
+        message.error({ className: 'rc-message', content: `${name} file upload failed.` })
       }
     },
   }

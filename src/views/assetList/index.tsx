@@ -42,8 +42,6 @@ const PetOwnerList = () => {
       message.success({ className: 'rc-message', content: 'Operation success' })
       setIsModalVisible(false)
       setIsReload(true)
-    }else{
-      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
     setLoading(false)
   }
@@ -67,8 +65,6 @@ const PetOwnerList = () => {
       message.success({ className: 'rc-message', content: 'Operation success' })
       setIsSyncModalVisible(false)
       setIsReload(true)
-    }else{
-      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
     setLoading(false)
   }

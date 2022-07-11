@@ -36,8 +36,6 @@ const WxTemplateMessage = () => {
       setIsModalVisible(false)
       message.success({ className: 'rc-message', content: 'Operation success' })
       tableRef.current.reload()
-    } else {
-      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
     setLoading(false)
   }
@@ -67,8 +65,6 @@ const WxTemplateMessage = () => {
       } else {
         tableRef.current.reload()
       }
-    } else {
-      message.error({ className: 'rc-message', content: 'Operation failed' })
     }
   }
 

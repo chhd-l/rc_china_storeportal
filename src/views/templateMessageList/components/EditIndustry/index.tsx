@@ -18,7 +18,7 @@ const AddTemplate: FC<Props> = ({ visible, handleVisible }) => {
       visible={visible}
       onFinish={async value => {
         console.info('value', value)
-        message.success('提交成功')
+        message.success({ className: "rc-message", content:  '提交成功' })
         return true
       }}
       onVisibleChange={handleVisible}

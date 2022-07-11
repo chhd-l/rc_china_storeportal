@@ -53,7 +53,7 @@ const MyUpload: React.FC<IProps> = (props) => {
         }
       } else if (file.status === 'error') {
         setUploading(false)
-        message.error(`${name} file upload failed.`)
+        message.error({ className: "rc-message", content: `${name} file upload failed.` })
       }
     },
   }

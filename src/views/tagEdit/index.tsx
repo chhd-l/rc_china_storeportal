@@ -34,7 +34,7 @@ const EditTags = () => {
       tagId: state.id,
     })
     if (res) {
-      message.success('Operate success')
+      message.success({ className: "rc-message", content: 'Operate success' })
       setIsModalVisible(false)
       ref.current.reload()
     }
