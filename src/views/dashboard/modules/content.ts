@@ -3,9 +3,12 @@ import dashboard_bg_2 from '../../../assets/images/dashboard_bg_2.png'
 import dashboard_bg_3 from '../../../assets/images/dashboard_bg_3.png'
 import dashboard_bg_4 from '../../../assets/images/dashboard_bg_4.png'
 import dashboard_bg_5 from '../../../assets/images/dashboard_bg_5.png'
+import dashboard_bg_6 from '../../../assets/images/dashboard_bg_6.png'
 import dashboard_bg_7 from '../../../assets/images/dashboard_bg_7.png'
+import dashboard_bg_8 from '../../../assets/images/dashboard_bg_8.png'
+// import dashboard_bg_7 from '../../../assets/images/dashboard_bg_7.png'
 
-export const body = [
+const mainFunction = [
     {
         title: 'Shipment',
         span: 'Provide shipment tool for staff to achieve delivery of orders to consumers.',
@@ -45,7 +48,26 @@ export const body = [
     {
         title: 'Wechat Management',
         span: 'Support account management, fan management, automatic reply, wechat menu, graphic assets and other functions.',
-        img: dashboard_bg_7,
+        img: dashboard_bg_6,
         url: '/account/account-list'
     },
 ]
+const exploreMore = [{
+    title: 'D2C Solution',
+    span: 'Through coupons, live streaming and other marketing methods to help users achleve precision marketing.',
+    img: dashboard_bg_7,
+    url: '/shipment-list'
+},
+{
+    title: 'API Document',
+    span: 'Store decoration management order status and query comment.',
+    img: dashboard_bg_8,
+    url: '/order/order-list'
+},]
+export const dashboardList = [{
+    title: "Main Function",
+    content: mainFunction
+}, {
+    title: "Explore More",
+    content: exploreMore
+}]
