@@ -56,7 +56,7 @@ const CategoryDetail = () => {
   }
   const confirmDelete = async () => {
     setLoading(true)
-    detleShopCateRel(curAssetId).then(res => {
+    detleShopCateRel({ id: curAssetId, shopCategoryId: state.id }).then(res => {
       console.log(res, 888888888)
       if (res.shopCategoryProductRelDelete) {
         setIsModalVisible(false)

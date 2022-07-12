@@ -292,9 +292,9 @@ export const saveShopCategory = async (params: SaveShopCategoryInput): Promise<a
   }
 }
 
-export const detleShopCateRel = async (id: (string | number)[]): Promise<any> => {
+export const detleShopCateRel = async (params: any): Promise<any> => {
   try {
-    return await ApiRoot({ url: apis?.shop_category }).products().detleShopCateRel({ id })
+    return await ApiRoot({ url: apis?.shop_category }).products().detleShopCateRel(params)
   } catch (e) {
     console.log(e)
   }
