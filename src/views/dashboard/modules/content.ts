@@ -56,13 +56,13 @@ const exploreMore = [{
     title: 'D2C Solution',
     span: 'Through coupons, live streaming and other marketing methods to help users achleve precision marketing.',
     img: dashboard_bg_7,
-    url: '/shipment-list'
+    url: 'https://www.fivefen.com'
 },
 {
     title: 'API Document',
     span: 'Store decoration management order status and query comment.',
     img: dashboard_bg_8,
-    url: '/order/order-list'
+    url: 'https://apistg.fivefen.com'
 },]
 export const dashboardList = [{
     title: "Main Function",
