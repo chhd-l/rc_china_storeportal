@@ -42,7 +42,7 @@ const Finishedproductdisplay = () => {
                         ) : (
                           <div className='w-full h-full flex items-center text-center text-red-600'>
                             {discountValue && 
-                            <span className="text-4xl font-medium flex-1"><span className='text-sm'>￥</span>{discountValue}</span>}
+                            <span className={`${discountValue.toString().length <= 3 ? 'text-4xl' : discountValue.toString().length < 5 ? 'text-2xl' : 'text-xl'} font-medium flex-1`}><span className='text-sm'>￥</span>{discountValue}</span>}
                           </div>
                         )}
                       </div>

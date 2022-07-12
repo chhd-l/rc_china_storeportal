@@ -179,7 +179,7 @@ const ShopCategories = () => {
         if (!record.total) {
           if (record.categoryType === 'MANUAL') {
             return [
-              <Tooltip title='Add Poducts'>
+              <Tooltip title='Add Products'>
                 <Link
                   to='/category/category-manual-detail'
                   state={{ id: record.id }}
