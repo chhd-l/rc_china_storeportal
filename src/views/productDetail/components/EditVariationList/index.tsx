@@ -252,7 +252,7 @@ const EditVariationList = (props: FormProps) => {
           // })
         })
       } else {
-        newEl.relArr=[{}]
+        newEl.relArr = [{}]
         let name = formData[0]?.name || `Variation1`
         newEl[name] = vartion?.option || 'option'
         newEl.relArr[0] = {
@@ -394,15 +394,14 @@ const EditVariationList = (props: FormProps) => {
                                   tr={tr}
                                   val={tr[td.keyVal]}
                                   onBlur={(e: any) => {
-                                    if(e.target.value<0){
-                                      e.target.value=0
+                                    if (e.target.value < 0) {
+                                      e.target.value = 0
                                     }
                                     let price = Number(e.target.value).toFixed(2)
                                     tr[td.keyVal] = price
                                     updateVations(price, index, td.keyVal, tr)
                                   }}
                                 />
-                              
                               )
                             case 'select':
                               return (
@@ -426,16 +425,18 @@ const EditVariationList = (props: FormProps) => {
                               )
                             case 'number':
                               return td.keyVal === 'stock' && spuType === 'BUNDLE' ? (
-                                <div className='text-center'>{tr[td.keyVal]}</div>
+                                <div className='text-center' style={{ color: '#b0b0b0' }}>
+                                  {tr[td.keyVal]}
+                                </div>
                               ) : (
                                 <MyInputNumber
                                   td={td}
                                   tr={tr}
                                   val={tr[td.keyVal]}
                                   type='number'
-                                  onBlur={(e:any) => {
-                                    if(e.target.value<'0'){
-                                      e.target.value='0'
+                                  onBlur={(e: any) => {
+                                    if (e.target.value < '0') {
+                                      e.target.value = '0'
                                     }
                                     tr[td.keyVal] = e.target.value
                                     updateVations(e.target.value, index, td.keyVal, tr)
