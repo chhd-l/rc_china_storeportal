@@ -15,7 +15,7 @@ const Dashboard = () => {
             {dashboard.content.map((item: any, idx: number) => (
               <Col span={8} key={idx}>
                 <div className='cursor-pointer' onClick={() => navigator(item.url)}>
-                  <img src={item.img} alt='' />
+                  <img style={{ minHeight: 150 }} src={item.img} alt='' />
                 </div>
                 <div className='title'>{item.title}</div>
                 <div className='span'>{item.span}</div>
