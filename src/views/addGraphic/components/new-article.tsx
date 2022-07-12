@@ -44,7 +44,7 @@ const NewArticle = forwardRef((props, ref) => {
               placeholder="Input"
             />
           </Form.Item>
-          <Form.Item name="contentSourceURL" label="Link">
+          <Form.Item name="contentSourceURL" label="Link" rules={[{type:'url',message:"Please input a valid URL!"}]}>
             <Input
               style={{maxWidth: 500}}
               placeholder='Link for "Read Original Article"'
