@@ -80,7 +80,6 @@ const SalesInfo = (props: FormProps) => {
       //编辑
       detail.variantBundles[idx].id = regularList[idx].id
       detail.variantBundles[idx].variantId = detail.skuId
-
     } else {
       //新增
       detail.variantBundles[idx].subVariantId = regularList[idx].subVariantId
@@ -91,9 +90,9 @@ const SalesInfo = (props: FormProps) => {
   }
   const handleDelete = (idx: number) => {
     if (regularList[idx].id) {
-      regularList[idx].isDeleted=true
+      regularList[idx].isDeleted = true
       // deletedBundles = [...deletedBundles, regularList[idx]]
-    }else{
+    } else {
       regularList.splice(idx, 1)
     }
     setRegularList([...regularList])
@@ -136,12 +135,12 @@ const SalesInfo = (props: FormProps) => {
       marketingPrice = getTotal(regularList, 'marketingPrice')
       subscriptionPrice = getTotal(regularList, 'subscriptionPrice')
     }
-    detail.variantBundles = regularList.map((el:any)=>{
+    detail.variantBundles = regularList.map((el: any) => {
       return {
         bundleNumber: el.bundleNumber,
         id: el.id,
         variantId: el.variantId || detail.skuId,
-        subVariantId: el.subVariantId ,
+        subVariantId: el.subVariantId,
         skuNo: el.skuNo,
       }
     })
@@ -169,7 +168,6 @@ const SalesInfo = (props: FormProps) => {
           validator (_: any, value: any) {
             console.info('......', _, value === '0')
             let list = formatSubscription(value)
-            console.info('........', list)
             setNoSkuFormList(list)
             return Promise.resolve()
           },
@@ -177,8 +175,6 @@ const SalesInfo = (props: FormProps) => {
       }
       return el
     })
-    debugger
-
     setNoSkuFormList(formList)
   }, [])
 
@@ -201,6 +197,9 @@ const SalesInfo = (props: FormProps) => {
           }
         }
       }
+      if (item.name === 'stock') {
+        item.disabled = spuType === 'BUNDLE'
+      }
       return item
     })
     return formList
@@ -216,8 +215,8 @@ const SalesInfo = (props: FormProps) => {
   useEffect(() => {
     let formList: any = noSkuFormList.map((el: any) => {
       let item: any = { ...el }
-      if (el.name === 'stock') {
-        el.disabled = spuType === 'BUNDLE'
+      if (item.name === 'stock') {
+        item.disabled = spuType === 'BUNDLE'
       }
       return item
     })
@@ -227,8 +226,8 @@ const SalesInfo = (props: FormProps) => {
     let formList: any = formatSubscription(detail.subscriptionPrice)
     let list: any = formList.map((el: any) => {
       let item: any = { ...el }
-      if (el.name === 'stock') {
-        el.disabled = spuType === 'BUNDLE'
+      if (item.name === 'stock') {
+        item.disabled = spuType === 'BUNDLE'
       }
       return item
     })
