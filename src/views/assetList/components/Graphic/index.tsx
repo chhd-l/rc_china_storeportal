@@ -201,7 +201,7 @@ const Graphic = ({
               <Select.Option value='NOT_SYNCED'>Not Synced</Select.Option>
               <Select.Option value='SYCHRONIZED'>Synchronized</Select.Option>
               <Select.Option value='AUDITING'>Auditing</Select.Option>
-              <Select.Option value='PULISHED'>Pulished</Select.Option>
+              <Select.Option value='PULISHED'>Published</Select.Option>
               <Select.Option value='AUDIT_FAILED'>Audit Failed</Select.Option>
             </Select>
           </div>
