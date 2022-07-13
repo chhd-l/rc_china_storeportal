@@ -14,7 +14,16 @@ const Dashboard = () => {
           <Row gutter={[33, 46]}>
             {dashboard.content.map((item: any, idx: number) => (
               <Col span={8} key={idx}>
-                <div className='cursor-pointer' onClick={() => navigator(item.url)}>
+                <div
+                  className='cursor-pointer'
+                  onClick={() => {
+                    if (item.url?.includes('https://')) {
+                      window.open(item.url)
+                    } else {
+                      navigator(item.url)
+                    }
+                  }}
+                >
                   <img style={{ minHeight: 150 }} src={item.img} alt='' />
                 </div>
                 <div className='title'>{item.title}</div>
