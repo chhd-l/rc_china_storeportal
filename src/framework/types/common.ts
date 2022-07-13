@@ -26,9 +26,10 @@ export interface PageProps<T = Record<string, any>> {
 export interface FormItemProps {
   name: string
   placeholder?: string
-  rules?: any[]
+  rules?: Rule[]
   type?: string
   label?: string
+  dependencies?: string[]
   selectList?: BaseListProps[]
 }
 

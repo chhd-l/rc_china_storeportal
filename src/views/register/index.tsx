@@ -126,6 +126,7 @@ const Register = () => {
                   name={item.name}
                   rules={item.rules}
                   key={item.name}
+                  dependencies={item.dependencies ?? []}
                 >
                   <Input placeholder={item.placeholder} type={item.type} />
                 </Form.Item>
