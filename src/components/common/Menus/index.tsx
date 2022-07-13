@@ -61,7 +61,7 @@ const Menus = () => {
       onOpenChange={onOpenChange}
       onSelect={onSelect}
     >
-      <Menu.Item key="dashboard" style={{paddingLeft: 48, backgroundColor: '#fff'}}>
+      <Menu.Item key="dashboard" icon={<span className='icon iconfont text-xl icon-a-bianzu33' />} style={{paddingLeft: 20, backgroundColor: '#fff'}}>
         <Link to="/dashboard" style={{ fontSize: "13px" }}>Dashboard</Link>
       </Menu.Item>
       {menus.map(({ key, icon, name, children }) => (
