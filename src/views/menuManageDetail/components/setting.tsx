@@ -59,7 +59,7 @@ const WxMenuSetting = () => {
       offset: 0,
       sample: { storeId: "12345678", status: true },
     });
-    setMiniProgramList((data?.records ?? []).filter((item: any) => item.accountType === 'MiniProgram'));
+    setMiniProgramList((data?.records ?? []).filter((item: any) => item.type === 'MiniProgram'));
   }
 
   return (
