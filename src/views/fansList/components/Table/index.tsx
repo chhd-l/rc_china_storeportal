@@ -28,8 +28,8 @@ const Index = ({
 
   const handlOk = () => {
     openConfirmModal({
-      title: "Synchronize All Fan Information",
-      content: "Are you sure you want to sync ? The number of fans islarge, please wait",
+      title: "Synchronize All Fans Information",
+      content: "Are you sure you want to synchronize ? The number of fans is large, please wait",
       onOk: () => {
         message.info({
           className: 'rc-message',
@@ -46,8 +46,8 @@ const Index = ({
 
   const handleSyncPart = () => {
     openConfirmModal({
-      title: "Synchronize All Openid",
-      content: "Are you sure you want yo sync ?",
+      title: "Synchronize All Openids",
+      content: "Are you sure you want yo synchronize ?",
       onOk: () => {
         message.info({
           className: 'rc-message',
@@ -130,7 +130,7 @@ const Index = ({
         </Button> */}
         <Button className="mr-4" onClick={handlOk}>
           <span className="iconfont icon-bianzu2 mr-2" />
-          Synchronize All Fan Information
+          Synchronize All Fans Information
         </Button>
         <Button
           onClick={() => {
@@ -142,7 +142,7 @@ const Index = ({
           }}
         >
           <span className="iconfont icon-bianzu2 mr-2" />
-          Partial sync
+          Partial Synchronize
         </Button>
       </div>
       <Table

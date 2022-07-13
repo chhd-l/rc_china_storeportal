@@ -180,6 +180,19 @@ export const ACCOUNT_FORM_TWO: FormItemProps[] = [
     selectList: accountTypeList,
   },
   {
+    label: "Associated Account",
+    name: "associatedWxAccountId",
+    placeholder: "Select",
+    type: "select",
+    rules: [
+      {
+        required: true,
+        message: "Please select Associated Account!",
+      },
+    ],
+    selectList: [],
+  },
+  {
     name: "originalId",
     label: "Original ID",
     placeholder: "Input",
@@ -232,19 +245,6 @@ export const ACCOUNT_FORM_TWO: FormItemProps[] = [
     name: "merchantKey",
     label: "Merchant Key",
     placeholder: "Input",
-  },
-  {
-    label: "Associated Account",
-    name: "associatedWxAccountId",
-    placeholder: "Select",
-    type: "select",
-    rules: [
-      {
-        required: true,
-        message: "Please select Associated Account!",
-      },
-    ],
-    selectList: [],
   },
   {
     name: "certificatePath",

@@ -124,6 +124,8 @@ const RuleBasedFiltering = ({
     if (option.length > 0) {
       let arr = option.map((item: { label: any }) => item.label)
       setFilterTagsTwo(arr)
+    } else {
+      setFilterTagsTwo([])
     }
   }
 
