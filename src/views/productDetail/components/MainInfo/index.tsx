@@ -280,6 +280,7 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
       //   setLoading(false)
       //   message.error({ className: 'rc-message', content: 'Operate failed' })
     }
+    setLoading(false)
   }
   const showQrImg = () => {
     detail?.wxCodeUrl && setImgUrl(detail.wxCodeUrl)
