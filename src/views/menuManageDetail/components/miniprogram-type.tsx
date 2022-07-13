@@ -22,7 +22,7 @@ const MiniProgramType = React.forwardRef((props: { miniProgramList: any[] }, ref
         <Form.Item label="Mini Program">
           <Select value={activeMenu?.appid} onChange={(val) => changeMenuItem(activeMenu?.key || '', { appid: val })}>
             {(props.miniProgramList ?? []).map((item, idx) => (
-              <Select.Option key={idx} value={item.appId}>{item.accountName}</Select.Option>
+              <Select.Option key={idx} value={item.appId}>{item.name}</Select.Option>
             ))}
           </Select>
         </Form.Item>
