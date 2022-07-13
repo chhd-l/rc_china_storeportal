@@ -2,21 +2,18 @@ import { Modal, Button, Table, Tooltip, Form, message } from 'antd'
 import { Link } from 'react-router-dom'
 import React, { useState, useRef } from 'react'
 import { Consumer } from '@/framework/types/consumer'
-import type { ProFormInstance } from '@ant-design/pro-form'
+import { ProFormInstance } from '@ant-design/pro-form'
 import { useNavigate } from 'react-router-dom'
-import ProForm, {
-  ModalForm,
-  ProFormText,
-} from '@ant-design/pro-form'
+import ProForm, { ModalForm, ProFormText } from '@ant-design/pro-form'
 import { createTag, deleteTag } from '@/framework/api/tag'
 
 interface PetOwnerTableProps {
-  petOwnerList: Consumer[],
+  petOwnerList: Consumer[]
   handleUpdate: (a: boolean) => void
   loading: boolean
 }
 
-const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
+const Index = ({ petOwnerList, handleUpdate, loading }: PetOwnerTableProps) => {
   const navigator = useNavigate()
   const formRef = useRef<ProFormInstance>()
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -24,11 +21,11 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
   const [id, setId] = useState()
 
   const onFinish = async (values: any) => {
-    let res = await createTag({name:values.name,isEnabled:false})
+    let res = await createTag({ name: values.name, isEnabled: false })
     console.log(res)
-    if(res){
+    if (res) {
       handleUpdate(true)
-      message.success({ className: "rc-message", content: 'Operate success'})
+      message.success({ className: 'rc-message', content: 'Operate success' })
       return true
     } else {
       return false
@@ -37,10 +34,10 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
   const confirmDelete = async () => {
     deleteTag({
       id: id,
-    }).then((res) => {
-      if(res){
+    }).then(res => {
+      if (res) {
         setVisible(false)
-        message.success({ className: "rc-message", content: 'Operate success'})
+        message.success({ className: 'rc-message', content: 'Operate success' })
         handleUpdate(true)
       }
     })
@@ -69,22 +66,27 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
       render: (text: any, record: any) => (
         <>
           <Tooltip title='View Details'>
-            <span className='cursor-pointer iconfont icon-kjafg primary-color mr-4' onClick={(e) => {
-              e.stopPropagation()
-              navigator('/tags/edit-tags', {
-                state: { id: record.id, type: record.type !== 'SYSTEM' },
-              })
-            }} />
+            <span
+              className='cursor-pointer iconfont icon-kjafg primary-color mr-4'
+              onClick={e => {
+                e.stopPropagation()
+                navigator('/tags/edit-tags', {
+                  state: { id: record.id, type: record.type !== 'SYSTEM' },
+                })
+              }}
+            />
           </Tooltip>
-          {
-            record.type !== 'SYSTEM' && 
+          {record.type !== 'SYSTEM' && record.consumerCount > 0 && (
             <Tooltip title='Delete'>
-              <span className='cursor-pointer ml-2 iconfont icon-delete text-red-500' onClick={() => {
-                setId(record.id)
-                setVisible(true)
-              }} />
+              <span
+                className='cursor-pointer ml-2 iconfont icon-delete text-red-500'
+                onClick={() => {
+                  setId(record.id)
+                  setVisible(true)
+                }}
+              />
             </Tooltip>
-          }
+          )}
         </>
       ),
     },
@@ -102,13 +104,21 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
           + Add New Tag
         </Button>
       </div>
-      <Table loading={loading} bordered dataSource={petOwnerList} columns={columns} rowKey='id' className='rc-table' pagination={false} />
+      <Table
+        loading={loading}
+        bordered
+        dataSource={petOwnerList}
+        columns={columns}
+        rowKey='id'
+        className='rc-table'
+        pagination={false}
+      />
       <ModalForm
         title='Add New Tag'
         visible={isModalVisible}
         onFinish={onFinish}
         formRef={formRef}
-        onVisibleChange={(value) => {
+        onVisibleChange={value => {
           setIsModalVisible(value)
           formRef?.current?.resetFields()
         }}
@@ -122,7 +132,6 @@ const Index = ({ petOwnerList, handleUpdate,loading }: PetOwnerTableProps) => {
             label='Tagging Name'
             fieldProps={{ maxLength: 40, showCount: true }}
             placeholder='Enter a tagging name'
-
           />
         </ProForm.Group>
       </ModalForm>
