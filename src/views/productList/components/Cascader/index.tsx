@@ -32,7 +32,7 @@ const Cascader = (props: CascaderProps) => {
   }
   const getCate = async () => {
     setLoading(true)
-    let list: CateItemProps[] = await getCategories({ storeId: '12345678' })
+    let list: CateItemProps[] = await getCategories()
     setLoading(false)
 
     if (props.cateId) {

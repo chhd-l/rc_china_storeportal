@@ -51,7 +51,7 @@ const ManualSelection = ({ visible, handleVisible, handleUpdate }: ManualSelecti
     return result
   }
   const getCategoriesList = async () => {
-    let res = await getCategories({ storeId: '12345678' })
+    let res = await getCategories()
     setMockOptions(getTree(res, null, 0))
   }
   const manualColumns: ProColumns<any>[] = [
@@ -185,7 +185,7 @@ const ManualSelection = ({ visible, handleVisible, handleUpdate }: ManualSelecti
     },
   ]
   const getBrandList = async () => {
-    let list = await getBrands('12345678')
+    let list = await getBrands()
     setBrandList(list)
   }
   useEffect(() => {
@@ -203,7 +203,7 @@ const ManualSelection = ({ visible, handleVisible, handleUpdate }: ManualSelecti
         if (saveList.length > 0) {
           createShopCategoryProductRel(saveList)
           handleUpdate(true)
-          message.success({ className: "rc-message", content: 'Operate success' })
+          message.success({ className: 'rc-message', content: 'Operate success' })
           return true
         } else {
           return false

@@ -68,7 +68,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
     }
   }, [detail?.productAsserts])
   const getBrandList = async () => {
-    let list = await getBrands('12345678')
+    let list = await getBrands()
     setBrandList(list)
   }
   useEffect(() => {
@@ -106,7 +106,7 @@ const BasicInfo = ({ field, form }: FormProps) => {
         }}
       >
         <div className='img-drag'>
-          <ImgDrag initAsserts={initAsserts} setInitAsserts={setInitAsserts} form={form}/>
+          <ImgDrag initAsserts={initAsserts} setInitAsserts={setInitAsserts} form={form} />
         </div>
         {/* <div className='flex flex-wrap'>
           {initAsserts?.map((img: any, index: number) => (

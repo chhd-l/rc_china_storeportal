@@ -28,8 +28,7 @@ const Product = () => {
   }, [])
 
   const getDetail = async (productId: string) => {
-    // let data = await getProductDetail({ storeId: '12345678', productId: '7d58d3fb-77a7-66b2-dfb3-dfcd21a44ead' })
-    let { afterData, beforeData } = await getProductDetail({ storeId: '12345678', productId })
+    let { afterData, beforeData } = await getProductDetail({ storeId: 'storeIdMock', productId })
     // console.info('data', afterData)
     setBeforeData(beforeData)
     setDetail(afterData)

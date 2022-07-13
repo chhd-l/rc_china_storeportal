@@ -30,7 +30,7 @@ const Cascader = (props: CascaderProps) => {
     setCategories(selectedOptions)
   }
   const getCate = async () => {
-    let list: CateItemProps[] = await getCategories({ storeId: '12345678' })
+    let list: CateItemProps[] = await getCategories()
     if (detail.cateId && list && detail.selectedCateOptions) {
       console.info('detail.cateId', detail.cateId)
       let choosed: any[] = detail.selectedCateOptions

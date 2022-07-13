@@ -47,7 +47,7 @@ const ManualSelection = ({
   }
 
   const getCategoriesList = async () => {
-    let res = await getCategories({ storeId: '12345678' })
+    let res = await getCategories()
     setMockOptions(getTree(res, null, 0))
   }
 
@@ -68,11 +68,11 @@ const ManualSelection = ({
       hideInSearch: true,
       render: (_, record) => {
         return (
-          <div className="flex al-cneter">
-            <img src={record?.defaultImage} alt="" style={{ width: '50px', marginRight: '10px' }} />
+          <div className='flex al-cneter'>
+            <img src={record?.defaultImage} alt='' style={{ width: '50px', marginRight: '10px' }} />
             <div>
               <div>{record.productName}</div>
-              <div className="text-gray-400">spu:{record.spuNo}</div>
+              <div className='text-gray-400'>spu:{record.spuNo}</div>
             </div>
           </div>
         )
@@ -128,12 +128,12 @@ const ManualSelection = ({
       renderFormItem: (_, { type, defaultRender, ...rest }, form) => {
         return (
           <Col>
-            <Input.Group compact className="flex">
-              <Form.Item name="selectName">
+            <Input.Group compact className='flex'>
+              <Form.Item name='selectName'>
                 <Select
-                  defaultValue="1"
+                  defaultValue='1'
                   style={{ width: 140 }}
-                  placeholder="Select a option and change input text above"
+                  placeholder='Select a option and change input text above'
                 >
                   {nameForKey.map((el: any) => (
                     <Select.Option key={el.value} value={el.value}>
@@ -142,7 +142,7 @@ const ManualSelection = ({
                   ))}
                 </Select>
               </Form.Item>
-              <Form.Item name="username" className="flex-1">
+              <Form.Item name='username' className='flex-1'>
                 <Input placeholder={`Please Input `} />
               </Form.Item>
             </Input.Group>
@@ -154,9 +154,9 @@ const ManualSelection = ({
 
   return (
     <ModalForm
-      width="50%"
-      layout="horizontal"
-      title="Select Products"
+      width='50%'
+      layout='horizontal'
+      title='Select Products'
       visible={visible}
       onFinish={async () => {
         selectProductChange && selectProductChange(saveList, selectedRowKeys)
@@ -169,7 +169,7 @@ const ManualSelection = ({
       modalProps={{ onCancel: () => closeSelectModal && closeSelectModal(), destroyOnClose: true }}
     >
       <ProTable
-        className="voucher-select-product"
+        className='voucher-select-product'
         cardBordered
         actionRef={ref}
         columns={manualColumns}
@@ -186,7 +186,7 @@ const ManualSelection = ({
         }}
         tableAlertRender={() => false}
         rowKey={({ id }) => id}
-        dateFormatter="string"
+        dateFormatter='string'
         pagination={{
           // pageSize: 4,
           showQuickJumper: false,
@@ -199,7 +199,7 @@ const ManualSelection = ({
           searchText: 'Search',
           optionRender: ({ searchText, resetText }, { form }, dom) => [
             <Button
-              type="primary"
+              type='primary'
               onClick={() => {
                 form?.submit()
               }}

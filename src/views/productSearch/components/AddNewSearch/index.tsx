@@ -27,7 +27,7 @@ const AddNewSearch = ({ refreshTable }: AddNewSearchProps) => {
       }}
       submitTimeout={2000}
       onFinish={async values => {
-        const result = await hotSearchCreate({ ...values, storeId: '12345678' })
+        const result = await hotSearchCreate({ ...values, storeId: 'storeIdMock' })
         if (!result.hotSearchCreate) {
           return false
         }

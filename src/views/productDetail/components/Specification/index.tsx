@@ -31,7 +31,7 @@ const Specification = (props: FormProps) => {
   const getAttrList = async () => {
     let categoryId = detail.cateId[detail.cateId.length - 1]
     console.info('categoryId', categoryId)
-    let data = await getAttrs({ storeId: '12345678', categoryId })
+    let data = await getAttrs({ categoryId })
     let list = data.map((item: any) => {
       item.className = 'w-1/2'
       item.type = 'select'

@@ -28,9 +28,9 @@ import { PageProps } from '../types/common'
 import { normaliseBrands } from '../normalize/wechatSetting'
 // import { detailMock } from '../mock/productdetail'
 
-export const getCategories = async ({ storeId }: { storeId: string }): Promise<CateItemProps[]> => {
+export const getCategories = async (): Promise<CateItemProps[]> => {
   try {
-    let categoryList = await ApiRoot({ url: apis?.sc_product }).products().getProductCategories({ storeId })
+    let categoryList = await ApiRoot({ url: apis?.sc_product }).products().getProductCategories({ storeId: 'storeIdMock' })
     return categoryList.productCategoryFind
   } catch (e) {
     console.log(e)
@@ -114,10 +114,10 @@ export const createProduct = async (params: any, beforeData?: any) => {
     return false
   }
 }
-export const getAttrs = async ({ storeId, categoryId }: { storeId: string, categoryId: string }) => {
+export const getAttrs = async ({ categoryId }: { categoryId: string }) => {
   try {
     let data = []
-    let params: any = { storeId }
+    let params: any = { storeId: "storeIdMock" }
     if (categoryId) {
       params.categoryId = categoryId
     }
@@ -173,18 +173,6 @@ export const getAllProducts = async (params: ProductListQueryProps): Promise<Pro
     }
   }
 }
-
-// export const getProductBySpuId = async (params: ProductListQueryProps) => {
-//   const data = await ApiRoot().products().getAllProducts(params)
-//   try {
-//   } catch (e) {
-//     console.log(e)
-//     // return
-//   }
-//   return data
-// }
-
-
 export const getESProducts = async (params:
   any): Promise<any> => {
   try {
@@ -212,7 +200,7 @@ export const getProductDetail = async ({ storeId, productId }: { storeId: string
 }
 export const deleteProducts = async ({ productId }: { productId: string[] }) => {
   try {
-    const data = await ApiRoot({ url: apis?.sc_product }).products().deleteMutation({ ids: productId, storeId: '12345678' })
+    const data = await ApiRoot({ url: apis?.sc_product }).products().deleteMutation({ storeId: "storeIdMock", ids: productId })
     return true
   } catch (e) {
     console.log(e)
@@ -355,7 +343,7 @@ export const hotSearchCreate = async (params: SearchCreateType): Promise<any> =>
   }
 }
 
-export const getBrands = async (storeId: string) => {
+export const getBrands = async () => {
   try {
     let res = await ApiRoot({ url: apis?.sc_product }).products().getBarndList()
     console.log('getBrands', res)

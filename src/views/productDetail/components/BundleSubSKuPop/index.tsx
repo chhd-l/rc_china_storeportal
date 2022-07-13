@@ -45,7 +45,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
     </Select>
   )
   const getCateList = async () => {
-    let list: CateItemProps[] = await getCategories({ storeId: '12345678' })
+    let list: CateItemProps[] = await getCategories()
     let treeList = getTree(list, null, 0)
     setCategoryList(treeList)
   }
@@ -237,7 +237,7 @@ const BundleSku = ({ isModalVisible, setShowBundleChoose, handleOk, defaultSelec
           delete params.current
           delete params.pageSize
           let sample: any = {
-            storeId: '12345678',
+            storeId: 'storeIdMock',
             ...params,
           }
           if (params.search) {

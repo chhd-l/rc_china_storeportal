@@ -154,7 +154,7 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
       artworkUrl: el.url,
       type: el.type,
       id: el.id,
-      storeId: "12345678"
+      storeId: "storeIdMock"
     }
     if (!el.id) {
       delete asset.id
@@ -189,7 +189,7 @@ export const normaliseProductCreatFor = (data: any, beforeData?: any) => {
     parcelSizeLong: data.length,
     parcelSizeHeight: data.height,
     parcelSizeWidth: data.width,
-    storeId: '12345678',
+    storeId: 'storeIdMock',
     isDeleted: false,
     // operator: data.operator,
     variants: data.productVariantsInput && normaliseInputVariationProps(data.productVariantsInput, data, beforeData),
@@ -229,7 +229,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
         listPrice: data.listPrice ? Number(data.listPrice) : 0,
         shelvesStatus: data.shelvesStatus === 'true',
         // shelvesTime: '2021-01-31 10:10:00',
-        storeId: '12345678',
+        storeId: 'storeIdMock',
         defaultImage: data.defaultImage,
         subscriptionStatus: Number(data.subscriptionStatus),
         feedingDays: data.feedingDays ? Number(data.feedingDays) : 0,
@@ -283,7 +283,7 @@ export const normaliseInputVariationProps = (skus: any, spu: any, beforeData?: a
       listPrice: spu.listPrice ? Number(spu.listPrice) : 0,
       // shelvesStatus: true,
       // shelvesTime: '2021-01-31 10:10:00',
-      storeId: '12345678',
+      storeId: 'storeIdMock',
       defaultImage: spu.defaultImage,
       subscriptionStatus: Number(spu.subscriptionStatus),
       feedingDays: spu.feedingDays ? Number(spu.feedingDays) : 0,

@@ -43,12 +43,12 @@ const RuleBasedFiltering = ({
   const [speciList, setSpeciList] = useState([])
   const [list, setList] = useState<any>()
   const getBrandList = async () => {
-    let list = await getBrands('12345678')
+    let list = await getBrands()
     getAttrList('8')
     setBrandList(list)
   }
   const getCategoriesList = async () => {
-    let res = await getCategories({ storeId: '12345678' })
+    let res = await getCategories()
     setList(res)
     setMockOptions(getTree(res, null, 0))
   }
@@ -62,7 +62,7 @@ const RuleBasedFiltering = ({
     }
   }
   const getAttrList = async (categoryId: any) => {
-    let data = await getAttrs({ storeId: '12345678', categoryId })
+    let data = await getAttrs({ categoryId })
     if (data.length === 0) {
       setFilterTagsTwo([])
       formRef?.current?.setFieldsValue({ attributeValueIds: [] })

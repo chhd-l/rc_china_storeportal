@@ -32,7 +32,7 @@ const ProductSearch = () => {
   // Search is visible on shop
   const { run: runSwitch } = useRequest(
     async status => {
-      await HotSearchVisibleSwitch({ storeId: '12345678', status })
+      await HotSearchVisibleSwitch({ storeId: 'storeIdMock', status })
       message.success({ className: 'rc-message', content: 'Operation success' })
     },
     {
@@ -127,7 +127,7 @@ const ProductSearch = () => {
             offset: page.offset,
             withTotal: true,
             limit: page.limit,
-            sample: { storeId: '12345678', ...params },
+            sample: { storeId: 'storeIdMock', ...params },
           })
           setChecked(tableData?.isVisibleOnShop)
           return Promise.resolve({
