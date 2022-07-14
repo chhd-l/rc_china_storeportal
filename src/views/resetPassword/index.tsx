@@ -23,11 +23,20 @@ const passwordFormItems: FormItemProps[] = [
   {
     name: "confirmPassword",
     placeholder: "Enter password again",
+    dependencies: ['password'],
     rules: [
       {
         required: true,
-        message: "Please input your password again!",
+        message: "Please confirm your password again!",
       },
+      ({ getFieldValue }) => ({
+        validator(_, value) {
+          if (!value || getFieldValue('password') === value) {
+            return Promise.resolve();
+          }
+          return Promise.reject(new Error('Two passwords should match!'));
+        },
+      }),
     ],
   },
 ];
@@ -183,8 +192,9 @@ const ResetPassword = () => {
                     name={item.name}
                     rules={item.rules}
                     key={item.name}
+                    dependencies={item.dependencies ?? []}
                   >
-                    <Input placeholder={item.placeholder} />
+                    <Input type="password" placeholder={item.placeholder} />
                   </Form.Item>
                 ))}
                 <Form.Item wrapperCol={{ span: 24 }} className="login-btn">
