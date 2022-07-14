@@ -76,7 +76,7 @@ const Index = ({ petOwnerList, handleUpdate, loading }: PetOwnerTableProps) => {
               }}
             />
           </Tooltip>
-          {record.type !== 'SYSTEM' && record.consumerCount > 0 && (
+          {record.type !== 'SYSTEM' && record.consumerCount == 0 && (
             <Tooltip title='Delete'>
               <span
                 className='cursor-pointer ml-2 iconfont icon-delete text-red-500'
