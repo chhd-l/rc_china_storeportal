@@ -1,6 +1,7 @@
 import React from 'react';
 import { message } from 'antd';
 import { WxMenuItem } from '../type';
+import { validateUrl } from '@/utils/utils';
 
 interface IWxMenuContext {
   wxMenus?: WxMenuItem[]
@@ -60,11 +61,14 @@ export const moveWxMenu: (wxMenus: WxMenuItem[], key: string, direction: 'forwar
 }
 
 const checkWxMenuItem: (wxMenu: WxMenuItem) => boolean = (wxMenu) => {
-  if (wxMenu.type === "media_id" && !wxMenu.media_id) {
+  if ((wxMenu.type === "media_id" && !wxMenu.media_id) || (wxMenu.type === "article_id" && !wxMenu.article_id)) {
+    message.warn({ className: "rc-message", content: "Response message menu should choose assets!" });
     return false;
-  } else if (wxMenu.type === "view" && !wxMenu.url) {
+  } else if (wxMenu.type === "view" && !validateUrl(wxMenu.url ?? '')) {
+    message.warn({ className: "rc-message", content: "Web redirection menu should redirect to a valid url!" });
     return false;
   } else if (wxMenu.type === "miniprogram" && (!wxMenu.url || !wxMenu.appid || !wxMenu.pagePath)) {
+    message.warn({ className: "rc-message", content: "Miniprogram menu should complete setting!" });
     return false;
   } else {
     return true;
@@ -84,9 +88,6 @@ export const checkWxMenus: (wxMenus: WxMenuItem[]) => boolean = (wxMenus) => {
       ret = false;
     }
   });
-  if (!ret) {
-    message.error({ className: "rc-message", content: "Please complete setting first" });
-  }
   return ret;
 }
 
