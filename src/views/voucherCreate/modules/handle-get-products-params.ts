@@ -28,7 +28,7 @@ export const handleQueryParams = (params: any) => {
     } else if (params.selectName === '2') {
       data.sample.sku = params.username
     } else {
-      data.sample.productName = params.username
+      data.sample.name = params.username
     }
   }
   return data
