@@ -77,17 +77,21 @@ const checkWxMenuItem: (wxMenu: WxMenuItem) => boolean = (wxMenu) => {
 
 export const checkWxMenus: (wxMenus: WxMenuItem[]) => boolean = (wxMenus) => {
   let ret = true;
-  wxMenus.forEach(item => {
-    if ((item.sub_button || []).length) {
-      item.sub_button?.forEach(sitem => {
-        if (!checkWxMenuItem(sitem)) {
-          ret = false;
-        }
-      })
-    } else if (!checkWxMenuItem(item)) {
-      ret = false;
-    }
-  });
+  try {
+    wxMenus.forEach(item => {
+      if ((item.sub_button || []).length) {
+        item.sub_button?.forEach(sitem => {
+          if (!checkWxMenuItem(sitem)) {
+            throw new Error("menu item validation failed");
+          }
+        })
+      } else if (!checkWxMenuItem(item)) {
+        throw new Error("menu item validation failed");
+      }
+    });
+  } catch(e) {
+    ret = false;
+  }
   return ret;
 }
 
@@ -107,14 +111,18 @@ export const filterWxMenus: (wxMenus: WxMenuItem[]) => WxMenuItem[] = (wxMenus) 
     });
     if (item.type === "media_id" || item.type === "article_id") {
       item.url = undefined;
+      item.pageUrl = undefined;
       item.appid = undefined;
       item.pagePath = undefined;
     } else if (item.type === "view") {
       item.media_id = undefined;
       item.appid = undefined;
+      item.pageUrl = undefined;
       item.pagePath = undefined;
     } else {
       item.media_id = undefined;
+      item.url = item.pageUrl;
+      item.pageUrl = undefined;
     }
     item.sub_button = filterWxMenus(item.sub_button || [])
   })
