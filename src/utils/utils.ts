@@ -185,3 +185,8 @@ export const openConfirmModal: (config: ModalFuncProps) => void = (config) => {
     onOk: config.onOk,
   });
 }
+
+export const validateUrl: (value: string) => boolean = (value) => {
+  const urlRegex = /^(https?:\/\/)?-((\w+)+(\.\w+)*)-((\.[a-z]+)*)-((\/\w+)*)-(\?\w+\=([\w\u4e00-\u9fa5!@#\$%\^&\*\(\)_\+]+)(&\w+\=([\w\u4e00-\u9fa5!@#\$%\^&\*\(\)_\+]+))*)?-(#\w+)?$/;
+  return urlRegex.test(value);
+}

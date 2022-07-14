@@ -54,13 +54,13 @@ const mainFunction = [
 ]
 const exploreMore = [{
     title: 'D2C Solution',
-    span: 'Through coupons, live streaming and other marketing methods to help users achleve precision marketing.',
+    span: `Solve our clients' toughest challenges by providing unmatched services in strategy, consulting, digital, technology and operations.`,
     img: dashboard_bg_7,
     url: 'https://www.fivefen.com'
 },
 {
     title: 'API Document',
-    span: 'Store decoration management order status and query comment.',
+    span: 'Contain all the information required to work with the API, with details about the functions, classes, return types, arguments and more.',
     img: dashboard_bg_8,
     url: 'https://apistg.fivefen.com'
 },]
