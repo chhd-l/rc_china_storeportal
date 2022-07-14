@@ -47,6 +47,15 @@ export const swithStore = async (storeId: string) => {
   }
 }
 
+export const checkUserExist = async (phone: string) => {
+  try {
+    const data = await ApiRoot({ url: apis?.auth }).users().checkUserExist(phone);
+    return data?.userCheckExist ?? false;
+  } catch (e) {
+    return false;
+  }
+}
+
 export const sendResetPasswordMessage = async (phone: string) => {
   try {
     const data = await ApiRoot({ url: apis?.auth }).users().resetPassword({ phone })

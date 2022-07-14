@@ -8,7 +8,7 @@ import {
 } from "@/components/auth";
 import { PHONEREGCONST } from "@/lib/constants";
 import { FormItemProps } from "@/framework/types/common";
-import { sendResetPasswordMessage, resetPassword } from '@/framework/api/login-user';
+import { sendResetPasswordMessage, resetPassword, checkUserExist } from '@/framework/api/login-user';
 
 const passwordFormItems: FormItemProps[] = [
   {
@@ -71,14 +71,27 @@ const ResetPassword = () => {
   const [phoneForm] = Form.useForm();
   const [passwordForm] = Form.useForm();
 
+  const checkPhoneIsExist = async (phone: string) => {
+    setLoading(true);
+    const result = await checkUserExist(phone);
+    if (!result) {
+      setErrText('Phone is not registed as a user!');
+      setLoading(false);
+    }
+    return result;
+  }
+
   const phoneToNext = async (phone: string) => {
     try {
       setLoading(true);
       const result = await sendResetPasswordMessage(phone);
       if (result) {
         passwordForm.resetFields();
+        setErrText("");
         setCurrentStep(RESETPASSWORDENUM["PASSWORD"]);
-      }      
+      } else {
+        setErrText("Validation code send failed, please try again!");
+      }
     } catch (err) {
     } finally {
       setLoading(false);
@@ -111,10 +124,12 @@ const ResetPassword = () => {
             <div className="mt-10">
               <Form
                 form={phoneForm}
-                onFinish={(values) => {
+                onFinish={async (values) => {
                   console.log("----form login-----", values);
                   setPhone(values.phone);
-                  phoneToNext(values.phone);
+                  if (await checkPhoneIsExist(values.phone)) {
+                    phoneToNext(values.phone);
+                  }
                 }}
                 autoComplete="off"
               >
@@ -134,6 +149,9 @@ const ResetPassword = () => {
                   <Input placeholder="Phone number" />
                 </Form.Item>
                 <Form.Item wrapperCol={{ span: 24 }} className="login-btn">
+                  {errText ? (
+                    <p className="my-0 text-left primary-color">{errText}</p>
+                  ) : null}
                   <ResetBtnGroup
                     back={() => {
                       navigate("/login");

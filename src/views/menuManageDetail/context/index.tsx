@@ -67,7 +67,7 @@ const checkWxMenuItem: (wxMenu: WxMenuItem) => boolean = (wxMenu) => {
   } else if (wxMenu.type === "view" && !validateUrl(wxMenu.url ?? '')) {
     message.warn({ className: "rc-message", content: "Web redirection menu should redirect to a valid url!" });
     return false;
-  } else if (wxMenu.type === "miniprogram" && (!wxMenu.url || !wxMenu.appid || !wxMenu.pagePath)) {
+  } else if (wxMenu.type === "miniprogram" && (!wxMenu.pageUrl || !wxMenu.appid || !wxMenu.pagePath)) {
     message.warn({ className: "rc-message", content: "Miniprogram menu should complete setting!" });
     return false;
   } else {
