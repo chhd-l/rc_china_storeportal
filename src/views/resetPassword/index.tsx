@@ -8,10 +8,23 @@ import {
 } from "@/components/auth";
 import { PHONEREGCONST } from "@/lib/constants";
 import { FormItemProps } from "@/framework/types/common";
+import { sendResetPasswordMessage, resetPassword } from '@/framework/api/login-user';
 
 const passwordFormItems: FormItemProps[] = [
   {
+    name: 'code',
+    type: "text",
+    placeholder: "Enter validation code",
+    rules: [
+      {
+        required: true,
+        message: 'Please input validation code!',
+      }
+    ],
+  },
+  {
     name: "password",
+    type: "password",
     placeholder: "Enter new password",
     rules: [
       {
@@ -22,6 +35,7 @@ const passwordFormItems: FormItemProps[] = [
   },
   {
     name: "confirmPassword",
+    type: "password",
     placeholder: "Enter password again",
     dependencies: ['password'],
     rules: [
@@ -43,7 +57,6 @@ const passwordFormItems: FormItemProps[] = [
 
 enum RESETPASSWORDENUM {
   PHONE = "phone",
-  VERIFYCODE = "verifyCode",
   PASSWORD = "password",
   SUCCESS = "success",
 }
@@ -53,42 +66,47 @@ const ResetPassword = () => {
   const [phone, setPhone] = useState("");
   const [errText, setErrText] = useState("");
   const [currentStep, setCurrentStep] = useState(RESETPASSWORDENUM["PHONE"]);
-  const [verifyCode, setVerifyCode] = useState("");
 
   const navigate = useNavigate();
   const [phoneForm] = Form.useForm();
   const [passwordForm] = Form.useForm();
 
-  const getVerifyCode = () => {};
-
-  const phoneToNext = () => {
+  const phoneToNext = async (phone: string) => {
     try {
       setLoading(true);
-      getVerifyCode();
-      setCurrentStep(RESETPASSWORDENUM["VERIFYCODE"]);
+      const result = await sendResetPasswordMessage(phone);
+      if (result) {
+        passwordForm.resetFields();
+        setCurrentStep(RESETPASSWORDENUM["PASSWORD"]);
+      }      
     } catch (err) {
     } finally {
       setLoading(false);
     }
   };
 
-  const verifyCodeToNext = () => {
+  const newPasswordToNext = async (values: any) => {
     try {
-      setCurrentStep(RESETPASSWORDENUM["PASSWORD"]);
-    } catch (err) {}
-  };
+      setLoading(true);
+      const result = await resetPassword({ phone: phone, code: values.code, newPassword: values.password });
+      if (result) {
+        setCurrentStep(RESETPASSWORDENUM["SUCCESS"]);
+      } else {
+        setErrText('Validation code is wrong');
+      }
+      
+    } catch (err) {
 
-  const newPasswordToNext = () => {
-    try {
-      setCurrentStep(RESETPASSWORDENUM["SUCCESS"]);
-    } catch (err) {}
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="h-screen bg-gray1 flex justify-center items-center">
       <div className="flex flex-row  justify-center">
         {currentStep === RESETPASSWORDENUM["PHONE"] ? (
-          <div className="bg-white w-80 h-80 border p-6">
+          <div className="bg-white w-80 border p-6">
             <CustomPanelTitle />
             <div className="mt-10">
               <Form
@@ -96,7 +114,7 @@ const ResetPassword = () => {
                 onFinish={(values) => {
                   console.log("----form login-----", values);
                   setPhone(values.phone);
-                  phoneToNext();
+                  phoneToNext(values.phone);
                 }}
                 autoComplete="off"
               >
@@ -128,8 +146,8 @@ const ResetPassword = () => {
             </div>
           </div>
         ) : null}
-        {currentStep === RESETPASSWORDENUM["VERIFYCODE"] ? (
-          <div className="bg-white w-80 h-80 border p-6">
+        {currentStep === RESETPASSWORDENUM["PASSWORD"] ? (
+          <div className="bg-white w-80 border p-6">
             <CustomPanelTitle
               showBackArrow={true}
               backArrow={() => {
@@ -139,51 +157,12 @@ const ResetPassword = () => {
             />
             <p className="mb-0">Your verification code is sent to</p>
             <p className="mb-0">(+86) {phone}</p>
-            <div className="mt-8">
-              <Input
-                value={verifyCode}
-                size="large"
-                placeholder="Enter verification code"
-                onChange={(e) => setVerifyCode(e.target.value)}
-              />
-              {errText ? (
-                <p className="my-0 text-left primary-color">{errText}</p>
-              ) : null}
-              <p className="text-left mt-2">
-                Did not receive the code? &nbsp;
-                <span className="primary-color cursor-pointer" onClick={() => getVerifyCode()}>
-                  Resend
-                </span>
-              </p>
-              <ResetBtnGroup
-                back={() => {
-                  setErrText("");
-                  setCurrentStep(RESETPASSWORDENUM["PHONE"]);
-                }}
-                next={() => verifyCodeToNext()}
-                loading={loading}
-                disabled={verifyCode === ""}
-              />
-            </div>
-          </div>
-        ) : null}
-        {currentStep === RESETPASSWORDENUM["PASSWORD"] ? (
-          <div className="bg-white w-80 h-80 border p-6">
-            <CustomPanelTitle
-              showBackArrow={true}
-              backArrow={() => {
-                setErrText("");
-                setCurrentStep(RESETPASSWORDENUM["VERIFYCODE"]);
-              }}
-            />
-            <p className="mb-0">Your verification code is sent to</p>
-            <p className="mb-0">(+86) {phone}</p>
             <div className="mt-6">
               <Form
                 form={passwordForm}
                 onFinish={(values) => {
                   console.log("----form reset password-----", values);
-                  newPasswordToNext();
+                  newPasswordToNext(values);
                 }}
                 autoComplete="off"
               >
@@ -194,17 +173,24 @@ const ResetPassword = () => {
                     key={item.name}
                     dependencies={item.dependencies ?? []}
                   >
-                    <Input type="password" placeholder={item.placeholder} />
+                    <Input type={item.type ?? "text"} placeholder={item.placeholder} onChange={() => setErrText("")} />
                   </Form.Item>
                 ))}
                 <Form.Item wrapperCol={{ span: 24 }} className="login-btn">
                   {errText ? (
                     <p className="my-0 text-left primary-color">{errText}</p>
                   ) : null}
+                  <p className="text-left mt-2">
+                    Did not receive the code? &nbsp;
+                    <span className="primary-color cursor-pointer" onClick={() => phoneToNext(phone)}>
+                      Resend
+                    </span>
+                  </p>
                   <ResetBtnGroup
                     back={() => {
                       setErrText("");
-                      setCurrentStep(RESETPASSWORDENUM["VERIFYCODE"]);
+                      passwordForm.resetFields();
+                      setCurrentStep(RESETPASSWORDENUM["PHONE"]);
                     }}
                     loading={loading}
                     disabled={false}

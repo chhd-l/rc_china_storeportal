@@ -7,7 +7,7 @@ const SuccessPanel = () => {
   const navigate = useNavigate();
   return (
     <>
-      <div className="bg-white w-80 h-80 border px-6 py-20 text-center">
+      <div className="bg-white w-80 border px-6 py-20 text-center">
         <CheckCircleOutlined
           style={{ color: "rgba(239, 68, 68,1)", fontSize: "70px" }}
         />
@@ -20,7 +20,7 @@ const SuccessPanel = () => {
             navigate("/login");
           }}
         >
-          Back to Log In Page
+          Back to Login Page
         </Button>
       </div>
     </>

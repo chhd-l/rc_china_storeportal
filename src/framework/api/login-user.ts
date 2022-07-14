@@ -46,3 +46,21 @@ export const swithStore = async (storeId: string) => {
     return false
   }
 }
+
+export const sendResetPasswordMessage = async (phone: string) => {
+  try {
+    const data = await ApiRoot({ url: apis?.auth }).users().resetPassword({ phone })
+    return data?.sendResetPassword ?? false
+  } catch (e) {
+    return false;
+  }
+}
+
+export const resetPassword = async ({ phone, code, newPassword }: { phone: string; code: string; newPassword: string }) => {
+  try {
+    const data = await ApiRoot({ url: apis?.auth }).users().verifyResetPassword({ phone, code, newPassword });
+    return data?.verifyResetPassword ?? false
+  } catch (e) {
+    return false;
+  }
+}
