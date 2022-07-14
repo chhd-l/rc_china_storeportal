@@ -27,7 +27,7 @@ const MiniProgramType = React.forwardRef((props: { miniProgramList: any[] }, ref
           </Select>
         </Form.Item>
         <Form.Item label="URL">
-          <Input value={activeMenu?.url} onChange={(e) => changeMenuItem(activeMenu?.key || '', { url: e.target.value })} />
+          <Input value={activeMenu?.pageUrl} onChange={(e) => changeMenuItem(activeMenu?.key || '', { pageUrl: e.target.value })} />
         </Form.Item>
         <Form.Item label="Page Path">
           <Input value={activeMenu?.pagePath} onChange={(e) => changeMenuItem(activeMenu?.key || '', { pagePath: e.target.value })} />

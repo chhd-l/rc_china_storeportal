@@ -4,6 +4,7 @@ export type WxMenuItem = {
   key: string
   url?: string
   appid?: string
+  pageUrl?: string
   pagePath?: string
   active?: boolean
   media_id?: string
