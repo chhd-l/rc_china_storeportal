@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import ProTable from '@/components/common/ProTable'
 import { ProColumns } from '@ant-design/pro-table'
-import { createShopCategoryProductRel, getCategories, getESProducts } from '@/framework/api/get-product'
+import { addShopCategoryProductRel, getCategories, getESProducts } from '@/framework/api/get-product'
 import { formatMoney, handlePageParams } from '@/utils/utils'
 import { OptionsProps } from '@/framework/types/common'
 import { getTree } from '@/framework/normalize/product'
@@ -201,7 +201,9 @@ const ManualSelection = ({ visible, handleVisible, handleUpdate }: ManualSelecti
       visible={visible}
       onFinish={async () => {
         if (saveList.length > 0) {
-          createShopCategoryProductRel(saveList)
+          console.info('saveList', saveList)
+          let ids = saveList.map((el: any) => el.productId)
+          addShopCategoryProductRel(state.id, ids)
           handleUpdate(true)
           message.success({ className: 'rc-message', content: 'Operate success' })
           return true
@@ -220,7 +222,11 @@ const ManualSelection = ({ visible, handleVisible, handleUpdate }: ManualSelecti
         actionRef={ref}
         columns={manualColumns}
         toolBarRender={false}
-        rowSelection={{ selectedRowKeys, onChange: onSelectChange }}
+        rowSelection={{
+          // preserveSelectedRowKeys: true,
+          selectedRowKeys,
+          onChange: onSelectChange,
+        }}
         request={async (params, sorter, filter) => {
           // 表单搜索项会从 params 传入，传递给后端接口。
           console.log('test sort', params, sorter, filter)
