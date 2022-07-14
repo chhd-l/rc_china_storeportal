@@ -143,7 +143,7 @@ const Index = ({ petOwnerList, handleUpdate, loading }: PetOwnerTableProps) => {
         onOk={confirmDelete}
         onCancel={() => setVisible(false)}
       >
-        <p>Are you sure you want to delete this tag? Pet owners tagged by this tag will remove it.</p>
+        <p>Are you sure you want to delete the item?</p>
       </Modal>
     </>
   )
