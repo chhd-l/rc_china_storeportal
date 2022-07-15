@@ -181,7 +181,17 @@ const MainInfo: FC<MainInfoProps> = ({ cateInfo, showCatePop, children, beforeDa
         return
       }
     }
-
+    // spu上架，那么sku需要有一个以上的上架
+    let shelvesStatusFlag =
+      (detail.shelvesStatus || detail.shelvesStatus === undefined) &&
+      detail.productVariantsInput?.every((el: any) => el.shelvesStatus === 'false')
+    if (shelvesStatusFlag) {
+      message.error({
+        className: 'rc-message',
+        content: 'If the shelves status in SPU is on shelves, at lease one shelves status of Sku is on shelves.',
+      })
+      return
+    }
     let params = Object.assign({}, detail, values, {
       type: spuType,
       // operator: userInfo?.username || 'system',
