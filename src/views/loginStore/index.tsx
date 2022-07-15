@@ -33,7 +33,7 @@ const LoginStore = () => {
   };
   const handleClick = async(item: any) => {
     localStorage.setItem('rc_sc_login_brand', item.name);
-    navigate("/login/barnd", { state: { id: item.id, name:item.name } });
+    navigate("/login/brand", { state: { id: item.id, name:item.name } });
   }
   return (
     <div className="h-screen bg-gray1 flex justify-center items-center">

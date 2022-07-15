@@ -295,7 +295,7 @@ let routes: RouteObject[] = [
   },
   { path: "/login", element: <Login /> },
   { path: "/login/store", element: <LoginStore /> },
-  { path: "/login/barnd", element: <LoginBrand /> },
+  { path: "/login/brand", element: <LoginBrand /> },
   { path: "/resetPassword", element: <ResetPassword /> },
   { path: "/register", element: <Register /> },
   { path: "*", element: <Home /> },
