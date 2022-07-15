@@ -11,7 +11,7 @@ export const handleQueryParams = (params: any) => {
     sample: {},
   }
   if (params.productCategoryId?.length > 0) {
-    data.sample.productCategoryId = params.productCategoryId[params.productCategoryId.length - 1]
+    data.sample.categoryId = params.productCategoryId[params.productCategoryId.length - 1]
   }
   if (params.startPrice) {
     data.sample.startPrice = params.startPrice
