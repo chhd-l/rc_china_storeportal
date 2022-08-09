@@ -14,7 +14,7 @@ const VouchersListHead = ({ setVoucherStatus }: { setVoucherStatus:Function }) =
         Vouchers List
       </Title>
       <span className="text-xs text-gray-400">
-        Create and manage your own vouchers for your shop and products on Seller Center!
+        Create and manage your own vouchers for your shop and products on DTC Center!
       </span>
       <Tabs defaultActiveKey="" onChange={(key) => setVoucherStatus(key)}>
         <TabPane tab="All" key="" />

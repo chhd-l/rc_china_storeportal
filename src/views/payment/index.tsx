@@ -53,7 +53,7 @@ const PaymentSettings = () => {
         <div className='mb-10'>
           <div className='text-xl font-semibold'>Supported Payment Method</div>
           <div className='text-gray-400 mt-1'>
-            A payment method provided by a payment service provider approved by Seller Center.
+            A payment method provided by a payment service provider approved by DTC Center.
           </div>
         </div>
         <div className='table-header'>

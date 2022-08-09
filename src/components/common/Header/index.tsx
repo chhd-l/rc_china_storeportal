@@ -1,5 +1,5 @@
 import { User } from "@/framework/types/common";
-import logo from "../../../assets/images/logo.png"
+import logo from "../../../assets/images/fresh_logo.jpg"
 import RouteBreadcrumb from '../Layout/RouteBreadcrumb'
 import userIcon from '@/assets/images/userIcon.svg'
 import { Dropdown, Menu } from "antd";

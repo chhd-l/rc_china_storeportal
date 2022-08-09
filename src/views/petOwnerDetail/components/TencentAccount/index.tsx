@@ -48,7 +48,7 @@ const TencentAccounts = ({ id, consumerId }: { id: string; consumerId: string })
 
   return (
     <div id={id}>
-      <div className="text-xl font-medium mb-4">Tencent Account</div>
+      <div className="text-xl font-medium mb-4">Social Media Account</div>
       <Table
         dataSource={tencentAccountList}
         columns={columns}

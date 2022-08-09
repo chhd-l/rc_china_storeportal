@@ -74,7 +74,7 @@ const Login = () => {
       <div className="flex flex-row  justify-center ">
         <SellerLogoPanel />
         <div className="bg-white border p-6 content ml-24">
-          <p className="text-2xl font-medium text-center">Seller Center</p>
+          <p className="text-2xl font-medium text-center">DTC Center</p>
           <Form
             form={form}
             onFinish={(values) => {

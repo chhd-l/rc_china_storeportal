@@ -41,7 +41,7 @@ const CustomerService = () => {
         <div>
           <div className="title">Customer Service</div>
           <div className="span">
-            Seller Center support Controls the enable/disable of the mobile customer service.
+            DTC Center support Controls the enable/disable of the mobile customer service.
           </div>
         </div>
         <div className="flex items-center justify-between">

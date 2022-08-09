@@ -172,7 +172,7 @@ export const menus = [
     ],
   },
   {
-    name: 'Wechat Management',
+    name: 'Social Media',
     value: 'wechat_management',
     url: '',
     key: 'wechat_management',
