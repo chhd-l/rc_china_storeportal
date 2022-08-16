@@ -67,7 +67,9 @@ const exploreMore = [{
 export const dashboardList = [{
     title: "Main Function",
     content: mainFunction
-}, {
-    title: "Explore More",
-    content: exploreMore
-}]
+},
+    // {
+    //     title: "Explore More",
+    //     content: exploreMore
+    // }
+]
