@@ -40,7 +40,7 @@ const MpBannerDetail = () => {
     if (!arr.length) return
     const lists: any[] = []
     arr.forEach((item) => {
-      if (item.type === 'MiniProgram')
+      if (item.type === 'WxMiniProgram' || item.type === 'AliMiniProgram')
         lists.push({
           label: item.name,
           value: item.id

@@ -61,7 +61,7 @@ const Index = ({ accountList, getAccounts, pages, setPages, total, loading, setL
       title: "Account Type",
       dataIndex: "type",
       key: "type",
-      render: (_text: string) => _text === "ServiceAccount" ? "Service Account" : "Mini Program"
+      render: (_text: string) => _text === "WxServiceAccount" ? "Wechat Service Account" : _text === "WxMiniProgram" ? "Wechat Mini Program" : "Alipay Mini Program"
     },
     {
       title: "Account Name",
@@ -187,8 +187,8 @@ const Index = ({ accountList, getAccounts, pages, setPages, total, loading, setL
       // mask={false}
       >
         {item.isActive 
-          ? (item.type === 'ServiceAccount' ? <div>Are you sure that you want to enable the official account? If yes, the other modules of Wechat Management（Fans managment, Assets management, Medule management...) would only be associated with the activied account.</div> : <div>Are you sure you want to enable this account?</div>)
-          : (item.type === 'ServiceAccount' ? <div>Are you sure that you want to disable the official account? If yes, the other modules of Wechat Management（Fans managment, Assets management, Medule management...) would only be associated with the activied account.</div> : <div>Are you sure you want to disable this account?</div>)
+          ? (item.type === 'WxServiceAccount' ? <div>Are you sure that you want to enable the official account? If yes, the other modules of Wechat Management（Fans managment, Assets management, Medule management...) would only be associated with the activied account.</div> : <div>Are you sure you want to enable this account?</div>)
+          : (item.type === 'WxServiceAccount' ? <div>Are you sure that you want to disable the official account? If yes, the other modules of Wechat Management（Fans managment, Assets management, Medule management...) would only be associated with the activied account.</div> : <div>Are you sure you want to disable this account?</div>)
         }
       </Modal>
       <Modal

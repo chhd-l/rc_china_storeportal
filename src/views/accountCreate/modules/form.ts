@@ -184,12 +184,6 @@ export const ACCOUNT_FORM_TWO: FormItemProps[] = [
     name: "associatedWxAccountId",
     placeholder: "Select",
     type: "select",
-    rules: [
-      {
-        required: true,
-        message: "Please select Associated Account!",
-      },
-    ],
     selectList: [],
   },
   {

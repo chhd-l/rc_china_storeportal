@@ -54,7 +54,7 @@ const AutoReplyList = () => {
       sample: { storeId: '12345678' },
     })
     const accounts = (list?.records ?? []).reduce((prev: BaseListProps[], curr: any) => {
-      if (prev.indexOf(curr.name) === -1 && curr.type === 'ServiceAccount') {
+      if (prev.indexOf(curr.name) === -1 && curr.type === 'WxServiceAccount') {
         prev.push({ key: curr.name as string, label: curr.name as string })
       }
       return prev

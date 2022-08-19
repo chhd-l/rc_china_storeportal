@@ -2,12 +2,16 @@ import { BaseListProps } from "@/framework/types/common";
 
 export const accountTypeList: BaseListProps[] = [
   {
-    label: "Service Account",
-    key: "ServiceAccount",
+    label: "Wechat Service Account",
+    key: "WxServiceAccount",
   },
   {
-    label: "Mini Program",
-    key: "MiniProgram",
+    label: "Wechat Mini Program",
+    key: "WxMiniProgram",
+  },
+  {
+    label: "Alipay Mini Program",
+    key: "AlipayMiniProgram",
   },
 ];
 

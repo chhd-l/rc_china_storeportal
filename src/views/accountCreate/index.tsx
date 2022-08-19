@@ -12,7 +12,7 @@ const AddAccount = () => {
   const { state }: any = useLocation()
   const navigator = useNavigate()
   const [form] = Form.useForm()
-  const [ServiceAccount, setServiceAccount] = useState('ServiceAccount')
+  const [ServiceAccount, setServiceAccount] = useState("WxServiceAccount")
   const [qrCodePath, setQrCodePath] = useState('')
   const [pertificatePath, setPertificatePah] = useState('')
   const [list, setList] = useState([])
@@ -57,7 +57,7 @@ const AddAccount = () => {
   const getlist = async () => {
     let res = await getAccountList({ offset: 0, limit: 1000, sample: { storeId: '12345678' } })
     if (res?.records.length > 0) {
-      let arr = res.records.filter((item: any) => item.type === 'ServiceAccount').map((item: any) => {
+      let arr = res.records.filter((item: any) => item.type === 'WxServiceAccount').map((item: any) => {
         return {
           value: item.id,
           label: item.name,
@@ -81,7 +81,7 @@ const AddAccount = () => {
       <InfoContainer>
         <div className='text-2xl text-medium mb-4'>{state ? 'Edit Account' : 'Add Account'}</div>
         <Form
-          initialValues={state ? state : { type: 'ServiceAccount' }}
+          initialValues={state ? state : { type: 'WxServiceAccount' }}
           form={form}
           // onValuesChange={formValuesChange}
           onFinish={addAccount}
@@ -89,7 +89,7 @@ const AddAccount = () => {
           className='flex flex-row flex-wrap justify-start pr-4'
         >
           {
-            ServiceAccount === 'ServiceAccount' ? (
+            ServiceAccount === 'WxServiceAccount' ? (
               ACCOUNT_FORM.map((item) => {
                 return item.name === 'type' ? (
                   <Form.Item

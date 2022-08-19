@@ -33,7 +33,7 @@ const QrCodeManage = () => {
     if(!arr.length) return
     const lists: string[] = []
     arr.forEach((item) => {
-      if(lists.indexOf(item.name) === -1 && item.type === 'ServiceAccount')
+      if(lists.indexOf(item.name) === -1 && item.type === 'WxServiceAccount')
       lists.push(item.name)
     })
     const val: any = {}

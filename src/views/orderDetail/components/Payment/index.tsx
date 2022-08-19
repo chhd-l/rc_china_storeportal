@@ -12,9 +12,9 @@ const PaymentInformation = ({ payment }: { payment: Payment | any }) => {
       </div>
       {payTypeName ? (
         <div className="pl-8 grid grid-cols-2 gap-2 text-gray-400">
-          <div>Payment method:{payTypeName}</div>
-          <div>Transaction id:{payWayOrderID}</div>
-          <div>Payment time:{payTime}</div>
+          <div>Payment method: {payTypeName}</div>
+          <div>Transaction id: {payWayOrderID}</div>
+          <div>Payment time: {payTime}</div>
         </div>
       ) : null}
     </div>

@@ -3,9 +3,9 @@ import Mock from "mockjs";
 export const dataSource = {
   "array|2": [
     {
-      id:"@id",
+      id: "@id",
       principal: "Royal Canin",
-      type: "ServiceAccount",
+      type: "WxServiceAccount",
       name: "Royal Canin",
       officialType: "General Service Account",
       status: true,

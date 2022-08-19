@@ -42,7 +42,7 @@ const MpQrList = () => {
     if (!arr.length) return
     const lists: any = {}
     arr.forEach(item => {
-      if (item.type === 'MiniProgram') {
+      if (item.type === 'WxMiniProgram' || item.type === 'AliMiniProgram') {
         lists[item.id] = { text: item.name, status: 'Success' }
       }
     })

@@ -11,6 +11,11 @@ export enum OrderOrderStateOrderStateEnum {
   viod = 'VOID',
 }
 
+enum PayWayCodeEnum {
+  WECHAT_PAY = 'Wechat Pay',
+  ALI_PAY = 'Alipay',
+}
+
 const normalisePayment = (payment: OrderPayment, orderState: any) => {
   let info =
     orderState === OrderOrderStateOrderStateEnum.unpaid || orderState === 'CANCELLATION'
@@ -21,7 +26,7 @@ const normalisePayment = (payment: OrderPayment, orderState: any) => {
         outOrderNo: '',
       }
       : {
-        payTypeName: 'Wechat Pay',
+        payTypeName: payment.payWayCode === "WECHAT_PAY" ? "Wechat Pay" : payment.payWayCode === "ALI_PAY" ? "Alipay" : "",
         appId: payment.paymentId,
         payTime: handleReturnTime(payment.paymentStartTime),
         outOrderNo: payment.payWayOrderId,
