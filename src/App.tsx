@@ -4,7 +4,7 @@ import Router from './routers/index'
 import './App.less'
 import '@/assets/css/global.less'
 import '@/assets/css/iconfont/iconfont.css'
-import Loading from '@/assets/images/loading.gif'
+import Loading from '@/assets/images/loading1.gif'
 import { useAtom } from 'jotai'
 import { userAtom } from './store/user.store'
 
