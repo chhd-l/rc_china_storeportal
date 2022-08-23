@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from 'react'
 import { Col, Modal, Row, Tooltip, Switch, message } from 'antd'
 import './index.less'
 import wx from '@/assets/images/wx.png'
+import ali from '@/assets/images/ali.png'
+import pay from '@/assets/images/pay.png'
 import AddCate from './components/AddCate'
 import { payWayFindPage, payWayUpdate } from '@/framework/api/payment'
 
@@ -59,7 +61,7 @@ const PaymentSettings = () => {
         <div className='table-header'>
           <Row>
             <Col span={8}>
-              <img src={wx} alt='' />
+              <img src={list[0]?.code === "WECHAT_PAY" ? wx : list[0]?.code === "ALI_PAY" ? ali : pay} alt='' />
             </Col>
             <Col span={8} />
             <Col span={8} className='flex items-center justify-end'>

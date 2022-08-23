@@ -27,13 +27,22 @@ const AddCate = ({ visible, handleVisible, handleUpdate, id }: AddCateProps) => 
     let res = await payWayGet(id)
     console.log(res, 9999)
     if (res?.id) {
-      let obj = {
-        account: res.settings.find((i: { code: string }) => i.code === 'WECHAT_PAY_MCH_ID')?.value || '',
-        number: res.settings.find((i: { code: string }) => i.code === 'WECHAT_PAY_MCH_CERTIFICATE_SERIAL_NUMBER')?.value || '',
-        key: res.settings.find((i: { code: string }) => i.code === 'WECHAT_PAY_MCH_PRIVATE_KEY')?.value || '',
-        appid: res.settings.find((i: { code: string }) => i.code === 'WECHAT_PAY_APP_ID')?.value || '',
-        url: res.settings.find((i: { code: string }) => i.code === 'WECHAT_PAY_NOTIFY_URL')?.value || '',
-        vkey: res.settings.find((i: { code: string }) => i.code === 'WECHAT_PAY_MCH_API_V3_KEY')?.value || '',
+      let obj = {};
+      if (res?.code === "WECHAT_PAY") {
+        obj = {
+          account: res.settings.find((i: { code: string }) => i.code === 'WECHAT_PAY_MCH_ID')?.value || '',
+          number: res.settings.find((i: { code: string }) => i.code === 'WECHAT_PAY_MCH_CERTIFICATE_SERIAL_NUMBER')?.value || '',
+          key: res.settings.find((i: { code: string }) => i.code === 'WECHAT_PAY_MCH_PRIVATE_KEY')?.value || '',
+          appid: res.settings.find((i: { code: string }) => i.code === 'WECHAT_PAY_APP_ID')?.value || '',
+          url: res.settings.find((i: { code: string }) => i.code === 'WECHAT_PAY_NOTIFY_URL')?.value || '',
+          vkey: res.settings.find((i: { code: string }) => i.code === 'WECHAT_PAY_MCH_API_V3_KEY')?.value || '',
+        }
+      } else if (res?.code === "ALI_PAY") {
+        obj = {
+          appid: res.settings.find((i: { code: string }) => i.code === 'ALI_PAY_APP_ID')?.value || '',
+          url: res.settings.find((i: { code: string }) => i.code === 'ALI_PAY_NOTIFY_URL')?.value || '',
+          pkey: res.settings.find((i: { code: string }) => i.code === 'ALI_PAY_PUBLIC_KEY')?.value || '',
+        }
       }
       formRef?.current?.setFieldsValue(obj)
       setObj(res)
@@ -48,19 +57,25 @@ const AddCate = ({ visible, handleVisible, handleUpdate, id }: AddCateProps) => 
   const onFinish = async (values: any) => {
     return new Promise(async (resolve) => {
       if (obj.id) {
-        obj.settings.map((item: { code: string; value: any }) => {
-          if (item.code === 'WECHAT_PAY_MCH_ID') {
+        obj.settings.forEach((item: { code: string; value: any }) => {
+          if (obj.code === "WECHAT_PAY" && item.code === 'WECHAT_PAY_MCH_ID') {
             item.value = values.account
-          } else if (item.code === 'WECHAT_PAY_MCH_CERTIFICATE_SERIAL_NUMBER') {
+          } else if (obj.code === "WECHAT_PAY" && item.code === 'WECHAT_PAY_MCH_CERTIFICATE_SERIAL_NUMBER') {
             item.value = values.number
-          } else if (item.code === 'WECHAT_PAY_MCH_PRIVATE_KEY') {
+          } else if (obj.code === "WECHAT_PAY" && item.code === 'WECHAT_PAY_MCH_PRIVATE_KEY') {
             item.value = values.key
-          } else if (item.code === 'WECHAT_PAY_APP_ID') {
+          } else if (obj.code === "WECHAT_PAY" && item.code === 'WECHAT_PAY_APP_ID') {
             item.value = values.appid
-          } else if (item.code === 'WECHAT_PAY_NOTIFY_URL') {
+          } else if (obj.code === "WECHAT_PAY" && item.code === 'WECHAT_PAY_NOTIFY_URL') {
             item.value = values.url
-          } else {
+          } else if (obj.code === "WECHAT_PAY" && item.code === 'WECHAT_PAY_MCH_API_V3_KEY') {
             item.value = values.vkey
+          } else if (obj.code === "ALI_PAY" && item.code === 'ALI_PAY_APP_ID') {
+            item.value = values.appid
+          } else if (obj.code === "ALI_PAY" && item.code === 'ALI_PAY_NOTIFY_URL') {
+            item.value = values.url
+          } else if (obj.code === "ALI_PAY" && item.code === 'ALI_PAY_PUBLIC_KEY') {
+            item.value = values.pkey
           }
         })
         let res = await payWayUpdate(obj)
@@ -86,7 +101,7 @@ const AddCate = ({ visible, handleVisible, handleUpdate, id }: AddCateProps) => 
     >
       <ProFormText
         width='lg'
-        rules={[{ required: true, message: 'Missing Merchat Account' }]}
+        rules={[{ required: false, message: 'Missing Merchat Account' }]}
         name='account'
         label='Merchat Account'
         placeholder='Enter a Merchat Account'
@@ -99,7 +114,7 @@ const AddCate = ({ visible, handleVisible, handleUpdate, id }: AddCateProps) => 
         }}
         label='Certificate Number'
         name='number'
-        rules={[{ required: true, message: 'Missing Certificate Number' }]}
+        rules={[{ required: false, message: 'Missing Certificate Number' }]}
         placeholder='Enter a Certificate Number'
       />
       <ProFormTextArea
@@ -112,7 +127,7 @@ const AddCate = ({ visible, handleVisible, handleUpdate, id }: AddCateProps) => 
         }}
         label='Private Key'
         name='key'
-        rules={[{ required: true, message: 'Missing Private Key' }]}
+        rules={[{ required: false, message: 'Missing Private Key' }]}
         placeholder='Enter a Private Key'
       />
       <ProFormTextArea
@@ -123,7 +138,7 @@ const AddCate = ({ visible, handleVisible, handleUpdate, id }: AddCateProps) => 
         }}
         label='App ID'
         name='appid'
-        rules={[{ required: true, message: 'Missing App ID' }]}
+        rules={[{ required: false, message: 'Missing App ID' }]}
         placeholder='Enter a App ID'
       />
       <ProFormTextArea
@@ -134,7 +149,7 @@ const AddCate = ({ visible, handleVisible, handleUpdate, id }: AddCateProps) => 
         }}
         label='URL'
         name='url'
-        rules={[{ required: true, message: 'Missing URL' }]}
+        rules={[{ required: false, message: 'Missing URL' }]}
         placeholder='Enter a URL'
       />
       <ProFormTextArea
@@ -145,8 +160,19 @@ const AddCate = ({ visible, handleVisible, handleUpdate, id }: AddCateProps) => 
         }}
         label='API_V3_KEY'
         name='vkey'
-        rules={[{ required: true, message: 'Missing API_V3_KEY' }]}
+        rules={[{ required: false, message: 'Missing API_V3_KEY' }]}
         placeholder='Enter a API_V3_KEY'
+      />
+      <ProFormTextArea
+        width='lg'
+        fieldProps={{
+          rows: 1,
+          autoSize: true,
+        }}
+        label='Public Key'
+        name='pkey'
+        rules={[{ required: false, message: 'Missing API_V3_KEY' }]}
+        placeholder='Enter a Public Key'
       />
     </ModalForm>
   )
