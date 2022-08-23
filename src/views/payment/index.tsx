@@ -61,7 +61,7 @@ const PaymentSettings = () => {
         <div className='table-header'>
           <Row>
             <Col span={8}>
-              <img src={list[0]?.code === "WECHAT_PAY" ? wx : list[0]?.code === "ALI_PAY" ? ali : pay} alt='' />
+              <img style={{margin: '5px 0', width: 40, height: 40}} src={list[0]?.code === "WECHAT_PAY" ? wx : list[0]?.code === "ALI_PAY" ? ali : pay} alt='' />
             </Col>
             <Col span={8} />
             <Col span={8} className='flex items-center justify-end'>
