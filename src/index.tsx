@@ -6,19 +6,14 @@ import reportWebVitals from './reportWebVitals';
 // import 'antd/dist/antd.min.css'
 import { BrowserRouter, unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
 import history from '@/routers/history';
-import { ConfigProvider } from 'antd';
+
 import LogRocket from 'logrocket';
 import setupLogRocketReact from 'logrocket-react';
-import en_US from "antd/lib/locale/en_US"
-ConfigProvider.config({
-    theme: { primaryColor: '#ee4d2d', },
-});
+
 ReactDOM.render(
   <React.StrictMode>
     <HistoryRouter history={history}>
-      <ConfigProvider locale={en_US} >
-        <App />
-      </ConfigProvider>
+      <App />
     </HistoryRouter>
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import intl from 'react-intl-universal';
 import { Input, Button, Checkbox, Form, message } from "antd";
 import { useNavigate, Link } from "react-router-dom";
 import { SellerLogoPanel } from "@/components/auth";
@@ -16,23 +17,23 @@ import { userFindBrandIds } from '@/framework/api/banner'
 const formItems: FormItemProps[] = [
   {
     name: "account",
-    placeholder: "Account number",
+    placeholder: intl.get("login.account_number"),
     type: "text",
     rules: [
       {
         required: true,
-        message: "Please input your account number!",
+        message: intl.get("login.please_input_account_number"),
       },
     ],
   },
   {
     name: "password",
-    placeholder: "Password",
+    placeholder: intl.get("login.password"),
     type: "password",
     rules: [
       {
         required: true,
-        message: "Please input your password!",
+        message: intl.get("login.please_input_password"),
       },
     ],
   },
@@ -101,7 +102,7 @@ const Login = () => {
                   }
                   handleLogin(values)
                 } else {
-                  message.error({ className: "rc-message", content: 'Username or password is wrong!' })
+                  message.error({ className: "rc-message", content: intl.get("login.user_wrong") })
                 }
                 setLoading(false);
               })
@@ -118,13 +119,13 @@ const Login = () => {
                 <Checkbox onChange={(e) => {
                   setIsRemember(e.target.checked)
                   console.log('isRemember', e.target.checked)
-                }}>Remember me</Checkbox>
+                }}>{intl.get('login.remember_me')}</Checkbox>
               </Form.Item>
               <Link
                 className="primary-color font-medium text-12"
                 to="/resetPassword"
               >
-                Forget password?
+                {intl.get('login.forget_password')}
               </Link>
             </Form.Item>
             <Form.Item wrapperCol={{ span: 24 }} className="login-btn">
@@ -138,15 +139,15 @@ const Login = () => {
                 htmlType="submit"
                 loading={loading}
               >
-                Log  In
+                {intl.get("login.login")}
               </Button>
               <p className="text-12 mt-2 text-left">
-                Don't have an account?{" "}
+                {intl.get("login.donot_have_an_account")}{" "}
                 <a
                   className="primary-color font-medium text-12"
                   href={"/register"}
                 >
-                  Register
+                  {intl.get("login.register")}
                 </a>
               </p>
             </Form.Item>

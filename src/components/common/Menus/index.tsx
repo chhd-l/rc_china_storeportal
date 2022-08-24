@@ -1,4 +1,5 @@
 import { Menu } from "antd";
+import intl from 'react-intl-universal';
 import { Link, useLocation } from "react-router-dom";
 import { menus } from "@/lib/menus";
 import { useEffect, useState } from 'react'
@@ -62,14 +63,14 @@ const Menus = () => {
       onSelect={onSelect}
     >
       <Menu.Item key="dashboard" icon={<span className='icon iconfont text-xl icon-a-bianzu33' />} style={{paddingLeft: 20, backgroundColor: '#fff'}}>
-        <Link to="/dashboard" style={{ fontSize: "13px" }}>Dashboard</Link>
+        <Link to="/dashboard" style={{ fontSize: "13px" }}>{intl.get('menu.dashboard')}</Link>
       </Menu.Item>
-      {menus.map(({ key, icon, name, children }) => (
-        <SubMenu key={key} icon={icon} title={name} >
+      {menus.map(({ key, icon, name, langKey, children }) => (
+        <SubMenu key={key} icon={icon} title={intl.get(langKey)} >
           {children?.map((subMenu) => (
             <Menu.Item key={subMenu.key} >
               <Link key={subMenu.key} to={subMenu.url} style={{ fontSize: "13px" }}>
-                {subMenu.name}
+                {intl.get(subMenu.langKey)}
               </Link>
             </Menu.Item>
           ))}
