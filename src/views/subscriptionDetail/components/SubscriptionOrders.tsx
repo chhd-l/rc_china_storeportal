@@ -59,27 +59,27 @@ const SubscriptionOrders = ({ planningList, completedList, nextDeliveryDate, sta
     {
       title: 'Actions',
       key: 'ac',
-      render: (text: any, record: any) => (
-        <div className="space-x-2 subscription-order-action">
-          {status === "ONGOING" ? <Tooltip title="Select Date">
-            <DatePicker
-              bordered={false}
-              className="change-next-date cursor-pointer iconfont primary-color text-lg icon-rili"
-              disabledDate={(current) => current < moment().startOf('day')}
-              defaultValue={nextDeliveryDate ? moment(nextDeliveryDate) : undefined}
-              onChange={(date: Moment | null) => {
-                if (date) {
-                  setLoading(true);
-                  onChangeDate(date.utc().format()).then(() => setLoading(false))
-                }
-              }}
-            />
-          </Tooltip> : null}
-          {record.orderId ? <Tooltip title="View Order Detail">
-            <Link to="/order/order-detail" state={{id: record?.orderId,status: record?.orderState?.orderState}} className="cursor-pointer iconfont icon-kjafg primary-color" />
-          </Tooltip> : null}
-        </div>
-      )
+      // render: (text: any, record: any) => (
+      //   <div className="space-x-2 subscription-order-action">
+      //     {status === "ONGOING" ? <Tooltip title="Select Date">
+      //       <DatePicker
+      //         bordered={false}
+      //         className="change-next-date cursor-pointer iconfont primary-color text-lg icon-rili"
+      //         disabledDate={(current) => current < moment().startOf('day')}
+      //         defaultValue={nextDeliveryDate ? moment(nextDeliveryDate) : undefined}
+      //         onChange={(date: Moment | null) => {
+      //           if (date) {
+      //             setLoading(true);
+      //             onChangeDate(date.utc().format()).then(() => setLoading(false))
+      //           }
+      //         }}
+      //       />
+      //     </Tooltip> : null}
+      //     {record.orderId ? <Tooltip title="View Order Detail">
+      //       <Link to="/order/order-detail" state={{id: record?.orderId,status: record?.orderState?.orderState}} className="cursor-pointer iconfont icon-kjafg primary-color" />
+      //     </Tooltip> : null}
+      //   </div>
+      // )
     }
   ];
   const columns_completed: ColumnProps<any>[] = [

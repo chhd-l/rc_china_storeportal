@@ -96,6 +96,7 @@ const ShipmentModal = ({
             className="w-full"
             // disabledDate={disabledDate}
             // defaultValue={moment(expectedShippingDate)}
+            disabled
             onChange={(date, dateString) => {
               console.log(date, dateString)
               setShippingTime(dateString)
