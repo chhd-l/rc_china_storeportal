@@ -10,6 +10,7 @@ import { userAtom } from '@/store/user.store'
 import { useAtom } from 'jotai'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import intl from 'react-intl-universal'
 
 const LoginBarnd = () => {
   const navigator = useNavigate()
@@ -43,8 +44,8 @@ const LoginBarnd = () => {
         <div className="text-center">
           <h2 className="text-2xl font-semibold">
             <Link to="/login/store" style={{float:'left'}} className='text-2xl font-semibold text-black iconfont icon-Frame5' />
-            Please select a store of <span className="text-red-500">{state.name}</span> brand</h2>
-          <h4 className="text-base mb-10">Let us provide you with better service</h4>
+            {intl.get('login.please_select_store_of')} <span className="text-red-500">{state.name}</span></h2>
+          <h4 className="text-base mb-10">{intl.get('login.provide_better_service')}</h4>
         </div>
         {
           data.length>3? <div className='potion-left'/>:null

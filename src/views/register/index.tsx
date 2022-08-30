@@ -10,10 +10,11 @@ import { REGISTER_FORM } from './modules/form'
 import { FormItemProps } from '@/framework/types/common'
 import { register, verifyMesssage } from '@/framework/api/login-user'
 import { brandFind, storeFind } from '@/framework/api/banner'
+import intl from 'react-intl-universal'
 
 const { Option } = Select
 
-const title = 'Sign up'
+const title = intl.get('login.signup')
 const formItems: FormItemProps[] = REGISTER_FORM
 
 enum REGISTERSTEPENUM {
@@ -131,8 +132,8 @@ const Register = () => {
                   <Input placeholder={item.placeholder} type={item.type} />
                 </Form.Item>
               ))}
-              <Form.Item name='barnd' rules={[{ required: true, message: 'Please Select brand!' }]}>
-                <Select placeholder='Select brand' mode="multiple" onChange={handleChange}>
+              <Form.Item name='barnd' rules={[{ required: true, message: intl.get('login.please_select_brand') }]}>
+                <Select placeholder={intl.get('login.select_brand')} mode="multiple" onChange={handleChange}>
                   {
                     barndList.length > 0 && barndList.map((item: any) => {
                       return(
@@ -142,8 +143,8 @@ const Register = () => {
                   }
                 </Select>
               </Form.Item>
-              <Form.Item name='store' rules={[{ required: true, message: 'Please Select store!' }]}>
-                <Select placeholder='Select store' disabled={storeList.length<=0} mode="multiple" onChange={handleChangeTwo}>
+              <Form.Item name='store' rules={[{ required: true, message: intl.get('login.please_select_store') }]}>
+                <Select placeholder={intl.get('login.select_store')} disabled={storeList.length<=0} mode="multiple" onChange={handleChangeTwo}>
                   {
                     storeList.length > 0 && storeList.map((item: any) => {
                       return(
@@ -165,7 +166,7 @@ const Register = () => {
                   danger
                   onClick={() => navigate('/login')}
                 >
-                  Back
+                  {intl.get('public.back')}
                 </Button>
                 <Button
                   className='px-8 ml-10'
@@ -173,7 +174,7 @@ const Register = () => {
                   danger
                   htmlType='submit'
                 >
-                  Next
+                  {intl.get('public.next')}
                 </Button>
               </Form.Item>
             </Form>
@@ -188,22 +189,22 @@ const Register = () => {
               }}
               title={title}
             />
-            <p className='mb-0'>Your verification code is sent to</p>
+            <p className='mb-0'>{intl.get('login.verify_sent_to')}</p>
             <p className='mb-0'>(+86) {phoneNumber}</p>
             <div className='mt-8'>
               <Input
                 value={verifyCode}
                 size='large'
-                placeholder='Enter verification code'
+                placeholder={intl.get('login.enter_verify_code')}
                 onChange={(e) => setVerifyCode(e.target.value)}
               />
               <p className='text-left mt-2'>
                 {errVerifyCode
-                  ? 'Incorrect code!'
-                  : 'Did not receive the code?'}
+                  ? intl.get('login.incorrect_code')
+                  : intl.get('login.did_your_receive')}
                 &nbsp;
                 <span className='primary-color cursor-pointer' onClick={() => getVerifyCode()}>
-                  {errVerifyCode ? 'Resend code' : 'Resend'}
+                  {errVerifyCode ? intl.get('login.resend_code') : intl.get('login.resend')}
                 </span>
               </p>
               {getVerifyCodeErr ? (
@@ -217,7 +218,7 @@ const Register = () => {
                   danger
                   onClick={() => setCurrentStep(REGISTERSTEPENUM['REGISTERINFOR'])}
                 >
-                  Back
+                  {intl.get('public.back')}
                 </Button>
                 <Button
                   className='px-8 ml-8'
@@ -226,7 +227,7 @@ const Register = () => {
                   // disabled={}
                   onClick={() => verifyCodeToConfirm()}
                 >
-                  Confirm
+                  {intl.get('public.confirm')}
                 </Button>
               </div>
             </div>

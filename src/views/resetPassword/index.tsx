@@ -9,46 +9,47 @@ import {
 import { PHONEREGCONST } from "@/lib/constants";
 import { FormItemProps } from "@/framework/types/common";
 import { sendResetPasswordMessage, resetPassword, checkUserExist } from '@/framework/api/login-user';
+import intl from 'react-intl-universal';
 
 const passwordFormItems: FormItemProps[] = [
   {
     name: 'code',
     type: "text",
-    placeholder: "Enter validation code",
+    placeholder: intl.get('login.enter_verify_code'),
     rules: [
       {
         required: true,
-        message: 'Please input validation code!',
+        message: intl.get('login.please_enter_code'),
       }
     ],
   },
   {
     name: "password",
     type: "password",
-    placeholder: "Enter new password",
+    placeholder: intl.get('login.enter_new_password'),
     rules: [
       {
         required: true,
-        message: "Please input your password!",
+        message: intl.get('login.please_input_password'),
       },
     ],
   },
   {
     name: "confirmPassword",
     type: "password",
-    placeholder: "Enter password again",
+    placeholder: intl.get('login.confirm_password'),
     dependencies: ['password'],
     rules: [
       {
         required: true,
-        message: "Please confirm your password again!",
+        message: intl.get('login.please_confirm_password'),
       },
       ({ getFieldValue }) => ({
         validator(_, value) {
           if (!value || getFieldValue('password') === value) {
             return Promise.resolve();
           }
-          return Promise.reject(new Error('Two passwords should match!'));
+          return Promise.reject(new Error(intl.get('login.password_should_match')));
         },
       }),
     ],
@@ -75,7 +76,7 @@ const ResetPassword = () => {
     setLoading(true);
     const result = await checkUserExist(phone);
     if (!result) {
-      setErrText('Phone is not registed as a user!');
+      setErrText(intl.get('login.phone_not_registed'));
       setLoading(false);
     }
     return result;
@@ -90,7 +91,7 @@ const ResetPassword = () => {
         setErrText("");
         setCurrentStep(RESETPASSWORDENUM["PASSWORD"]);
       } else {
-        setErrText("Validation code send failed, please try again!");
+        setErrText(intl.get('login.code_send_failed'));
       }
     } catch (err) {
     } finally {
@@ -105,7 +106,7 @@ const ResetPassword = () => {
       if (result) {
         setCurrentStep(RESETPASSWORDENUM["SUCCESS"]);
       } else {
-        setErrText('Validation code is wrong');
+        setErrText(intl.get('login.incorrect_code'));
       }
       
     } catch (err) {
@@ -138,11 +139,11 @@ const ResetPassword = () => {
                   rules={[
                     {
                       required: true,
-                      message: "Phone number is required.",
+                      message: intl.get('login.please_input_phone'),
                     },
                     {
                       pattern: PHONEREGCONST,
-                      message: "Enter a valid Phone. example: 13101227768",
+                      message: intl.get('login.enter_valid_phone'),
                     },
                   ]}
                 >
@@ -173,7 +174,7 @@ const ResetPassword = () => {
                 setCurrentStep(RESETPASSWORDENUM["PHONE"]);
               }}
             />
-            <p className="mb-0">Your verification code is sent to</p>
+            <p className="mb-0">{intl.get('login.verify_sent_to')}</p>
             <p className="mb-0">(+86) {phone}</p>
             <div className="mt-6">
               <Form
@@ -199,9 +200,9 @@ const ResetPassword = () => {
                     <p className="my-0 text-left primary-color">{errText}</p>
                   ) : null}
                   <p className="text-left mt-2">
-                    Did not receive the code? &nbsp;
+                    {intl.get('login.did_your_receive')} &nbsp;
                     <span className="primary-color cursor-pointer" onClick={() => phoneToNext(phone)}>
-                      Resend
+                      {intl.get('login.resend')}
                     </span>
                   </p>
                   <ResetBtnGroup
