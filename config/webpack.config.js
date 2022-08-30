@@ -48,7 +48,7 @@ const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false'
 const emitErrorsAsWarnings = process.env.ESLINT_NO_DEV_ERRORS === 'true'
 const disableESLintPlugin = process.env.DISABLE_ESLINT_PLUGIN === 'true'
 
-const imageInlineSizeLimit = parseInt(process.env.IMAGE_INLINE_SIZE_LIMIT || '10000')
+const imageInlineSizeLimit = parseInt(process.env.IMAGE_INLINE_SIZE_LIMIT || '1000')
 
 // Check if TypeScript is setup
 const useTypeScript = fs.existsSync(paths.appTsConfig)
@@ -207,7 +207,7 @@ module.exports = function (webpackEnv) {
       // webpack uses `publicPath` to determine where the app is being served from.
       // It requires a trailing slash, or the file assets will get an incorrect path.
       // We inferred the "public path" (such as / or /my-project) from homepage.
-      publicPath: process.env.NODE_ENV === 'production' ? 'https://cdnstg.fivefen.com/' : process.env.NODE_ENV === 'test' ? 'https://cdnstg.fivefen.com/test_assets/' : paths.publicUrlOrPath,
+      publicPath: process.env.CDN_PATH || paths.publicUrlOrPath,
       // Point sourcemap entries to original disk location (format as URL on Windows)
       devtoolModuleFilenameTemplate: isEnvProduction
         ? (info) => path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, '/')
@@ -273,6 +273,24 @@ module.exports = function (webpackEnv) {
         // This is only used in production mode
         new CssMinimizerPlugin(),
       ],
+      splitChunks: {
+        chunks: 'all',
+        cacheGroups: {
+          vendors: {
+            name: 'vendors',
+            test: /node_modules/,
+            priority: 10,
+            minSize: 0,
+            minChunks: 1,
+          },
+          common: {
+            name: 'commons',
+            priority: 1,
+            minSize: 0,
+            minChunks: 2,
+          }
+        },
+      },
     },
     resolve: {
       // This allows you to set a fallback for where webpack should look for modules.
