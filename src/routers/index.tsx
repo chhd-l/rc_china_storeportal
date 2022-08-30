@@ -25,6 +25,7 @@ const AccountList = lazy(() => import('@/views/accountList'))
 const AddAccount = lazy(() => import('@/views/accountCreate'))
 const FansList = lazy(() => import('@/views/fansList'))
 const FansDetail = lazy(() => import('@/views/fansDetail'))
+const InvoiceList = lazy(() => import('@/views/InvoiceList'))
 const AutoReplyList = lazy(() => import('@/views/autoReplyList'))
 const AddAutoReply = lazy(() => import('@/views/addAutoReply'))
 const ReplyContents = lazy(() => import('@/views/replyContents'))
@@ -126,6 +127,7 @@ let routes: RouteObject[] = [
         children: [
           { index: true, element: <Payment />,},
           { path: 'setting-list', element: <Payment />,},
+          { path: 'invoice-list', element: <InvoiceList />, breadcrumbName: 'Invoice List' },
         ],
       },
       {
