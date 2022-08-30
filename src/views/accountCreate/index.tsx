@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react'
 import { UPLOAD_API_URL } from '@/framework/api/fetcher'
 import './Style.less'
 import { BaseListProps } from '@/framework/types/common'
+import intl from 'react-intl-universal'
 
 const AddAccount = () => {
   const { state }: any = useLocation()
@@ -51,7 +52,7 @@ const AddAccount = () => {
         setPertificatePah(info.file.response.url)
       }
     } else if (info.file.status === 'error') {
-      message.error({ className: 'rc-message', content: `${info.file.name} file upload failed.` })
+      message.error({ className: 'rc-message', content: `${info.file.name} ${intl.get('public.file_upload_failed')}` })
     }
   }
   const getlist = async () => {
@@ -79,7 +80,7 @@ const AddAccount = () => {
   return (
     <ContentContainer className='addAccount'>
       <InfoContainer>
-        <div className='text-2xl text-medium mb-4'>{state ? 'Edit Account' : 'Add Account'}</div>
+        <div className='text-2xl text-medium mb-4'>{state ? intl.get('wx.edit_account') : intl.get('wx.add_account')}</div>
         <Form
           initialValues={state ? state : { type: 'WxServiceAccount' }}
           form={form}
@@ -219,10 +220,10 @@ const AddAccount = () => {
                 navigator('/account/account-list')
               }}
             >
-              Cancel
+              {intl.get('public.cancel')}
             </Button>
             <Button type='primary' htmlType='submit' danger>
-              Confirm
+              {intl.get('public.confirm')}
             </Button>
           </Form.Item>
         </Form>

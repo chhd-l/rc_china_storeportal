@@ -1,249 +1,250 @@
 import { FormItemProps } from '@/framework/types/common'
 import { accountTypeList, manageModeList } from './constants'
 import { officialTypeList } from '@/views/accountList/modules/constants'
+import intl from 'react-intl-universal'
 
 export const ACCOUNT_FORM: FormItemProps[] = [
   {
-    label: "Account Principal",
+    label: intl.get('wx.account_principal'),
     name: "principal",
-    placeholder: "Input",
+    placeholder: intl.get('public.input'),
     rules: [
       {
         required: true,
-        message: "Please input Account Principal!",
+        message: intl.get('wx.please_input_account_principal'),
       },
     ],
   },
   {
-    label: "Account Type",
+    label: intl.get('wx.account_type'),
     name: "type",
-    placeholder: "Select",
+    placeholder: intl.get('public.select'),
     type: "select",
     rules: [
       {
         required: true,
-        message: "Please select account type!",
+        message: intl.get('wx.please_select_account_type'),
       },
     ],
     selectList: accountTypeList,
   },
   {
     name: "originalId",
-    label: "Original ID",
-    placeholder: "Input",
+    label: intl.get('wx.original_id'),
+    placeholder: intl.get('public.input'),
     rules: [
       {
         // required: true,
-        message: "Please input Original ID!",
+        message: intl.get('wx.please_input_original_id'),
       },
     ],
   },
   {
     name: "name",
-    label: "Account Name",
-    placeholder: "Input",
+    label: intl.get('wx.account_name'),
+    placeholder: intl.get('public.input'),
     rules: [
       {
         required: true,
-        message: "Please input Account Name!",
+        message: intl.get('wx.please_input_account_name'),
       },
     ],
   },
   {
     name: "appId",
-    label: "AppId",
-    placeholder: "Input",
+    label: intl.get('wx.app_id'),
+    placeholder: intl.get('public.input'),
     rules: [
       {
         required: true,
-        message: "Please input AppId!",
+        message: intl.get('please_input_appid'),
       },
     ],
   },
   {
     name: "merchantId",
-    label: "Merchant ID",
-    placeholder: "Input",
+    label: intl.get('wx.merchat_id'),
+    placeholder: intl.get('public.input'),
   },
   {
     name: "appSecret",
-    label: "AppSecret",
-    placeholder: "Input",
+    label: intl.get('wx.app_secret'),
+    placeholder: intl.get('public.input'),
     rules: [
       {
         required: true,
-        message: "Please input AppSecret!",
+        message: intl.get('wx.please_input_app_secret'),
       },
     ],
   },
   {
     name: "merchantKey",
-    label: "Merchant Key",
-    placeholder: "Input",
+    label: intl.get('wx.merchant_key'),
+    placeholder: intl.get('public.input'),
   },
   {
     name: "managementMode",
-    label: "Management Mode",
-    placeholder: "Select",
+    label: intl.get('wx.management_mode'),
+    placeholder: intl.get('public.select'),
     type: "select",
     rules: [
       {
         required: true,
-        message: "Please select Management Mode!",
+        message: intl.get('wx.please_select_mode'),
       },
     ],
     selectList: manageModeList,
   },
   {
     name: "pushServerURL",
-    label: "Push Server",
-    placeholder: "Input",
+    label: intl.get('wx.push_server'),
+    placeholder: intl.get('public.input'),
   },
   {
     name: "officialAccountType",
-    label: "Official Account Type",
-    placeholder: "Select",
+    label: intl.get('wx.official_account_type'),
+    placeholder: intl.get('public.select'),
     type: "select",
     rules: [
       {
         required: true,
-        message: "Please select Official Account Type!",
+        message: intl.get('wx.please_select_official_account_type'),
       },
     ],
     selectList: officialTypeList,
   },
   {
     name: "messageEncryption",
-    label: "Message Encryption Url",
-    placeholder: "Input",
+    label: intl.get('wx.message_url'),
+    placeholder: intl.get('public.input'),
     rules: [
       {
         required: true,
-        message: "Please input Message Encryption Url!",
+        message: intl.get('wx.please_input_message_url'),
       },
     ],
   },
   {
     name: "token",
-    label: "Token",
-    placeholder: "Input",
+    label: intl.get('wx.token'),
+    placeholder: intl.get('public.input'),
     rules: [
       {
         required: true,
-        message: "Please input Token!",
+        message: intl.get('wx.please_input_token'),
       },
     ],
   },
   {
     name: "certificatePath",
-    label: "Certificate Path",
-    placeholder: "Click to select",
+    label: intl.get('wx.certificate_path'),
+    placeholder: intl.get('wx.click_to_select'),
     type: "upload",
   },
   {
     name: "qrCodePath",
-    label: "QR Code Path",
-    placeholder: "Click to select",
+    label: intl.get('wx.qr_code_path'),
+    placeholder: intl.get('wx.click_to_select'),
     type: "upload",
   },
   {
     name: "description",
-    label: "Description",
+    label: intl.get('wx.description'),
     type: "textarea",
-    placeholder: "Input",
+    placeholder: intl.get('public.input'),
   },
 ];
 
 export const ACCOUNT_FORM_TWO: FormItemProps[] = [
   {
-    label: "Account Principal",
+    label: intl.get('wx.account_principal'),
     name: "principal",
-    placeholder: "Input",
+    placeholder: intl.get('public.input'),
     rules: [
       {
         required: true,
-        message: "Please input Account Principal!",
+        message: intl.get('wx.please_input_account_principal'),
       },
     ],
   },
   {
-    label: "Account Type",
+    label: intl.get('wx.account_type'),
     name: "type",
-    placeholder: "Select",
+    placeholder: intl.get('public.select'),
     type: "select",
     rules: [
       {
         required: true,
-        message: "Please select account type!",
+        message: intl.get('wx.please_select_account_type'),
       },
     ],
     selectList: accountTypeList,
   },
   {
-    label: "Associated Account",
+    label: intl.get('wx.asso_account'),
     name: "associatedWxAccountId",
-    placeholder: "Select",
+    placeholder: intl.get('public.select'),
     type: "select",
     selectList: [],
   },
   {
     name: "originalId",
-    label: "Original ID",
-    placeholder: "Input",
+    label: intl.get('wx.original_id'),
+    placeholder: intl.get('public.input'),
     rules: [
       {
         // required: true,
-        message: "Please input Original ID!",
+        message: intl.get('wx.please_input_original_id'),
       },
     ],
   },
   {
     name: "name",
-    label: "Account Name",
-    placeholder: "Input",
+    label: intl.get('wx.account_name'),
+    placeholder: intl.get('public.input'),
     rules: [
       {
         required: true,
-        message: "Please input Account Name!",
+        message: intl.get('wx.please_input_account_name'),
       },
     ],
   },
   {
     name: "appId",
-    label: "AppId",
-    placeholder: "Input",
+    label: intl.get('wx.app_id'),
+    placeholder: intl.get('public.input'),
     rules: [
       {
         required: true,
-        message: "Please input AppId!",
+        message: intl.get('wx.please_input_appid'),
       },
     ],
   },
   {
     name: "merchantId",
-    label: "Merchant ID",
-    placeholder: "Input",
+    label: intl.get('wx.merchat_id'),
+    placeholder: intl.get('public.input'),
   },
   {
     name: "appSecret",
-    label: "AppSecret",
-    placeholder: "Input",
+    label: intl.get('wx.app_secret'),
+    placeholder: intl.get('public.input'),
     rules: [
       {
         required: true,
-        message: "Please input AppSecret!",
+        message: intl.get('wx.please_input_app_secret'),
       },
     ],
   },
   {
     name: "merchantKey",
-    label: "Merchant Key",
-    placeholder: "Input",
+    label: intl.get('wx.merchant_key'),
+    placeholder: intl.get('public.input'),
   },
   {
     name: "certificatePath",
-    label: "Certificate Path",
-    placeholder: "Click to select",
+    label: intl.get('wx.certificate_path'),
+    placeholder: intl.get('wx.click_to_select'),
     type: "upload",
   },
 ];

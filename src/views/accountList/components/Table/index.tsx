@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { WxAccount } from "@/framework/types/wechat";
 import { modifyAccount } from '@/framework/api/wechatSetting'
+import intl from 'react-intl-universal'
 import './Style.less'
 
 const Index = ({ accountList, getAccounts, pages, setPages, total, loading, setLoading }: {
@@ -53,28 +54,28 @@ const Index = ({ accountList, getAccounts, pages, setPages, total, loading, setL
 
   const columns = [
     {
-      title: "Account Principal",
+      title: intl.get('wx.account_principal'),
       dataIndex: "principal",
       key: "principal",
     },
     {
-      title: "Account Type",
+      title: intl.get('wx.account_type'),
       dataIndex: "type",
       key: "type",
       render: (_text: string) => _text === "WxServiceAccount" ? "Wechat Service Account" : _text === "WxMiniProgram" ? "Wechat Mini Program" : "Alipay Mini Program"
     },
     {
-      title: "Account Name",
+      title: intl.get('wx.account_name'),
       dataIndex: "name",
       key: "name",
     },
     {
-      title: "Official Account Type",
+      title: intl.get('wx.official_account_type'),
       dataIndex: "officialAccountType",
       key: "officialAccountType",
     },
     {
-      title: "Status",
+      title: intl.get('public.status'),
       dataIndex: "isActive",
       key: "isActive",
       render: (text: any, record: any) => {
@@ -91,11 +92,11 @@ const Index = ({ accountList, getAccounts, pages, setPages, total, loading, setL
       }
     },
     {
-      title: "Action",
+      title: intl.get('public.action'),
       key: "Action",
       render: (text: any, record: any) => (
         <>
-          <Tooltip title="Edit">
+          <Tooltip title={intl.get('public.edit')}>
             <span
               className="cursor-pointer iconfont icon-a-Group437 text-red-500 text-xl"
               onClick={() => {
@@ -105,7 +106,7 @@ const Index = ({ accountList, getAccounts, pages, setPages, total, loading, setL
           </Tooltip>
           {/*避免误删除现在用的accountId*/}
           {record.id !== '000001' && (
-            <Tooltip title="Delete">
+            <Tooltip title={intl.get('public.delete')}>
               <span
                 className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl"
                 onClick={() => {
@@ -117,7 +118,7 @@ const Index = ({ accountList, getAccounts, pages, setPages, total, loading, setL
           )}
           {
             record.qrCodePath ? (
-              <Tooltip title="View QR Code">
+              <Tooltip title={intl.get('wx.view_qr_code')}>
                 <span
                   className="cursor-pointer ml-2 iconfont icon-Frame-1 text-red-500 text-xl"
                   onClick={() => {
@@ -142,7 +143,7 @@ const Index = ({ accountList, getAccounts, pages, setPages, total, loading, setL
             navigator("/account/add-account");
           }}
         >
-          + Add Account
+          + {intl.get('wx.add_account')}
         </Button>
       </div>
       <Table
@@ -166,19 +167,19 @@ const Index = ({ accountList, getAccounts, pages, setPages, total, loading, setL
       />
       <Modal
         className="rc-modal"
-        title='Delete Item'
+        title={intl.get('public.delete_item')}
         visible={isModalVisible}
         onOk={() => handleOk(ID)}
         confirmLoading={loading}
         onCancel={handleCancel}
-        okText='Confirm'
+        okText={intl.get('public.confirm')}
       // mask={false}
       >
-        <div>Are you sure you want to delete the item ?</div>
+        <div>{intl.get('public.are_you_sure_delete')}</div>
       </Modal>
       <Modal
         className="rc-modal"
-        title={item?.isActive ? "Enable Item" : "Disable Item"}
+        title={item?.isActive ? intl.get('public.enable_item') : intl.get('public.disable_item')}
         visible={isOpen}
         confirmLoading={loading}
         onOk={() => handleOpenOk(item)}
@@ -187,8 +188,8 @@ const Index = ({ accountList, getAccounts, pages, setPages, total, loading, setL
       // mask={false}
       >
         {item.isActive 
-          ? (item.type === 'WxServiceAccount' ? <div>Are you sure that you want to enable the official account? If yes, the other modules of Wechat Management（Fans managment, Assets management, Medule management...) would only be associated with the activied account.</div> : <div>Are you sure you want to enable this account?</div>)
-          : (item.type === 'WxServiceAccount' ? <div>Are you sure that you want to disable the official account? If yes, the other modules of Wechat Management（Fans managment, Assets management, Medule management...) would only be associated with the activied account.</div> : <div>Are you sure you want to disable this account?</div>)
+          ? (item.type === 'WxServiceAccount' ? <div>{intl.get('wx.account_enable_tip1')}</div> : <div>{intl.get('wx.account_enable_tip2')}</div>)
+          : (item.type === 'WxServiceAccount' ? <div>{intl.get('wx.account_disable_tip1')}</div> : <div>{intl.get('wx.account_disable_tip2')}</div>)
         }
       </Modal>
       <Modal
