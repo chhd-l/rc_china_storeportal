@@ -162,6 +162,13 @@ export const menus = [
         key: 'payment_settings',
         langKey: 'menu.payment_settings',
       },
+      {
+        name: 'Invoice List',
+        value: 'invoice_list',
+        url: '/payment/invoice-list',
+        key: 'invoice_list',
+        langKey: 'menu.invoice_list',
+      },
     ],
   },
   {
