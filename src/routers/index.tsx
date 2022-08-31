@@ -76,6 +76,7 @@ let routes: RouteObject[] = [
       { index: true, element: <OrderList /> },
       { path: 'home', element: <Home /> },
       { path: 'dashboard', element: <Dashboard /> },
+      { path: 'aireco', element: <ComingSoon /> },
       // { index: true , element:<Routes><Route  element={<Navigate to={'/Home'} />} /></Routes> },
       { path: 'shipment-list', element: <OrderList />, breadcrumbName: 'My Shipment' },
       { path: 'shipping-setting', element: <ShippingSetting />, breadcrumbName: 'Shipping Setting' },      

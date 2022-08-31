@@ -124,7 +124,7 @@ export const menus = [
     ],
   },
   {
-    name: 'Marketing Center',
+    name: 'Marketing Automation',
     value: 'marketing_centres',
     url: '',
     key: 'marketing_centers',
@@ -202,7 +202,7 @@ export const menus = [
     ],
   },
   {
-    name: 'Social Media',
+    name: 'Channel Management',
     value: 'wechat_management',
     url: '',
     key: 'wechat_management',

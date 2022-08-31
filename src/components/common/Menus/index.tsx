@@ -31,6 +31,9 @@ const Menus = () => {
     if (pathname === "/dashboard") {
       setOpenKeys([]);
       setSelectKeys(['dashboard']);
+    } else if (pathname === "/aireco") {
+      setOpenKeys([]);
+      setSelectKeys(['aireco']);
     } else {
       let { openKeys, selectedKeys } = findOpenKeysAndSelectedKeysByPathname(menus, pathname);
       if (!openKeys.length || !selectedKeys.length) {
@@ -76,6 +79,9 @@ const Menus = () => {
           ))}
         </SubMenu>
       ))}
+      <Menu.Item key="aireco" icon={<span className='icon iconfont text-xl icon-a-bianzu13' />} style={{paddingLeft: 20, backgroundColor: '#fff'}}>
+        <Link to="/aireco" style={{ fontSize: "13px" }}>{intl.get('menu.aireco')}</Link>
+      </Menu.Item>
     </Menu>
   );
 };
