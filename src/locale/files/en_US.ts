@@ -82,7 +82,7 @@ export default {
   "menu.shop": "Shop",
   "menu.shop_categories": "Shop Categories",
   "menu.customer_service": "Customer Service",
-  "menu.social_media": "Channel Management",
+  "menu.social_media": "Channel",
   "menu.account_management": "Account Management",
   "menu.fans_management": "Fans Management",
   "menu.automatic_replies": "Automatic Replies",

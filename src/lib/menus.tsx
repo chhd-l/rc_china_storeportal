@@ -148,6 +148,15 @@ export const menus = [
     ],
   },
   {
+    name: 'AIReco',
+    value: 'aireco',
+    url: '/aireco',
+    key: 'aireco',
+    icon: <span className='icon iconfont text-xl icon-a-bianzu13' />,
+    langKey: 'menu.aireco',
+    children: [],
+  },
+  {
     name: 'Finance',
     value: 'finance',
     url: '',
