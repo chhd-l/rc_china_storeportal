@@ -273,7 +273,7 @@ module.exports = function (webpackEnv) {
         // This is only used in production mode
         new CssMinimizerPlugin(),
       ],
-      splitChunks: {
+      splitChunks: isEnvProduction ? {
         chunks: 'all',
         cacheGroups: {
           vendors: {
@@ -290,7 +290,7 @@ module.exports = function (webpackEnv) {
             minChunks: 2,
           }
         },
-      },
+      } : undefined,
     },
     resolve: {
       // This allows you to set a fallback for where webpack should look for modules.
