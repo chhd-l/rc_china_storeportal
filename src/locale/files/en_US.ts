@@ -78,6 +78,7 @@ export default {
   "menu.intelligent_recommendation": "Intelligent Recommendation",
   "menu.finance": "Finance",
   "menu.payment_settings": "Payment Settings",
+  "menu.invoice_list": "Invoice List",
   "menu.shop": "Shop",
   "menu.shop_categories": "Shop Categories",
   "menu.customer_service": "Customer Service",
