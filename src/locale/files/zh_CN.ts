@@ -75,7 +75,7 @@ export default {
   "menu.my_pet_owner": "我的客户",
   "menu.tagging_setting": "标签设置",
   "menu.marketing_center": "营销自动化",
-  "menu.intelligent_recommendation": "只能推荐",
+  "menu.intelligent_recommendation": "智能推荐",
   "menu.finance": "财务",
   "menu.payment_settings": "支付设置",
   "menu.invoice_list": "发票",
