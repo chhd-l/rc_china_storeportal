@@ -5,6 +5,7 @@ import { ContentContainer, InfoContainer } from '@/components/ui'
 import { createMedia } from '@/framework/api/wechatSetting'
 import React, { useState } from 'react'
 import { UPLOAD_API_URL } from '@/framework/api/fetcher'
+import intl from 'react-intl-universal'
 
 const AddAccount = () => {
   const navigator = useNavigate()
@@ -41,11 +42,11 @@ const AddAccount = () => {
       const { name } = file
       console.log('upload file', file)
       if (file.status === 'done') {
-        message.success({ className: 'rc-message', content: `${name} file uploaded successfully` })
+        message.success({ className: 'rc-message', content: `${name} ${intl.get('public.file_upload_success')}` })
         form.setFieldsValue({ url: file.response.url })
         setFileExtension(name.substr(name.lastIndexOf('.') + 1))
       } else if (file.status === 'error') {
-        message.error({ className: 'rc-message', content: `${name} file upload failed.` })
+        message.error({ className: 'rc-message', content: `${name} ${intl.get('public.file_upload_failed')}` })
       }
     },
   }
@@ -53,7 +54,7 @@ const AddAccount = () => {
   return (
     <ContentContainer>
       <InfoContainer>
-        <div className="text-2xl text-medium mb-4">add Video</div>
+        <div className="text-2xl text-medium mb-4">{intl.get('wx.add_video')}</div>
         <Form
           onValuesChange={formValuesChange}
           onFinish={addVideoAsset}
@@ -73,7 +74,7 @@ const AddAccount = () => {
               {item.type === 'upload' ? (
                 <Upload {...uploadProps} className="w-full">
                   <Button className="flex items-center justify-between w-full">
-                    <span>select the file</span>
+                    <span>{intl.get('wx.select_file')}</span>
                     <span className="iconfont icon-a-bianzu67beifen3 mr-2 text-xl" />
                   </Button>
                 </Upload>
@@ -90,10 +91,10 @@ const AddAccount = () => {
                 navigator('/assets/assets-management', { state: 'video' })
               }}
             >
-              Cancel
+              {intl.get('public.cancel')}
             </Button>
             <Button type="primary" htmlType="submit" danger>
-              Confirm
+              {intl.get('public.confirm')}
             </Button>
           </Form.Item>
         </Form>

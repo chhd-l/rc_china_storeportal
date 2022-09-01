@@ -12,6 +12,8 @@ import { handlePageParams } from '@/utils/utils'
 import { useAtom } from 'jotai'
 import { userAtom } from '@/store/user.store'
 import { useNavigate } from 'react-router-dom'
+import intl from 'react-intl-universal'
+
 // import 'antd/dist/antd.css';
 const ShopCategories = () => {
   const navigator = useNavigate()
@@ -77,7 +79,7 @@ const ShopCategories = () => {
 
   const columns: ProColumns<CategoryBaseProps>[] = [
     {
-      title: 'Category Name',
+      title: intl.get('product.category_name'),
       dataIndex: 'displayName',
       width: 300,
       render: (_, record, index) => {
@@ -138,7 +140,7 @@ const ShopCategories = () => {
       },
     },
     {
-      title: 'Created By',
+      title: intl.get('product.create_by'),
       dataIndex: 'categoryType',
       width: 300,
       render: (_, record) => (
@@ -149,15 +151,15 @@ const ShopCategories = () => {
       ),
     },
     {
-      title: 'Product(s)',
+      title: intl.get('product.products'),
       dataIndex: 'total',
       render: (_, record) => <span>{record.total ? record.total : 0}</span>,
     },
     {
-      title: 'Status',
+      title: intl.get('public.status'),
       dataIndex: 'isDisplay',
       render: (_, record) => (
-        <Tooltip title={record?.total < 1 ? 'This category cannot be activated as it contains no product' : ''}>
+        <Tooltip title={record?.total < 1 ? intl.get('category_cannot_active') : ''}>
           <Switch
             checked={record.isDisplay}
             disabled={record?.total < 1}
@@ -171,7 +173,7 @@ const ShopCategories = () => {
       ),
     },
     {
-      title: 'Operation',
+      title: intl.get('public.action'),
       key: 'option',
       width: 180,
       valueType: 'option',
@@ -179,14 +181,14 @@ const ShopCategories = () => {
         if (!record.total) {
           if (record.categoryType === 'MANUAL') {
             return [
-              <Tooltip title='Add Products'>
+              <Tooltip title={intl.get('product.add_products')}>
                 <Link
                   to='/category/category-manual-detail'
                   state={{ id: record.id }}
                   className='mr-2 iconfont icon-jiahao text-xl'
                 />
               </Tooltip>,
-              <Tooltip title='Delete'>
+              <Tooltip title={intl.get('public.delete')}>
                 <span
                   className='mr-2 text-xl iconfont icon-delete cursor-pointer primary-color'
                   onClick={() => {
@@ -198,14 +200,14 @@ const ShopCategories = () => {
             ]
           } else {
             return [
-              <Tooltip title='Set Filtering Rules'>
+              <Tooltip title={intl.get('set_filter_rule')}>
                 <Link
                   className='mr-2 iconfont icon-group52 text-xl'
                   to='/category/category-detail'
                   state={{ id: record.id }}
                 />
               </Tooltip>,
-              <Tooltip title='Delete'>
+              <Tooltip title={intl.get('public.delete')}>
                 <span
                   className='mr-2 text-xl iconfont icon-delete cursor-pointer primary-color'
                   onClick={() => {
@@ -219,14 +221,14 @@ const ShopCategories = () => {
         } else {
           if (record.categoryType === 'MANUAL') {
             return [
-              <Tooltip title='Details'>
+              <Tooltip title={intl.get('product.details')}>
                 <Link
                   to='/category/category-manual-detail'
                   state={{ id: record.id }}
                   className='mr-2 iconfont icon-category-details text-xl'
                 />
               </Tooltip>,
-              <Tooltip title='Delete'>
+              <Tooltip title={intl.get('public.delete')}>
                 <span
                   className='mr-2 text-xl iconfont icon-delete cursor-pointer primary-color'
                   onClick={() => {
@@ -238,7 +240,7 @@ const ShopCategories = () => {
             ]
           } else {
             return [
-              <Tooltip title='Details'>
+              <Tooltip title={intl.get('product.details')}>
                 <Link
                   to='/category/category-detail'
                   state={{ id: record.id }}
@@ -251,7 +253,7 @@ const ShopCategories = () => {
                   }}
                 />
               </Tooltip>,
-              <Tooltip title='Delete'>
+              <Tooltip title={intl.get('public.delete')}>
                 <span
                   className='mr-2 text-xl iconfont icon-delete cursor-pointer primary-color'
                   onClick={() => {
@@ -271,7 +273,7 @@ const ShopCategories = () => {
       <div className='shop-categories'>
         <div className='bg-white p-6 '>
           <div className='flex justify-between' style={{ marginBottom: '24px' }}>
-            <div className='text-xl font-semibold'>My Shop Categories</div>
+            <div className='text-xl font-semibold'>{intl.get('product.my_shop_category')}</div>
             <div className='flex'>
               {/*<Button className='flex items-center mr-4 text-red-400 border-red-400' icon={<EyeOutlined />}>*/}
               {/*  Preview*/}
@@ -288,7 +290,7 @@ const ShopCategories = () => {
                 }}
                 type='primary'
               >
-                + Add Category
+                + {intl.get('product.add_category')}
               </Button>
             </div>
           </div>
@@ -343,25 +345,27 @@ const ShopCategories = () => {
         <AddCate visible={addVisible} handleVisible={handleAddCate} handleUpdate={handleUpdate} />
         <Modal
           className='rc-modal'
-          title='Delete Item'
-          okText='Confirm'
+          title={intl.get('public.delete_item')}
+          okText={intl.get('public.confirm')}
+          cancelText={intl.get('public.cancel')}
           visible={isModalVisible}
           onOk={confirmDelete}
           confirmLoading={loading}
           onCancel={() => setIsModalVisible(false)}
         >
-          <p>Are you sure you want to delete the item?</p>
+          <p>{intl.get('public.are_you_sure_delete')}</p>
         </Modal>
         <Modal
           className='rc-modal'
-          title='Notice'
-          okText='Confirm'
+          title={intl.get('public.notice')}
+          okText={intl.get('public.confirm')}
+          cancelText={intl.get('public.cancel')}
           visible={isSwithVisible}
           onOk={confirmSwitch}
           confirmLoading={loading}
           onCancel={() => setIsSwithVisible(false)}
         >
-          <p>{status ? 'Are you sure you want to enable the item ?' : 'Are you sure you want to disable the item ?'}</p>
+          <p>{intl.get(status ? 'public.are_you_sure_enable' : 'public.are_you_sure_disable')}</p>
         </Modal>
       </div>
     </ContentContainer>

@@ -7,6 +7,7 @@ import { PageParamsProps } from '@/framework/types/common'
 import { handlePageParams } from '@/utils/utils'
 import { useNavigate } from 'react-router'
 import { initPageParams } from '@/lib/constants'
+import intl from 'react-intl-universal'
 
 const Video = ({
   isReload = false,
@@ -19,39 +20,39 @@ const Video = ({
 }) => {
   const column = [
     {
-      title: 'Title',
+      title: intl.get('wx.title'),
       dataIndex: 'assetTitle',
       key: 'assetTitle',
     },
     {
-      title: 'Description',
+      title: intl.get('wx.description'),
       dataIndex: 'description',
       key: 'description',
     },
     {
-      title: 'Create Time',
+      title: intl.get('wx.create_time'),
       dataIndex: 'createTime',
       key: 'createTime',
       render: (text: any, record: any) => `${record.status === 'synchronized' ? record.syncTime : text}`,
     },
     {
-      title: 'Status',
+      title: intl.get('public.status'),
       dataIndex: 'status',
       key: 'status',
     },
     {
-      title: 'Action',
+      title: intl.get('public.action'),
       dataIndex: 'action',
       key: 'action',
       render: (text: any, record: any) => (
         <>
-          <Tooltip title="View Video">
+          <Tooltip title={intl.get('wx.view_video')}>
             <span
               className="cursor-pointer ml-2 iconfont icon-a-Frame2 primary-color text-xl"
               onClick={() => record.video && window.open(record.video)}
             />
           </Tooltip>
-          <Tooltip title="Delete">
+          <Tooltip title={intl.get('public.delete')}>
             <span
               className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl"
               onClick={() => openDelete && openDelete(record.id, record.mediaId)}
@@ -116,7 +117,7 @@ const Video = ({
       <div className="mb-8">
         <div className="flex flex-row">
           <div className="flex flex-row items-center">
-            <div className="w-auto mr-2 text-left">Description</div>
+            <div className="w-auto mr-2 text-left">{intl.get('wx.description')}</div>
             <Input
               style={{ width: '200px' }}
               placeholder="Input"
@@ -145,7 +146,7 @@ const Video = ({
             setPageParams(initPageParams);
             getMediaList({});
           }}>
-            Search
+            {intl.get('public.search')}
           </Button>
           <Button
             className="w-20"
@@ -157,14 +158,14 @@ const Video = ({
               getMediaList({ curSearchParams: initSearchParams })
             }}
           >
-            Reset
+            {intl.get('public.reset')}
           </Button>
         </div>
       </div>
       <div className="flex flex-row justify-between mb-4">
         <Button className="flex items-center" onClick={() => openSyncTipModal && openSyncTipModal()}>
           <span className="iconfont icon-bianzu2 mr-2 text-xl" />
-          Synchronize WeChat Assets
+          {intl.get('wx.sync_wechat_assets')}
         </Button>
         <Button
           type="primary"
@@ -173,7 +174,7 @@ const Video = ({
             navigator('/assets/add-video')
           }}
         >
-          + Add
+          + {intl.get('public.add')}
         </Button>
       </div>
       <Table

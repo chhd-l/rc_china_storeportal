@@ -1,37 +1,38 @@
 import { FormItemProps } from "@/framework/types/common";
+import intl from 'react-intl-universal';
 
 export const ADD_VIDEO_FORM: FormItemProps[] = [
   {
-    label: "File",
+    label: intl.get('wx.file'),
     name: "url",
-    placeholder: "Select the file",
-    type:'upload',
+    placeholder: intl.get('wx.select_file'),
+    type: 'upload',
     rules: [
       {
         required: true,
-        message: "Please select account type!",
+        message: intl.get('wx.pls_upload_file'),
       },
     ],
   },
   {
     name: "title",
-    label: "Title",
+    label: intl.get('wx.title'),
     placeholder: "",
     rules: [
       {
         required: true,
-        message: "Please input title!",
+        message: intl.get('wx.pls_input_title'),
       },
     ],
   },
   {
     name: "description",
-    label: "Description",
+    label: intl.get('wx.description'),
     placeholder: "",
     rules: [
       {
         required: true,
-        message: "Please input description!",
+        message: intl.get('wx.pls_input_desc'),
       },
     ],
   },

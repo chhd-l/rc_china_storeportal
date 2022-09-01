@@ -11,6 +11,7 @@ import { Button, message } from 'antd';
 import { addArticle, addAndSyncArticle } from "@/framework/api/wechatSetting";
 import _ from 'lodash';
 import { useNavigate } from "react-router-dom";
+import intl from 'react-intl-universal';
 
 import "./index.less";
 
@@ -49,11 +50,11 @@ const NewGraphic: React.FC = () => {
       console.log(regular.test(article.contentSourceURL))
     }
     if (!article?.thumbMedia?.assetId) {
-      message.warn({className:"rc-message", content: "Please upload thumbnail picture!"});
+      message.warn({className:"rc-message", content: intl.get('wx.pls_upload_thumb')});
       return Promise.resolve(false);
     }
     if (article.type !== "news" && !article.imageList?.length && !article.video?.assetId && !article.voice?.assetId) {
-      message.warn({className:"rc-message", content: "Please upload associate asset!"});
+      message.warn({className:"rc-message", content: intl.get('wx.pls_upload_asso_assets')});
       return Promise.resolve(false);
     }
     if(article.type === "news"){
@@ -121,9 +122,9 @@ const NewGraphic: React.FC = () => {
               ? <NewVoice key={article.id} ref={formRef} />
               : article?.type === "video" ? <NewVideo key={article.id} ref={formRef} /> : null}
             <div className="mt-4 text-right space-x-4">
-              <Button disabled={loading}onClick={() => navigator("/assets/assets-management", { state: "news" })} >Cancel</Button>
-              <Button loading={loading} type="primary" onClick={handleSave}>Save</Button>
-              <Button loading={loading} type="primary" onClick={handleSaveAndSync}>Save and Synchronize</Button>
+              <Button disabled={loading}onClick={() => navigator("/assets/assets-management", { state: "news" })} >{intl.get('public.cancel')}</Button>
+              <Button loading={loading} type="primary" onClick={handleSave}>{intl.get('public.save')}</Button>
+              <Button loading={loading} type="primary" onClick={handleSaveAndSync}>{intl.get('wx.save_and_sync')}</Button>
             </div>
           </div>
         </div>

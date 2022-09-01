@@ -8,6 +8,7 @@ import './index.less'
 import { syncMedias, updateMedia, syncArticles, deleteArticles } from '@/framework/api/wechatSetting'
 import { useAtom } from 'jotai'
 import { userAtom } from '@/store/user.store'
+import intl from 'react-intl-universal'
 
 const PetOwnerList = () => {
   const [activeKey, setActiveKey] = useState('image')
@@ -39,7 +40,7 @@ const PetOwnerList = () => {
       })
     }
     if (res) {
-      message.success({ className: 'rc-message', content: 'Operation success' })
+      message.success({ className: 'rc-message', content: intl.get('public.operate_success') })
       setIsModalVisible(false)
       setIsReload(true)
     }
@@ -62,7 +63,7 @@ const PetOwnerList = () => {
       res = await syncMedias(activeKey)
     }
     if(res){
-      message.success({ className: 'rc-message', content: 'Operation success' })
+      message.success({ className: 'rc-message', content: intl.get('public.operate_success') })
       setIsSyncModalVisible(false)
       setIsReload(true)
     }
@@ -117,26 +118,28 @@ const PetOwnerList = () => {
       <Modal
         key="assetDelete"
         className="rc-modal"
-        title="Delete Item"
-        okText="Confirm"
+        title={intl.get('public.delete_item')}
+        okText={intl.get('public.confirm')}
+        cancelText={intl.get('public.cancel')}
         visible={isModalVisible}
         onOk={confirmDelete}
         confirmLoading={loading}
         onCancel={() => setIsModalVisible(false)}
       >
-        <p>Are you sure you want to delete the item?</p>
+        <p>{intl.get('public.are_you_sure_delete')}</p>
       </Modal>
       <Modal
         key="syncTip"
         className="rc-modal"
-        title="Confirm Synchronize"
-        okText="Confirm"
+        title={intl.get('wx.confirm_sync')}
+        okText={intl.get('public.confirm')}
+        cancelText={intl.get('public.cancel')}
         confirmLoading={loading}
         visible={isSyncTipModalVisible}
         onOk={syncMediaList}
         onCancel={() => setIsSyncModalVisible(false)}
       >
-        <p>Are you sure you want to synchronize?</p>
+        <p>{intl.get('wx.are_you_sure_to_sync')}</p>
       </Modal>
     </ContentContainer>
   )

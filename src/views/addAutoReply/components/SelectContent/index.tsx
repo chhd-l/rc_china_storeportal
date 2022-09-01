@@ -6,20 +6,21 @@ import Mock from "mockjs";
 import { replyContentsSource } from "@/views/replyContents/modules/mockdata";
 import { WxReplyContent } from "@/framework/types/wechat";
 import { MODAL_FORM_ITEM } from "@/views/addAutoReply/modules/form";
+import intl from 'react-intl-universal';
 
 const column = [
   {
-    title: "Reply Type",
+    title: intl.get('wx.reply_type'),
     dataIndex: "type",
     key: "type",
   },
   {
-    title: "Content description",
+    title: intl.get('wx.content_desc'),
     dataIndex: "description",
     key: "description",
   },
   {
-    title: "Status",
+    title: intl.get('public.status'),
     dataIndex: "status",
     key: "status",
     render: (text: any) => `${text ? "Enable" : "Disable"}`,
@@ -56,11 +57,11 @@ const SelectContentModal = ({
 
   return (
     <Modal
-      title="Select Reply Content"
+      title={intl.get('wx.select_reply_content')}
       visible={modalVisible}
       closable={false}
-      cancelText={"Cancel"}
-      okText={"Confirm"}
+      cancelText={intl.get('public.cancel')}
+      okText={intl.get('public.confirm')}
       width={700}
       onCancel={() => {
         onCancel && onCancel();

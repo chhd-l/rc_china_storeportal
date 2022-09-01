@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Table } from 'antd';
 import { Asset } from '@/framework/types/wechat'
 import { getMedias, getArticlesList } from '@/framework/api/wechatSetting'
+import intl from 'react-intl-universal'
 
 interface IProps {
   assetType: 'image' | 'voice' | 'video' | 'news'
@@ -13,26 +14,26 @@ interface IProps {
 
 const imageColumns = [
   {
-    title: 'Picture',
+    title: intl.get('wx.picture'),
     dataIndex: 'picture',
     key: 'picture',
     render: (text: any) => <img src={text} className="w-16 h-16 order-img" alt="" />,
   },
   {
-    title: 'Wechat Assets Link',
+    title: intl.get('wx.wechat_assets_link'),
     dataIndex: 'assetLink',
     key: 'assetLink',
     width: '40%',
     render: (text: any) => (<div style={{wordBreak: "break-all"}}>{text}</div>)
   },
   {
-    title: 'Create Time',
+    title: intl.get('wx.create_time'),
     dataIndex: 'createTime',
     key: 'createTime',
     render: (text: any, record: any) => `${record.status === 'synchronized' ? record.syncTime : text}`,
   },
   {
-    title: 'Status',
+    title: intl.get('public.status'),
     dataIndex: 'status',
     key: 'status',
   }
@@ -40,7 +41,7 @@ const imageColumns = [
 
 const voiceColumns = [
   {
-    title: 'Voice',
+    title: intl.get('wx.voice'),
     dataIndex: 'voice',
     key: 'voice',
     render: (text: any) => (
@@ -50,13 +51,13 @@ const voiceColumns = [
     ),
   },
   {
-    title: 'Create Time',
+    title: intl.get('wx.create_time'),
     dataIndex: 'createTime',
     key: 'createTime',
     render: (text: any, record: any) => `${record.status === 'synchronized' ? record.syncTime : text}`,
   },
   {
-    title: 'Status',
+    title: intl.get('public.status'),
     dataIndex: 'status',
     key: 'status',
   }
@@ -76,23 +77,23 @@ const list = {
 }
 const videoColumns = [
   {
-    title: 'Title',
+    title: intl.get('wx.title'),
     dataIndex: 'assetTitle',
     key: 'assetTitle',
   },
   {
-    title: 'Description',
+    title: intl.get('wx.description'),
     dataIndex: 'description',
     key: 'description',
   },
   {
-    title: 'Create Time',
+    title: intl.get('wx.create_time'),
     dataIndex: 'createTime',
     key: 'createTime',
     render: (text: any, record: any) => `${record.status === 'synchronized' ? record.syncTime : text}`,
   },
   {
-    title: 'Status',
+    title: intl.get('public.status'),
     dataIndex: 'status',
     key: 'status',
   }
@@ -101,24 +102,24 @@ const videoColumns = [
 // @ts-ignore
 const graphicColumns = [
   {
-    title: "Graphic main cover",
+    title: intl.get('wx.graphic_main_cover'),
     dataIndex: "cover",
     key: "cover",
     render: (_text: any, record: any) => <img src={record?.articleList?.[0]?.thumbPic ?? ""} style={{width:100,height:50,objectFit:"cover"}} />
   },
   {
-    title: "Wechat Assets ID",
+    title: intl.get('wx.assets_id'),
     dataIndex: "mediaId",
     key: "mediaId"
   },
   {
-    title: "title",
+    title: intl.get('wx.title'),
     dataIndex: "title",
     key: "title",
     render: (_text: any, record: any) => record?.articleList?.[0]?.title ?? ""
   },
   {
-    title: 'Status',
+    title: intl.get('public.status'),
     dataIndex: 'status',
     key: 'status',
     render: (_text: boolean,record: any) => {
@@ -163,11 +164,11 @@ const AssetsModal = (props: IProps) => {
 
   return (
     <Modal
-      title={props.assetType === 'image' ? 'Pictures' : props.assetType === 'voice' ? 'Voices' : props.assetType === 'news'?'Graphic message':'Videos'}
+      title={props.assetType === 'image' ? intl.get('wx.pictures') : props.assetType === 'voice' ? intl.get('wx.voices') : props.assetType === 'news' ? intl.get('wx.graphic_messages') : intl.get('wx.videos')}
       visible={props.visible}
       width={900}
-      okText="Confirm"
-      cancelText="Cancel"
+      okText={intl.get('public.confirm')}
+      cancelText={intl.get('public.cancel')}
       onOk={() => {
         if (props.onConfirm) {
            props.onConfirm(selectedRows[0])

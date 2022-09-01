@@ -7,9 +7,10 @@ import { WxReplyContent } from "@/framework/types/wechat";
 import { ContentContainer, InfoContainer } from "@/components/ui";
 import { createAutomaticResponse, updateAutomaticResponse } from "@/framework/api/wechatSetting";
 import { SearchOutlined } from "@ant-design/icons";
+import intl from 'react-intl-universal';
 
 const AddAccount = () => {
-  const [title, setTitle] = useState<string>("Add New Automatic Reply");
+  const [title, setTitle] = useState<string>(intl.get('wx.add_new_auto_replay'));
   const [modalVisible, setModalVisible] = useState(false);
   const [reply, setReply] = useState<any>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -20,7 +21,7 @@ const AddAccount = () => {
   useEffect(() => {
     const state: any = location.state;
     if (state?.id) {
-      setTitle("Edit Automatic Reply");
+      setTitle(intl.get('wx.edit_auto_reply'));
       setReply({
         id: state.responseId,
         description: state?.responseDes
@@ -116,10 +117,10 @@ const AddAccount = () => {
                   navigator("/auto-reply/auto-reply-list");
                 }}
               >
-                Cancel
+                {intl.get('public.cancel')}
               </Button>
               <Button loading={loading} type="primary" htmlType="submit" danger>
-                Confirm
+                {intl.get('public.confirm')}
               </Button>
             </div>
           </Form.Item>

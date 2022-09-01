@@ -7,6 +7,7 @@ import { AddCateOptions } from '../../modules/constant'
 import { saveShopCategory } from '@/framework/api/get-product'
 import { userAtom } from '@/store/user.store'
 import { useAtom } from 'jotai'
+import intl from 'react-intl-universal'
 
 interface AddCateProps {
   visible: boolean
@@ -35,7 +36,7 @@ const AddCate = ({ visible, handleVisible, handleUpdate }: AddCateProps) => {
   }
   return (
     <ModalForm
-      title='Add Category'
+      title={intl.get('product.add_category')}
       visible={visible}
       onFinish={onFinish}
       formRef={formRef}
@@ -48,19 +49,19 @@ const AddCate = ({ visible, handleVisible, handleUpdate }: AddCateProps) => {
         handleVisible(value)
         formRef?.current?.resetFields()
       }}
-      modalProps={{ width: 520, okText: 'Confirm', cancelText: 'Cancel' }}
+      modalProps={{ width: 520, okText: intl.get('public.confirm'), cancelText: intl.get('public.cancel') }}
     >
       <ProForm.Group>
         <ProFormText
           width='md'
-          rules={[{ required: true, message: 'Missing Category Name' }]}
+          rules={[{ required: true, message: intl.get('product.miss_category_name') }]}
           name='displayName'
-          label='Category Name'
+          label={intl.get('product.category_name')}
           fieldProps={{ maxLength: 40, showCount: true }}
-          placeholder='Enter a Category Name'
+          placeholder={intl.get('product.enter_category_name')}
         />
       </ProForm.Group>
-      <ProFormRadio.Group name='type' initialValue={'0'} label='Category Type' options={AddCateOptions} />
+      <ProFormRadio.Group name='type' initialValue={'0'} label={intl.get('product.category_type')} options={AddCateOptions} />
     </ModalForm>
   )
 }

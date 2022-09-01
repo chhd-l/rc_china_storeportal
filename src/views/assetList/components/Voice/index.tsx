@@ -7,6 +7,7 @@ import { PageParamsProps } from '@/framework/types/common'
 import { handlePageParams } from '@/utils/utils'
 import { initPageParams } from '@/lib/constants'
 import { UPLOAD_API_URL } from '@/framework/api/fetcher'
+import intl from 'react-intl-universal'
 
 const Voice = ({
   isReload = false,
@@ -21,7 +22,7 @@ const Voice = ({
 }) => {
   const column = [
     {
-      title: 'Voice',
+      title: intl.get('wx.voice'),
       dataIndex: 'voice',
       key: 'voice',
       render: (text: any,record: any) => (
@@ -31,22 +32,22 @@ const Voice = ({
       ),
     },
     {
-      title: 'Create Time',
+      title: intl.get('wx.create_time'),
       dataIndex: 'createTime',
       key: 'createTime',
       render: (text: any, record: any) => `${record.status === 'synchronized' ? record.syncTime : text}`,
     },
     {
-      title: 'Status',
+      title: intl.get('public.status'),
       dataIndex: 'status',
       key: 'status',
     },
     {
-      title: 'Action',
+      title: intl.get('public.action'),
       dataIndex: 'action',
       key: 'action',
       render: (text: any, record: any) => (
-        <Tooltip title="Delete">
+        <Tooltip title={intl.get('public.delete')}>
           <span
             className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl"
             onClick={() => openDelete && openDelete(record.id, record.mediaId)}
@@ -109,7 +110,7 @@ const Voice = ({
       console.log('upload file', file)
       setUploading(true)
       if (file.status === 'done') {
-        message.success({ className: 'rc-message', content: `${name} file uploaded successfully`})
+        message.success({ className: 'rc-message', content: `${name} ${intl.get('public.file_upload_success')}`})
         const res = await createMedia({
           type: 'voice',
           url: file.response.url,
@@ -121,7 +122,7 @@ const Voice = ({
         }
       } else if (file.status === 'error') {
         setUploading(false)
-        message.error({ className: 'rc-message', content: `${name} file upload failed.`})
+        message.error({ className: 'rc-message', content: `${name} ${intl.get('public.file_upload_failed')}`})
       }
     },
   }
@@ -132,12 +133,12 @@ const Voice = ({
         <Upload {...uploadProps}>
           <Button className="flex items-center" loading={uploading}>
             <span className="iconfont icon-a-bianzu67beifen3 mr-2 text-xl" />
-            Upload Local File
+            {intl.get('wx.select_file')}
           </Button>
         </Upload>
         <Button className="ml-4 flex items-center" onClick={() => openSyncTipModal && openSyncTipModal()}>
           <span className="iconfont icon-bianzu2 mr-2 text-xl" />
-          Synchronize WeChat Assets
+          {intl.get('wx.sync_wechat_assets')}
         </Button>
       </div>
       <Table columns={column} loading={loading} dataSource={pictureList} pagination={false} rowKey="skuId" className="rc-table w-full" />

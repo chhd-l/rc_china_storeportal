@@ -1,6 +1,7 @@
 import { ProColumns } from "@ant-design/pro-table";
 import { Button,Space,Input } from "antd";
-import { formatMoney } from '@/utils/utils'
+import { formatMoney } from '@/utils/utils';
+import intl from 'react-intl-universal';
 const { Search } = Input
 
 const setNum = (arr: any) => {
@@ -12,7 +13,7 @@ const setNum = (arr: any) => {
 }
 export const columns: ProColumns<any>[] = [
   {
-    title: 'Product Name',
+    title: intl.get('product.product_name'),
     dataIndex: 'name',
     hideInSearch: true,
     render: (_, record) => {
@@ -27,7 +28,7 @@ export const columns: ProColumns<any>[] = [
     },
   },
   {
-    title: 'Price',
+    title: intl.get('product.price'),
     dataIndex: 'Marketing Price',
     hideInSearch: true,
     render: (_, record) => {
@@ -46,7 +47,7 @@ export const columns: ProColumns<any>[] = [
     },
   },
   {
-    title: 'Stock',
+    title: intl.get('product.stock'),
     dataIndex: 'stock',
     hideInSearch: true,
     render: (_, record) => {
@@ -81,12 +82,12 @@ export const restWrapButtons = (
   const setting = (props: any) => {
     const { submit } = props.form;
     return [
-      <div className="pr-4 text-gryy-400"> {productNum} product(s) found</div>,
+      <div className="pr-4 text-gryy-400">{intl.get('product.products_found', { num: productNum })}</div>,
       <Button key="cancel" onClick={() => closeModal(false)}>
-        Cancel
+        {intl.get('public.cancel')}
       </Button>,
       <Button key="submit" type="primary" onClick={() => submit?.()}>
-        Comfirm
+        {intl.get('public.confirm')}
       </Button>,
     ];
   };
@@ -95,15 +96,15 @@ export const restWrapButtons = (
 
 export const manualColumns: ProColumns<any>[] = [
   {
-    title: "products",
+    title: intl.get('product.product_s'),
     dataIndex: "name",
   },
   {
-    title: "Brand",
+    title: intl.get('product.brand'),
     dataIndex: "brand",
   },
   {
-    title: "Price(s)",
+    title: intl.get('product.price(s)'),
     dataIndex: "marketingPrice",
     sorter: (a, b) => a.lowestPrice - b.lowestPrice,
     render: (_, record) => (
@@ -113,7 +114,7 @@ export const manualColumns: ProColumns<any>[] = [
     ),
   },
   {
-    title: "Stock",
+    title: intl.get('product.stock'),
     dataIndex: "stock",
   },
 ];
