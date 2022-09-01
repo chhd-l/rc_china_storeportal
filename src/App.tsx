@@ -46,7 +46,8 @@ function App () {
 
   useEffect(() => {
     intl.init({
-      currentLocale: lang,
+      //currentLocale: lang,
+      currentLocale: 'en_US',
       locales: locals.loca,
       fallbackLocale: 'en_US',
     })

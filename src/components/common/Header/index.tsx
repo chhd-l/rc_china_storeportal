@@ -81,11 +81,11 @@ const Header = ({ userInfo }: { userInfo: User | null }) => {
       <div className="grow">
         <RouteBreadcrumb />
       </div>
-      <div style={{marginRight: 40}} className="flex items-center cursor-pointer">
+      {/* <div style={{marginRight: 40}} className="flex items-center cursor-pointer">
         <Dropdown overlay={LangOpts(changeLang)} placement="bottomRight" arrow>
           <span>{languages.find(item => item.key === lang)?.desc}</span>
         </Dropdown>
-      </div>
+      </div> */}
       <div style={{marginRight: 40}} className="flex items-center cursor-pointer" onClick={() => navigate('/login/store')}>
         <span className="mr-2">{localStorage.getItem('rc_sc_login_brand')} - {localStorage.getItem('rc_sc_login_store')}</span>
         <img src={storeImg} width="16" height="16" alt="store" />
