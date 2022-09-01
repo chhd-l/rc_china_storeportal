@@ -68,20 +68,25 @@ const Menus = () => {
       <Menu.Item key="dashboard" icon={<span className='icon iconfont text-xl icon-a-bianzu33' />} style={{paddingLeft: 20, backgroundColor: '#fff'}}>
         <Link to="/dashboard" style={{ fontSize: "13px" }}>{intl.get('menu.dashboard')}</Link>
       </Menu.Item>
-      {menus.map(({ key, icon, name, langKey, children }) => (
-        <SubMenu key={key} icon={icon} title={intl.get(langKey)} >
-          {children?.map((subMenu) => (
-            <Menu.Item key={subMenu.key} >
-              <Link key={subMenu.key} to={subMenu.url} style={{ fontSize: "13px" }}>
-                {intl.get(subMenu.langKey)}
-              </Link>
-            </Menu.Item>
-          ))}
-        </SubMenu>
+      {menus.map(({ key, icon, name, url, langKey, children }) => (
+        <>
+          {!children || children.length === 0 ? <Menu.Item
+            key={key}
+            icon={icon}
+            style={{paddingLeft: 20, backgroundColor: '#fff'}}
+          >
+            <Link to={url} style={{ fontSize: "13px" }}>{intl.get(langKey)}</Link>
+          </Menu.Item> : <SubMenu key={key} icon={icon} title={intl.get(langKey)} >
+            {children?.map((subMenu) => (
+              <Menu.Item key={subMenu.key} >
+                <Link key={subMenu.key} to={subMenu.url} style={{ fontSize: "13px" }}>
+                  {intl.get(subMenu.langKey)}
+                </Link>
+              </Menu.Item>
+            ))}
+          </SubMenu>}
+        </>
       ))}
-      <Menu.Item key="aireco" icon={<span className='icon iconfont text-xl icon-a-bianzu13' />} style={{paddingLeft: 20, backgroundColor: '#fff'}}>
-        <Link to="/aireco" style={{ fontSize: "13px" }}>{intl.get('menu.aireco')}</Link>
-      </Menu.Item>
     </Menu>
   );
 };
