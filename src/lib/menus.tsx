@@ -7,7 +7,7 @@ export const menus = [
     value: 'shipment',
     url: '',
     key: 'shipment',
-    icon: <span className='icon iconfont  icon-a-bianzu10' />,
+    icon: <span className="icon iconfont  icon-a-bianzu10" />,
     langKey: 'menu.shipment',
     children: [
       {
@@ -31,7 +31,7 @@ export const menus = [
     value: 'order',
     url: '',
     key: 'order',
-    icon: <span className='icon iconfont icon-a-bianzu11' />,
+    icon: <span className="icon iconfont icon-a-bianzu11" />,
     langKey: 'menu.order',
     children: [
       {
@@ -56,7 +56,7 @@ export const menus = [
     value: 'subscription',
     url: '',
     key: 'subscription',
-    icon: <span className='icon iconfont icon-a-bianzu11-1' />,
+    icon: <span className="icon iconfont icon-a-bianzu11-1" />,
     langKey: 'menu.subscription',
     children: [
       {
@@ -65,15 +65,15 @@ export const menus = [
         url: '/subscription',
         key: 'my_subscriptions',
         langKey: 'menu.my_subscriptions',
-      }
-    ]
+      },
+    ],
   },
   {
     name: 'Product',
     value: 'product',
     url: '',
     key: 'product',
-    icon: <span className='icon iconfont icon-a-bianzu12' />,
+    icon: <span className="icon iconfont icon-a-bianzu12" />,
     langKey: 'menu.product',
     children: [
       {
@@ -104,7 +104,7 @@ export const menus = [
     value: 'petOwner',
     url: '',
     key: 'petOwner',
-    icon: <span className='icon iconfont icon-a-bianzu12-1' />,
+    icon: <span className="icon iconfont icon-a-bianzu12-1" />,
     langKey: 'menu.pet_owner',
     children: [
       {
@@ -128,7 +128,7 @@ export const menus = [
     value: 'marketing_centres',
     url: '',
     key: 'marketing_centers',
-    icon: <span className='icon iconfont icon-a-bianzu13' />,
+    icon: <span className="icon iconfont icon-a-bianzu13" />,
     langKey: 'menu.marketing_center',
     children: [
       {
@@ -152,7 +152,7 @@ export const menus = [
     value: 'aireco',
     url: '/aireco',
     key: 'aireco',
-    icon: <span className='icon iconfont text-xl icon-a-bianzu13' />,
+    icon: <span className="icon iconfont text-xl icon-a-bianzu13" />,
     langKey: 'menu.aireco',
     children: [],
   },
@@ -161,7 +161,7 @@ export const menus = [
     value: 'finance',
     url: '',
     key: 'finance',
-    icon: <span className='icon iconfont icon-a-bianzu14' />,
+    icon: <span className="icon iconfont icon-a-bianzu14" />,
     langKey: 'menu.finance',
     children: [
       {
@@ -174,7 +174,7 @@ export const menus = [
       {
         name: 'Invoice List',
         value: 'invoice_list',
-        url: '/payment/invoice-list',
+        url: '/invoice-list',
         key: 'invoice_list',
         langKey: 'menu.invoice_list',
       },
@@ -185,7 +185,7 @@ export const menus = [
     value: 'shop',
     url: '',
     key: 'shop',
-    icon: <span className='icon iconfont icon-a-bianzu18' />,
+    icon: <span className="icon iconfont icon-a-bianzu18" />,
     langKey: 'menu.shop',
     children: [
       // {
@@ -215,7 +215,7 @@ export const menus = [
     value: 'wechat_management',
     url: '',
     key: 'wechat_management',
-    icon: <span className='icon iconfont icon-a-WechatSetting' />,
+    icon: <span className="icon iconfont icon-a-WechatSetting" />,
     langKey: 'menu.social_media',
     children: [
       {
@@ -294,8 +294,8 @@ export const menus = [
 
 export const initActive = (pathname: string) => {
   let selectedKeys: string[] = []
-  menus.forEach(menu => {
-    menu.children.forEach(subMenu => {
+  menus.forEach((menu) => {
+    menu.children.forEach((subMenu) => {
       if (subMenu.url === pathname) {
         selectedKeys = [menu.key, subMenu.key]
       }
