@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "31551460",
+      "name": "invoice-down",
+      "font_class": "invoice-down",
+      "unicode": "e695",
+      "unicode_decimal": 59029
+    },
+    {
       "icon_id": "30563305",
       "name": "Dashboard",
       "font_class": "a-bianzu33",
