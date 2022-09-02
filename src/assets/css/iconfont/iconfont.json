@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "31619046",
+      "name": "aireco",
+      "font_class": "aireco",
+      "unicode": "e696",
+      "unicode_decimal": 59030
+    },
+    {
+      "icon_id": "31619047",
+      "name": "channel",
+      "font_class": "channel",
+      "unicode": "e697",
+      "unicode_decimal": 59031
+    },
+    {
       "icon_id": "31551460",
       "name": "invoice-down",
       "font_class": "invoice-down",

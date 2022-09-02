@@ -152,7 +152,7 @@ export const menus = [
     value: 'aireco',
     url: '/aireco',
     key: 'aireco',
-    icon: <span className="icon iconfont text-xl icon-a-bianzu13" />,
+    icon: <span className="icon iconfont text-xl icon-aireco" />,
     langKey: 'menu.aireco',
     children: [],
   },
@@ -215,7 +215,7 @@ export const menus = [
     value: 'wechat_management',
     url: '',
     key: 'wechat_management',
-    icon: <span className="icon iconfont icon-a-WechatSetting" />,
+    icon: <span className="icon iconfont icon-channel" />,
     langKey: 'menu.social_media',
     children: [
       {

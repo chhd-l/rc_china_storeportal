@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3298206 */
-  src: url('iconfont.woff2?t=1661993903371') format('woff2'),
-       url('iconfont.woff?t=1661993903371') format('woff'),
-       url('iconfont.ttf?t=1661993903371') format('truetype');
+  src: url('iconfont.woff2?t=1662135244046') format('woff2'),
+       url('iconfont.woff?t=1662135244046') format('woff'),
+       url('iconfont.ttf?t=1662135244046') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,14 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-aireco:before {
+  content: "\e696";
+}
+
+.icon-channel:before {
+  content: "\e697";
 }
 
 .icon-invoice-down:before {
