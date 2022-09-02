@@ -3,6 +3,8 @@ import ProForm, { ModalForm, ProFormRadio, ProFormText } from '@ant-design/pro-f
 import { useNavigate } from 'react-router-dom'
 import { AddCateOptions } from '../../modules/constant'
 import { saveShopCategory } from '@/framework/api/get-product'
+import intl from 'react-intl-universal'
+
 interface AddCateProps {
   visible: boolean
   handleVisible: (a: boolean) => void
@@ -28,25 +30,25 @@ const AddCate = ({ visible, handleVisible, handleUpdate }: AddCateProps) => {
   }
   return (
     <ModalForm
-      title='Add Category'
+      title={intl.get('product.add_category')}
       visible={visible}
       onFinish={onFinish}
       onVisibleChange={value => {
         handleVisible(value)
       }}
-      modalProps={{ width: 520, okText: 'Confirm', cancelText: 'Cancel' }}
+      modalProps={{ width: 520, okText: intl.get('public.confirm'), cancelText: intl.get('public.cancel') }}
     >
       <ProForm.Group>
         <ProFormText
           width='md'
-          rules={[{ required: true, message: 'Missing Display Name' }]}
+          rules={[{ required: true, message: intl.get('product.miss_display_name') }]}
           name='displayName'
-          label='Category Display Name'
+          label={intl.get('product.category_display_name')}
           fieldProps={{ maxLength: 40, showCount: true }}
-          placeholder='Enter a Category Display Name'
+          placeholder={intl.get('product.enter_display_name')}
         />
       </ProForm.Group>
-      <ProFormRadio.Group name='type' initialValue={'0'} label='Category Type' options={AddCateOptions} />
+      <ProFormRadio.Group name='type' initialValue={'0'} label={intl.get('product.category_type')} options={AddCateOptions} />
     </ModalForm>
   )
 }

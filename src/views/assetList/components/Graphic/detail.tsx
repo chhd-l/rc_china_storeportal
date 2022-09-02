@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Table, Tooltip } from 'antd';
 import { getArticlePreviewUrls } from '@/framework/api/wechatSetting';
 import moment from 'moment';
+import intl from 'react-intl-universal';
 
 interface IProps {
   mediaId: string
@@ -36,25 +37,25 @@ const ArticleDetail: React.FC<IProps> = ({ mediaId, synced, visible, articleList
   }
   const column = [
     {
-      title: 'Cover',
+      title: intl.get('wx.main_cover'),
       dataIndex: 'id',
       key: 'keyid',
       render: (_text: any, record: any) => <img src={record?.thumbPic ?? ""} style={{width:200,height:120,objectFit:"cover"}} />
     },
     {
-      title: 'Title',
+      title: intl.get('wx.title'),
       dataIndex: 'title',
       key: 'title',
       render: (_text: any, record: any) => record?.title ?? ""
     },
     {
-      title: 'Create Time',
+      title: intl.get('wx.create_time'),
       dataIndex: 'createdAt',
       key: 'createTime',
       render: () => createdAt ? moment(createdAt).format("YYYY/MM/DD HH:mm:ss") : null,
     },
     {
-      title: 'Action',
+      title: intl.get('public.action'),
       dataIndex: 'action',
       key: 'action',
       render: (text: any, record: any) => (
@@ -74,7 +75,7 @@ const ArticleDetail: React.FC<IProps> = ({ mediaId, synced, visible, articleList
   return (
     <Modal
       width={900}
-      title="Graphic message"
+      title={intl.get('wx.graphic_message')}
       footer={null}
       visible={visible}
       onCancel={onClose}

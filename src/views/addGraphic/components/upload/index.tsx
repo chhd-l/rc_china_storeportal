@@ -4,7 +4,8 @@ import AssetsModal from "@/components/wechat/AssetsModal";
 import { createMediaAndSync } from "@/framework/api/wechatSetting";
 import { Asset } from "@/framework/types/wechat";
 import { LoadingOutlined } from '@ant-design/icons';
-import { UPLOAD_API_URL } from '@/framework/api/fetcher'
+import { UPLOAD_API_URL } from '@/framework/api/fetcher';
+import intl from 'react-intl-universal';
 import './index.less';
 
 interface IProps {
@@ -53,7 +54,7 @@ const MyUpload: React.FC<IProps> = (props) => {
         }
       } else if (file.status === 'error') {
         setUploading(false)
-        message.error({ className: "rc-message", content: `${name} file upload failed.` })
+        message.error({ className: "rc-message", content: `${name} ${intl.get('public.file_upload_failed')}` })
       }
     },
   }
@@ -65,7 +66,7 @@ const MyUpload: React.FC<IProps> = (props) => {
           <div>Select</div>
         </Upload>
       </Menu.Item>
-      <Menu.Item key="1"><div onClick={() => setVisible(true)}>{props.assetType === "image" ? "Picture Assets" : props.assetType === "voice" ? "Voice Assets" : "Video Assets"}</div></Menu.Item>
+      <Menu.Item key="1"><div onClick={() => setVisible(true)}>{props.assetType === "image" ? intl.get('wx.picture_assets') : props.assetType === "voice" ? intl.get('wx.voice_assets') : intl.get('wx.video_assets')}</div></Menu.Item>
     </Menu>
   );
 

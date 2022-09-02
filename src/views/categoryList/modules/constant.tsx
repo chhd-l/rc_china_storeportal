@@ -3,22 +3,23 @@ import { LabelOptionProps } from "@/framework/types/common";
 import { AddCateType, CategoryBaseProps } from "@/framework/types/product";
 import { Switch } from "antd";
 import { Link } from "react-router-dom";
+import intl from 'react-intl-universal';
 
 export const columns: ProColumns<CategoryBaseProps>[] = [
   {
-    title: 'Category Display Name',
+    title: intl.get('product.category_display_name'),
     dataIndex: 'displayName',
   },
   {
-    title: 'Created By',
+    title: intl.get('product.create_by'),
     dataIndex: 'createdUser',
   },
   {
-    title: 'Product(s)',
+    title: intl.get('product.products'),
     dataIndex: 'productNum',
   },
   {
-    title: 'Display On/Off',
+    title: intl.get('product.display_on_off'),
     dataIndex: 'isDisplay',
     render: (_, record) => (
       <Switch
@@ -31,7 +32,7 @@ export const columns: ProColumns<CategoryBaseProps>[] = [
     ),
   },
   {
-    title: 'Operation',
+    title: intl.get('public.action'),
     key: 'option',
     width: 180,
     valueType: 'option',
@@ -62,15 +63,15 @@ export const columns: ProColumns<CategoryBaseProps>[] = [
 
 export const columnsAdjustSequence: ProColumns<any>[] = [
   {
-    title: 'product Name',
+    title: intl.get('product.product_name'),
     dataIndex: 'productName',
   },
   {
-    title: 'MarketingPrice',
+    title: intl.get('product.market_price'),
     dataIndex: 'marketingPrice',
   },
   {
-    title: 'Stock',
+    title: intl.get('product.stock'),
     dataIndex: 'stock',
   },
 ]
@@ -80,9 +81,9 @@ export const AddCateOptions: LabelOptionProps[] | string[] = [
     value: AddCateType.ManualSelection,
     label: (
       <>
-        <div>Manual Selection</div>
+        <div>{intl.get('product.manual_selection')}</div>
         <div className='text-gray-400'>
-          Manually select the products you would like to include in your shop category
+          {intl.get('product.manual_selection_tip')}
         </div>
       </>
     ),
@@ -91,9 +92,9 @@ export const AddCateOptions: LabelOptionProps[] | string[] = [
     value: AddCateType.RuleBasedFiltering,
     label: (
       <>
-        <div>Rule-based Filtering</div>
+        <div>{intl.get('product.rule_based_filter')}</div>
         <div className='text-gray-400'>
-          Products will be automatically selected based on the filters you have set up
+          {intl.get('product.rule_based_tip')}
         </div>
       </>
     ),

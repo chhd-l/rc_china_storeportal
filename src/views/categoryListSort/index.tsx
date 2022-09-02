@@ -3,6 +3,8 @@ import { EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons'
 import './index.less'
 import { useEffect, useState, useRef } from 'react'
 import { getShopCategories } from '@/framework/api/get-product'
+import intl from 'react-intl-universal'
+
 const ShopCategories = () => {
   const getList = async () => {
     await getShopCategories({
@@ -20,7 +22,7 @@ const ShopCategories = () => {
     <div className='shop-categories bg-gray-50 py-14 px-6 text-left'>
       <div className='bg-white p-6 '>
         <div className='flex justify-between'>
-          <div className='text-xl font-semibold'>Adjust Sequence</div>
+          <div className='text-xl font-semibold'>{intl.get('product.adjust_seq')}</div>
         </div>
       </div>
     </div>

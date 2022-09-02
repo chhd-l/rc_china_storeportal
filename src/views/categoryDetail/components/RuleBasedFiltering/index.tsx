@@ -12,6 +12,7 @@ import {
 import { getTree } from '@/framework/normalize/product'
 import { getBrands } from '@/framework/api/get-product'
 import { useLocation } from 'react-router'
+import intl from 'react-intl-universal'
 
 export interface RuleBasedFilteringProps {
   visible: boolean
@@ -134,7 +135,7 @@ const RuleBasedFiltering = ({
       const { submit, resetFields } = props.form
       return [
         <Button key='submit' type='primary' onClick={() => submit?.()}>
-          Search
+          {intl.get('public.search')}
         </Button>,
         <Button
           key='rest'
@@ -145,7 +146,7 @@ const RuleBasedFiltering = ({
             resetFields()
           }}
         >
-          Reset
+          {intl.get('public.reset')}
         </Button>,
       ]
     },
@@ -221,9 +222,9 @@ const RuleBasedFiltering = ({
       className='rule-based-filtering'
       title={
         <>
-          <div>Set Filtering Rules</div>
+          <div>{intl.get('product.set_filter_rule')}</div>
           <div className='text-gray-400 font-normal text-xs'>
-            If your products meet the filtering rule criteria, they will auyomatically be added into your shop category
+            {intl.get('product.product_will_add_to_category')}
           </div>
         </>
       }
@@ -234,7 +235,7 @@ const RuleBasedFiltering = ({
       // }}
       submitter={{
         searchConfig: {
-          submitText: 'Confirm',
+          submitText: intl.get('public.confirm'),
         },
       }}
       layout='horizontal'
@@ -248,7 +249,7 @@ const RuleBasedFiltering = ({
     >
       <div className='flex'>
         <div className='flex-1 mr-4 bg-gray-primary'>
-          <div className='py-3 pl-4'>Set Filtering Rules</div>
+          <div className='py-3 pl-4'>{intl.get('product.set_filter_rule')}</div>
           <ProForm
             formRef={formRef}
             className='py-3 pl-4 text-center'
@@ -301,13 +302,13 @@ const RuleBasedFiltering = ({
                 ],
                 getPopupContainer: triggerNode => triggerNode.parentNode,
                 dropdownClassName: 'productlist-choose-cate common-dropdown-cascader',
-                placeholder: 'Category Name',
+                placeholder: intl.get('product.category_name'),
                 style: {
                   textAlign: 'left',
                 },
               }}
               name='categoryId'
-              label='Product Category'
+              label={intl.get('product.product_category')}
               initialValue={['All Categories']}
             />
             <ProFormSelect
@@ -318,7 +319,7 @@ const RuleBasedFiltering = ({
               label='Brand'
               initialValue={'All Brands'}
             />
-            <ProForm.Item label='Specification' name='attributeValueIds'>
+            <ProForm.Item label={intl.get('product.specification')} name='attributeValueIds'>
               <Select
                 showArrow
                 className='text-left'
@@ -326,14 +327,14 @@ const RuleBasedFiltering = ({
                 onChange={handleChange}
                 options={speciList}
                 mode='multiple'
-                placeholder='Please select'
+                placeholder={intl.get('public.select')}
               ></Select>
             </ProForm.Item>
             <div className='flex'>
               <ProFormMoney
                 labelCol={{ span: 12 }}
                 wrapperCol={{ span: 12 }}
-                label='Markting Price'
+                label={intl.get('product.market_price')}
                 name='startPrice'
                 customSymbol='￥'
                 min={0}
@@ -351,7 +352,7 @@ const RuleBasedFiltering = ({
         </div>
         <div className='w-2/5 rule-right'>
           <div>
-            <div className='mb-3'>Set Filtering Rules</div>
+            <div className='mb-3'>{intl.get('product.set_filter_rule')}</div>
             {filterTags?.length > 0 &&
               filterTags.map((el: any) => (
                 <Tag className='ml-2' key={el}>
@@ -366,7 +367,7 @@ const RuleBasedFiltering = ({
               ))}
           </div>
           <div>
-            <div className='my-3'>Filtering Results</div>
+            <div className='my-3'>{intl.get('product.filter_results')}</div>
             <Spin spinning={loading}>
               <div className='flex flex-wrap' style={{ maxHeight: '250px', overflow: 'scroll' }}>
                 {productList.length > 0 &&

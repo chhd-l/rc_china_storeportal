@@ -11,6 +11,7 @@ import { OptionsProps } from '@/framework/types/common'
 import { getTree } from '@/framework/normalize/product'
 import { getBrands } from '@/framework/api/get-product'
 import { useLocation } from 'react-router'
+import intl from 'react-intl-universal'
 
 const { Option } = Select
 export type ManualSelectionProps = {
@@ -56,7 +57,7 @@ const ManualSelection = ({ visible, handleVisible, handleUpdate }: ManualSelecti
   }
   const manualColumns: ProColumns<any>[] = [
     {
-      title: 'Products',
+      title: intl.get('product.products'),
       dataIndex: 'name',
       hideInSearch: true,
       render: (_, record) => {
@@ -82,7 +83,7 @@ const ManualSelection = ({ visible, handleVisible, handleUpdate }: ManualSelecti
       },
     },
     {
-      title: 'Brand',
+      title: intl.get('product.brand'),
       dataIndex: 'brandId',
       hideInSearch: true,
       render: (_, record) => {
@@ -90,7 +91,7 @@ const ManualSelection = ({ visible, handleVisible, handleUpdate }: ManualSelecti
       },
     },
     {
-      title: 'Price(s)',
+      title: intl.get('product.price(s)'),
       dataIndex: 'marketingPrice',
       hideInSearch: true,
       // sorter: (a, b) => a.lowestPrice - b.lowestPrice,
@@ -109,7 +110,7 @@ const ManualSelection = ({ visible, handleVisible, handleUpdate }: ManualSelecti
     },
 
     {
-      title: 'Category:',
+      title: intl.get('product.category'),
       hideInTable: true,
       dataIndex: 'categoryId',
       fieldProps: {
@@ -131,7 +132,7 @@ const ManualSelection = ({ visible, handleVisible, handleUpdate }: ManualSelecti
                 <Select
                   defaultValue='1'
                   style={{ width: 140 }}
-                  placeholder='Select a option and change input text above'
+                  placeholder={intl.get('product.select_opt_and_change')}
                 >
                   {nameForKey.map((el: any) => (
                     <Option key={el.value} value={el.value}>
@@ -141,7 +142,7 @@ const ManualSelection = ({ visible, handleVisible, handleUpdate }: ManualSelecti
                 </Select>
               </Form.Item>
               <Form.Item name='username' className='flex-1'>
-                <Input placeholder={`Please Input `} />
+                <Input placeholder={intl.get('public.input')} />
               </Form.Item>
             </Input.Group>
           </Col>
@@ -149,7 +150,7 @@ const ManualSelection = ({ visible, handleVisible, handleUpdate }: ManualSelecti
       },
     },
     {
-      title: 'Brand:',
+      title: intl.get('product.brand'),
       hideInTable: true,
       dataIndex: 'brand',
       fieldProps: {
@@ -162,7 +163,7 @@ const ManualSelection = ({ visible, handleVisible, handleUpdate }: ManualSelecti
       valueType: 'select',
     },
     {
-      title: 'Stock',
+      title: intl.get('product.stock'),
       width: 100,
       dataIndex: 'stock',
       hideInSearch: true,
@@ -176,7 +177,7 @@ const ManualSelection = ({ visible, handleVisible, handleUpdate }: ManualSelecti
       renderFormItem: (_, { type, defaultRender, ...rest }, form) => {
         return (
           <div className='flex jus-space-around'>
-            <ProFormMoney label='Markting Price' name='startPrice' customSymbol='￥' min='0' />
+            <ProFormMoney label={intl.get('product.market_price')} name='startPrice' customSymbol='￥' min='0' />
             <span> - </span>
             <ProFormMoney min='0' name='endPrice' customSymbol='￥' />
           </div>
@@ -197,7 +198,7 @@ const ManualSelection = ({ visible, handleVisible, handleUpdate }: ManualSelecti
       width='50%'
       className='manual-selection'
       layout='horizontal'
-      title='Select Products'
+      title={intl.get('product.select_products')}
       visible={visible}
       onFinish={async () => {
         if (saveList.length > 0) {
@@ -205,7 +206,7 @@ const ManualSelection = ({ visible, handleVisible, handleUpdate }: ManualSelecti
           let ids = saveList.map((el: any) => el.productId)
           addShopCategoryProductRel(state.id, ids)
           handleUpdate(true)
-          message.success({ className: 'rc-message', content: 'Operate success' })
+          message.success({ className: 'rc-message', content: intl.get('public.operate_success') })
           return true
         } else {
           return false
@@ -213,7 +214,7 @@ const ManualSelection = ({ visible, handleVisible, handleUpdate }: ManualSelecti
       }}
       submitter={{
         searchConfig: {
-          submitText: 'Confirm',
+          submitText: intl.get('public.confirm'),
         },
       }}
       onVisibleChange={handleVisible}
@@ -278,7 +279,8 @@ const ManualSelection = ({ visible, handleVisible, handleUpdate }: ManualSelecti
           defaultCollapsed: false,
           span: 12,
           labelWidth: 'auto',
-          searchText: 'Search',
+          searchText: intl.get('public.search'),
+          resetText: intl.get('public.reset'),
           className: 'my-search',
           optionRender: ({ searchText, resetText }, { form }, dom) => [
             <Button

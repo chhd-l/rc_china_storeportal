@@ -11,6 +11,7 @@ import { detleShopCateRel, getFindShopCategoryProductPage, updateShopCategory } 
 import { ContentContainer } from '@/components/ui'
 import { formatMoney, handlePageParams } from '@/utils/utils'
 import { useLocation } from 'react-router'
+import intl from 'react-intl-universal'
 const { Search } = Input
 
 const CategoryDetail = () => {
@@ -125,7 +126,7 @@ const CategoryDetail = () => {
   }
   const columns: ProColumns<any>[] = [
     {
-      title: 'Product Name',
+      title: intl.get('product.product_name'),
       dataIndex: 'name',
       hideInSearch: true,
       render: (_, record) => {
@@ -144,7 +145,7 @@ const CategoryDetail = () => {
       },
     },
     {
-      title: 'Price',
+      title: intl.get('product.price'),
       dataIndex: 'marketingPrice',
       hideInSearch: true,
       render: (_, record) => {
@@ -161,7 +162,7 @@ const CategoryDetail = () => {
       },
     },
     {
-      title: 'Stock',
+      title: intl.get('product.stock'),
       dataIndex: 'stock',
       hideInSearch: true,
       render: (_, record) => {
@@ -171,7 +172,7 @@ const CategoryDetail = () => {
       },
     },
     {
-      title: 'Actions',
+      title: intl.get('public.action'),
       key: 'option',
       width: 180,
       valueType: 'option',
@@ -196,7 +197,7 @@ const CategoryDetail = () => {
         return (
           <Space direction='vertical' className='search-input'>
             <Search
-              placeholder='Search Products'
+              placeholder={intl.get('product.search_products')}
               onSearch={() => {
                 form.submit()
               }}
@@ -265,7 +266,7 @@ const CategoryDetail = () => {
                 )}
               </div>
               <div>
-                <Tooltip title={!cateInfos?.total ? 'This category cannot be activated as it contains no product' : ''}>
+                <Tooltip title={!cateInfos?.total ? intl.get('product.category_cannot_active') : ''}>
                   <Switch
                     className='ml-3'
                     checked={cateInfos.isDisplay}
@@ -279,18 +280,18 @@ const CategoryDetail = () => {
               </div>
             </div>
             <div className='text-gray-400 mt-4'>
-              Created By:{' '}
+              {intl.get('product.create_by')}:{' '}
               <span className='text-black mx-2'>
                 {cateInfos.name} {' | '}{' '}
-                {cateInfos.categoryType === 'MANUAL' ? 'Manual Selection' : 'Rule-based Filtering'}
+                {cateInfos.categoryType === 'MANUAL' ? intl.get('product.manual_selection') : intl.get('product.rule_based_filter')}
               </span>{' '}
-              Product(s): <span className='text-black mx-2'>{cateInfos.total}</span>
+              {intl.get('product.products')}: <span className='text-black mx-2'>{cateInfos.total}</span>
             </div>
           </div>
           <div className='bg-white px-6 py-4'>
             <div className='flex justify-between'>
               <div className='search-title'>
-                <div className='text-xl font-semibold list-title'>Product List</div>
+                <div className='text-xl font-semibold list-title'>{intl.get('product.product_list')}</div>
               </div>
               <Button
                 type='primary'
@@ -298,7 +299,7 @@ const CategoryDetail = () => {
                   setManualSelectionVisible(true)
                 }}
               >
-                + Add Products
+                + {intl.get('product.add_products')}
               </Button>
             </div>
             <ProTable
@@ -328,7 +329,7 @@ const CategoryDetail = () => {
               tableAlertOptionRender={({ selectedRowKeys, selectedRows, onCleanSelected }) => {
                 return (
                   <Space size={16}>
-                    <span>{selectedRowKeys.length} products selected</span>
+                    <span>{intl.get('product.products_selected', { num: selectedRowKeys.length })}</span>
                     <Button
                       onClick={() => {
                         if (selectedRows.length > 0) {
@@ -337,7 +338,7 @@ const CategoryDetail = () => {
                         }
                       }}
                     >
-                      Delete
+                      {intl.get('public.delete')}
                     </Button>
                   </Space>
                 )
@@ -387,26 +388,28 @@ const CategoryDetail = () => {
           />
           <Modal
             className='rc-modal'
-            title='Delete Item'
-            okText='Confirm'
+            title={intl.get('public.delete_item')}
+            okText={intl.get('public.confirm')}
+            cancelText={intl.get('public.cancel')}
             visible={isModalVisible}
             onOk={confirmDelete}
             confirmLoading={loading}
             onCancel={() => setIsModalVisible(false)}
           >
-            <p>Are you sure you want to delete the item?</p>
+            <p>{intl.get('public.are_you_sure_delete')}</p>
           </Modal>
           <Modal
             className='rc-modal'
-            title='Notice'
-            okText='Confirm'
+            title={intl.get('public.notice')}
+            okText={intl.get('public.confirm')}
+            cancelText={intl.get('public.cancel')}
             visible={isSwithVisible}
             onOk={confirmSwitch}
             confirmLoading={loading}
             onCancel={() => setIsSwithVisible(false)}
           >
             <p>
-              {status ? 'Are you sure you want to enable the item ?' : 'Are you sure you want to disable the item ?'}
+              {intl.get(status ? 'public.are_you_sure_enable' : 'public.are_you_sure_disable')}
             </p>
           </Modal>
         </div>

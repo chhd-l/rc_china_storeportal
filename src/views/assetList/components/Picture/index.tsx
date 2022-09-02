@@ -8,6 +8,7 @@ import { handlePageParams } from '@/utils/utils'
 import './index.less'
 import { initPageParams } from '@/lib/constants'
 import { UPLOAD_API_URL } from '@/framework/api/fetcher'
+import intl from 'react-intl-universal'
 
 const Picture = ({
   isReload = false,
@@ -25,38 +26,38 @@ const Picture = ({
   const [uploading, setUploading] = useState(false)
   const column = [
     {
-      title: 'Picture',
+      title: intl.get('wx.picture'),
       dataIndex: 'picture',
       key: 'picture',
       render: (text: any) => <img src={text} className="order-img h-24 w-28" alt="" />,
       // width: '20%',
     },
     {
-      title: 'Wechat Assets Link',
+      title: intl.get('wx.wechat_assets_link'),
       dataIndex: 'assetLink',
       key: 'assetLink',
       width: '45%',
     },
     {
-      title: 'Create Time',
+      title: intl.get('wx.create_time'),
       dataIndex: 'createTime',
       key: 'createTime',
       render: (text: any, record: any) => `${record.status === 'synchronized' ? record.syncTime : text}`,
       width: '15%',
     },
     {
-      title: 'Status',
+      title: intl.get('public.status'),
       dataIndex: 'status',
       key: 'status',
       width: '15%',
     },
     {
-      title: 'Action',
+      title: intl.get('public.action'),
       dataIndex: 'action',
       key: 'action',
       render: (text: any, record: any) => (
         <div className="flex flex-row items-center">
-          <Tooltip title="View Image">
+          <Tooltip title={intl.get('wx.view_image')}>
             <span
               className="cursor-pointer ml-2 iconfont icon-bianzu3 primary-color"
               onClick={() => {
@@ -65,7 +66,7 @@ const Picture = ({
               }}
             />
           </Tooltip>
-          <Tooltip title="Delete">
+          <Tooltip title={intl.get('public.delete')}>
             <span
               className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl"
               onClick={() => openDelete && openDelete(record.id, record.mediaId)}
@@ -124,7 +125,7 @@ const Picture = ({
       console.log('upload file',file)
       setUploading(true)
       if (file.status === 'done') {
-        message.success({ className: 'rc-message', content: `${name} file uploaded successfully`})
+        message.success({ className: 'rc-message', content: `${name} ${intl.get('public.file_upload_success')}`})
         const res = await createMedia({
           type: 'image',
           url: file.response.url,
@@ -136,7 +137,7 @@ const Picture = ({
         }
       } else if (file.status === 'error') {
         setUploading(false)
-        message.error({ className: 'rc-message', content: `${name} file upload failed.`})
+        message.error({ className: 'rc-message', content: `${name} ${intl.get('public.file_upload_failed')}`})
       }
     },
   }
@@ -147,12 +148,12 @@ const Picture = ({
         <Upload {...uploadProps}>
           <Button className="flex items-center" loading={uploading}>
             <span className="iconfont icon-a-bianzu67beifen3 mr-2 text-xl" />
-            Upload Local File
+            {intl.get('wx.select_file')}
           </Button>
         </Upload>
         <Button className="ml-4 flex items-center" onClick={() => openSyncTipModal && openSyncTipModal()}>
           <span className="iconfont icon-bianzu2 mr-2 text-xl" />
-          Synchronize WeChat Assets
+          {intl.get('wx.sync_wechat_assets')}
         </Button>
       </div>
       <Table columns={column} loading={loading} dataSource={pictureList} pagination={false} rowKey="id" className="rc-table w-full" />

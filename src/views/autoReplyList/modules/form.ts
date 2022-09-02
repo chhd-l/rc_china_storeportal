@@ -1,31 +1,32 @@
 import { SearchFormItemProps, BaseListProps } from "@/framework/types/common";
 import { statusList } from "@/views/accountList/modules/constants";
 import { matchTypeList } from "./constants";
+import intl from 'react-intl-universal';
 
 export const getFormItems: (accountList: BaseListProps[]) => SearchFormItemProps[] = (accountList) => ([
   {
-    label: "Wechat Account",
+    label: intl.get('wx.wechat_account'),
     name: "name",
-    placeholder: "Select",
+    placeholder: intl.get('public.select'),
     type: "select",
     selectList: accountList,
   },
   {
-    label: "Match Type",
+    label: intl.get('wx.match_type'),
     name: "type",
-    placeholder: "Select",
+    placeholder: intl.get('public.select'),
     type: "select",
     selectList: matchTypeList,
   },
   {
-    label: "Keywords",
+    label: intl.get('wx.keywords'),
     name: "keywords",
-    placeholder: "Keywords",
+    placeholder: intl.get('wx.keywords'),
   },
   {
-    label: "Status",
+    label: intl.get('public.status'),
     name: "status",
-    placeholder: "Select",
+    placeholder: intl.get('public.select'),
     type: "select",
     selectList: statusList,
   },

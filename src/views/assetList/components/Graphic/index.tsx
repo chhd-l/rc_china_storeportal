@@ -9,6 +9,7 @@ import { initPageParams } from '@/lib/constants'
 import ArticleDetail from './detail'
 import PublishIcon from '@/components/icons/publish-icon'
 import moment from 'moment'
+import intl from 'react-intl-universal'
 
 const Graphic = ({
   isReload = false,
@@ -45,7 +46,7 @@ const Graphic = ({
   }
   const column = [
     {
-      title: 'Main Cover',
+      title: intl.get('wx.main_cover'),
       dataIndex: 'id',
       key: 'keyid',
       render: (_text: any, record: any) => (
@@ -53,19 +54,19 @@ const Graphic = ({
       ),
     },
     {
-      title: 'Title',
+      title: intl.get('wx.title'),
       dataIndex: 'title',
       key: 'title',
       render: (_text: any, record: any) => record?.articleList?.[0]?.title ?? '',
     },
     {
-      title: 'Create Time',
+      title: intl.get('wx.create_time'),
       dataIndex: 'createdAt',
       key: 'createTime',
       render: (_text: any) => moment(_text).format('YYYY/MM/DD HH:mm:ss'),
     },
     {
-      title: 'Status',
+      title: intl.get('public.status'),
       dataIndex: 'status',
       key: 'status',
       render: (_text: boolean, record: any) => {
@@ -74,13 +75,13 @@ const Graphic = ({
       },
     },
     {
-      title: 'Action',
+      title: intl.get('public.action'),
       dataIndex: 'action',
       key: 'action',
       render: (text: any, record: any) => (
         <>
           {record.status === 'SYCHRONIZED' || record.status === 'PULISHED' ? (
-            <Tooltip title='View Details'>
+            <Tooltip title={intl.get('wx.view_details')}>
               <span
                 className='cursor-pointer ml-2 iconfont icon-kjafg primary-color text-lg'
                 onClick={() => handleViewDetail(record)}
@@ -88,7 +89,7 @@ const Graphic = ({
             </Tooltip>
           ) : null}
           {record.status === 'SYCHRONIZED' ? (
-            <Tooltip title='Publish'>
+            <Tooltip title={intl.get('wx.publish')}>
               <PublishIcon
                 className='cursor-pointer ml-2'
                 onClick={() => {
@@ -98,7 +99,7 @@ const Graphic = ({
               />
             </Tooltip>
           ) : null}
-          <Tooltip title='Delete'>
+          <Tooltip title={intl.get('public.delete')}>
             <span
               className='cursor-pointer ml-2 iconfont icon-delete primary-color text-xl'
               onClick={() => openDelete && openDelete(record.id, record.mediaId)}
@@ -164,7 +165,7 @@ const Graphic = ({
     let res = await wxArticlePublish(mediaId)
     if (res) {
       setIsModalVisible(false)
-      message.success({ className: 'rc-message', content: 'Operation success' })
+      message.success({ className: 'rc-message', content: intl.get('public.operate_success') })
       getMediaList({})
       setLoading(false)
     } else {
@@ -176,10 +177,10 @@ const Graphic = ({
       <div className='mb-8'>
         <div className='flex flex-row'>
           <div className='flex flex-row items-center'>
-            <div className='w-auto mr-2 text-left'>Title</div>
+            <div className='w-auto mr-2 text-left'>{intl.get('wx.title')}</div>
             <Input
               style={{ width: '200px' }}
-              placeholder='Input'
+              placeholder={intl.get('public.input')}
               value={searchParams.title}
               onChange={e => {
                 setSearchParams({ ...searchParams, title: e.target.value })
@@ -187,10 +188,10 @@ const Graphic = ({
             />
           </div>
           <div className='flex flex-row items-center'>
-            <div className='mr-2 ml-4'>Status</div>
+            <div className='mr-2 ml-4'>{intl.get('public.status')}</div>
             <Select
               style={{ width: '300px' }}
-              placeholder='Select'
+              placeholder={intl.get('public.select')}
               value={searchParams.status}
               allowClear
               onChange={val => {
@@ -215,7 +216,7 @@ const Graphic = ({
               getMediaList({})
             }}
           >
-            Search
+            {intl.get('public.search')}
           </Button>
           <Button
             className='w-20'
@@ -225,14 +226,14 @@ const Graphic = ({
               getMediaList({ curSearchParams: initSearchParams })
             }}
           >
-            Reset
+            {intl.get('public.reset')}
           </Button>
         </div>
       </div>
       <div className='flex flex-row justify-between mb-4'>
         <Button className='flex items-center' onClick={() => openSyncTipModal && openSyncTipModal()}>
           <span className='iconfont icon-bianzu2 mr-2 text-xl' />
-          Synchronize WeChat Assets
+          {intl.get('wx.sync_wechat_assets')}
         </Button>
         <Button
           type='primary'
@@ -241,7 +242,7 @@ const Graphic = ({
             navigator('/assets/add-graphic')
           }}
         >
-          + Add
+          + {intl.get("public.add")}
         </Button>
       </div>
       <Table
@@ -274,14 +275,15 @@ const Graphic = ({
       ) : null}
       <Modal
         className='rc-modal'
-        title='Publish Item'
-        okText='Confirm'
+        title={intl.get('wx.publish_item')}
+        okText={intl.get('public.confirm')}
+        cancelText={intl.get('public.cancel')}
         visible={isModalVisible}
         onOk={confirmOk}
         confirmLoading={loading}
         onCancel={() => setIsModalVisible(false)}
       >
-        <p>Are you sure you want to publish the item?</p>
+        <p>{intl.get('wx.are_you_sure_to_publish')}</p>
       </Modal>
     </ContentContainer>
   )

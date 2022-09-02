@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { matchTypeList } from "../../modules/constants";
 import { replyTypeList } from "@/framework/constants/wechat";
 import { AutoReplies } from "@/framework/types/wechat";
+import intl from 'react-intl-universal';
 
 const Index = ({
   autoReplies,
@@ -22,35 +23,35 @@ const Index = ({
   const navigator = useNavigate();
   const columns = [
     {
-      title: "Wechat Account",
+      title: intl.get('wx.wechat_account'),
       dataIndex: "accountName",
       key: "accountName",
     },
     {
-      title: "Match Type",
+      title: intl.get('wx.match_type'),
       dataIndex: "matchType",
       key: "matchType",
       render: (_text: string) => (matchTypeList.find(m => m.key === _text))?.label ?? _text
     },
     {
-      title: "Keywords",
+      title: intl.get('wx.keywords'),
       dataIndex: "keywords",
       key: "keywords",
     },
     {
-      title: "Response Type",
+      title: intl.get('wx.response_type'),
       dataIndex: "responseType",
       key: "responseType",
       render: (_text: string) => (replyTypeList.find(m => m.key === _text))?.label ?? _text
     },
     {
-      title: "Response Description",
+      title: intl.get('wx.response_desc'),
       dataIndex: "responseDes",
       key: "responseDes",
       render: (_text: string, record: AutoReplies) => <Link to="/reply/edit-reply-content" className="underline" state={{id:record.responseId}}>{_text}</Link>
     },
     {
-      title: "Status",
+      title: intl.get('public.status'),
       dataIndex: "status",
       key: "status",
       render: (text: any, record: AutoReplies) => (
@@ -65,17 +66,17 @@ const Index = ({
       ),
     },
     {
-      title: "Action",
+      title: intl.get('public.action'),
       key: "Action",
       render: (text: any, record: AutoReplies) => (
         <>
-          <Tooltip title="Edit">
+          <Tooltip title={intl.get('public.edit')}>
             <span
               className="cursor-pointer iconfont icon-a-Group437 text-red-500"
               onClick={() => { navigator("/auto-reply/edit-auto-reply", { state: record }) }}
             />
           </Tooltip>
-          <Tooltip title="Delete">
+          <Tooltip title={intl.get('public.delete')}>
             <span
               className="cursor-pointer iconfont icon-delete text-red-500 ml-2"
               onClick={() => {
@@ -97,7 +98,7 @@ const Index = ({
             navigator("/auto-reply/add-auto-reply");
           }}
         >
-          + Add
+          + {intl.get('public.add')}
         </Button>
       </div>
       <Table

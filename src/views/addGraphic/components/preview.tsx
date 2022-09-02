@@ -6,6 +6,7 @@ import _ from 'lodash'
 import AssetsModal from './existing'
 import { useState, useEffect } from 'react'
 import { Asset } from '@/framework/types/wechat'
+import intl from 'react-intl-universal'
 
 interface IProps {
   onValidate: () => Promise<boolean>
@@ -92,12 +93,12 @@ const Preview: React.FC<IProps> = ({ onValidate }) => {
 
   const confirmDelete = () => {
     if (articleList.length < 2) {
-      message.warn({ className: 'rc-message', content: 'Single message cannot be deleted!' })
+      message.warn({ className: 'rc-message', content: intl.get('wx.single_mess_del_tip') })
       return
     }
     openConfirmModal({
-      title: 'Confirm Delete',
-      content: 'Are you sure you want to delete this message',
+      title: intl.get('public.confirm_delete'),
+      content: intl.get('wx.are_you_sure_to_delete_message'),
       onOk: handleDeleteMessage,
     })
   }
@@ -110,19 +111,19 @@ const Preview: React.FC<IProps> = ({ onValidate }) => {
   const menu = (
     <Menu>
       <Menu.Item key='0'>
-        <div onClick={() => handleCreateNewMessage('news')}>New graphic</div>
+        <div onClick={() => handleCreateNewMessage('news')}>{intl.get('wx.new_graphic')}</div>
       </Menu.Item>
       <Menu.Item key='1'>
-        <div onClick={() => handleCreateNewExisting()}>Select an existing graphic</div>
+        <div onClick={() => handleCreateNewExisting()}>{intl.get('wx.wx.select_exist_graphic')}</div>
       </Menu.Item>
       <Menu.Item key='2'>
-        <div onClick={() => handleCreateNewMessage('image')}>Picture message</div>
+        <div onClick={() => handleCreateNewMessage('image')}>{intl.get('wx.picture_message')}</div>
       </Menu.Item>
       <Menu.Item key='3'>
-        <div onClick={() => handleCreateNewMessage('voice')}>Voice message</div>
+        <div onClick={() => handleCreateNewMessage('voice')}>{intl.get('wx.voice_message')}</div>
       </Menu.Item>
       <Menu.Item key='4'>
-        <div onClick={() => handleCreateNewMessage('video')}>Video message</div>
+        <div onClick={() => handleCreateNewMessage('video')}>{intl.get('wx.video_message')}</div>
       </Menu.Item>
     </Menu>
   )
@@ -142,7 +143,7 @@ const Preview: React.FC<IProps> = ({ onValidate }) => {
         ))
       }
       {articleList.length < 8 ? <Dropdown overlay={menu} trigger={['click']}>
-        <div className='add-new'>+ Add a new message</div>
+        <div className='add-new'>+ {intl.get('wx.add_new_message')}</div>
       </Dropdown> : null}
       <div className='action'>
         {articleIdx > 0 ? <div className='cursor-pointer' onClick={() => handleMoveArticle('up')}><span

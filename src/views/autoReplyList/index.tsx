@@ -13,6 +13,7 @@ import {
 } from '@/framework/api/wechatSetting'
 import { openConfirmModal } from '@/utils/utils'
 import { ContentContainer, DivideArea, SearchContainer, TableContainer } from '@/components/ui'
+import intl from 'react-intl-universal'
 
 const AutoReplyList = () => {
   const [autoReplies, setAutoReplies] = useState<AutoReplies[]>([])
@@ -69,8 +70,8 @@ const AutoReplyList = () => {
 
   const handleDelete = (id: string) => {
     openConfirmModal({
-      title: 'Confirm Delete?',
-      content: 'Are you sure you want to delete the item?',
+      title: intl.get('public.confirm_delete'),
+      content: intl.get('public.are_you_sure_delete'),
       onOk: () => {
         setLoading(true)
         deleteAutomaticResponse(id).then(isDeleted => {
@@ -87,8 +88,8 @@ const AutoReplyList = () => {
 
   const handleDisableOrEnable = (id: string, param: any) => {
     openConfirmModal({
-      title: param.isActive ? 'Enable Item' : 'Disable Item',
-      content: `Are you sure you want to ${param.isActive ? 'enable' : 'disable'} this item?`,
+      title: param.isActive ? intl.get('public.enable_item') : intl.get('public.disable_item'),
+      content: intl.get(param.isActive ? 'public.are_you_sure_enable' : 'public.are_you_sure_disable'),
       onOk: () => {
         setLoading(true)
         updateAutomaticResponse(id, param).then(isSuccess => {

@@ -9,6 +9,7 @@ import { handlePageParams } from '@/utils/utils'
 import { getESProducts, getFindShopCategoryProductPage, updateShopCategory } from '@/framework/api/get-product'
 import { ContentContainer } from '@/components/ui'
 import { useLocation } from 'react-router'
+import intl from 'react-intl-universal'
 
 const CategoryDetail = () => {
   const { state }: any = useLocation()
@@ -175,7 +176,7 @@ const CategoryDetail = () => {
                 )}
               </div>
               <div>
-                <Tooltip title={!cateInfos?.total ? 'This category cannot be activated as it contains no product' : ''}>
+                <Tooltip title={!cateInfos?.total ? intl.get('product.') : 'category_cannot_active'}>
                   <Switch
                     className='ml-3'
                     checked={cateInfos.isDisplay}
@@ -189,24 +190,23 @@ const CategoryDetail = () => {
               </div>
             </div>
             <div className='text-gray-400 mt-4'>
-              Created By:{' '}
+              {intl.get('product.create_by')}:{' '}
               <span className='text-black mx-2'>
                 {cateInfos.name} {' | '}{' '}
                 {cateInfos.categoryType === 'MANUAL' ? 'Manual Selection' : 'Rule-based Filtering'}
               </span>{' '}
-              Product(s): <span className='text-black mx-2'>{cateInfos.total}</span>
+              {intl.get('product.products')}: <span className='text-black mx-2'>{cateInfos.total}</span>
             </div>
           </div>
           <div className='bg-white px-6 py-4'>
             <div className='flex justify-between' style={{ marginBottom: '10px' }}>
               <div>
-                <div className='text-base font-semibold'>Product List</div>
+                <div className='text-base font-semibold'>{intl.get('product.product_list')}</div>
                 <div className='text-gray-400 py-2 text-xs'>
-                  If your products meet the filtering rule criteria,they will automatically be added into your shop
-                  category
+                  {intl.get('product.product_will_add_to_category')}
                 </div>
                 <div>
-                  Set Filtering Rules:
+                  {intl.get('product.set_filter_rule')}:
                   {editParams?.filterTags?.map((el: any) => (
                     <Tag className='ml-2' key={el}>
                       {el}
@@ -226,7 +226,7 @@ const CategoryDetail = () => {
                 }}
                 icon={<span style={{ color: '#fff', marginRight: '5px' }} className='iconfont icon-shop-cate-edit' />}
               >
-                Edit Filtering Rules
+                {intl.get('product.edit_filter_rule')}
               </Button>
             </div>
             <ProTable
@@ -274,14 +274,15 @@ const CategoryDetail = () => {
       </Spin>
       <Modal
         className='rc-modal'
-        title='Notice'
-        okText='Confirm'
+        title={intl.get('public.notice')}
+        okText={intl.get('public.confirm')}
+        cancelText={intl.get('public.cancel')}
         visible={isSwithVisible}
         onOk={confirmSwitch}
         confirmLoading={loading}
         onCancel={() => setIsSwithVisible(false)}
       >
-        <p>{status ? 'Are you sure you want to enable the item ?' : 'Are you sure you want to disable the item ?'}</p>
+        <p>{intl.get(status ? 'public.are_you_sure_enable' : 'public.are_you_sure_disable')}</p>
       </Modal>
     </ContentContainer>
   )
