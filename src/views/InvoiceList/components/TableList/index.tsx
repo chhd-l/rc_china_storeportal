@@ -1,47 +1,24 @@
 import TabPane from '@ant-design/pro-card/lib/components/TabPane'
 import { Table, Tabs, Tooltip } from 'antd'
 import { TablePaginationConfig } from 'antd/es/table'
-import { useState } from 'react'
 
-const data = [
-  {
-    OrderNumber: 'O20220831095702726',
-    OrderAmount: '￥55.00',
-    ApplicationTime: '2020/12/23 15:38',
-    InvoiceType: 'Value-added Tax Invoice',
-    InvoiceTitle: 'wangqiuqiu',
-    EmailAddress: '887898778@qq.com',
-    Status: 'NotInvoiced',
-  },
-  {
-    OrderNumber: 'O20220829091004740',
-    OrderAmount: '￥90.00',
-    ApplicationTime: '2020/12/23 17:08',
-    InvoiceType: 'Value-added Tax Invoice',
-    InvoiceTitle: 'wangqiuqiu',
-    EmailAddress: '1872391012@qq.com',
-    Status: 'Invoiced',
-  },
-  {
-    OrderNumber: 'O2022082609551674',
-    OrderAmount: '￥65.00',
-    ApplicationTime: '2020/12/23 21:07',
-    InvoiceType: 'Value-added Tax Invoice',
-    InvoiceTitle: 'wangqiuqiu',
-    EmailAddress: '99837468@qq.com',
-    Status: 'Invoicing',
-  },
-]
-
-const TableList = () => {
-  const [loading, setLoading] = useState<boolean>(false)
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([])
-  const [selectedRows, setSelectedRows] = useState<any[]>([])
-  const [pagination, setPagination] = useState<TablePaginationConfig>({
-    current: 1,
-    pageSize: 10,
-  })
-
+const TableList = ({
+  loading,
+  data,
+  setSelectedRowKeys,
+  setSelectedRows,
+  selectedRowKeys,
+  pagination,
+  setPagination,
+}: {
+  loading: boolean
+  data: any[]
+  setSelectedRowKeys: Function
+  setSelectedRows: Function
+  selectedRowKeys: React.Key[]
+  pagination: TablePaginationConfig
+  setPagination: Function
+}) => {
   const columns: any[] = [
     {
       title: 'Order Number',
