@@ -2,16 +2,17 @@ import { DownOutlined, QuestionCircleOutlined, UpOutlined } from '@ant-design/ic
 import { Descriptions, Divider, Tooltip } from 'antd'
 import moment from 'moment'
 import React, { useState } from 'react'
+import intl from 'react-intl-universal'
 
 const OrderType = [
-  { label: 'All', value: 'ALL' },
-  { label: 'Single Order', value: 'SING_ORDER' },
-  { label: 'Normal Subscription', value: 'NORMAL_SUBSCRIPTION' },
+  { label: intl.get('voucher.orders.All'), value: 'ALL' },
+  { label: intl.get('voucher.orders.SingleOrder'), value: 'SING_ORDER' },
+  { label: intl.get('voucher.orders.NormalSubscription'), value: 'NORMAL_SUBSCRIPTION' },
 ]
 
 const VoucherType = [
-  { label: 'Shop Voucher', value: 'SHOP_VOUCHER' },
-  { label: 'Product Voucher', value: 'PRODUCT_VOUCHER' },
+  { label: intl.get('voucher.orders.ShopVoucher'), value: 'SHOP_VOUCHER' },
+  { label: intl.get('voucher.orders.ProductVoucher'), value: 'PRODUCT_VOUCHER' },
 ]
 
 const BasicInformation = ({ state }: { state: any }) => {
@@ -22,7 +23,7 @@ const BasicInformation = ({ state }: { state: any }) => {
       <Descriptions
         title={
           <div className="text-xl flex flex-row">
-            Basic Information{' '}
+            {intl.get('voucher.orders.BasicInformation')}{' '}
             <span
               className={`${
                 state.voucherStatus === 'Ongoing'
@@ -40,38 +41,50 @@ const BasicInformation = ({ state }: { state: any }) => {
         }
         className={`${DescriptionsOpen ? '' : 'h-32'} overflow-hidden`}
       >
-        <Descriptions.Item label="Voucher Name">{state.voucherName}</Descriptions.Item>
-        <Descriptions.Item label="Order Type">{OrderType.find(item => item.value === state.orderType)?.label}</Descriptions.Item>
-        <Descriptions.Item label="Minimum Basket Price">￥{state.minimumBasketPrice}</Descriptions.Item>
-        <Descriptions.Item label="Discount Amount">
+        <Descriptions.Item label={intl.get('voucher.orders.VoucherName')}>{state.voucherName}</Descriptions.Item>
+        <Descriptions.Item label={intl.get('voucher.orders.OrderType')}>
+          {OrderType.find((item) => item.value === state.orderType)?.label}
+        </Descriptions.Item>
+        <Descriptions.Item label={intl.get('voucher.orders.MinimumBasketPrice')}>
+          ￥{state.minimumBasketPrice}
+        </Descriptions.Item>
+        <Descriptions.Item label={intl.get('voucher.orders.DiscountAmount')}>
           {state.discountType === 'PERCENTAGE' ? state.discountValue + '%OFF' : '￥' + state.discountValue}
         </Descriptions.Item>
-        <Descriptions.Item label="Valid Period">
+        <Descriptions.Item label={intl.get('voucher.orders.Valid Period')}>
           {moment(state.voucherUsageBeginningOfTime).format('YYYY-MM-DD HH:mm')} to{' '}
           {moment(state.voucherUsageEndOfTimemoment).format('YYYY-MM-DD HH:mm')}
         </Descriptions.Item>
-        <Descriptions.Item label="Voucher Type">{VoucherType.find(item => item.value === state.voucherType)?.label}</Descriptions.Item>
-        <Descriptions.Item label="Applicable Products">
-          {state.voucherType === 'SHOP_VOUCHER' ? 'All Products' : `${state?.voucherProductRelated?.length} Products`}
+        <Descriptions.Item label={intl.get('voucher.orders.Voucher Type')}>
+          {VoucherType.find((item) => item.value === state.voucherType)?.label}
+        </Descriptions.Item>
+        <Descriptions.Item label={intl.get('voucher.orders.Applicable Products')}>
+          {state.voucherType === 'SHOP_VOUCHER'
+            ? intl.get('voucher.orders.All Products')
+            : `${state?.voucherProductRelated?.length} ${intl.get('voucher.orders.Products')}`}
         </Descriptions.Item>
         {/* <Descriptions.Item label="Quantity">Hangzhou, Zhejiang</Descriptions.Item>
                 <Descriptions.Item label="Claimed">empty</Descriptions.Item> */}
         <Descriptions.Item
           label={
             <div className="flex items-center">
-              Quantity
-              <Tooltip color="white" overlayClassName="BasicInformationTooltip" title="Total number of vouchers">
+              {intl.get('voucher.orders.Quantity')}
+              <Tooltip
+                color="white"
+                overlayClassName="BasicInformationTooltip"
+                title={intl.get('voucher.orders.TotalNumberOfVouchers')}
+              >
                 <QuestionCircleOutlined className="text-gray-400" />
               </Tooltip>
             </div>
           }
         >
-          {state.usageQuantity === 0 ? 'Unlimited' : state.usageQuantity}
+          {state.usageQuantity === 0 ? intl.get('voucher.Unlimited') : state.usageQuantity}
         </Descriptions.Item>
         <Descriptions.Item
           label={
             <div className="flex items-center">
-              Claimed
+              {intl.get('voucher.orders.Claimed')}
               <Tooltip
                 color="white"
                 overlayClassName="BasicInformationTooltip"
@@ -87,7 +100,7 @@ const BasicInformation = ({ state }: { state: any }) => {
         <Descriptions.Item
           label={
             <div className="flex items-center">
-              Usage
+              {intl.get('voucher.orders.Usage')}
               <Tooltip
                 color="white"
                 overlayClassName="BasicInformationTooltip"
@@ -104,11 +117,11 @@ const BasicInformation = ({ state }: { state: any }) => {
       <Divider className="text-blue-500 border-gray-500 text-14" dashed>
         {DescriptionsOpen ? (
           <div onClick={() => setDescriptionsOpen(false)} className="flex items-center cursor-default">
-            Collapse Voucher Information <UpOutlined className="ml-1" />
+            {intl.get('voucher.orders.Collapse Voucher Information')} <UpOutlined className="ml-1" />
           </div>
         ) : (
           <div onClick={() => setDescriptionsOpen(true)} className="flex items-center cursor-default">
-            More Voucher Information <DownOutlined className="ml-1" />
+            {intl.get('voucher.orders.More Voucher Information')} <DownOutlined className="ml-1" />
           </div>
         )}
       </Divider>
