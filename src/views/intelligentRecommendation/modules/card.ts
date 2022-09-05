@@ -1,3 +1,5 @@
+import intl from 'react-intl-universal';
+
 export type CardType = {
     title: string
     span: string
@@ -14,82 +16,82 @@ export type CardTypeList = {
 
 export const IntelligentRecommendationList: CardTypeList[] = [
     {
-        title: 'Recommended Basic Settings',
+        title: intl.get("marketing.recom_basic_setting"),
         children: [
             {
-                title: 'Product Recommendation Management',
-                span: 'Manually set weight for products or ban certain products',
+                title: intl.get("marketing.recom_basic_setting_t1"),
+                span: intl.get("marketing.recom_basic_setting_s1"),
                 bgcImg: 'RecommendationCard',
             },
         ],
     },
     {
-        title: 'Recommendation Strategy Management',
+        title: intl.get("marketing.recom_strategy_manage"),
         children: [
             {
-                title: 'Top Recommendation',
-                span: 'Sorting products according to the overall dimensional statistics, which is usually used in "Hot Sale".',
+                title: intl.get("marketing.recom_strategy_manage_t1"),
+                span: intl.get("marketing.recom_strategy_manage_s1"),
                 bgcImg: 'TopRecommendationCard',
             },
             {
-                title: 'Recommendation Based On Product Relativity',
+                title: intl.get("marketing.recom_strategy_manage_t2"),
                 bgcImg: 'BasedOnProductRelativityCard',
-                span: 'Recommend items related to the current item to enhance product co-sale. Commonly found in modules such as "Related Recommendations" on the product details page.',
+                span: intl.get("marketing.recom_strategy_manage_s2"),
             },
             {
-                title: 'Recommendation Based On Consumer Interest',
+                title: intl.get("marketing.recom_strategy_manage_t3"),
                 bgcImg: 'InterestyCardCard',
-                span: 'Provide custom recommendation service including recommending products based on user interests, which is often used in modules such as "you may also like".',
+                span: intl.get("marketing.recom_strategy_manage_s3"),
             },
             {
-                title: 'Product finder',
+                title: intl.get("marketing.recom_strategy_manage_t4"),
                 bgcImg: 'ProductfinderCard',
-                span: 'Provide custom recommendation service including recommending products based on subscription type and pet information, which is often used in modules such as "product finder".',
+                span: intl.get("marketing.recom_strategy_manage_s4"),
             },
         ],
     },
     {
-        title: 'Recommended Spot management',
+        title: intl.get("marketing.recom_spot_manage"),
         children: [
             {
-                title: 'Shopping Cart',
+                title: intl.get("marketing.recom_spot_manage_t1"),
                 bgcImg: 'ShoppingCartCard',
-                span: 'Recommendation based on product relativity',
+                span: intl.get("marketing.recom_spot_manage_s1"),
             },
             {
-                title: 'Product Detail',
+                title: intl.get("marketing.recom_spot_manage_t2"),
                 bgcImg: 'ProductDetailCard',
-                span: 'Recommendation based on user interest',
+                span: intl.get("marketing.recom_spot_manage_s2"),
             },
             {
-                title: 'Product List',
+                title: intl.get("marketing.recom_spot_manage_t3"),
                 bgcImg: 'ProductListCard',
-                span: 'Top recommendation',
+                span: intl.get("marketing.recom_spot_manage_s3"),
             },
             {
-                title: 'My Account',
+                title: intl.get("marketing.recom_spot_manage_t4"),
                 bgcImg: 'MyAccountCard',
-                span: 'Recommendation based on user interest',
+                span: intl.get("marketing.recom_spot_manage_s4"),
             },
             {
-                title: 'Member Center',
+                title: intl.get("marketing.recom_spot_manage_t5"),
                 bgcImg: 'MemberCenterCard',
-                span: 'Recommendation based on user interest',
+                span: intl.get("marketing.recom_spot_manage_s5"),
             },
             {
-                title: 'Order Confirmation Page',
-                span: 'Top recommendation',
+                title: intl.get("marketing.recom_spot_manage_t6"),
+                span: intl.get("marketing.recom_spot_manage_s6"),
                 bgcImg: 'OrderConfirmationPageCard',
             },
             {
-                title: 'Category',
+                title: intl.get("marketing.recom_spot_manage_t7"),
                 bgcImg: 'CategoryCard',
-                span: 'Recommendation based on product relativity',
+                span: intl.get("marketing.recom_spot_manage_s7"),
             },
             {
-                title: 'Category Recommendation Channels',
+                title: intl.get("marketing.recom_spot_manage_t8"),
                 bgcImg: 'ChannelsCard',
-                span: 'Recommendation based on user interest',
+                span: intl.get("marketing.recom_spot_manage_s8"),
             },
         ],
     },

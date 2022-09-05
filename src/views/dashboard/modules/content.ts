@@ -7,35 +7,36 @@ import dashboard_bg_6 from '../../../assets/images/dashboard_bg_6.png'
 import dashboard_bg_7 from '../../../assets/images/dashboard_bg_7.png'
 import dashboard_bg_8 from '../../../assets/images/dashboard_bg_8.png'
 // import dashboard_bg_7 from '../../../assets/images/dashboard_bg_7.png'
+import intl from 'react-intl-universal'
 
 const mainFunction = [
     {
-        title: 'Shipment',
-        span: 'Provide shipment tool for staff to achieve delivery of orders to consumers.',
+        title: intl.get("dashboard.shipment"),
+        span: intl.get("dashboard.shipment_desc"),
         img: dashboard_bg_1,
         url: '/shipment-list'
     },
     {
-        title: 'Order',
-        span: 'Staff can manage order status, query order information, and provide comments for orders.',
+        title: intl.get("dashboard.order"),
+        span: intl.get("dashboard.order_desc"),
         img: dashboard_bg_2,
         url: '/order/order-list'
     },
     {
-        title: 'Subscription',
-        span: 'Provide subscription tool for staff to query information, modify the delivery time, modify deliver address and add comment of subscription.',
+        title: intl.get("dashboard.subscription"),
+        span: intl.get("dashboard.subscription_desc"),
         img: dashboard_bg_3,
         url: '/subscription/subscription-list'
     },
     {
-        title: 'Product',
-        span: 'Publish multiple types of products, including bundles and regular, and maintain product categories, product images, attributes, and specifications.',
+        title: intl.get("dashboard.product"),
+        span: intl.get("dashboard.product_desc"),
         img: dashboard_bg_4,
         url: '/product/product-list'
     },
     {
-        title: 'Marketing Center',
-        span: 'Provide discounts, vouchers and other marketing tools to help store drainage and drive consumers to re-purchase.',
+        title: intl.get("dashboard.marketing"),
+        span: intl.get("dashboard.marketing_desc"),
         img: dashboard_bg_5,
         url: '/marketingCenter/marketingCenter-list'
     },
@@ -46,30 +47,30 @@ const mainFunction = [
     //     url: ''
     // },
     {
-        title: 'Wechat Management',
-        span: 'Support account management, fan management, automatic reply, wechat menu, graphic assets and other functions.',
+        title: intl.get("dashboard.channel"),
+        span: intl.get("dashboard.channel_desc"),
         img: dashboard_bg_6,
         url: '/account/account-list'
     },
 ]
 const exploreMore = [{
-    title: 'D2C Solution',
-    span: `Solve our clients' toughest challenges by providing unmatched services in strategy, consulting, digital, technology and operations.`,
+    title: intl.get("dashboard.solution"),
+    span: intl.get("dashboard.solution_desc"),
     img: dashboard_bg_7,
     url: 'https://www.fivefen.com'
 },
 {
-    title: 'API Document',
-    span: 'Contain all the information required to work with the API, with details about the functions, classes, return types, arguments and more.',
+    title: intl.get("dashboard.apidoc"),
+    span: intl.get("dashboard.apidoc_desc"),
     img: dashboard_bg_8,
     url: 'https://apistg.fivefen.com'
 },]
 export const dashboardList = [{
-    title: "Main Function",
+    title: intl.get("dashboard.main"),
     content: mainFunction
 },
     // {
-    //     title: "Explore More",
+    //     title: intl.get("dashboard.more"),
     //     content: exploreMore
     // }
 ]

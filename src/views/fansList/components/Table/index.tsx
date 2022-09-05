@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { WxFans } from '@/framework/types/wechat'
 import { handleReturnTime, openConfirmModal } from '@/utils/utils'
 import { syncFans, syncPartFans } from '@/framework/api/wechatSetting'
+import intl from 'react-intl-universal'
 import './Style.less'
 
 const Index = ({
@@ -28,16 +29,16 @@ const Index = ({
 
   const handlOk = () => {
     openConfirmModal({
-      title: "Synchronize All Fans Information",
-      content: "Are you sure you want to synchronize ? The number of fans is large, please wait",
+      title: intl.get('wx.sync_fans_all'),
+      content: intl.get('wx.sync_fans_all_con'),
       onOk: () => {
         message.info({
           className: 'rc-message',
-          content: 'The fans information is synchronizing. Once finished, the information will be updated automatically.'
+          content: intl.get('wx.sync_fans_tip')
         });
         setLoading(true);
         syncFans().then(() => {
-          message.success({ className: 'rc-message', content: 'Fans Synchronization successful' });
+          message.success({ className: 'rc-message', content: intl.get('public.operate_success') });
           getFanList();
         })
       }
@@ -46,16 +47,16 @@ const Index = ({
 
   const handleSyncPart = () => {
     openConfirmModal({
-      title: "Synchronize All Openids",
-      content: "Are you sure you want yo synchronize ?",
+      title: intl.get('wx.sync_fans_openid'),
+      content: intl.get('wx.wx.are_you_sure_to_sync'),
       onOk: () => {
         message.info({
           className: 'rc-message',
-          content: 'The fans information is synchronizing. Once finished, the information will be updated automatically.'
+          content: intl.get('wx.sync_fans_tip')
         });
         setLoading(true);
         syncPartFans(ListChek).then(() => {
-          message.success({ className: 'rc-message', content: 'Fans Synchronization successful' });
+          message.success({ className: 'rc-message', content: intl.get('public.operate_success') });
           getFanList();
         })
       }
@@ -68,48 +69,48 @@ const Index = ({
 
   const columns = [
     {
-      title: 'Wechat Account',
+      title: intl.get('wx.wechat_account'),
       dataIndex: 'accountName',
       key: 'accountName',
     },
     {
-      title: 'Avatar',
+      title: intl.get('wx.avatar'),
       dataIndex: 'headImgUrl',
       key: 'headImgUrl',
       render: (text: string) => text ? <Avatar size="large" src={text} /> : null,
     },
     {
-      title: 'Wechat Name',
+      title: intl.get('wx.wechat_name'),
       dataIndex: 'nickname',
       key: 'nickname',
     },
     {
-      title: 'Union ID',
+      title: intl.get('wx.unionid'),
       dataIndex: 'unionId',
       key: 'unionId',
     },
     {
-      title: 'Is Member',
+      title: intl.get('wx.is_member'),
       dataIndex: 'isAppMember',
-      render: (text: any, record: any) => record.isAppMember?'Yes':'No',
+      render: (text: any, record: any) => record.isAppMember? intl.get('public.yes') : intl.get('public.no'),
     },
     {
-      title: 'Follow Time',
+      title: intl.get('wx.follow_time'),
       dataIndex: 'subscribeTime',
       key: 'subscribeTime',
       render: (text: any) => handleReturnTime(text),
     },
     {
-      title: 'Status',
+      title: intl.get('public.status'),
       dataIndex: 'status',
       key: 'status',
       render: () => 'Normal',
     },
     {
-      title: 'Action',
+      title: intl.get('public.action'),
       key: 'Action',
       render: (text: any, record: any) => (
-        <Tooltip title="View Details">
+        <Tooltip title={intl.get('wx.view_details')}>
           <span
             className="cursor-pointer iconfont icon-kjafg primary-color"
             onClick={() => {
@@ -130,19 +131,19 @@ const Index = ({
         </Button> */}
         <Button className="mr-4" onClick={handlOk}>
           <span className="iconfont icon-bianzu2 mr-2" />
-          Synchronize All Fans Information
+          {intl.get('wx.sync_fans_all')}
         </Button>
         <Button
           onClick={() => {
             if (ListChek.length) {
               handleSyncPart()
             } else {
-              message.warning({ className: 'rc-message', content: 'Please select at least one follower' })
+              message.warning({ className: 'rc-message', content: intl.get('wx.sync_partial_tip') })
             }
           }}
         >
           <span className="iconfont icon-bianzu2 mr-2" />
-          Partial Synchronize
+          {intl.get('wx.sync_partial')}
         </Button>
       </div>
       <Table

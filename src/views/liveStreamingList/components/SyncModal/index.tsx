@@ -7,6 +7,7 @@ import { handlePageParams } from '@/utils/utils'
 import { PageParamsProps } from '@/framework/types/common'
 import { initPageParams } from '@/lib/constants'
 import _ from 'lodash'
+import intl from 'react-intl-universal'
 
 const SyncModal = ({
   syncTipModalShow,
@@ -27,15 +28,15 @@ const SyncModal = ({
   const [selectedRows, setSelectedRows] = useState<any[]>([])
   const columns = [
     {
-      title: 'Live Streaming ID',
+      title: intl.get('wx.livestream_id'),
       dataIndex: 'roomId',
     },
     {
-      title: 'Live Streaming Name',
+      title: intl.get('wx.livestream_name'),
       dataIndex: 'name',
     },
     {
-      title: 'Live Streaming Period',
+      title: intl.get('wx.period'),
       dataIndex: 'period',
       render: (text: any, record: any) => (
         <span className="text-gray-400">
@@ -45,7 +46,7 @@ const SyncModal = ({
       ),
     },
     {
-      title: 'Status',
+      title: intl.get('public.status'),
       dataIndex: 'liveStatus',
       render: (text: any, record: any) => (
         <span
@@ -57,7 +58,7 @@ const SyncModal = ({
               : 'bg-expiredBg'
           } w-20 h-6 flex items-center justify-center`}
         >
-          {text === 101 ? 'Ongoing' : text === 102 ? 'Upcoming' : 'Expired'}
+          {text === 101 ? intl.get('wx.ongoing') : text === 102 ? intl.get('wx.upcoming') : intl.get('wx.expired')}
         </span>
       ),
     },
@@ -73,7 +74,7 @@ const SyncModal = ({
 
   const syncPartLiveStreams = async () => {
     if (selectedRows.length == 0) {
-      message.warning({ className: 'rc-message', content: 'Please select at least one follower' })
+      message.warning({ className: 'rc-message', content: intl.get('wx.sync_partial_tip') })
       return
     }
     setSyncLoading(true)
@@ -82,7 +83,7 @@ const SyncModal = ({
     })
     const res = await syncPartLiveStreaming(liveStreamingInput)
     if (res) {
-      message.success({ className: 'rc-message', content: 'Synchronize success' })
+      message.success({ className: 'rc-message', content: intl.get('public.operate_success') })
       syncSuccess && syncSuccess()
     }
     setSyncLoading(false)
@@ -103,15 +104,16 @@ const SyncModal = ({
         visible={syncTipModalShow}
         width={920}
         className="rc-modal"
-        title="Synchronize Live Streaming"
+        title={intl.get('wx.sync_livestream')}
         closable={false}
         onCancel={() => closeSyncModal && closeSyncModal()}
         onOk={() => syncPartLiveStreams()}
-        okText="Confirm"
+        okText={intl.get('public.confirm')}
+        cancelText={intl.get('public.cancel')}
         confirmLoading={syncLoading}
         destroyOnClose
       >
-        <div className="mb-md">Please select the live Streaming you want to Synchronize</div>
+        <div className="mb-md">{intl.get('wx.sync_live_tip')}</div>
         {loading ? (
           <div className="flex justify-center items-center h-80">
             <Spin />

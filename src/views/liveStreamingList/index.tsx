@@ -12,6 +12,7 @@ import { PageParamsProps } from '@/framework/types/common'
 import { initPageParams } from '@/lib/constants'
 import { getAccountList } from '@/framework/api/wechatSetting'
 import SyncModal from '@/views/liveStreamingList/components/SyncModal'
+import intl from 'react-intl-universal'
 
 const LiveStreamingList = () => {
   const [liveStreamingList, setLiveStreamingList] = useState<WxLiveStreaming[]>([])
@@ -43,7 +44,7 @@ const LiveStreamingList = () => {
     setSyncAllLoading(true)
     const res = await syncLiveStreaming('000001')
     if (res) {
-      message.success({ className: 'rc-message', content: 'Synchronize success' })
+      message.success({ className: 'rc-message', content: intl.get("public.operate_success") })
       await getLiveStreamingLists()
     }
     setSyncAllLoading(false)
@@ -91,11 +92,11 @@ const LiveStreamingList = () => {
             <div className="flex flex-row">
               <Button className="flex items-center rounded-4 mr-md" onClick={() => setShowSyncAllModal(true)}>
                 <span className="iconfont icon-bianzu2 mr-2" />
-                Synchronize All
+                {intl.get('wx.sync_all')}
               </Button>
               <Button className="flex items-center rounded-4" onClick={() => setSyncTipModalShow(true)}>
                 <span className="iconfont icon-bianzu2 mr-2" />
-                Partial Sync
+                {intl.get('wx.sync_partial')}
               </Button>
             </div>
           }
@@ -126,15 +127,16 @@ const LiveStreamingList = () => {
         <Modal
           visible={showSyncAllModal}
           className="rc-modal"
-          title="Synchronize Live Streaming"
+          title={intl.get('wx.sync_livestream')}
           closable={false}
           width={400}
           onCancel={() => setShowSyncAllModal(false)}
           onOk={() => syncLiveStreams()}
-          okText="Confirm"
+          okText={intl.get('public.confirm')}
+          cancelText={intl.get('public.cancel')}
           confirmLoading={syncAllLoading}
         >
-          <div>Are you sure you want to synchronize ?</div>
+          <div>{intl.get('wx.are_you_sure_to_sync')}</div>
         </Modal>
         {syncTipModalShow ? (
           <SyncModal

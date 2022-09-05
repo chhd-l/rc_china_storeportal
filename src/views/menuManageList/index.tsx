@@ -7,6 +7,7 @@ import { ContentContainer, SearchContainer, TableContainer, DivideArea } from '@
 import { getWxMenusList, updateWxMenu } from '@/framework/api/wechatSetting'
 import { WxMenu } from '@/framework/types/wechat'
 import { openConfirmModal } from '@/utils/utils'
+import intl from 'react-intl-universal'
 
 import { PageProps } from '@/framework/types/common'
 
@@ -46,13 +47,13 @@ const MenuManage = () => {
 
   const changeStatus = async (updateParam: TWxMenuUpdateParam) => {
     openConfirmModal({
-      title: updateParam.isEnabled ? 'Enable Item' : 'Disable Item',
-      content: `Are you sure you want to ${updateParam.isEnabled ? 'enable' : 'disable'} this item?`,
+      title: updateParam.isEnabled ? intl.get('public.enable_item') : intl.get('public.disable_item'),
+      content: intl.get(updateParam.isEnabled ? 'public.are_you_sure_enable' : 'public.are_you_sure_disable'),
       onOk: () => {
         setLoading(true)
         updateWxMenu(updateParam).then((updated: boolean) => {
           if (updated) {
-            message.success({ className: 'rc-message', content: 'Operate Successful' })
+            message.success({ className: 'rc-message', content: intl.get('public.operate_success') })
             setCurrent(1)
             getList(1)
           } else {
@@ -70,7 +71,7 @@ const MenuManage = () => {
     setLoading(true)
     const deleted = await updateWxMenu(pendingToDelete)
     if (deleted) {
-      message.success({ className: 'rc-message', content: 'Operate Successful' })
+      message.success({ className: 'rc-message', content: intl.get('public.operate_success') })
       setIsModalVisible(false)
       setCurrent(1)
       getList(1)
@@ -84,10 +85,10 @@ const MenuManage = () => {
     <ContentContainer className='menu-manage'>
       <SearchContainer>
         <Form layout='horizontal'>
-          <Form.Item label='Menu Name'>
+          <Form.Item label={intl.get('wx.menu_name')}>
             <Input
               style={{ width: 300 }}
-              placeholder='Input'
+              placeholder={intl.get('public.input')}
               value={name}
               onChange={e => setName(e.target.value)}
               onPressEnter={() => getList(1, name)}
@@ -98,14 +99,14 @@ const MenuManage = () => {
           <Button type='primary' onClick={() => getList(1, name)}>
             Search
           </Button>
-          <Button onClick={handleReset}>Reset</Button>
+          <Button onClick={handleReset}>{intl.get('public.reset')}</Button>
         </div>
       </SearchContainer>
       <DivideArea />
       <TableContainer>
         <div className='btn-area py-4'>
           <Button type='primary' onClick={() => navigator('/menuManagempqr/menu-manage-add')}>
-            + Add
+            + {intl.get('public.add')}
           </Button>
         </div>
         <Table
@@ -126,14 +127,15 @@ const MenuManage = () => {
       </TableContainer>
       <Modal
         className='rc-modal'
-        title='Delete Item'
-        okText='Confirm'
+        title={intl.get('public.delete_item')}
+        okText={intl.get('public.confirm')}
+        cancelText={intl.get('public.cancel')}
         visible={isModalVisible}
         onOk={confirmDelete}
         confirmLoading={loading}
         onCancel={() => setIsModalVisible(false)}
       >
-        <p>Are you sure you want to delete the item?</p>
+        <p>{intl.get('public.are_you_sure_delete')}</p>
       </Modal>
     </ContentContainer>
   )

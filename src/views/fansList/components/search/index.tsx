@@ -2,6 +2,7 @@ import { Button, Form, Input, Select, DatePicker } from "antd";
 import React from "react";
 import { SearchFormItemProps } from "@/framework/types/common";
 import moment from "moment";
+import intl from 'react-intl-universal';
 import './index.less'
 
 const { RangePicker } = DatePicker;
@@ -84,7 +85,7 @@ const Search = ({
         ))}
         <Form.Item className="w-full flex flex-row">
           <Button type="primary" htmlType="submit">
-            Search
+            {intl.get("public.search")}
           </Button>
           <Button
             className="ml-4"
@@ -94,7 +95,7 @@ const Search = ({
               data({})
             }}
           >
-            Reset
+            {intl.get("public.reset")}
           </Button>
         </Form.Item>
       </Form>

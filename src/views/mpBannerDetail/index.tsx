@@ -15,6 +15,7 @@ import { bannerCreate, bannerGetDetailById, bannerUpdate } from '@/framework/api
 import { useLocation } from 'react-router'
 import { useNavigate } from 'react-router-dom'
 import { UPLOAD_API_URL } from '@/framework/api/fetcher'
+import intl from 'react-intl-universal'
 
 const MpBannerDetail = () => {
   const navigator = useNavigate()
@@ -67,7 +68,7 @@ const MpBannerDetail = () => {
       setPicUrl(info.file.response.url)
     } else if (info.file.status === 'error') {
       console.log(2)
-      message.error({ className: "rc-message", content: `${info.file.name} file upload failed.`})
+      message.error({ className: "rc-message", content: `${info.file.name} ${intl.get('public.file_upload_failed')}`})
     }
   }
   const restSearchButtons = {
@@ -78,12 +79,12 @@ const MpBannerDetail = () => {
           resetFields()
           navigator('/mpbanner/mpbanner-list')
         }}>
-          Cancel
+          {intl.get('public.cancel')}
         </Button>,
         <Button key='submit' type='primary' onClick={() => {
           submit?.()
         }}>
-          Confirm
+          {intl.get('public.confirm')}
         </Button>,
       ]
     },
@@ -91,7 +92,7 @@ const MpBannerDetail = () => {
   return (
     <Spin spinning={loading}>
     <ContentContainer className='mp-banner-detail'>
-      <InfoContainer title='Edit MP Banner'>
+      <InfoContainer title={intl.get('wx.edit_banner')}>
         <ProForm
           {...layout}
           formRef={formRef}
@@ -112,39 +113,39 @@ const MpBannerDetail = () => {
           <ProFormSelect
             allowClear={false}
             name='accountId'
-            label='Mini Program'
+            label={intl.get('wx.mini_program')}
             options={list}
-            placeholder= "Please select"
-            rules={[{ required: true,message: 'Please select' }]}
+            placeholder={intl.get('public.select')}
+            rules={[{ required: true,message: intl.get('public.field_required') }]}
           />
           <ProFormText
             allowClear={false}
             name='name'
-            label='Banner Name'
-            placeholder= "Please input"
-            rules={[{ required: true, message: 'Please input' }]}
+            label={intl.get('wx.banner_name')}
+            placeholder={intl.get('public.input')}
+            rules={[{ required: true, message: intl.get('public.field_required') }]}
           />
           <ProFormSelect
             name='page'
-            label='Page'
+            label={intl.get('wx.page')}
             options={[
               {
-                label:'Home Page',
+                label:intl.get('wx.home_page'),
                 value:'Home Page'
               },
               {
-                label: 'Shop Page',
+                label: intl.get('wx.shop_page'),
                 value: 'Shop Page'
               }
             ]}
-            placeholder= "Please select"
-            rules={[{ required: true, message: 'Please select' }]}
+            placeholder={intl.get('public.select')}
+            rules={[{ required: true, message: intl.get('public.field_required') }]}
           />
           <ProForm.Item
-            label="Pic Location"
+            label={intl.get('wx.pic_location')}
             name="picUrl"
             trigger="onValuesChange"
-            rules={[{ required: true, message: 'Please upload' }]}
+            rules={[{ required: true, message: intl.get('public.field_required') }]}
           >
             <Upload name="file"
                     className="my-upload"
@@ -162,50 +163,50 @@ const MpBannerDetail = () => {
           </ProForm.Item>
           <ProFormSelect
             name='clickType'
-            label='Click Type'
+            label={intl.get('wx.click_type')}
             options={[
               {
-                label:'No operation',
+                label: intl.get('wx.no_operation'),
                 value:'NO_OPERATION'
               } ,{
-                label:'Open the web page',
+                label: intl.get('wx.open_web_page'),
                 value:'OPEN_THE_WEB_PAGE'
               }, {
-                label:'Open the MP page',
+                label: intl.get('wx.open_mp_page'),
                 value:'OPEN_THE_MP_PAGE'
               } ,{
-                label:'Open other MP page',
+                label: intl.get('wx.open_other_mp_page'),
                 value:'OPEN_OTHER_MP_PAGE'
               }
             ]}
-            placeholder= "Please select"
+            placeholder={intl.get('public.select')}
             fieldProps={{
               onChange:(value)=>{
                 setClickType(value)
               }
             }}
-            rules={[{ required: true, message: 'Please select' }]}
+            rules={[{ required: true, message: intl.get('public.field_required') }]}
           />
           {
             clickType&&clickType!=='NO_OPERATION'? <ProFormText
              name='path'
-             label='Path'
-             placeholder= "Please input"
-             rules={[{ required: true, message: 'Please input' }]}
+             label={intl.get('wx.page_path')}
+             placeholder={intl.get('public.input')}
+             rules={[{ required: true, message: intl.get('public.field_required') }]}
            />:null
           }
           {
             clickType&&clickType!=='NO_OPERATION'&& clickType==='OPEN_OTHER_MP_PAGE'? <ProFormText
               name='mpAppId'
-              label='MP ID'
-              placeholder= "Please input"
-              rules={[{ required: true, message: 'Please input' }]}
+              label={intl.get('wx.mini_program_id')}
+              placeholder={intl.get('public.input')}
+              rules={[{ required: true, message: intl.get('public.field_required') }]}
             />:null
           }
           <ProFormDigit
             name='sort'
-            label='Sort'
-            rules={[{ required: true, message: 'Please input' }]}
+            label={intl.get('wx.sort')}
+            rules={[{ required: true, message: intl.get('public.field_required') }]}
           />
         </ProForm>
       </InfoContainer>

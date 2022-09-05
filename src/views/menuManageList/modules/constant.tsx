@@ -3,6 +3,7 @@ import { Switch, Tooltip } from "antd";
 import { Link } from "react-router-dom";
 import { handleReturnTime } from '@/utils/utils';
 import moment from 'moment';
+import intl from 'react-intl-universal';
 
 export type TWxMenuUpdateParam = {
   id: string;
@@ -28,29 +29,29 @@ interface ColumnsProps {
 export const tableColumns = ({ handleDelete, changeStatus }: TableColumns) => {
   const columns: ColumnProps<ColumnsProps>[] = [
     {
-      title: "Wechat Account",
+      title: intl.get('wx.wechat_account'),
       dataIndex: "accountName",
       key: "accountName",
     },
     {
-      title: "Menu Name",
+      title: intl.get('wx.menu_name'),
       dataIndex: "name",
       key: "name",
     },
     {
-      title: "Create Time",
+      title: intl.get('wx.create_time'),
       dataIndex: "createdAt",
       key: "createdAt",
       render: (text) => <div>{handleReturnTime(text)}</div>
     },
     {
-      title: "Update Time",
+      title: intl.get('wx.update_time'),
       dataIndex: "lastModifiedAt",
       key: "lastModifiedAt",
       render: (text) => <div>{handleReturnTime(text)}</div>
     },
     {
-      title: "Status",
+      title: intl.get('public.status'),
       dataIndex: "isEnabled",
       key: "isEnabled",
       render: (_, record) => (
@@ -69,16 +70,16 @@ export const tableColumns = ({ handleDelete, changeStatus }: TableColumns) => {
       ),
     },
     {
-      title: "Action",
+      title: intl.get('public.action'),
       key: "action",
       render: (_, record) => (
         <div className="flex flex-row items-center">
-          <Tooltip title="Edit">
+          <Tooltip title={intl.get('public.edit')}>
             <Link to={`/menuManagempqr/menu-manage-detail/${record.id}`} className="mr-4">
               <i className="cursor-pointer ml-2 iconfont icon-Edit primary-color"></i>
             </Link>
           </Tooltip>
-          {record.isEnabled ? null : <Tooltip title="Delete">
+          {record.isEnabled ? null : <Tooltip title={intl.get('public.delete')}>
             <span
               className="cursor-pointer ml-2 iconfont icon-delete primary-color text-xl"
               onClick={() => {
