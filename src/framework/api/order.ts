@@ -17,7 +17,7 @@ export const getOrderList = async (queryOrderListParams: any): Promise<{ total: 
       }
     } else {
       let expressCompanies = await getExpressCompanyList()
-      let res = await ApiRoot({url:apis?.orderList}).orders().getOrders({ queryOrderListParams })
+      let res = await ApiRoot({ url: apis?.orderList }).orders().getOrders({ queryOrderListParams })
       console.log('query orders view list', res)
       if (res?.records) {
         const { records, total } = res
@@ -49,7 +49,7 @@ export const getOrderDetail = async ({ orderNum }: { orderNum: string }) => {
       return Mock.mock(orderDetailSource('UNPAID'))
     } else {
       let expressCompanies = await getExpressCompanyList()
-      let data = await ApiRoot({url:apis?.orderDetail}).orders().getOrder({  orderNum })
+      let data = await ApiRoot({ url: apis?.orderDetail }).orders().getOrder({ orderNum })
       console.info('res', data)
       const detail = data ? normaliseOrder(data, expressCompanies) : initOrderDetail
       console.info('list', detail)
@@ -63,7 +63,7 @@ export const getOrderDetail = async ({ orderNum }: { orderNum: string }) => {
 
 export const getOrderSetting = async () => {
   try {
-    let res = await ApiRoot({url:apis?.orderList}).orders().getOrderSetting()
+    let res = await ApiRoot({ url: apis?.orderList }).orders().getOrderSetting()
     console.info('get orderSetting data view', res)
     return res || []
   } catch (e) {
@@ -74,7 +74,7 @@ export const getOrderSetting = async () => {
 
 export const updateOrderSetting = async (params: any) => {
   try {
-    let res = await ApiRoot({url:apis?.order_action}).orders().modifyOrderSetting({ body: params })
+    let res = await ApiRoot({ url: apis?.order_action }).orders().modifyOrderSetting({ body: params })
     console.info('updateOrderSetting data view', res)
     return res
   } catch (e) {
@@ -85,7 +85,7 @@ export const updateOrderSetting = async (params: any) => {
 
 export const getLogisticsIntegration = async () => {
   try {
-    let res = await ApiRoot({url:apis?.order_action}).orders().getLogisticsIntegration()
+    let res = await ApiRoot({ url: apis?.order_action }).orders().getLogisticsIntegration()
     console.info('getLogisticsIntegration data view', res)
     return normalizeLogisticsIntegration(res)
   } catch (e) {
@@ -96,7 +96,7 @@ export const getLogisticsIntegration = async () => {
 
 export const modifyLogisticsIntegration = async (params: any) => {
   try {
-    let res = await ApiRoot({url:apis?.order_action}).orders().modifyLogisticsIntegration({ body: params })
+    let res = await ApiRoot({ url: apis?.order_action }).orders().modifyLogisticsIntegration({ body: params })
     console.info('modifyLogisticsIntegration data view', res)
     return res
   } catch (e) {
@@ -109,7 +109,7 @@ export const getExpressCompanyList = async () => {
   try {
     let expressCompanyList = session.get('express-company-list')
     if (expressCompanyList === null) {
-      let res = await ApiRoot({url:apis?.orderList}).orders().getExpressCompany()
+      let res = await ApiRoot({ url: apis?.orderList }).orders().getExpressCompany()
       console.info('get expressCompany data view', res)
       expressCompanyList = res || []
       if (expressCompanyList.length > 0) {
@@ -126,7 +126,7 @@ export const getExpressCompanyList = async () => {
 export const shippedOrder = async (params: any) => {
   try {
     console.info('shipped order view params', params)
-    let res = await ApiRoot({url:apis?.order_action}).orders().shippedOrder({ body: params })
+    let res = await ApiRoot({ url: apis?.order_action }).orders().shippedOrder({ body: params })
     console.info('shipped order data view', res)
     return res
   } catch (e) {
@@ -138,7 +138,7 @@ export const shippedOrder = async (params: any) => {
 export const completedOrder = async (params: any) => {
   try {
     console.info('completed order view params', params)
-    let res = await ApiRoot({url:apis?.order_action}).orders().completedOrder({ body: params })
+    let res = await ApiRoot({ url: apis?.order_action }).orders().completedOrder({ body: params })
     console.info('completed order data view', res)
     return res
   } catch (e) {
@@ -150,7 +150,7 @@ export const completedOrder = async (params: any) => {
 export const updateComment = async (params: any) => {
   try {
     console.info('update comment view params', params)
-    let res = await ApiRoot({url:apis?.order_action}).orders().updateComment({ body: params })
+    let res = await ApiRoot({ url: apis?.order_action }).orders().updateComment({ body: params })
     console.info('completed order data view', res)
     return res
   } catch (e) {
@@ -159,4 +159,24 @@ export const updateComment = async (params: any) => {
   }
 }
 
-
+export const getInvoiceList = async (params: {
+  offset?: number;
+  limit?: number;
+  withTotal?: boolean;
+  sample?: {
+    orderNum?: string;
+    invoiceType?: string;
+    invoiceTitle?: string;
+    invoiceStatus?: string;
+    addStartTime?: string;
+    addEndTime?: string;
+  }
+}) => {
+  try {
+    const data = await ApiRoot({ url: apis?.orderList }).orders().invoiceList(params);
+    return data ?? {};
+  } catch (e) {
+    console.log(e);
+    return {};
+  }
+}
