@@ -55,7 +55,10 @@ const InvoiceList = () => {
       <SearchHeader setBody={setBody} getList={getList} />
       <TableList
         data={invoiceList}
+        body={body}
+        setBody={setBody}
         loading={loading}
+        getList={getList}
         selectedRowKeys={selectedRowKeys}
         setSelectedRowKeys={setSelectedRowKeys}
         setSelectedRows={setSelectedRows}
