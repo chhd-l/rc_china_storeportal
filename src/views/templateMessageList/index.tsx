@@ -1,21 +1,20 @@
 import ProTable from '@/components/common/ProTable'
-import './index.less'
-import { Button, message, Modal } from 'antd'
-import { FileSearchOutlined } from '@ant-design/icons'
-import { tableColumns } from './modules/constant'
 import { ContentContainer } from '@/components/ui'
-import React, { useEffect, useRef, useState } from 'react'
-import AddTemplate from './components/AddTemplate'
-import ViewIndustry from './components/ViewIndustry'
-import CardList from './components/CardList'
 import {
   getTemplateItems,
   getTemplateMessages,
   syncTemplateItem,
   updateTemplateMessage,
 } from '@/framework/api/wechatSetting'
-import { useAtom } from 'jotai'
-import { userAtom } from '@/store/user.store'
+import { FileSearchOutlined } from '@ant-design/icons'
+import { Button, message, Modal } from 'antd'
+import { useEffect, useRef, useState } from 'react'
+import AddTemplate from './components/AddTemplate'
+import CardList from './components/CardList'
+import ViewIndustry from './components/ViewIndustry'
+import './index.less'
+import { tableColumns } from './modules/constant'
+import intl from 'react-intl-universal'
 
 const WxTemplateMessage = () => {
   const [addVisible, setAddVisible] = useState(false)
@@ -24,7 +23,6 @@ const WxTemplateMessage = () => {
   const [templateMessageList, setTemplateMessageList] = useState<any[]>([])
   const [templateItems, setTemplateItems] = useState<any[]>([])
   const [isModalVisible, setIsModalVisible] = useState(false)
-  const [userInfo] = useAtom(userAtom)
   const [curSelectId, setCurSelectId] = useState('')
   const [loading, setLoading] = useState(false)
   const tableRef = useRef<any>()
@@ -34,7 +32,7 @@ const WxTemplateMessage = () => {
     const res = await updateTemplateMessage({ id: curSelectId, isDeleted: true })
     if (res) {
       setIsModalVisible(false)
-      message.success({ className: 'rc-message', content: 'Operation success' })
+      message.success({ className: 'rc-message', content: intl.get('public.operate_success') })
       tableRef.current.reload()
     }
     setLoading(false)
@@ -59,7 +57,7 @@ const WxTemplateMessage = () => {
       templateId: templateMessage.templateId,
     })
     if (res) {
-      message.success({ className: 'rc-message', content: 'Operation success' })
+      message.success({ className: 'rc-message', content: intl.get('public.operate_success') })
       if (cardView) {
         await getTemplateMessageList()
       } else {
@@ -82,7 +80,7 @@ const WxTemplateMessage = () => {
   }
   const Synchronous = async () => {
     if (await syncTemplateItem()) {
-      message.success({ className: 'rc-message', content: 'Operation success' })
+      message.success({ className: 'rc-message', content: intl.get('public.operate_success') })
     }
   }
 
@@ -110,30 +108,32 @@ const WxTemplateMessage = () => {
           headerTitle={[
             <Button className="flex items-center mr-3" onClick={() => handleIndustires()}>
               <FileSearchOutlined />
-              View Industries
+              {intl.get('templateMessage.View Industries')}
             </Button>,
             <Button className="flex items-center  mr-3" onClick={() => Synchronous()}>
               <span className="iconfont icon-bianzu2 mr-2 text-xl" />
-              Synchronous
+              {intl.get('templateMessage.Synchronous')}
             </Button>,
             <Button className="flex items-center  mr-3" onClick={() => setCardView(true)}>
               <span className="iconfont icon-bianzu2 mr-2 text-xl" />
-              Graphical Representation
+              {intl.get('templateMessage.Graphical Representation')}
             </Button>,
           ]}
           toolBarRender={() => [
             <Button className="mt-8 text-white" type="primary" onClick={handleAdd} ghost>
-              + Add
+              + {intl.get('templateMessage.Add')}
             </Button>,
           ]}
           columns={columns}
           search={{
-            searchText: 'Search',
+            searchText: intl.get('public.search'),
             span: 8,
             optionRender: (searchConfig, formProps, dom) => {
-              return dom.map((item: any) => {
-                return <Button {...item.props} loading={false} />
-              }).reverse()
+              return dom
+                .map((item: any) => {
+                  return <Button {...item.props} loading={false} />
+                })
+                .reverse()
             },
           }}
           request={async (params, sorter, filter) => {
@@ -179,13 +179,10 @@ const WxTemplateMessage = () => {
         confirmLoading={loading}
         onCancel={() => setIsModalVisible(false)}
       >
-        <p>Are you sure you want to delete the item?</p>
+        <p>{intl.get('public.Are you sure you want to delete the item?')}</p>
       </Modal>
     </ContentContainer>
   )
 }
 
 export default WxTemplateMessage
-function useStateuseState<T>(arg0: never[]): [any, any] {
-  throw new Error('Function not implemented.')
-}

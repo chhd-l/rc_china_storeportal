@@ -4,7 +4,7 @@ import moment from 'moment'
 const { Option } = Select
 const { RangePicker } = DatePicker
 
-const SearchHeader = ({ setBody, getList }: { setBody: Function; getList: Function }) => {
+const SearchHeader = ({ setBody, getList, body }: { setBody: Function; getList: Function; body: Object }) => {
   const [form] = Form.useForm()
 
   const onFinish = (values: any) => {
@@ -18,9 +18,8 @@ const SearchHeader = ({ setBody, getList }: { setBody: Function; getList: Functi
       values.addEndTime = moment(values.time[1]).utc()
       delete values.time
     }
-    setBody(values)
-    getList(values)
-    console.log('Success:', values)
+    setBody({ ...body, ...values })
+    getList({ ...body, ...values })
   }
 
   const onReset = () => {

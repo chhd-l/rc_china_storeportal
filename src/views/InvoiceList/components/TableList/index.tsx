@@ -16,7 +16,7 @@ const TableList = ({
 }: {
   loading: boolean
   data: any[]
-  body: Object
+  body: any
   getList: Function
   setBody: Function
   setSelectedRowKeys: Function
@@ -33,8 +33,8 @@ const TableList = ({
     },
     {
       title: 'Order Amount',
-      dataIndex: 'Float',
-      key: 'Float',
+      dataIndex: 'orderAmount',
+      key: 'orderAmount',
     },
     {
       title: 'Application Time',
@@ -103,6 +103,7 @@ const TableList = ({
     <div className="bg-white px-[24px] pb-[24px]">
       <Tabs
         defaultActiveKey=""
+        activeKey={body?.invoiceStatus || ''}
         onChange={(key) => {
           if (key) {
             setBody({
@@ -113,6 +114,8 @@ const TableList = ({
               ...body,
               invoiceStatus: key,
             })
+          } else {
+            getList(body)
           }
         }}
       >

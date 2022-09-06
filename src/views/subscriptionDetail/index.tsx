@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { ContentContainer, InfoContainer, DivideArea } from '@/components/ui'
-import { getSubscriptionDetail, pauseSubscription, resumeSubscription, updateSubscriptionAddress, updateNextDeliveryDate, upsertSubscriptionComment } from '@/framework/api/subscription'
-import { Spin, message } from "antd"
+import {
+  getSubscriptionDetail,
+  pauseSubscription,
+  resumeSubscription,
+  updateSubscriptionAddress,
+  updateNextDeliveryDate,
+  upsertSubscriptionComment,
+} from '@/framework/api/subscription'
+import { Spin, message } from 'antd'
 import { useLocation } from 'react-router-dom'
 import { useScrollToTop } from '@/hooks'
 import BaseInfo from './components/BaseInfo'
@@ -13,14 +20,14 @@ import SubscriptionOrders from './components/SubscriptionOrders'
 import SubscriptionGifts from './components/SubscriptionGifts'
 import CommentWidget from '@/components/common/Comment'
 import OperateLogWidget from '@/components/common/OperateLog'
-import "./index.less"
-
+import intl from 'react-intl-universal'
+import './index.less'
 
 export default function SubscriptionDetail() {
   const [loading, setLoading] = useState<boolean>(false)
   const [detail, setDetail] = useState<any>({})
-  const location = useLocation();
-  const state: any = location.state;
+  const location = useLocation()
+  const state: any = location.state
 
   useScrollToTop()
 
@@ -29,18 +36,18 @@ export default function SubscriptionDetail() {
   }, [])
 
   const getSubscription = async (showLoadingFlag: boolean = true) => {
-    showLoadingFlag && setLoading(true);
-    const data = await getSubscriptionDetail(state?.id ?? "")
-    setDetail(data);
+    showLoadingFlag && setLoading(true)
+    const data = await getSubscriptionDetail(state?.id ?? '')
+    setDetail(data)
     setLoading(false)
   }
 
   const handlePauseAndRestartConfirm = async () => {
     let succes = false
-    if (detail?.status === "PAUSED") {
-      succes = await resumeSubscription(detail?.id);
+    if (detail?.status === 'PAUSED') {
+      succes = await resumeSubscription(detail?.id)
     } else {
-      succes = await pauseSubscription(detail?.id);
+      succes = await pauseSubscription(detail?.id)
     }
     if (succes) {
       await getSubscription(false)
@@ -51,11 +58,11 @@ export default function SubscriptionDetail() {
   }
 
   const handleChooseAddress = async (address: any) => {
-    const { storeId, consumerId, isDefault, ...rest } = address;
-    const success = await updateSubscriptionAddress(detail?.id, rest);
+    const { storeId, consumerId, isDefault, ...rest } = address
+    const success = await updateSubscriptionAddress(detail?.id, rest)
     if (success) {
       await getSubscription(false)
-      message.success({className:'rc-message',content:'Operation Successful'});
+      message.success({ className: 'rc-message', content: intl.get('public.Operation Successful') })
       return Promise.resolve(true)
     } else {
       return Promise.resolve(false)
@@ -63,10 +70,10 @@ export default function SubscriptionDetail() {
   }
 
   const handleChangeNextDeliveryDate = async (date: string) => {
-    const success = await updateNextDeliveryDate(detail?.id, date);
+    const success = await updateNextDeliveryDate(detail?.id, date)
     if (success) {
       await getSubscription(false)
-      message.success({className:'rc-message',content:'Operation Successful'});
+      message.success({ className: 'rc-message', content: intl.get('public.Operation Successful') })
       return Promise.resolve(true)
     } else {
       return Promise.resolve(false)
@@ -74,10 +81,10 @@ export default function SubscriptionDetail() {
   }
 
   const handleUpsertComment = async (param: any) => {
-    const success = await upsertSubscriptionComment(param);
+    const success = await upsertSubscriptionComment(param)
     if (success) {
       await getSubscription(false)
-      message.success({className:'rc-message',content:'Operation Successful'});
+      message.success({ className: 'rc-message', content: intl.get('public.Operation Successful') })
       return Promise.resolve(true)
     } else {
       return Promise.resolve(false)
@@ -110,7 +117,13 @@ export default function SubscriptionDetail() {
             </InfoContainer>
             <DivideArea />
             <InfoContainer>
-              <SubscriptionOrders planningList={detail?.planingDeliveries ?? []} completedList={detail?.completedDeliveries ?? []} nextDeliveryDate={detail?.createNextDeliveryTime} status={detail?.status} onChangeDate={handleChangeNextDeliveryDate} />
+              <SubscriptionOrders
+                planningList={detail?.planingDeliveries ?? []}
+                completedList={detail?.completedDeliveries ?? []}
+                nextDeliveryDate={detail?.createNextDeliveryTime}
+                status={detail?.status}
+                onChangeDate={handleChangeNextDeliveryDate}
+              />
             </InfoContainer>
             <DivideArea />
             <InfoContainer>
@@ -123,9 +136,7 @@ export default function SubscriptionDetail() {
               defaultParam={{ subscriptionId: detail?.id }}
               handleUpsertComment={handleUpsertComment}
             />
-            <OperateLogWidget
-              logs={detail?.logs ?? []}
-            />
+            <OperateLogWidget logs={detail?.logs ?? []} />
           </div>
         </div>
       </Spin>

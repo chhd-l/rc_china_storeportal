@@ -1,15 +1,15 @@
-import './index.less'
-import { Button, Switch, Input, Modal, Tooltip, Divider, Avatar, message, Spin } from 'antd'
-import { CheckOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons'
 import ProTable from '@/components/common/ProTable'
-import { useEffect, useState, useRef } from 'react'
-import { ProColumns } from '@ant-design/pro-table'
-import { useParams } from 'react-router-dom'
-import EditTagsModal from './components/EditTagsModal'
 import { ContentContainer } from '@/components/ui'
-import { handlePageParams } from '@/utils/utils'
 import { detailTag, removeConsumerTag, updateTag } from '@/framework/api/tag'
+import { handlePageParams } from '@/utils/utils'
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons'
+import { ProColumns } from '@ant-design/pro-table'
+import { Avatar, Button, Divider, Input, message, Modal, Spin, Switch, Tooltip } from 'antd'
+import { useEffect, useRef, useState } from 'react'
+import intl from 'react-intl-universal'
 import { useLocation } from 'react-router'
+import EditTagsModal from './components/EditTagsModal'
+import './index.less'
 
 const EditTags = () => {
   const { state }: any = useLocation()
@@ -34,7 +34,7 @@ const EditTags = () => {
       tagId: state.id,
     })
     if (res) {
-      message.success({ className: "rc-message", content: 'Operate success' })
+      message.success({ className: 'rc-message', content: intl.get('public.operate_success') })
       setIsModalVisible(false)
       ref.current.reload()
     }
@@ -86,33 +86,33 @@ const EditTags = () => {
   }
   const columns: ProColumns<any>[] = [
     {
-      title: 'Profile Photo',
+      title: intl.get('tag.Profile Photo'),
       dataIndex: 'image',
       key: 'image',
       render: (text: any, record: any) => (
-        <Avatar size='large' icon={<img src={record?.consumer?.avatarUrl} alt='' />} />
+        <Avatar size="large" icon={<img src={record?.consumer?.avatarUrl} alt="" />} />
       ),
     },
     {
-      title: 'WeChat Name',
+      title: intl.get('tag.WeChat Name'),
       dataIndex: 'nickname',
       key: 'nickname',
       render: (text: any, record: any) => record?.consumer?.nickName || '',
     },
     {
-      title: 'Phone Number',
+      title: intl.get('tag.Phone Number'),
       dataIndex: 'phone',
       key: 'phone',
       render: (text: any, record: any) => record?.consumer?.phone || '',
     },
     state.type && {
-      title: 'Options',
+      title: intl.get('tag.Options'),
       key: 'Options',
       render: (text: any, record: any) => (
         <>
-          <Tooltip title='Delete'>
+          <Tooltip title={intl.get('public.delete')}>
             <span
-              className='cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl'
+              className="cursor-pointer ml-2 iconfont icon-delete text-red-500 text-xl"
               onClick={() => {
                 setConsumerId(record.consumer.id)
                 setIsModalVisible(true)
@@ -128,17 +128,17 @@ const EditTags = () => {
   return (
     <ContentContainer>
       <Spin spinning={loading}>
-        <div className='category-detail'>
-          <div className='bg-white px-6 py-4'>
-            <div className='flex justify-between'>
-              <div className='font-bold text-lg'>
+        <div className="category-detail">
+          <div className="bg-white px-6 py-4">
+            <div className="flex justify-between">
+              <div className="font-bold text-lg">
                 {show ? (
                   <div>
                     <Input.Group compact>
                       <Input
                         style={{ width: '200px' }}
                         defaultValue={cateInfos.name}
-                        onChange={e => {
+                        onChange={(e) => {
                           setName(e.target.value)
                         }}
                       />
@@ -148,7 +148,7 @@ const EditTags = () => {
                           updateTag({
                             id: state.id,
                             name,
-                          }).then(res => {
+                          }).then((res) => {
                             if (res) {
                               setShow(false)
                               ref.current.reload()
@@ -166,12 +166,12 @@ const EditTags = () => {
                     </Input.Group>
                   </div>
                 ) : (
-                  <div className='edit-name flex items-center'>
-                    <span className='edit-display-name'>{cateInfos.name}</span>
+                  <div className="edit-name flex items-center">
+                    <span className="edit-display-name">{cateInfos.name}</span>
                     {state.type && (
                       <span
                         style={{ color: '#ee4d2d' }}
-                        className='iconfont icon-shop-cate-edit'
+                        className="iconfont icon-shop-cate-edit"
                         onClick={() => {
                           setShow(true)
                           setName(cateInfos.name)
@@ -183,7 +183,7 @@ const EditTags = () => {
               </div>
               <div>
                 <Switch
-                  className='ml-3'
+                  className="ml-3"
                   checked={cateInfos.isEnabled}
                   disabled={!state.type}
                   onChange={(checked: boolean) => {
@@ -195,25 +195,25 @@ const EditTags = () => {
             </div>
             <Divider />
           </div>
-          <div className='bg-white px-6 py-4'>
-            <div className='flex justify-between'>
-              <div className='search-title'>
-                <div className='text-xl list-title'>Pet Owner List</div>
+          <div className="bg-white px-6 py-4">
+            <div className="flex justify-between">
+              <div className="search-title">
+                <div className="text-xl list-title">{intl.get('tag.Pet Owner List')}</div>
               </div>
               {state.type && (
                 <Button
-                  type='primary'
+                  type="primary"
                   onClick={() => {
                     setManualSelectionVisible(true)
                   }}
                 >
-                  + Add New Pet Owner
+                  + {intl.get('tag.Add New Pet Owner')}
                 </Button>
               )}
             </div>
             <ProTable
               loading={false}
-              className='set-delete-box'
+              className="set-delete-box"
               actionRef={ref}
               columns={columns}
               toolBarRender={false}
@@ -228,7 +228,7 @@ const EditTags = () => {
                   currentPage: params.current,
                   pageSize: params.pageSize,
                 })
-                let tableData = await getList({ ...page, productName: params.productName })
+                let tableData: any = await getList({ ...page, productName: params.productName })
                 if (tableData === undefined && page.offset >= 10) {
                   tableData = await getList({
                     offset: page.offset - 10,
@@ -251,9 +251,9 @@ const EditTags = () => {
             handleUpdate={handleUpdate}
           />
           <Modal
-            className='rc-modal'
-            title='Delete Item'
-            okText='Confirm'
+            className="rc-modal"
+            title={intl.get('public.delete_item')}
+            okText={intl.get('public.confirm')}
             visible={isModalVisible}
             onOk={confirmDelete}
             confirmLoading={loading}
@@ -262,9 +262,9 @@ const EditTags = () => {
             <p>Are you sure you want to delete the item?</p>
           </Modal>
           <Modal
-            className='rc-modal'
-            title='Notice'
-            okText='Confirm'
+            className="rc-modal"
+            title={intl.get('public.notice')}
+            okText={intl.get('public.confirm')}
             visible={isSwithVisible}
             onOk={confirmSwitch}
             confirmLoading={loading}

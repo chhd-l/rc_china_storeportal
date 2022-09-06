@@ -8,6 +8,7 @@ import './index.less'
 import { getTemplateDetail, updateTemplateMessage } from '@/framework/api/wechatSetting'
 import { useParams } from 'react-router-dom'
 import _ from 'lodash'
+import intl from 'react-intl-universal'
 
 const TemplateMessageDetail = () => {
   const navigation = useNavigate()
@@ -30,7 +31,7 @@ const TemplateMessageDetail = () => {
     const params = _.omit(value, ['title', 'primaryIndustry', 'deputyIndustry'])
     const res = await updateTemplateMessage(Object.assign(params, { id: templateInfo.id }))
     if (res) {
-      message.success({ className: 'rc-message', content: 'Operation success' })
+      message.success({ className: 'rc-message', content: intl.get('public.operate_success') })
       navigation('/template/template-message-list')
     }
   }
@@ -68,10 +69,10 @@ const TemplateMessageDetail = () => {
                           navigation(`/template/template-message-list`)
                         }}
                       >
-                        Cancel
+                        {intl.get('public.cancel')}
                       </Button>,
                       <Button type="primary" key="submit" onClick={() => props.form?.submit?.()}>
-                        Confirm
+                        {intl.get('public.confirm')}
                       </Button>,
                     ]
                   },
@@ -89,8 +90,8 @@ const TemplateMessageDetail = () => {
                   <ProFormText
                     colProps={{ span: 12 }}
                     name="templateId"
-                    label="Template ID"
-                    placeholder="Please input Template ID"
+                    label={intl.get('templateMessage.Template ID')}
+                    placeholder={intl.get('templateMessage.Please input Template ID')}
                     disabled
                   />
                   <ProFormSelect
@@ -98,15 +99,15 @@ const TemplateMessageDetail = () => {
                     options={[
                       {
                         value: 'SHIPPED',
-                        label: 'Shipped',
+                        label: intl.get('templateMessage.Shipped'),
                       },
                       {
                         value: 'CANCEL REMINDER',
-                        label: 'Cancel Reminder',
+                        label: intl.get('templateMessage.Cancel Reminder'),
                       },
                     ]}
                     name="scenario"
-                    label="Select Scenario"
+                    label={intl.get('templateMessage.Select Scenario')}
                   />
                 </ProForm.Group>
 
@@ -114,15 +115,15 @@ const TemplateMessageDetail = () => {
                   <ProFormText
                     colProps={{ span: 12 }}
                     name="title"
-                    label="Template Name"
-                    placeholder="Please input Template Name"
+                    label={intl.get('templateMessage.Template Name')}
+                    placeholder={intl.get('templateMessage.Please input Template Name')}
                     disabled
                   />
                   <ProFormText
                     colProps={{ span: 12 }}
                     name="primaryIndustry"
-                    label="Primary Industry"
-                    placeholder="Please input Primary Industry"
+                    label={intl.get('templateMessage.Primary Industry')}
+                    placeholder={intl.get('templateMessage.Please input Primary Industry')}
                     disabled
                   />
                 </ProForm.Group>
@@ -130,32 +131,32 @@ const TemplateMessageDetail = () => {
                   <ProFormText
                     colProps={{ span: 12 }}
                     name="deputyIndustry"
-                    label="Secondary Industry"
-                    placeholder="Please input Secondary Industry"
+                    label={intl.get('templateMessage.Secondary Industry')}
+                    placeholder={intl.get('templateMessage.Please input Secondary Industry')}
                     disabled
                   />
                   <ProFormText
                     colProps={{ span: 12 }}
                     name="url"
-                    label="H5 Jump Path"
+                    label={intl.get('templateMessage.H5 Jump Path')}
                     allowClear={false}
-                    placeholder="Please input H5 jump path"
+                    placeholder={intl.get('templateMessage.Please input H5 jump path')}
                   />
                 </ProForm.Group>
                 <ProForm.Group>
                   <ProFormText
                     colProps={{ span: 12 }}
                     name="appId"
-                    label="Mini Program AppId"
+                    label={intl.get('templateMessage.Mini Program AppId')}
                     allowClear={false}
-                    placeholder="Please input Mini Program appid"
+                    placeholder={intl.get('templateMessage.Please input Mini Program appid')}
                   />
                   <ProFormText
                     colProps={{ span: 12 }}
                     name="pagePath"
-                    label="Jump Path"
+                    label={intl.get('templateMessage.Jump Path')}
                     allowClear={false}
-                    placeholder="Please input Mini Program Jump Path"
+                    placeholder={intl.get('templateMessage.Please input Mini Program Jump Path')}
                   />
                 </ProForm.Group>
                 <ProForm.Group>
@@ -164,8 +165,8 @@ const TemplateMessageDetail = () => {
                     wrapperCol={{ span: 20 }}
                     colProps={{ span: 24 }}
                     name="description"
-                    label="Description"
-                    placeholder="Please input Description"
+                    label={intl.get('templateMessage.Description')}
+                    placeholder={intl.get('templateMessage.Please input Description')}
                   />
                 </ProForm.Group>
               </ProForm>
@@ -174,7 +175,7 @@ const TemplateMessageDetail = () => {
           <InfoContainer className="mb-7">
             <div className="bg-white">
               示例：
-              <div dangerouslySetInnerHTML={{ __html: (templateInfo?.example ?? "").replace(/\r\n/g, "<br/>")}} />
+              <div dangerouslySetInnerHTML={{ __html: (templateInfo?.example ?? '').replace(/\r\n/g, '<br/>') }} />
             </div>
           </InfoContainer>
         </>

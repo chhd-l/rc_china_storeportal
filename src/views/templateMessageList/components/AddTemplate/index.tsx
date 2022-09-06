@@ -3,6 +3,7 @@ import { message } from 'antd'
 import { FC, useEffect, useState } from 'react'
 import './index.less'
 import { createTemplateMessage, getTemplateItems } from '@/framework/api/wechatSetting'
+import intl from 'react-intl-universal'
 
 export type Props = {
   visible: boolean
@@ -30,7 +31,7 @@ const AddTemplate: FC<Props> = ({ visible, handleVisible, addSuccess }) => {
     })
     if (res) {
       addSuccess && addSuccess()
-      message.success({ className: 'rc-message', content: 'Operation success' })
+      message.success({ className: 'rc-message', content: intl.get('public.operate_success') })
     }
   }
 
@@ -41,7 +42,7 @@ const AddTemplate: FC<Props> = ({ visible, handleVisible, addSuccess }) => {
   return (
     <ModalForm
       className="add-template"
-      title="Add New Template"
+      title={intl.get('templateMessage.Add New Template')}
       visible={visible}
       onFinish={async (value) => {
         console.info('value', value)
@@ -55,7 +56,7 @@ const AddTemplate: FC<Props> = ({ visible, handleVisible, addSuccess }) => {
           name="title"
           width="md"
           fieldProps={{ showSearch: true }}
-          label="Select Template"
+          label={intl.get('templateMessage.Select Template')}
           // dependencies 的内容会注入 request 中
           dependencies={['id']}
           request={async (params) => {
@@ -72,15 +73,15 @@ const AddTemplate: FC<Props> = ({ visible, handleVisible, addSuccess }) => {
           options={[
             {
               value: 'SHIPPED',
-              label: 'Shipped',
+              label: intl.get('templateMessage.Shipped'),
             },
             {
               value: 'CANCEL REMINDER',
-              label: 'Cancel Reminder',
+              label: intl.get('templateMessage.Cancel Reminder'),
             },
           ]}
           name="useMode"
-          label="Select Scenario"
+          label={intl.get('templateMessage.Select Scenario')}
         />
       </ProForm.Group>
     </ModalForm>

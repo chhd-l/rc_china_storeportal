@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { handleValueEnum } from '@/utils/utils'
 import { LabelOptionProps } from '@/framework/types/common'
 import React from 'react'
+import intl from 'react-intl-universal'
 
 interface TableColumnsProps {
   openDelTipModal: (e: string) => void
@@ -21,28 +22,29 @@ interface ColumnsProps {
 export const tableColumns = ({ openDelTipModal, templateTitleList, modifyTemplateMessage }: TableColumnsProps) => {
   const columns: ProColumns<ColumnsProps>[] = [
     {
-      title: 'Template ID',
+      title: intl.get('templateMessage.Template ID'),
       dataIndex: 'templateId',
       order: 4,
-      fieldProps: {style: {width: '80%'}},
+      fieldProps: { style: { width: '80%' } },
     },
     {
-      title: 'Scenario',
+      title: intl.get('templateMessage.Scenario'),
       dataIndex: 'scenario',
       hideInSearch: true,
-      render: (_text, record) => _text === 'SHIPPED' ? 'Shipped' : _text === 'CANCEL REMINDER' ? 'Cancel Reminder' : _text
+      render: (_text, record) =>
+        _text === 'SHIPPED' ? 'Shipped' : _text === 'CANCEL REMINDER' ? 'Cancel Reminder' : _text,
     },
     {
-      title: 'Title',
+      title: intl.get('templateMessage.Title'),
       dataIndex: 'title',
       hideInSearch: true,
     },
     {
-      title: 'Template Title',
+      title: intl.get('templateMessage.Template Title'),
       dataIndex: 'title',
       order: 3,
       hideInTable: true,
-      fieldProps: {style: {width: '80%'}},
+      fieldProps: { style: { width: '80%' } },
       valueEnum: () => {
         let data =
           templateTitleList?.map((el: any) => {
@@ -56,12 +58,12 @@ export const tableColumns = ({ openDelTipModal, templateTitleList, modifyTemplat
       },
     },
     {
-      title: 'Scenario',
+      title: intl.get('templateMessage.Scenario'),
       dataIndex: 'scenario',
       initialValue: 'all',
       order: 2,
       hideInTable: true,
-      fieldProps: {style: {width: '80%'}},
+      fieldProps: { style: { width: '80%' } },
       valueEnum: {
         all: { text: 'All', status: 'Default' },
         SHIPPED: { text: 'Shipped', status: 'Default' },
@@ -69,7 +71,7 @@ export const tableColumns = ({ openDelTipModal, templateTitleList, modifyTemplat
       },
     },
     {
-      title: 'Status',
+      title: intl.get('templateMessage.Status'),
       dataIndex: 'status',
       hideInSearch: true,
       render: (_, record) => (
@@ -84,7 +86,7 @@ export const tableColumns = ({ openDelTipModal, templateTitleList, modifyTemplat
       ),
     },
     {
-      title: 'Action',
+      title: intl.get('templateMessage.Action'),
       hideInSearch: true,
       render: (_, record) => [
         <Tooltip title="Edit">

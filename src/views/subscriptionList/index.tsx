@@ -5,6 +5,7 @@ import { getSubscriptionList, pauseSubscription, resumeSubscription } from '@/fr
 import Search from './components/Search'
 import TableHeader from './components/TableHeader'
 import TableRow from './components/TableRow'
+import intl from 'react-intl-universal'
 
 type THandleTips = {
   visible: boolean
@@ -82,19 +83,21 @@ const SubscriptionList: React.FC<{}> = ({}) => {
 
   return (
     <ContentContainer>
-      <SearchContainer className='pt-0'>
+      <SearchContainer className="pt-0">
         <Tabs activeKey={akey} onChange={handleChangeTab}>
-          <Tabs.TabPane key='all' tab='All' />
-          <Tabs.TabPane key='ONGOING' tab='Ongoing' />
-          <Tabs.TabPane key='PAUSED' tab='Paused' />
-          <Tabs.TabPane key='COMPLETED' tab='Completed' />
-          <Tabs.TabPane key='INACTIVE' tab='Inactive' />
+          <Tabs.TabPane key="all" tab={intl.get('public.All')} />
+          <Tabs.TabPane key="ONGOING" tab={intl.get('subscription.Ongoing')} />
+          <Tabs.TabPane key="PAUSED" tab={intl.get('subscription.Paused')} />
+          <Tabs.TabPane key="COMPLETED" tab={intl.get('subscription.Completed')} />
+          <Tabs.TabPane key="INACTIVE" tab={intl.get('subscription.Inactive')} />
         </Tabs>
         <Search onSearch={handleSearch} onSetParam={(param: any) => setParams(param)} />
       </SearchContainer>
-      <TableContainer className='py-0 pb-5'>
+      <TableContainer className="py-0 pb-5">
         <Spin spinning={loading}>
-          <div className='mb-4 text-left text-xl font-bold'>{pages.total} Subscriptions</div>
+          <div className="mb-4 text-left text-xl font-bold">
+            {pages.total} {intl.get('subscription')}
+          </div>
           <TableHeader />
           {(list || []).length > 0 ? (
             <React.Fragment>
@@ -105,14 +108,14 @@ const SubscriptionList: React.FC<{}> = ({}) => {
                   handlePauseOrRestart={(isResume: boolean, id: string) => setTipObj({ visible: true, isResume, id })}
                 />
               ))}
-              <div className='flex flex-row justify-end mt-4'>
+              <div className="flex flex-row justify-end mt-4">
                 <Pagination
                   current={pages.page}
                   total={pages.total}
                   pageSize={pages.limit}
                   onChange={changePage}
                   showSizeChanger={true}
-                  className='rc-pagination'
+                  className="rc-pagination"
                 />
               </div>
             </React.Fragment>
@@ -123,17 +126,19 @@ const SubscriptionList: React.FC<{}> = ({}) => {
       </TableContainer>
       <Modal
         visible={tipObj.visible}
-        className='rc-modal'
-        title={tipObj.isResume ? 'Restart Subscription' : 'Pause Subscription'}
-        cancelText='Cancel'
-        okText='Confirm'
+        className="rc-modal"
+        title={
+          tipObj.isResume ? intl.get('subscription.Restart Subscription') : intl.get('subscription.Pause Subscription')
+        }
+        cancelText="Cancel"
+        okText="Confirm"
         onCancel={() => setTipObj(Object.assign({}, tipObj, { visible: false }))}
         onOk={handlePauseAndRestart}
       >
         <div>
           {tipObj.isResume
-            ? 'Are you sure you want to restart this subscription?'
-            : 'Are you sure you want to pause this subscription?'}
+            ? intl.get('subscription.Are you sure you want to restart this subscription?')
+            : intl.get('subscription.PAre you sure you want to pause this subscription?')}
         </div>
       </Modal>
     </ContentContainer>

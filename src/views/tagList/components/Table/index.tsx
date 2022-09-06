@@ -1,11 +1,10 @@
-import { Modal, Button, Table, Tooltip, Form, message } from 'antd'
-import { Link } from 'react-router-dom'
-import React, { useState, useRef } from 'react'
-import { Consumer } from '@/framework/types/consumer'
-import { ProFormInstance } from '@ant-design/pro-form'
-import { useNavigate } from 'react-router-dom'
-import ProForm, { ModalForm, ProFormText } from '@ant-design/pro-form'
 import { createTag, deleteTag } from '@/framework/api/tag'
+import { Consumer } from '@/framework/types/consumer'
+import ProForm, { ModalForm, ProFormInstance, ProFormText } from '@ant-design/pro-form'
+import { Button, message, Modal, Table, Tooltip } from 'antd'
+import { useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import intl from 'react-intl-universal'
 
 interface PetOwnerTableProps {
   petOwnerList: Consumer[]
@@ -25,7 +24,7 @@ const Index = ({ petOwnerList, handleUpdate, loading }: PetOwnerTableProps) => {
     console.log(res)
     if (res) {
       handleUpdate(true)
-      message.success({ className: 'rc-message', content: 'Operate success' })
+      message.success({ className: 'rc-message', content: intl.get('public.operate_success') })
       return true
     } else {
       return false
@@ -34,41 +33,41 @@ const Index = ({ petOwnerList, handleUpdate, loading }: PetOwnerTableProps) => {
   const confirmDelete = async () => {
     deleteTag({
       id: id,
-    }).then(res => {
+    }).then((res) => {
       if (res) {
         setVisible(false)
-        message.success({ className: 'rc-message', content: 'Operate success' })
+        message.success({ className: 'rc-message', content: intl.get('public.operate_success') })
         handleUpdate(true)
       }
     })
   }
   const columns = [
     {
-      title: 'Tagging Name',
+      title: intl.get('tag.Tagging Name:'),
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: 'Pet Owner(s)',
+      title: intl.get('tag.Pet Owner(s)'),
       dataIndex: 'consumerCount',
       key: 'consumerCount',
     },
     {
-      title: 'Tagging Status',
+      title: intl.get('tag.Tagging Status'),
       dataIndex: 'isEnabled',
       key: 'isEnabled',
-      render: (text: any) => <span>{text ? 'Enable' : 'Disable'}</span>,
+      render: (text: any) => <span>{text ? intl.get('public.enable') : intl.get('public.Disable')}</span>,
     },
     {
-      title: 'Options',
+      title: intl.get('tag.Options'),
       key: 'Options',
       width: 180,
       render: (text: any, record: any) => (
         <>
-          <Tooltip title='View Details'>
+          <Tooltip title={intl.get('wx.view_details')}>
             <span
-              className='cursor-pointer iconfont icon-kjafg primary-color mr-4'
-              onClick={e => {
+              className="cursor-pointer iconfont icon-kjafg primary-color mr-4"
+              onClick={(e) => {
                 e.stopPropagation()
                 navigator('/tags/edit-tags', {
                   state: { id: record.id, type: record.type !== 'SYSTEM' },
@@ -77,9 +76,9 @@ const Index = ({ petOwnerList, handleUpdate, loading }: PetOwnerTableProps) => {
             />
           </Tooltip>
           {record.type !== 'SYSTEM' && record.consumerCount == 0 && (
-            <Tooltip title='Delete'>
+            <Tooltip title={intl.get('public.delete')}>
               <span
-                className='cursor-pointer ml-2 iconfont icon-delete text-red-500'
+                className="cursor-pointer ml-2 iconfont icon-delete text-red-500"
                 onClick={() => {
                   setId(record.id)
                   setVisible(true)
@@ -93,15 +92,15 @@ const Index = ({ petOwnerList, handleUpdate, loading }: PetOwnerTableProps) => {
   ]
   return (
     <>
-      <div className='flex justify-end mb-4 pt-6'>
+      <div className="flex justify-end mb-4 pt-6">
         <Button
           danger
           onClick={() => {
             setIsModalVisible(true)
           }}
-          type='primary'
+          type="primary"
         >
-          + Add New Tag
+          + {intl.get('tag.Add New Tag')}
         </Button>
       </div>
       <Table
@@ -109,41 +108,41 @@ const Index = ({ petOwnerList, handleUpdate, loading }: PetOwnerTableProps) => {
         bordered
         dataSource={petOwnerList}
         columns={columns}
-        rowKey='id'
-        className='rc-table'
+        rowKey="id"
+        className="rc-table"
         pagination={false}
       />
       <ModalForm
-        title='Add New Tag'
+        title={intl.get('tag.Add New Tag')}
         visible={isModalVisible}
         onFinish={onFinish}
         formRef={formRef}
-        onVisibleChange={value => {
+        onVisibleChange={(value) => {
           setIsModalVisible(value)
           formRef?.current?.resetFields()
         }}
-        modalProps={{ width: 520, okText: 'Confirm', cancelText: 'Cancel' }}
+        modalProps={{ width: 520, okText: intl.get('public.confirm'), cancelText: intl.get('public.cancel') }}
       >
         <ProForm.Group>
           <ProFormText
-            width='md'
-            rules={[{ required: true, message: 'Missing Display Name' }]}
-            name='name'
-            label='Tagging Name'
+            width="md"
+            rules={[{ required: true, message: intl.get('public.Missing Display Name') }]}
+            name="name"
+            label="Tagging Name"
             fieldProps={{ maxLength: 40, showCount: true }}
-            placeholder='Enter a tagging name'
+            placeholder={intl.get('public.Enter a tagging name')}
           />
         </ProForm.Group>
       </ModalForm>
       <Modal
-        className='rc-modal'
-        title='Delete Item'
-        okText='Confirm'
+        className="rc-modal"
+        title="Delete Item"
+        okText={intl.get('public.confirm')}
         visible={visible}
         onOk={confirmDelete}
         onCancel={() => setVisible(false)}
       >
-        <p>Are you sure you want to delete the item?</p>
+        <p>{intl.get('public.Are you sure you want to delete the item?')}</p>
       </Modal>
     </>
   )

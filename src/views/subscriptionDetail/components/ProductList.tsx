@@ -2,16 +2,17 @@ import React from 'react'
 import { Table } from 'antd'
 import { formatMoney } from '@/utils/utils'
 import { SubscriptionFreshType } from '@/framework/constants/subscription'
+import intl from 'react-intl-universal'
 
-const ProductList = ({ productList, freshType }: { productList: any[], freshType: any }) => {
+const ProductList = ({ productList, freshType }: { productList: any[]; freshType: any }) => {
   const columns = [
     {
-      title: 'No.',
+      title: intl.get('"public.no') + '.',
       key: 'no',
       render: (text: any, record: any, index: number) => `${index + 1}`,
     },
     {
-      title: 'Product',
+      title: intl.get('subscription.Product'),
       dataIndex: 'productName',
       key: 'productName',
       render: (text: any, record: any) => (
@@ -25,37 +26,46 @@ const ProductList = ({ productList, freshType }: { productList: any[], freshType
       ),
     },
     {
-      title: 'Unit price',
+      title: intl.get('subscription.Unit price'),
       dataIndex: 'price',
       key: 'price',
       render: (text: any, record: any) => <div>{formatMoney(record?.variants?.subscriptionPrice)}</div>,
     },
     {
-      title: 'Quantity',
+      title: intl.get('subscription.Quantity'),
       dataIndex: 'num',
       key: 'num',
-      render: (text: any, record: any) => <div>{record?.variants?.num}</div>
+      render: (text: any, record: any) => <div>{record?.variants?.num}</div>,
     },
     {
-      title: 'Freshness',
+      title: intl.get('subscription.Freshness'),
       dataIndex: 'cycle',
       key: 'cycle',
-      render: () => <div>{SubscriptionFreshType[freshType]}</div>
+      render: () => <div>{SubscriptionFreshType[freshType]}</div>,
     },
     {
-      title: 'Subtotal',
+      title: intl.get('subscription.Subtotal'),
       key: 'Subtotal',
-      render: (text: any, record: any) => <div>{formatMoney(record?.variants?.subscriptionPrice * record?.variants?.num)}</div>,
+      render: (text: any, record: any) => (
+        <div>{formatMoney(record?.variants?.subscriptionPrice * record?.variants?.num)}</div>
+      ),
     },
   ]
   return (
     <div>
       <div className="flex justify-start space-x-4">
         <span className="iconfont icon-bianzu-1 primary-color text-lg" />
-        <span>Subscription Product</span>
+        <span>{intl.get('subscription.Subscription Product')}</span>
       </div>
       <div className="mt-4">
-        <Table rowKey="id" columns={columns} dataSource={productList} pagination={false} size="small" className="rc-table" />
+        <Table
+          rowKey="id"
+          columns={columns}
+          dataSource={productList}
+          pagination={false}
+          size="small"
+          className="rc-table"
+        />
       </div>
     </div>
   )

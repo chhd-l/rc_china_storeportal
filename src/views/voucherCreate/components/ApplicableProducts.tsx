@@ -181,7 +181,7 @@ const ApplicableProducts = ({
         confirmLoading={loading}
         onCancel={() => setIsModalVisible(false)}
       >
-        <p>{intl.get('voucher.Are you sure you want to Delete the item?')}</p>
+        <p>{intl.get('public.Are you sure you want to Delete the item?')}</p>
       </Modal>
     </div>
   )

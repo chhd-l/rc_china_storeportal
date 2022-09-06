@@ -22,8 +22,9 @@ const InvoiceList = () => {
     try {
       setLoading(true)
       const params: any = {
-        offset: (pagination.current || 0) * 10,
+        offset: ((pagination.current || 1) - 1) * 10,
         limit: pagination.pageSize,
+        withTotal: true,
       }
       if (JSON.stringify(sample) !== '{}') {
         params.sample = sample
@@ -37,6 +38,11 @@ const InvoiceList = () => {
         setInvoiceList(res.records)
       } else {
         setInvoiceList([])
+        setPagination({
+          current: 1,
+          pageSize: 10,
+          total: 0,
+        })
       }
       setLoading(false)
     } catch (error) {
@@ -53,7 +59,7 @@ const InvoiceList = () => {
   return (
     <ContentContainer className="InvoiceList">
       <h1 className="text-[18px] font-bold bg-white p-[24px] m-0">Invoice List</h1>
-      <SearchHeader setBody={setBody} getList={getList} />
+      <SearchHeader body={body} setBody={setBody} getList={getList} />
       <TableList
         data={invoiceList}
         body={body}

@@ -1,20 +1,21 @@
 import { Row, Col } from 'antd'
+import intl from 'react-intl-universal'
 
 export default function TableHeader() {
   return (
     <Row className="bg-gray1 border p-4 rounded">
-      <Col span={10}>Product(s)</Col>
+      <Col span={10}>{intl.get('subscription.Product(s)')}</Col>
       <Col span={4} className="text-left">
-        Subscription Status
+        {intl.get('subscription.Subscription Status')}
       </Col>
       <Col span={4} className="text-left">
-        Subscription Type
+        {intl.get('subscription.Subscription Type')}
       </Col>
       <Col span={4} className="text-left">
-        Subscription Cycle
+        {intl.get('subscription.Subscription Cycle')}
       </Col>
       <Col span={2} className="text-left">
-        Actions
+        {intl.get('subscription.Actions')}
       </Col>
     </Row>
   )

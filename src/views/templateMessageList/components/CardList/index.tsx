@@ -5,6 +5,7 @@ import './index.less'
 import { TemplateMessageItemProps } from '@/framework/types/wechat'
 import { Button } from 'antd'
 import { Link } from 'react-router-dom'
+import intl from 'react-intl-universal'
 
 export type Props = {
   setCardView: (val: boolean) => void
@@ -20,10 +21,10 @@ const CardList: FC<Props> = ({ setCardView, templateMessageList, modifyTemplateM
         gutter={[24, 24]}
         title={
           <>
-            <div className="mb-4">Graphical Representation</div>
+            <div className="mb-4">{intl.get('templateMessage.Graphical Representation')}</div>
             <Button className="flex items-center  mr-3" onClick={() => setCardView(false)}>
               <span className="iconfont icon-bianzu2 mr-2 text-xl" />
-              List Representation
+              {intl.get('templateMessage.List Representation')}
             </Button>
           </>
         }
@@ -37,7 +38,6 @@ const CardList: FC<Props> = ({ setCardView, templateMessageList, modifyTemplateM
             extra={
               <ProFormSwitch
                 name="status"
-                label=""
                 fieldProps={{
                   onChange: () => modifyTemplateMessage && modifyTemplateMessage(template),
                   checked: template.status,
@@ -54,13 +54,16 @@ const CardList: FC<Props> = ({ setCardView, templateMessageList, modifyTemplateM
               </div>
               <div className="modify-btn">
                 <Link to={`/template/template-message/${template.id}`} className="mr-4">
-                  Modify
+                  {intl.get('templateMessage.Modify')}
                 </Link>
               </div>
             </div>
             <div className="template-footer">
-              <div className="template-title">Template Name:{template.title}</div>
-              <div className="">Template ID:</div>
+              <div className="template-title">
+                {intl.get('templateMessage.Template Name:')}
+                {template.title}
+              </div>
+              <div className="">{intl.get('templateMessage.Template ID:')}</div>
               <div>{template.id}</div>
             </div>
           </ProCard>

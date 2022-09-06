@@ -1,7 +1,8 @@
-import { Button, DatePicker, Input,Row,Col } from 'antd'
-import React, { useState } from 'react'
 import { SearchParamsProps } from '@/framework/types/consumer'
 import { initSearchParams } from '@/views/petOwnerList/modules/constants'
+import { Button, Col, Input, Row } from 'antd'
+import { useState } from 'react'
+import intl from 'react-intl-universal'
 
 const OrderSearch = ({ query }: { query: Function }) => {
   const [searchParams, setSearchParams] = useState<SearchParamsProps>(initSearchParams)
@@ -11,7 +12,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
       <Row>
         <Col span={12}>
           <div className="flex flex-row items-center">
-            <div className="w-32 mr-2 text-left">Tagging Name:</div>
+            <div className="w-32 mr-2 text-left">{intl.get('tag.Tagging Name:')}</div>
             <Input
               placeholder="Enter tagging name"
               value={searchParams.name}
@@ -21,7 +22,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
                   name: e.target.value,
                 })
               }}
-              onPressEnter={(e)=>{
+              onPressEnter={(e) => {
                 query && query(searchParams)
               }}
             />
@@ -37,7 +38,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
             query && query(searchParams)
           }}
         >
-          Search
+          {intl.get('public.search')}
         </Button>
         <Button
           className="w-20"
@@ -46,7 +47,7 @@ const OrderSearch = ({ query }: { query: Function }) => {
             query && query(initSearchParams)
           }}
         >
-          Reset
+          {intl.get('public.reset')}
         </Button>
       </div>
     </div>

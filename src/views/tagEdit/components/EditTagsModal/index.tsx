@@ -1,14 +1,15 @@
-import './index.less'
-import { message, Button, Avatar } from 'antd'
-import { ModalForm } from '@ant-design/pro-form'
-import { useParams } from 'react-router-dom'
-import { useState, useEffect, useRef } from 'react'
 import ProTable from '@/components/common/ProTable'
-import { ProColumns } from '@ant-design/pro-table'
-import { handlePageParams } from '@/utils/utils'
 import { getPetOwnerList } from '@/framework/api/consumer'
 import { addConsumerTag } from '@/framework/api/tag'
+import { handlePageParams } from '@/utils/utils'
+import { ModalForm } from '@ant-design/pro-form'
+import { ProColumns } from '@ant-design/pro-table'
+import { Avatar, Button, message } from 'antd'
+import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router'
+import intl from 'react-intl-universal'
+import './index.less'
+
 export type EditTagsModalProps = {
   visible: boolean
   handleVisible: (visible: boolean) => void
@@ -17,28 +18,26 @@ export type EditTagsModalProps = {
 
 const EditTagsModal = ({ visible, handleVisible, handleUpdate }: EditTagsModalProps) => {
   const { state }: any = useLocation()
-  const params = useParams()
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const ref = useRef<any>()
   const onSelectChange = (selectedRowKeys: any, selectedRows: any) => {
-    console.log('selectedRowKeys changed: ', selectedRowKeys, selectedRows)
     setSelectedRowKeys(selectedRowKeys)
   }
   const manualColumns: ProColumns<any>[] = [
     {
-      title: 'Profile Photo',
+      title: intl.get('tag.Profile Photo'),
       dataIndex: 'image',
       key: 'image',
       hideInSearch: true,
-      render: (text: any, record: any) => <Avatar size='large' icon={<img src={text} alt='' />} />,
+      render: (text: any, record: any) => <Avatar size="large" icon={<img src={text} alt="" />} />,
     },
     {
-      title: 'WeChat Name',
+      title: intl.get('tag.WeChat Name'),
       dataIndex: 'nickname',
       key: 'nickname',
     },
     {
-      title: 'Phone Number',
+      title: intl.get('tag.Phone Number'),
       dataIndex: 'phone',
       key: 'phone',
       render: (text: any, record: any) => {
@@ -52,10 +51,10 @@ const EditTagsModal = ({ visible, handleVisible, handleUpdate }: EditTagsModalPr
   }, [visible])
   return (
     <ModalForm
-      width='50%'
-      className='manual-selection'
-      layout='horizontal'
-      title='Select Pet Owner'
+      width="50%"
+      className="manual-selection"
+      layout="horizontal"
+      title={intl.get('tag.Select Pet Owner')}
       visible={visible}
       onFinish={async () => {
         if (selectedRowKeys.length > 0) {
@@ -64,7 +63,7 @@ const EditTagsModal = ({ visible, handleVisible, handleUpdate }: EditTagsModalPr
             tagId: state.id,
           })
           if (res) {
-            message.success({ className: "rc-message", content: 'Operate success' })
+            message.success({ className: 'rc-message', content: intl.get('public.operate_success') })
             handleUpdate(true)
             return true
           }
@@ -74,7 +73,7 @@ const EditTagsModal = ({ visible, handleVisible, handleUpdate }: EditTagsModalPr
       }}
       submitter={{
         searchConfig: {
-          submitText: 'Confirm',
+          submitText: intl.get('public.operate_success'),
         },
       }}
       onVisibleChange={handleVisible}
@@ -112,8 +111,8 @@ const EditTagsModal = ({ visible, handleVisible, handleUpdate }: EditTagsModalPr
         }}
         tableAlertRender={() => false}
         rowKey={({ id }) => id}
-        className='pt-4 bg-white'
-        dateFormatter='string'
+        className="pt-4 bg-white"
+        dateFormatter="string"
         pagination={{
           showTotal: (total: number) => ``,
           showQuickJumper: false,
@@ -123,11 +122,11 @@ const EditTagsModal = ({ visible, handleVisible, handleUpdate }: EditTagsModalPr
           defaultCollapsed: false,
           span: 12,
           labelWidth: 'auto',
-          searchText: 'Search',
+          searchText: intl.get('public.public.search'),
           className: 'my-search',
           optionRender: ({ searchText, resetText }, { form }, dom) => [
             <Button
-              type='primary'
+              type="primary"
               onClick={() => {
                 form?.submit()
               }}
