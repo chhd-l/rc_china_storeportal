@@ -1,9 +1,7 @@
-// import ClientBuilder from '@rc-china-commerce/fetch/'
-import ClientBuilder from '@/rc-china-commerce/packages/fetch/lib/index'
-// import { message } from 'antd'
+import ClientBuilder from '@rc-china-commerce/fetch/'
+// import ClientBuilder from '@/rc-china-commerce/packages/fetch/lib/index'
 import history from '@/routers/history'
 import { message } from 'antd'
-// import ClientBuilder from '@/rc-china-commerce/packages/fetch/dist/fetch/lib'
 
 let isShowingError = false
 
