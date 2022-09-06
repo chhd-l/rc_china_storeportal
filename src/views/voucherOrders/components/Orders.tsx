@@ -7,6 +7,7 @@ import { handleQueryParams } from '../modules/handle-query-params'
 import { getOrderList } from '@/framework/api/order'
 import { initSearchParams } from '@/views/orderList/modules/constants'
 import { initPageParams } from '@/lib/constants'
+import intl from 'react-intl-universal'
 
 const Orders = ({ state }: { state: any }) => {
   const [orderList, setOrderList] = useState<any[]>([])
@@ -47,41 +48,41 @@ const Orders = ({ state }: { state: any }) => {
   return (
     <div>
       <Spin spinning={loading}>
-      <Typography.Title className="mb-md" level={4}>
-        Orders
-      </Typography.Title>
-      <div className="flex items-center justify-end pb-4">
-        <Form.Item label="Order Creation Date" className="m-0 mr-3">
-          <DatePicker.RangePicker
-            value={pickValue}
-            onChange={(date, dateString) => {
-              setPickValue(date)
-              setSearchParams({ ...searchParams, startTime: dateString[0], endTime: dateString[1] })
-            }}
-          />
-        </Form.Item>
-        <Button type="primary" onClick={() => {}}>
-          Search
-        </Button>
-      </div>
-      <OrderTable
-        orderList={orderList}
-        shipOrCompleteSuccess={() => getOrderLists({ searchParams, pageParams })}
-        changeCarrier={() => {}}
-        origin={'voucher'}
-      />
-      {total > 0 && (
-        <div className="flex flex-row justify-end mt-4">
-          <Pagination
-            current={currentPage}
-            total={total}
-            pageSize={pageSize}
-            onChange={changePage}
-            showSizeChanger={true}
-            className="rc-pagination"
-          />
+        <Typography.Title className="mb-md" level={4}>
+          {intl.get('voucher.orders')}
+        </Typography.Title>
+        <div className="flex items-center justify-end pb-4">
+          <Form.Item label="Order Creation Date" className="m-0 mr-3">
+            <DatePicker.RangePicker
+              value={pickValue}
+              onChange={(date, dateString) => {
+                setPickValue(date)
+                setSearchParams({ ...searchParams, startTime: dateString[0], endTime: dateString[1] })
+              }}
+            />
+          </Form.Item>
+          <Button type="primary" onClick={() => {}}>
+            {intl.get('voucher.orders.Search')}
+          </Button>
         </div>
-      )}
+        <OrderTable
+          orderList={orderList}
+          shipOrCompleteSuccess={() => getOrderLists({ searchParams, pageParams })}
+          changeCarrier={() => {}}
+          origin={'voucher'}
+        />
+        {total > 0 && (
+          <div className="flex flex-row justify-end mt-4">
+            <Pagination
+              current={currentPage}
+              total={total}
+              pageSize={pageSize}
+              onChange={changePage}
+              showSizeChanger={true}
+              className="rc-pagination"
+            />
+          </div>
+        )}
       </Spin>
     </div>
   )

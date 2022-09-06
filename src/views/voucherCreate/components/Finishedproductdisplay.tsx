@@ -1,5 +1,6 @@
 import { Form, Image } from 'antd'
 import moment from 'moment'
+import intl from 'react-intl-universal'
 
 const Finishedproductdisplay = () => {
   return (
@@ -35,14 +36,30 @@ const Finishedproductdisplay = () => {
                     ) : (
                       <div className="flex-1 w-5/6 h-full">
                         {discountType === 'PERCENTAGE' ? (
-                          <div className='w-full h-full flex items-center text-center text-red-600'>
-                            {discountValue && 
-                            <span className="text-4xl font-medium flex-1">{(100 - discountValue) / 10}<span className='text-sm'>折</span></span>}
+                          <div className="w-full h-full flex items-center text-center text-red-600">
+                            {discountValue && (
+                              <span className="text-4xl font-medium flex-1">
+                                {(100 - discountValue) / 10}
+                                <span className="text-sm">折</span>
+                              </span>
+                            )}
                           </div>
                         ) : (
-                          <div className='w-full h-full flex items-center text-center text-red-600'>
-                            {discountValue && 
-                            <span className={`${discountValue.toString().length <= 3 ? 'text-4xl' : discountValue.toString().length < 5 ? 'text-2xl' : 'text-xl'} font-medium flex-1`}><span className='text-sm'>￥</span>{discountValue}</span>}
+                          <div className="w-full h-full flex items-center text-center text-red-600">
+                            {discountValue && (
+                              <span
+                                className={`${
+                                  discountValue.toString().length <= 3
+                                    ? 'text-4xl'
+                                    : discountValue.toString().length < 5
+                                    ? 'text-2xl'
+                                    : 'text-xl'
+                                } font-medium flex-1`}
+                              >
+                                <span className="text-sm">￥</span>
+                                {discountValue}
+                              </span>
+                            )}
                           </div>
                         )}
                       </div>
@@ -69,7 +86,7 @@ const Finishedproductdisplay = () => {
                 </div>
               </div>
             </div>
-            <div className="text-center">Note: One consumer can only use once.</div>
+            <div className="text-center">{intl.get('voucher.Note: One consumer can only use once.')}</div>
           </div>
         )
       }}

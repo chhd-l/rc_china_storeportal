@@ -28,51 +28,51 @@ const TableList = ({
   const columns: any[] = [
     {
       title: 'Order Number',
-      dataIndex: 'OrderNumber',
-      key: 'OrderNumber',
+      dataIndex: 'orderNo',
+      key: 'orderNo',
     },
     {
       title: 'Order Amount',
-      dataIndex: 'OrderAmount',
-      key: 'OrderAmount',
+      dataIndex: 'Float',
+      key: 'Float',
     },
     {
       title: 'Application Time',
-      dataIndex: 'ApplicationTime',
-      key: 'ApplicationTime',
+      dataIndex: 'addTime',
+      key: 'addTime',
     },
     {
       title: 'Invoice Type',
-      dataIndex: 'InvoiceType',
-      key: 'InvoiceType',
+      dataIndex: 'type',
+      key: 'type',
     },
     {
       title: 'Invoice Title',
-      dataIndex: 'InvoiceTitle',
-      key: 'InvoiceTitle',
+      dataIndex: 'purchaserName',
+      key: 'purchaserName',
     },
     {
       title: 'Email Address',
-      dataIndex: 'EmailAddress',
-      key: 'EmailAddress',
+      dataIndex: 'email',
+      key: 'email',
     },
     {
       title: 'Status',
-      dataIndex: 'Status',
-      key: 'Status',
+      dataIndex: 'status',
+      key: 'status',
       render: (statu: string) => {
         switch (statu) {
-          case 'NotInvoiced':
+          case 'NOT_INVOICED':
             return (
               <div className="inline-block text-[10px] py-[2px] px-[15px] text-[#3A8FF3] bg-[#e8f3fd]">
                 Not invoiced
               </div>
             )
-          case 'Invoiced':
+          case 'DELIVERY_STATE':
             return (
               <div className="inline-block text-[10px] py-[2px] px-[15px] text-[#1EC559] bg-[#eaf9ef]">Invoiced</div>
             )
-          case 'Invoicing':
+          case 'PRINT_STATE':
             return (
               <div className="inline-block text-[10px] py-[2px] px-[15px] text-[#F3A93A] bg-[#fffbdc]">Invoiced</div>
             )

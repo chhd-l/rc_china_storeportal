@@ -29,13 +29,14 @@ const InvoiceList = () => {
         params.sample = sample
       }
       let res = await getInvoiceList(params)
-      console.log('res', res)
       if (res?.records?.length) {
         setPagination({
           ...pagination,
           total: res.total,
         })
         setInvoiceList(res.records)
+      } else {
+        setInvoiceList([])
       }
       setLoading(false)
     } catch (error) {
