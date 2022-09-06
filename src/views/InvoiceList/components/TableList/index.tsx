@@ -1,10 +1,13 @@
 import TabPane from '@ant-design/pro-card/lib/components/TabPane'
-import { Table, Tabs, Tooltip } from 'antd'
+import { Button, Table, Tabs, Tooltip } from 'antd'
 import { TablePaginationConfig } from 'antd/es/table'
 
 const TableList = ({
   loading,
   data,
+  body,
+  setBody,
+  getList,
   setSelectedRowKeys,
   setSelectedRows,
   selectedRowKeys,
@@ -13,6 +16,9 @@ const TableList = ({
 }: {
   loading: boolean
   data: any[]
+  body: Object
+  getList: Function
+  setBody: Function
   setSelectedRowKeys: Function
   setSelectedRows: Function
   selectedRowKeys: React.Key[]
@@ -95,13 +101,30 @@ const TableList = ({
 
   return (
     <div className="bg-white px-[24px] pb-[24px]">
-      <Tabs defaultActiveKey="" onChange={(key) => null}>
+      <Tabs
+        defaultActiveKey=""
+        onChange={(key) => {
+          if (key) {
+            setBody({
+              ...body,
+              invoiceStatus: key,
+            })
+            getList({
+              ...body,
+              invoiceStatus: key,
+            })
+          }
+        }}
+      >
         <TabPane tab="All" key="" />
-        <TabPane tab="Not invoiced" key="Ongoing" />
-        <TabPane tab="Invoiced" key="Upcoming" />
-        <TabPane tab="Invoicing" key="Expired" />
-        <TabPane tab="Invoice failed" key="InvoiceFailed" />
+        <TabPane tab="Not invoiced" key="NOT_INVOICED" />
+        <TabPane tab="Invoiced" key="DELIVERY_STATE" />
+        <TabPane tab="Invoicing" key="PRINT_STATE" />
+        <TabPane tab="Invoice failed" key="FAIL_STATE" />
       </Tabs>
+      <div className="flex justify-end my-[20px]">
+        <Button>Download</Button>
+      </div>
       <Table
         rowKey="id"
         columns={columns}
