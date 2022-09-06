@@ -8,6 +8,7 @@ import { deleteVoucher, endVoucher, getVouchers } from '@/framework/api/voucher'
 import moment from 'moment'
 import { useEffect, useRef, useState } from 'react'
 import { ActionType } from '@ant-design/pro-table'
+import intl from 'react-intl-universal'
 
 const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
   const navigator = useNavigate()
@@ -28,29 +29,27 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
         return (
           <div className="flex">
             <div className="border border-gray-200 flex items-center" style={{ height: '81px' }}>
-              {
-                recout.voucherDefaultImage ? (
-                  <Image width={80} src={recout.voucherDefaultImage} preview={false} />
-                ) : recout.discountType === 'PERCENTAGE' ? (
-                  <div className="h-full flex items-center text-center text-red-600" style={{width: '80px'}}>
-                    {recout.discountValue && (
-                      <span className="text-3xl font-medium flex-1">
-                        {(100 - recout.discountValue) / 10}
-                        <span className="text-sm">折</span>
-                      </span>
-                    )}
-                  </div>
-                ) : (
-                  <div className="h-full flex items-center text-center text-red-600" style={{width: '80px'}}>
-                    {recout.discountValue && (
-                      <span className="text-3xl font-medium flex-1">
-                        <span className="text-sm">￥</span>
-                        {recout.discountValue}
-                      </span>
-                    )}
-                  </div>
-                )
-              }
+              {recout.voucherDefaultImage ? (
+                <Image width={80} src={recout.voucherDefaultImage} preview={false} />
+              ) : recout.discountType === 'PERCENTAGE' ? (
+                <div className="h-full flex items-center text-center text-red-600" style={{ width: '80px' }}>
+                  {recout.discountValue && (
+                    <span className="text-3xl font-medium flex-1">
+                      {(100 - recout.discountValue) / 10}
+                      <span className="text-sm">折</span>
+                    </span>
+                  )}
+                </div>
+              ) : (
+                <div className="h-full flex items-center text-center text-red-600" style={{ width: '80px' }}>
+                  {recout.discountValue && (
+                    <span className="text-3xl font-medium flex-1">
+                      <span className="text-sm">￥</span>
+                      {recout.discountValue}
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
             <div className="pl-2 w-56">
               <div>{text}</div>
@@ -79,7 +78,11 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
         <div>
           <div>{text === 'SHOP_VOUCHER' ? 'Shop Voucher' : 'Product Voucher'}</div>
           <div className="text-gray-400 text-xs">
-            ({record.applicationProducts ? record.applicationProducts + ' products' : 'all products'})
+            (
+            {record.applicationProducts
+              ? record.applicationProducts + ' ' + intl.get('voucher.orders.Products')
+              : intl.get('voucher.orders.All Products')}
+            )
           </div>
         </div>
       ),
@@ -115,8 +118,8 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
     {
       title: () => (
         <div>
-          <div>Status</div>
-          <div>Valid Period</div>
+          <div>{intl.get('voucher.list.Status')}</div>
+          <div>{intl.get('voucher.list.Valid Period')}</div>
         </div>
       ),
       dataIndex: 'voucherStatus',
@@ -124,9 +127,9 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
       render: (text: any, record: any) => {
         return (
           <div>
-            {text === 'Upcoming' && <span className="Upcoming">Upcoming</span>}
-            {text === 'Ongoing' && <span className="Ongoing">Ongoing</span>}
-            {text === 'Expired' && <span className="Expired">Expired</span>}
+            {text === 'Upcoming' && <span className="Upcoming">{intl.get('voucher.list.Upcoming')}</span>}
+            {text === 'Ongoing' && <span className="Ongoing">{intl.get('voucher.list.Ongoing')}</span>}
+            {text === 'Expired' && <span className="Expired">{intl.get('voucher.list.Expired')}</span>}
             <div className="text-gray-400">
               {moment(record.voucherUsageBeginningOfTime).format('YYYY-MM-DD HH:mm')} -
             </div>
@@ -285,8 +288,9 @@ const VouchersList = ({ voucherStatus }: { voucherStatus: string }) => {
         onCancel={() => setIsModalVisible(false)}
       >
         <p>
-          Are you sure you want to {voucherId.statu === 'Delete' ? voucherId.statu.toLowerCase() : voucherId.statu} the
-          item?
+          {intl.get('voucher.list.Are you sure you want to')}{' '}
+          {voucherId.statu === 'Delete' ? voucherId.statu.toLowerCase() : voucherId.statu}{' '}
+          {intl.get('voucher.list.the item?')}
         </p>
       </Modal>
     </ContentContainer>

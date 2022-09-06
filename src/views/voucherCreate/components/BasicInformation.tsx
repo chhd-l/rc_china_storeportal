@@ -6,6 +6,7 @@ import moment from 'moment'
 import { useState } from 'react'
 import { useLocation } from 'react-router'
 import Finishedproductdisplay from './Finishedproductdisplay'
+import intl from 'react-intl-universal'
 const { Title } = Typography
 const { RangePicker } = DatePicker
 
@@ -102,7 +103,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
       setLoading(false)
     }
     if (info.file.status === 'error') {
-      message.error({ className: 'rc-message', content: 'Picture upload failed!' })
+      message.error({ className: 'rc-message', content: intl.get('voucher.Picture upload failed!') })
       setLoading(false)
     }
     if (!info.file.status) {
@@ -113,7 +114,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
   const beforeUpload = (file: RcFile) => {
     const isLt1M = file.size / 1024 / 1024 < 1
     if (!isLt1M) {
-      message.error({ className: 'rc-message', content: 'Image must smaller than 1M!' })
+      message.error({ className: 'rc-message', content: intl.get('voucher.Image must smaller than 1M!') })
     }
     return isLt1M
   }
@@ -121,9 +122,9 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
   return (
     <div className="bg-white px-6 pt-6 relative BasicInformation">
       <Title className="mb-8" level={4}>
-        Basic Information
+        {intl.get('voucher.Basic Information')}
       </Title>
-      <Form.Item label="Voucher Type" name="voucherType" className="VoucherType">
+      <Form.Item label={intl.get('voucher.Voucher Type')} name="voucherType" className="VoucherType">
         <div className="flex items-center cursor-default">
           {/* Shop Voucher */}
           <div
@@ -134,7 +135,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
             onClick={() => !state && setVoucherType('SHOP_VOUCHER')}
           >
             <span className="mr-1 ShopVoucherImg" />
-            <span className="w-32 text-gray-500">Shop Voucher</span>
+            <span className="w-32 text-gray-500">{intl.get('voucher.Shop Voucher')}</span>
             <span
               className={`iconfont absolute top-0 right-0 ${
                 VoucherType === 'SHOP_VOUCHER' ? 'VoucherUncheckedtImg' : 'VoucherSelectImg'
@@ -151,7 +152,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
             style={{ borderRadius: '5px' }}
           >
             <span className="mr-1 ProductVoucherImg" />
-            <span className="w-32 text-gray-500">Product Voucher</span>
+            <span className="w-32 text-gray-500">{intl.get('voucher.Shop Voucher')}</span>
             <span
               className={`absolute top-0 right-0 ${
                 VoucherType === 'PRODUCT_VOUCHER' ? 'VoucherUncheckedtImg' : 'VoucherSelectImg'
@@ -162,43 +163,43 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
         </div>
       </Form.Item>
       <Form.Item
-        label="Voucher Name"
+        label={intl.get('voucher.Voucher Name')}
         name="voucherName"
         rules={[
           {
             required: true,
-            message: 'Please Input',
+            message: intl.get('public.Please Input'),
           },
         ]}
       >
-        <Input placeholder="Input" disabled={Edit} maxLength={15} />
+        <Input placeholder={intl.get('public.input')} disabled={Edit} maxLength={15} />
       </Form.Item>
       <Form.Item
-        label="Voucher Description"
+        label={intl.get('voucher.Voucher Description')}
         name="voucherDescription"
         rules={[
           {
             required: true,
-            message: 'Please Input',
+            message: intl.get('public.Please Input'),
           },
         ]}
       >
-        <Input placeholder="Input" disabled={Edit} maxLength={35} />
+        <Input placeholder={intl.get('public.input')} disabled={Edit} maxLength={35} />
       </Form.Item>
       <Form.Item
-        label="Voucher Code"
+        label={intl.get('voucher.Voucher Code')}
         rules={[
           {
             required: true,
-            message: 'Please Input',
+            message: intl.get('public.Please Input'),
           },
         ]}
         name="voucherCode"
       >
-        <Input placeholder="Input" disabled={Edit} />
+        <Input placeholder={intl.get('public.input')} disabled={Edit} />
       </Form.Item>
       <Form.Item
-        label="Valid Period"
+        label={intl.get('voucher.Valid Period')}
         required
         shouldUpdate={(prevValues, curValues) => prevValues.times !== curValues.times}
         wrapperCol={{ span: 8 }}
@@ -221,7 +222,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
               rules={[
                 {
                   required: true,
-                  message: 'Please Select',
+                  message: intl.get('public.Please Select'),
                 },
               ]}
             >
@@ -241,17 +242,17 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
         }}
       </Form.Item>
       <Form.Item
-        label="Automatic Offer"
+        label={intl.get('voucher.Automatic Offer')}
         name="displayOnShop"
         rules={[
           {
             required: true,
-            message: 'Please Select',
+            message: intl.get('public.Please Select'),
           },
         ]}
       >
         <Select
-          placeholder="Select"
+          placeholder={intl.get('public.select')}
           disabled={Edit}
           options={[
             { label: 'Yes', value: true },
@@ -260,7 +261,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
         />
       </Form.Item>
       <Form.Item
-        label="Voucher Image"
+        label={intl.get('voucher.Voucher Image')}
         className="Uploader m-0"
         wrapperCol={{ span: 'auto' }}
         shouldUpdate={(prevValues, curValues) => prevValues.Image !== curValues.Image}
@@ -295,7 +296,7 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
                         setFieldsValue({ Image: '' })
                       }}
                     >
-                      <i className='iconfont icon-shanchu1 text-white' />
+                      <i className="iconfont icon-shanchu1 text-white" />
                     </div>
                   </div>
                 ) : (
@@ -304,8 +305,8 @@ const BasicInformation = ({ VoucherType, setVoucherType, imageUrl, setImageUrl, 
               </Upload>
             </Form.Item>
             <div className="text-gray-400">
-              <div>The recommended size for images is 100px * 100px.</div>
-              <div className="mt-1">Image size should not exceed 1M.</div>
+              <div>{intl.get('voucher.The recommended size for images is 100px * 100px.')}</div>
+              <div className="mt-1">{intl.get('voucher.Image size should not exceed 1M.')}</div>
             </div>
           </div>
         )}

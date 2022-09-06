@@ -5,6 +5,7 @@ import moment from 'moment'
 import { useEffect, useState } from 'react'
 import { getVoucherKeyMetric } from '@/framework/api/voucher'
 import { formatMoney } from '@/utils/utils'
+import intl from 'react-intl-universal'
 const { Title } = Typography
 
 interface KeyMetricsListProps {
@@ -45,7 +46,7 @@ const KeyMetrics = () => {
   const [keyMetricsList, setKeyMetricsList] = useState<KeyMetricsListProps[]>(initMetricsContent)
 
   const getVoucherKeyMetrics = async () => {
-    const res = await getVoucherKeyMetric({startTime: moment().add(-7, 'day').utc(), endTime: moment().utc()})
+    const res = await getVoucherKeyMetric({ startTime: moment().add(-7, 'day').utc(), endTime: moment().utc() })
     if (res) {
       setKeyMetricsList(
         keyMetricsList.map((el) => {
@@ -80,7 +81,8 @@ const KeyMetrics = () => {
       <Title level={5}>
         <span className="font-black">Key Metrics</span>
         <span className="text-xs text-gray-400 ml-2 font-normal">
-          (Data from {moment().add(-7, 'day').format('DD-MM-YYYY')} to {moment().format('DD-MM-YYYY')} UTC+8)
+          ({intl.get('voucher.list.Data from')} {moment().add(-7, 'day').format('DD-MM-YYYY')}{' '}
+          {intl.get('voucher.list.to')} {moment().format('DD-MM-YYYY')} {intl.get('voucher.list.UTC+8')})
         </span>
       </Title>
       <div className="flex w-full">
@@ -89,7 +91,7 @@ const KeyMetrics = () => {
           <div className={`${index !== 0 ? 'border-l border-gray-300 border-solid' : ''} p-4 flex-1 flex flex-col`}>
             <div className="align-center text-xs flex-1 flex items-center">
               <div>{item.label}</div>
-              <Tooltip overlayStyle={{fontSize:'12px'}} title={item.tip}>
+              <Tooltip overlayStyle={{ fontSize: '12px' }} title={item.tip}>
                 <QuestionCircleOutlined className="ml-1 text-10 text-gray-400" />
               </Tooltip>
             </div>

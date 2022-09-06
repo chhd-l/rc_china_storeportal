@@ -9,11 +9,12 @@ import { getTree } from '@/framework/normalize/product'
 import './index.less'
 import { normaliseVoucherProduct } from '@/framework/normalize/voucher'
 import { handleQueryParams } from '@/views/voucherCreate/modules/handle-get-products-params'
+import intl from 'react-intl-universal'
 
 const nameForKey: OptionsProps[] = [
-  { name: 'Product Name', value: '1' },
-  { name: 'SKU', value: '2' },
-  { name: 'SPU', value: '3' },
+  { name: intl.get('product.product_name'), value: '1' },
+  { name: intl.get('voucher.SKU'), value: '2' },
+  { name: intl.get('voucher.SPU'), value: '3' },
 ]
 
 const ManualSelection = ({
@@ -63,39 +64,42 @@ const ManualSelection = ({
 
   const manualColumns: ProColumns<any>[] = [
     {
-      title: 'Products',
+      title: intl.get('voucher.Products'),
       dataIndex: 'productName',
       hideInSearch: true,
       render: (_, record) => {
         return (
-          <div className='flex al-cneter'>
-            <img src={record?.defaultImage} alt='' style={{ width: '50px', marginRight: '10px' }} />
+          <div className="flex al-cneter">
+            <img src={record?.defaultImage} alt="" style={{ width: '50px', marginRight: '10px' }} />
             <div>
               <div>{record.productName}</div>
-              <div className='text-gray-400'>spu:{record.spuNo}</div>
+              <div className="text-gray-400">
+                {intl.get('voucher.spu:')}
+                {record.spuNo}
+              </div>
             </div>
           </div>
         )
       },
     },
     {
-      title: 'Brand',
+      title: intl.get('voucher.Brand'),
       dataIndex: 'brandId',
       hideInSearch: true,
     },
     {
-      title: 'Price(s)',
+      title: intl.get('product.Price(s)'),
       dataIndex: 'marketingPrice',
       hideInSearch: true,
     },
     {
-      title: 'Stock',
+      title: intl.get('voucher.Stock'),
       width: 100,
       dataIndex: 'stock',
       hideInSearch: true,
     },
     {
-      title: 'Product Category:',
+      title: intl.get('voucher.Product Category:'),
       hideInTable: true,
       dataIndex: 'productCategoryId',
       fieldProps: {
@@ -105,7 +109,7 @@ const ManualSelection = ({
           label: 'label',
           value: 'value',
         },
-        defaultValue: 'All Category',
+        defaultValue: intl.get('voucher.All Category'),
       },
       valueType: 'cascader',
     },
@@ -128,12 +132,12 @@ const ManualSelection = ({
       renderFormItem: (_, { type, defaultRender, ...rest }, form) => {
         return (
           <Col>
-            <Input.Group compact className='flex'>
-              <Form.Item name='selectName'>
+            <Input.Group compact className="flex">
+              <Form.Item name="selectName">
                 <Select
-                  defaultValue='1'
+                  defaultValue="1"
                   style={{ width: 140 }}
-                  placeholder='Select a option and change input text above'
+                  placeholder={intl.get('voucher.Select a option and change input text above')}
                 >
                   {nameForKey.map((el: any) => (
                     <Select.Option key={el.value} value={el.value}>
@@ -142,8 +146,8 @@ const ManualSelection = ({
                   ))}
                 </Select>
               </Form.Item>
-              <Form.Item name='username' className='flex-1'>
-                <Input placeholder={`Please Input `} />
+              <Form.Item name="username" className="flex-1">
+                <Input placeholder={intl.get('public.Please Input')} />
               </Form.Item>
             </Input.Group>
           </Col>
@@ -154,9 +158,9 @@ const ManualSelection = ({
 
   return (
     <ModalForm
-      width='50%'
-      layout='horizontal'
-      title='Select Products'
+      width="50%"
+      layout="horizontal"
+      title="Select Products"
       visible={visible}
       onFinish={async () => {
         selectProductChange && selectProductChange(saveList, selectedRowKeys)
@@ -169,7 +173,7 @@ const ManualSelection = ({
       modalProps={{ onCancel: () => closeSelectModal && closeSelectModal(), destroyOnClose: true }}
     >
       <ProTable
-        className='voucher-select-product'
+        className="voucher-select-product"
         cardBordered
         actionRef={ref}
         columns={manualColumns}
@@ -186,7 +190,7 @@ const ManualSelection = ({
         }}
         tableAlertRender={() => false}
         rowKey={({ id }) => id}
-        dateFormatter='string'
+        dateFormatter="string"
         pagination={{
           // pageSize: 4,
           showQuickJumper: false,
@@ -199,7 +203,7 @@ const ManualSelection = ({
           searchText: 'Search',
           optionRender: ({ searchText, resetText }, { form }, dom) => [
             <Button
-              type='primary'
+              type="primary"
               onClick={() => {
                 form?.submit()
               }}
