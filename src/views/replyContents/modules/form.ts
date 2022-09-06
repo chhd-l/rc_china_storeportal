@@ -1,19 +1,20 @@
 import { replyTypeList } from "./constants";
 import { statusList } from "@/views/accountList/modules/constants";
+import intl from 'react-intl-universal'
 
 export const formItems = [
   {
-    label: "Reply Type",
+    label: intl.get('reply.Reply Type'),
     name: "type",
-    placeholder: "Select",
+    placeholder: intl.get('public.select'),
     type: "select",
     selectList: replyTypeList,
   },
-  { label: "Content Description", name: "description", placeholder: "Input" },
+  { label: intl.get('reply.Content Description'), name: "description", placeholder: intl.get('public.input') },
   {
-    label: "Status",
+    label: intl.get('public.status'),
     name: "status",
-    placeholder: "Select",
+    placeholder: intl.get('public.select'),
     type: "select",
     selectList: statusList,
   },

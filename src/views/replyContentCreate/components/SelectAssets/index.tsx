@@ -1,68 +1,68 @@
-import { Modal, Table } from "antd";
-import React, { useEffect, useState } from "react";
-import Mock from "mockjs";
-import { assetListSource } from "@/views/assetList/modules/mockdata";
-import { Asset } from "@/framework/types/wechat";
-import { cloneDeep } from "lodash";
-import Search from "@/components/common/Search";
+import { Modal, Table } from 'antd'
+import React, { useEffect, useState } from 'react'
+import Mock from 'mockjs'
+import { assetListSource } from '@/views/assetList/modules/mockdata'
+import { Asset } from '@/framework/types/wechat'
+import { cloneDeep } from 'lodash'
+import Search from '@/components/common/Search'
+import intl from 'react-intl-universal'
 
-const formItems = [{ label: "Title", name: "title" }];
+const formItems = [{ label: 'Title', name: 'title' }]
 
 const column = [
   {
-    title: "Wechat Assets ID",
-    dataIndex: "assetId",
-    key: "assetId",
+    title: intl.get('reply.Wechat Assets ID'),
+    dataIndex: 'assetId',
+    key: 'assetId',
   },
   {
-    title: "Create Time",
-    dataIndex: "createTime",
-    key: "createTime",
-    render: (text: any, record: any) =>
-      record.status === "synchronized" ? record.syncTime : text,
+    title: intl.get('reply.Create Time'),
+    dataIndex: 'createTime',
+    key: 'createTime',
+    render: (text: any, record: any) => (record.status === 'synchronized' ? record.syncTime : text),
     //Status = Synchronized时,显示素材同步时间；Status = Not Synchronized时，显示素材添加时间
   },
   {
-    title: "Status",
-    dataIndex: "status",
-    key: "status",
+    title: intl.get('public.status'),
+    dataIndex: 'status',
+    key: 'status',
   },
-];
+]
 
 const pictureColumn = {
-  title: "Picture",
-  dataIndex: "picture",
-  key: "picture",
-};
+  title: intl.get('reply.Picture'),
+  dataIndex: 'picture',
+  key: 'picture',
+}
 
 const voiceColumn = {
-  title: "Voice",
-  dataIndex: "voice",
-  key: "voice",
+  title: intl.get('reply.Voice'),
+  dataIndex: 'voice',
+  key: 'voice',
   render: (text: any) => (
-    <audio controls style={{ height: "40px" }}>
+    <audio controls style={{ height: '40px' }}>
       <source src={text} type="video/mp4" />
     </audio>
   ),
-};
+}
 
 const videoColumn = {
-  title: "Video",
-  dataIndex: "video",
-  key: "video",
-};
+  title: intl.get('reply.Video'),
+  dataIndex: 'video',
+  key: 'video',
+}
 
 const graphicColumn = {
-  title: "Graphic main cover",
-  dataIndex: "graphic",
-  key: "graphic",
-};
+  title: intl.get('reply.Graphic main cover'),
+  dataIndex: 'graphic',
+  key: 'graphic',
+}
 
 const titleColumn = {
-  title: "Title",
-  dataIndex: "title",
-  key: "title",
-};
+  title: intl.get('reply.Title'),
+  dataIndex: 'title',
+  key: 'title',
+}
 
 const SelectContentModal = ({
   modalVisible,
@@ -70,77 +70,73 @@ const SelectContentModal = ({
   onConfirm,
   type,
 }: {
-  modalVisible: boolean;
-  onCancel: Function;
-  onConfirm: Function;
-  type: string;
+  modalVisible: boolean
+  onCancel: Function
+  onConfirm: Function
+  type: string
 }) => {
-  const [assets, setAssets] = useState<Asset[]>([]);
-  const [selectAsset, setSelectAsset] = useState(null);
-  const [columns, setColumns] = useState(column);
+  const [assets, setAssets] = useState<Asset[]>([])
+  const [selectAsset, setSelectAsset] = useState(null)
+  const [columns, setColumns] = useState(column)
 
   const changeSelect = (selectedRowKeys: any, selectedRows: any) => {
-    console.log(selectedRowKeys, selectedRows);
-    setSelectAsset(selectedRows[0]);
-  };
+    console.log(selectedRowKeys, selectedRows)
+    setSelectAsset(selectedRows[0])
+  }
 
   const handleColumns = () => {
-    let baseColumn = cloneDeep(column);
+    let baseColumn = cloneDeep(column)
     switch (type) {
-      case "picture":
-        baseColumn.unshift(pictureColumn);
-        break;
-      case "voice":
-        baseColumn.unshift(voiceColumn);
-        break;
-      case "video":
-        baseColumn.unshift(videoColumn);
-        baseColumn.splice(2, 1, titleColumn);
-        break;
-      case "graphic":
-        baseColumn.unshift(graphicColumn);
-        baseColumn.splice(2, 1, titleColumn);
-        break;
+      case 'picture':
+        baseColumn.unshift(pictureColumn)
+        break
+      case 'voice':
+        baseColumn.unshift(voiceColumn)
+        break
+      case 'video':
+        baseColumn.unshift(videoColumn)
+        baseColumn.splice(2, 1, titleColumn)
+        break
+      case 'graphic':
+        baseColumn.unshift(graphicColumn)
+        baseColumn.splice(2, 1, titleColumn)
+        break
       default:
-        break;
+        break
     }
-    setColumns(baseColumn);
-  };
+    setColumns(baseColumn)
+  }
 
-  const getAssets = () => {};
-
-  useEffect(() => {
-    setAssets(Mock.mock(assetListSource).array);
-  }, []);
+  const getAssets = () => {}
 
   useEffect(() => {
-    handleColumns();
-  }, [type]);
+    setAssets(Mock.mock(assetListSource).array)
+  }, [])
+
+  useEffect(() => {
+    handleColumns()
+  }, [type])
 
   return (
     <Modal
-      title="Select Assets"
+      title={intl.get('reply.Select Assets')}
       destroyOnClose={true}
       visible={modalVisible}
       closable={false}
-      cancelText={"Cancel"}
-      okText={"Confirm"}
+      cancelText={intl.get('public.cancel')}
+      okText={intl.get('public.confirm')}
       width={900}
       onCancel={() => {
-        onCancel && onCancel();
+        onCancel && onCancel()
       }}
       onOk={() => {
         if (selectAsset) {
-          onConfirm && onConfirm(selectAsset);
+          onConfirm && onConfirm(selectAsset)
         }
       }}
     >
-      {type === "video" || type === "graphic" ? (
-        <Search
-          query={getAssets}
-          formItems={formItems}
-          classes={"select-content-search mb-4"}
-        />
+      {type === 'video' || type === 'graphic' ? (
+        <Search query={getAssets} formItems={formItems} classes={'select-content-search mb-4'} />
       ) : null}
       <Table
         columns={columns}
@@ -148,12 +144,12 @@ const SelectContentModal = ({
         rowSelection={{
           onChange: changeSelect,
           hideSelectAll: true,
-          type: "radio",
+          type: 'radio',
         }}
-        rowKey={"id"}
+        rowKey={'id'}
         className="rc-table"
       />
     </Modal>
-  );
-};
-export default SelectContentModal;
+  )
+}
+export default SelectContentModal

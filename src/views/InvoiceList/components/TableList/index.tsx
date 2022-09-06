@@ -74,7 +74,7 @@ const TableList = ({
             )
           case 'PRINT_STATE':
             return (
-              <div className="inline-block text-[10px] py-[2px] px-[15px] text-[#F3A93A] bg-[#fffbdc]">Invoiced</div>
+              <div className="inline-block text-[10px] py-[2px] px-[15px] text-[#F3A93A] bg-[#fffbdc]">Invoicing</div>
             )
 
           default:
@@ -115,6 +115,8 @@ const TableList = ({
               invoiceStatus: key,
             })
           } else {
+            delete body.invoiceStatus
+            setBody(body)
             getList(body)
           }
         }}

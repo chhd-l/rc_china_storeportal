@@ -1,28 +1,29 @@
 import { FormItemProps } from "@/framework/types/common";
 import { replyTypeList } from "@/views/replyContents/modules/constants";
+import intl from 'react-intl-universal'
 
 export const ADD_REPLY_CONTENT_FORM: FormItemProps[] = [
   {
-    label: "Reply Type",
+    label: intl.get('reply.Reply Type'),
     name: "type",
-    placeholder: "Select",
+    placeholder: intl.get('public.select'),
     type: "select",
     rules: [
       {
         required: true,
-        message: "Please select reply type!",
+        message: intl.get('reply.Please select reply type!'),
       },
     ],
     selectList: replyTypeList,
   },
   {
-    label: "Content Description",
+    label: intl.get('reply.Content Description'),
     name: "description",
-    placeholder: "Input",
+    placeholder: intl.get('public.input'),
     rules: [
       {
         required: true,
-        message: "Please input description!",
+        message: intl.get('reply.Please input description!'),
       },
     ],
   },
@@ -30,14 +31,14 @@ export const ADD_REPLY_CONTENT_FORM: FormItemProps[] = [
 
 export const BASE_FORM: FormItemProps[] = [
   {
-    label: "Asset",
+    label: intl.get('reply.Asset'),
     name: "assetId",
-    placeholder: "Select",
+    placeholder: intl.get('public.select'),
     type: "search",
     rules: [
       {
         required: true,
-        message: "Please select Asset!",
+        message: intl.get('reply.Please select Asset!'),
       },
     ],
   },
@@ -45,14 +46,14 @@ export const BASE_FORM: FormItemProps[] = [
 
 export const TEXT_FORM: FormItemProps[] = [
   {
-    label: "Message content",
+    label: intl.get('reply.Message content'),
     name: "message",
-    placeholder: "Input",
+    placeholder: intl.get('public.input'),
     type: "textarea",
     rules: [
       {
         required: true,
-        message: "Please input message content!",
+        message: intl.get('reply.Please input message content!'),
       },
     ],
   },
@@ -60,7 +61,7 @@ export const TEXT_FORM: FormItemProps[] = [
 
 export const VIDEO_FORM: FormItemProps[] = [
   {
-    label: "Assets Title",
+    label: intl.get('reply.Assets Title'),
     name: "assetTitle",
   },
 ];

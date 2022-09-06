@@ -1,7 +1,8 @@
-import { Button, Switch, Table, Tooltip } from "antd";
-import { replyTypeList } from '../../modules/constants';
-import { WxReplyContent } from "@/framework/types/wechat";
-import { useNavigate } from "react-router-dom";
+import { Button, Switch, Table, Tooltip } from 'antd'
+import { replyTypeList } from '../../modules/constants'
+import { WxReplyContent } from '@/framework/types/wechat'
+import { useNavigate } from 'react-router-dom'
+import intl from 'react-intl-universal'
 
 const Index = ({
   loading,
@@ -9,60 +10,63 @@ const Index = ({
   onPageChange,
   pages,
   onDelete,
-  onChangeStatus
+  onChangeStatus,
 }: {
-  loading: boolean,
-  replyContents: WxReplyContent[],
-  onPageChange: Function,
-  pages: any,
-  onDelete: Function,
+  loading: boolean
+  replyContents: WxReplyContent[]
+  onPageChange: Function
+  pages: any
+  onDelete: Function
   onChangeStatus: Function
 }) => {
-  const navigator = useNavigate();
+  const navigator = useNavigate()
   const column = [
     {
-      title: "Reply Type",
-      dataIndex: "type",
-      key: "type",
-      render: (_text: string) => (replyTypeList.find(r => r.key === _text) ?? {})?.label ?? _text
+      title: intl.get('reply.Reply Type'),
+      dataIndex: 'type',
+      key: 'type',
+      render: (_text: string) => (replyTypeList.find((r) => r.key === _text) ?? {})?.label ?? _text,
     },
     {
-      title: "Content description",
-      dataIndex: "description",
-      key: "description",
+      title: intl.get('reply.Content description'),
+      dataIndex: 'description',
+      key: 'description',
     },
     {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
+      title: intl.get('public.status'),
+      dataIndex: 'status',
+      key: 'status',
       render: (text: any, record: WxReplyContent) => (
-      <Switch
-        checked={text}
-        onChange={(checked) => {
-          onChangeStatus(record.id, {
-            accountId: record.accountId,
-            responseDescribe: record.description,
-            responseType: record.type,
-            messageContent: record.content,
-            mediaId: record.mediaId,
-            isActive: checked
-          })
-        }} />
+        <Switch
+          checked={text}
+          onChange={(checked) => {
+            onChangeStatus(record.id, {
+              accountId: record.accountId,
+              responseDescribe: record.description,
+              responseType: record.type,
+              messageContent: record.content,
+              mediaId: record.mediaId,
+              isActive: checked,
+            })
+          }}
+        />
       ),
     },
     {
-      title: "Action",
-      dataIndex: "action",
-      key: "action",
+      title: intl.get('public.action'),
+      dataIndex: 'action',
+      key: 'action',
       render: (text: any, record: WxReplyContent) => (
         <>
-          <Tooltip title="Edit">
+          <Tooltip title={intl.get('public.edi')}>
             <span
               className="cursor-pointer iconfont icon-a-Group437 text-red-500"
-              onClick={() => { navigator("/reply/edit-reply-content", { state: record }) }}
+              onClick={() => {
+                navigator('/reply/edit-reply-content', { state: record })
+              }}
             />
           </Tooltip>
-          <Tooltip title="Delete">
+          <Tooltip title={intl.get('public.delete')}>
             <span
               className="cursor-pointer iconfont icon-delete text-red-500 ml-2"
               onClick={() => {
@@ -73,7 +77,7 @@ const Index = ({
         </>
       ),
     },
-  ];
+  ]
 
   return (
     <div className="pt-4">
@@ -81,10 +85,10 @@ const Index = ({
         <Button
           type="primary"
           onClick={() => {
-            navigator("/reply/add-reply-content");
+            navigator('/reply/add-reply-content')
           }}
         >
-          + Add
+          + {intl.get('public.add')}
         </Button>
       </div>
       <Table
@@ -98,10 +102,10 @@ const Index = ({
           total: pages.total,
           onChange: (page) => {
             onPageChange(page)
-          }
+          },
         }}
       />
     </div>
-  );
-};
-export default Index;
+  )
+}
+export default Index
