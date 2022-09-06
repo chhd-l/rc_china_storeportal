@@ -40,7 +40,7 @@ const Tagging = ({ id, consumerId }: { id: string; consumerId: string }) => {
     const item = allOption.find(t => t.id === value);
     selected.push({ id: item.id, name: item.name, isEnabled: item.isEnabled });
     setSelected(selected.slice());
-    const optIdx = option.findIndex(t => t.id === id);
+    const optIdx = option.findIndex(t => t.id === value);
     option.splice(optIdx, 1);
     setOption(option.slice());
   }
