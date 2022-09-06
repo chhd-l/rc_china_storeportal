@@ -1,6 +1,7 @@
 import { Modal, Form, Input, Button } from 'antd'
 import React from 'react'
 import { LogisticsIntegration } from '@/framework/types/order'
+import intl from 'react-intl-universal'
 
 const ShippingSettingModal = ({
   shipModalVisible,
@@ -19,7 +20,7 @@ const ShippingSettingModal = ({
 
   return (
     <Modal
-      title="Edit Express 100 setting"
+      title={intl.get('Shipping.Edit Express 100 setting')}
       visible={shipModalVisible}
       footer={null}
       onCancel={() => {
@@ -42,28 +43,39 @@ const ShippingSettingModal = ({
           callbackUrl: logisticsIntegration?.callbackUrl,
         }}
       >
-        <Form.Item label="Key:" name="key" rules={[{ required: true, message: 'Please input key' }]}>
-          <Input placeholder="Please input key" />
-        </Form.Item>
-        <Form.Item label="Consumer:" name="consumer" rules={[{ required: true, message: 'Please input consumer' }]}>
-          <Input placeholder="Please input consumer" />
-        </Form.Item>
-        <Form.Item label="Pull URL:" name="pullUrl">
-          <Input disabled placeholder="please input user name" />
-        </Form.Item>
-        <Form.Item label="Query URL:" name="queryUrl">
-          <Input disabled placeholder="please input url" />
+        <Form.Item
+          label={intl.get('Shipping.Key:')}
+          name="key"
+          rules={[{ required: true, message: intl.get('Shipping.Please input key') }]}
+        >
+          <Input placeholder={intl.get('Shipping.Please input key')} />
         </Form.Item>
         <Form.Item
-          label="Callback URL:"
-          name="callbackUrl"
-          rules={[{ required: true, message: 'Please input callbackUrl' }]}
+          label={intl.get('Shipping.Consumer:')}
+          name="consumer"
+          rules={[{ required: true, message: intl.get('Shipping.Please input consumer') }]}
         >
-          <Input.TextArea placeholder="please input callbackURL" autoSize={{ minRows: 5, maxRows: 7 }} />
+          <Input placeholder={intl.get('Shipping.Please input consumer')} />
+        </Form.Item>
+        <Form.Item label={intl.get('Shipping.Pull URL:')} name="pullUrl">
+          <Input disabled placeholder={intl.get('Shipping.please input user name')} />
+        </Form.Item>
+        <Form.Item label={intl.get('Shipping.Query URL:')} name="queryUrl">
+          <Input disabled placeholder={intl.get('Shipping.please input url')} />
+        </Form.Item>
+        <Form.Item
+          label={intl.get('Shipping.SCallback URL:')}
+          name="callbackUrl"
+          rules={[{ required: true, message: intl.get('Shipping.Please input callbackUrl') }]}
+        >
+          <Input.TextArea
+            placeholder={intl.get('Shipping.please input callbackUrl')}
+            autoSize={{ minRows: 5, maxRows: 7 }}
+          />
         </Form.Item>
         <Form.Item wrapperCol={{ span: 24, offset: 0 }} style={{ textAlign: 'end' }}>
           <Button type="primary" danger htmlType="submit" loading={confirmLoading}>
-            Confirm
+            {intl.get('public.confirm')}
           </Button>
         </Form.Item>
       </Form>

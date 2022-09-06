@@ -4,6 +4,7 @@ import SettingModal from './components/Modal'
 import { ContentContainer, InfoContainer } from '@/components/ui'
 import './index.less'
 import { getLogisticsIntegration, modifyLogisticsIntegration } from '@/framework/api/order'
+import intl from 'react-intl-universal'
 
 const ShippingSetting = () => {
   const [shipModalVisible, setShipModalVisible] = useState(false)
@@ -35,7 +36,7 @@ const ShippingSetting = () => {
       storeId: newLogisticsIntegration.storeId || '12345678',
     })
     if (res) {
-      message.success({ className: 'rc-message', content: 'Operation success' })
+      message.success({ className: 'rc-message', content: intl.get('public.operate_success') })
       setLogisticsIntegration(newLogisticsIntegration)
     }
     setStatusModalTip(false)
@@ -51,12 +52,12 @@ const ShippingSetting = () => {
     <ContentContainer>
       <div className="shipping-setting">
         <div>
-          <div className="title bg-white px-6 py-6">Shipping Setting</div>
+          <div className="title bg-white px-6 py-6">{intl.get('Shipping.Shipping Setting')}</div>
           <Divider className="line" />
         </div>
         <InfoContainer>
           <div className="border p-4 flex justify-between items-center content rounded-4">
-            <span className="font-semibold">Express 100</span>
+            <span className="font-semibold">{intl.get('Shipping.Express 100')}</span>
             <div className="flex items-center">
               <Switch checked={logisticsIntegration?.isEnabled || false} onClick={() => setStatusModalTip(true)} />
               <span
@@ -70,16 +71,19 @@ const ShippingSetting = () => {
         </InfoContainer>
         <Modal
           className="rc-modal"
-          title="Notice"
+          title={intl.get('public.notice')}
           visible={statusModalTip}
-          okText={'Confirm'}
+          okText={intl.get('public.confirm')}
           confirmLoading={confirmLoading}
           onOk={() =>
             updateLogisticsIntegration({ ...logisticsIntegration, isEnabled: !logisticsIntegration.isEnabled })
           }
           onCancel={() => setStatusModalTip(false)}
         >
-          <p>Are you sure {logisticsIntegration?.isEnabled ? 'disabled' : 'enable'} this item?</p>
+          <p>
+            Are you sure {logisticsIntegration?.isEnabled ? intl.get('public.Disable') : intl.get('public.enable')}{' '}
+            {intl.get('Shipping.this item?')}
+          </p>
         </Modal>
         <SettingModal
           shipModalVisible={shipModalVisible}

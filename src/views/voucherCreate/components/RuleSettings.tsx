@@ -311,7 +311,7 @@ const RuleSettings = ({
         )}
       </Form.Item>
       <Form.Item
-        label={intl.get('Usage Quantity')}
+        label={intl.get('voucher.Usage Quantity')}
         wrapperCol={{ span: 9 }}
         extra={intl.get('voucher.Total usable voucher for all pet owners')}
         required={!usageQuantityOpen}
