@@ -1,33 +1,34 @@
 import { SearchFormItemProps } from "@/framework/types/common";
+import intl from 'react-intl-universal';
 
 export const formItems: SearchFormItemProps[] = [
   {
-    label: "Wechat Name",
+    label: intl.get("wx.wechat_name"),
     name: "name",
-    placeholder: "Input",
+    placeholder: intl.get("public.input"),
   },
   {
-    label: "Unionid",
+    label: intl.get("wx.unionid"),
     name: "unionId",
-    placeholder: "Input",
+    placeholder: intl.get("public.input"),
   },
   {
-    label: "Is Member",
+    label: intl.get("wx.is_member"),
     name: "isAppMember",
-    placeholder: "Select",
-    type:"select",
-    selectList:[{
-      label:'Yes',
-      key:true
-    },{
-      label:'No',
-      key:false
+    placeholder: intl.get("public.select"),
+    type: "select",
+    selectList: [{
+      label: intl.get("public.yes"),
+      key: true
+    }, {
+      label: intl.get("public.no"),
+      key: false
     }]
   },
   {
-    label: "Follow Time",
+    label: intl.get("public.follow_time"),
     name: "followTime",
-    placeholder: "Follow Time",
+    placeholder: intl.get("public.select"),
     type: "dateTime",
   },
 ];

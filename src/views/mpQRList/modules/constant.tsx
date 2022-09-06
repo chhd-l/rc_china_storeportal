@@ -1,6 +1,8 @@
 import { ProColumns } from "@/components/common/ProTable";
 import { DeleteOutlined, EyeOutlined, QrcodeOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import intl from 'react-intl-universal';
+
 interface TableColumnsProps {
   handleDelete: (e: string) => void;
 }
@@ -13,36 +15,36 @@ interface ColumnsProps {
 export const tableColumns = ({ handleDelete }: TableColumnsProps) => {
   let columns: ProColumns<ColumnsProps>[] = [
     {
-      title: "Channel",
+      title: intl.get('wx.channel'),
       dataIndex: "channel",
       hideInSearch: true,
     },
     {
-      title: "Channel Type",
+      title: intl.get('wx.channel_type'),
       dataIndex: "channel",
       hideInTable: true,
     },
     {
-      title: "Scenario",
+      title: intl.get('wx.scenario'),
       dataIndex: "scenario",
       hideInSearch: true,
     },
     {
-      title: "Scenario type",
+      title: intl.get('wx.scenario_type'),
       dataIndex: "scenario",
       hideInTable: true,
     },
     {
-      title: "Qr Code Value",
+      title: intl.get('wx.qr_code_value'),
       dataIndex: "id",
     },
     {
-      title: "Min Program Path",
+      title: intl.get('wx.mini_program_path'),
       dataIndex: "path",
       hideInSearch: true,
     },
     {
-      title: "Action",
+      title: intl.get('public.action'),
       hideInSearch: true,
       render: (_, record) => [
         <Link to={`/mpqr/${record.id}`}>

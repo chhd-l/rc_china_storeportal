@@ -4,6 +4,7 @@ import { Button, Form, Input, Select, InputNumber, Popover } from "antd";
 import { getAccountList, upsertAppQrCodes } from '@/framework/api/wechatSetting'
 import { useLocation, useNavigate } from "react-router";
 import ColorInput from "./components/color-input";
+import intl from 'react-intl-universal';
 
 const layout = {
   labelCol: { span: 8 },
@@ -70,7 +71,7 @@ const MpQrDetail = () => {
 
   return (
     <ContentContainer className="mp-qr-detail">
-      <InfoContainer title={state ? 'QR Code Detail' : 'Add New QR Code'}>
+      <InfoContainer title={state ? intl.get('wx.qr_code_detail') : intl.get('wx.add_new_qr_code')}>
         <Form
           {...layout}
           className="w-1/2 "
@@ -80,83 +81,83 @@ const MpQrDetail = () => {
             handlok(values)
           }}
         >
-          <Form.Item label='Channel Type' name='accountId' rules={[
+          <Form.Item label={intl.get('wx.channel_type')} name='accountId' rules={[
             {
               required: true,
-              message: "Please select Channel Type!",
+              message: intl.get('public.field_required'),
             },
           ]}>
-            <Select disabled={state} placeholder='Select' options={list} />
+            <Select disabled={state} placeholder={intl.get('public.select')} options={list} />
           </Form.Item>
 
-          <Form.Item label='QR Code Type' name='qrType' rules={[
+          <Form.Item label={intl.get('wx.qr_code_type')} name='qrType' rules={[
             {
               required: true,
-              message: "Please select QR Code Type!",
+              message: intl.get('public.field_required'),
             },
           ]}>
-            <Select disabled={state} placeholder='Select' options={[
+            <Select disabled={state} placeholder={intl.get('public.select')} options={[
               {label: 'Normal', value: 'QR_CODE'},
               {label: 'Sun Code', value: 'SUN_CODE'}
             ]} onChange={(val: string) => setQrType(val)} />
           </Form.Item>
 
-          {qrType === "SUN_CODE" ? <Form.Item label='QR Code Color' name='lineColor' rules={[
+          {qrType === "SUN_CODE" ? <Form.Item label={intl.get('wx.qr_code_color')} name='lineColor' rules={[
             {
               required: true,
-              message: 'Please choose color!',
+              message: intl.get('public.field_required'),
             }
           ]}>
-            {state ? <Input disabled={true} placeholder="Select" /> : <ColorInput />}
+            {state ? <Input disabled={true} placeholder={intl.get('public.select')} /> : <ColorInput />}
           </Form.Item> : null}
 
-          {qrType === "SUN_CODE" ? <Form.Item label='Scenario Type' name='scenarioId' rules={[
+          {qrType === "SUN_CODE" ? <Form.Item label={intl.get('wx.scenario_type')} name='scenarioId' rules={[
             {
               required: true,
-              message: "Please select Channel Type!",
+              message: intl.get('public.field_required'),
             },
           ]}>
-            <Select disabled={state} placeholder='Select' options={[
+            <Select disabled={state} placeholder={intl.get('public.select')} options={[
               {label: 'Campaign QR code', value: 'Campaign QR code'}
             ]} />
           </Form.Item> : null}
 
-          {qrType === "SUN_CODE" ? <Form.Item label='QR Code Key Value' name='key' rules={[
+          {qrType === "SUN_CODE" ? <Form.Item label={intl.get('wx.qr_code_key_value')} name='key' rules={[
             {
               required: true,
-              message: "Please input QR Code Key Value",
+              message: intl.get('public.field_required'),
             },
           ]}>
-            <Input disabled={state} placeholder='Input' />
+            <Input disabled={state} placeholder={intl.get('public.input')} />
           </Form.Item> : null}
 
-          <Form.Item label='Mini Program Path' name='appInternalPath' rules={[
+          <Form.Item label={intl.get('wx.mini_program_path')} name='appInternalPath' rules={[
             {
               required: true,
-              message: "Please input Mini Program Path!",
+              message: intl.get('public.field_required'),
             },
           ]}>
-            <Input disabled={state} placeholder='Input' />
+            <Input disabled={state} placeholder={intl.get('public.input')} />
           </Form.Item>
 
-          <Form.Item label='QR Code Size' name='width' rules={[
+          <Form.Item label={intl.get('wx.qr_code_size')} name='width' rules={[
             {
               required: true,
-              message: "Please input QR Code Size",
+              message: intl.get('public.field_required'),
             },
           ]}>
-            <InputNumber disabled={state} style={{ width: '100%' }} max={1280} min={280} placeholder='Minimun280,Maximun1280' />
+            <InputNumber disabled={state} style={{ width: '100%' }} max={1280} min={280} placeholder={intl.get('wx.qr_code_size_recom')} />
           </Form.Item>
           
-          {qrType === "SUN_CODE" ? <Form.Item label='Transparent background' name='isHyaline' rules={[
+          {qrType === "SUN_CODE" ? <Form.Item label={intl.get('wx.trans_background')} name='isHyaline' rules={[
             {
               required: true,
-              message: "Please select Transparent background!",
+              message: intl.get('public.field_required'),
             },
           ]}>
-            <Select disabled={state} placeholder='Select' options={[
-              { label: 'Yes', value: true },
-              { label: 'No', value: false },
+            <Select disabled={state} placeholder={intl.get('public.select')} options={[
+              { label: intl.get('public.yes'), value: true },
+              { label: intl.get('public.no'), value: false },
             ]} />
           </Form.Item> : null}
 
@@ -168,12 +169,12 @@ const MpQrDetail = () => {
                 navigator("/mpqr/mpqr-list");
               }}
             >
-              Cancel
+              {intl.get('public.cancel')}
             </Button>
             {
                state ? null : (
                 <Button type="primary" htmlType="submit" loading={loading}>
-                  Confirm
+                  {intl.get('public.confirm')}
                 </Button>
                )
             }

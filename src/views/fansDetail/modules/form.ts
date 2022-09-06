@@ -1,32 +1,33 @@
 import { SearchFormItemProps } from "@/framework/types/common";
+import intl from 'react-intl-universal';
 
 export const fansDetailForm: SearchFormItemProps[] = [
   {
-    label: "Wechat Account",
+    label: intl.get('wx.wechat_account'),
     name: "accountPrincipal",
   },
   {
-    label: "Wechat Name",
+    label: intl.get('wx.wechat_name'),
     name: "nickname",
   },
   {
-    label: "Unionid",
+    label: intl.get('wx.unionid'),
     name: "unionId",
   },
   {
-    label: "OPENID",
+    label: intl.get('wx.openid'),
     name: "openId",
   },
   {
-    label: "Follow Time",
+    label: intl.get('wx.follow_time'),
     name: "subscribeTime",
   },
   {
-    label: "Comment",
+    label: intl.get('wx.comment'),
     name: "remark",
   },
   {
-    label: "Channel QR code value",
+    label: intl.get('wx.channel_qr'),
     name: "qrSceneStr",
   },
 ];

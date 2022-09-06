@@ -2,6 +2,7 @@ import { Typography } from 'antd'
 import { ContentContainer } from '@/components/ui'
 import { PromotionTabList } from './modules/constants'
 import { useNavigate } from 'react-router-dom'
+import intl from 'react-intl-universal'
 import './Style.less'
 const { Title } = Typography
 
@@ -10,7 +11,7 @@ const MarketingCentreList = () => {
 
   return (
     <ContentContainer className="bg-white px-8 mt-6">
-      <Title level={4}>Marketing Center</Title>
+      <Title level={4}>{intl.get('marketing.marketing_center')}</Title>
       {PromotionTabList.map((item) => (
         <div className="mb-16" key={item.title}>
           <Title level={5}>{item.title}</Title>

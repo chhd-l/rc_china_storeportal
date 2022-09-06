@@ -9,6 +9,7 @@ import { bannerDeleteById, bannerUpdate, getBannerFindPage } from '@/framework/a
 import { handlePageParams } from '@/utils/utils'
 import { useNavigate } from 'react-router-dom'
 import { getAccountList } from '@/framework/api/wechatSetting'
+import intl from 'react-intl-universal'
 
 const MpBannerList = () => {
   const ref = useRef<any>()
@@ -102,7 +103,7 @@ const MpBannerList = () => {
         toolBarRender={() => [
           <Link to={`/mpbanner/mpbanner-add`} className='mr-4'>
             <Button className='mt-8 text-white' type='primary' ghost>
-              + Add
+              + {intl.get('public.add')}
             </Button>
           </Link>,
 
@@ -110,7 +111,7 @@ const MpBannerList = () => {
         ]}
         search={{
           labelWidth: 'auto',
-          searchText: 'Search',
+          searchText: intl.get('public.search'),
           optionRender: (searchConfig, formProps, dom) => {
             return dom
               .map((item: any) => {
@@ -172,25 +173,27 @@ const MpBannerList = () => {
       </Modal>
       <Modal
         className='rc-modal'
-        title='Delete Item'
-        okText='Confirm'
+        title={intl.get('public.delete_item')}
+        okText={intl.get('public.confirm')}
+        cancelText={intl.get('public.cancel')}
         visible={isModalVisible}
         onOk={confirmDelete}
         confirmLoading={loading}
         onCancel={() => setIsModalVisible(false)}
       >
-        <p>Are you sure you want to delete the item?</p>
+        <p>{intl.get('public.are_you_sure_delete')}</p>
       </Modal>
       <Modal
         className='rc-modal'
-        title='Notice'
-        okText='Confirm'
+        title={intl.get('public.notice')}
+        okText={intl.get('public.confirm')}
+        cancelText={intl.get('public.cancel')}
         visible={isSwithVisible}
         onOk={confirmSwitch}
         confirmLoading={loading}
         onCancel={() => setIsSwithVisible(false)}
       >
-        <p>{status ? 'Are you sure you want to enable the item ?' : 'Are you sure you want to disable the item ?'}</p>
+        <p>{intl.get(status ? 'public.are_you_sure_enable' : 'public.are_you_sure_disable')}</p>
       </Modal>
     </ContentContainer>
   )

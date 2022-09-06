@@ -1,6 +1,7 @@
 import { Button, DatePicker, Input, Select } from 'antd'
 import React, { useState } from 'react'
 import { initSearchParams, SearchParamsProps } from '../../modules/constants'
+import intl from 'react-intl-universal'
 
 const LiveStreamingSearch = ({ query, miniProjList }: { query: Function; miniProjList: any[] }) => {
   const [searchParams, setSearchParams] = useState<SearchParamsProps>(initSearchParams)
@@ -17,11 +18,11 @@ const LiveStreamingSearch = ({ query, miniProjList }: { query: Function; miniPro
     <div>
       <div className="grid grid-cols-3 gap-4">
         <div className="flex flex-row items-center">
-          <div className="mr-2 w-24 text-right">Mini Program:</div>
+          <div className="mr-2 w-24 text-right">{intl.get('wx.mini_program')}:</div>
           <Select
             className="w-60 rc-select"
             value={searchParams.accountName}
-            placeholder="Select mini program"
+            placeholder={intl.get('public.select')}
             onChange={(value) => {
               setSearchParams({ ...searchParams, accountName: value })
             }}
@@ -34,11 +35,11 @@ const LiveStreamingSearch = ({ query, miniProjList }: { query: Function; miniPro
           </Select>
         </div>
         <div className="flex flex-row items-center">
-          <div className="mr-2 w-30 text-right">Live Streaming ID:</div>
+          <div className="mr-2 w-30 text-right">{intl.get('wx.livestream_id')}:</div>
           <Input
             className="rounded-4 w-60"
             type="number"
-            placeholder="Enter live streaming ID"
+            placeholder={intl.get('public.input')}
             value={searchParams.roomId}
             onChange={(e) => {
               updateSearchParams(e.target.value, 'roomId')
@@ -49,10 +50,10 @@ const LiveStreamingSearch = ({ query, miniProjList }: { query: Function; miniPro
           />
         </div>
         <div className="flex flex-row items-center">
-          <div className="mr-2 w-40 text-right">Live Streaming Name:</div>
+          <div className="mr-2 w-40 text-right">{intl.get('wx.livestream_name')}:</div>
           <Input
             className="rounded-4 w-60"
-            placeholder="Enter live streaming name"
+            placeholder={intl.get('public.input')}
             value={searchParams.name}
             onChange={(e) => {
               updateSearchParams(e.target.value, 'name')
@@ -63,10 +64,10 @@ const LiveStreamingSearch = ({ query, miniProjList }: { query: Function; miniPro
           />
         </div>
         <div className="flex flex-row items-center">
-          <div className="mr-2 w-24 text-right">Anchor Name:</div>
+          <div className="mr-2 w-24 text-right">{intl.get('wx.anchor_name')}:</div>
           <Input
             className="rounded-4 w-60"
-            placeholder="Input anchor name"
+            placeholder={intl.get('public.input')}
             value={searchParams.anchorName}
             onChange={(e) => {
               updateSearchParams(e.target.value, 'anchorName')
@@ -77,7 +78,7 @@ const LiveStreamingSearch = ({ query, miniProjList }: { query: Function; miniPro
           />
         </div>
         <div className="flex flex-row items-center">
-          <div className="mr-2 w-30 text-right">Period:</div>
+          <div className="mr-2 w-30 text-right">{intl.get('wx.period')}:</div>
           <DatePicker.RangePicker
             className="rounded-4 w-60"
             value={pickValue}
@@ -102,7 +103,7 @@ const LiveStreamingSearch = ({ query, miniProjList }: { query: Function; miniPro
             query && query(searchParams)
           }}
         >
-          Search
+          {intl.get('public.search')}
         </Button>
         <Button
           className="w-20 rounded-4"
@@ -113,7 +114,7 @@ const LiveStreamingSearch = ({ query, miniProjList }: { query: Function; miniPro
             query && query(initSearchParams)
           }}
         >
-          Reset
+          {intl.get('public.reset')}
         </Button>
       </div>
     </div>

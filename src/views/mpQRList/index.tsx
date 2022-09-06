@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom'
 import { EyeOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router'
 import { useRef, useState } from 'react'
+import intl from 'react-intl-universal'
 
 const MpQrList = () => {
   const navigator = useNavigate()
@@ -51,13 +52,13 @@ const MpQrList = () => {
 
   const columns: ProColumns[] = [
     {
-      title: 'Mini Program',
+      title: intl.get('wx.mini_program'),
       dataIndex: 'accountName',
       valueType: 'select',
       valueEnum: list,
     },
     {
-      title: 'QR Code Type',
+      title: intl.get('wx.qr_code_type'),
       dataIndex: 'qrType',
       valueType: 'select',
       valueEnum: {
@@ -66,16 +67,16 @@ const MpQrList = () => {
       },
     },
     {
-      title: 'Mini Program Path',
+      title: intl.get('wx.mini_program_path'),
       dataIndex: 'appInternalPath',
       hideInSearch: true,
     },
     {
-      title: 'Action',
+      title: intl.get('public.action'),
       hideInSearch: true,
       render: (text: any, record: any) => (
         <div className='flex items-center'>
-          <Tooltip title='View Details'>
+          <Tooltip title={intl.get('public.view_details')}>
             <span
               className='text-red-400 cursor-pointer'
               onClick={() => {
@@ -86,7 +87,7 @@ const MpQrList = () => {
               <EyeOutlined />
             </span>
           </Tooltip>
-          <Tooltip title='Delete'>
+          <Tooltip title={intl.get('public.delete')}>
             <Link
               className='ml-3'
               to=''
@@ -98,7 +99,7 @@ const MpQrList = () => {
               <span className='iconfont icon-delete' />
             </Link>
           </Tooltip>
-          <Tooltip title='View QR Code'>
+          <Tooltip title={intl.get('wx.view_qr_code')}>
             <Link
               className='ml-3'
               to=''
@@ -122,7 +123,7 @@ const MpQrList = () => {
         columns={columns}
         search={{
           labelWidth: 'auto',
-          searchText: 'Search',
+          searchText: intl.get('public.search'),
           optionRender: (searchConfig, formProps, dom) => {
             return dom
               .map((item: any) => {
@@ -143,7 +144,7 @@ const MpQrList = () => {
               navigator('/mpqr/mpqr-add')
             }}
           >
-            + Add
+            + {intl.get('public.add')}
           </Button>,
           // <SyncOutlined className="mt-6 ml-2 mr-8 text-xl " />,
         ]}
@@ -180,14 +181,15 @@ const MpQrList = () => {
       ) : null}
       <Modal
         className='acconutModal'
-        title='Delete Item'
+        title={intl.get('public.delete_item')}
         visible={DeleteModal}
         onOk={() => handleOk(ID)}
         onCancel={handleCancel}
-        okText='Confirm'
+        okText={intl.get('public.confirm')}
+        cancelText={intl.get('public.cancel')}
         // mask={false}
       >
-        <div>Are you sure you want to delete the item ?</div>
+        <div>{intl.get('public.are_you_sure_delete')}</div>
       </Modal>
     </ContentContainer>
   )

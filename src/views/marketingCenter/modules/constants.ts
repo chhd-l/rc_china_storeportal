@@ -1,3 +1,5 @@
+import intl from 'react-intl-universal'
+
 export interface CardType {
   title: string
   span: string
@@ -8,34 +10,34 @@ export interface CardType {
 
 export const PromotionTabList: any[] = [
   {
-    title: 'Boost Sales with Promotion',
+    title: intl.get('marketing.boost_sale_promo'),
     children: [
       {
-        title: 'Vouchers',
-        span: 'Increase orders by offering buyers reduced prices at checkout with vouchers',
+        title: intl.get('marketing.boost_sale_promo_t1'),
+        span: intl.get('marketing.boost_sale_promo_s1'),
         bacImg: 'bacImgVouchers',
         url: '/marketingCenter/vouchers',
       },
       {
-        title: 'Discount Promotions',
-        span: 'Set discounts on your products to boost Sales',
+        title: intl.get('marketing.boost_sale_promo_t2'),
+        span: intl.get('marketing.boost_sale_promo_s2'),
         bacImg: 'bacImgDiscount',
         url: '/marketingCenter/comingSoon',
       },
       {
-        title: 'Campaigns',
-        span: 'Boost product sales by creating campaigns in your shop ',
+        title: intl.get('marketing.boost_sale_promo_t3'),
+        span: intl.get('marketing.boost_sale_promo_s3'),
         bacImg: 'bacImgCampaigns',
         url: '/marketingCenter/comingSoon',
       },
     ],
   },
   {
-    title: 'Engage with Your Pet Owner',
+    title: intl.get('marketing.engage_petowner'),
     children: [
       {
-        title: 'Live Streaming',
-        span: 'Connect Live with your audience and answer shopper questions easily',
+        title: intl.get('marketing.engage_petowner_t1'),
+        span: intl.get('marketing.engage_petowner_s1'),
         bacImg: 'bacImgStreaming',
         url: '/marketingCenter/liveStreaming',
       },

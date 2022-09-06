@@ -9,6 +9,7 @@ import {
   ContentContainer,
   InfoContainer,
 } from '@/components/ui'
+import intl from 'react-intl-universal'
 
 const FansDetail = () => {
   const [fansDetail, setFansDetail] = useState<any>(initFansDetail)
@@ -25,7 +26,7 @@ const FansDetail = () => {
   return (
     <ContentContainer>
       <InfoContainer>
-        <div className='text-2xl text-bold mb-2'>Fans Detail</div>
+        <div className='text-2xl text-bold mb-2'>{intl.get('wx.fans_detail')}</div>
         {fansDetail.accountId ? (
           <Form
             autoComplete='off'
@@ -57,7 +58,7 @@ const FansDetail = () => {
         <div className='flex justify-end'>
           <Button onClick={() => {
             navigator('/fans/fans-list')
-          }}>Cancel</Button>
+          }}>{intl.get("public.cancel")}</Button>
         </div>
       </InfoContainer>
     </ContentContainer>

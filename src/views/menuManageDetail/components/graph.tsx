@@ -3,6 +3,7 @@ import { Button } from 'antd'
 import { WxMenuContext, setActiveWxMenu, filterWxMenus } from '../context'
 import { uuid } from '@/utils/utils'
 import _ from 'lodash';
+import intl from 'react-intl-universal';
 
 const WxMenuGraph = () => {
   const { wxMenus, setWxMenus } = React.useContext(WxMenuContext)
@@ -85,7 +86,7 @@ const WxMenuGraph = () => {
       </div>
     </div>
     <div className="my-8 text-center">
-      <Button type="primary" onClick={genWxMenuData}>Generate menu data</Button>
+      <Button type="primary" onClick={genWxMenuData}>{intl.get('wx.gen_menu_data')}</Button>
     </div>
   </div>)
 }

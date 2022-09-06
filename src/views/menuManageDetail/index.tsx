@@ -7,6 +7,7 @@ import { WxMenuItem, WxMenu } from './type'
 import { Button, message, Input, Form } from 'antd'
 import { createWxMenu, getWxMenuDetail, updateWxMenu } from '@/framework/api/wechatSetting'
 import _ from 'lodash'
+import intl from 'react-intl-universal'
 import './index.less';
 
 interface IProps {
@@ -34,7 +35,7 @@ const MenuManageDetail = (props: IProps) => {
     setLoading(true)
     const data = await getWxMenuDetail(pageParams.id || '')
     if (!data) {
-      message.error({ className: 'rc-message', content: 'Get menu failed' })
+      message.error({ className: 'rc-message', content: intl.get('public.operate_fail') })
       navigator('/menuManagempqr/menu-manage-list')
     } else {
       setWxMenuItem(data)
@@ -45,11 +46,11 @@ const MenuManageDetail = (props: IProps) => {
 
   const handleSave = async () => {
     if (wxMenus.length <= 0) {
-      message.warn({ className: 'rc-message', content: 'Please add menu' })
+      message.warn({ className: 'rc-message', content: intl.get('wx.pls_add_menu') })
       return;
     }
     if (!wxMenuItem.name) {
-      message.warn({ className: 'rc-message', content: 'Please input menu name' })
+      message.warn({ className: 'rc-message', content: intl.get('wx.pls_add_menu_name') })
       return;
     }
     if (!checkWxMenus(wxMenus)) {
@@ -70,7 +71,7 @@ const MenuManageDetail = (props: IProps) => {
     }
     setLoading(false)
     if (success) {
-      message.success({ className: 'rc-message', content: 'Operation success' })
+      message.success({ className: 'rc-message', content: intl.get('public.operate_success') })
       navigator('/menuManagempqr/menu-manage-list')
     }
   }
@@ -83,10 +84,10 @@ const MenuManageDetail = (props: IProps) => {
       }}
     >
       <React.Fragment>
-        <div className="text-lg">{props.pageType === "add" ? "Add New Menu" : "Edit Menu"}</div>
+        <div className="text-lg">{props.pageType === "add" ? intl.get('wx.add_new_menu') : intl.get('wx.edit_menu')}</div>
         <Form layout="horizontal" className="my-4">
-          <Form.Item label="Menu Name" required rules={[{required: true, message: "Please input menu name"}]}>
-            <Input style={{width: 300}} placeholder="Input" value={wxMenuItem.name} onChange={(e) => setWxMenuItem(Object.assign({}, wxMenuItem, { name: e.target.value }))} />
+          <Form.Item label={intl.get('wx.menu_name')} required rules={[{required: true, message: intl.get('wx.pls_add_menu_name')}]}>
+            <Input style={{width: 300}} placeholder={intl.get('public.input')} value={wxMenuItem.name} onChange={(e) => setWxMenuItem(Object.assign({}, wxMenuItem, { name: e.target.value }))} />
           </Form.Item>
         </Form>
         <div className="flex bg-gray-primary">
@@ -98,8 +99,8 @@ const MenuManageDetail = (props: IProps) => {
           </div>
         </div>
         <div className="mt-4 text-right space-x-4">
-          <Button type="default" onClick={() => navigator('/menuManagempqr/menu-manage-list')}>Cancel</Button>
-          <Button type="primary" loading={loading} onClick={handleSave}>Save and Publish</Button>
+          <Button type="default" onClick={() => navigator('/menuManagempqr/menu-manage-list')}>{intl.get('public.save')}</Button>
+          <Button type="primary" loading={loading} onClick={handleSave}>{intl.get('wx.save_and_publish')}</Button>
         </div>
       </React.Fragment>
     </WxMenuContextProvider>

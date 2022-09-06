@@ -1,5 +1,6 @@
 import { Button, Switch, Typography } from 'antd'
 import { CardType } from '../modules/card'
+import intl from 'react-intl-universal'
 const { Title } = Typography
 
 const IntelligentRecommendation = ({ title, span, Enable, Edit, Details, open, bgcImg }: CardType) => {
@@ -41,7 +42,7 @@ const IntelligentRecommendation = ({ title, span, Enable, Edit, Details, open, b
       </div>
       {Enable && (
         <Button type="text" danger className="absolute top-2 right-2">
-          Enable
+          {intl.get('public.enable')}
         </Button>
       )}
     </div>

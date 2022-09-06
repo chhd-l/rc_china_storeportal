@@ -8,6 +8,7 @@ import {
 import { ProColumns } from '@ant-design/pro-table'
 import { Switch, Tooltip } from 'antd'
 import { Link } from 'react-router-dom'
+import intl from 'react-intl-universal'
 
 
 enum StatusType {
@@ -46,16 +47,16 @@ export const tableColumns = ({
 
   const columns: ProColumns<ColumnsProps>[] = [
     {
-      title: 'Mini Program',
+      title: intl.get('wx.mini_program'),
       dataIndex: 'accountName',
       valueEnum: handleValueEnum(list)
     },
     {
-      title: 'Banner Name',
+      title: intl.get('wx.banner_name'),
       dataIndex: 'name',
     },
     {
-      title: 'Page',
+      title: intl.get('wx.page'),
       dataIndex: 'page',
       hideInSearch: true,
     },
@@ -74,17 +75,17 @@ export const tableColumns = ({
     //   ),
     // },
     {
-      title: 'Click Type',
+      title: intl.get('wx.click_type'),
       dataIndex: 'clickType',
       valueEnum: {
-        NO_OPERATION: { text: 'No operation' },
-        OPEN_THE_WEB_PAGE: { text: 'Open the web page' },
-        OPEN_THE_MP_PAGE: { text: 'Open the MP page' },
-        OPEN_OTHER_MP_PAGE: { text: 'Open other MP page' },
+        NO_OPERATION: { text: intl.get('wx.no_operation') },
+        OPEN_THE_WEB_PAGE: { text: intl.get('wx.open_web_page') },
+        OPEN_THE_MP_PAGE: { text: intl.get('wx.open_mp_page') },
+        OPEN_OTHER_MP_PAGE: { text: intl.get('wx.open_other_mp_page') },
       },
     },
     {
-      title: 'Path',
+      title: intl.get('wx.page_path'),
       dataIndex: 'path',
       hideInSearch: true,
     },
@@ -95,16 +96,16 @@ export const tableColumns = ({
     //   render: (_, record) => <div>{IsDefault[record.default]}</div>,
     // },
     {
-      title: 'Sort',
+      title: intl.get('wx.sort'),
       dataIndex: 'sort',
       hideInSearch: true,
     },
     {
-      title: 'Status',
+      title: intl.get('public.status'),
       dataIndex: 'isActive',
       valueEnum: {
-        true: { text: 'Enable' },
-        false: { text: 'Disable' },
+        true: { text: intl.get('public.enable') },
+        false: { text: intl.get('public.disable') },
       },
       render: (_, record) => (
         <Switch
@@ -116,10 +117,10 @@ export const tableColumns = ({
       ),
     },
     {
-      title: 'Action',
+      title: intl.get('public.action'),
       hideInSearch: true,
       render: (_, record) => [
-        <Tooltip title='Edit'>
+        <Tooltip title={intl.get('public.edit')}>
           <span className='mr-4 cursor-pointer iconfont icon-a-Group437 text-red-500' onClick={(e) => {
             e.stopPropagation()
             navigator('/mpbanner/mpbanner-detail', {
@@ -127,7 +128,7 @@ export const tableColumns = ({
             })
           }} />
         </Tooltip>,
-        <Tooltip title='View'>
+        <Tooltip title={intl.get('wx.view_details')}>
           <span className='cursor-pointer mr-4 iconfont icon-bianzu text-red-500'
                 onClick={() => {
                   console.log(record.picUrl)
@@ -135,7 +136,7 @@ export const tableColumns = ({
                 }}
           />
         </Tooltip>,
-        <Tooltip title='Delete'>
+        <Tooltip title={intl.get('public.delete')}>
           <span className='cursor-pointer text-xl iconfont icon-delete text-red-500' onClick={() => {
             handleDelete(record.id)
           }} />

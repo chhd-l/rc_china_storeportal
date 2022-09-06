@@ -2,25 +2,26 @@ import { Image, Modal, Table, Tooltip } from 'antd'
 import React, { useState } from 'react'
 import { WxLiveStreaming } from '@/framework/types/liveStreaming'
 import moment from 'moment'
+import intl from 'react-intl-universal'
 
 const Index = ({ liveStreamingList }: { liveStreamingList: WxLiveStreaming[] }) => {
   const [imgUrl, setImgUrl] = useState('')
   const [isModalVisible, setIsModalVisible] = useState(false)
   const columns = [
     {
-      title: 'Mini Program',
+      title: intl.get('wx.mini_program'),
       dataIndex: 'accountName',
     },
     {
-      title: 'Live Streaming ID',
+      title: intl.get('wx.livestream_id'),
       dataIndex: 'roomId',
     },
     {
-      title: 'Live Streaming Name',
+      title: intl.get('wx.livestream_name'),
       dataIndex: 'name',
     },
     {
-      title: 'Period',
+      title: intl.get('wx.period'),
       dataIndex: 'period',
       render: (text: any, record: any) => (
         <span className="text-gray-400">
@@ -30,11 +31,11 @@ const Index = ({ liveStreamingList }: { liveStreamingList: WxLiveStreaming[] }) 
       ),
     },
     {
-      title: 'Anchor Name',
+      title: intl.get('wx.anchor_name'),
       dataIndex: 'anchorName',
     },
     {
-      title: 'Status',
+      title: intl.get('public.status'),
       dataIndex: 'liveStatus',
       render: (text: any, record: any) => (
         <span
@@ -46,16 +47,16 @@ const Index = ({ liveStreamingList }: { liveStreamingList: WxLiveStreaming[] }) 
               : 'bg-expiredBg'
           } w-20 h-6 flex items-center justify-center`}
         >
-          {text === 101 ? 'Ongoing' : text === 102 ? 'Upcoming' : 'Expired'}
+          {text === 101 ? intl.get('wx.ongoing') : text === 102 ? intl.get('wx.upcoming') : intl.get('wx.expired')}
         </span>
       ),
     },
     {
-      title: 'Actions',
+      title: intl.get('public.action'),
       hideInSearch: true,
       render: (text: any, record: any) =>
         record.liveStatus === 101 || record.liveStatus === 102 ? (
-          <Tooltip title="Share">
+          <Tooltip title={intl.get('wx.share')}>
             <span
               className="cursor-pointer iconfont icon-Vector1 text-theme-red"
               onClick={() => {

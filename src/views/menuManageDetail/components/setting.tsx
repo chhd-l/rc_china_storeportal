@@ -6,6 +6,7 @@ import _ from 'lodash'
 import ResponseType from './response-type'
 import RedirectionType from './redirection-type'
 import MiniProgramType from './miniprogram-type'
+import intl from 'react-intl-universal'
 
 const WxMenuSetting = () => {
   const { wxMenus, setWxMenus } = React.useContext(WxMenuContext);
@@ -31,10 +32,10 @@ const WxMenuSetting = () => {
   const deleteWxMenu = (key: string) => {
     Modal.confirm({
       className: 'rc-modal',
-      title: 'Delete',
-      content: 'Are you sure you want to delete it? The content set under this menu will be deleted after deletion.',
-      okText: 'Confirm',
-      cancelText: 'Cancel',
+      title: intl.get('public.delete'),
+      content: intl.get('wx.menu_item_delete_tip'),
+      okText: intl.get('public.confirm'),
+      cancelText: intl.get('public.cancel'),
       closable: true,
       icon: null,
       onOk: () => {
@@ -65,23 +66,23 @@ const WxMenuSetting = () => {
   return (
     <div className="bg-gray-primary">
       <div className="p-4 border-b border-gray-200 flex justify-between">
-        <span className="text-lg">Menu Name</span>
+        <span className="text-lg">{intl.get('wx.menu_name')}</span>
         {activeMenu && <div className="space-x-4">
-          <Tooltip title="Delete">
+          <Tooltip title={intl.get('public.delete')}>
             <span className="iconfont icon-delete primary-color cursor-pointer" onClick={() => deleteWxMenu(activeMenu.key)}></span>
           </Tooltip>
           {(wxMenus || []).findIndex(item => item.key === activeMenu.key) > -1 ? <>
-            <Tooltip title="Move Left">
+            <Tooltip title={intl.get('wx.move_left')}>
               <span className="iconfont icon-Frame5 primary-color cursor-pointer" onClick={() => moveWxMenuInOrder(activeMenu.key, 'forward')}></span>
             </Tooltip>
-            <Tooltip title="Move right">
+            <Tooltip title={intl.get('wx.move_right')}>
               <span className="iconfont icon-Frame-12 primary-color cursor-pointer" onClick={() => moveWxMenuInOrder(activeMenu.key, 'backward')}></span>
             </Tooltip>
           </> : <>
-            <Tooltip title="Move Up">
+            <Tooltip title={intl.get('wx.move_up')}>
               <span className="iconfont icon-Frame-21 primary-color cursor-pointer" onClick={() => moveWxMenuInOrder(activeMenu.key, 'forward')}></span>
             </Tooltip>
-            <Tooltip title="Move Down">
+            <Tooltip title={intl.get('wx.move_down')}>
               <span className="iconfont icon-Frame-31 primary-color cursor-pointer" onClick={() => moveWxMenuInOrder(activeMenu.key, 'backward')}></span>
             </Tooltip>
           </>}
@@ -89,15 +90,15 @@ const WxMenuSetting = () => {
       </div>
       {activeMenu && <div className="p-8">
         <Form layout="horizontal">
-          <Form.Item label="Menu Name" extra={<div className="text-xs text-gray-400">No longer than 4 Chinese characters or 8 English characters are recommended</div>}>
+          <Form.Item label={intl.get('wx.menu_name')} extra={<div className="text-xs text-gray-400">{intl.get('wx.menu_name_length')}</div>}>
             <Input style={{maxWidth: 300}} value={activeMenu.name} onChange={(e) => changeMenuName(e, activeMenu.key)} />
           </Form.Item>
           {activeMenu?.sub_button?.length ? null : <React.Fragment>
-            <Form.Item label="Content">
+            <Form.Item label={intl.get('wx.content')}>
               <Radio.Group value={activeMenu.type} onChange={(e) => changeMenuType(e, activeMenu.key)}>
-                <Radio value="media_id">Send response message</Radio>
-                <Radio value="view">Web redirection</Radio>
-                <Radio value="miniprogram">Joint with Miniprogram</Radio>
+                <Radio value="media_id">{intl.get('wx.send_response_message')}</Radio>
+                <Radio value="view">{intl.get('wx.web_redirection')}</Radio>
+                <Radio value="miniprogram">{intl.get('wx.joint_with_miniprogram')}</Radio>
               </Radio.Group>
             </Form.Item>
             {activeMenu.type === 'media_id' ? <ResponseType /> : activeMenu.type === 'view' ? <RedirectionType /> : <MiniProgramType miniProgramList={miniProgramList} ref={miniProgramFormRef} />}
