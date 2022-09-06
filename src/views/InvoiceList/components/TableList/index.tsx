@@ -35,6 +35,7 @@ const TableList = ({
       title: 'Order Amount',
       dataIndex: 'orderAmount',
       key: 'orderAmount',
+      render: (text: string) => '￥' + text,
     },
     {
       title: 'Application Time',
