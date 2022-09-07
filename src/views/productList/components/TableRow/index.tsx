@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { deleteProducts, switchShelves } from '@/framework/api/get-product'
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
+import intl from 'react-intl-universal'
 import './index.less'
 
 interface TableRowProps {
@@ -36,12 +37,12 @@ const TableRow = ({
   const [imgUrl, setImgUrl] = useState('')
   const istb = (sku: any) => {
     if (!tableHeader.length) return
-    return tableHeader.map(item => {
+    return tableHeader.map((item) => {
       if (item.dataIndex !== 'name') {
         return (
-          <div className='flex-1 flex h-full'>
-            <div className='truncate pr-2'>
-              {item.dataIndex === 'price' ? <span className='font-extralight'>￥</span> : ''}
+          <div className="flex-1 flex h-full">
+            <div className="truncate pr-2">
+              {item.dataIndex === 'price' ? <span className="font-extralight">￥</span> : ''}
               {sku[item.dataIndex]}
             </div>
           </div>
@@ -67,8 +68,8 @@ const TableRow = ({
   }
 
   return (
-    <div className='flex bg-white border-b text-left items-center pt-2 pb-2 productlist-bg'>
-      <div className='px-2 py-1'>
+    <div className="flex bg-white border-b text-left items-center pt-2 pb-2 productlist-bg">
+      <div className="px-2 py-1">
         <Checkbox
           checked={spu.checked}
           onChange={() => {
@@ -76,60 +77,65 @@ const TableRow = ({
           }}
         />
       </div>
-      <div className='w-64 flex py-1 pr-2 overflow-hidden'>
-        <div className='w-20 h-20 flex justify-center items-center'>
+      <div className="w-64 flex py-1 pr-2 overflow-hidden">
+        <div className="w-20 h-20 flex justify-center items-center">
           <img src={spu.img} alt={spu.name} />
         </div>
-        <div className='pl-2 flex-1'>
-          <div className='text-sm mb-1 two-lines'>{spu.name}</div>
-          <div className='text-gray-400'>{spu.no}</div>
+        <div className="pl-2 flex-1">
+          <div className="text-sm mb-1 two-lines">{spu.name}</div>
+          <div className="text-gray-400">{spu.no}</div>
         </div>
       </div>
-      <div className=' w-3/5 overflow-hidden'>
+      <div className=" w-3/5 overflow-hidden">
         {spu?.skus?.map((sku: any, index: number) => (
-          <div className='flex py-1 justify-stretch items-baseline'>{istb(sku)}</div>
+          <div className="flex py-1 justify-stretch items-baseline">{istb(sku)}</div>
         ))}
         {spu.showAll === false && listData[spuIdx]?.skus?.length > 3 ? (
           <ShowMoreButton listData={listData} spuIdx={spuIdx} list={list} setList={setList}>
-            <div className='flex items-center'>
-              More({listData[spuIdx].skus.length - 3} Products SKUs) <DownOutlined className='ml-2'/>
+            <div className="flex items-center">
+              {intl.get('product.More')}({listData[spuIdx].skus.length - 3} {intl.get('product.Products SKUs')}){' '}
+              <DownOutlined className="ml-2" />
             </div>
           </ShowMoreButton>
         ) : null}
         {spu.showAll === true && spu.skus?.length > 3 ? (
           <ShowMoreButton listData={listData} spuIdx={spuIdx} list={list} setList={setList}>
-            <div className='flex items-center'>
-              Hide <UpOutlined  className='ml-2'/>
+            <div className="flex items-center">
+              {intl.get('product.Hide')} <UpOutlined className="ml-2" />
             </div>
           </ShowMoreButton>
         ) : null}
       </div>
-      <div className='w-64 flex text-12'>
-        {listData[spuIdx]?.salesStatus&&listData[spuIdx]?.shelvesStatus?<Tooltip title='Preview'>
-          <Link
-            to=''
-            className='mr-4'
-            onClick={e => {
-              e.stopPropagation()
-              setImgUrl(listData[spuIdx]?.wxCodeUrl || '')
-            }}
-          >
-            <span className='icon iconfont icon-preview'></span>
-          </Link>
-        </Tooltip>:null}
-        <Tooltip title='Edit'>
+      <div className="w-64 flex text-12">
+        {listData[spuIdx]?.salesStatus && listData[spuIdx]?.shelvesStatus ? (
+          <Tooltip title="Preview">
+            <Link
+              to=""
+              className="mr-4"
+              onClick={(e) => {
+                e.stopPropagation()
+                setImgUrl(listData[spuIdx]?.wxCodeUrl || '')
+              }}
+            >
+              <span className="icon iconfont icon-preview"></span>
+            </Link>
+          </Tooltip>
+        ) : null}
+        <Tooltip title="Edit">
           <a
-            className='mr-4'
-            onClick={e => {
+            className="mr-4"
+            onClick={(e) => {
               e.stopPropagation()
               navigator('/product/product-detail', { state: listData[spuIdx]?.id })
             }}
           >
-            <span className='icon iconfont icon-Edit'></span>
+            <span className="icon iconfont icon-Edit"></span>
           </a>
         </Tooltip>
-        <Tooltip title={`${listData[spuIdx]?.shelvesStatus ? 'Delist' : 'Publish'}`}>
-          <Link to='' className='mr-4'>
+        <Tooltip
+          title={`${listData[spuIdx]?.shelvesStatus ? intl.get('product.Delist') : intl.get('product.Publish')}`}
+        >
+          <Link to="" className="mr-4">
             <span
               className={`icon iconfont ${listData[spuIdx]?.shelvesStatus}  ${
                 !listData[spuIdx]?.shelvesStatus ? 'icon-Frame4' : 'icon-xiajia'
@@ -139,8 +145,8 @@ const TableRow = ({
                 try {
                   setLoading(true)
                   let res = await switchShelves({ productId: [listData[spuIdx]?.id], status: !shelvesStatus })
-                  if (res===true) {
-                    message.success({ className: 'rc-message', content: 'Operation success' })
+                  if (res === true) {
+                    message.success({ className: 'rc-message', content: intl.get('public.operate_success') })
                     await getList()
                   }
                 } catch (err) {
@@ -151,10 +157,10 @@ const TableRow = ({
             ></span>
           </Link>
         </Tooltip>
-        <Tooltip title='Delete'>
-          <Link to=''>
+        <Tooltip title="Delete">
+          <Link to="">
             <span
-              className='icon iconfont icon-delete text-base'
+              className="icon iconfont icon-delete text-base"
               onClick={() => {
                 setIsModalVisible(true)
               }}
@@ -162,18 +168,20 @@ const TableRow = ({
           </Link>
         </Tooltip>
         <Modal
-          title='Delete Product'
+          title={intl.get('product.Delete Product')}
           visible={isModalVisible}
-          okText='Delete'
+          okText={intl.get('public.delete')}
           onOk={() => handleOk(listData[spuIdx]?.id)}
           onCancel={handleCancel}
         >
           <div style={{ wordBreak: 'break-word' }}>
-            Are you sure want to delete the following product ? Warning: You cannot undo this action!
+            {intl.get(
+              'product.Are you sure want to delete the following product ? Warning: You cannot undo this action!',
+            )}
           </div>
-          <p className='flex items-center'>
-            <Image width={110} className='img' src={listData[spuIdx]?.img} />
-            <div className='font-semibold w-full pl-4'>{listData[spuIdx]?.name}</div>
+          <p className="flex items-center">
+            <Image width={110} className="img" src={listData[spuIdx]?.img} />
+            <div className="font-semibold w-full pl-4">{listData[spuIdx]?.name}</div>
           </p>
         </Modal>
         {imgUrl ? (
@@ -185,7 +193,7 @@ const TableRow = ({
             }}
             footer={null}
           >
-            <Image src={imgUrl} width='100%' height='100%' preview={false} />
+            <Image src={imgUrl} width="100%" height="100%" preview={false} />
           </Modal>
         ) : null}
       </div>

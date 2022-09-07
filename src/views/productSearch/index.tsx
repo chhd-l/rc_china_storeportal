@@ -9,6 +9,7 @@ import { handlePageParams } from '@/utils/utils'
 import { useRequest } from 'ahooks'
 import AddNewSearch from './components/AddNewSearch'
 import { RecordItem } from './type'
+import intl from 'react-intl-universal'
 
 const ProductSearch = () => {
   const actionRef = useRef<ActionType>()
@@ -21,7 +22,7 @@ const ProductSearch = () => {
   const { run } = useRequest(
     async (id, status) => {
       await hotSearchUpdate({ id, ...status })
-      message.success({ className: 'rc-message', content: 'Operation success' })
+      message.success({ className: 'rc-message', content: intl.get('public.operate_success') })
       actionRef?.current?.reload()
     },
     {
@@ -31,9 +32,9 @@ const ProductSearch = () => {
 
   // Search is visible on shop
   const { run: runSwitch } = useRequest(
-    async status => {
+    async (status) => {
       await HotSearchVisibleSwitch({ storeId: 'storeIdMock', status })
-      message.success({ className: 'rc-message', content: 'Operation success' })
+      message.success({ className: 'rc-message', content: intl.get('public.operate_success') })
     },
     {
       manual: true,
@@ -63,42 +64,42 @@ const ProductSearch = () => {
 
   const columns: ProColumns<RecordItem>[] = [
     {
-      title: 'Top Search Name',
+      title: intl.get('product.Top Search Name'),
       dataIndex: 'topName',
     },
     {
-      title: 'Priority',
+      title: intl.get('product.Priority'),
       dataIndex: 'priority',
       search: false,
     },
     {
-      title: 'Status',
+      title: intl.get('public.status'),
       dataIndex: 'status',
       valueType: 'select',
       valueEnum: {
         true: { text: 'Enable' },
         false: {
-          text: 'Disable',
+          text: intl.get('public.Disable'),
         },
       },
-      render: (_, record) => <Switch checked={record.status} onChange={val => run(record.id, { status: val })} />,
+      render: (_, record) => <Switch checked={record.status} onChange={(val) => run(record.id, { status: val })} />,
     },
     {
-      title: 'Action',
+      title: intl.get('public.action'),
       valueType: 'option',
       key: 'option',
       render: (_, record) => (
-        <Tooltip title='Delete'>
+        <Tooltip title="Delete">
           <Link
-            className='ml-3'
-            to=''
+            className="ml-3"
+            to=""
             onClick={() => {
               setType('delete')
               setVisible(true)
               SetDeleteId(record.id)
             }}
           >
-            <span className='iconfont icon-delete' />
+            <span className="iconfont icon-delete" />
           </Link>
         </Tooltip>
       ),
@@ -110,9 +111,9 @@ const ProductSearch = () => {
         columns={columns}
         actionRef={actionRef}
         cardBordered
-        className='searchTable'
-        tableClassName='rc-table'
-        request={async params => {
+        className="searchTable"
+        tableClassName="rc-table"
+        request={async (params) => {
           let page = handlePageParams({
             currentPage: params.current,
             pageSize: params.pageSize,
@@ -139,11 +140,11 @@ const ProductSearch = () => {
         editable={{
           type: 'multiple',
         }}
-        rowKey='id'
+        rowKey="id"
         search={{
           labelWidth: 'auto',
           span: 12,
-          searchText: 'Search',
+          searchText: intl.get('public.search'),
           optionRender: (_, __, dom) => {
             return dom
               .map((item: any) => {
@@ -155,11 +156,11 @@ const ProductSearch = () => {
         pagination={{
           showQuickJumper: false,
         }}
-        dateFormatter='string'
+        dateFormatter="string"
         headerTitle={
-          <div className='flex flex-row items-top text-grayTitle text-14'>
-            Top Search is visible on shop
-            <Switch checked={checked} onChange={onSwitchChange} className='ml-4' />
+          <div className="flex flex-row items-top text-grayTitle text-14">
+            {intl.get('product.Top Search is visible on shop')}
+            <Switch checked={checked} onChange={onSwitchChange} className="ml-4" />
           </div>
         }
         toolBarRender={() => [<AddNewSearch refreshTable={refreshTable} />]}

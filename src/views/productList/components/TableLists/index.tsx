@@ -1,13 +1,12 @@
-import { useEffect, useMemo, useState } from 'react'
-import { cloneDeep } from 'lodash'
-import { Checkbox, Empty, Pagination } from 'antd'
-import './index.less'
-import { tableHeaders } from '../../modules/constant'
 import { ProductListItemProps, ProductListProps } from '@/framework/types/product'
-import TableRow from '../TableRow'
-import TableHeader from '../TableHeader'
+import { Checkbox, Empty, Pagination } from 'antd'
+import { cloneDeep } from 'lodash'
+import { useEffect, useMemo, useState } from 'react'
+import { tableHeaders } from '../../modules/constant'
 import TableFooter from '../TableFooter'
-import { LoadingOutlined } from '@ant-design/icons'
+import TableHeader from '../TableHeader'
+import TableRow from '../TableRow'
+import './index.less'
 
 interface Pages {
   page: number | undefined
@@ -28,7 +27,7 @@ const ListTable = ({ listData, handlePagination, getList, pages, setLoading, loa
   const [checkedItem, setCheckedItem] = useState(false)
   const [tableHeader, setTableHeader] = useState(tableHeaders)
   useEffect(() => {
-    let newList = cloneDeep(listData.products).map(item => {
+    let newList = cloneDeep(listData.products).map((item) => {
       let newItem = item
       if (item.skus?.length > 3) {
         newItem.skus = item.skus.slice(0, 3)
@@ -40,30 +39,30 @@ const ListTable = ({ listData, handlePagination, getList, pages, setLoading, loa
   }, [listData])
   const onChange = (idx: number) => {
     list[idx].checked = !list[idx].checked
-    setCheckedAll(list.every(el => el.checked))
+    setCheckedAll(list.every((el) => el.checked))
     setList(cloneDeep(list))
   }
   useEffect(() => {
-    if (list.some(el => el.checked)) {
+    if (list.some((el) => el.checked)) {
       setCheckedItem(true)
     } else {
       setCheckedItem(false)
     }
   }, [list])
   const handleCheckedAll = () => {
-    list.forEach(el => {
+    list.forEach((el) => {
       el.checked = !checkedAll
     })
     setCheckedAll(!checkedAll)
     setList(cloneDeep(list))
   }
-  const indeterminate = useMemo(() => !checkedAll && list.some(el => el.checked), [checkedAll, list])
+  const indeterminate = useMemo(() => !checkedAll && list.some((el) => el.checked), [checkedAll, list])
 
   return (
     <div>
-      <div className='border' style={{ borderRadius: '4px' }}>
-        <div className='flex py-3 bg-gray1  border-b'>
-          <div className='px-2 flex items-center'>
+      <div className="border" style={{ borderRadius: '4px' }}>
+        <div className="flex py-3 bg-gray1  border-b">
+          <div className="px-2 flex items-center">
             <Checkbox indeterminate={indeterminate} checked={checkedAll} onChange={handleCheckedAll} />
           </div>
           <TableHeader getList={getList} tableHeader={tableHeader} setTableHeader={setTableHeader} />
@@ -89,9 +88,9 @@ const ListTable = ({ listData, handlePagination, getList, pages, setLoading, loa
       </div>
       {list.length ? (
         <>
-          <div className='bg-white'>
+          <div className="bg-white">
             <Pagination
-              className='text-right my-8'
+              className="text-right my-8"
               showSizeChanger
               current={pages.page}
               onChange={handlePagination}

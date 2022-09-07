@@ -1,26 +1,22 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { ContentContainer, DivideArea, TableContainer } from '@/components/ui'
+import { getScProducts } from '@/framework/api/get-product'
+import { OptionsProps } from '@/framework/types/common'
+import { ProductListProps } from '@/framework/types/product'
+import { handlePageParams } from '@/utils/utils'
+import { MenuOutlined } from '@ant-design/icons'
 import { Button, Spin, Tabs } from 'antd'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import SearchHeader from './components/SearchHeader'
 import TableList from './components/TableLists'
-import { OptionsProps } from '@/framework/types/common'
-import { Tab, toolbarInit, handleTabValue } from './modules/constant'
-import { ContentContainer, TableContainer, DivideArea } from '@/components/ui'
-import { MenuOutlined } from '@ant-design/icons'
-import { getScProducts } from '@/framework/api/get-product'
-import { ProductListProps } from '@/framework/types/product'
-import { dataSource } from './modules/mockdata'
-import Mock from 'mockjs'
 import './index.less'
-import { handlePageParams } from '@/utils/utils'
-import { userAtom } from '@/store/user.store'
-import { useAtom } from 'jotai'
+import { handleTabValue, Tab, toolbarInit } from './modules/constant'
+import intl from 'react-intl-universal'
 const { TabPane } = Tabs
 interface ParamProps {
   sortKey?: string
   sortDirection?: string
 }
-const listDatas = Mock.mock(dataSource)
 // console.info('listData', listData)
 const ProductList = () => {
   const [activeKey, setActiveKey] = useState<React.Key>(Tab.All)
@@ -29,7 +25,6 @@ const ProductList = () => {
   const [toolbarList, setToolbarList] = useState<OptionsProps[]>([])
   const navigation = useNavigate()
   const [loading, setLoading] = useState(false)
-  const [userInfo] = useAtom(userAtom)
   const [needReload, setNeedReload] = useState(false)
   const [listData, setListData] = useState<ProductListProps>({
     products: [],
@@ -62,10 +57,7 @@ const ProductList = () => {
     setActiveKey(activeKey)
     let filter = ''
     if (activeKey !== 'All') {
-      filter = activeKey
-        .split(' ')
-        .join('_')
-        .toUpperCase()
+      filter = activeKey.split(' ').join('_').toUpperCase()
     }
     setFilterCondition(filter)
     //点击搜索需要重置页码
@@ -138,12 +130,12 @@ const ProductList = () => {
   // }, [filterCondition])
   return (
     <ContentContainer>
-      <div className='product-list'>
+      <div className="product-list">
         <SearchHeader getFormData={getFormData} getList={getList} />
         <DivideArea />
         <TableContainer>
           <Tabs defaultActiveKey={Tab.All} onChange={handleTab}>
-            {toolbarList.map(el => (
+            {toolbarList.map((el) => (
               <TabPane
                 tab={
                   <div>
@@ -154,30 +146,30 @@ const ProductList = () => {
                 }
                 key={el.name}
               >
-                <div className='flex justify-between items-center py-4'>
-                  <div className='total-products'>
-                    <span>{listData.total ? listData.total : 0}</span> Products
+                <div className="flex justify-between items-center py-4">
+                  <div className="total-products">
+                    <span>{listData.total ? listData.total : 0}</span> {intl.get('product.product_s')}
                   </div>
-                  <div className='flex items-center'>
+                  <div className="flex items-center">
                     <Button
-                      type='primary'
+                      type="primary"
                       onClick={() => {
                         // window.open('/product/add')
                         navigation(`/product/product-add`)
                       }}
                     >
-                      + Add a New Product
+                      + Add a New Product{intl.get('product.Add a New Product')}
                     </Button>
-                    <Button className='ml-4'>Export</Button>
+                    <Button className="ml-4">{intl.get('public.Export')}</Button>
                     {/* <MenuOutlined className=' border border-solid border-gray-300' /> */}
-                    <Button className='ml-3' icon={<MenuOutlined style={{ color: '#979797' }} />} />
+                    <Button className="ml-3" icon={<MenuOutlined style={{ color: '#979797' }} />} />
                   </div>
                 </div>
               </TabPane>
             ))}
           </Tabs>
-          <div className='flex justify-center w-full' style={{ minHeight: '20rem' }}>
-            <Spin spinning={loading} wrapperClassName='w-full'>
+          <div className="flex justify-center w-full" style={{ minHeight: '20rem' }}>
+            <Spin spinning={loading} wrapperClassName="w-full">
               <TableList
                 setLoading={setLoading}
                 loading={loading}

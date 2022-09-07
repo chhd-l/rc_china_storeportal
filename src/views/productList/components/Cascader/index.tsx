@@ -1,13 +1,12 @@
-import './index.less'
-import { ProFormCascader } from '@ant-design/pro-form'
-import { useContext, useEffect, useRef, useState } from 'react'
-import { mock } from 'mockjs'
-import { TreeDataProps } from '@/framework/types/product'
 import { getCategories } from '@/framework/api/get-product'
-import { CateItemProps } from '@/framework/schema/product.schema'
-import { useParams } from 'react-router-dom'
 import { getTree } from '@/framework/normalize/product'
-import { Input, Modal, Spin } from 'antd'
+import { CateItemProps } from '@/framework/schema/product.schema'
+import { TreeDataProps } from '@/framework/types/product'
+import { ProFormCascader } from '@ant-design/pro-form'
+import { Input, Spin } from 'antd'
+import { useEffect, useRef, useState } from 'react'
+import intl from 'react-intl-universal'
+import './index.less'
 
 interface CascaderProps {
   cateId: any[]
@@ -18,7 +17,6 @@ const Cascader = (props: CascaderProps) => {
   const [categories, setCategories] = useState<any>([])
   const [loading, setLoading] = useState(false)
   const [categoryList, setCategoryList] = useState<TreeDataProps[]>([])
-  const params = useParams()
   const InputRef = useRef<any>(null)
 
   const onChange = (value: any, selectedOptions: any) => {
@@ -61,14 +59,14 @@ const Cascader = (props: CascaderProps) => {
   // }, [detail.categoryList])
 
   return (
-    <div className='cate-cascader'>
-      <div className='p-6 bg-gray-50 relative'>
+    <div className="cate-cascader">
+      <div className="p-6 bg-gray-50 relative">
         <Input ref={InputRef} style={{ position: 'absolute', left: -10000 }} />
         <Spin spinning={loading}>
           {categoryList?.length ? (
             <ProFormCascader
               // ref={}
-              name='cateId'
+              name="cateId"
               rules={[{ required: true, message: '这是必填项' }]}
               // request={(params, props) => {
               //   return Promise.resolve(categoryList)
@@ -78,25 +76,25 @@ const Cascader = (props: CascaderProps) => {
                 changeOnSelect: true,
                 onChange: onChange,
                 options: categoryList,
-                getPopupContainer: triggerNode => triggerNode.parentNode,
+                getPopupContainer: (triggerNode) => triggerNode.parentNode,
                 showSearch: true,
                 dropdownClassName: 'productlist-choose-cate common-dropdown-cascader',
                 open: true,
                 placement: 'bottomLeft',
-                placeholder: 'Category Name',
+                placeholder: intl.get('product.category_name'),
               }}
             />
           ) : null}
-          <div className='ant-select'></div>
+          <div className="ant-select"></div>
         </Spin>
       </div>
 
-      <div className='py-4'>
+      <div className="py-4">
         The currently selected :{' '}
         <span className={`${categories.length ? 'font-semibold primary-color' : ''}`}>
           {categories.length
             ? categories.map((el: TreeDataProps, idx: number) => ` ${idx === 0 ? '' : '>'} ${el.label}`)
-            : 'No category has been chosen'}
+            : intl.get('product.No category has been chosen')}
         </span>
       </div>
     </div>
