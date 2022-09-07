@@ -3,6 +3,7 @@ import { handleValueEnum } from '@/utils/utils'
 import { useState } from 'react'
 import Mock from 'mockjs'
 import { mockOptionsList } from '../../qrCodeManageList/modules/mockdata'
+import intl from 'react-intl-universal'
 
 const mpmock = Mock.mock(mockOptionsList).list
 
@@ -14,21 +15,21 @@ export const useFormItems = () => {
     {
       type: FormItemType.Select,
       name: 'officialAccount',
-      label: 'Mini Program',
+      label: intl.get('qrCode.Mini Program'),
       valueEnum: handleValueEnum(mpList),
       placeholder: 'Please select',
     },
     {
       type: FormItemType.Input,
       name: 'name',
-      label: 'Banner Name',
+      label: intl.get('qrCode.Banner Name'),
       valueEnum: '',
       placeholder: 'Please input',
     },
     {
       type: FormItemType.Upload,
       name: 'img',
-      label: 'Pic Location',
+      label: intl.get('qrCode.Pic Location'),
       valueEnum: '',
       placeholder: '',
       action: 'upload.do',
@@ -36,27 +37,27 @@ export const useFormItems = () => {
     {
       type: FormItemType.Select,
       name: 'clickType',
-      label: 'Click Type',
+      label: intl.get('qrCode.Click Type'),
       valueEnum: handleValueEnum(clickTypeList),
       placeholder: 'Please select',
     },
     {
       type: FormItemType.Select,
       name: 'default',
-      label: 'Default',
+      label: intl.get('qrCode.Default'),
       valueEnum: 'handleValueEnum(defaultList)',
       placeholder: 'Please select',
     },
     {
       type: FormItemType.Input,
       name: 'path',
-      label: 'Path',
+      label: intl.get('qrCode.Path'),
       placeholder: 'Please input',
     },
     {
       type: FormItemType.Digit,
       name: 'sort',
-      label: 'Sort',
+      label: intl.get('qrCode.Sort'),
       min: 1,
       fieldProps: { precision: 0 },
       placeholder: '',

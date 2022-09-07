@@ -660,4 +660,11 @@ export default {
   "qrCode.Please input Scenario STR, and do not contain _": "Please input Scenario STR, and do not contain _",
   "qrCode.Response Content": "Response Content",
   "qrCode.Please select Reply Content!": "Please select Reply Content!",
+  "qrCode.Mini Program": "Mini Program",
+  "qrCode.Banner Name": "Banner Name",
+  "qrCode.Pic Location": "Pic Location",
+  "qrCode.Click Type": "Click Type",
+  "qrCode.Default": "Default",
+  "qrCode.Path": "Path",
+  "qrCode.Sort": "Sort",
 }
