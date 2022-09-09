@@ -34,7 +34,7 @@ const SearchHeader = ({ setBody, getList, body }: { setBody: Function; getList: 
       name="basic"
       form={form}
       className="bg-white px-[24px] pb-[24px] mb-[24px]"
-      labelCol={{ span: 7 }}
+      labelCol={{ span: 5 }}
       wrapperCol={{ span: 12 }}
       onFinish={onFinish}
     >
@@ -63,7 +63,7 @@ const SearchHeader = ({ setBody, getList, body }: { setBody: Function; getList: 
         </Col>
         <Col span={11}>
           <Form.Item labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
-            <Button className="ml-[17%]" type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit">
               Search
             </Button>
             <Button className="ml-[16px]" onClick={onReset}>
